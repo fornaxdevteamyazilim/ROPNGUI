@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title></title>
+    <style>
+        html, body, #map-canvas {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAngHoQYFNkTwqPVcdCEun4EHNyJMjKsHA"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/wpalahnuk/ngAutocomplete/master/src/ngAutocomplete.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('MyApp', ['ngAutocomplete'])
+        app.controller('MyController', function ($scope, $window) {
+            $scope.GetLocation = function () {
+                $window.alert($scope.SelectedLocation);
+            };
+        });
+    </script>
+    <div ng-app="MyApp" ng-controller="MyController">
+        <input type="text" ng-autocomplete=ng-autocomplete ng-model="SelectedLocation" />
+        <input type="button" value="Submit" ng-click="GetLocation()" />
+    </div>
+    <div id="map-canvas"></div>
+</body>
+</html>

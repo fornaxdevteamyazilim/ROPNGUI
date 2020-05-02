@@ -1,0 +1,42 @@
+﻿<div print-section ng-controller="realpaymentspivotCtrl as ctrl">    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <span print-remove class="mainTitle text-dark" style="font-size:25px;" translate="tittle.REALPAYMENTSPIVOT" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+                <div print-remove class="col-lg-4 col-md-4 col-sm-6 col-xs-6 margin-top-10">
+                    <div print-remove class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <span class="text-bold" translate="main.STARTDATE">Başlangıç Tarihi :</span> <span class="text-bold">*</span><br />
+                        <label><input id="Date" type="text" class="form-control " ng-model="ReportParameters.StartDate" readonly ng-click="FromDate()" required></label>
+                    </div>
+                    <div print-remove class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <span class="text-bold" translate="main.ENDDATE">Bitiş Tarihi :</span> <span class="text-bold">*</span><br />
+                        <label><input id="Date" type="text" class="form-control" ng-model="ReportParameters.EndDate" readonly ng-click="ToDate()" required></label>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15">
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadData()">
+                            <img ng-src="assets/images/report.png" style="width:2.52vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+
+                    </div>
+                </div>
+                <div print-remove class="col-lg-1 col-md-1 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                    <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                        <span translate="main.BACK">Back</span>
+                    </a>
+                </div>
+                <div class="col-md-1 margin-top-5 pull-right visible-md">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive" ng-hide="isWaiting==true">
+            <div dx-button="resetButtonOptions"></div>
+            <div id="sales" dx-pivot-grid="pivotGridOptions"></div>
+        </div>
+    </div>

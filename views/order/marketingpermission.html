@@ -1,0 +1,56 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+<div class="modal-header center">
+    <h3 class="modal-title center"><span class="center text-bold">{{::donotforgettoaskmarkettingquestion}} </span><button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body panel panel-white">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+            <a style="font-size:20px;" ng-model="MPSMS.Approved">
+                <i class="fa fa-2x fa-check-square-o text-green" ng-if="MPSMS.Approved == true" ng-click="SaveMarketingPermission(MPSMS,0,false)"></i>
+                <i class="fa fa-2x fa-minus-square-o text-red" ng-if="MPSMS.Approved == false" ng-click="SaveMarketingPermission(MPSMS,0,true)"></i>
+                <i class="fa fa-2x fa-square-o" ng-if="MPSMS.Approved == null" ng-click="SaveMarketingPermission(MPSMS,0,true)"></i>
+                <span class="text-bold text-green" ng-if="MPSMS.Approved == true" style="font-size:20px;">SMS</span>
+                <span class="text-bold text-red" ng-if="MPSMS.Approved == false" style="font-size:20px;">SMS</span>
+                <span class="text-bold" style="font-size:20px;" ng-if="MPSMS.Approved == null">SMS</span>
+            </a>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+            <a style="font-size:20px;"  ng-model="MPEMAIL.Approved">
+                <i class="fa fa-2x fa-check-square-o text-green" ng-if="MPEMAIL.Approved == true" ng-click="SaveMarketingPermission(MPEMAIL,1,false)"></i>
+                <i class="fa fa-2x fa-minus-square-o text-red" ng-if="MPEMAIL.Approved == false" ng-click="SaveMarketingPermission(MPEMAIL,1, true)"></i>
+                <i class="fa fa-2x fa-square-o" ng-if="MPEMAIL.Approved == null" ng-click="SaveMarketingPermission(MPEMAIL,1,true)"></i>
+                <span class="text-bold text-green" style="font-size:20px;" ng-if="MPEMAIL.Approved == true"> E-mail</span> 
+                <span class="text-bold text-red" style="font-size:20px;" ng-if="MPEMAIL.Approved == false"> E-mail</span>
+                <span class="text-bold" style="font-size:20px;" ng-if="MPEMAIL.Approved == null"> E-mail</span>
+            </a>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <button class="btn btn-primary  margin-top-5 col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-click="ok()">TAMAM</button><br />
+            <button class="btn btn-primary  margin-top-5 col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-click="ok()">İPTAL</button>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 margin-top-15">
+            <span ng-if="MPSMS.Approved == true">
+                <label class="text-bold text-green"> SMS İSTİYORUM.</label>
+            </span>
+            <span ng-if="MPSMS.Approved == false">
+                <label class="text-bold text-red"> SMS İSTEMİYORUM!</label>
+            </span>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 margin-top-15">
+            <span ng-if="MPEMAIL.Approved == true">
+                <label class="text-bold text-green"> E-MAIL İSTİYORUM.</label>
+            </span>
+            <span ng-if="MPEMAIL.Approved == false">
+                <label class="text-bold text-red"> E-MAIL İSTEMİYORUM!</label>
+            </span>
+        </div>
+    </div>
+</div>

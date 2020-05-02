@@ -1,0 +1,24 @@
+﻿<div ng-controller="allorderitemslistCtrl as aoil" class="col-lg-12 col-md-6 col-sm-12 ">
+    <div class="table-responsive">
+        <table ng-table="aoil.tableParams" class="table table-striped table-hover table-condensed table-bordered">
+            <tr ng-repeat="item in $data "
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td data-title="'Product'" data-sortable="'item.ProductID'" width="13%">
+                    {{ item.Product.name }}
+                </td>
+                <td data-title="'Product Price'" data-sortable="'item.ProductPriceID'" width="13%">
+                    {{ item.ProductPrice.Price }}
+                </td>
+                <td data-title="'Quantity'" data-sortable="'item.Quantity'" width="13%">
+                    {{ item.Quantity}}
+                </td>
+                <td data-title="'VAT'" data-sortable="'item.VAT'" width="13%">
+                    {{ item.VAT}}
+                </td>
+                <td data-title="'Amount'" data-sortable="'item.Amount'" width="13%">
+                    {{ item.Amount}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

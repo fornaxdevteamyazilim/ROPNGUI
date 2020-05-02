@@ -1,0 +1,12 @@
+﻿<div class="panel-body">
+    <div class="panel center">
+        <h2 class="modal-title">Order Items</h2>
+    </div>
+    <div class="col-lg-12">
+        <orderable ng-if="OrderID" item="ObjectID" order="OrderID" class="col-lg-12"></orderable>
+    </div>
+</div>
+<div class="panel center">
+    <button class="btn btn-o btn-primary" ng-click="ok()" translate="main.OK">OK</button>
+    <button class="btn btn-danger btn-o" ng-click="cancel()" translate="main.CANCEL">Cancel</button>
+</div>

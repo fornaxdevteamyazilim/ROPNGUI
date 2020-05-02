@@ -1,0 +1,56 @@
+﻿<style>
+    .strike {
+        text-decoration: line-through;
+        color:red;
+    }
+
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+</style>
+<div print-section ng-controller="storenotelistCtrl as as" ng-init="app.layout.isSidebarClosed=false">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.STORENOTELIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+                <button print-remove class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-twitch pull-right" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#notelist')">
+                    <span translate="main.EXCEL">Excel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table ng-table="as.tableParams" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-striped table-responsive" id="notelist">
+            <tr ng-repeat="item in $data  | orderBy:'+name'"  ng-class="{'strike':item.isActiveValue==false}">
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" data-title="trStoreName" data-sortable="'name'">
+                   {{ item.name }}
+                </td>
+                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStoreAddress" data-sortable="'StoreAddress'">
+                    {{ item.StoreAddress }}
+                </td>
+                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trNotes" data-sortable="'notes'">
+                    {{ item.notes }}
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" data-title="trOperationDate" data-sortable="'OperationDate'">
+                    {{ item.OperationDate | date:'dd-MM-yyyy'}}
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trServicesTime" data-sortable="'ServiceTime'">
+                    {{ item.ServiceTime}}
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trTkwServicesTime" data-sortable="'ServiceTimeTKW'">
+                    {{ item.ServiceTimeTKW }}
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trActive" data-sortable="'isActiveValue'">
+                    {{ item.isActiveValue  }}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿<div class="modal-header center">
+    <h3 class="modal-title center">{{::trrefusedYSOrderNote}}<button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body panel panel-white">
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <label translate="{{:: trResons }}" for="OrderReasonID">
+                    Reasons
+                </label>
+                <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <select id="OrderReasonID" class="form-control center" ng-options="q.id as q.Reason for q in yemeksepetirejectreasons | orderBy:'+Reason'" ng-model="order.RejectReasonID"></select>
+                </span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top-20">
+                <div class="checkbox clip-check check-success checkbox-inlines pull-right">
+                    <input type="checkbox" id="isCustomerInformed" value="true" ng-model="order.isCustomerInformed">
+                    <label translate="{{:: trisCustomerInformed }}" for="isCustomerInformed">
+                        isCustomerInformed
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+            <label translate="{{::trNote }}" for="Note">
+                Order Note
+            </label>
+            <textarea id="OrderID" type="text" style='min-height:70px; max-width:557px; max-height:90px;' minlength="5" class="form-control text-capitalize center" ng-model="order.Notes"></textarea>
+        </div>
+    </div>
+    <br />
+</div>
+<div class="modal-footer center">
+    <div ng-if="order.RejectReasonID">
+        <button class="btn btn-primary" ng-disabled="!order.Notes" ng-click="saveRejectResoan(order)">OK</button>
+    </div>
+</div>

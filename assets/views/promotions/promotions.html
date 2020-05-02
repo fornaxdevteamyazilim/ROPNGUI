@@ -1,0 +1,170 @@
+﻿<style>
+    .strike {
+        text-decoration: line-through;
+    }
+
+    .red {
+        color: red;
+    }
+</style>
+<div ng-controller="promotionsCtrl as pro">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.PROMOTIONS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 margin-top-10">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="addItem()">
+                    <span translate="main.ADDPROMOTION"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>
+                <input class="form-control" placeholder="{{'main.SEARCHBYPROMOTIONSNAME' | translate}}" type="text" ng-model="pro.search" ng-model-options="{ debounce: 500 }" />
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive">
+        <table ng-table="pro.tableParams" class="table table-striped table-hover">
+            <tr ng-repeat="item in $data" ng-class="{'strike':item.isActiveValue == false,'red':item.isActiveValue == false}"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td data-title="trPromotionName" data-sortable="'name'" style="width:7%" ng-click="rowform.$show()" class="ng">
+                    <span editable-text="item.name" e-name="name" e-form="rowform" e-ng-model="item.name" e-style="width:10vw;">
+                        {{ item.name }}
+                    </span>
+                </td>
+                <td data-title="trPromotionid" data-sortable="'id'" style="width:7%">
+                    <span e-name="id" e-form="rowform" e-ng-model="item.id" e-style="width:10vw;" readonly>
+                        {{ item.id }}
+                    </span>
+                </td>
+                <td data-title="trMember" data-sortable="'MemberID'" style="width:7%">
+                    <span class="text-capitalize" editable-select="item.MemberID" e-name="MemberID" e-ng-model="item.MemberID" e-form="rowform"
+                          e-ng-options="q.id as q.name for q in members" e-style="width:5vw;">
+                        {{ShowObject('members','id',item.MemberID,'name')}}
+                    </span>
+                </td>
+                <td data-title="trStartDate" data-sortable="'StartDate'" style="width:7%">
+                    <input id="Date"
+                           type="text"
+                           class="form-control"
+                           ng-model="item.StartDate"
+                           readonly
+                           ng-click="StartDatePopup(item)" ng-show="rowform.$visible">
+
+                    <span ng-show="!rowform.$visible" e-name="StartDate" e-form="rowform" e-ng-model="item.StartDate" e-style="width:5vw;">
+                        {{ item.StartDate| date:'dd.MM.yyyy' }}
+                    </span>
+                </td>
+                <td data-title="trEndDate" data-sortable="'EndDate'" style="width:7%">
+                    <input id="Date"
+                           type="text"
+                           class="form-control"
+                           ng-model="item.EndDate"
+                           readonly
+                           ng-click="EndDatePopup(item)" ng-show="rowform.$visible">
+
+                    <span ng-show="!rowform.$visible" e-name="EndDate" e-form="rowform" e-ng-model="item.EndDate" e-style="width:5vw;">
+                        {{ item.EndDate| date:'dd.MM.yyyy' }}
+                    </span>
+                </td>
+                <td data-title="trFilter" data-sortable="'isActiveFilter'" style="width:7%">
+                    <span class="text-capitalize" editable-select="item.isActiveFilter" e-name="isActiveFilter" e-ng-options="q.id as q.Name for q in filters | orderBy:'+Name'"
+                          e-form="rowform" e-ng-model="item.isActiveFilter" e-style="width:5vw;">
+                        {{ ShowObject('filters','id',item.isActiveFilter,'Name') }}
+                    </span>
+                </td>
+                <td data-title="trisActiveValue" data-sortable="'isActiveValue'" style="width:7%">
+                    <span editable-checkbox="item.isActiveValue" e-form="rowform" e-ng-model="item.isActiveValue"
+                          e-ng-true-value="true"
+                          e-ng-false-value="false" e-style="width:5vw;">
+                        {{ item.isActiveValue && "Active" || "Passive" }}
+                    </span>
+                </td>
+                <td data-title="trPromotionType" data-sortable="'PromotionType'" style="width:7%">
+                    <span class="text-capitalize" editable-select="item.PromotionType" e-name="PromotionType" e-ng-options="q.Value as q.Name for q in promotiontypes | orderBy:'+Name'"
+                          e-form="rowform" e-ng-model="item.PromotionType" e-style="width:10vw;">
+                        {{ ShowObject('promotiontypes','Value',item.PromotionType,'Name') }}
+                    </span>
+                </td>
+                <td data-title="trPromotionScenario" data-sortable="'PromotionScenario'" style="width:7%">
+                    <span class="text-capitalize" editable-select="item.PromotionScenario" e-name="PromotionScenario" e-ng-options="q.Value as q.Name for q in promotionscenarios | orderBy:'+Name'"
+                          e-form="rowform" e-ng-model="item.PromotionScenario" e-style="width:10vw;">
+                        {{ ShowObject('promotionscenarios','Value',item.PromotionScenario,'Name') }}
+                    </span>
+                </td>
+                <td data-title="trPromotionRule" data-sortable="'PromotionRule'" style="width:7%">
+                    <span class="text-capitalize" editable-select="item.PromotionRule" e-name="PromotionRule" e-ng-options="q.Value as q.Name for q in promotionrules | orderBy:'+Name'"
+                          e-form="rowform" e-ng-model="item.PromotionRule" e-style="width:10vw;">
+                        {{ ShowObject('promotionrules','Value',item.PromotionRule,'Name') }}
+                    </span>
+                </td>
+                <!--<td data-title="trPromotionCodeValidator" data-sortable="'PromotionCodeValidator'" style="width:7%">
+        <span class="text-capitalize" editable-select="item.PromotionCodeValidator" e-name="PromotionCodeValidator" e-ng-options="q.Value as q.Name for q in promotioncodevalidators | orderBy:'+Name'" e-form="rowform" e-ng-model="item.PromotionCodeValidator" e-style="width:4vw;">
+            {{ ShowObject('promotioncodevalidators','Value',item.PromotionCodeValidator,'Name') }}
+        </span>
+    </td>-->
+                <td data-title="trPromotionCodeValidator" data-sortable="'PomotionCodeValidator'" style="width:7%">
+                    <span class="text-capitalize" editable-select="item.PomotionCodeValidator" e-name="PomotionCodeValidator" e-ng-options="q.Value as q.Name for q in promotioncodevalidators | orderBy:'+Name'" e-form="rowform" e-ng-model="item.PomotionCodeValidator" e-style="width:5vw;">
+                        {{ ShowObject('promotioncodevalidators','Value',item.PomotionCodeValidator,'Name') }}
+                    </span>
+                </td>
+                <td data-title="trNewCodeLength" data-sortable="'name'" style="width:7%" ng-click="rowform.$show()">
+                    <span editable-text="item.NewCodeLength" e-name="NewCodeLength" e-form="rowform" e-ng-model="item.NewCodeLength" e-style="width:5vw;">
+                        {{ item.NewCodeLength }}
+                    </span>
+                </td>
+                <td data-title="trPomotionCodeGenerator" data-sortable="'PomotionCodeGenerator'" style="width:7%">
+                    <span class="text-capitalize" editable-select="item.PomotionCodeGenerator" e-name="PomotionCodeGenerator" e-ng-options="q.Value as q.Name for q in promotioncodegenerators | orderBy:'+Name'" e-form="rowform" e-ng-model="item.PomotionCodeGenerator" e-style="width:10vw;">
+                        {{ ShowObject('promotioncodegenerators','Value',item.PomotionCodeGenerator,'Name') }}
+                    </span>
+                </td>
+                <td data-title="trModifyValue" data-sortable="'ModifyValue'" style="width:7%" ng-click="rowform.$show()" class="ng">
+                    <span editable-text="item.ModifyValue" e-name="ModifyValue" e-form="rowform" e-ng-model="item.ModifyValue" e-style="width:5vw;">
+                        {{ item.ModifyValue }}
+                    </span>
+                </td>
+                <td data-title="trMinAmount" data-sortable="'PromotionRequirementParameter'" style="width:7%" ng-click="rowform.$show()">
+                    <span editable-text="item.PromotionRequirementParameter" e-name="PromotionRequirementParameter" e-form="rowform" e-ng-model="item.PromotionRequirementParameter" e-style="width:5vw;">
+                        {{ item.PromotionRequirementParameter }}
+                    </span>
+                </td>
+                <td data-title="trPromotionRequirement" data-sortable="'PromotionRequirement'" style="width:7%">
+                    <span class="text-capitalize" editable-select="item.PromotionRequirement" e-name="PromotionRequirement" e-ng-options="q.Value as q.Name for q in promotionrequirements | orderBy:'+Name'" e-form="rowform" e-ng-model="item.PromotionRequirement" e-style="width:10vw;">
+                        {{ ShowObject('promotionrequirements','Value',item.PromotionRequirement,'Name') }}
+                    </span>
+                </td>
+                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+                    <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                          shown="inserted == item|| !item.id">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                    </form>
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="Edit Period" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="Remove" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-alert hidden-sm hidden-xs" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()"> Edit</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)"> Remove</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

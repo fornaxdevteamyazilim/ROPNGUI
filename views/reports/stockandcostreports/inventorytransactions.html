@@ -1,0 +1,68 @@
+﻿
+<div ng-controller="inventorytransactionsCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 visible-lg visible-md">
+            <div print-remove class="col-lg-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.INVENTORYTRANSACTIONS" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+                <i class="fa fa-info-circle margin-left-20" style="font-size:25px;" popover="Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçtiğiniz restoranın iki tarih arasında ki hareketlerinin tiplere göre listelendiği rapordur. Döküman Tipi alanından belli bir hareket tipi ve malzeme alanından belli bir envanter seçebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+            </div>
+            <div class="col-lg-7 col-md-7 margin-top-10">
+                    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="dx-fieldset col-lg-6">
+                            <div class="dx-field-label">From</div>
+                            <div class="dx-field-value">
+                                <div dx-date-box="DateRange.fromDate"></div>
+                            </div>
+                            <div class="dx-field-label">To</div>
+                            <div class="dx-field-value">
+                                <div dx-date-box="DateRange.toDate"></div>
+                            </div>
+                        </div>    
+                        <div class="dx-fieldset col-lg-5">
+                            <div class="dx-field-value">
+                                <div dx-select-box="selectBox.dataSourceUsage"></div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <!--<div print-remove class="col-lg-2 col-md-2 margin-top-10 pull-left" ng-if="selectStore">
+
+                    <span class="text-bold" translate="main.STORE"></span> <span class="text-bold">*</span><br />
+                    <select class="col-lg-10 col-md-10 form-control" ng-model="StoreID" >
+                        <option value="">Tümü !</option>
+                        <option ng-repeat="item in user.userstores | orderBy:'+name'" value="{{item.id}}">{{item.name}}</option>
+                    </select>
+                </div>-->
+            <div print-remove class="col-lg-4 col-md-4 margin-top-10 pull-left">
+
+                <div class="col-lg-5 col-md-5">
+                    <span translate="main.DOCUMENTTYPE"></span><br />
+                    <select class="form-control" ng-model="TransactionType">
+                        <option value='' selected>{{'main.ALL' | translate}}</option>
+                        <option value="PeriodInitialCount">{{'main.PERIODINITIALCOUNT' | translate}}</option>
+                        <option value="InventoryAdjustItem">{{'main.INVENTORYADJUSTITEM' | translate}}</option>
+                        <option value="InventoryDeliveryItem">{{'main.INVENTORYDELIVERYITEM' | translate}}</option>
+                        <option value="InventoryTransformOutputItem">{{'main.INVENTORYTRANSFORMOUTPUTITEM' | translate}}</option>
+                        <option value="InventoryTransformItem">{{'main.INVENTORYTRANSFORMITEM' | translate}}</option>
+                        <option value="InventoryTransferItem">{{'main.INVENTORYTRANSFERITEM' | translate}}</option>
+                        <option value="ProductRecipeUsage">{{'main.PRODUCTRECIPEUSAGE' | translate}}</option>
+                        <option value="ReturnedProductRecipeUsage">{{'main.RETURNPRODUCTRECIPEUSAGE' | translate}}</option>
+                    </select>
+                </div>  
+                <div class="dx-fieldset col-lg-5">
+                    <div dx-button="reportButtonOptions"></div>
+                </div>
+            </div>
+                        
+        </div>
+    </div>
+    <div id="report" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive" ng-hide="isWaiting==true">
+        <!--<div id="sales-chart" dx-chart="chartOptions"></div>-->
+        <!--<div dx-button="resetButtonOptions"></div>-->
+        <div id="gridContainer" dx-data-grid="dataGridOptions">
+
+        </div>
+
+
+    </div>
+

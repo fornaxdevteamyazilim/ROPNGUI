@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        .product-wrapper{
+  max-width:500px; 
+  margin-bottom: 50px;
+  position: relative;
+}
+img{
+  width: 100%;
+}
+/*.share {
+  background:white;
+  font-size:0.7em;
+  margin: 1em;
+  text-align:center;
+  text-transform:uppercase;
+}*/
+.image-zoom {
+  position : absolute;
+  left : 0;
+  top : 0;
+  bottom : 0;
+  right : 0;
+  opacity : 0.9;
+  display : none;
+  overflow : hidden;
+  cursor:move;
+}
+.image-zoom img {
+    position : absolute;
+    top : 0;
+    left : 0;
+}
+
+    </style>
+    <script>$(function () {
+    $('.product-wrapper a').click(function () {
+        $('.image-zoom img').attr('src', $(this).find('img').attr('src'));
+        $('.image-zoom').show();
+        $('.product-wrapper').css('display', 'none');
+        return false;
+    });
+
+    $('.image-zoom').mousemove(function (e) {
+        var h = $(this).find('img').height();
+        var vptHeight = $(document).height();
+        var y = -((h - vptHeight) / vptHeight) * e.pageY;
+
+        $('div img').css('top', y + "px");
+    });
+
+    $('.image-zoom').click(function () {
+        $('.image-zoom').hide();
+        $('.product-wrapper').css('display', 'block');
+    });
+});</script>
+    <title></title>
+</head>
+<body>
+  
+        
+            <h2 class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 center" style="background-color:#FF6600; color:white;  "> Product Items</h2>
+                <div class="row  col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                    <img class="img-responsive " width="250px" height="200px" check-image="" ng-src="assets/images/product/108511790655.png" src="/assets/images/lc-logo.png">
+                    <div class="mask"></div>
+                    <div class="content ">
+                        <h2 >Caesars Italiano (Small)</h2><p class="margin-top-5 ">Muenster veasdsad Mozarella peyniri, Beyaz Peynir, Közlenmiş Biber, Mantar, Siyah Zeytin, Sucuk</p>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 center">
+                    <div class="row">
+                        <h3 style="color:black;">Caesars Italiano (Small)</h3><p >sdfgs sdfrgs dfg sdfgsdfgsdf</p>
+                        <label class="col-lg-1 col-md-6 col-sm-6 col-xs-6  " style="color:black; margin-top:90px;">18.90₺</label>
+                        <label class="col-lg-3 col-md-6 col-sm-6 col-xs-6 " style="color:black;margin-top:90px;">Amount: 18.90₺</label>
+                        <input type="number" class="col-lg-2 col-md-6 col-sm-6 col-xs-4 " style="margin-top:90px" min="1" value="1" ng-model="item.Quantity">
+                        <button class="col-lg-6 col-md-6 col-sm-6 col-xs-8 btn btn-dark-yellow btn-md tooltips ti-plus" style="margin-top:90px" ng-click="SaveToOrder()">Siparişe ekle</button>
+                    </div>
+                </div>
+            
+           
+    <div class="row">
+        <textarea placeholder="Notes" id="form-field-22" class="form-group margin-top-5 form-control col-lg-12 col-md-12 col-sm-12 col-xs-12 " ng-model="item.Notes"></textarea>
+    </div>
+</body>
+</html>
+
+<div class="product-wrapper">
+    <a href="#">
+        <img ng-src='assets/images/product/{{item.id}}.png' check-image />
+
+    </a>
+</div>
+<div class="image-zoom">
+    <img src='' width='100%' />
+</div>

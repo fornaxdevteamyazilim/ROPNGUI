@@ -1,0 +1,427 @@
+﻿<!--<style>
+           [class*="col-"] {
+      background-color: #eee;
+      background-color: rgba(86,61,124,.15);
+      border: 1px solid #ddd;
+      border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+<div print-section ng-controller="performanceCtrl">
+    <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+            <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+            <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span><br />
+            <span class="col-lg-12 pull-left" ng-if="user.restrictions.storeselected=='Enable'">Restoran: {{selectedStore[0].name}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <span class="mainTitle text-dark text-bold center" style="font-size:18px;" translate="tittle.ORDERPERFORMANCE" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <span class="col-lg-12 pull-right">Başlangıç Tarihi: {{StartDate| date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">Bitiş Tarihi: {{EndDate| date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">{{Time | date:'dd-MM-yyyy HH:mm'}} </span>
+        </div>
+    </div>
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md" ng-hide="isWaiting==true">
+        <div print-remove class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-10">
+            <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ORDERPERFORMANCE" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+            <i class="fa fa-info-circle" style="font-size:25px;" popover="Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen tarihler arasında paket siparişlerin hazırlama,bekleme,çıkış,dönüş sürelerinin hesaplandığı rapordur. Teslim süresi 30 dk yı geçen siparişlerde 'Hesaplanan Teslim Süresi' alanı renkli gösterilir. OKC ile kapıda yapılan ödemeler ise 'Dönüş Saati/Ödeme Saati' alanında mavi renk ile gösterilir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+            <br />
+        </div>
+        <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="text-bold" translate="main.STARTDATE">Başlangıç Tarihi :</span> <span class="text-bold">*</span><br />
+                <label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="text-bold" translate="main.ENDDATE">Bitiş Tarihi :</span> <span class="text-bold">*</span><br />
+                <label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+            </div>
+        </div>
+        <div print-remove class="col-lg-3 col-md-3 col-sm-6 col-xs-6 margin-top-10">
+            <div class="col-lg-6 col-md-9 col-sm-6 col-xs-12" ng-if="user.restrictions.storeselected=='Enable'">
+                <span class="text-bold" translate="main.STORE"></span> <span class="text-bold">*</span><br />
+                <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-change="GetSoreID(StoreID)" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID">
+                    <option value=''></option>
+                </select>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-20">
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadOrders(StartDate,EndDate)">
+                    <img ng-src="assets/images/report.png" style="width:2.5vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#report')">
+                    <img ng-src="assets/images/excel.png" style="width:2.5vw; height:3vh;" class="center" /><br />
+                </button>
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.DOWNLOAD' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="PerformanceExcel()"  ng-if="user.restrictions.storeselected=='Enable'">
+                    <img ng-src="assets/images/download.png" style="width:2.5vw; height:3vh;" class="center" /><br />
+                </button>
+                <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                    <img ng-src="assets/images/print.png" style="width:2.5vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+            </div>
+        </div>
+        <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-12 margin-top-5 pull-right visible-lg">
+            <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                <span translate="main.BACK">Back</span>
+            </a>
+        </div>
+        <div class="col-md-1 margin-top-5 pull-right visible-md">
+            <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+        </div>
+    </div>
+
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-sm-8 col-xs-8 margin-top-10">
+                <span print-remove class="mainTitle text-dark" style="font-size:15px;" translate="tittle.ORDERPERFORMANCE" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+            </div>
+            <div print-remove class="col-sm-4 col-xs-4 margin-top-5 pull-right">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div print-remove class="col-sm-4 col-xs-6">
+                <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+                    <span><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></span>
+                </div>
+                <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+                    <span><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></span>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+                <div class="col-sm-9 col-xs-12">
+                    <span translate="main.STORE"></span><br />
+                    <select class="form-control" ng-change="GetSoreID(StoreID)" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID">
+                        <option value=''></option>
+                    </select>
+                </div>
+                <div class="col-sm-12 col-xs-12 margin-top-15">
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadOrders(StartDate,EndDate)">
+                        <img ng-src="assets/images/report.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#report')">
+                        <img ng-src="assets/images/excel.png" style="width:4vw; height:3vh;" class="center" /><br />
+                    </button>
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.DOWNLOAD' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="PerformanceExcel()" ng-if="user.restrictions.storeselected=='Enable'">
+                        <img ng-src="assets/images/download.png" style="width:4vw; height:3vh;" class="center" /><br />
+                    </button>
+                    <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                        <img ng-src="assets/images/print.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" ng-hide="isWaiting==true">
+        <fieldset print-remove class="table-responsive" id="report">
+            <table class="hidden">
+                <tr>
+                    <th>{{'main.STARTDATE' | translate}}</th>
+                    <th>{{'main.ENDDATE' | translate}}</th>
+                    <th>{{'main.REPORTDATE' | translate}}</th>
+                    <th>{{'main.USER' | translate}}</th>
+                    <th>{{'main.USERSTORE' | translate}}</th>
+                    <th ng-if="user.restrictions.storeselected=='Enable'">{{'main.SELECTEDSTORE' | translate}}</th>
+                </tr>
+                <tr>
+                    <td>{{StartDate| date:'dd-MM-yyyy'}}</td>
+                    <td>{{EndDate| date:'dd-MM-yyyy'}}</td>
+                    <td>{{Time | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{user.FullName}}</td>
+                    <td>{{user.Store.Member}} - {{user.Store.name}}</td>
+                    <td ng-if="user.restrictions.storeselected=='Enable'">{{selectedStore[0].name}}</td>
+                </tr>
+            </table>
+            <br />
+            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table table-responsive">
+                <tr>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ORDERDATE' | translate}}</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PERSONNAME' | translate}}</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PERSONPHONE' | translate}}</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.DRIVERNAME' | translate}}</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ORDERTIME' | translate}}</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PREPARINGDURATION' | translate}} (DK.)</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PREPARINGDURATIONMAKETABLE' | translate}} (DK.)</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PREPARINGDURATIONCUTTABLE' | translate}} (DK.)</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.WAITDURATION' | translate}} (DK.)</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ORDEROUTPERIOD' | translate}} (DK.)</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.OUTTIME' | translate}}</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.CALCULATEDDELIVERYPERIOD' | translate}} (DK.)</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.RETURNTIME/PAYMENTTIME' | translate}} </th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PAYMENTTYPE' | translate}} </th>
+                </tr>
+                <tr ng-repeat="item in Orders | orderBy:'+OrderDate'">
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left" style="overflow:hidden; white-space:nowrap;">
+                            {{item.OrderDate  | date:'dd-MM-yyyy HH:mm'}} / {{item.OrderNumber}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left" style="overflow:hidden; white-space:nowrap;">
+                            {{item.Person.name|| '-'}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left" ng-repeat="phone in item.Person.PersonPhones">
+                            {{phone.Number || '-'}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left" style="overflow:hidden; white-space:nowrap;">
+                            {{item.DriverName || '-'}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{item.OrderDate  | date:'HH:mm:ss'}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{formatTimeFromSeconds(item.PeparingDuration)}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{formatTimeFromSeconds(item.PeparingMakeTableDuration)}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{formatTimeFromSeconds(item.PeparingCutTableDuration)}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{formatTimeFromSeconds(item.OrderOutPeriod - item.PeparingDuration)}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{formatTimeFromSeconds(item.OrderOutPeriod)}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{item.OutTime | date:'HH:mm:ss'}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-if="user.UserRole.MemberID == 106851154380">
+                        <span class="pull-left" ng-class="{'text-red':item.DeliveryPeriod / 60 > 30,'text-bold':item.DeliveryPeriod / 60 > 30,}">
+                            {{formatTimeFromSeconds(item.DeliveryPeriod) }}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-if="user.UserRole.MemberID != 106851154380">
+                        <span class="pull-left" ng-class="{'text-azure':item.DeliveryPeriod / 60 > 30,'text-orange':item.DeliveryPeriod / 60 > 45, 'text-red':item.DeliveryPeriod / 60 > 60, 'text-bold':item.DeliveryPeriod / 60 > 30}">
+                            {{formatTimeFromSeconds(item.DeliveryPeriod)}}
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span ng-if="item.isRealDeliveryTime == true">
+                            <label ng-class="{'badge':item.DeliveryDate}">
+                                {{item.DeliveryDate | date:'HH:mm:ss'}} <label class="hidden">- (OKC)</label>
+                            </label>
+                        </span>
+                        <span ng-if="item.isRealDeliveryTime == false">
+                            <label ng-class="{'text-bold':item.DeliveryDate}">
+                                {{item.DeliveryDate | date:'HH:mm:ss'}}
+                            </label>
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{item.PaymentType}}
+                        </span>
+                    </td>
+                </tr>
+                <tr class="bg-grey">
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-bold">Toplam Sipariş Sayısı :</td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{linage}} </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                </tr>
+                <tr class="bg-grey">
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.AVERAGES' | translate}}</td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{formatTimeFromSeconds(PreparinDuration/linage) }}</td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{formatTimeFromSeconds(PreparinDurationMakeTable/linage)}}</td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{formatTimeFromSeconds(PreparinDurationCutTable/linage)}}</td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{formatTimeFromSeconds(ExitAvarage*60)}}</td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{formatTimeFromSeconds(lineaverage / linage)}}</td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                </tr>
+            </table>
+            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table table-responsive">
+                <tr class="bg-dark-grey">
+                    <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="text-bold text-dark center">{{'main.GREATER30MINUTEORDERCOUNT' | translate}} : {{Greater30Munite | number:0 || '0'}}</span></td>
+                    <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="text-bold text-dark center">% {{((Greater30Munite * 100 ) / linage)  | number:0 || '0'}}</span></td>
+                </tr>
+                <tr class="bg-dark-grey">
+                    <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="text-bold text-dark center">{{'main.GREATER45MINUTEORDERCOUNT' | translate}} : {{Greater45Munite | number:0 || '0'}}</span></td>
+                    <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="text-bold text-dark center">% {{((Greater45Munite * 100) / linage)  | number:0 || '0'}}</span></td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <div print-only class="table-responsive visible-print hidden">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ORDERDATE' | translate}} / {{'main.ORDERNUMBER' | translate}}</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PERSONNAME' | translate}} / {{'main.PERSONPHONE' | translate}}</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="margin-left-10">{{'main.DRIVERNAME' | translate}} </span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="margin-left-10">{{'main.ORDERTIME' | translate}}</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PREPARINGDURATION' | translate}} (DK.)</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PREPARINGDURATIONMAKETABLE' | translate}} (DK.)</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PREPARINGDURATIONCUTTABLE' | translate}} (DK.)</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.WAITDURATION' | translate}} (DK.)</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ORDEROUTPERIOD' | translate}} (DK.)</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.OUTTIME' | translate}}</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.CALCULATEDDELIVERYPERIOD' | translate}} (DK.)</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.RETURNTIME/PAYMENTTIME' | translate}} </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PAYMENTTYPE' | translate}} </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10" ng-repeat="item in Orders | orderBy:'+OrderDate'" style="border-bottom:1px solid;">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left" style="overflow:hidden; white-space:nowrap;">
+                            {{item.OrderDate  | date:'dd-MM-yyyy'}} / <br /> {{item.OrderNumber}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <label class="pull-left" style="overflow:hidden; white-space:nowrap;">
+                            {{item.Person.name|| '-'}} / <br /> <span ng-repeat="phone in item.Person.PersonPhones">{{phone.Number || '-'}} </span>
+                        </label>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="overflow:hidden; white-space:nowrap;">
+                        <label class="margin-left-10" style="overflow:hidden; white-space:nowrap;">
+                            {{item.DriverName || '-'}}
+                        </label>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left margin-left-10">
+                            {{item.OrderDate  | date:'HH:mm:ss'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{item.PeparingDuration / 60 | number : 1}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{item.PeparingMakeTableDuration / 60 | number : 1}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{item.PeparingCutTableDuration / 60 | number : 1}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{(item.OrderOutPeriod - item.PeparingDuration)  / 60 | number : 1}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{item.OrderOutPeriod / 60 |number:1 }}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{item.OutTime | date:'HH:mm:ss'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-if="user.UserRole.MemberID == 106851154380">
+                        <span class="pull-left" ng-class="{'text-red':item.DeliveryPeriod / 60 > 30,'text-bold':item.DeliveryPeriod / 60 > 30,}">
+                            {{item.DeliveryPeriod / 60 | number:1 }}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-if="user.UserRole.MemberID != 106851154380">
+                        <span class="pull-left" ng-class="{'text-azure':item.DeliveryPeriod / 60 > 30,'text-orange':item.DeliveryPeriod / 60 > 45, 'text-red':item.DeliveryPeriod / 60 > 60, 'text-bold':item.DeliveryPeriod / 60 > 30}">
+                            {{item.DeliveryPeriod / 60 | number:1 }}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span ng-if="item.isRealDeliveryTime == true" class="pull-left">
+                            <label class="text-red text-bold">
+                                {{item.DeliveryDate | date:'HH:mm:ss'}}
+                            </label>
+
+                        </span>
+                        <span ng-if="item.isRealDeliveryTime == false">
+                            <label>
+                                {{item.DeliveryDate | date:'HH:mm:ss'}}
+                            </label>
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span class="pull-left">
+                            {{item.PaymentType}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-grey margin-top-15">
+                <div style="border-bottom:1px solid;">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="text-bold text-dark pull-left">Toplam: {{linage}} </span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold text-dark pull-left"></span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold text-dark pull-left">{{(PreparinDuration/linage) / 60 |number:1}}</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold text-dark pull-left">{{(PreparinDurationMakeTable/linage) / 60 |number:1}}</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold text-dark pull-left">{{(PreparinDurationCutTable/linage) / 60 |number:1}}</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold text-dark pull-left"></span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold text-dark pull-left">{{ExitAvarage | number:1}}</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold text-dark pull-left"></span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold text-dark pull-left">{{(lineaverage / linage) / 60 | number:1}}</span></div>
+
+                </div>
+            </div><br />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-grey">
+                <div style="border-bottom:1px solid;">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="text-bold text-dark center"> Dönüş Saatine Göre Geciken Adisyon Sayısı > 30 DK: {{Greater30Munite | number:0 || '0'}}</span></div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="text-bold text-dark center">% {{((Greater30Munite * 100 ) / linage)  | number:0 || '0'}}</span></div>
+                </div>
+                <div style="border-bottom:1px solid;">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="text-bold text-dark center"> Dönüş Saatine Göre Geciken Adisyon Sayısı > 45 DK: {{Greater45Munite | number:0 || '0'}}</span></div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="text-bold text-dark center">% {{((Greater45Munite * 100) / linage)  | number:0 || '0'}}</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

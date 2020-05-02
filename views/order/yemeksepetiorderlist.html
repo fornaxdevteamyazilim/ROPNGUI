@@ -1,0 +1,300 @@
+﻿<style>
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+</style>
+<div print-section ng-controller="yemeksepetiorderlistCtrl as ysol" ng-init="app.layout.isSidebarClosed=false">
+    <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+            <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+            <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span><br />
+            <span class="col-lg-12 pull-left" ng-if="user.restrictions.storeselected=='Enable'">{{'main.SELECTEDSTORE' | translate}}: {{selectedStore[0].name}}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <span class="mainTitle text-dark text-bold center" style="font-size:18px;" translate="tittle.YSORDERLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <span class="col-lg-12 pull-right">Başlangıç Tarihi: {{StartDate| date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">Bitiş Tarihi: {{EndDate| date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">{{Time | date:'dd-MM-yyyy HH:mm'}} </span>
+        </div>
+    </div>
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.YSORDERLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+                </div>
+            </div>
+            <div print-remove class="col-lg-1 col-md-1 col-sm-6 col-xs-12 margin-top-5 pull-right">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+        </div>
+        <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6" ng-if="user.restrictions.storeselected=='Enable'">
+                <span class="text-bold" translate="main.STORE"></span> <span class="text-bold">*</span><br />
+                <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-change="GetSoreID(StoreID)" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                <span>
+                    {{:: selectorderstatus}}
+                </span><br />
+                <select id="YemekSepetiOrderStateID" class="form-control" ng-model="YemekSepetiOrderStateID">
+                    <option value="YemekSepetiOrderStateID>0" ng-selected="true">{{:: allorder}}</option>
+                    <option value="YemekSepetiOrderStateID=5">{{:: mappedorders}}</option>
+                    <option value="YemekSepetiOrderStateID=7">{{:: rejectedorders}}</option>
+                    <option value="YemekSepetiOrderStateID=1">{{:: customermappingorders}}</option>
+                    <option value="YemekSepetiOrderStateID=6">{{:: skippedorders}}</option>
+                </select> 
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-15">
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadYSOrderList()">
+                    <img ng-src="assets/images/report.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#ysorderlist')">
+                    <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-sm-10 col-xs-10 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:15px;" translate="tittle.YSORDERLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+            <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+        <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div print-remove class="col-sm-4 col-xs-6">
+                <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+                </div>
+                <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+                </div>
+            </div>
+            <div print-remove class="col-sm-4 col-xs-6">
+                <div class="col-sm-9 col-xs-12" ng-if="user.restrictions.storeselected=='Enable'">
+                    <span class="text-bold" translate="main.STORE"></span> <span class="text-bold">*</span><br />
+                    <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-change="GetSoreID(StoreID)" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-sm-9 col-xs-12 margin-top-5">
+                    <span>
+                        {{:: selectorderstatus}}
+                    </span><br />
+                    <select id="YemekSepetiOrderStateID" class="form-control" ng-model="YemekSepetiOrderStateID">
+                        <option value="YemekSepetiOrderStateID>0" ng-selected="true">{{:: allorder}}</option>
+                        <option value="YemekSepetiOrderStateID=5">{{:: mappedorders}}</option>
+                        <option value="YemekSepetiOrderStateID=7">{{:: rejectedorders}}</option>
+                        <option value="YemekSepetiOrderStateID=1">{{:: customermappingorders}}</option>
+                        <option value="YemekSepetiOrderStateID=6">{{:: skippedorders}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-6margin-top-15">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadYSOrderList()">
+                        <img ng-src="assets/images/report.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#ysorderlist')">
+                        <img ng-src="assets/images/excel.png" style="width:4vw; height:3vh;" class="center" /><br />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" ng-hide="isWaiting==true" id="ysorderlist">
+        <table class="hidden">
+            <tr>
+                <th>{{'main.STARTDATE' | translate}}</th>
+                <th>{{'main.ENDDATE' | translate}}</th>
+                <th>{{'main.REPORTDATE' | translate}}</th>
+                <th>{{'main.USER' | translate}}</th>
+                <th>{{'main.USERSTORE' | translate}}</th>
+                <th ng-if="user.restrictions.selectstore=='Enable'">{{'main.SELECTEDSTORE' | translate}}</th>
+            </tr>
+            <tr>
+                <td>{{StartDate| date:'dd-MM-yyyy'}}</td>
+                <td>{{EndDate| date:'dd-MM-yyyy'}}</td>
+                <td>{{Time | date:'dd-MM-yyyy HH:mm'}}</td>
+                <td>{{user.FullName}}</td>
+                <td>{{user.Store.Member}} - {{user.Store.name}}</td>
+                <td ng-if="user.restrictions.selectstore=='Enable'">{{selectedStore[0].name}}</td>
+            </tr>
+        </table>
+        <br />
+        <table ng-table="ysol.tableParams" class="table table-striped table-hover table-condensed">
+            <tr ng-repeat="item in $data  | orderBy:['-OrderDate']"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trRopngOrderNumber">
+                    {{ item.id }}
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trYsOrderNumber">
+                    {{ item.YemekSepetiOrder.YemekSepetiRawOrder.Id }}
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trYsStoreName">
+                    {{ item.YemekSepetiOrder.YemekSepetiRawOrder.RestaurantName }}
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trRopNgStoreName">
+                    {{ item.Store }}
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase" data-title="trCustomerName">
+                    {{ item.YemekSepetiOrder.YemekSepetiRawOrder.CustomerName }} <br />
+                    [{{ item.YemekSepetiOrder.YemekSepetiRawOrder.CustomerPhone }}]
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-uppercase" data-title="trAddress">
+                    {{ item.YemekSepetiOrder.YemekSepetiRawOrder.Address }} <br />
+                    [{{ item.YemekSepetiOrder.YemekSepetiRawOrder.AddressDescription }}]
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trYSOrderDate">
+                    {{ item.OrderDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trRopngOrderDate">
+                    {{ item.MapDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trYsOrderState">
+                    {{ item.YemekSepetiOrderState}}
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" data-title="trYsOrderDetails">
+                    <span ng-repeat="raworder in item.YemekSepetiOrder.YemekSepetiRawOrder.YemekSepetiRawOrderDetails">
+                        <label class="text-bold"> *{{ raworder.Name}}</label> <br />
+                        <span ng-repeat="raworderdetails in raworder.YemekSepetiRawOrderDetails">
+                            <label class="margin-left-10"> **{{ raworderdetails.Name}} </label><br />
+                        </span>
+                    </span>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trOrderTotal">
+                    <span class="pull-right">{{ item.YemekSepetiOrder.YemekSepetiRawOrder.OrderTotal }} TL</span>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trPaymentType">
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 1">Nakit</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 2">Ticket Kupon</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 3">Multinet</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 4">YS (Online)</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 5">Sodexo Kupon</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 6">Kredi Kartı</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 8">Advantage Card</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 9">Maxima Card</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 10">Smart Ticket</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 11">PassCard</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 12">Bistra Card</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 13">WinWin Yemek Çeki</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 14">Set Yemek Çeki</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 15">SetCard</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 16">CepBank Alışveriş</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 17">Çek</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 18">WinWin Pos</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 19">Enpara.com</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 20">TEB Kredi Kartı</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 21">Nakit</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 22">fastPay</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 23">Cüzdan</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 24">MetropolCard</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 25">Yemekmatik Yemek Kartı</span>
+                    <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 26">CIO Card</span>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trYsOrderNote">
+                    {{ item.Notes}}
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" data-title="trRejectReason">
+                    <span class="text-capitalize" editable-select="item.RejectReasonID" e-name="RejectReasonID" e-ng-model="item.RejectReasonID" e-form="rowform"
+                          e-ng-options="q.id as q.Reason for q in yemeksepetirejectreasons |orderBy:'+Reason'" e-style="width:8vw;">
+                        {{ShowObject('yemeksepetirejectreasons','id',item.RejectReasonID,'Reason')}}
+                    </span>
+                </td>
+            </tr>           
+        </table>
+        <table>
+            <tr class="bg-grey">
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark text-uppercase">{{:: 'main.GENERALTOTAL' | translate}}</td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-dark"><span>{{total}} {{:: 'main.PIECE' | translate}}</span></td>
+                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
+            </tr>
+        </table>
+        <br />
+    </div>
+
+    <!--<div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive" ng-hide="isWaiting==true">
+        <div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: trYsStoreName}}</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: trRopNgStoreName}}</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: trCustomerName}}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trOrderDate}}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trMapDate}}</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: trYsOrderState}}</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{:: trOrderTotal}}</span></div>
+        </div>
+        <div ng-table="ysol.tableParams" class="table table-striped table-hover table-condensed">
+            <div ng-repeat="item in $data  | orderBy:['+Store','+YemekSepetiOrder.YemekSepetiRawOrder.CustomerName','+OrderDate']"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    {{ item.YemekSepetiOrder.YemekSepetiRawOrder.RestaurantName }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    {{ item.Store }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-uppercase">
+                    {{ item.YemekSepetiOrder.YemekSepetiRawOrder.CustomerName }} <br />
+                    [{{ item.YemekSepetiOrder.YemekSepetiRawOrder.CustomerPhone }}]
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    {{ item.OrderDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    {{ item.MapDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    {{ item.YemekSepetiOrderState}}
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <span class="pull-right">{{ item.YemekSepetiOrder.YemekSepetiRawOrder.OrderTotal }} TL</span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>-->
+</div>

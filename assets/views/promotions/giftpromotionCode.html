@@ -1,0 +1,86 @@
+﻿<div ng-controller="giftgiftpromotionCodeCtrl as gpc">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.GIFTPROMOTIONCODE" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10">
+            <!--<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+        <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="addItem()">
+            <span translate="main.ADDGIFTCODE"></span>
+        </a>
+    </div>-->
+            <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#giftpromotioncode')">
+                <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+            </button>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>
+                <input class="form-control" placeholder="{{'main.SEARCHBYPERSONSMSNUMBER' | translate}}" type="text" ng-model="gpc.search" ng-model-options="{ debounce: 500 }" />
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" id="giftpromotioncode">
+        <table ng-table="gpc.tableParams" class="table table-striped table-hover">
+            <tr ng-repeat="item in $data |orderBy: '-SendDate'"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td data-title="trGiftPromotion" data-sortable="'GiftPromotionID'" style="width:7%" ng-click="rowform.$show()" class="ng">
+                    <span class="text-capitalize" editable-select="item.GiftPromotionID" e-name="GiftPromotionID" e-ng-model="item.GiftPromotionID" e-form="rowform"
+                          e-ng-options="q.id as q.name for q in giftpromotions| orderBy:'+name'" e-style="width:10vw;">
+                        {{ShowObject('giftpromotions','id',item.GiftPromotionID,'name')}}
+                    </span>
+                </td>
+                <td data-title="trCode" data-sortable="'Code'" style="width:7%">
+                    <span editable-text="item.Code" e-name="Code" e-form="rowform" e-ng-model="item.Code" e-style="width:10vw;">
+                        {{ item.Code }}
+                    </span>
+                </td>
+                <td data-title="trOrderID" data-sortable="'OrderID'" style="width:7%">
+                    <span editable-text="item.OrderID" e-name="OrderID" e-form="rowform" e-ng-model="item.OrderID" e-style="width:10vw;">
+                        {{ item.OrderID }}
+                    </span>
+                </td>
+                <td data-title="trSendDate" data-sortable="'SendDate'" width="7%">
+                    {{ item.SendDate| date:'dd.MM.yyyy HH:mm:ss' }}
+                </td>
+                <td data-title="trSendedTo" data-sortable="'SendedTo'" style="width:7%">
+                    {{ item.SendedTo}}
+                </td>
+                <td data-title="trisSended" data-sortable="'isSended'" style="width:7%">
+                    <span editable-checkbox="item.isSended" e-form="rowform" e-ng-model="item.isSended"
+                          e-ng-true-value="true"
+                          e-ng-false-value="false" e-style="width:5vw;">
+                        {{ item.isSended && "Evet" || "Hayır" }}
+                    </span>
+                </td>
+                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="2%">
+                    <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                          shown="inserted == item|| !item.id">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                    </form>
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="Edit Period" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="Remove" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()"> Edit</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)"> Remove</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

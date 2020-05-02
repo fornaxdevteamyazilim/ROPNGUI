@@ -1,0 +1,31 @@
+﻿<style>
+    #iframest {
+        width: 200vh;
+        height: 40vw;
+        border: hidden;
+    }
+</style>
+
+<div ng-controller="documentsCtrl as dc">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 margin-top-10">
+            <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.LISTS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                <span translate="main.BACK">Back</span>
+            </a>
+        </div>
+    </div>
+    <fieldset ng-if="user.Store.MemberID == 106851154380">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="overflow:auto;" ct-fullheight="window" data-ct-fullheight-exclusion="header">
+            <iframe id="iframest" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSJ4jTAJmxhN2dP4UowkLFOlyINJc2KDNiHGz2QZ372ageFqvUsnODF2CJnmlUblzR0vovAwxCsRvvM/pubhtml"></iframe>
+        </div>
+    </fieldset>
+    <fieldset ng-if="user.Store.MemberID == 111679600561">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="overflow:auto;" ct-fullheight="window" data-ct-fullheight-exclusion="header">
+            <iframe id="iframest" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSykM-Tw0uJ5Sf1WhHEXbykDhEMFmFjIlLfuAn6i6LRWMDC6Eq_3Q2UWUW-WlkspKK0xKIAd6DDVgFo/pubhtml"></iframe>
+        </div>
+    </fieldset>
+
+</div>

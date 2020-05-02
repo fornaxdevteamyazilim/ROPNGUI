@@ -1,0 +1,291 @@
+﻿<div ng-init="app.layout.isSidebarClosed=false" ng-controller="usermainCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark text-uppercase" style="font-size:25px;" translate="tittle.USERITEMS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right visible-lg visible-md">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left margin-right-10 pull-right" ng-click="Back()">
+                    <span translate="main.BACK"></span>
+                </a>
+            </div>
+            <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right visible-sm visible-xs">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel panel-white">
+        <div class="panel-body">
+            <form role="form">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group col-lg-3 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.CITIZENSHIPID" for="name"></label>
+                        <input id="CitizenshipID" type="text" class="form-control" ng-model="item.CitizenshipID" maxlength="11" min="11" required>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.USERNAME" for="name"></label>
+                        <input id="name" type="text" class="form-control" ng-model="item.name" required>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.FULLUSERNAME" for="FullName"></label><br />
+                        <input id="FullName" type="text" class="form-control" ng-model="item.FullName" required>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.STORE" for="Store"></label><br />
+                        <select id="StoreID" ng-options="q.id as q.name for q in stores |orderBy:'+name'" class="form-control" ng-model="item.StoreID"></select>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.USERROLE" for="UserRole"></label><br />
+                        <select id="UserRoleID" ng-options="q.id as q.Name for q in nguserroles |orderBy:'+Name'" class="form-control" ng-model="item.UserRoleID"></select>
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.USERPOSITION" for="StaffPosition"></label><br />
+                        <select id="StaffPositionID" ng-options="q.id as q.Name for q in staffpositions |orderBy:'+Name'" class="form-control" ng-model="item.StaffPositionID"></select>
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.LABORCOSTTYPE" for="LaborCostType"></label><br />
+                        <select id="LaborCostTypeID" ng-options="q.id as q.Name for q in laborcosttypes |orderBy:'+Name'" class="form-control" ng-model="item.LaborCostTypeID"></select>
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.AUTHCODE" for="UserCard"></label><br />
+                        <input id="AuthCode" type="password" class="form-control " ng-model="item.AuthCode" required>
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.USERCARD" for="UserCard"></label><br />
+                        <input id="UserCard" type="password" class="form-control " ng-model="item.UserCard" required>
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.PASSWORD" for="Password"></label><br />
+                        <input id="FullName" type="password" class="form-control " ng-model="item.Password" required>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.USERISACTIVE" for="isActive"></label><br />
+                        <input type="checkbox" ng-model="item.isActive" style="width:30px; height:30px;">
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12">
+                        <label translate="main.QUITREASON" for="QuitReason"></label><br />
+                        <select id="QuitReasonID" ng-options="q.id as q.Description for q in quitreasons |orderBy:'+Description'" class="form-control" ng-model="item.QuitReasonID"></select>
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12" ng-if="fingerPrintExists>0">
+                        <a class="margin-top-20 btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="deleteFingerPrint(item)" ng-disabled="!user.isAdmin">
+                            <span translate="main.DELETEFINGERPRINT"></span>
+                        </a>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-12 col-sm-12 col-xs-12 pull-right">
+                        <a class="margin-top-20 btn-red btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="removedata(item)" ng-if="user.isAdmin">
+                            <span translate="main.DELETE"></span>
+                        </a>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-12 col-sm-12 col-xs-12 pull-right">
+                        <a class="margin-top-20 btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="saveData(item)">
+                            <span translate="main.SAVE"></span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br />
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="$stateParams.id!== 'new'">
+        <tabset justified="true" class="tabbable">
+            <tab heading="{{'main.USERACOUNT' | translate}}">
+                <div class="panel panel-white" ng-controller="useraccountCtrl">
+                    <div class="panel-body">
+                        <form role="form" name="deliveryheader">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-group col-sm-6 col-lg-6 col-md-6 col-xs-12">
+                                    <label translate="main.FREEORDERLIMIT" for="FreeOrderLimit"></label>
+                                    <input id="FreeOrderLimit" type="text" class="form-control text-capitalize col-sm-4 col-lg-4 col-md-4 col-xs-4" ng-model="PersonAccount[0].FreeOrderLimit">
+                                </div>
+                                <div class="form-group col-sm-6 col-lg-6 col-md-6 col-xs-12">
+                                    <label translate="main.DEBITLIMITTYPE" for="FreeOrderLimitType"></label><br />
+                                    <select id="FreeOrderLimitType" ng-options="q.Value as q.Name for q in accountlimittypes | orderBy:'+Name'" class="form-control text-capitalize" ng-model="PersonAccount[0].FreeOrderLimitType"></select>
+                                </div>
+
+                                <div class="form-group col-sm-4 col-lg-4 col-md-4 col-xs-12">
+                                    <label translate="main.GIFTLIMIT" for="GiftLimit"></label>
+                                    <input id="GiftLimit" type="text" class="form-control text-capitalize" ng-model="PersonAccount[0].GiftLimit">
+                                </div>
+                                <div class="form-group col-sm-4 col-lg-4 col-md-4 col-xs-12">
+                                    <label translate="main.COMPLIMENTARYLIMITTYPE" for="ComplimentaryLimitType"></label><br />
+                                    <select id="ComplimentaryLimitType" ng-options="q.Value as q.Name for q in accountlimittypes | orderBy:'+Name'" class="form-control text-capitalize" ng-model="PersonAccount[0].ComplimentaryLimitType"></select>
+                                </div>
+                                <div class="form-group col-sm-4 col-lg-4 col-md-4 col-xs-12">
+                                    <label translate="main.ACTIVE" for="isActive"></label><br />
+                                    <select id="isActive" ng-model="PersonAccount[0].isActive" class="form-control"
+                                            ng-options="o.v as o.n for o in [{ n: 'Passive', v: false }, { n: 'Active', v: true }]"></select>
+                                </div>
+                            </div>
+
+                            <br />
+                            <div class="form-group col-sm-6 col-lg-12 col-md-12 col-xs-12">
+                                <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-right" ng-click="saveData(PersonAccount[0])">
+                                    <span translate="main.SAVE"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'main.USEREXTENSION' | translate}}">
+                <div ng-controller="userextensionCtrl">
+                    <div ng-controller="userextensionCtrl as ue">
+                        <div>
+                            <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-left" ng-click="addItem()">
+                                <span translate="main.ADDUSEREXTENSION"></span>
+                            </a>
+                            <br />
+                            <table ng-table="ue.tableParams" class="table table-striped table-hover">
+                                <tr ng-repeat="item in $data"
+                                    ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                                    <td data-title="trNumber" data-sortable="'Number'" style="width:80%" ng-click="rowform.$show()" class="ng">
+                                        <span editable-text="item.Number" e-name="Number" e-form="rowform" e-ng-model="item.Number">
+                                            {{ item.Number }}
+                                        </span>
+                                    </td>
+                                    <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="5%">
+                                        <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                                              shown="inserted == item|| !item.id">
+                                            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                                            <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                                        </form>
+                                        <div class="buttons pull-right" ng-show="!rowform.$visible">
+                                            <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                                            <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                                        </div>
+                                        <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                            <div class="btn-group" dropdown is-open="status.isopen">
+                                                <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                                    <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                                    <li>
+                                                        <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()" translate="main.EDIT"> Edit</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)" translate="main.DELETE"> Remove</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </tab>
+            <tab heading="{{'main.USEREMAIL' | translate}}">
+                <div ng-controller="useremailCtrl">
+                    <div ng-controller="useremailCtrl as ue">
+                        <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-left" ng-click="addItem()">
+                            <span translate="main.USEREMAIL"></span>
+                        </a>
+                        <br />
+                        <table ng-table="ue.tableParams" class="table table-striped table-hover">
+                            <tr ng-repeat="item in $data"
+                                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                                <td data-title="trEmail" data-sortable="'Email'" style="width:80%" ng-click="rowform.$show()" class="ng">
+                                    <span editable-text="item.Email" e-name="Email" e-form="rowform" e-ng-model="item.Email">
+                                        {{ item.Email }}
+                                    </span>
+                                </td>
+                                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="5%">
+                                    <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                                          shown="inserted == item|| !item.id">
+                                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                                        <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                                    </form>
+                                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                                    </div>
+                                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                        <div class="btn-group" dropdown is-open="status.isopen">
+                                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                                <li>
+                                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()" translate="main.EDIT"> Edit</a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)" translate="main.DELETE"> Remove</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'main.USERTRAINING' | translate}}">
+                <div ng-controller="usertrainingCtrl">
+                    <div ng-controller="usertrainingCtrl as ut">
+                        <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-left" ng-click="addItem()">
+                            <span translate="main.USERTRAINING"></span>
+                        </a>
+                        <br />
+                        <table ng-table="ut.tableParams" class="table table-striped table-hover">
+                            <tr ng-repeat="item in $data"
+                                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                                <td data-title="trTraining" data-sortable="'TrainingID'" style="width:35%" ng-click="rowform.$show()" class="ng">
+                                    <span class="text-capitalize col-lg-6" editable-select="item.TrainingID" e-name="TrainingID" e-ng-model="item.TrainingID" e-form="rowform"
+                                          e-ng-options="q.id as q.Name for q in trainings | orderBy:'+Name'" e-style="width:25vw;">
+                                        {{ ShowObject('trainings','id',item.TrainingID ,'Name') }}
+                                    </span>
+                                </td>
+                                <td data-title="trTrainingDate " data-sortable="'TrainingDate '" style="width:35%" class="ng">
+                                    <!--<span editable-bstime="item.TrainingDate " e-name="TrainingDate " e-ng-model="item.TrainingDate " e-form="rowform"
+                                          e-required e-show-meridian="false" e-style="width: 20vw;">
+                                        {{item.TrainingDate }}
+                                    </span>-->
+                                    <input id="Date" type="text" class="form-control" ng-model="item.TrainingDate" readonly ng-click="datepopupTrainingDate(item)" ng-show="rowform.$visible">
+                                    <span ng-show="!rowform.$visible" e-name="TrainingDate" e-form="rowform" e-ng-model="item.TrainingDate" e-style="width:25vw;">
+                                        "w
+                                        {{ item.TrainingDate| date:'dd.MM.yyyy' }}
+                                    </span>
+                                </td>
+                                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="5%">
+                                    <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                                          shown="inserted == item|| !item.id">
+                                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                                        <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                                    </form>
+                                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                                    </div>
+                                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                        <div class="btn-group" dropdown is-open="status.isopen">
+                                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                                <li>
+                                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()" translate="main.EDIT"> Edit</a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)" translate="main.DELETE"> Remove</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">ikram<button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body">
+    <div class="panel  col-lg-12 col-md-4 col-sm-4 col-xs-12 margin-top-30" ng-repeat="item in orders">
+        <span class="col-lg-4">{{item.id}} / {{item.OrderNumber}}</span>
+        <span class="col-lg-4" ng-repeat="person in item.persons">{{person.Person.name}}</span>
+        <button class="btn btn-primary col-lg-4 margin-top-5 pull-right" ng-click="Treat(item)">İkram</button>
+
+    </div>
+</div>

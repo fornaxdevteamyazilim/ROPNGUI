@@ -1,0 +1,105 @@
+﻿<!--<style>
+           [class*="col-"] {
+      background-color: #eee;
+      background-color: rgba(86,61,124,.15);
+      border: 1px solid #ddd;
+      border: 1px solid rgba(86,61,124,.2);
+    }
+
+</style>-->
+<div ng-controller="OrderTotalsBySourceTypeCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md" ng-hide="isWaiting==true">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-10">
+            <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ORDERTOTALSBYSOURCETYPE" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="text-bold" translate="main.STARTDATE">Başlangıç Tarihi</span> <span class="text-bold">*</span><br />
+                <label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="text-bold" translate="main.ENDDATE">Bitiş Tarihi</span> <span class="text-bold">*</span><br />
+                <label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10 ">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span translate="main.ORDERSOURCE">Sipariş Kaynağı</span><br />
+                <!--<select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 margin-top-5" ng-change="GetOrderSourceID(item.OrderSourceID)" ng-options="q.id as q.name for q in ordersources" ng-model="item.OrderSourceID"></select>-->
+                <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-model="item.OrderSourceID" ng-change="GetOrderSourceID(item.OrderSourceID)">
+                    <option value="">Tümü !</option>
+                    <option ng-repeat="item in ordersources | orderBy:'+name'" value="{{item.id}}">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15">
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="OrderTotalsBySourceType(StartDate,EndDate)">
+                    <img ng-src="assets/images/report.png" style="width:2.5vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.DOWNLOAD' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="GetExcel()">
+                    <img ng-src="assets/images/download.png" style="width:2.5vw; height:3vh;" class="center" /><br />
+                </button>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6 margin-top-5 pull-right">
+            <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                <span translate="main.BACK">Back</span>
+            </a>
+        </div>
+    </div>
+
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-sm-8 col-xs-8 margin-top-10">
+                <span print-remove class="mainTitle text-dark" style="font-size:15px;" translate="tittle.ORDERTOTALSBYSOURCETYPE" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+            </div>
+            <div print-remove class="col-sm-4 col-xs-4 margin-top-5 pull-right">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div print-remove class="col-sm-4 col-xs-6">
+                <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+                    <span><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></span>
+                </div>
+                <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+                    <span><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></span>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+                <div class="col-sm-9 col-xs-12">
+                    <span translate="main.ORDERSOURCE">Sipariş Kaynağı</span><br />
+                    <select class="form-control" ng-model="item.OrderSourceID" ng-change="GetOrderSourceID(item.OrderSourceID)">
+                        <option value="">Tümü !</option>
+                        <option ng-repeat="item in ordersources | orderBy:'+name'" value="{{item.id}}">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-12 col-xs-12 margin-top-15">
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="OrderTotalsBySourceType(StartDate,EndDate)">
+                        <img ng-src="assets/images/report.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.DOWNLOAD' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="GetExcel()">
+                        <img ng-src="assets/images/download.png" style="width:4vw; height:3vh;" class="center" /><br />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center table-responsive">
+        <div ng-if="grid==true" ui-grid="gridOptions" class="ui-grid">
+        </div>
+    </div>
+</div>

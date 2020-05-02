@@ -1,0 +1,35 @@
+﻿<div ng-controller="addresstypeCtrl  as vm">
+    <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+    <h1>Addressestypes</h1>
+    <p>
+        <input class="form-control" placeholder="Search by name" type="text" ng-model="vm.search" ng-model-options="{ debounce: 500 }" />
+        <!--<button class="btn btn-primary" ng-click="pop()">Show toasts</button>-->
+    </p>
+    <button class="btn btn-default" ng-click="addItem()">Add row</button>
+    <!--a class="btn btn-default" href="#/app/settings/brands/edit/new">Add Form</a>-->
+    <table ng-table="vm.tableParams" class="table table-striped table-bordered table-hover">
+        <tr ng-repeat="item in $data" ng-dblclick="rowform.$show()">
+            <td data-title="'Name'" data-sortable="'name'" style="width:70%">
+                <span editable-text="item.name" e-name="name" e-form="rowform" e-ng-model="item.name" e-required e-style="width: 50vw;">
+                    {{ item.name || rowform.$show() }}
+                </span>
+            </td>
+            <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="'Commands'" width="10%">
+                <!-- form -->
+                <form editable-form name="rowform" onbeforesave="saveItem($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                      shown="inserted == item">
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                        save
+                    </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-default">
+                        cancel
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                    <button class="btn btn-danger" ng-click="removeItem($index)">del</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

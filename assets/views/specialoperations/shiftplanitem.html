@@ -1,0 +1,420 @@
+﻿<style>
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+</style>
+
+<div print-section ng-controller="shiftplaneditCtrl as spi" ng-init="app.layout.isSidebarClosed=true">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+                <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+                <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span><br />
+                <span class="col-lg-12 text-bold pull-left">{{'main.WEEK' |translate}} : {{item.PeriodWeek}} </span><br />
+                <span class="col-lg-12 text-bold pull-left">{{'main.YEAR' |translate}} : {{item.PeriodYear}} </span><br />
+                <span class="col-lg-12 text-bold pull-left">{{'main.DATERANGE' |translate}} : {{item.DateRange}} </span><br />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+                <span class="text-bold text-dark" style="font-size:18px;" translate="tittle.SHIFTPLANITEM" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+                <span class="col-lg-12 pull-right">{{Time | date:'dd-MM-yyyy HH:mm'}} </span><br />
+            </div>
+        </div>
+        <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                    <span class="mainTitle text-dark text-uppercase" style="font-size:25px;" translate="tittle.SHIFTPLANITEM" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10 visible-lg visible-md">
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+                    <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left margin-right-10 pull-right" ng-click="Back()">
+                        <span translate="main.BACK"></span>
+                    </a>
+                </div>
+            </div>
+            <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right visible-sm visible-xs">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+        <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel panel-white" ng-hide="isWaiting==true">
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group  col-sm-6 col-lg-3 col-md-3 col-xs-12">
+                        <label translate="main.STORE"></label>
+                        <!--<select ng-options="q.id as q.name for q in stores | orderBy:'+name'" class="form-control text-uppercase" ng-model="item.StoreID" ng-selected="item.StoreID" readonly></select>-->
+                        <input type="text" id="Store" class="form-control text-uppercase" ng-model="item.Store" readonly>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-12">
+                        <label translate="main.WEEK"></label>
+                        <input type="text" id="PeriodWeek" class="form-control text-uppercase" ng-model="item.PeriodWeek" readonly>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-12">
+                        <label translate="main.YEAR"></label>
+                        <input type="text" id="PeriodYear" class="form-control text-uppercase" ng-model="item.PeriodYear" readonly>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-12">
+                        <label translate="main.DATERANGE"></label>
+                        <input type="text" id="DateRange" class="form-control text-uppercase" ng-model="item.DateRange" readonly>
+                    </div>
+                    <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save " ng-click="saveData()" ng-disabled="isClean()">
+                                <span translate="main.SAVE"></span>
+                            </button>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <button class="btn btn-default tooltips center" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-click="exportToExcel('#shiftplan')">
+                                <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                            </button>
+                        </div>
+                        <!--<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <button print-btn class="btn btn-default tooltips center" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                                <img ng-src="assets/images/print.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                                <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                            </button>
+                        </div>-->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 pull-right">
+                            <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-if="user.UserRole.Name == 'Admin' || user.UserRole.Name == 'LC'|| user.UserRole.Name == 'PH'|| user.UserRole.Name == 'PHAdmin'" ng-click="removedata(item.id)">
+                                <span>{{:: delete}}</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-white table-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <fieldset class="table-responsive" id="shiftplan">
+                <table class="hidden">
+                    <tr>
+                        <th>{{'main.REPORTDATE' | translate}}</th>
+                        <th>{{'main.USER' | translate}}</th>
+                        <th>{{'main.USERSTORE' | translate}}</th>
+                        <th>{{'main.SELECTEDSTORE' | translate}}</th>
+                        <th>{{'main.WEEK' | translate}} / {{'main.YEAR' | translate}}</th>
+                        <th>{{'main.DATERANGE' | translate}}</th>
+                    </tr>
+                    <tr>
+                        <td>{{Time | date:'dd-MM-yyyy HH:mm'}}</td>
+                        <td>{{user.FullName}}</td>
+                        <td>{{user.Store.Member}} - {{user.Store.name}}</td>
+                        <td>{{item.Store}}</td>
+                        <td>{{item.PeriodWeek}} / {{item.PeriodYear}}</td>
+                        <td>{{item.DateRange}}</td>
+                    </tr>
+                </table>
+                <br />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive" id="shiftplan">
+                    <table ng-table="spi.tableParams" class="table table-striped table-hover">
+                        <tr ng-repeat="item in $data" ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                            <td data-title="trNGUser" data-sortable="'NGUserID'" style="width:10%" class="ng" ng-click="rowform.$show()">
+                                <!--<span class="text-capitalize" editable-select="item.NGUserID" e-name="NGUserID" e-ng-model="item.NGUserID" e-form="rowform" bindonce="'q'" 
+                                    e-ng-options="s.id as s.FullName for s in storeUsers | orderBy:'+FullName' | filter: {isActive: 'true'}| filter: {StaffPositionID: item.StaffPositionID}" 
+                                    e-style="width:5vw;">
+                                    {{item.User}}
+                                </span>-->
+                                <span class="text-capitalize" editable-select="item.NGUserID" e-name="NGUserID" e-ng-model="item.NGUserID" e-form="rowform" bindonce="'q'"
+                                      e-ng-options="s.id as s.FullName for s in storeUsers | orderBy:'+FullName' | filter: {isActive: 'true'}| filter: {StaffPositionID: item.StaffPositionID}"
+                                      e-style="width:5vw;">
+                                    {{item.User}}
+                                </span>
+                            </td>
+                            <td data-title="trStaffPosition" data-sortable="'StaffPositionID'" style="width:5%" class="ng">
+                                <span class="col-lg-6 text-capitalize" editable-select="item.StaffPositionID" e-name="StaffPositionID" e-ng-model="item.StaffPositionID" e-form="rowform"
+                                      e-ng-options="q.id as q.Name for q in staffpositions | orderBy:'+Name'" e-style="width:5vw;">
+                                    {{item.StaffPosition}}
+                                </span>
+                            </td>
+                            <td ng-style="item.D1isOff && {'background-color':'red'}" data-title="trD1ShiftStart" style="width:7%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D1isOff',item)">
+                                <!--<input type="text" id="D1ShiftStart" name="D1ShiftStart" ng-model="item.D1ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5" ng-change="changestart(item,'D1ShiftEnd',item.D1ShiftStart)">-->
+                                <select ng-model="item.D1ShiftStart" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep" ng-change="changestart(item,'D1ShiftEnd',item.D1ShiftStart)"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D1ShiftStart | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D1isOff && {'background-color':'red'}" data-title="trD1ShiftEnd" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D1isOff',item)">
+                                <!--<input type="text" id="D1ShiftEnd" name="D1ShiftEnd" ng-model="item.D1ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">-->
+                                <select id="D1ShiftEnd" name="D1ShiftEnd" ng-model="item.D1ShiftEnd" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D1ShiftEnd | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D2isOff && {'background-color':'red'}" data-title="trD2ShiftStart" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D2isOff',item)">
+                                <!--<input type="text" id="D2ShiftStart" name="D2ShiftStart" ng-model="item.D2ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5" ng-change="changestart(item,'D2ShiftEnd',item.D2ShiftStart)">-->
+                                <select ng-model="item.D2ShiftStart" ng-options="spi for spi in options.hstep" ng-show="rowform.$visible" ng-change="changestart(item,'D2ShiftEnd',item.D2ShiftStart)"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D2ShiftStart | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D2isOff && {'background-color':'red'}" data-title="trD2ShiftEnd" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D2isOff',item)">
+                                <!--<input type="text" id="D2ShiftEnd" name="D2ShiftEnd" ng-model="item.D2ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">-->
+                                <select ng-model="item.D2ShiftEnd" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D2ShiftEnd | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D3isOff && {'background-color':'red'}" data-title="trD3ShiftStart" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D3isOff',item)">
+                                <!--<input type="text" id="D3ShiftStart" name="D3ShiftStart" ng-model="item.D3ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5" ng-change="changestart(item,'D3ShiftEnd',item.D3ShiftStart)">-->
+                                <select ng-model="item.D3ShiftStart" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep" ng-change="changestart(item,'D3ShiftEnd',item.D3ShiftStart)"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D3ShiftStart | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D3isOff && {'background-color':'red'}" data-title="trD3ShiftEnd" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D3isOff',item)">
+                                <!--<input type="text" id="D3ShiftEnd" name="D3ShiftEnd" ng-model="item.D3ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">-->
+                                <select ng-model="item.D3ShiftEnd" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D3ShiftEnd | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D4isOff && {'background-color':'red'}" data-title="trD4ShiftStart" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D4isOff',item)">
+                                <!--<input type="text" id="D4ShiftStart" name="D4ShiftStart" ng-model="item.D4ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5" ng-change="changestart(item,'D4ShiftEnd',item.D4ShiftStart)">-->
+                                <select ng-model="item.D4ShiftStart" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep" ng-change="changestart(item,'D4ShiftEnd',item.D4ShiftStart)"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D4ShiftStart | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D4isOff && {'background-color':'red'}" data-title="trD4ShiftEnd" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D4isOff',item)">
+                                <!--<input type="text" id="D4ShiftEnd" name="D4ShiftEnd" ng-model="item.D4ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">-->
+                                <select ng-model="item.D4ShiftEnd" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D4ShiftEnd | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D5isOff && {'background-color':'red'}" data-title="trD5ShiftStart" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D5isOff',item)">
+                                <!--<input type="text" id="D5ShiftStart" name="D5ShiftStart" ng-model="item.D5ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5" ng-change="changestart(item,'D5ShiftEnd',item.D5ShiftStart)">-->
+                                <select ng-model="item.D5ShiftStart" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep" ng-change="changestart(item,'D5ShiftEnd',item.D5ShiftStart)"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D5ShiftStart | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D5isOff && {'background-color':'red'}" data-title="trD5ShiftEnd" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D5isOff',item)">
+                                <!--<input type="text" id="D5ShiftEnd" name="D5ShiftEnd" ng-model="item.D5ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">-->
+                                <select ng-model="item.D5ShiftEnd" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D5ShiftEnd | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D6isOff && {'background-color':'red'}" data-title="trD6ShiftStart" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D6isOff',item)">
+                                <!--<input type="text" id="D6ShiftStart" name="D6ShiftStart" ng-model="item.D6ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5" ng-change="changestart(item,'D6ShiftEnd',item.D6ShiftStart)">-->
+                                <select ng-model="item.D6ShiftStart" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep" ng-change="changestart(item,'D6ShiftEnd',item.D6ShiftStart)"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D6ShiftStart | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D6isOff && {'background-color':'red'}" data-title="trD6ShiftEnd" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D6isOff',item)">
+                                <!--<input type="text" id="D6ShiftEnd" name="D6ShiftEnd" ng-model="item.D6ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">-->
+                                <select ng-model="item.D6ShiftEnd" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D6ShiftEnd | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D7isOff && {'background-color':'red'}" data-title="trD7ShiftStart" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D7isOff',item)">
+                                <!--<input type="text" id="D7ShiftStart" name="D7ShiftStart" ng-model="item.D7ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5" ng-change="changestart(item,'D7ShiftEnd',item.D7ShiftStart)">-->
+                                <select ng-model="item.D7ShiftStart" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep" ng-change="changestart(item,'D7ShiftEnd',item.D7ShiftStart)"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D7ShiftStart | date:'HH:mm' }}</span>
+                            </td>
+                            <td ng-style="item.D7isOff && {'background-color':'red'}" data-title="trD7ShiftEnd" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D7isOff',item)">
+                                <!--<input type="text" id="D7ShiftEnd" name="D7ShiftEnd" ng-model="item.D7ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">-->
+                                <select ng-model="item.D7ShiftEnd" ng-show="rowform.$visible" ng-options="spi for spi in options.hstep"></select>
+                                <span ng-show="!rowform.$visible">{{ item.D7ShiftEnd | date:'HH:mm' }}</span>
+                            </td>
+
+
+                            <td print-remove style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="5%">
+                                <form editable-form name="rowform" onaftersave="SaveItem(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                                      shown="inserted == item|| !item.id">
+                                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                                    <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                                </form>
+                                <div class="buttons pull-right" ng-show="!rowform.$visible">
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-plus hidden-sm hidden-xs" tooltip="{{'main.ADD' |translate}}" tooltip-placement="top" ng-click="addItem(item)"></a>
+                                </div>
+                                <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                    <div class="btn-group" dropdown is-open="status.isopen">
+                                        <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                            <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                            <li>
+                                                <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()" translate="main.EDIT"> Edit</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+
+
+
+        <!--<div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
+        <!--<div ng-table="spi.tableParams" class="table table-striped table-hover">
+            <div ng-repeat="item in $data" ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <div data-title="trNGUser" data-sortable="'NGUserID'" style="width:10%" class="ng" ng-click="rowform.$show()">
+                    <span class="text-capitalize" editable-select="item.NGUserID" e-name="NGUserID" e-ng-model="item.NGUserID" e-form="rowform" bindonce="'q'" e-ng-options="s.id as s.FullName for s in storeUsers | orderBy:'+FullName' | filter: {isActive: 'true'}| filter: {StaffPositionID: item.StaffPositionID}" e-style="width:5vw;">
+                        {{item.User}}
+                    </span>
+                </div>
+                <div data-title="trStaffPosition" data-sortable="'StaffPositionID'" style="width:5%" class="ng">
+                    <span class="col-lg-6 text-capitalize" editable-select="item.StaffPositionID" e-name="StaffPositionID" e-ng-model="item.StaffPositionID" e-form="rowform"
+                          e-ng-options="q.id as q.Name for q in staffpositions | orderBy:'+Name'" e-style="width:5vw;">
+                        {{item.StaffPosition}}
+                    </span>
+                </div>
+                <div ng-style="item.D1isOff && {'background-color':'red'}" data-title="trD1ShiftStart" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D1isOff',item)">
+                    <input type="text" id="D1ShiftStart" name="D1ShiftStart" ng-model="item.D1ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D1ShiftStart | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D1isOff && {'background-color':'red'}" data-title="trD1ShiftEnd" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D1isOff',item)">
+                    <input type="text" id="D1ShiftEnd" name="D1ShiftEnd" ng-model="item.D1ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D1ShiftEnd | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D2isOff && {'background-color':'red'}" data-title="trD2ShiftStart" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D2isOff',item)">
+                    <input type="text" id="D2ShiftStart" name="D2ShiftStart" ng-model="item.D2ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D2ShiftStart | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D2isOff && {'background-color':'red'}" data-title="trD2ShiftEnd" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D2isOff',item)">
+                    <input type="text" id="D2ShiftEnd" name="D2ShiftEnd" ng-model="item.D2ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D2ShiftEnd | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D3isOff && {'background-color':'red'}" data-title="trD3ShiftStart" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D3isOff',item)">
+                    <input type="text" id="D3ShiftStart" name="D3ShiftStart" ng-model="item.D3ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D3ShiftStart | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D3isOff && {'background-color':'red'}" data-title="trD3ShiftEnd" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D3isOff',item)">
+                    <input type="text" id="D3ShiftEnd" name="D3ShiftEnd" ng-model="item.D3ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D3ShiftEnd | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D4isOff && {'background-color':'red'}" data-title="trD4ShiftStart" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D4isOff',item)">
+                    <input type="text" id="D4ShiftStart" name="D4ShiftStart" ng-model="item.D4ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D4ShiftStart | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D4isOff && {'background-color':'red'}" data-title="trD4ShiftEnd" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D4isOff',item)">
+                    <input type="text" id="D4ShiftEnd" name="D4ShiftEnd" ng-model="item.D4ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D4ShiftEnd | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D5isOff && {'background-color':'red'}" data-title="trD5ShiftStart" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D5isOff',item)">
+                    <input type="text" id="D5ShiftStart" name="D5ShiftStart" ng-model="item.D5ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D5ShiftStart | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D5isOff && {'background-color':'red'}" data-title="trD5ShiftEnd" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D5isOff',item)">
+                    <input type="text" id="D5ShiftEnd" name="D5ShiftEnd" ng-model="item.D5ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D5ShiftEnd | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D6isOff && {'background-color':'red'}" data-title="trD6ShiftStart" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D6isOff',item)">
+                    <input type="text" id="D6ShiftStart" name="D6ShiftStart" ng-model="item.D6ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D6ShiftStart | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D6isOff && {'background-color':'red'}" data-title="trD6ShiftEnd" style="width:5%" ng-dblclick="ToggleOff(rowform,$data,$index,'D6isOff',item)">
+                    <input type="text" id="D6ShiftEnd" name="D6ShiftEnd" ng-model="item.D6ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D6ShiftEnd | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D7isOff && {'background-color':'red'}" data-title="trD7ShiftStart" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D7isOff',item)">
+                    <input type="text" id="D7ShiftStart" name="D7ShiftStart" ng-model="item.D7ShiftStart" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D7ShiftStart | date:'HH:mm' }}</span>
+                </div>
+                <div ng-style="item.D7isOff && {'background-color':'red'}" data-title="trD7ShiftEnd" style="width:5%;background-color:Highlight;" ng-dblclick="ToggleOff(rowform,$data,$index,'D7isOff',item)">
+                    <input type="text" id="D7ShiftEnd" name="D7ShiftEnd" ng-model="item.D7ShiftEnd" placeholder="00:00" maxlength="5" ng-show="rowform.$visible" size="5">
+                    <span ng-show="!rowform.$visible">{{ item.D7ShiftEnd | date:'HH:mm' }}</span>
+                </div>
+            </div>
+        </div>-->
+        <!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trNGUser}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trStaffPosition}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD1ShiftStart}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD1ShiftEnd}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD2ShiftStart}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD2ShiftEnd}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD3ShiftStart}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD3ShiftEnd}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD4ShiftStart}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD4ShiftEnd}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD5ShiftStart}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD5ShiftEnd}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD6ShiftStart}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD6ShiftEnd}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD7ShiftStart}}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: trD7ShiftEnd}}</div>
+            </div>
+            <br />
+            <hr />
+            <div ng-table="spi.tableParams" class="table table-striped table-hover">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5" ng-repeat="item in $data" ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)" style="border-bottom:1px solid;">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.User}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.StaffPosition}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D1ShiftStart | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D1ShiftEnd | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D2ShiftStart | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D2ShiftEnd | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D3ShiftStart | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D3ShiftEnd | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D4ShiftStart | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D4ShiftEnd | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D5ShiftStart | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D5ShiftEnd | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D6ShiftStart | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D6ShiftEnd | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D7ShiftStart | date:'HH:mm'}}
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span>
+                            {{item.D7ShiftEnd | date:'HH:mm'}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>-->
+        <!--</div>-->
+    </div>
+
+</div>
+

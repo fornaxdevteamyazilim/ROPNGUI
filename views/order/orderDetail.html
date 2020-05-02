@@ -1,0 +1,622 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+<div ng-controller="orderdetailsCtrl" class="panel-white col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10">
+            <span class="text-blue">{{Date}}</span><br />
+            <!--<span class="text-bold text-large" ng-if="item.orderInvoice.id">{{::efatura}} ID : {{:: item.orderInvoice.id}}</span>-->
+        </div>
+        <h3>
+            <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-bold margin-top-15 center">{{:: orderdetails}}</span>
+        </h3>
+        <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right col-lg-1 col-md-2 col-sm-2 col-xs-2 visible-lg" ng-click="Back()">
+            <span>{{:: back}}</span>
+        </a>
+        <div class="col-md-1 margin-top-5 pull-right visible-md visible-sm visible-xs">
+            <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+        </div>
+    </div>
+    <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel">
+        <legend>
+            {{'main.ORDERINGINFORMATION' | translate}}
+        </legend>
+        <div class="row visible-lg">
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: orderno}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.id}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: ordernumber}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.OrderNumber}}  {{:: item.StoreTable.name}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: ordertype}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.OrderType}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: ordersource}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.OrderSource}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>
+                        {{:: personname}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{item.Alias}}{{item.persons[0].Person}}" id="form-field-21" class="form-control text-uppercase" readonly>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label>
+                        {{:: address}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:343px; max-height:100px; min-width:343px;' type="text" placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.Address.StreetAddress}} {{:: item.Address.AppartmentName}} Apt. N:{{:: item.Address.AddressNo}} D:{{:: item.Address.AppartmentNo}} Kat:{{:: item.Address.Floor}} Giriş:{{:: item.Address.Entrance}} Tarif:{{:: item.Address.Landmark}}</textarea>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>
+                        {{:: personnote}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:230px; max-height:100px; min-width:230px;' type="text" placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.Address.Notes}}</textarea>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: companyname}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.Address.CompanyName}}" id="form-field-21" class="form-control text-uppercase" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row visible-lg">
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: amount}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.Amount | number : 2}}" id="form-field-21" class="form-control ti-align-right" readonly>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: orderstate}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{item.OrderState}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: isChargedd}}
+                    </label>
+                    <input ng-if="item.OrderTypeID == 2 && item.isCharged == false" ng-class="{'text-red': item.isCharged == false}" type="text" placeholder="-" value="{{::open}}" id="form-field-21" class="form-control" readonly>
+                    <input ng-if="item.OrderTypeID == 2 && item.isCharged == true" type="text" placeholder="-" value="{{::close}}" id="form-field-21" class="form-control" readonly>
+                    <input ng-if="item.OrderTypeID != 2 && item.OrderTypeID != 7" type="text" placeholder="-" value="-" id="form-field-21" class="form-control" readonly>
+
+                    <input ng-if="item.OrderTypeID == 7 && item.isCharged == false" ng-class="{'text-red': item.isCharged == false}" type="text" placeholder="-" value="{{::open}}" id="form-field-21" class="form-control" readonly>
+                    <input ng-if="item.OrderTypeID == 7 && item.isCharged == true" type="text" placeholder="-" value="{{::close}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: paymenttype}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.PaymentType.PaymentType.name}}" id="form-field-21" class="form-control" readonly ng-dblclick="CheckCode(item,'ChangeOrderPayment')">
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label class="no-wrap">
+                        {{:: paymentstatus}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.PaymentStatus}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>
+                        {{:: paymentnote}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:230px; max-height:100px; min-width:230px;' placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.PaymentNote}}</textarea>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>
+                        {{:: ordernote}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:230px; max-height:100px; min-width:230px;' placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.OrderNote}}</textarea>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: orderdate}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.OrderDate | date:'HH:mm:ss dd-MM-yyyy'}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: deliverydate}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.DeliveryDate | date:'HH:mm:ss dd-MM-yyyy'}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>
+                        {{:: agent}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: User}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+        </div>
+
+
+        <!--md/sm/xs -->
+
+        <div class="row hidden-lg">
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label>
+                        {{:: orderno}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.id}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label>
+                        {{:: ordernumber}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.OrderNumber}}  {{:: item.StoreTable.name}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label>
+                        {{:: ordertype}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.OrderType}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label>
+                        {{:: ordersource}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.OrderSource}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-8 col-xs-8">
+                <div class="form-group">
+                    <label>
+                        {{:: personname}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{item.Alias}}{{item.persons[0].Person}}" id="form-field-21" class="form-control text-uppercase" readonly>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="form-group visible-md visible-sm">
+                    <label>
+                        {{:: address}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:320px; max-height:100px; min-width:320px;' type="text" placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.Address.StreetAddress}} {{:: item.Address.AppartmentName}} Apt. N:{{:: item.Address.AddressNo}} D:{{:: item.Address.AppartmentNo}} Kat:{{:: item.Address.Floor}} Giriş:{{:: item.Address.Entrance}} Tarif:{{:: item.Address.Landmark}}</textarea>
+                </div>
+                <div class="form-group visible-xs">
+                    <label>
+                        {{:: address}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:280px; max-height:100px; min-width:280px;' type="text" placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.Address.StreetAddress}} {{:: item.Address.AppartmentName}} Apt. N:{{:: item.Address.AddressNo}} D:{{:: item.Address.AppartmentNo}} Kat:{{:: item.Address.Floor}} Giriş:{{:: item.Address.Entrance}} Tarif:{{:: item.Address.Landmark}}</textarea>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-6">
+                <div class="form-group visible-md visible-sm">
+                    <label>
+                        {{:: personnote}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:160px; max-height:100px; min-width:160px;' type="text" placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.Address.Notes}}</textarea>
+                </div>
+                <div class="form-group visible-xs">
+                    <label>
+                        {{:: personnote}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:140px; max-height:100px; min-width:140px;' type="text" placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.Address.Notes}}</textarea>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label>
+                        {{:: companyname}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.Address.CompanyName}}" id="form-field-21" class="form-control text-uppercase" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row hidden-lg">
+            <div class="col-md-1 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label>
+                        {{:: amount}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.Amount | number : 2}}" id="form-field-21" class="form-control ti-align-right" readonly>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label>
+                        {{:: orderstate}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{item.OrderState}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label>
+                        {{:: isChargedd}}
+                    </label>
+                    <input ng-if="item.OrderTypeID == 2 && item.isCharged == false" ng-class="{'text-red': item.isCharged == false}" type="text" placeholder="-" value="{{::open}}" id="form-field-21" class="form-control" readonly>
+                    <input ng-if="item.OrderTypeID == 2 && item.isCharged == true" type="text" placeholder="-" value="{{::close}}" id="form-field-21" class="form-control" readonly>
+                    <input ng-if="item.OrderTypeID != 2 && item.OrderTypeID != 7" type="text" placeholder="-" value="-" id="form-field-21" class="form-control" readonly>
+
+                    <input ng-if="item.OrderTypeID == 7 && item.isCharged == false" ng-class="{'text-red': item.isCharged == false}" type="text" placeholder="-" value="{{::open}}" id="form-field-21" class="form-control" readonly>
+                    <input ng-if="item.OrderTypeID == 7 && item.isCharged == true" type="text" placeholder="-" value="{{::close}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label>
+                        {{:: paymenttype}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.PaymentType.PaymentType.name}}" id="form-field-21" class="form-control" readonly ng-dblclick="CheckCode(item,'ChangeOrderPayment')">
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label class="no-wrap">
+                        {{:: paymentstatus}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.PaymentStatus}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-xs-6">
+                <div class="form-group visible-md visible-sm">
+                    <label>
+                        {{:: paymentnote}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:160px; max-height:100px; min-width:160px;' placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.PaymentNote}}</textarea>
+                </div>
+                <div class="form-group visible-xs">
+                    <label>
+                        {{:: paymentnote}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:140px; max-height:100px; min-width:140px;' placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.PaymentNote}}</textarea>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-6">
+                <div class="form-group visible-md visible-sm">
+                    <label>
+                        {{:: ordernote}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:160px; max-height:100px; min-width:160px;' placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.OrderNote}}</textarea>
+                </div>
+                <div class="form-group visible-xs">
+                    <label>
+                        {{:: ordernote}}
+                    </label>
+                    <textarea style='min-height:60px; max-width:140px; max-height:100px; min-width:140px;' placeholder="-" id="form-field-21" class="form-control text-uppercase" readonly>{{:: item.OrderNote}}</textarea>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label>
+                        {{:: orderdate}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.OrderDate | date:'HH:mm:ss dd-MM-yyyy'}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label>
+                        {{:: deliverydate}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: item.DeliveryDate | date:'HH:mm:ss dd-MM-yyyy'}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <div class="form-group">
+                    <label>
+                        {{:: agent}}
+                    </label>
+                    <input type="text" placeholder="-" value="{{:: User}}" id="form-field-21" class="form-control" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row pull-right visible-lg visible-md" ng-if="ButtonPanel == true">
+            <button class="btn btn-wide btn-success margin-top-5" ng-click="SendToFiyuu(item.id)" ng-if="userRestrictions.sendtofiyuu=='Enable'">
+                <span>{{:: sendtofiyuu }}</span>
+            </button>
+            <button class="btn btn-wide btn-success margin-top-5" ng-click="SendGiftPromotions(item.id)" ng-if="userRestrictions.sendgiftpromotions=='Enable'">
+                <span>{{:: sendgifpromotions }}</span>
+            </button>
+            <button class="btn btn-wide btn-primary margin-top-5" ng-click="DeleteYSMaping(item.id)" ng-if="userRestrictions.deleteysmaping=='Enable' && item.OrderSource == 'YemekSepeti'">
+                <span>{{:: deleteysmaping}}</span>
+            </button>
+            <button class="btn btn-wide btn-warning margin-top-5" ng-if="item.OrderTypeID==2 || item.OrderTypeID==7 && userRestrictions.repeatorder=='Enable'" ng-click="repeatOrder(item.id)">
+                <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true"> {{:: repeatorder}}</span>
+            </button>
+            <button class="btn btn-wide btn-success margin-top-5" ng-click="OrderChange(item)" ng-if="userRestrictions.changeorder=='Enable'">
+                <span>{{:: changetoorder}}</span>
+            </button>
+            <button class="btn btn-wide btn-warning margin-top-5" ng-click="CheckCode(item,'CancelOrder')" ng-if="userRestrictions.cancelorder=='Enable'">
+                <span>{{:: canceltoorder}}</span>
+            </button>
+            <button class="btn btn-wide btn-primary margin-top-5" ng-click="SelectPromotions(item)" ng-if="userRestrictions.addpromotion=='Enable'">
+                <span>{{:: addpromotion}}</span>
+            </button>
+            <button class="btn btn-wide btn-success margin-top-5" ng-click="RePrintOrder(item.id)" ng-if="userRestrictions.reprintorder=='Enable'">
+                <span>{{:: reprint}}</span>
+            </button>
+            <button class="btn btn-wide btn-warning margin-top-5" ng-click="CheckCode(item,'OrderPaymentDeteails')" ng-if="userRestrictions.changeorderpayment=='Enable'">
+                <span>{{:: changetopaymenttype}}</span>
+            </button>
+            <div ng-if="item.OrderStateID==20">
+                <button class="btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="AwaitingCCAutorization(item)" ng-if="userRestrictions.webacceptbutton=='Enable'">
+                    <span>{{:: acceptorder}}</span>
+                </button>
+            </div>
+            <div class="pull-right" ng-if="item.OrderStateID==6">
+                <button class="btn btn-wide btn-primary margin-top-5 margin-left-5" ng-click="RevertToPrevState(item.id)" ng-if="userRestrictions.reverttoprevstate=='Enable'">
+                    <span>{{:: reverttoprevstate}} !</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="row pull-right visible-sm visible-xs" ng-if="ButtonPanel == true">
+            <button class="col-sm-12 col-xs-12 btn btn-wide btn-primary margin-top-5" ng-click="DeleteYSMaping(item.id)" ng-if="userRestrictions.deleteysmaping=='Enable' && item.OrderSource == 'YemekSepeti'">
+                <span>{{:: deleteysmaping}}</span>
+            </button>
+            <button class="col-sm-12 col-xs-12 btn btn-wide btn-warning margin-top-5" ng-if="item.OrderTypeID==2 || item.OrderTypeID==7 && user.restrictions.repeatorder=='Enable'" ng-click="repeatOrder(item.id)">
+                <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true"> {{:: repeatorder}}</span>
+            </button>
+            <button class="col-sm-12 col-xs-12 btn btn-wide btn-success margin-top-5" ng-click="OrderChange(item)">
+                <span>{{:: changetoorder}}</span>
+            </button>
+            <button class="col-sm-12 col-xs-12 btn btn-wide btn-warning margin-top-5" ng-click="CheckCode(item,'CancelOrder')" ng-if="userRestrictions.cancelorder=='Enable'">
+                <span>{{:: canceltoorder}}</span>
+            </button>
+            <button class="col-sm-12 col-xs-12 btn btn-wide btn-primary margin-top-5" ng-click="SelectPromotions(item)" ng-if="userRestrictions.addpromotion=='Enable'">
+                <span>{{:: addpromotion}}</span>
+            </button>
+            <button class="col-sm-12 col-xs-12 btn btn-wide btn-success margin-top-5" ng-click="RePrintOrder(item.id)" ng-if="userRestrictions.reprintorder=='Enable'">
+                <span>{{:: reprint}}</span>
+            </button>
+            <button class="col-sm-12 col-xs-12 btn btn-wide btn-warning margin-top-5" ng-click="CheckCode(item,'OrderPaymentDeteails')" ng-if="userRestrictions.changeorderpayment=='Enable'">
+                <span>{{:: changetopaymenttype}}</span>
+            </button>
+            <div class="col-sm-12 col-xs-12" ng-if="item.OrderStateID==20">
+                <button class="btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="AwaitingCCAutorization(item)" ng-if="userRestrictions.webacceptbutton=='Enable'">
+                    <span>{{:: acceptorder}}</span>
+                </button>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right" ng-if="item.OrderStateID==6">
+                <button class="btn btn-wide btn-primary margin-top-5 margin-left-5" ng-click="RevertToPrevState(item.id)" ng-if="userRestrictions.reverttoprevstate=='Enable'">
+                    <span>{{:: reverttoprevstate}} !</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md" ng-if="ButtonPanel == true">
+            <button class="btn btn-o btn-danger margin-top-5" ng-click="UpdateOrderStateChoose(item)" ng-if="userRestrictions.chooseorderstate=='Enable'">
+                <span>{{:: chooseorderstate}} !</span>
+            </button>
+            <button class="btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="UpdateOrderPaymentStatusChoose(item.id)" ng-if="userRestrictions.closeorderpayment=='Enable'">
+                <span>{{:: closeorderpayment}} !</span>
+            </button>
+            <button class="btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="UpdateOrderStatusAdmin(item.id)" ng-if="userRestrictions.canceltoorder=='Enable'">
+                <span>{{:: canceltoorder}} !</span>
+            </button>
+            <button class="btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="UpdateCode()" ng-if="userRestrictions.updatecode=='Enable'">
+                <span>{{:: updatecode}} !</span>
+            </button>
+            <button class="btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="RefreshOrder(item.id)" ng-if="userRestrictions.refreshorderamount=='Enable'">
+                <span>{{:: refreshorderamount}} !</span>
+            </button>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs" ng-if="ButtonPanel == true">
+            <button class="col-sm-12 col-xs-12 btn btn-o btn-danger margin-top-5" ng-click="UpdateOrderStateChoose(item)" ng-if="userRestrictions.chooseorderstate=='Enable'">
+                <span>{{:: chooseorderstate}} !</span>
+            </button>
+            <button class="col-sm-12 col-xs-12 btn btn-o btn-danger margin-top-5" ng-click="SendToFiyuu(item.id)" ng-if="userRestrictions.sendordertofiyuu=='Enable'">
+                <span>{{:: sendtofiyuu}} !</span>
+            </button>
+            <button class="col-sm-12 col-xs-12 btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="UpdateOrderPaymentStatusChoose(item.id)" ng-if="userRestrictions.closeorderpayment=='Enable'">
+                <span>{{:: closeorderpayment}} !</span>
+            </button>
+            <button class="col-sm-12 col-xs-12 btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="UpdateOrderStatusAdmin(item.id)" ng-if="userRestrictions.canceltoorder=='Enable'">
+                <span>{{:: canceltoorder}} !</span>
+            </button>
+            <button class="col-sm-12 col-xs-12 btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="UpdateCode()" ng-if="userRestrictions.updatecode=='Enable'">
+                <span>{{:: updatecode}} !</span>
+            </button>
+            <button class="col-sm-12 col-xs-12 btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="RefreshOrder(item.id)" ng-if="userRestrictions.refreshorderamount=='Enable'">
+                <span>{{:: refreshorderamount}} !</span>
+            </button>
+        </div>
+    </fieldset>
+    <div class="row">
+        <fieldset class="col-lg-5 col-md-5 col-sm-12 col-xs-12 panel">
+            <legend>{{:: orderitemdetails}}</legend>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span ng-repeat='member in orderItems track by member.id'>
+                        <order-items member='member' persons='orders.persons' splits='orders.splits'></order-items>
+                    </span>
+                </div>
+                <span class="col-lg-8 col-md-9 col-sm-10 col-xs-10">
+                    <span class="text-large pull-right margin-top-15 margin-left-5"> <label translate="main.GRANDTOTAL"></label> : <label class="margin-left-5"> {{ item.Amount | number : 2}} TL</label></span>
+                </span>
+            </div>
+        </fieldset>
+        <fieldset class="col-lg-7 col-md-7 col-sm-12 col-xs-12 panel">
+            <legend>{{:: satates}}</legend>
+            <div class="table ng-table table-responsive">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold text-dark">
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{:: state}}</span>
+                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{:: time}}</span>
+                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{:: durationn}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{:: user}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{:: driver}}</span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{:: reason}}</span>
+                </div>
+                <hr />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize" ng-repeat="state in item.states">
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: state.OrderStateName}}</span>
+                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: state.OrderStateDate  | date:'HH:mm:ss'}}</span>
+                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span ng-if="state.Duration > 0">{{:: state.Duration}}</span></span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{ state.UpdateUserName}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold" ng-click="CheckCode(item.states, 'ChangeOrderDriver')"> {{ state.Driver}} </span>  <!--ng-if="state.Driver"-->
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold" ng-if="state.OrderReasonID != null">[{{:: state.OrderReason}}] </span>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <fieldset class="col-lg-5 panel">
+            <legend translate="main.PROMOTIONS">{{:: promotions}}</legend>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 text-bold text-dark">
+                            <span class="col-lg-4 col-md-4 col-sm-4 col-xs-6">{{:: promotionname}}</span>
+                            <span class="col-lg-4 col-md-4 col-sm-4 col-xs-6">{{:: promotioncode}}</span>
+                        </div>
+                        <hr />
+                        <div class="col-lg-12 row" ng-repeat="code in item.promotions track by code.id">
+                            <span class="col-lg-4 col-md-4 col-sm-4 col-xs-6 text-bold">{{:: code.Promotion.name}} / ({{:: code.Amount | number:2}}) </span>
+                            <span class="col-lg-4 col-md-4 col-sm-4 col-xs-6 text-bold">{{:: code.Code}}</span>
+                            <label class='col-lg-4 col-md-4 col-sm-4 col-xs-6 ng pull-right'>
+                                <i ng-click="RemovePromotion( code.OrderID)" class='ti-close text-extra-large text-bold'></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="col-lg-7 panel">
+            <legend>{{:: payment}}</legend>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: paymenttype}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: date}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: amount}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4"></span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4"></span>
+                </div>
+                <hr />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize" ng-repeat="payment in item.payments track by payment.id">
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4 text text-bold text-extra-large">{{:: payment.PaymentType}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: payment.PaymentDate  | date:'HH:mm:ss dd-MM-yyyy'}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: payment.Amount | number:2}} TL</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4" ng-if="payment.isAutomatic == true"><span class="text-bold">OKC</span></span>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <fieldset class="col-lg-5 panel">
+            <legend ng-if="item.orderInvoice.id">{{:: efaturadetails}}</legend>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="item.orderInvoice.id">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: invoiceid}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: address}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: phonenumber}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: taxnumber}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: taxoffice}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: title}}</span>
+                </div>
+                <hr />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize" ng-if="item.orderInvoice.id">
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: item.orderInvoice.id}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: item.orderInvoice.Address}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: item.orderInvoice.PhoneNumber}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: item.orderInvoice.TaxNumber}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: item.orderInvoice.TaxOffice}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: item.orderInvoice.Title}}</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="col-lg-7 panel">
+            <legend>{{:: storedetails}}</legend>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: store}}</span>
+                    <span class="col-lg-1 col-md-2 col-sm-4 col-xs-4">{{:: storetype}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: storephone}}</span>
+                    <span class="col-lg-1 col-md-2 col-sm-4 col-xs-4">{{:: servicestime}}</span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{:: storenote}}</span>
+                </div>
+                <hr />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize">
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: StoreData.name}} / {{:: StoreData.Town}}</span>
+                    <span class="col-lg-1 col-md-2 col-sm-4 col-xs-4">{{:: StoreData.StoreType}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: StoreData.phone}}</span>
+                    <span class="col-lg-1 col-md-2 col-sm-4 col-xs-4">{{:: StoreData.ServiceTime}}</span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{:: StoreData.notes}}</span>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: store}}</span>
+                    <span class="col-lg-1 col-md-2 col-sm-4 col-xs-4">{{:: storetype}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: storephone}}</span>
+                </div>
+                <hr />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize">
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: StoreData.name}} / {{:: StoreData.Town}}</span>
+                    <span class="col-lg-1 col-md-2 col-sm-4 col-xs-4">{{:: StoreData.StoreType}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: StoreData.phone}}</span>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                    <span class="col-lg-1 col-md-2 col-sm-4 col-xs-4">{{:: servicestime}}</span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{:: storenote}}</span>
+                </div>
+                <hr />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize">
+                    <span class="col-lg-1 col-md-2 col-sm-4 col-xs-4">{{:: StoreData.ServiceTime}}</span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{:: StoreData.notes}}</span>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+

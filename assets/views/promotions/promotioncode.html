@@ -1,0 +1,140 @@
+﻿<div ng-controller="promotioncodeCtrl as pc">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.PROMOTIONCODE" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="addItem()">
+                    <span translate="main.ADDCODE"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>
+                <input class="form-control" placeholder="{{'main.SEARCHBYPROMOTIONCODE' | translate}}" type="text" ng-model="pc.search" ng-model-options="{ debounce: 500 }" />
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive">
+        <table ng-table="pc.tableParams" class="table table-striped table-hover">
+            <tr ng-repeat="item in $data"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td data-title="trPromotion" data-sortable="'PromotionID'" style="width:7%" ng-click="rowform.$show()">
+                    <span class="text-capitalize" editable-select="item.PromotionID" e-name="PromotionID" e-ng-model="item.PromotionID" e-form="rowform"
+                          e-ng-options="q.id as q.name for q in promotions| orderBy:'+name'" e-style="width:10vw;">
+                        {{ShowObject('promotions','id',item.PromotionID,'name')}}
+                    </span>
+                </td>
+                <td data-title="trCode" data-sortable="'Code'" style="width:7%" ng-click="rowform.$show()" class="ng">
+                    <span editable-text="item.Code" e-name="Code" e-form="rowform" e-ng-model="item.Code" e-style="width:10vw;">
+                        {{ item.Code }}
+                    </span>
+                </td>
+                <td data-title="trUsedAt" data-sortable="'UsedAt'" width="7%">
+                    <input id="Date"
+                           type="text"
+                           class="form-control"
+                           ng-model="item.UsedAt"
+                           readonly
+                           ng-click="UsedAtPopup(item)" ng-show="rowform.$visible">
+
+                    <span ng-show="!rowform.$visible" e-name="UsedAt" e-form="rowform" e-ng-model="item.UsedAt" e-style="width:5vw;">
+                        {{ item.UsedAt| date:'dd.MM.yyyy' }}
+                    </span>
+                </td>
+                <td data-title="trStation" data-sortable="'Station'" style="width:7%" ng-click="rowform.$show()">
+                    <span class="text-capitalize" editable-select="item.Station" e-name="Station" e-ng-model="item.Station" e-form="rowform"
+                          e-ng-options="q.id as q.name for q in stations | orderBy:'+name'" e-style="width:5vw;">
+                        {{ShowObject('stations','id',item.Station,'name')}}
+                    </span>
+                </td>
+                <td data-title="trStartDate" data-sortable="'StartDate'" width="7%">
+                    <input id="Date"
+                           type="text"
+                           class="form-control"
+                           ng-model="item.StartDate"
+                           readonly
+                           ng-click="StartDatePopup(item)" ng-show="rowform.$visible">
+                    <span ng-show="!rowform.$visible" e-name="StartDate" e-form="rowform" e-ng-model="item.StartDate" e-style="width:5vw;">
+                        {{ item.StartDate| date:'dd.MM.yyyy' }}
+                    </span>
+                </td>
+                <td data-title="trEndDate" data-sortable="'EndDate'" width="7%">
+                    <input id="Date"
+                           type="text"
+                           class="form-control"
+                           ng-model="item.EndDate"
+                           readonly
+                           ng-click="EndDatePopup(item)" ng-show="rowform.$visible">
+
+                    <span ng-show="!rowform.$visible" e-name="EndDate" e-form="rowform" e-ng-model="item.EndDate" e-style="width:5vw;">
+                        {{ item.EndDate| date:'dd.MM.yyyy' }}
+                    </span>
+                </td>
+                <td data-title="trCreateDate" data-sortable="'CreateDate'" width="7%">
+                    {{ item.CreateDate| date:'dd.MM.yyyy' }}
+                </td>
+                <td data-title="trMaxAmount" data-sortable="'MaxAmount'" style="width:7%" ng-click="rowform.$show()" class="ng">
+                    {{ item.MaxAmount |number:2 }}
+                </td>
+                <td data-title="trPomotionCodeState" data-sortable="'PomotionCodeState'" style="width:7%">
+                    <span class="text-capitalize" editable-select="item.PomotionCodeState" e-name="PomotionCodeState" e-ng-model="item.PomotionCodeState" e-form="rowform"
+                          e-ng-options="q.Value as q.Name for q in promotioncodestates | orderBy:'+name'" e-style="width:10vw;">
+                        {{ShowObject('promotioncodestates','Value',item.PomotionCodeState,'Name')}}
+                    </span>
+                </td>
+                <td data-title="trProduct" data-sortable="'ProductID'" style="width:7%">
+                    <span class="text-capitalize" editable-select="item.ProductID" e-name="ProductID" e-ng-model="item.ProductID" e-form="rowform"
+                          e-ng-options="q.id as q.name for q in products | orderBy:'+name'" e-style="width:10vw;">
+                        {{ShowObject('products','id',item.ProductID,'name')}}
+                    </span>
+                </td>
+                <td data-title="trConfirmCode" data-sortable="'ConfirmCode'" style="width:7%" ng-click="rowform.$show()" class="ng">
+                    <span editable-text="item.ConfirmCode" e-name="ConfirmCode" e-form="rowform" e-ng-model="item.ConfirmCode" e-style="width:5vw;">
+                        {{ item.ConfirmCode }}
+                    </span>
+                </td>
+                <td data-title="trUsedOrderID" data-sortable="'DetailData.OrderID'" style="width:7%">
+                    <span editable-text="item.DetailData.OrderID" e-name="DetailData.OrderID" e-form="rowform" e-ng-model="item.DetailData.OrderID" e-style="width:5vw;">
+                        {{ item.DetailData.OrderID }} <br />
+                        {{ item.DetailData.OrderNumber }}
+                    </span>
+                </td>
+                <td data-title="trUsedStore" data-sortable="'DetailData.Store'" style="width:7%">
+                    <span editable-text="item.DetailData.Store" e-name="DetailData.Store" e-form="rowform" e-ng-model="item.DetailData.Store" e-style="width:5vw;">
+                        {{ item.DetailData.Store }}
+                    </span>
+                </td>
+                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="2%">
+                    <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                          shown="inserted == item|| !item.id">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                    </form>
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="Edit Period" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="Remove" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()"> Edit</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)"> Remove</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

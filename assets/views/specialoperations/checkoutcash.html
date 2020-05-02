@@ -1,0 +1,32 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">{{'main.ADDOUTCASH' |translate}}<button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body">
+    <!--<div class="panel panel-white col-lg-8 col-md-8 col-sm-8 col-xs-12 margin-top-20">-->
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <label translate="main.ADDOUTCASH" style="color:black;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold"></label>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <select class="form-control text-capitalize" ng-model="item.Value">
+                <option value="0">Kasa Giriş</option>
+                <option value="1">Kasa Çıkış</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <label style="color:black;" class="text-bold" translate="main.TRANSACTIONTYPE"></label>
+        <select class="form-control" ng-options="a.id as a.name for a in AccountTransactionGroups | orderBy:'+name'" ng-model="item.AccountTransactionGroupID"></select>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <label style="color:black;" class="text-bold margin-top-5">Miktar</label><br />
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <input type="number" class="form-control" ng-model="item.Amount" required>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <label translate="main.DESCRIPTION" style="color:black;" class="text-bold"></label><br />
+        <textarea style='max-height:100px; max-width:280px;' placeholder='{{main.DESCRIPTION}}' id='form-field-22' class='form-group form-control col-lg-12 col-md-12 col-sm-12 col-xs-12 text-uppercase' ng-model='item.Description' required></textarea>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="item.AccountTransactionGroupID && item.Value && item.Amount">
+        <button translate="main.SAVE" class="btn btn-primary col-lg-2 margin-top-5 pull-right text-uppercase" ng-click="LoadCheckOutCash(item)"></button>
+    </div>
+</div>

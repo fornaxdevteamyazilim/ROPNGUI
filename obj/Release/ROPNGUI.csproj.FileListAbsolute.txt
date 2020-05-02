@@ -1,0 +1,7 @@
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\bin\ROPNGUI.dll.config
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\bin\ROPNGUI.dll
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\bin\ROPNGUI.pdb
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Release\ROPNGUI.csprojAssemblyReference.cache
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Release\ROPNGUI.csproj.CoreCompileInputs.cache
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Release\ROPNGUI.dll
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Release\ROPNGUI.pdb

@@ -1,0 +1,261 @@
+﻿<div print-section ng-controller="transactionaccountsCtrl as trna">
+    <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+            <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+            <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span><br />
+            <span class="col-lg-12 pull-left">{{Time | date:'dd-MM-yyyy HH:mm'}} </span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <span class="mainTitle text-dark text-bold center" style="font-size:18px;" translate="tittle.ACCOUNTTRANSACTIONS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <span class="col-lg-12 pull-right">Başlangıç Tarihi: {{StartDate| date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">Bitiş Tarihi: {{EndDate| date:'dd-MM-yyyy'}}</span><br />
+        </div>
+    </div>
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ACCOUNTTRANSACTIONS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-5 visible-lg visible-md">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+        </div>
+        <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+                </div>
+            </div>
+            <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <span for="TransactionType">
+                    {{'main.TRANSACTIONTYPE' |translate}}
+                </span><br />
+                <select class="form-control text-capitalize ng" data-ng-options="q.Value as q.Name for q in accounttransactionstypes | orderBy:'+Name'" data-ng-model="TransactionType" ng-change="ChangeAccountTransactionType(TransactionType)"></select>
+            </div>
+            <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <span for="TransactionType">
+                    {{'main.TRANSACTIONGROUP' |translate}}
+                </span><br />
+                <select class="form-control text-capitalize ng" data-ng-options="q.id as q.name for q in AccountTransactionGroups | orderBy:'+name'" data-ng-model="AccountTransactionGroupID" ng-change="ChangeAccountTransactionGroups(AccountTransactionGroupID)"></select>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6" ng-if="user.restrictions.storeselected=='Enable'">
+                <span translate="main.STORE"></span> <span class="text-bold"></span><br />
+                <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-change="GetSoreID(StoreID)" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID">
+                    <option value=''></option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-15">
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadAccountTransactions()">
+                    <img ng-src="assets/images/report.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#transactionaccounts')">
+                    <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                </button>
+                <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                    <img ng-src="assets/images/print.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+
+            </div>
+
+        </div>
+
+        <div print-remove class="col-sm-12 col-xs-12 visible-sm visible-xs" ng-hide="isWaiting==true">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-sm-8 col-xs-8">
+                    <div class="col-sm-12 col-xs-12 margin-top-10">
+                        <span class="mainTitle text-dark" style="font-size:15px;" translate="tittle.ACCOUNTTRANSACTIONS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+                    </div>
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right visible-sm visible-xs">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+                </div>
+            </div>
+            <div class="form-group col-sm-4 col-xs-6">
+                <span for="TransactionType">
+                    {{'main.TRANSACTIONTYPE' |translate}}
+                </span><br />
+                <select class="form-control text-capitalize ng" data-ng-options="q.Value as q.Name for q in accounttransactionstypes | orderBy:'+Name'" data-ng-model="TransactionType" ng-change="ChangeAccountTransactionType(TransactionType)"></select>
+            </div>
+            <div class="form-group col-sm-4 col-xs-6">
+                <span for="TransactionType">
+                    {{'main.TRANSACTIONGROUP' |translate}}
+                </span><br />
+                <select class="form-control text-capitalize ng" data-ng-options="q.id as q.name for q in AccountTransactionGroups | orderBy:'+name'" data-ng-model="AccountTransactionGroupID" ng-change="ChangeAccountTransactionGroups(AccountTransactionGroupID)"></select>
+            </div>
+            <div print-remove class="col-sm-4 col-xs-6" ng-if="user.restrictions.storeselected=='Enable'">
+                <span translate="main.STORE"></span> <span class="text-bold"></span><br />
+                <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-change="GetSoreID(StoreID)" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID">
+                    <option value=''></option>
+                </select>
+            </div>
+            <div class="col-sm-4 col-xs-6 margin-top-15">
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadAccountTransactions()">
+                    <img ng-src="assets/images/report.png" style="width:4vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#transactionaccounts')">
+                    <img ng-src="assets/images/excel.png" style="width:4vw; height:3vh;" class="center" /><br />
+                </button>
+                <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                    <img ng-src="assets/images/print.png" style="width:4vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" ng-hide="isWaiting==true">
+        <div print-remove  id="transactionaccounts">
+            <table ng-table="trna.tableParams" class="table table-striped table-hover">
+                <tr ng-repeat="item in AccountTransactions | orderBy:'-TransacitonDate'"
+                    ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                    <td data-title="person" data-sortable="'ParentObject.name'" width="11%">
+                        <span e-name="ParentObject.name" e-min="0" e-form="rowform" e-ng-model="item.ParentObject.name">
+                            {{ item.ParentObject.name }} / {{item.ParentObject.PersonPhones[0].Number}}
+                        </span>
+                    </td>
+                    <td data-title="trTransactionTypeDescrition" data-sortable="'TransactionTypeDescrition'" width="11%">
+                        <span e-name="TransactionTypeDescrition" e-min="0" e-form="rowform" e-ng-model="item.TransactionTypeDescrition">
+                            {{ item.TransactionTypeDescrition }}
+                        </span>
+                    </td>
+                    <td data-title="trPaymentType" data-sortable="'PaymentType'" width="11%">
+                        <span e-name="PaymentType" e-min="0" e-form="rowform" e-ng-model="item.PaymentType">
+                            {{ item.PaymentType }}
+                        </span>
+                    </td>
+                    <td data-title="trDescription" data-sortable="'Description'" width="11%">
+                        <span editable-text="item.Description" e-name="Description" e-min="0" e-form="rowform" e-ng-model="item.Description" ng-if="user.restrictions.storeselected=='Enable'">
+                            {{ item.Description }}
+                        </span>
+                        <span e-name="Description" e-min="0" e-form="rowform" e-ng-model="item.Description"ng-if="user.restrictions.storeselected !='Enable'">
+                            {{ item.Description }}
+                        </span>
+                    </td>
+                    <td data-title="trTransacitonDate" data-sortable="'TransacitonDate'" width="11%">
+                        <span e-name="TransacitonDate"  e-min="0" e-form="rowform" e-ng-model="item.TransacitonDate">
+                            {{ item.TransacitonDate | date:'dd-MM-yyyy / HH:mm'}}
+                        </span>
+                    </td>
+                    <td data-title="trOperationDate" data-sortable="'OperationDate'" width="11%">
+                        <span e-name="OperationDate" e-min="0" e-form="rowform" e-ng-model="item.OperationDate">
+                            {{ item.OperationDate | date:'dd-MM-yyyy'}}
+                        </span>
+                    </td>
+                    <td data-title="trAmountTL" data-sortable="'Amount'" width="11%">
+                        <span class="pull-right" e-name="Amount" editable-text="item.Amount" e-min="0" e-form="rowform" e-ng-model="item.Amounts">
+                            {{ item.Amount | number : 2}}
+                        </span>
+                    </td>
+                    <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+                        <form editable-form name="rowform" onbeforesave="saveItem($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                              shown="inserted == item || !item.id">
+                            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                            <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close" ng-if="user.restrictions.storeselected=='Enable'"></button>
+                        </form>
+                        <div class="buttons pull-right" ng-show="!rowform.$visible">
+                            <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                            <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{:: delete}}" tooltip-placement="top" ng-click="removeItem($index)"ng-if="user.restrictions.storeselected=='Enable'"></a>
+                        </div>
+                        <div class="visible-xs visible-sm hidden-md hidden-lg">
+                            <div class="btn-group" dropdown is-open="status.isopen">
+                                <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                    <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                    <li>
+                                        <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()"> {{:: edit}}</a>
+                                    </li>
+                                    <li>
+                                        <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)"ng-if="user.restrictions.storeselected=='Enable'"> {{:: delete}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="bg-grey text-dark text-bold text-uppercase">
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.TOTAL' | translate }}</td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{Total |number:2}}</span></td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+            <div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: person}}</div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: trTransactionTypeDescrition}}</div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: trPaymentType}}</div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: trDescription}}</div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: trTransacitonDate}}</div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{:: trAmountTL}}</span></div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive margin-top-10" ng-repeat="item in AccountTransactions | orderBy:'-TransacitonDate'" style="border-bottom:1px solid;">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    {{ item.ParentObject.name }} / {{item.ParentObject.PersonPhones[0].Number}}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    {{ item.TransactionTypeDescrition }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    {{ item.PaymentType }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <span class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">{{ item.Description }}</span>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    {{ item.TransacitonDate| date:'dd-MM-yyyy / HH:mm' }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    {{ item.OperationDate| date:'dd-MM-yyyy' }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                   <span class="pull-right">{{ item.Amount | number : 2}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

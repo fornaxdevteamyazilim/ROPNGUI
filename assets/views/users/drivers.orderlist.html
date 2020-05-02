@@ -1,0 +1,63 @@
+﻿<div ng-init="app.layout.isSidebarClosed=false">
+    <div class="col-lg-12">
+        <tabset justified="true" class="tabbable">
+            <tab heading="{{'main.ORDERS' | translate}}" ng-controller="driverordersCtrl">
+                <div class="table-responsive">
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" ng-repeat="order in orders|filter:{OrderStateID:5}" order="order">
+                        <div class="panel panel-white">
+                            <div class="panel-heading col-lg-12">
+                                <h3 class="text-center bg-green text-capitalize">Hazır  </h3>
+                                <div class="col-lg-12">
+                                    <h3 class="text-bold text-green">
+                                        {{order.id}} / {{order.OrderNumber}} <label ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true }" class="pull-right text-capitalize">Delivery: {{order.TimerStr}}</label>
+                                    </h3>
+                                </div>
+                                <div class="col-lg-12">
+                                    <a class="ti-check text-green pull-right" tooltip="Siparişi Gönder" tooltip-placement="top" style="font-size:50px;" ng-click="SaveDeliveryOrder(order)"></a>
+                                    <label class="text-bold pull-left text-extra-large">{{order.OrderType}}</label>
+                                </div>
+                                <label class="text-bold pull-left text-extra-large"> {{order.Address.StreetAddress.name}} {{order.Address.StreetAddress.Quarter.name}} {{order.Address.StreetAddress.Quarter.Subcity.name}} {{order.Address.StreetAddress.Quarter.Subcity.Town.name}}</label>
+                            </div>
+                            <div class="panel-body">
+                                <form role="form">
+                                    <fieldset>
+                                        <div><span ng-repeat='member in order.items'><order-item member='member'></order-item></span></div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            
+            <tab heading="{{'main.DRIVERSORDERS' | translate}}" ng-controller="driverorderlistCtrl">
+                <div class="table-responsive">
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" ng-repeat="order in orders|filter:{OrderStateID:6}" order="order">
+                        <div class="panel panel-white">
+                            <div class="panel-heading col-lg-12">
+                                <h3 class="text-center bg-red text-capitalize" translate="main.OUTSIDE">Çıkan</h3>
+                                <h3 class="text-bold text-red">
+                                    {{order.id}} / {{order.OrderNumber}} <a class="ti-shift-left-alt text-red pull-right" tooltip="Dönüş İşle" tooltip-placement="top" style="font-size:50px;" ng-click="backdriver(order)"></a>
+                                </h3>
+                                <label class="text-bold pull-left text-extra-large"> {{order.Address.StreetAddress.name}} {{order.Address.StreetAddress.Quarter.name}} {{order.Address.StreetAddress.Quarter.Subcity.name}} {{order.Address.StreetAddress.Quarter.Subcity.Town.name}}</label>
+                            </div>
+
+                            <div class="panel-body">
+                                <form role="form">
+                                    <fieldset>
+                                        <div><span ng-repeat='member in order.items'><order-item member='member'></order-item></span></div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+        <div ng-controller="driverorderlistCtrl">
+            <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left  pull-right" ng-click="Back()">
+                <span translate="main.BACK"></span>
+            </a>
+        </div>
+    </div>
+</div>

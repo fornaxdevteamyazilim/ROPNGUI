@@ -1,0 +1,87 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+
+<div ng-controller="deliverytimeCtrl" class="panel-body">
+    <!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 margin-top-20">
+            <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.METERIALMOVEMENTLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+            <br />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 margin-top-20">
+            <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+            <label><input id="Date" type="text" class="form-control " ng-model="ReportParameters.DateFromDate" readonly ng-click="FromDate()" required></label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 margin-top-20">
+            <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+            <label><input id="Date" type="text" class="form-control" ng-model="ReportParameters.DateToDate" readonly ng-click="ToDate()" required></label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 margin-top-20">
+            <label class="pull-right">{{Time}}</label>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 margin-top-5">
+            <label translate="main.REPOSITORY" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Repository</label>
+            <select class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-change="GetRepository(item.toRepositoryID)" ng-options="q.id as q.name for q in repositories" ng-model="item.toRepositoryID"></select>
+            <label translate="main.INVENTORY" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top-10">Inventory</label>
+            <select class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top-10" ng-change="GetInventory(item.InventoryID)" ng-options="q.id as q.name for q in inventories" ng-model="item.InventoryID"></select>
+            <label translate="main.SELECTTAG" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top-10"></label>
+            <label class="text-bold col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top-10" style="color:black;"><input id="Date" type="text" class="form-control " ng-model="TagData.name" readonly ng-click="selecttag()" required></label>
+            <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-twitch center margin-top-5 pull-right" ng-click="LoadMeterialMovementListResults()">
+                <span translate="main.REPORT">Raporla</span>
+            </button>
+        </div>
+        <br />
+    </div>-->
+    <!--<table class="table table-responsive table-striped col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+        <tr>
+            <td translate="main.DATE" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">Tarih</td>
+            <td translate="main.INVENTORY" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">Envanter</td>
+            <td translate="main.INVENTORYUNIT" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">Envanter Birimi</td>
+            <td translate="main.UNITCOUNT" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">Unit Count</td>
+            <td translate="main.TOREPOSITORY" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">Giriş Deposu</td>
+            <td translate="main.OPERATION" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">Operation</td>
+            <td translate="main.DOCUMENTNO" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">Belge No</td>
+            <td translate="main.COMPANY" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">Şirket</td>
+            <td translate="main.PRICE" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">Fiyat</td>
+            <td translate="main.AMOUNT" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">Amount</td>
+            <td translate="main.VAT" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">KDV</td>
+            <td translate="main.DESCRIPTION" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left text-bold" style="color:black;">Açıklama</td>
+        </tr>
+        <tr ng-repeat="item in MeterialMovementListResults |filter:{ReportItemType:0}">
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.Date | date: "dd-MM-yyyy"}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.Inventory.name}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.InventoryUnit.name}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.UnitCount}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.toRepository.name}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.Operation}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.DocumentID}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.Company.Name}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.Price | number: 2 }} TL</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.Amount| number: 2 }} TL</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.VAT}} %</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left">{{item.Description}}</td>
+        </tr>
+        <tr class="bg-grey" ng-repeat="total in  MeterialMovementListResults |filter:{ReportItemType:2}">
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{''}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{''}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{'' }}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{total.UnitCount}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{total.toRepository.name || ''}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{''}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{total.DocumentID || ''}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{total.Company.Name || ''}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{total.Price}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{total.Amount}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{total.VAT}}</td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-left">{{total.Description}}</td>
+        </tr>
+    </table>-->
+</div>
+
+

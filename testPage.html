@@ -1,0 +1,499 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DevExtreme jQuery site</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://cdn3.devexpress.com/jslib/19.1.4/css/dx.common.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn3.devexpress.com/jslib/19.1.4/css/dx.light.css" />
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.js"></script>
+    <script type="text/javascript" src="http://cdn3.devexpress.com/jslib/19.1.4/js/dx.all.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0px;
+            padding: 0px;
+            font-family: 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            color: #565656;
+        }
+
+            body,
+            body.dx-theme-generic-typography {
+                background-color: #efefef;
+            }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', Helvetica, 'Trebuchet MS', 'Droid Sans', Tahoma, Geneva, sans-serif;
+            font-weight: 200;
+            font-size: 18px;
+            margin: 0px;
+        }
+
+        .header {
+            position: relative;
+            height: 62px;
+            background-color: #ffffff;
+            padding: 0px 40px;
+        }
+
+        .line {
+            background-color: #707070;
+            height: 5px;
+            margin: 0 0 20px;
+        }
+
+        .header .content {
+            width: 950px;
+            margin: 0 auto;
+            padding: 0px;
+        }
+
+            .header .content .button.dx-button .dx-button-text {
+                color: rgb(102, 102, 102);
+            }
+
+            .header .content .button.dx-button {
+                float: right;
+                margin: 13px 0 0 0;
+                -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, .35), 0 1px 1px rgba(0, 0, 0, .1);
+                -moz-box-shadow: inset 0 1px rgba(255, 255, 255, .35), 0 1px 1px rgba(0, 0, 0, .1);
+                box-shadow: inset 0 1px rgba(255, 255, 255, .35), 0 1px 1px rgba(0, 0, 0, .1);
+                background-color: #eae9e9;
+                background-repeat: no-repeat;
+                background-image: -webkit-linear-gradient(-90deg, #eae9e9 0%, #e0e0df 100%);
+                background-image: -moz-linear-gradient(-90deg, #eae9e9 0%, #e0e0df 100%);
+                background-image: -ms-linear-gradient(-90deg, #eae9e9 0%, #e0e0df 100%);
+                background-image: -o-linear-gradient(-90deg, #eae9e9 0%, #e0e0df 100%);
+                background-image: linear-gradient(180deg, #eae9e9 0%, #e0e0df 100%);
+                border: 1px solid rgba(0, 0, 0, .15);
+            }
+
+                .header .content .button.dx-button.dx-state-hover {
+                    background-color: #f8f8f8;
+                    background-repeat: no-repeat;
+                    background-image: -webkit-linear-gradient(-90deg, #f8f8f8 0%, #ededed 100%);
+                    background-image: -moz-linear-gradient(-90deg, #f8f8f8 0%, #ededed 100%);
+                    background-image: -ms-linear-gradient(-90deg, #f8f8f8 0%, #ededed 100%);
+                    background-image: -o-linear-gradient(-90deg, #f8f8f8 0%, #ededed 100%);
+                    background-image: linear-gradient(180deg, #f8f8f8 0%, #ededed 100%);
+                }
+
+                .header .content .button.dx-button.dx-state-active {
+                    background: #dcdcdc;
+                    -webkit-box-shadow: inset 0 1px 3px rgba(255, 255, 255, .1);
+                    -moz-box-shadow: inset 0 1px 3px rgba(255, 255, 255, .1);
+                    box-shadow: inset 0 1px 3px rgba(255, 255, 255, .1);
+                    border: 1px solid rgba(0, 0, 0, .2);
+                }
+
+            .header .content a.logo,
+            .header .content a.logo:link,
+            .header .content a.logo:visited,
+            .header .content a.logo:hover,
+            .header .content a.logo:active {
+                text-decoration: none;
+                display: block;
+                height: 36px;
+                color: #8c8c8c;
+                font-size: 24px;
+                background-image: url("images/logo.png");
+                background-repeat: no-repeat;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                width: 330px;
+            }
+
+            .header .content div.logo {
+                padding: 14px 0 0 0;
+            }
+
+        .menu-content {
+            background-color: #707070;
+            border: 0 solid #606060;
+            border-top-width: 1px;
+            min-height: 4px;
+            min-width: 950px;
+            padding: 0 40px;
+        }
+
+            .menu-content .democase-menu {
+                color: #ffffff;
+                width: 950px;
+                margin: 0 auto;
+                padding: 30px 0;
+            }
+
+                .menu-content .democase-menu > div {
+                    clear: both;
+                    padding-top: 20px;
+                }
+
+                .menu-content .democase-menu:after {
+                    content: " ";
+                    display: block;
+                    height: 0;
+                    clear: both;
+                    visibility: hidden;
+                }
+
+                .menu-content .democase-menu h5,
+                .menu-content .democase-menu h6 {
+                    font-weight: 400;
+                    text-transform: none;
+                    padding: 0 0 10px 0;
+                }
+
+                .menu-content .democase-menu h6 {
+                    font-family: 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+                    font-weight: 700;
+                    font-size: 4px;
+                    padding: 0;
+                }
+
+                .menu-content .democase-menu .category {
+                    height: 100%;
+                    width: 25%;
+                    float: left;
+                }
+
+        .category .subcategory {
+            padding: 0 0 20px 0;
+        }
+
+        .category h5 {
+            margin: 0px;
+        }
+
+        .category .subcategory h6 {
+            margin: 0px;
+        }
+
+        .category .subcategory ul {
+            list-style-type: none;
+            margin: 0px;
+            padding: 0px;
+        }
+
+            .category .subcategory ul li {
+                line-height: 18px;
+            }
+
+                .category .subcategory ul li a {
+                    cursor: pointer;
+                    text-decoration: none;
+                    color: white;
+                }
+
+                    .category .subcategory ul li.active a,
+                    .category .subcategory ul li a:hover {
+                        background-color: #B0B0B0;
+                        margin: -2px -3px;
+                        padding: 2px 3px;
+                    }
+
+                .category .subcategory ul li.active a {
+                    background-color: #ffffff;
+                    color: #707070;
+                }
+
+                .category .subcategory ul li a:after {
+                    position: relative;
+                    display: inline-block;
+                    background-color: #f05b41;
+                    height: 12px;
+                    top: -2px;
+                    left: 5px;
+                    margin: 0 5px 0 0;
+                    font-size: 10px;
+                    line-height: 10px;
+                    padding-left: 2px;
+                    padding-right: 2px;
+                }
+
+                .category .subcategory ul li.isnew a:after {
+                    content: 'New';
+                    width: 22px;
+                }
+
+                .category .subcategory ul li.isupdated a:after {
+                    content: 'Upd';
+                    width: 21px;
+                }
+
+        .title {
+            height: 45px;
+            line-height: 45px;
+            margin: 0 auto;
+            padding: 0 40px;
+            width: 950px;
+        }
+
+        #dx-viewport .title h1,
+        #dx-viewport .dx-theme-generic-typography .title h1,
+        #dx-viewport .title h2,
+        #dx-viewport .dx-theme-generic-typography .title h2 {
+            display: inline;
+            font-size: 30px;
+            color: #565656;
+            text-transform: none;
+        }
+
+        #dx-viewport .title h2,
+        #dx-viewport.dx-theme-generic-typography .title h2 {
+            color: #f05b41;
+            padding-left: 10px;
+        }
+
+        #dx-viewport .title.min-font h1,
+        #dx-viewport .title.min-font h2 {
+            font-size: 23px;
+        }
+
+        .content.containerPlaceholder {
+            margin: 0 auto;
+            padding: 0 40px;
+            width: 950px;
+            position: relative;
+        }
+
+        .pane.dark {
+            background-color: #303030;
+            border-color: #303030;
+            color: #818181;
+        }
+
+        .pane {
+            position: relative;
+            background-color: #ffffff;
+            border: 1px solid #cfcfcf;
+            border-radius: 0px;
+            width: 1080px;
+            min-height: 640px;
+            padding: 0px;
+            margin: 0px;
+            box-shadow: 0px 1px 3px 0px #e3e3e3;
+            box-shadow: 0px 1px 3px 0px rgba(112, 112, 112, 0.05);
+        }
+
+            .pane .long-title {
+                position: absolute;
+                top: -40px;
+                text-align: center;
+                width: 850px;
+                overflow: hidden;
+            }
+
+                .pane .long-title h3 {
+                    font-size: 28px;
+                    font-weight: 200;
+                }
+
+            .pane .credits {
+                color: rgba(128, 128, 128, 0.75);
+                position: absolute;
+                bottom: -30px;
+                right: 30px;
+            }
+
+            .pane > div {
+                position: relative;
+            }
+
+            .pane svg {
+                margin: 0 auto;
+            }
+
+        .tab {
+            font-size: 14px;
+            font-family: 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+        }
+
+        .containerPlaceholder .light-theme {
+            background: url('images/Light.png') no-repeat;
+            z-index: 1;
+            right: 180px;
+            color: #565656;
+        }
+
+            .containerPlaceholder .light-theme.active {
+                background: url('images/Light-Active.png') no-repeat;
+                z-index: 2;
+            }
+
+        .containerPlaceholder .dark-theme {
+            background: url('images/Dark.png') no-repeat;
+            right: 70px;
+            z-index: 1;
+            color: #949494;
+        }
+
+            .containerPlaceholder .dark-theme.active {
+                z-index: 2;
+            }
+
+            .containerPlaceholder .light-theme .text,
+            .containerPlaceholder .dark-theme .text {
+                margin-top: 3px;
+            }
+
+        .containerPlaceholder .light-theme,
+        .containerPlaceholder .dark-theme {
+            width: 135px;
+            height: 23px;
+            background-position: center;
+            background-size: cover;
+            cursor: pointer;
+            position: absolute;
+            top: -22px;
+            text-align: center;
+        }
+    </style>
+    <script id="jsCode">
+        $(function () {
+            var sales = [{ 'id': 1, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Gaji Pokok (HRIS)', 'target': 51419.53, 'aktual': 0, 'var': -51419.53, 'persen': -1, 'target_ytd': 514195.3, 'aktual_ytd': 2984094569, 'var_ytd': 2983580373.7, 'persen_ytd': 5802.4263809879, 'date': '2016/10/01' }, { 'id': 2, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Tunjangan Variabel (HRIS)', 'target': 2240, 'aktual': 0, 'var': -2240, 'persen': -1, 'target_ytd': 22400, 'aktual_ytd': 57325000, 'var_ytd': 57302600, 'persen_ytd': 2558.1517857143, 'date': '2016/10/01' }, { 'id': 3, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Lembur (HRIS)', 'target': 9331.01, 'aktual': 0, 'var': -9331.01, 'persen': -1, 'target_ytd': 88060.76, 'aktual_ytd': 562201203, 'var_ytd': 562113142.24, 'persen_ytd': 6383.2420051792, 'date': '2016/10/01' }, { 'id': 4, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Biaya Pengobatan', 'target': 926.58, 'aktual': 0, 'var': -926.58, 'persen': -1, 'target_ytd': 9265.8, 'aktual_ytd': 51298855, 'var_ytd': 51289589.2, 'persen_ytd': 5535.3654514451, 'date': '2016/10/01' }, { 'id': 5, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Asuransi BPJS / Dapen Hari Tua (HRIS)', 'target': 3094.42, 'aktual': 0, 'var': -3094.42, 'persen': -1, 'target_ytd': 30944.2, 'aktual_ytd': 162325866, 'var_ytd': 162294921.8, 'persen_ytd': 5244.7606271935, 'date': '2016/10/01' }, { 'id': 6, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'THR & Bonus (HRIS)', 'target': 5989.63, 'aktual': 0, 'var': -5989.63, 'persen': -1, 'target_ytd': 114956.08, 'aktual_ytd': 782582919, 'var_ytd': 782467962.92, 'persen_ytd': 6806.6687983793, 'date': '2016/10/01' }, { 'id': 7, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Insentif dan Premi (HRIS)', 'target': 2013.64, 'aktual': 0, 'var': -2013.64, 'persen': -1, 'target_ytd': 20047.45, 'aktual_ytd': 103998195, 'var_ytd': 103978147.55, 'persen_ytd': 5186.6021638662, 'date': '2016/10/01' }, { 'id': 8, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Training & Workshop', 'target': 55.13, 'aktual': 0, 'var': -55.13, 'persen': -1, 'target_ytd': 551.3, 'aktual_ytd': 0, 'var_ytd': -551.3, 'persen_ytd': -1, 'date': '2016/10/01' }, { 'id': 9, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Kewajiban Imbalan Pasca Kerja (Employee', 'target': 3274.89, 'aktual': 0, 'var': -3274.89, 'persen': -1, 'target_ytd': 32748.9, 'aktual_ytd': 123911154, 'var_ytd': 123878405.1, 'persen_ytd': 3782.6737722488, 'date': '2016/10/01' }, { 'id': 10, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Biaya Makan Minum Karyawan', 'target': 876.69, 'aktual': 0, 'var': -876.69, 'persen': -1, 'target_ytd': 8766.9, 'aktual_ytd': 59686250, 'var_ytd': 59677483.1, 'persen_ytd': 6807.136285346, 'date': '2016/10/01' }, { 'id': 11, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Gaji Pokok - Indirect (HRIS)', 'target': 6875.8, 'aktual': 0, 'var': -6875.8, 'persen': -1, 'target_ytd': 68758, 'aktual_ytd': 498203342, 'var_ytd': 498134584, 'persen_ytd': 7244.7509235289, 'date': '2016/10/01' }, { 'id': 12, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Biaya Buruh Harian Lepas', 'target': 118.59, 'aktual': 0, 'var': -118.59, 'persen': -1, 'target_ytd': 1185.9, 'aktual_ytd': 105228600, 'var_ytd': 105227414.1, 'persen_ytd': 88732.114090564, 'date': '2016/10/01' }, { 'id': 13, 'pabrik': 'ABL1', 'nama_coa': '02. Travelling & Transportation', 'detail_coa': 'Biaya Perjalanan Dinas - Akomodasi', 'target': 243.9, 'aktual': 0, 'var': -243.9, 'persen': -1, 'target_ytd': 2439, 'aktual_ytd': 42070000, 'var_ytd': 42067561, 'persen_ytd': 17247.872488725, 'date': '2016/10/01' }, { 'id': 14, 'pabrik': 'ABL1', 'nama_coa': '02. Travelling & Transportation', 'detail_coa': 'Biaya Perjalanan Dinas - Hotel', 'target': 222.93, 'aktual': 0, 'var': -222.93, 'persen': -1, 'target_ytd': 2229.3, 'aktual_ytd': 11697000, 'var_ytd': 11694770.7, 'persen_ytd': 5245.9385008747, 'date': '2016/10/01' }, { 'id': 15, 'pabrik': 'ABL1', 'nama_coa': '02. Travelling & Transportation', 'detail_coa': 'Biaya Perjalanan Dinas - Transportasi', 'target': 422.38, 'aktual': 0, 'var': -422.38, 'persen': -1, 'target_ytd': 4223.8, 'aktual_ytd': 39768500, 'var_ytd': 39764276.2, 'persen_ytd': 9414.3369004214, 'date': '2016/10/01' }, { 'id': 16, 'pabrik': 'ABL1', 'nama_coa': '02. Travelling & Transportation', 'detail_coa': 'Biaya Transportasi', 'target': 1677.51, 'aktual': 0, 'var': -1677.51, 'persen': -1, 'target_ytd': 16775.1, 'aktual_ytd': 114922647, 'var_ytd': 114905871.9, 'persen_ytd': 6849.7875959011, 'date': '2016/10/01' }, { 'id': 17, 'pabrik': 'ABL1', 'nama_coa': '03. Biaya Energi', 'detail_coa': 'Biaya Listrik', 'target': 43916.2, 'aktual': 0, 'var': -43916.2, 'persen': -1, 'target_ytd': 375360.81, 'aktual_ytd': 2641709444, 'var_ytd': 2641334083.19, 'persen_ytd': 7036.7870401548, 'date': '2016/10/01' }, { 'id': 18, 'pabrik': 'ABL1', 'nama_coa': '05. Perbaikan dan Perawatan', 'detail_coa': 'Biaya Pemakaian Solar', 'target': 7202.47, 'aktual': 0, 'var': -7202.47, 'persen': -1, 'target_ytd': 58875.18, 'aktual_ytd': 1339398602, 'var_ytd': 1339339726.82, 'persen_ytd': 22748.800544134, 'date': '2016/10/01' }, { 'id': 19, 'pabrik': 'ABL1', 'nama_coa': '05. Perbaikan dan Perawatan', 'detail_coa': 'Biaya Pemakaian Cangkang Sawit', 'target': 11716.34, 'aktual': 0, 'var': -11716.34, 'persen': -1, 'target_ytd': 102239.39, 'aktual_ytd': 768810991, 'var_ytd': 768708751.61, 'persen_ytd': 7518.714182567, 'date': '2016/10/01' }, { 'id': 20, 'pabrik': 'ABL1', 'nama_coa': '04. Biaya Depresiasi', 'detail_coa': 'Biaya Depresiasi Bangunan', 'target': 16383.17, 'aktual': 0, 'var': -16383.17, 'persen': -1, 'target_ytd': 163737.95, 'aktual_ytd': 1144634635, 'var_ytd': 1144470897.05, 'persen_ytd': 6989.6496020012, 'date': '2016/10/01' }, { 'id': 21, 'pabrik': 'ABL1', 'nama_coa': '04. Biaya Depresiasi', 'detail_coa': 'Biaya Depresiasi Instalasi', 'target': 16055.33, 'aktual': 0, 'var': -16055.33, 'persen': -1, 'target_ytd': 160356.45, 'aktual_ytd': 1116508278, 'var_ytd': 1116347921.55, 'persen_ytd': 6961.6652248787, 'date': '2016/10/01' }, { 'id': 22, 'pabrik': 'ABL1', 'nama_coa': '04. Biaya Depresiasi', 'detail_coa': 'Biaya Depresiasi Mesin', 'target': 11187.19, 'aktual': 0, 'var': -11187.19, 'persen': -1, 'target_ytd': 109090.66, 'aktual_ytd': 684312719, 'var_ytd': 684203628.34, 'persen_ytd': 6271.8809139114, 'date': '2016/10/01' }, { 'id': 23, 'pabrik': 'ABL1', 'nama_coa': '04. Biaya Depresiasi', 'detail_coa': 'Biaya Depresiasi Peralatan', 'target': 51559.18, 'aktual': 0, 'var': -51559.18, 'persen': -1, 'target_ytd': 515470.69, 'aktual_ytd': 3504859338, 'var_ytd': 3504343867.31, 'persen_ytd': 6798.3377819406, 'date': '2016/10/01' }, { 'id': 24, 'pabrik': 'ABL1', 'nama_coa': '04. Biaya Depresiasi', 'detail_coa': 'Biaya Depresiasi Kendaraan', 'target': 3283.08, 'aktual': 0, 'var': -3283.08, 'persen': -1, 'target_ytd': 32530.8, 'aktual_ytd': 227190891, 'var_ytd': 227158360.2, 'persen_ytd': 6982.8703935962, 'date': '2016/10/01' }, { 'id': 25, 'pabrik': 'ABL1', 'nama_coa': '04. Biaya Depresiasi', 'detail_coa': 'Biaya Depresiasi Furniture', 'target': 67.98, 'aktual': 0, 'var': -67.98, 'persen': -1, 'target_ytd': 679.8, 'aktual_ytd': 5041651, 'var_ytd': 5040971.2, 'persen_ytd': 7415.3739335099, 'date': '2016/10/01' }, { 'id': 26, 'pabrik': 'ABL1', 'nama_coa': '02. Travelling & Transportation', 'detail_coa': 'Biaya Transportasi', 'target': 6.67, 'aktual': 0, 'var': -6.67, 'persen': -1, 'target_ytd': 66.7, 'aktual_ytd': 700000, 'var_ytd': 699933.3, 'persen_ytd': 10493.752623688, 'date': '2016/10/01' }, { 'id': 27, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Gaji Pokok (HRIS)', 'target': 6383.69, 'aktual': 0, 'var': -6383.69, 'persen': -1, 'target_ytd': 63836.9, 'aktual_ytd': 612590118, 'var_ytd': 612526281.1, 'persen_ytd': 9595.175848138, 'date': '2016/10/01' }, { 'id': 28, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Tunjangan Variabel (HRIS)', 'target': 230, 'aktual': 0, 'var': -230, 'persen': -1, 'target_ytd': 2300, 'aktual_ytd': 14095000, 'var_ytd': 14092700, 'persen_ytd': 6127.2608695652, 'date': '2016/10/01' }, { 'id': 29, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Lembur (HRIS)', 'target': 2067.28, 'aktual': 0, 'var': -2067.28, 'persen': -1, 'target_ytd': 20583.25, 'aktual_ytd': 110874547, 'var_ytd': 110853963.75, 'persen_ytd': 5385.6394762732, 'date': '2016/10/01' }, { 'id': 30, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Biaya Pengobatan', 'target': 572.53, 'aktual': 0, 'var': -572.53, 'persen': -1, 'target_ytd': 5725.3, 'aktual_ytd': 24283975, 'var_ytd': 24278249.7, 'persen_ytd': 4240.5200950169, 'date': '2016/10/01' }, { 'id': 31, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Asuransi BPJS / Dapen Hari Tua (HRIS)', 'target': 933.1, 'aktual': 0, 'var': -933.1, 'persen': -1, 'target_ytd': 9087.64, 'aktual_ytd': 70331179, 'var_ytd': 70322091.36, 'persen_ytd': 7738.2127108908, 'date': '2016/10/01' }, { 'id': 32, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'THR & Bonus (HRIS)', 'target': 4020.4, 'aktual': 0, 'var': -4020.4, 'persen': -1, 'target_ytd': 57544.3, 'aktual_ytd': 458374109, 'var_ytd': 458316564.7, 'persen_ytd': 7964.5866697483, 'date': '2016/10/01' }, { 'id': 33, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Insentif dan Premi (HRIS)', 'target': 103.2, 'aktual': 0, 'var': -103.2, 'persen': -1, 'target_ytd': 1026.88, 'aktual_ytd': 16417265, 'var_ytd': 16416238.12, 'persen_ytd': 15986.520450296, 'date': '2016/10/01' }, { 'id': 34, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Training & Workshop', 'target': 21.89, 'aktual': 0, 'var': -21.89, 'persen': -1, 'target_ytd': 218.9, 'aktual_ytd': 11310771, 'var_ytd': 11310552.1, 'persen_ytd': 51669.950205573, 'date': '2016/10/01' }, { 'id': 35, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Biaya Makan Minum Karyawan', 'target': 896.46, 'aktual': 0, 'var': -896.46, 'persen': -1, 'target_ytd': 8964.6, 'aktual_ytd': 96644061, 'var_ytd': 96635096.4, 'persen_ytd': 10779.632822435, 'date': '2016/10/01' }, { 'id': 36, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Gaji Pokok - Indirect (HRIS)', 'target': 12454.68, 'aktual': 0, 'var': -12454.68, 'persen': -1, 'target_ytd': 120055.74, 'aktual_ytd': 720971206, 'var_ytd': 720851150.26, 'persen_ytd': 6004.3039196626, 'date': '2016/10/01' }, { 'id': 37, 'pabrik': 'ABL1', 'nama_coa': '01. Employee Cost', 'detail_coa': 'Biaya Karyawan Magang / Outsource', 'target': 111.16, 'aktual': 0, 'var': -111.16, 'persen': -1, 'target_ytd': 1111.6, 'aktual_ytd': 0, 'var_ytd': -1111.6, 'persen_ytd': -1, 'date': '2016/10/01' }, { 'id': 38, 'pabrik': 'ABL1', 'nama_coa': '02. Travelling & Transportation', 'detail_coa': 'Biaya Perjalanan Dinas - Akomodasi', 'target': 517.53, 'aktual': 0, 'var': -517.53, 'persen': -1, 'target_ytd': 5175.3, 'aktual_ytd': 37610625, 'var_ytd': 37605449.7, 'persen_ytd': 7266.3323285607, 'date': '2016/10/01' }, { 'id': 39, 'pabrik': 'ABL1', 'nama_coa': '02. Travelling & Transportation', 'detail_coa': 'Biaya Perjalanan Dinas - Hotel', 'target': 175.63, 'aktual': 0, 'var': -175.63, 'persen': -1, 'target_ytd': 1756.3, 'aktual_ytd': 22414712, 'var_ytd': 22412955.7, 'persen_ytd': 12761.461993965, 'date': '2016/10/01' }, { 'id': 40, 'pabrik': 'ABL1', 'nama_coa': '02. Travelling & Transportation', 'detail_coa': 'Biaya Perjalanan Dinas - Transportasi', 'target': 231.81, 'aktual': 0, 'var': -231.81, 'persen': -1, 'target_ytd': 2318.1, 'aktual_ytd': 33085977, 'var_ytd': 33083658.9, 'persen_ytd': 14271.885984211, 'date': '2016/10/01' }, { 'id': 41, 'pabrik': 'ABL1', 'nama_coa': '02. Travelling & Transportation', 'detail_coa': 'Biaya Transportasi', 'target': 600.25, 'aktual': 0, 'var': -600.25, 'persen': -1, 'target_ytd': 6002.5, 'aktual_ytd': 51268697, 'var_ytd': 51262694.5, 'persen_ytd': 8540.2239900042, 'date': '2016/10/01' }, { 'id': 42, 'pabrik': 'ABL1', 'nama_coa': '03. Biaya Energi', 'detail_coa': 'Biaya Listrik', 'target': 397.18, 'aktual': 0, 'var': -397.18, 'persen': -1, 'target_ytd': 3394.77, 'aktual_ytd': 37175751, 'var_ytd': 37172356.23, 'persen_ytd': 10949.889456429, 'date': '2016/10/01' }, { 'id': 43, 'pabrik': 'ABL1', 'nama_coa': '04. Biaya Depresiasi', 'detail_coa': 'Biaya Depresiasi Bangunan', 'target': 143.78, 'aktual': 0, 'var': -143.78, 'persen': -1, 'target_ytd': 1437.8, 'aktual_ytd': 10064740, 'var_ytd': 10063302.2, 'persen_ytd': 6999.0973709834, 'date': '2016/10/01' }, { 'id': 44, 'pabrik': 'ABL1', 'nama_coa': '04. Biaya Depresiasi', 'detail_coa': 'Biaya Depresiasi Instalasi', 'target': 22.43, 'aktual': 0, 'var': -22.43, 'persen': -1, 'target_ytd': 224.3, 'aktual_ytd': 1569947, 'var_ytd': 1569722.7, 'persen_ytd': 6998.3178778422, 'date': '2016/10/01' }, { 'id': 45, 'pabrik': 'ABL1', 'nama_coa': '04. Biaya Depresiasi', 'detail_coa': 'Biaya Depresiasi Peralatan', 'target': 134.35, 'aktual': 0, 'var': -134.35, 'persen': -1, 'target_ytd': 974.77, 'aktual_ytd': 0, 'var_ytd': -974.77, 'persen_ytd': -1, 'date': '2016/10/01' }, { 'id': 46, 'pabrik': 'ABL1', 'nama_coa': '04. Biaya Depresiasi', 'detail_coa': 'Biaya Depresiasi Kendaraan', 'target': 778.41, 'aktual': 0, 'var': -778.41, 'persen': -1, 'target_ytd': 7784.1, 'aktual_ytd': 54488636, 'var_ytd': 54480851.9, 'persen_ytd': 6998.9917781118, 'date': '2016/10/01' }, { 'id': 47, 'pabrik': 'ABL1', 'nama_coa': '04. Biaya Depresiasi', 'detail_coa': 'Biaya Depresiasi Furniture', 'target': 1598.82, 'aktual': 0, 'var': -1598.82, 'persen': -1, 'target_ytd': 15988.2, 'aktual_ytd': 109773111, 'var_ytd': 109757122.8, 'persen_ytd': 6864.8830262318, 'date': '2016/10/01' }, { 'id': 48, 'pabrik': 'ABL1', 'nama_coa': ' Number of Employee', 'detail_coa': ' ', 'target': 31700, 'aktual': 0, 'var': -31700, 'persen': -1, 'target_ytd': 317000, 'aktual_ytd': 0, 'var_ytd': -317000, 'persen_ytd': -1, 'date': '2016/10/01' }, { 'id': 49, 'pabrik': 'ABL1', 'nama_coa': ' Qty. Production', 'detail_coa': ' ', 'target': 180000, 'aktual': 340.87, 'var': -179659.13, 'persen': -0.99810627777778, 'target_ytd': 1560201.18, 'aktual_ytd': 15788290, 'var_ytd': 14228088.82, 'persen_ytd': 9.1193937053682, 'date': '2016/10/01' }, { 'id': 50, 'pabrik': 'ABL1', 'nama_coa': ' Qty. Purchase', 'detail_coa': ' ', 'target': 192528, 'aktual': 0, 'var': -192528, 'persen': -1, 'target_ytd': 1733978.1, 'aktual_ytd': 0, 'var_ytd': -1733978.1, 'persen_ytd': -1, 'date': '2016/10/01' }, { 'id': 51, 'pabrik': 'ABL1', 'nama_coa': ' Qty. Sales', 'detail_coa': ' ', 'target': 201945, 'aktual': 23, 'var': -201922, 'persen': -0.99988610760356, 'target_ytd': 1510550.18, 'aktual_ytd': 14925960, 'var_ytd': 13415409.82, 'persen_ytd': 8.8811414527123, 'date': '2016/10/01' }];
+
+
+            $("#pivotgrid").dxPivotGrid({
+                rowAlternationEnabled: true,
+                showColumnGrandTotals: false,
+                showColumnTotals: false,
+                allowSortingBySummary: true,
+                allowSorting: true,
+                allowFiltering: true,
+                allowExpandAll: true,
+                height: 640,
+                fieldChooser: {
+                    enabled: true
+                },
+                scrolling: {
+                    mode: "virtual"
+                },
+                "export": {
+                    enabled: true,
+                    fileName: "Report Budget Cost Production"
+                },
+                onCellPrepared: function (e) {
+
+                    e.cellElement.css("font-size", "12px");
+                    var cek_kolom = e.cell.text;
+                    if (e.area == 'row') {
+                        if ((cek_kolom == ' Number of Employee') || (cek_kolom == ' Qty. Production') || (cek_kolom == ' Qty. Purchase') || (cek_kolom == ' Qty. Sales')) {
+                            e.cellElement.css("background-color", "#99a8a1");
+                            e.cellElement.css("color", "white");
+                        }
+                    } else if (e.area == "column") {
+                        if ((cek_kolom == 'Target MTD') || (cek_kolom == 'Aktual MTD') || (cek_kolom == 'Var MTD') || (cek_kolom == 'Persen MTD')) {
+                            e.cellElement.css("background-color", "#65cf9e");
+                            e.cellElement.css("color", "white");
+                        } else if ((cek_kolom == 'Target YTD') || (cek_kolom == 'Aktual YTD') || (cek_kolom == 'Var YTD') || (cek_kolom == 'Persen YTD')) {
+                            e.cellElement.css("background-color", "#26c37b");
+                            e.cellElement.css("color", "white");
+                        } else {
+                            e.cellElement.css("background-color", "#00a65a");
+                            e.cellElement.css("color", "white");
+                        }
+                    } else if (e.area == "data") {
+
+                        var dataField = e.component.getDataSource().getAreaFields("data")[e.cell.dataIndex];
+
+                        if (dataField.caption === "Var YTD" && e.cell.value > 0 && e.cell.rowType == "D") {
+                            e.cellElement.css("background-color", "green");
+
+                        }
+
+                        //   var yTDColIndex = e.component.getDataSource().field("Var YTD").areaIndex;
+                        //   if(yTDColIndex == e.cell.dataIndex && e.cell.value > 0 && e.cell.rowType == "D"){
+                        //         e.cellElement.css("background-color", "green");
+                        //   }
+                    } else {
+
+                    }
+                },
+                dataSource: {
+                    fields: [
+                        { caption: "Pabrik", width: 40, dataField: "pabrik", area: "row", expanded: true },
+                        { caption: "Nama", width: 180, dataField: "nama_coa", area: "row", expanded: false },
+                        { caption: "Detail", dataField: "detail_coa", width: 150, area: "row" },
+                        { area: "column", dataField: "date", dataType: "date", groupInterval: "year" },
+                        { area: "column", dataField: "date", dataType: "date", groupInterval: "month" },
+                        // {caption: "Target MTD",dataField: "target",dataType: "number",summaryType: "sum",format: "fixedPoint",area: "data"},
+                        {
+                            caption: "Target MTD", dataType: "number", format: "fixedPoint", area: "data", name: "aktual",
+                            summaryType: 'custom',
+                            calculateSummaryValue: function (args) {
+                                var sum = 0;
+
+                                if (args.field("row") && args.field("row").caption === "Pabrik") {
+                                    var children = args.children("row");
+                                    for (var i = 0; i < children.length; i++) {
+                                        if (i > 3) {  // setp over through first 3 cells
+                                            sum += children[i].value();
+                                        }
+                                    }
+
+                                    return sum;
+
+                                } else {
+
+                                    return args.value();
+                                }
+
+
+                            },
+
+                            calculateCustomSummary: function (options) {
+                                console.log(options);
+                                if (options.summaryProcess == 'start') {
+                                    options.totalValue = { sum: 0 };
+                                }
+                                if (options.summaryProcess == 'calculate') {
+                                    options.totalValue.sum += options.value.target;
+                                }
+                                if (options.summaryProcess == 'finalize') {
+                                    options.totalValue = options.totalValue.sum;
+                                }
+                            }
+                        },
+                        { caption: "Aktual MTD", dataField: "aktual", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data" },
+                        { caption: "Var MTD", dataField: "var", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data" },
+                        { caption: "Persen MTD", dataField: "persen", dataType: "number", summaryType: "avg", format: "percent", precision: 0, area: "data" },
+                        { caption: "Target YTD", dataField: "target_ytd", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data" },
+                        { caption: "Aktual YTD", dataField: "aktual_ytd", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data" },
+                        { caption: "Var YTD", dataField: "var_ytd", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data" },
+                        { caption: "Persen YTD", dataField: "persen_ytd", dataType: "number", summaryType: "avg", format: "percent", precision: 0, area: "data" }
+
+                    ],
+                    store: sales
+
+                }
+
+            });
+        }
+
+        );
+    </script>
+
+</head>
+
+<body>
+    <div class="pane dx-theme-desktop">
+        <div>
+            <div class="long-title">
+                <h3></h3>
+            </div>
+            <div id="full">
+                <div id="pivotgrid"></div>
+            </div>
+            <div class="credits"></div>
+        </div>
+    </div>
+</body>
+
+</html>

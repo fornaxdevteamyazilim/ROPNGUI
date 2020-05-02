@@ -1,0 +1,70 @@
+﻿
+
+    <div ng-controller="streetaddressCtrl as vm">
+    <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+    <h1>Adresses</h1>
+    <p>
+        <input class="form-control" placeholder="Search by name" type="text" ng-model="vm.search" ng-model-options="{ debounce: 500 }" />
+        <!--<button class="btn btn-primary" ng-click="pop()">Show toasts</button>-->
+
+
+    </p>
+    <button class="btn btn-default" ng-click="addItem()">Add row</button>
+        <a class="btn btn-default" href="#/app/streetaddress/streetaddresses/edit/new">Add Form</a>
+    <table ng-table="vm.tableParams" class="table table-striped table-bordered table-hover">
+        <tr ng-repeat="adress in $data">
+            <!--<td data-title="'ID'" data-sortable="'id'" style="width:20%" ng-click="SetCurrentAddress(adress)">
+                {{adress.id}}
+            </td>-->
+            <td data-title="'Name'" data-sortable="'name'" style="width:30%">
+                <span editable-text=" adress.name" e-name="name" e-form="rowform" e-ng-model="adress.name" e-required>
+                    {{ adress.name || DisplayRowForm(rowform) }}
+                </span>
+            </td>
+            <!--<td data-title="'fk_ObjectUpdate_id'" data-sortable="'fk_ObjectUpdate_id'" style="width:20%">
+                {{adress.fk_ObjectUpdate_id}}
+            </td>-->
+            <td data-title="'Street Address'" data-sortable="'StreetAddressTypeID'" style="width:20%">
+                <span editable-select="adress.StreetAddressTypeID" e-name="StreetAddressTypeID" onshow="loadAddressTypes()" e-form="rowform" e-ng-options="g.id as g.name for g in addresstypes">
+                    {{ ShowAddressType(adress) }}
+                </span>
+
+            </td>
+            <td data-title="'Quarters'" data-sortable="'QuarterID'" style="width:20%">
+                <span editable-select="adress.QuarterID" e-name="QuarterID" onshow="loadQuarters()" e-ng-model="adress.QuarterID" e-form="rowform" e-ng-options="q.id as q.name for q in quartersList" e-required>
+                    {{ ShowQuarter(adress) }}
+                </span>
+
+            </td>
+            <td data-title="'Notes'" data-sortable="'Notes'" style="width:30%">
+                <span editable-text=" adress.Notes" e-name="Notes" e-form="rowform" e-ng-model="adress.Notes" e-required>
+                    {{ adress.Notes }}
+                </span>
+            </td>
+            <td data-title="'form edit'">
+                <a href="#/app/streetaddress/streetaddresses/edit/{{adress.id}}">Edit<i class="fa-edit"></i></a>
+            </td>
+            <td style="white-space: nowrap">
+                <!-- form -->
+                <form editable-form name="rowform" onbeforesave="saveItem($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                      shown="inserted == adress">
+
+
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                        save
+                    </button>
+
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-default">
+                        cancel
+                    </button>
+                </form>
+
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                    <button class="btn btn-danger" ng-click="removeItem($index)">del</button>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+</div>

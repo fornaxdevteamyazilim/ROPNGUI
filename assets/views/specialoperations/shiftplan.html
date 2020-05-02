@@ -1,0 +1,75 @@
+﻿<div ng-controller="shiftplanCtrl as shp">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+            <span class="margin-bottom-10 visible-lg">
+                <img src="assets/images/loader.gif" />
+            </span>
+            <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+                <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+            </span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.SHIFTPLAN" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-10 col-xs-10 margin-top-10" ng-if="user.restrictions.staffshiftselectyearweek=='Enable'" ng-hide="isWaiting==true">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                <span class="text-bold" translate="main.YEAR"></span> <span class="text-bold">*</span><br />
+                <!--<label><input type="text" class="form-control" ng-model="PeriodYear" size="4" ng-change="GetYear(PeriodYear)"></label>-->
+                <select class="form-control" id="Year" name="Year" ng-model="Year" ng-change="GetYear(Year)">
+                    <option ng-repeat="Year in years" value="{{Year.Id}}">{{Year.Name}}</option>
+                </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                <span class="text-bold" translate="main.WEEK"></span> <span class="text-bold">*</span><br />
+                <!--<label><input type="text" class="form-control" ng-model="PeriodWeek" size="4" ng-change="GetWeek(PeriodWeek)"></label>-->
+                <select class="form-control" id="Week" name="Week" ng-model="Week" ng-change="GetWeek(Week)">
+                    <option ng-repeat="Week in weeks" value="{{Week.Id}}">{{Week.Name}}</option>
+                </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" ng-if="user.restrictions.storeselected=='Enable'">
+                <span class="text-bold" translate="main.STORE"></span> <span class="text-bold">*</span><br />
+                <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-change="GetSoreID(StoreID)" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID">
+                    <option value=''></option>
+                </select>
+            </div>
+            <div print-remove class="col-sm-6 col-xs-6 margin-top-10 pull-right visible-sm visible-xs" ng-hide="isWaiting==true">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="NewShiftPlan()">
+                    <span translate="main.NEW"></span>
+                </a>
+            </div>
+        </div>
+        <div print-remove class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10 pull-right visible-lg visible-md" ng-hide="isWaiting==true">
+            <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="NewShiftPlan()">
+                <span translate="main.NEW"></span>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <table ng-table="shp.tableParams" class="table table-striped table-hover table-condensed">
+                <tr ng-repeat="item in $data | orderBy: ['-FirstDate','+Store']">
+                    <!--<tr ng-repeat="item in $data">-->
+                    <td data-title="trStore" data-sortable="'Store'" ng-click="SelectItem(item.id)" style="width:10%" class="ng">
+                        {{item.Store}}
+                    </td>
+                    <td data-title="trPeriodWeek" data-sortable="'PeriodWeek'" width="14%">
+                        {{ item.PeriodWeek }}
+                    </td>
+                    <td data-title="trPeriodYear" data-sortable="'PeriodYear'" width="14%">
+                        {{ item.PeriodYear }}
+                    </td>
+                    <td data-title="trDateRange" width="14%">
+                        {{ item.DateRange }}
+                    </td>
+                    <td data-title="trCommands" style="width:4%">
+                        <div class="buttons pull-right" ng-show="!rowform.$visible">
+                            <a class="btn btn-transparent btn-sm tooltips ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="SelectItem(item.id)"></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

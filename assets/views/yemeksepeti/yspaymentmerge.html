@@ -1,0 +1,71 @@
+﻿<div ng-controller="yspaymentmergeCtrl as yspaym">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.YSPAYMENTSMERGE" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 margin-top-10">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="addItem()">
+                    <span translate="main.ADD"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div>
+        <table ng-table="yspaym.tableParams" class="table table-striped table-hover">
+            <tr ng-repeat="item in $data | orderBy: '+number'"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td data-title="trMember" data-sortable="'MemberID'" width="10%">
+                    <span class="text-capitalize" e-name="MemberID" e-ng-model="item.MemberID"
+                          e-ng-options="q.id as q.name for q in members | orderBy:'+name' " e-style="width: 7vw;" ng-click="rowform.$show()">
+                        {{ ShowObject('members','id',item.MemberID,'name')  }}
+                    </span>
+                </td>
+                <td data-title="trYSPaymentTypeName" data-sortable="'YSName'" style="width:10%">
+                    <span editable-text="item.YSName" e-name="YSName" e-form="rowform" e-ng-model="item.YSName" e-style="width: 10vw;">
+                        {{ item.YSName }}
+                    </span>
+                </td>
+                <td data-title="trYSDescription" data-sortable="'YSDescription'" style="width:10%">
+                    <span editable-text="item.YSDescription" e-name="YSDescription" e-form="rowform" e-ng-model="item.YSDescription" e-style="width: 10vw;">
+                        {{ item.YSDescription }}
+                    </span>
+                </td>
+                <td data-title="trRopNGPaymentTypeName" data-sortable="'PaymentTypeID'" width="10%">
+                    <span class="text-capitalize" editable-select="item.PaymentTypeID" e-name="PaymentTypeID" e-ng-model="item.PaymentTypeID" e-form="rowform"
+                          e-ng-options="q.id as q.name for q in paymenttypes | orderBy:'+name' " e-style="width: 15vw;">
+                        {{ ShowObject('paymenttypes','id',item.PaymentTypeID,'name')  }}
+                    </span>
+                </td>
+                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="5%">
+                    <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                          shown="inserted == item|| !item.id">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                    </form>
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()" translate="main.EDIT"> Edit</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)" translate="main.DELETE"> Remove</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

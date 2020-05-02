@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script type="text/javascript">
+        function ReloadNG() {
+            var backLocation = document.referrer;
+            if (backLocation) {
+                window.location.assign(backLocation);                
+            }
+            else
+            {
+                window.location.assign("\index.html");
+            }
+            //$("button").click(function () {
+            //    location.reload(true);
+            //});
+        }
+    </script>
+</head>
+<body onload="ReloadNG();">
+    <div>Refreshing ROPNG....</div>
+</body>
+</html>

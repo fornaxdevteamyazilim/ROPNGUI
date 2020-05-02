@@ -1,0 +1,76 @@
+﻿<div class="panel-body">
+    <div>
+        <h3 class="center"> <label class="text-bold">{{'main.ADDSTREETADDRESS' | translate}}</label><button class="btn btn-red btn-sm ti-close pull-right" ng-click="cancel()"></button></h3>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12">
+        <form name="userForm" ng-submit="submitForm()" novalidate>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <label translate="main.NAMESURNAME" for="person"></label>
+                <input id="item.id" type="text" class="form-control text-uppercase" ng-model="item.name" readonly>
+            </div>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <label translate="main.PHONE" for="person"></label>
+                <input id="pnumber" class="form-control" placeholder="(999) 999 99 99" type="text" maxlength="10" ng-model="item.number" readonly>
+            </div>
+            <div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                <label translate="main.STREETQUARTER" class="text-bold">*StreetAddress</label>
+                <input type="text" name="FormatedAddress" class="form-control text-uppercase ng" ng-model="item.streetAddress.StreetAddress" readonly ng-click="StreetAddressSelector()" required>
+                <!--<div dx-drop-down-box="gridBoxOptions">
+                    <div data-options="dxTemplate: { name: 'content' }">
+                        <div dx-data-grid="gridBoxOptions.dataGrid"></div>
+                    </div>
+                </div>-->
+            </div>
+            
+            <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-12">
+                <label translate="main.ADDRESSNO" class="text-bold">*Address No</label>
+                <input type="number" name="AddressNo" class="form-control" ng-model="item.AddressNo" required>
+            </div>
+            <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-12">
+                <label translate="main.ENTERANCE">Entrance</label>
+                <input type="text" name="Entrance" class="form-control text-uppercase" ng-model="item.Entrance" maxlength="50">
+            </div>
+            <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-12">
+                <label translate="main.FLOOR" class="text-bold">Floor</label>
+                <input type="number" name="Floor" class="form-control" ng-model="item.Floor">
+            </div>
+            <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-12">
+                <label translate="main.APERTMENTNO" class="text-bold"></label>
+                <input type="number" name="AppartmentNo" class="form-control" ng-model="item.AppartmentNo">
+            </div>
+
+            <div class="form-group col-lg-3 col-sm-6 col-md-4 col-xs-12">
+                <label translate="main.APERTMENTNAME">Appartment Name</label>
+                <input type="text" name="AppartmentName" class="form-control text-uppercase" ng-model="item.AppartmentName" maxlength="50">
+            </div>
+            <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-12">
+                <label translate="main.ADDRESSTYPE" class="text-bold">*AddressType</label><br />
+                <select name="AddressTypeID" ng-options="q.Value as q.Name for q in addresstypes | orderBy:'+Name'" class="form-control ng text-uppercase" ng-model="item.AddressTypeID"></select>
+            </div>
+            <br />
+            <div class="form-group col-lg-3 col-sm-6 col-md-4 col-xs-12">
+                <label translate="main.ADDRESSNOTE" for="Notes">
+                    Address Note
+                </label>
+                <textarea id="Notes" type="text" style='min-height:100px; max-width:215px; max-height:150px' class="form-control text-uppercase" ng-model="item.Notes"></textarea>
+            </div>
+            <div class="form-group col-lg-3 col-sm-6 col-md-4 col-xs-12">
+                <label translate="main.LANDMARK">Landmark</label>
+                <textarea type="text" style='min-height:100px; max-width:215px; max-height:150px' class="form-control text-uppercase" ng-model="item.Landmark"></textarea>
+            </div>
+            <div class="form-group col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                <label translate="main.YSADDRESS" for="Adress">
+                    Adres
+                </label>
+                <textarea id="ysitem.Adress" type="text" style='min-height:100px; max-width:215px; max-height:150px' class="form-control text-capitalize" ng-model="item.ysaddress" readonly></textarea>
+                <div>{{item.Region}}-{{item.City}}</div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="panel center">
+    <button class="btn btn-o btn-primary" ng-click="SaveData(item)">{{'main.OK' | translate}}</button>
+    <button class="btn btn-o btn-primary" ng-click="cancel()">{{'main.CANCEL' | translate}}</button>
+</div>

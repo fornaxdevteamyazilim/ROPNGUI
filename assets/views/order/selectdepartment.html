@@ -1,0 +1,15 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Please Select Department <button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body">
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <label translate="main.DEPARTMENT" for="Department">
+            Departments
+        </label>
+        <select id="DepartmentID" class="form-control text-uppercase" ng-options="q.id as q.name for q in departments" ng-model="item.DepartmentID"></select>
+    </div>
+</div>
+<div class="modal-footer center">
+    <button class="btn btn-primary" ng-click="saveData(item.DepartmentID)" translate="main.OK">OK</button>
+</div>
+

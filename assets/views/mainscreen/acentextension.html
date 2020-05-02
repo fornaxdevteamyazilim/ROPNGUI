@@ -1,0 +1,36 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title center">{{'main.INPUTDETAILS' | translate}}<button class="btn btn-o pull-right ti-close" ng-click="cancel(item)"></button></h3>
+</div>
+<div class="user-info panel panel-white panel-heading">
+    <h4 class="text-center">{{user.name}}</h4>
+    <div class="panel-body">
+        <form class="form-login">
+            <div class="form-group">
+                <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span>Caller ID: </span>
+                        <input type="text" class="form-control" name="masked" ng-model="item.number" autofocus>
+                        <br />
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="ShowClientName == true">
+                        <span>Kasa Adı: </span>
+                        <select id="OrderStateID" class="form-control" ng-model="item.clientname">
+                            <option value="Kasa1">Kasa1</option>
+                            <option value="Kasa2">Kasa2</option>
+                            <option value="Kasa3">Kasa3</option>
+                            <option value="Kasa4">Kasa4</option>
+                            <option value="Kasa5">Kasa5</option>
+                            <option value="Kasa6">Kasa6</option>
+                        </select>
+                        <!--<input type="text" class="form-control" name="masked" ng-model="item.clientname">-->
+                    </div>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary margin-top-10" data-ng-click="ok(item)">
+                            {{'main.OK' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

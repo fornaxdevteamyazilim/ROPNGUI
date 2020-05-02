@@ -1,0 +1,34 @@
+﻿<div ng-controller="callcenterorderdetailsCtrl as or">
+    <div>
+        <h1 class="mainTitle col-lg-8" translate="tittle.ORDERDETAILS" translate-values="{ appName: app.name }">{{ mainTitle }}</h1><br /><br />
+    </div>
+    <div>
+        <br />
+        <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left  pull-right" ng-click="Back()">
+            <span translate="main.BACK">Back</span>
+        </a>
+    </div>
+    <div>
+        <table ng-table="or.tableParams" class="table table-striped table-hover table-condensed">
+            <tr ng-repeat="item in $data |  orderBy:'-OrderDate' "
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <!-- CHANGE ORDERBY DATE-->
+                <td data-title="trOrderNumber" data-sortable="'OrderNumber'" style="width:20%" class="ng" ng-click="OrderDetails(item.id)">
+                    {{ item.OrderNumber }}
+                </td>
+                <td data-title="trPersonName" data-sortable="'PersonName'" style="width:20%" class="ng">
+                    {{ item.persons[0].Person.name }}
+                </td>
+                <td data-title="trOrderState" data-sortable="'OrderState'" style="width:20%" class="ng">
+                    {{ item.OrderState }}
+                </td>
+                <td data-title="trOrderDate" data-sortable="'OrderDate'" style="width:20%" class="ng">
+                    {{ item.OrderDate | date:'yyyy-MM-dd / HH:mm:ss'}}
+                </td>
+                <td data-title="trDeliveryDate" data-sortable="'DeliveryDate'" style="width:20%" class="ng">
+                    {{ item.DeliveryDate | date:'yyyy-MM-dd / HH:mm:ss'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

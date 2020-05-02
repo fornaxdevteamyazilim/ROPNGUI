@@ -1,0 +1,174 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+
+</style>-->
+
+
+<div class="navbar-header">
+    <a href="#" class="sidebar-mobile-toggler pull-left hidden-md hidden-lg btn btn-navbar sidebar-toggle" ng-click="toggle('sidebar')">
+        <i class="ti-align-justify"></i>
+    </a>
+    <a class="navbar-brand hidden-sm hidden-xs" href="#/app/mainscreen">
+        <img ng-src="{{app.layout.logo}}" alt="{{app.name}}" />
+    </a>
+    <a href="#" class="sidebar-toggler pull-right visible-lg visible-md" ng-click="app.layout.isSidebarClosed = !app.layout.isSidebarClosed">
+        <i class="ti-align-justify"></i>
+    </a>
+    <a class="pull-right menu-toggler visible-xs-block" id="menu-toggler" ng-click="navbarCollapsed = !navbarCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <i class="ti-view-grid"></i>
+    </a>
+</div>
+<div class="navbar-collapse collapse" collapse="navbarCollapsed" ng-init="navbarCollapsed = true" off-click="navbarCollapsed = true" off-click-if='!navbarCollapsed' off-click-filter="#menu-toggler">
+    <div class="text-bold text-dark pull-left margin-right-30 visible-lg visible-md">
+        <label class="margin-top-15" ng-click="ChangeExtensionNumber()"><i class="ti-user"></i> {{user.Store.name}}  {{user.ClientName}} / {{user.UserExtensionNumber}}</label><br />
+        <label><i class="ti-world"></i> {{user.UserRole.OrderSource.Department.Member.name}}</label><br />
+    </div>
+    <div class="pull-left visible-sm visible-xs">
+        <label class="margin-top-15"><i class="ti-user"></i> {{user.Store.name}}</label> <br />
+        <label ng-click="ChangeExtensionNumber()">{{user.ClientName}} / {{user.UserExtensionNumber}}</label>
+    </div>
+    <ul class="nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="header">
+        <!--<li ng-if="user.restrictions.uistatusdisplay=='Enable'" class="dropdown hidden-md hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
+        <a class="dropdown-toggle margin-top-10" ng-click="uistatusdisplay()">
+            <i class="fa fa-windows" style="font-size:x-large;"></i>
+        </a>
+    </li>-->
+        <li ng-if="user.restrictions.storephones=='Enable'" class="dropdown hidden-md hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" ng-click="StorePhones()">
+                <!--<i class="fa fa-phone-square" style="font-size:x-large;" ng-if="user.UserRole.OrderSource.Department.Member.id == 106851154380"></i>-->
+                <i class="fa fa-phone-square tooltips hidden-sm hidden-xs" style="font-size:x-large;" tooltip="Restoran Numaralari" tooltip-placement="left">
+                </i>
+            </a>
+        </li>
+        <li ng-if="user.restrictions.trends=='Enable'" class="dropdown" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" href="#/app/reports/giroreports/trends">
+                <!--<i class="ti-files" style="font-size:x-large;" ng-if="user.UserRole.OrderSource.Department.Member.id == 106851154380"></i>-->
+                <i class="ti-files tooltips hidden-sm hidden-xs" style="font-size:x-large;" tooltip="Trend Raporu" tooltip-placement="left">
+                </i>
+                <i class="ti-files tooltips visible-sm visible-xs">
+                </i>
+            </a>
+        </li>
+        <li ng-if="user.restrictions.upnavdispatcher=='Enable'" class="dropdown hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" href="#app/dispatcher/dispatcher">
+                <!--<i class="ti-hand-open" style="font-size:x-large;" ng-if="user.UserRole.OrderSource.Department.Member.id == 106851154380"></i>-->
+                <i class="ti-hand-open tooltips hidden-sm hidden-xs" style="font-size:x-large;" tooltip="Siparis Yonetimi" tooltip-placement="left">
+                </i>
+            </a>
+        </li>
+        <li ng-if="user.restrictions.kitchendisplay2=='Enable'" class="dropdown hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" href="#/app/kitchendisplay/kitchendisplay2">
+                <!--<i class="ti-layout-media-center" style="font-size:x-large;" ng-if="user.UserRole.OrderSource.Department.Member.id == 106851154380"></i>-->
+                <i class="ti-layout-media-center tooltips hidden-sm hidden-xs" style="font-size:x-large;" tooltip="Mutfak Ekrani" tooltip-placement="left">
+                </i>
+            </a>
+        </li>
+        <li ng-if="user.restrictions.upnavorderlist=='Enable'" class="dropdown hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" href="#/app/orders/orderlist">
+                <!--<i class="ti-receipt" style="font-size:x-large;" ng-if="user.UserRole.OrderSource.Department.Member.id == 106851154380"></i>-->
+                <i class="ti-receipt tooltips hidden-sm hidden-xs" style="font-size:x-large;" tooltip="Siparis Listesi" tooltip-placement="left">
+                </i>
+            </a>
+        </li>
+        <li ng-if="user.restrictions.upnavpersonpage=='Enable'" class="dropdown hidden-md hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" href="#app/orders/personpage/list">
+                <!--<i class="ti-shopping-cart-full" style="font-size:x-large;" ng-if="user.UserRole.OrderSource.Department.Member.id == 106851154380"></i>-->
+                <i class="ti-shopping-cart-full tooltips hidden-sm hidden-xs" style="font-size:x-large;" tooltip="Adrese Siparis" tooltip-placement="left">
+                </i>
+            </a>
+        </li>
+        <li ng-if="CustomerArrived" class="dropdown hidden-md hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" href="#app/orders/takeaway">
+                <!--<i class="ti-shopping-cart-full" style="font-size:x-large;" ng-if="user.UserRole.OrderSource.Department.Member.id == 106851154380"></i>-->
+                <i class="ti-shopping-cart-full tooltips hidden-sm hidden-xs" style="font-size:x-large;" tooltip="Gel Al Siapriş" tooltip-placement="left">
+                    <span class="badge text-extra-large">1</span>
+                </i>
+            </a>
+        </li>
+        <li ng-if="user.restrictions.upnavorderdisplay=='Enable'&& OrderCount>0" class="dropdown" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" href="#/app/orderdisplay/orderdisplay">
+                <i class="ti-blackboard" style="font-size:xx-large;"><span class="badge text-extra-large" ng-if="OrderCount >0">{{OrderCount }}</span></i>
+            </a>
+        </li>
+        <li ng-if="user.restrictions.ysorder=='Enable' && (user.restrictions.ysorderlist=='Enable' || YSOrderCount > 0)" class="dropdown" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" href="#/app/orderdisplay/ysordersdisplay">
+                <i class="ti-layout-media-right" style="font-size:xx-large;"><span class="badge text-extra-large" ng-if="YSOrderCount > 0">{{YSOrderCount}}</span></i>
+            </a>
+        </li>
+        <li ng-if="user.restrictions.upnavmainscreen=='Enable'" class="dropdown" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" href="#/app/mainscreen">
+                <!--<i class="ti-home" style="font-size:x-large;" ng-if="user.UserRole.OrderSource.Department.Member.id == 106851154380"></i>-->
+                <i class="ti-home tooltips hidden-sm hidden-xs" style="font-size:x-large;" tooltip="Ana Ekran" tooltip-placement="left">
+                </i>
+                <i class="ti-home tooltips visible-sm visible-xs">
+                </i>
+            </a>
+        </li>
+        <li ng-if="user.restrictions.reloadcache=='Enable'" class="dropdown" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" ng-click="ReloadCache()">
+                <i ng-class="{'fa fa-spin':StartReloadCache == true, 'fa fa-refresh':StartReloadCache == false}" class="fa fa-refresh" style="font-size:x-large;"></i>
+            </a>
+        </li>
+        <li ng-if="user.restrictions.reloadcache=='Enable'" class="dropdown" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" ng-click="ReloadCacheAll()">
+                <i ng-class="{'fa fa-spin':StartReloadCacheAll == true, 'fa fa-cogs':StartReloadCacheAll == false}" class="fa fa-cogs" style="font-size:x-large;"></i>
+            </a>
+        </li>
+        <li class="dropdown hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" ng-click="FullscreenPage()">
+                <i class="fa fa-arrows-alt" style="font-size:x-large;"></i>
+            </a>
+        </li>
+        <li ng-if="user.restrictions.upnavlanguage=='Enable'" class="dropdown hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" dropdown-toggle>
+                <!--<i class="ti-world" style="font-size:x-large;" ng-if="user.UserRole.OrderSource.Department.Member.id == 106851154380"></i>-->
+                <i class="ti-world tooltips hidden-sm hidden-xs" style="font-size:x-large;" tooltip="Dil Secimi" tooltip-placement="left">
+                </i>
+                <i class="ti-world tooltips visible-sm visible-xs">
+                </i>
+            </a>
+            <ul role="menu" class="dropdown-menu dropdown-light fadeInUpShort">
+                <li ng-repeat="(localeId, langName) in language.available" class="hidden-sm hidden-xs">
+                    <a ng-click="language.set(localeId, $event)" href="#" class="menu-toggler">
+                        {{langName}}
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown" dropdown on-toggle="toggled(open)" ng-if="user.UserRole.ShiftControl">
+            <a class="dropdown-toggle margin-top-10" ui-sref="login.clockinout">
+                <i class="ti-alarm-clock" style="font-size:x-large;"></i>
+            </a>
+        </li>
+        <li class="dropdown" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" ui-sref="login.lockscreen">
+                <i class="ti-lock" style="font-size:x-large;"></i>
+            </a>
+        </li>
+        <li class="dropdown current-user" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle" dropdown-toggle>
+                <img ng-src="assets/images/{{user.UserRole.MemberID}}.jpg" alt="{{user.name}}"> <span class="username">{{user.name}} <i class="ti-angle-down"></i></span>
+            </a>
+            <ul class="dropdown-menu dropdown-active">
+                <li class="visible-sm visible-xs">
+                    <span class="text-bold text-dark pull-right margin-right-5" style="color:black;">{{user.name}}</span>
+                </li>
+                <li>
+                    <a ui-sref="login.logout({command : 'logout'})" translate="topbar.user.LOGOUT"></a>
+                </li>
+                <li>
+                    <a ui-sref="app.users.changepassword" translate="topbar.user.CHANGEPASSWORD"></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<a class="dropdown-off-sidebar" ng-click="toggle('off-sidebar')">
+    &nbsp;
+</a>

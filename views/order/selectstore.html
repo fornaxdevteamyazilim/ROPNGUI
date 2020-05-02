@@ -1,0 +1,58 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+
+</style>-->
+
+
+<div class="modal-header">
+    <h3 class="modal-title">{{'main.CALLCENTERPLEASESELECTSTORE' | translate}}<button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="user-info panel panel-white panel-heading">
+    <img alt="" src="assets/images/avatar-1-xl.jpg" class="img-rounded center-block" style="width:120px; height:120px;" />
+    <h4 class="text-center">{{user.name}}</h4>
+    <!--<div>
+        <div class="panel-title">
+            Password
+        </div>
+    </div>-->
+    <div class="panel-body">
+        <form class="form-login">
+            <div class="form-group">
+                <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <span class="col-lg-12">
+                            <label translate="main.TOWN" for="Town"></label>
+                        </span>
+                        <span class="col-lg-12">
+                            <select id="TownID" class="form-control text-uppercase" ng-options="q.id as q.name for q in towns | orderBy:'+name'" ng-model="item.TownID" ng-change="loadStores(item.TownID)"></select>
+                        </span>
+                        
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <span class="col-lg-12">
+                            <label translate="main.STORE" for="StoreID"></label>
+                        </span>
+                        <span class="col-lg-12">
+                            <select id="StoreID" class="form-control text-uppercase" ng-model="StoreID" ng-change="GetSelectStore(StoreID)" required>
+                                <option ng-repeat="store in stores | orderBy:'+name'" ng-class="{'text-bold':store.StoreHNR == true}" value="{{store.id}}">{{store.name}}</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                        <span class="col-lg-8 col-md-8 col-sm-6 col-xs-12  text-uppercase">{{StoreAddress}}</span>
+                        <span class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <button type="submit" class="btn btn-primary pull-right" data-ng-click="SaveSelcetedStore(StoreID)" autofocus>
+                                {{'main.OK' | translate}}
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

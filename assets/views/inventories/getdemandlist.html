@@ -1,0 +1,103 @@
+﻿<div ng-controller="getdemandlistCtrl as gdl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-4 col-md-6 col-sm-8 col-xs-8 margin-top-10">
+            <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.GETDEMANDLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-8 col-md-6 col-sm-4 col-xs-4 margin-top-10">
+            <div class="pull-right">
+                <span>{{:: startdate}}</span><br /> 
+                <label><input id="Date" type="text" class="form-control" ng-model="SelectedDate" readonly ng-click="SelectStartDate()"></label>
+                <button class="btn btn-success btn-wide btn-scroll btn-scroll-left fa fa-list" ng-click="getDemandList()">
+                    <span>{{:: getlist}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" ng-hide="isWaiting==true">
+        <fieldset class="table-responsive">
+            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-condensed">
+                <tr>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-uppercase">{{'main.INVENTORY' | translate}}</span></th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-uppercase">{{'main.UNITSREQUIRED' | translate}}</span></th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-uppercase">{{'main.TOTAL' | translate}}</span></th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-uppercase">{{'main.UNITSTOCK' | translate}}</span></th>
+                </tr>
+            </table>
+            <div class="col-sm-12" ng-repeat="item in result">
+                <div class="panel panel-white" id="panel5">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" ng-click="collapse =! collapse">
+                            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-condensed">
+                                <tr style="border-bottom:1px solid; font-size:13px;">
+                                    <td class="ccol-lg-2 col-md-2 col-sm-2 col-xs-2 text-uppercase">
+                                        {{item.InventoryUnit}}
+                                    </td>
+                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-uppercase margin-left-5">
+                                        {{item.UnitsRequired  |number:2 }}
+                                    </td>
+                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-uppercase margin-left-5">
+                                        <span class="text-bold text-extra-large text-dark">{{item.groupTotal  |number:2 }}</span>
+                                    </td>
+                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-uppercase margin-left-5">
+                                        {{item.UnitsInStock  |number:2 }}
+                                    </td>
+                                </tr>
+                            </table>
+                        </h4>
+                    </div>
+                    <div collapse="panel1" ng-if="collapse" class="panel-wrapper">
+                        <div class="panel-body">
+                            <div class="row panel-body">
+                                <form role="form">
+                                    <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-condensed">
+                                        <tr>
+                                            <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.SENDORDER' | translate}}</th>
+                                            <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.INVENTORY' | translate}}</th>
+                                            <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.STORE' | translate}}</th>
+                                            <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.UNITPRICE' | translate}}</th>
+                                            <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.UNITSREQUIRED' | translate}}</th>
+                                            <th class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{'main.UNITSEND' | translate}}</th>
+                                        </tr>
+                                        <tr ng-repeat="data in item.items" style="border-bottom:1px solid; font-size:13px;">
+                                            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-left-10" ng-model="aitem" data-sortable="'UnitSend'">
+                                                <span><input type="checkbox" ng-model="data.isSelected" ng-click="checkedData(data)"></span>
+                                            </td>
+                                            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <span> {{data.InventoryUnit}}</span>
+                                            </td>
+                                            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <span>{{data.Store}}</span>
+                                            </td>
+                                            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <span>{{data.UnitPrice |number:2}}</span>
+                                            </td>
+                                            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <span>{{data.UnitsRequired  |number:2 }}</span>
+                                            </td>
+                                            <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-model="aitem">
+                                                <span><input class="inputs" type="number" ng-model="data.UnitsSend" /></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right">
+                <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save " ng-click="SaveData(result)" ng-disabled="isSpinner == true">
+                    <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true">{{:: save}}</span>
+                </button>
+            </div>
+        </fieldset>
+    </div>
+</div>

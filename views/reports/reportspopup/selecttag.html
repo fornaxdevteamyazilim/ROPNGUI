@@ -1,0 +1,26 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">{{'main.SELECTTAG' | translate}}<button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body">
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <label translate="main.TAGTYPE" for="TagType">
+            Tag Type
+        </label>
+        <select id="TagTypeID" class="form-control text-uppercase col-lg-6" ng-model="item.TagTypeID" ng-change="LoadTags(item.TagTypeID)">
+            <option ng-repeat="tag in tagtypes" ng-selected="TagID == tag.Value" value="{{tag.Value}}">{{tag.Name}}</option>
+        </select>
+    </div>
+    <div class="table-responsive col-lg-12">
+       
+        <div class="row">
+                {{tag.item.name}}
+            <div class="form-group col-sm-12 col-lg-12 col-md-6 col-xs-12" ng-dblclick="ok()">
+                <abn-tree tree-data="tags" tree-control="my_tree" on-select="my_tree_handler(branch)" expand-level="2" icon-leaf="ti-file" icon-expand="ti-plus" icon-collapse="ti-minus" ></abn-tree>
+            </div>
+        </div>
+    </div>
+    <br />
+</div>
+<div class="modal-footer center">
+    <button class="btn btn-primary" ng-click="ok()" nestable-button>OK</button>
+</div>

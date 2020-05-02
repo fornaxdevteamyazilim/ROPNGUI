@@ -1,0 +1,32 @@
+﻿<div ng-controller="scheduletypelistCtrl as st" ng-keyup="event=$event" ng-init="app.layout.isSidebarClosed=false">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.SCHEDULETYPE" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 margin-top-10">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" href="#/app/schedule/scheduletypes/edit/new">
+                    <span translate="main.ADDSCHEDULETYPE"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>
+                <input class="form-control" placeholder="{{'main.SEARCHBYSCHEDULETYPE' | translate}}" type="text" ng-model="st.search" ng-model-options="{ debounce: 500 }" />
+            </p>
+        </div>
+    </div>
+    <table ng-table="st.tableParams" class="table table-striped table-hover">
+        <tr ng-repeat="item in $data | orderBy:'+name'">
+            <td class="text-capitalize" data-title="trScheduleTypes" data-sortable="'Schedule'" width="22%">
+                {{ item.name }}
+                <div class="buttons pull-right" ng-show="!rowform.$visible">
+                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" href="#/app/schedule/scheduletypes/edit/{{item.id}}"></a>
+                    <a class="btn btn-transparent btn-sm tooltips ti-alert" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

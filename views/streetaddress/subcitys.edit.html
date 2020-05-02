@@ -1,0 +1,22 @@
+﻿<div ng-controller="subcityEditCtrl as vm">
+    <form name="myForm" class="form-horizontal">
+        <div class="control-group" ng-class="{error: myForm.subcity.$invalid}">
+            <label class="control-label" for="subcityname">subcity</label>
+            <div class="controls">
+                <input type="text" name="subcityname" ng-model="subcity.name" required>
+            </div>
+        </div>
+        <br>
+        <a href="#/app/streetaddress/subcitys/list" class="btn">Cancel</a>
+        <button ng-click="save()" ng-disabled="isClean() || myForm.$invalid"
+                class="btn btn-primary">
+            Save
+        </button>
+        <button ng-click="destroy()"
+                ng-show="subcity.id" class="btn btn-danger">
+            Delete
+        </button>
+    </form>
+    <pre>$scope.subcity = {{subcity|json}}</pre>
+    <pre>$scope.original = {{original|json}}</pre>
+</div>

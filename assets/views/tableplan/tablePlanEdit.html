@@ -1,0 +1,137 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+<div ng-controller="tablePlanEditCtrl as tp" class="panel visible-lg visible-md visible-sm" ng-init="app.layout.isSidebarClosed=true">
+    <tabset justified="true" class="tabbable col-lg-12">
+        <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-repeat="storetables in tableplans |orderBy:'+name' track by storetables.id">
+            <tab-heading>{{:: storetables.name}} </tab-heading>
+            <span class="pull-right btn btn-o btn-sm btn-default btn-scroll btn-scroll-left fa fa-check" ng-click="CheckCode(item,'edittableplan')">
+                <span>Masa Düzeni !</span>
+            </span>
+            <span class="pull-right btn btn-o btn-sm btn-default btn-scroll btn-scroll-left fa fa-plus" ng-click="CheckCode(item,'addtableplan')">
+                <span>Masa Ekle / Sil !</span>
+            </span>
+            <div class="container-fluid container-fullw" style="width:400px; height:500px;">
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 row" ng-repeat="item in storetables.tables |orderBy:'+name' track by item.id">
+                    <span>
+
+                        <button id="{{item.id}}" class="btn btn-dark-orange btn-o col-lg-12 center margin-left-20 margin-top-5 text-capitalize radius-10 visible-lg" style="width:10vw; height:10vw;" ng-class="{'btn btn-red text-bold':(item.orders && item.orders.length > 0 )}" ng-draggable>
+                            <div class="col-lg-12">
+                                <span class="col-lg-4 center" style="color:black;">{{:: item.name}}</span>
+                                <span class="col-lg-4 center" style="color:black;"></span>
+                                <span class="col-lg-4" style="color:black;"></span>
+                            </div>
+                            <div class="col-lg-12">
+                                <span class="col-lg-12 center"></span>
+                                <span class="col-lg-12">
+                                    <span class="center">
+                                        <img src="assets/images/restaurant33.png" style="width:4vw; height:4vw;" />
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="col-lg-12 ">
+                                <span class="col-lg-12">
+                                    <span id="A" class="btn btn-o btn-lg btn-dark-blue center text-bold" ng-click="SaveLocation(item)" ng-if="ShowEditButton == true">KAYDET</span>
+                                </span>
+                            </div>
+                        </button>
+
+                        <button id="{{item.id}}" class="btn btn-dark-orange btn-o col-md-12 center margin-left-20 margin-top-5 text-capitalize radius-10 visible-md" style="width:20vw; height:14vw;" ng-class="{'btn btn-red text-bold':(item.orders && item.orders.length > 0)}" ng-draggable>
+                            <div class="col-md-12">
+                                <span class="col-md-4 center" style="color:black;">{{:: item.name}}</span>
+                                <span class="col-md-4 center" style="color:black;"></span>
+                                <span class="col-md-4 pull-right" style="color:black;"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <span class="col-md-12 center"></span>
+                                <span class="col-md-12 center">
+                                    <img src="assets/images/restaurant33.png" style="width:4vw; height:4vw;" />
+                                </span>
+                            </div>
+                            <div class="col-md-12 ">
+                                <span class="col-md-12">
+                                    <span id="A" class="btn btn-o btn-sm btn-dark-blue center text-bold" ng-click="SaveLocation(item)" ng-if="ShowEditButton == true">KAYDET</span>
+                                </span>
+                            </div>
+                        </button>
+
+                        <button id="{{item.id}}" class="btn btn-dark-orange btn-o col-sm-12 col-xs-12 center margin-left-20 margin-top-5 text-capitalize radius-10 visible-sm visible-xs" style="width:30vw; height:25vw;" ng-class="{'btn btn-red text-bold':(item.orders && item.orders.length > 0)}" ng-draggable>
+                            <div class="col-sm-12 col-xs-12">
+                                <span class="col-sm-4 col-xs-4 center" style="color:black;">{{:: item.name}}</span>
+                                <span class="col-sm-4 col-xs-4 center" style="color:black;"></span>
+                                <span class="col-sm-4 col-xs-4 pull-right" style="color:black;"></span>
+                            </div>
+                            <div class="col-sm-12 col-xs-12">
+                                <span class="col-sm-12 col-xs-12 center"></span>
+                                <span class="col-sm-12 col-xs-12 center">
+                                    <img src="assets/images/restaurant33.png" style="width:8vw; height:8vw;" />
+                                </span>
+                            </div>
+                            <div class="col-sm-12 col-xs-12">
+                                <span class="col-sm-12 col-xs-12">
+                                    <span id="A" class="btn btn-o btn-sm btn-dark-blue center text-bold" ng-click="SaveLocation(item)" ng-if="ShowEditButton == true">OK</span>
+                                </span>
+                            </div>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+
+
+<!--<div ng-controller="tablePlanEditCtrl as tp" class="panel panel-body" ng-hide="app.layout.isSidebar" ng-init="app.layout.isSidebarClosed=true">
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+
+
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <tabset class="tabbable">
+                    <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-repeat="storetables in tableplans |orderBy:'+name'">
+                        <tab-heading class="text-uppercase text-bold">
+                            {{:: storetables.name}}
+                        </tab-heading>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-20">
+                            <span class="pull-right btn btn-o btn-sm btn-default btn-scroll btn-scroll-left fa fa-plus" ng-click="CheckCode(item,'addtableplan')">
+                                <span>Masa Ekle / Sil !</span>
+                            </span>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel scrollbar margin-top-5" id="style-6" style="overflow:auto;" ct-fullheight="window" data-ct-fullheight-exclusion="header">
+
+                            <button class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-left-5 margin-top-5 btn btn-squared btn-o btn-dark-azure" style="width:130px; height:130px;" ng-repeat="item in storetables.tables |orderBy:'+name'" ng-class="{'btn btn-red text-bold':(item.orders && item.orders.length > 0)}" ng-click="AddTableOrder(item.orders,item.id)" ng-disabled="ShowObject == false" ng-dblclick="dbClick()">
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5">
+                                    <span class="center text-bold">{{:: item.name}}</span>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                                    <span ng-repeat="orderitem in item.orders" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-o btn-lg btn-primary fa fa-calculator" ng-class="{'btn btn-red text-bold':(item.orders && item.orders.length > 0)}" ng-click="OrderPaymentDeteails(orderitem)" ng-disabled="ShowObject == false || item.orders[0].OrderStateID==4">
+                                        <span class="fa fa-spin fa-spinner" ng-if="ShowObject == false"></span>
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+
+        </div>
+    </div>
+</div>-->
+

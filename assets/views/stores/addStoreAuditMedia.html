@@ -1,0 +1,79 @@
+﻿<div class="panel-body">
+    <div>
+        <h3 class="center"> <label class="text-bold">{{'main.ADDAUDITMEDIA' | translate}}</label><button class="btn btn-red btn-sm ti-close pull-right" ng-click="cancel()"></button></h3>
+    </div>
+    <h3 class="center"> <label class="text-bold">{{StoreAuditMedia.name}}</label></h3>
+    <div>
+        <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()">
+            <span translate="main.ADDAUDITMEDIA">Add Audit Media</span>
+        </a>
+        <table ng-table="tableParams" class="table table-striped table-hover">
+            <tr ng-repeat="item in $data | orderBy:'+name'"
+                ng-keyup="FormKeyPress($event,auditmediyarowform,$data[$index],$index)">
+                <td data-title="trName" data-sortable="'name'" ng-click="auditmediyarowform.$show()" class="ng">
+                    <span class="text-capitalize" editable-text="item.name" e-name="name" e-form="auditmediyarowform" e-ng-model="item.name">
+                        {{ item.name }}
+                    </span>
+                </td>
+                <td data-title="trAuditMediaType" data-sortable="'AuditMediaTypeID'">
+                    <span editable-select="item.AuditMediaTypeID" e-name="AuditMediaTypeID" e-ng-options="q.Value as q.Name for q in auditmediatypes |orderBy:'+Name'"
+                          e-form="auditmediyarowform" e-ng-model="item.AuditMediaTypeID" class="ng">
+                        {{ ShowObject('auditmediatypes','Value',item.AuditMediaTypeID,'Name') }}
+                    </span>
+                </td>
+                <td data-title="trAuditMedia" data-sortable="'AuditMediaID'">
+                    <span editable-select="item.AuditMediaID" e-name="AuditMediaID" e-ng-options="q.id as q.Alias for q in auditmedia |orderBy:'+Alias'"
+                          e-form="auditmediyarowform" e-ng-model="item.AuditMediaOutputTemplateID" class="ng">
+                        {{ ShowObject('auditmedia','id',item.AuditMediaID,'Alias') }}
+                    </span>
+                </td>
+                <td data-title="trAuditMediaOutputTemplate" data-sortable="'AuditMediaOutputTemplateID'" style="width:20%">
+                    <span editable-select="item.AuditMediaOutputTemplateID" e-name="AuditMediaOutputTemplateID" e-ng-options="q.id as q.Name for q in auditmediaoutputtemplates |orderBy:'+Name'"
+                          e-form="auditmediyarowform" e-ng-model="item.AuditMediaOutputTemplateID" class="ng">
+                        {{ ShowObject('auditmediaoutputtemplates','id',item.AuditMediaOutputTemplateID,'Name') }}
+                    </span>
+                </td>
+                <!--<td data-title="trAuditAlias" data-sortable="'Alias'">
+                <span editable-select="item.Alias" e-name="Alias" e-ng-options="q.id as q.Alias for q in auditmedia"
+                      e-form="auditmediyarowform" e-ng-model="item.Alias" class="ng">
+                    {{ ShowObject('auditmedia','id',item.AuditMediaID,'Alias') }}
+                </span>
+            </td>-->
+                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="8%">
+                    <form editable-form name="auditmediyarowform" onaftersave="saveData(item)" ng-show="auditmediyarowform.$visible" class="form-buttons form-inline"
+                          shown="inserted == item|| !item.id">
+                        <button type="submit" ng-disabled="auditmediyarowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                        <button type="button" ng-disabled="auditmediyarowform.$waiting" ng-click="cancelForm(auditmediyarowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                    </form>
+                    <div class="buttons pull-right" ng-show="!auditmediyarowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="auditmediyarowform.$show()"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-alert hidden-sm hidden-xs" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="auditmediyarowform.$show()"> Edit</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="open(item.id)"> Tag</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)"> Remove</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="panel center">
+    <button class="btn btn-o btn-primary" ng-click="ok()">{{'main.OK' | translate}}</button> 
+    <button class="btn btn-o btn-primary" ng-click="cancel()">{{'main.CANCEL' | translate}}</button>
+</div>

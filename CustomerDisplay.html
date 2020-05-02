@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="ropngSSApp">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="1800">
+    <!--<meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">-->
+    <title>ROPNG Customer Dispaly</title>
+    <link href="vendor/devextreme/css/dx.common.css" rel="stylesheet" />
+    <link href="vendor/devextreme/css/dx.light.css" rel="stylesheet" />
+    <link href="assets/css/CustomerDisplay.css" rel="stylesheet" />    
+</head>
+<body ng-controller="SSAppCtrl">
+    <div ng-class="bgIndex">
+        <div class="flex flex-wrap">
+            <div class="reklam">
+                <div>&nbsp;</div>
+                <div class="wrapper" ng-controller="MainController as mainController" ng-cloak>
+                    <!--<img ng-if="$storage.orderDescription==null" alt="" ng-src="assets/images/cdisplay.jpg" height="450vh" width="600vw" class="center" />
+                    <img ng-if="$storage.orderDescription!=null" alt="" ng-src="assets/images/cdisplay_order.jpg" height="450vh" width="600vw" class="center" />-->
+                    
+                     <div class="Clock">
+                        <!--<div class="Clock-time">
+                            {{mainController.date | date:"HH:mm:ss" }}
+                        </div>-->
+
+                        <!--<div class="Clock-date">
+                            {{mainController.date | date:"dd.MM.yyyy" }}
+                        </div>-->
+                    </div>
+
+
+                </div>
+                
+                        
+            </div>
+            <div ng-if="$storage.orderDescription!=null" class="sipairs flex-wrap flex">
+                <div class="sipairs-bas">
+                    <h2 class="mb-3">Hoş Geldiniz!</h2>
+                    <h4>{{$storage.orderDescription}}<br /></h4>
+                    
+                    
+                </div>
+                <div>&nbsp;</div>
+                <div class="sipairs-orta">
+                    <ul>                        
+                        <li ng-repeat="x in $storage.customerItems">
+                            <span  style="font-weight: bold">
+                                <span ng-if="x.Quantity!=1">
+                                    &nbsp;{{x.Quantity}} x
+                                </span>
+                                {{x.Product}} <span style="float: right;"> {{x.TotalAmount| number : 2}}₺</span>
+                            </span>
+                            <ul>
+                                <li ng-repeat="y in x.items">
+                                    <!--{{y.ProductOption}}:-->
+                                    <span style="font-weight: bold">
+                                        
+                                        <span ng-if="y.Quantity!=x.Quantity">
+                                            {{y.Quantity}} x
+                                        </span>
+                                        {{y.Product}} <span style="float: right;"> {{y.Amount| number : 2}}₺</span>
+                                    </span>
+                                    <ul>
+                                        <li ng-repeat="z in y.items">
+                                            <span style="font-style: italic">
+                                                <!--{{z.ProductOption}}:&nbsp;-->
+                                                {{z.Product}} <span style="float: right;"> {{z.Amount| number : 2}}₺</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li ng-repeat="x in $storage.orderPromotions">
+                            <span style="font-size: x-large">
+                                {{x.Promotion.name}}
+                                <span style="float: right;"> {{x.Amount| number : 2}}₺</span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sipairs-son" style="font-size: x-large">
+                    Toplam: <span style="float: right; font-weight: bold"> {{$storage.orderTotal | number : 2}}₺</span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="vendor/devextreme/js/jquery.js"></script>
+    <script src="vendor/devextreme/js/angular.js"></script>
+    <script src="vendor/angular/i18n/angular-locale_tr-tr.js"></script>
+    <script src="vendor/devextreme/js/dx.all.js"></script>
+    <script src="vendor/angularstorage/ngStorage.js"></script>
+
+    <script src="assets/js/customerdisplay.js"></script>
+
+
+</body>
+</html>

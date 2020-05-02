@@ -1,0 +1,36 @@
+﻿<div class="panel-body">
+    <button class="btn btn-xs btn-default  ti-close pull-right" ng-click="cancel()"></button>
+    <div class="col-md-12 center">
+        <h3 class="modal-title" translate="main.SELECTPERSON">Select Person</h3>
+    </div>
+    <div>
+        <p>
+            <input class="form-control text-uppercase" placeholder="{{'main.SEARCHBYNAME' | translate}}" type="text" ng-model="searchName" ng-keyup="FormKeyPress($event)" /><br />
+            <input class="form-control text-uppercase" placeholder="{{'main.SEARCHBYPHONE' | translate}} - (999) 999 99 99" type="text" ng-model="searchPhone" ng-keyup="FormKeyPress($event)" maxlength="10" /><br />
+        </p>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-if="personcurrent.id">
+            <div ng-show="searchName != '' || searchPhone != ''">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
+                    <label for="person">{{'main.PERSONACOUNT' | translate}}</label>
+                    <input class="form-control text-uppercase text-bold" type="text" ng-model="personcurrent.Current" step="0.02" readonly /><br />
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-20">
+                    <button translate="main.SELECT" class="btn btn-o btn-primary pull-right" ng-click="SelectItem(item)"></button>
+                </div>
+            </div>
+        </div>
+        <table ng-table="tableParams" class="table table-striped table-hover" ng-show="searchName != '' || searchPhone != ''">
+            <tr ng-repeat="item in $data">
+                <td class="text-uppercase" data-title="'Name'" data-sortable="'name'" width="33%" ng-click="loadCurrents(item)">
+                    {{ item.name  }}
+                </td>
+                <td data-title="'Email'" data-sortable="'Phone'" ng-model="item.PersonEmails" width="33%">
+                    {{ ShowArray(item.PersonEmails,  'email') }}
+                </td>
+                <td data-title="'Phone'" data-sortable="'Phone'" ng-model="item.PersonPhones" width="33%">
+                    {{ ShowArray(item.PersonPhones, 'Number')}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

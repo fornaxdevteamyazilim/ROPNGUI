@@ -1,0 +1,129 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="stafforderCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold margin-top-10">
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+            <div class="col-sm-12 col-xs-12 visible-sm visible-xs margin-top-5">
+                <h2>{{'main.STAFFORDER' | translate}} <span ng-if="ShowObject==true"><span class="fa fa-spin fa-spinner center"></span></span><br /></h2>
+            </div>
+            <form class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6 pull-left">
+                <label translate="main.STAFFNAME">
+                    Staff Name
+                </label> <span class="symbol required"></span>
+                <select id="store" ng-options="s.id as s.FullName for s in storeUsers | filter: {ShiftActive:true} | orderBy:'+FullName'" class="form-control text-capitalize ng" ng-model="userID"></select>
+            </form>
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6 pull-left">
+                <button class="btn btn-scroll btn-success btn-scroll-top ti-new-window margin-top-20" ng-click="takeawayOrder(userID)" ng-disabled="!userID"><span class="text-extra-large text-bold">Yeni Sipariş</span></button>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 visible-lg visible-md margin-top-10">
+            <h2>{{'main.STAFFORDER' | translate}} <span ng-if="ShowObject==true"><span class="fa fa-spin fa-spinner center"></span></span><br /></h2>
+        </div>
+    </div>
+    <!-- large / medium -->
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top-10 visible-lg visible-md">
+        <div class="row panel panel-white" ng-repeat="order in orders" order="order" ng-if="order.OrderTypeID == 4">
+            <div class="row panel-heading">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                    <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3">{{'main.ORDERNUMBER' | translate}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.PERSONNAME' | translate}} <br /><span ng-if="order.Alias">({{'main.ORDERALIAS' | translate}})</span></span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.ORDERSTATE' | translate}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.PAYMENTSTATUS' | translate}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.ORDERDATE' | translate}}</span>
+                    <div class="col-lg-2 col-md-1 col-sm-1 col-xs-1" ng-if="user.restrictions.dispatcherpaymentbuttons=='Enable'">
+                        <button class="btn btn-o btn-success btn-lg ti-credit-card visible-lg pull-left" ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>
+                        <button class="btn btn-o btn-primary btn-lg ti-share tooltips visible-lg pull-right" tooltip-placement="top" tooltip="Siparişi Teslim Et!" ng-click="SaveOpenOrders(order)" ng-disabled="order.PaymentStatusID==0"></button>
+
+                        <button class="btn btn-o btn-success btn-md ti-credit-card visible-md visible-sm visible-xs pull-right" ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>
+                        <button class="btn btn-o btn-primary btn-md ti-share visible-md visible-sm visible-xs pull-right margin-top-10" ng-click="SaveOpenOrders(order)" ng-disabled="order.PaymentStatusID==0"></button>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize">
+                    <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3" ng-click="SelectItem(order.id)">
+                        <label class="text-bold" style="color:black;">{{:: order.OrderNumber}}</label><br />
+                        {{:: order.id}}
+                    </span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{:: order.persons[0].Person.name}}<span ng-if="order.Alias">{{order.Alias}} </span></span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{order.OrderState}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{order.PaymentStatus}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{:: order.OrderDate | date: "dd-MM-yyyy / HH:mm:s" }}</span>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="panel panel-white" id="panel5">
+                    <div class="panel-heading">
+                        <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{'main.ORDERDETAILS' |translate}} <label class="pull-right text-red text-bold text-extra-large">{{order.PaymentType.PaymentType.name}} / {{order.Amount |number:2 }} TL </label></h4>
+                    </div>
+                    <div collapse="panel1" ng-if="collapse" class="panel-wrapper">
+                        <div class="panel-body">
+                            <div class="row panel-body">
+                                <form role="form">
+                                    <div><span ng-repeat='member in order.items track by member.id'><kvsorder-item member='member'></kvsorder-item></span></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- small / xsmall -->
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10 visible-sm visible-xs">
+        <div class="row panel panel-white" ng-repeat="order in orders" order="order" ng-if="order.OrderTypeID == 4">
+            <div class="row panel-heading">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                    <span class="col-sm-4 col-xs-4">{{'main.ORDERNUMBER' | translate}}</span>
+                    <span class="col-sm-4 col-xs-4">{{'main.PERSONNAME' | translate}} <br /><span ng-if="order.Alias">({{'main.ORDERALIAS' | translate}})</span></span>
+                    <div class="col-sm-4 col-xs-4" ng-if="user.restrictions.dispatcherpaymentbuttons=='Enable'">
+                        <button class="btn btn-o btn-success btn-lg ti-credit-card visible-lg pull-left" ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>
+                        <button class="btn btn-o btn-primary btn-lg ti-share tooltips visible-lg pull-right" tooltip-placement="top" tooltip="Siparişi Teslim Et!" ng-click="SaveOpenOrders(order)" ng-disabled="order.PaymentStatusID==0"></button>
+                        <button class="btn btn-o btn-success btn-md ti-credit-card visible-md visible-sm visible-xs pull-left" ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>
+                        <button class="btn btn-o btn-primary btn-md ti-share visible-md visible-sm visible-xs pull-right" ng-click="SaveOpenOrders(order)" ng-disabled="order.PaymentStatusID==0"></button>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize">
+                    <span class="col-sm-4 col-xs-4" ng-click="SelectItem(order.id)">
+                        <label class="text-bold" style="color:black;">{{:: order.OrderNumber}}</label><br />
+                        {{:: order.id}}
+                    </span>
+                    <span class="col-sm-4 col-xs-4">{{:: order.persons[0].Person.name}}<span ng-if="order.Alias">{{order.Alias}} </span></span>
+                </div>
+            </div>
+            <div class="row panel-heading">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                    <span class="col-sm-4 col-xs-4">{{'main.ORDERSTATE' | translate}}</span>
+                    <span class="col-sm-4 col-xs-4">{{'main.PAYMENTSTATUS' | translate}}</span>
+                    <span class="col-sm-4 col-xs-4">{{'main.ORDERDATE' | translate}}</span>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize">
+                    <span class="col-sm-4 col-xs-4">{{order.OrderState}}</span>
+                    <span class="col-sm-4 col-xs-4">{{order.PaymentStatus}}</span>
+                    <span class="col-sm-4 col-xs-4">{{:: order.OrderDate | date: "dd-MM-yyyy / HH:mm:s" }}</span>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="panel panel-white" id="panel5">
+                    <div class="panel-heading">
+                        <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{'main.ORDERDETAILS' |translate}} <label class="pull-right text-red text-bold text-extra-large">{{order.PaymentType.PaymentType.name}} / {{order.Amount |number:2 }} TL </label></h4>
+                    </div>
+                    <div collapse="panel1" ng-if="collapse" class="panel-wrapper">
+                        <div class="panel-body">
+                            <div class="row panel-body">
+                                <form role="form">
+                                    <div><span ng-repeat='member in order.items track by member.id'><kvsorder-item member='member'></kvsorder-item></span></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

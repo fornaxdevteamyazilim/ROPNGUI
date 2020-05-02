@@ -1,0 +1,207 @@
+﻿<!--<style>
+        [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+<div ng-controller="personaddresseditCtrl as pae" ng-init="app.layout.isSidebarClosed=true">
+    <fieldset class="panel-body scrollbar visible-lg visible-md" ct-fullheight="window" data-ct-fullheight-exclusion="header">
+        <legend>{{'main.ADDRESSINFORMATION' | translate}}</legend>
+        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+            <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-6">
+                <label translate="main.NAME" for="person"></label>
+                <input id="item.id" type="text" class="form-control text-uppercase" ng-model="Person.name" required readonly>
+            </div>
+            <div class="form-group col-sm-6 col-lg-2 col-md-2 col-xs-6">
+                <label translate="main.PHONE" for="person"></label>
+                <span ng-repeat="phone in Person.PersonPhones">
+                    <input id="pnumber" class="form-control" placeholder="(999) 999 99 99" type="text" ng-model="phone.Number" maxlength="10" required readonly />
+                </span>
+            </div>
+            <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right margin-top-10 visible-lg" ng-click="Back()">
+                <span translate="main.BACK">Back</span>
+            </a>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+        <form name="userForm" ng-submit="submitForm()" novalidate>
+            <div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-12" ng-class="{ 'has-error' : userForm.FormatedAddress.$invalid && !userForm.FormatedAddress.$pristine }">
+                    <label translate="main.STREETQUARTER" class="text-bold">*StreetAddress</label>
+                    <input type="text" name="FormatedAddress" class="form-control text-uppercase ng" ng-model="FormatedAddress" readonly ng-click="StreetAddressSelector(Address.StreetAddress.id)" required>
+                    <p ng-show="userForm.FormatedAddress.$invalid && !userForm.FormatedAddress.$pristine" class="help-block">Street Address Name is required.</p>
+                </div>
+                <div class="form-group col-lg-1 col-sm-6 col-md-4 col-xs-12" ng-class="{ 'has-error' : userForm.Address.AddressNo.$invalid && !userForm.Address.AddressNo.$pristine }">
+                    <label translate="main.*ADDRESSNO" class="text-bold">*Address No</label>
+                    <input type="number" name="AddressNo" class="form-control" ng-model="Address.AddressNo" required min="0">
+                </div>
+                <div class="form-group col-lg-2 col-sm-6 col-md-4 col-xs-6" ng-class="{ 'has-error' : userForm.Address.Entrance.$invalid && !userForm.Address.Entrance.$pristine }">
+                    <label translate="main.ENTERANCE">Entrance</label>
+                    <input type="text" name="Entrance" class="form-control text-uppercase" ng-model="Address.Entrance" maxlength="50" required>
+                </div>
+                <div class="form-group col-lg-1 col-sm-6 col-md-4 col-xs-6" ng-class="{ 'has-error' : userForm.Address.Floor.$invalid && !userForm.Address.Floor.$pristine }">
+                    <label translate="main.FLOOR">Floor</label>
+                    <input type="number" name="Floor" class="form-control" ng-model="Address.Floor" required>
+                </div>
+                <div class="form-group col-lg-1 col-sm-6 col-md-4 col-xs-6"ng-class="{ 'has-error' : userForm.Address.AppartmentNo.$invalid && !userForm.Address.AppartmentNo.$pristine }">
+                    <label translate="main.*APERTMENTNO"></label>
+                    <input type="number" name="AppartmentNo" class="form-control" ng-model="Address.AppartmentNo" required> 
+                </div>
+                <div class="form-group col-lg-3 col-sm-6 col-md-4 col-xs-6">
+                    <label translate="main.APERTMENTNAME">Appartment Name</label>
+                    <input type="text" name="AppartmentName" class="form-control text-uppercase" ng-model="Address.AppartmentName" maxlength="50">
+                </div>
+                <div class="form-group col-lg-1 col-sm-6 col-md-4 col-xs-6">
+                    <label translate="main.EXTENSIONNUMBER">Extension Number</label>
+                    <input type="number" name="extensionNumber" class="form-control" ng-model="item.extensionNumber">
+                </div>
+                <div class="form-group col-lg-2 col-sm-6 col-md-4 col-xs-6">
+                    <label translate="main.*ADDRESSTYPE" class="text-bold">*AddressType</label><br />
+                    <select name="AddressTypeID" ng-options="q.Value as q.Name for q in addresstypes | orderBy:'+Name'" class="form-control ng" ng-model="Address.AddressTypeID" required ng-change="GetAddressType(Address)"></select>
+                    <span class="error" ng-show="userForm.Address.AddressTypeID.$dirty && userForm.Address.AddressTypeID.$invalid">Select service</span>
+                </div>
+                <div class="form-group col-lg-3 col-sm-6 col-md-4 col-xs-6">
+                    <label translate="main.COMPANY" for="person"></label>
+                    <input id="item.id" type="text" class="form-control text-uppercase" ng-model="item.CompanyName" maxlength="50">
+                </div>
+                <div class="form-group col-lg-3 col-sm-6 col-md-4 col-xs-6">
+                    <label translate="main.STORE">Name</label>
+                    <input type="text" name="name" class="form-control text-uppercase" ng-model="item.Store.name" readonly>
+                </div>
+                <div class="form-group col-lg-3 col-md-4 pull-right">
+                    <button ng type="submit" class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save pull-right margin-top-20" ng-disabled="userForm.$invalid" ng-click="SaveData(item)">
+                        <span translate="main.SAVE">Save Person Address</span>
+                    </button>
+                </div>
+                <div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12" ng-class="{ 'has-error' : userForm.AddressTypeID.$invalid && !userForm.AddressTypeID.$pristine }">
+                    <div class="form-group col-lg-3 col-sm-6 col-md-4 col-xs-6">
+                        <label translate="main.ADDRESSNOTEROP" for="Notes">
+                            Address Note
+                        </label>
+                        <textarea id="Notes" type="text" style='min-height:100px; max-width:300px; max-height:150px' class="form-control text-capitalize" ng-model="Address.Notes" ></textarea>
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-6 col-md-4 col-xs-6">
+                        <label translate="main.LANDMARK">Landmark</label>
+                        <textarea type="text" style='min-height:100px; max-width:300px; max-height:150px' class="form-control text-uppercase" ng-model="Address.Landmark"></textarea>
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-6 col-md-4 col-xs-6" ng-class="{ 'has-error' : userForm.AddressNo.$invalid && !userForm.AddressNo.$pristine }">
+                    <div>
+                        <label translate="main.ADRESSISACTIVE" class="text-bold">isActive</label><br />
+                        <select id="isActive" class="form-control text-uppercase" ng-model="item.isActive" ng-options="q.Value as q.name for q in isActives" required >
+                            <!--<option ng-repeat="actives in isActives" ng-selected="item.isActive == actives.Value" value="{{actives.Value}}">{{actives.name}}</option>-->
+                        </select>
+                        <!--<span class="error" ng-show="userForm.item.isActive.$dirty && userForm.item.isActive.$invalid">Adres durumu seçin!</span>-->
+                    </div>
+                        <p class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold text-dark margin-top-5">
+                            Eski veya yanlış olan adresin durumunu "Pasif" olarak seçmeniz yeterlidir.
+                        </p>
+                </div>
+                    <div class="form-group col-lg-3 col-sm-6 col-md-4 col-xs-6 pull-right" ng-if="user.UserRole.Name != 'Alonet'">
+                        <button ng-show="AddressID != 'new' && item.isActive" class="margin-top-20 btn btn-success btn-wide tooltips ti-shopping-cart pull-right btn-scroll btn-scroll-left fa  fa-save" tooltip="{{'main.HOMEDELIVERY' |translate}}" tooltip-placement="top" ng-disabled="userForm.$invalid" ng-click="SaveData(item,'Order')" ng-dblclick="BottonDblcilik()">
+                            <span translate="main.HOMEDELIVERY">HomeDelivery Order</span>
+                        </button>
+                    </div>
+                <p class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold text-dark">
+                    Koyu renk yazılmış ve * işareti olan alanlar zorunludur.
+                </p>
+            </div>
+                </div>
+        </form>
+    </fieldset>
+
+    <fieldset class="panel-body visible-sm visible-xs">
+        <legend>{{'main.ADDRESSINFORMATION' | translate}}</legend>
+        <div class="col-sm-12 col-xs-12">
+            <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right margin-top-5" ng-click="Back()">
+                <span translate="main.BACK">Back</span>
+            </a>
+        </div>
+        <div class="col-sm-12 col-xs-12">
+            <div class="form-group col-sm-6 col-xs-6">
+                <label translate="main.NAME" for="person"></label>
+                <input id="item.id" type="text" class="form-control text-uppercase" ng-model="Person.name" required readonly>
+            </div>
+            <div class="form-group col-sm-6 col-xs-6">
+                <label translate="main.PHONE" for="person"></label>
+                <span ng-repeat="phone in Person.PersonPhones">
+                    <input id="pnumber" class="form-control" placeholder="(999) 999 99 99" type="text" ng-model="phone.Number" maxlength="10" required readonly />
+                </span>
+            </div>
+        </div>
+        <form name="userForm" ng-submit="submitForm()" novalidate>
+            <div class="form-group col-sm-12 col-xs-12">
+                <div class="form-group col-sm-12 col-xs-12" ng-class="{ 'has-error' : userForm.FormatedAddress.$invalid && !userForm.FormatedAddress.$pristine }">
+                    <label translate="main.STREETQUARTER" class="text-bold">*StreetAddress</label>
+                    <input type="text" name="FormatedAddress" class="form-control text-uppercase ng" ng-model="FormatedAddress" readonly ng-click="StreetAddressSelector(Address.StreetAddress.id)" required>
+                    <p ng-show="userForm.FormatedAddress.$invalid && !userForm.FormatedAddress.$pristine" class="help-block">Street Address Name is required.</p>
+                </div>
+                <div class="form-group col-sm-6 col-xs-6" ng-class="{ 'has-error' : userForm.AddressNo.$invalid && !userForm.AddressNo.$pristine }">
+                    <label translate="main.*ADDRESSNO" class="text-bold">*Address No</label>
+                    <input type="number" name="AddressNo" class="form-control" ng-model="Address.AddressNo" required>
+                </div>
+                <div class="form-group col-sm-6 col-xs-6">
+                    <label translate="main.ENTERANCE">Entrance</label>
+                    <input type="text" name="Entrance" class="form-control text-uppercase" ng-model="Address.Entrance" maxlength="50">
+                </div>
+                <div class="form-group col-sm-6 col-xs-6">
+                    <label translate="main.FLOOR">Floor</label>
+                    <input type="number" name="Floor" class="form-control" ng-model="Address.Floor">
+                </div>
+                <div class="form-group col-sm-6 col-xs-6">
+                    <label translate="main.*APERTMENTNO"></label>
+                    <input type="number" name="AppartmentNo" class="form-control" ng-model="Address.AppartmentNo">
+                </div>
+                <div class="form-group col-sm-6 col-xs-6">
+                    <label translate="main.APERTMENTNAME">Appartment Name</label>
+                    <input type="text" name="AppartmentName" class="form-control text-uppercase" ng-model="Address.AppartmentName" maxlength="50">
+                </div>
+                <div class="form-group col-sm-6 col-xs-6">
+                    <label translate="main.EXTENSIONNUMBER">Extension Number</label>
+                    <input type="number" name="extensionNumber" class="form-control" ng-model="item.extensionNumber">
+                </div>
+                <div class="form-group col-sm-6 col-xs-6">
+                    <label translate="main.*ADDRESSTYPE" class="text-bold">*AddressType</label><br />
+                    <select name="AddressTypeID" ng-options="q.Value as q.Name for q in addresstypes | orderBy:'+Name'" class="form-control ng" ng-model="Address.AddressTypeID" required ng-change="GetAddressType(Address)"></select>
+                    <span class="error" ng-show="userForm.Address.AddressTypeID.$dirty && userForm.Address.AddressTypeID.$invalid">Select service</span>
+                </div>
+                <div class="form-group col-sm-6 col-xs-6">
+                    <label translate="main.COMPANY" for="person"></label>
+                    <input id="item.id" type="text" class="form-control text-uppercase" ng-model="item.CompanyName" maxlength="50">
+                </div>
+                <div class="form-group col-sm-12 col-xs-12" ng-class="{ 'has-error' : userForm.AddressTypeID.$invalid && !userForm.AddressTypeID.$pristine }">
+                    <div class="form-group col-sm-6 col-xs-6">
+                        <label translate="main.ADDRESSNOTE" for="Notes">
+                            Address Note
+                        </label>
+                        <textarea id="Notes" type="text" style='min-height:100px; max-width:300px; max-height:150px' class="form-control text-capitalize" ng-model="Address.Notes"></textarea>
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-6">
+                        <label translate="main.LANDMARK">Landmark</label>
+                        <textarea type="text" style='min-height:100px; max-width:300px; max-height:150px' class="form-control text-uppercase" ng-model="Address.Landmark"></textarea>
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-6">
+                        <label translate="main.STORE">Name</label>
+                        <input type="text" name="name" class="form-control text-uppercase" ng-model="item.Store.name" readonly>
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-6 pull-right">
+                        <button ng type="submit" class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save pull-right margin-top-20" ng-disabled="userForm.$invalid" ng-click="SaveData(item)">
+                            <span translate="main.SAVE">Save Person Address</span>
+                        </button>
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-6">
+                        <button ng-show="AddressID != 'new'" class="margin-top-20 btn btn-success btn-wide tooltips ti-shopping-cart pull-right btn-scroll btn-scroll-left fa  fa-save" tooltip="{{'main.HOMEDELIVERY' |translate}}" tooltip-placement="top" ng-disabled="userForm.$invalid" ng-click="SaveData(item,'Order')" ng-dblclick="BottonDblcilik()">
+                            <span translate="main.HOMEDELIVERY">HomeDelivery Order</span>
+                        </button>
+                    </div>
+                </div>
+                <p class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold text-dark">
+                    Koyu renk yazılmış ve * işareti olan alanlar zorunludur.
+                </p>
+            </div>
+        </form>
+    </fieldset>
+</div>
+

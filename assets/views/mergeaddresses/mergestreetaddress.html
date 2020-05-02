@@ -1,0 +1,56 @@
+﻿<div ng-controller="mergestreetaddressCtrl as msa">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.MERGESTREETADDRESS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <select id="TownID" class="form-control ng" ng-options="q.id as q.name for q in towns | orderBy:'+name'" ng-model="TownID" ng-change="LoadSubcities(TownID)">
+                    <option value="" selected>{{:: selecttown}}</option>
+                </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <select id="SubcityID" class="form-control ng" ng-options="q.id as q.name for q in subcities | orderBy:'+name'" ng-model="SubcityID" ng-change="LoadQuarters(SubcityID)">
+                    <option value="" selected>{{:: selectsubcity}}</option>
+                </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <select id="SubcityID" class="form-control ng" ng-options="q.id as q.name for q in quarters | orderBy:'+name'" ng-model="QuarterID" ng-change="SelectQuarter(QuarterID)">
+                    <option value="" selected>{{:: selectquarter}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="ShowObject==true">
+        <span class="margin-bottom-10">
+            <img src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 row margin-top-10" ng-hide="ShowObject==true">
+        <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row table table-striped" style="color:black;">
+            <tr class="bg-grey" style="color:black;">
+                <th class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{'main.FROMMERGESTREETADDRESS' | translate}}</th>
+            </tr>
+            <tr ng-repeat="fromStreetAddres in fromStreetAddress | orderBy:'+name'">
+                <td class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowTd" ng-click="FromSelectItem(fromStreetAddres)" ng-class="{'background-dark':FromSelectStreetAddress.id == fromStreetAddres.id, 'text-bold':FromSelectStreetAddress.id == fromStreetAddres.id , 'text-extra-large':FromSelectStreetAddress.id == fromStreetAddres.id , 'ti-check':FromSelectStreetAddress.id == fromStreetAddres.id}">{{fromStreetAddres.name}}({{fromStreetAddres.StreetAddressType}})</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row center margin-top-10" ng-hide="ShowObject==true">
+        <div style="position:fixed;">
+            <button class="text-bold btn btn-o btn-scroll btn-scroll-top btn-danger ti-loop center" ng-disabled="!ToSelectStreetAddress.id && !FromSelectStreetAddress.id" ng-click="MergeStreetAddress()"><span>Cadde-Sokak Birleştir</span></button>
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 row margin-top-10" ng-hide="ShowObject==true">
+        <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row table table-striped" style="color:black;">
+            <tr class="bg-grey" style="color:black;">
+                <th class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{'main.TOMERGESTREETADDRESS' | translate}}</th>
+            </tr>
+            <tr ng-repeat="toStreetAddres in toStreetAddress | orderBy:'+name'">
+                <td class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowTd" ng-click="ToSelectItem(toStreetAddres)" ng-class="{'background-dark':ToSelectStreetAddress.id == toStreetAddres.id, 'text-bold':ToSelectStreetAddress.id == toStreetAddres.id , 'text-extra-large':ToSelectStreetAddress.id == toStreetAddres.id , 'ti-check':ToSelectStreetAddress.id == toStreetAddres.id}">{{toStreetAddres.name}} ({{toStreetAddres.StreetAddressType}})</td>
+            </tr>
+        </table>
+    </div>
+</div>

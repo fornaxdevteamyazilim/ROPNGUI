@@ -1,0 +1,63 @@
+﻿<!--<style>
+    [class*="col-"] {
+      background-color: #eee;
+      background-color: rgba(86,61,124,.15);
+      border: 1px solid #ddd;
+      border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+
+<div class="modal-header">
+    <h3 class="modal-title">{{'main.EDITTAG' | translate}} [{{ObjectID}}] <button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body">
+    <div class="form-group col-sm-6 col-lg-6 col-md-6 col-xs-12 panel panel-white min-height-200">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label class="center text-bold text-dark text-large margin-top-5">{{'main.TAGTYPE' | translate}}</label><br />
+            <select id="TagType" ng-options="q.Value as q.Name for q in tagtypes | orderBy:'+Name'" class="form-control ng" ng-model="TagID" ng-change="GetTags(TagID)"><option value="">{{'main.SELECTTAGTYPE' | translate}}</option></select>
+            <p>
+                <input id="#search" class="form-control" placeholder="{{'main.SEARCHBYNAME' | translate}}" type="text" ng-model="search" ng-model-options="{ debounce: 500 }" autofocus />
+            </p>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-scroll" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true" style="max-height:300px;">
+            <table ng-table="tableParams" class="table table-hover">
+                <tr ng-repeat="tagitem in tag | orderBy:'+name'"
+                    ng-click="SelectItem(item.id)"
+                    ng-class="{'active': item.id === SelectedItem}"
+                    ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                    <td data-title="trTagName" data-sortable="'TagID'" class="ng" width="60%">
+                        {{tagitem.name}}
+                    </td>
+                    <td style="white-space: nowrap;" data-title="trAddTag" width="40%">
+                        <div class="buttons pull-right" ng-show="!rowform.$visible">
+                            <a class="btn btn-transparent tooltips btn-sm ti-plus" tooltip="{{'main.ADD' |translate}}" tooltip-placement="top" ng-click="saveData(tagitem)"></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="form-group col-sm-6 col-lg-6 col-md-6 col-xs-12 panel panel-white min-height-200">
+        <label class="center text-bold text-dark text-extra-large margin-top-5 margin-left-10">{{'main.SELECTEDOBJECTTAGS' |translate}}</label><br />
+        <table ng-table="tableParams" class="table table-striped table-hover">
+            <tr ng-repeat="item in $data"
+                ng-click="SelectItem(item.id)"
+                ng-class="{'active': item.id === SelectedItem}"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td data-title="trTagName" data-sortable="'TagID'">
+                    <span class="text-capitalize" editable-select="item.TagID" e-name="Tag.name" e-ng-model="item.TagID" e-form="rowform"
+                          e-ng-options="q.id as q.TagTypeName +'/'+  q.name for q in tags | orderBy:'+TagTypeName'">
+                        {{ ShowObject('tags','id',item.TagID,'TagTypeName') }} / {{ ShowObject('tags','id',item.TagID,'name') }}
+                    </span>
+                </td>
+                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trTagRemove" width="4%">
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent tooltips btn-sm  ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br />
+</div>

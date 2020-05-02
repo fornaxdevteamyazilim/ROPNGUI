@@ -1,0 +1,94 @@
+﻿<div ng-controller="complainteditCtrl as vm">
+    <div>
+        <br />
+        <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left  pull-right" ng-click="Back()">
+            <span translate="main.BACK"></span>
+        </a>
+    </div>
+    <h1 class="mainTitle" translate="tittle.COMPLAINTEDIT" translate-values="{ appName: app.name }">{{ mainTitle }}</h1>
+    <div class="panel panel-white">
+        <div class="panel panel-white">
+            <div class="panel-body">
+                <form role="form">
+                    <div ng-if="Order" class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="OrderNumber" translate="main.OrderNumber"></label>
+                        <input type="text" class="form-control text-capitalize ng" ng-model="OrderNumber" />
+                    </div>
+                    <div ng-if="!Order" class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="Store" translate="main.STORE"></label>
+                        <select ng-options="q.id as q.name for q in stores | orderBy:'+name'" class="form-control text-capitalize ng" ng-model="item.StoreID"></select>
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="Status" translate="main.COMPLAINTSTATUS"></label><br />
+                        <select ng-options="q.Value as q.Name for q in complaintstatuses | orderBy:'+Name'" class="form-control text-capitalize ng" ng-model="item.ComplaintStatusID"></select>
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="ComplaintType" translate="main.COMPLAINTTYPE"></label><br />
+                        <select ng-options="q.id as q.Name for q in complainttypes | orderBy:'+Name'" class="form-control text-capitalize ng" ng-model="item.ComplaintTypeID"></select>
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="Conclisuon" translate="main.COMPLAINTCONCLUSION"></label>
+                        <select ng-options="q.Value as q.Name for q in complaintconclusions | orderBy:'+Name'" class="form-control text-capitalize ng" ng-model="item.ComplaintConclusionID"></select>
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="Source" translate="main.COMPLAINTSOURCE"></label>
+                        <select ng-options="q.id as q.name for q in complaintsources | orderBy:'+name'" class="form-control text-capitalize ng" ng-model="item.ComplaintSourceID"></select>
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="ComplaintSourceID" translate="main.COMPLAINTSUBJECT"></label>
+                        <select id="ComplaintSubjectID" ng-options="t.id as t.name for t in complaintsubjects | orderBy:'+name'" class="form-control text-capitalize ng" ng-model="item.ComplaintSubjectID"></select>
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="ComplaintReactionID" translate="main.COMPLAINTREACTION"></label>
+                        <select id="ComplaintReactionID" ng-options="t.id as t.name for t in complaintreactions | orderBy:'+name'" class="form-control text-capitalize ng" ng-model="item.ComplaintReactionID"></select>
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="ComplaintDate" translate="main.COMPLAINTDATE"></label>
+                        <input id="Date"
+                               type="text"
+                               class="form-control"
+                               ng-model="item.ComplaintDate"
+                               readonly
+                               ng-click="ComplaintDatePopup(item)">
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="IncidentDate" translate="main.INCIDENTDATE"></label>
+                        <input id="Date"
+                               type="text"
+                               class="form-control"
+                               ng-model="item.IncidentDate"
+                               readonly
+                               ng-click="IncidentDatePopup(item)">
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="IncidentNotes" translate="main.INCIDENTNOTES"></label>
+                        <input type="text" class="form-control text-capitalize ng" ng-model="item.IncidentNotes" />
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="ComplaintNote" translate="main.COMPLAINTNOTE"></label>
+                        <input type="text" class="form-control text-capitalize ng" ng-model="item.ComplaintNote" />
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="CustomerReacitonNotes" translate="main.CUSTOMERREACTIONNOTES"></label>
+                        <input type="text" class="form-control text-capitalize ng" ng-model="item.CustomerReacitonNotes" />
+                    </div>
+                    <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-12">
+                        <label for="ConclusionNotes" translate="main.CONCLUSIONNOTES"></label>
+                        <input type="text" class="form-control text-capitalize ng" ng-model="item.ConclusionNotes" />
+                    </div>
+
+                    <hr />
+                    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                        <!--ng-disabled="isClean()"-->
+                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-click="saveData(item)">
+                            <span translate="main.SAVE"></span>
+                        </button>
+                        <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-click="removedata(item.id)">
+                            <span translate="main.DELETE"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

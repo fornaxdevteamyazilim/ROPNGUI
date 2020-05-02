@@ -1,0 +1,1758 @@
+﻿<style>
+    div {
+        overflow: hidden;
+    }
+
+    label {
+        overflow: hidden;
+    }
+
+    .ng {
+    }
+
+        .ng:hover {
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+    .strike {
+        text-decoration: line-through;
+    }
+
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+
+</style>
+
+
+<div ng-init="app.layout.isSidebarClosed=true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md" ng-controller="dispatcherCtrl as dis">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button class="btn btn-scroll btn-success btn-scroll-top ti-new-window" ng-click="homedeliveryOrder()"><span class="text-extra-large text-bold">{{::neworder}} </span></button>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center text-bold" ng-if="::user.restrictions.dispatchhomedelivery=='Enable'">
+                <h2>{{::homedelivery}} <span ng-if="ShowObject==true" class="center"><span class="fa fa-spin fa-spinner center"></span></span><br /></h2>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button type="button" class="btn btn-o btn-primary btn-scroll btn-scroll-top fa-lock pull-right" ng-click="DriverVehicle()" ng-if="::user.restrictions.zimmet=='Enable'">
+                    <span>{{::assigndriver}}</span>
+                </button>
+            </div>
+        </div>
+        <div class="container-fluid container-fullw bg-white" style="min-height:1000px;">
+            <tabset class="tabbable col-lg-9 visible-lg visible-md">
+                <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <tab-heading>{{:refresh:new}} <span class="badge badge badge-warning" ng-if=":refresh:preparingOrders.length > 0"> {{:refresh:preparingOrders.length }}</span></tab-heading>
+                    <div style="min-height:1000px;">
+                        <div class="container-fluid container-fullw">
+                            <div class="row margin-top-5" ng-repeat="order in :refresh:preparingOrders | orderBy:'+OrderDate'" order="order">
+                                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                    <accordion close-others="oneAtATime" class="accordion">
+                                        <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                            <accordion-heading>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold pull-left" ng-click="SelectItem(order.id)">
+                                                    {{::order.OrderNumber}}
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-large text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                    <span class="text-dark text-bold text-large" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-small text-uppercase">
+                                                    {{::order.Address.StreetAddress}} <br />
+                                                    <span class="text-bold">(APT: {{::order.Address.AppartmentName}})</span><br />
+                                                    <span ng-if="user.Store.MemberID != 106851154380"> N: {{::order.Address.AddressNo}} / D: {{::order.Address.AppartmentNo}} / K: {{::order.Address.Floor}} </span>
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-orange text-right">
+                                                    {{::order.PaymentType.PaymentType.name}}
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-yellow text-right">
+                                                    {{::order.OrderState}}
+                                                </span>
+                                                <span class="col-lg-3 col-md-3 col-sm-2 col-xs-2 pull-right" style="font-size:25px;">
+                                                    <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                        {{::orderperiod}}<br />
+                                                        {{order.TimerStr}}. {{::minutes}}
+                                                    </span>
+                                                </span>
+                                            </accordion-heading>
+                                            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+                                                <tr>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::orderid}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertype}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertime}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::estimateddeliverytime}}</th>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::address}}</th>
+                                                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::ordercontent}}</th>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::totalamount}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                        <label>
+                                                            {{::order.id}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>
+                                                            {{::order.OrderType}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>{{::order.OrderDateTXT }}</label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>{{::order.DeliveryDateTXT }}</label>
+                                                    </td>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                        <label class="col-lg-10 col-md-11 col-sm-12 col-xs-12">
+                                                            {{::order.Address.StreetAddress}}
+                                                            {{::order.Address.AppartmentName}} Apt.
+                                                            N: {{::order.Address.AddressNo}}
+                                                            D: {{::order.Address.AppartmentNo}}
+                                                            Kat: {{::order.Address.Floor}}
+                                                            Giriş: {{::order.Address.Entrance}}
+                                                            Tarif: {{::order.Address.Landmark}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                        <div>
+                                                            <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                        <label class="margin-left-10">
+                                                            {{::order.AmountTXT}} TL  <br />
+                                                            {{::order.PaymentType.PaymentType.name}}
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs">
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::orderid}} : </span> {{::order.id}}
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::ordertype}} :</span>  {{::order.OrderType}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::ordertime}} : </span>  {{::order.OrderDateTXT}}
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::estimateddeliverytime}} :</span>  {{::order.DeliveryDateTXT }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark">{{::address}} :</span>   {{::order.Address.StreetAddress}}
+                                                    {{::order.Address.AppartmentName}} Apt.
+                                                    N: {{::order.Address.AddressNo}}
+                                                    D: {{::order.Address.AppartmentNo}}
+                                                    Kat: {{::order.Address.Floor}}
+                                                    Giriş: {{::order.Address.Entrance}}
+                                                    Tarif: {{::order.Address.Landmark}}
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark"> {{::ordercontent}} : </span> <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} TL /  {{::order.PaymentType.PaymentType.name}}
+                                                </div>
+                                            </div>
+                                        </accordion-group>
+                                    </accordion>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> <!--ng-if="::user.restrictions.reprintorder=='Enable'">-->
+                                        <button type="button" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right btn btn-o btn-red btn-scroll btn-scroll-left fa fa-print" ng-click="RePrintOrder(order.id)">
+                                            <span>{{::reprint}}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <tab-heading>{{::prepared}} <span class="badge badge badge-success" ng-if=":refresh:preparedOrders.length > 0"> {{:refresh:preparedOrders.length }}</span></tab-heading>
+                    <div style="min-height:1000px;">
+                        <div class="container-fluid container-fullw">
+                            <div class="row margin-top-5" ng-repeat="order in preparedOrders | orderBy:'+OrderDate'" order="order">
+                                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                    <accordion close-others="oneAtATime" class="accordion">
+                                        <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                            <accordion-heading>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold pull-left" ng-click="SelectItem(order.id)">
+                                                    {{::order.OrderNumber}}
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-large text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                    <span class="text-dark text-bold text-large text-uppercase" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-small text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                    {{::order.Address.StreetAddress}} <br />
+                                                    <span class="text-bold">(APT: {{::order.Address.AppartmentName}})</span><br />
+                                                    <span ng-if="user.Store.MemberID != 106851154380"> N: {{::order.Address.AddressNo}} / D:{{::order.Address.AppartmentNo}} / K: {{::order.Address.Floor}} </span>
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-orange text-right">
+                                                    {{::order.PaymentType.PaymentType.name}}
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-success text-right">
+                                                    {{::order.OrderState}}
+                                                </span>
+                                                <span class="col-lg-3 col-md-3 col-sm-2 col-xs-2 pull-right" style="font-size:25px;">
+                                                    <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                        {{::orderperiod}}<br />
+                                                        {{order.TimerStr}}. {{::minutes}}
+                                                    </span>
+                                                </span>
+                                            </accordion-heading>
+                                            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <tr>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::orderid}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertype}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertime}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::estimateddeliverytime}}</th>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::address}}</th>
+                                                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::ordercontent}}</th>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::totalamount}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                        <label>
+                                                            {{::order.id}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>
+                                                            {{::order.OrderType}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>{{::order.OrderDateTXT}}</label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>{{::order.DeliveryDateTXT }}</label>
+                                                    </td>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                        <label class="col-lg-10 col-md-11 col-sm-12 col-xs-12">
+                                                            {{::order.Address.StreetAddress}}
+                                                            {{::order.Address.AppartmentName}} Apt.
+                                                            N: {{::order.Address.AddressNo}}
+                                                            D: {{::order.Address.AppartmentNo}}
+                                                            Kat: {{::order.Address.Floor}}
+                                                            Giriş: {{::order.Address.Entrance}}
+                                                            Tarif: {{::order.Address.Landmark}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                        <div>
+                                                            <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                        <label>
+                                                            {{::order.AmountTXT}} TL <br />
+                                                            {{::order.PaymentType.PaymentType.name}}
+                                                        </label> <br />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </accordion-group>
+                                    </accordion>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    <button type="button" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-o btn-primary btn-scroll btn-scroll-top fa-mail-forward pull-right" ng-click="ControlOrderType(order)">
+                                        <span>{{::send}}</span>
+                                    </button>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> <!--ng-if="::user.restrictions.reprintorder=='Enable'">-->
+                                        <button type="button" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right btn btn-o btn-red btn-scroll btn-scroll-left fa fa-print margin-top-5" ng-click="RePrintOrder(order.id)">
+                                            <span>{{::reprint}}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <tab-heading>{{::outside}} <span class="badge badge-danger" ng-if=":refresh:outOrders.length > 0"> {{:refresh:outOrders.length}}</span></tab-heading>
+                    <div style="min-height:1000px;">
+                        <div class="container-fluid container-fullw">
+                            <div class="row margin-top-5" ng-repeat="order in outOrders | orderBy:'+OrderDate'" order="order">
+                                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                    <accordion close-others="oneAtATime" class="accordion">
+                                        <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                            <accordion-heading>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold pull-left">
+                                                    {{::order.OrderNumber}}
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-small text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                    <span class="text-dark text-bold text-large text-uppercase" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-small text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                    {{::order.Address.StreetAddress}} <br />
+                                                    <span class="text-bold">(APT: {{::order.Address.AppartmentName}})</span><br />
+                                                    <span ng-if="user.Store.MemberID != 106851154380"> N: {{::order.Address.AddressNo}} / D:{{::order.Address.AppartmentNo}} / K: {{::order.Address.Floor}} </span>
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-orange text-right">
+                                                    {{::order.PaymentType.PaymentType.name}}
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-red text-right">
+                                                    {{::order.OrderState}}
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-green text-right">
+                                                    {{::order.states[0].Driver}} / {{::order.states[0].OrderStateDateTXT}}<br />
+                                                                                                                          <span class="text-extra-large text-bold text-blue">{{::order.calculatedTime}} .{{::minutes}}</span>
+                                                </span>
+                                                <span class="col-lg-3 col-md-3 col-sm-2 col-xs-2 pull-right" style="font-size:25px;">
+                                                    <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                        {{::orderperiod}}<br />
+                                                        {{order.TimerStr}}. {{::minutes}}
+                                                    </span>
+                                                </span>
+                                            </accordion-heading>
+                                            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <tr>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::orderid}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertype}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertime}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::estimateddeliverytime}}</th>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::address}}</th>
+                                                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::ordercontent}}</th>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::totalamount}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                        <label>
+                                                            {{::order.id}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>
+                                                            {{::order.OrderType}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>{{::order.OrderDateTXT }}</label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>{{::order.DeliveryDateTXT }}</label>
+                                                    </td>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                        <label class="col-lg-10 col-md-11 col-sm-12 col-xs-12">
+                                                            {{::order.Address.StreetAddress}}
+                                                            {{::order.Address.AppartmentName}} Apt.
+                                                            N: {{::order.Address.AddressNo}}
+                                                            D: {{::order.Address.AppartmentNo}}
+                                                            Kat: {{::order.Address.Floor}}
+                                                            Giriş: {{::order.Address.Entrance}}
+                                                            Tarif: {{::order.Address.Landmark}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                        <div>
+                                                            <span ng-repeat='member in :refresh:order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                        <label class="margin-left-10">
+                                                            {{::order.AmountTXT}} TL  <br />
+                                                            {{::order.PaymentType.PaymentType.name}}
+                                                        </label><br />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </accordion-group>
+                                    </accordion>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    <button type="button" class="col-lg-12 btn btn-o btn-primary btn-scroll btn-scroll-top fa-mail-forward pull-right" ng-click="backdriver(order)">
+                                        <span>{{::return}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+            <tabset class="tabbable col-lg-3">
+                <tab class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <tab-heading>{{::driverlist}} </tab-heading>
+                    <div style="min-height:1000px;">
+                        <table ng-table="dis.tableParams" class="table table-striped col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <tr>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::drivername}}</th>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::vehicle}}</th>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::totalorder}}</th>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::statetime}}</th>
+                            </tr>
+                            <tr ng-repeat="item in $data | orderBy:['-StateTime']"
+                                ng-class="{'list-group-item-danger':item.VehicleState=='Out', 'strike':item.VehicleState=='Out', 'text-red':item.VehicleState=='Out', 'bg-danger':item.VehicleState=='Out'}" ng-if=":refresh:item.isActive==true" ng-show="item.VehicleState !='Out'">
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Driver}}</label>
+                                </td>
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Vehicle}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.OrderStates.lengthTXT}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.StateTimeTXT}} {{::minutes}}</label>
+                                </td>
+                            </tr>
+                            <tr class="margin-top-5" ng-repeat="item in $data | orderBy:['-StateTime']"
+                                ng-class="{'list-group-item-danger':item.VehicleState=='Out', 'strike':item.VehicleState=='Out', 'text-red':item.VehicleState=='Out', 'bg-danger':item.VehicleState=='Out'}" ng-if=":refresh:item.isActive==true" ng-show="item.VehicleState=='Out'">
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Driver}}</label>
+                                </td>
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Vehicle}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.OrderStates.lengthTXT}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.StateTimeTXT}} {{::minutes}}</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>
+
+
+<div ng-init="app.layout.isSidebarClosed=true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs" ng-controller="dispatcherCtrl as dis">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button class="btn btn-scroll btn-success btn-scroll-top ti-new-window" ng-click="homedeliveryOrder()"><span class="text-extra-large text-bold">{{::neworder}} </span></button>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center text-bold" ng-if="::user.restrictions.dispatchhomedelivery=='Enable'">
+                <h2>{{::homedelivery}} <span ng-if="ShowObject==true" class="center"><span class="fa fa-spin fa-spinner center"></span></span><br /></h2>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button type="button" class="btn btn-o btn-primary btn-scroll btn-scroll-top fa-lock pull-right" ng-click="DriverVehicle()" ng-if="::user.restrictions.zimmet=='Enable'">
+                    <span>Zimmet</span>
+                </button>
+            </div>
+        </div>
+        <div class="container-fluid container-fullw bg-white" style="min-height:1000px;">
+
+            <tabset class="tabbable visible-sm visible-xs">
+                <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <tab-heading>{{:refresh:new}} <span class="badge badge badge-warning" ng-if=":refresh:preparingOrders.length > 0"> {{:refresh:preparingOrders.length }}</span></tab-heading>
+                    <div style="min-height:1000px;">
+                        <div class="container-fluid container-fullw">
+                            <div class="row margin-top-5" ng-repeat="order in :refresh:preparingOrders | orderBy:'+OrderDate'" order="order">
+                                <div class="col-sm-12 col-xs-12">
+                                    <accordion close-others="oneAtATime" class="accordion">
+                                        <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                            <accordion-heading>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="col-sm-4 col-xs-4 text-bold pull-left" ng-click="SelectItem(order.id)">
+                                                        {{::order.OrderNumber}}
+                                                    </span>
+                                                    <span class="col-sm-4 col-xs-4 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                        <span class="text-dark text-bold" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                                    </span>
+                                                    <span class="col-sm-4 col-xs-4 pull-right" style="font-size:15px;">
+                                                        <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                            Sipariş Süresi<br />
+                                                            {{order.TimerStr}}. Dk !
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="col-sm-8 col-xs-8 text-small text-uppercase">
+                                                        {{::order.Address.StreetAddress}}
+                                                    </span>
+                                                </div>
+                                            </accordion-heading>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::orderid}} : </span> {{::order.id}}
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::ordertype}} :</span>  {{::order.OrderType}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::ordertime}} : </span>  {{::order.OrderDateTXT}}
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::estimateddeliverytime}} :</span>  {{::order.DeliveryDateTXT }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark">{{::address}} :</span>   {{::order.Address.StreetAddress}}
+                                                    {{::order.Address.AppartmentName}} Apt.
+                                                    N: {{::order.Address.AddressNo}}
+                                                    D: {{::order.Address.AppartmentNo}}
+                                                    Kat: {{::order.Address.Floor}}
+                                                    Giriş: {{::order.Address.Entrance}}
+                                                    Tarif: {{::order.Address.Landmark}}
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark"> {{::ordercontent}} : </span> <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} TL /  {{::order.PaymentType.PaymentType.name}}
+                                                </div>
+                                            </div>
+                                        </accordion-group>
+                                    </accordion>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <tab-heading>{{::prepared}} <span class="badge badge badge-success" ng-if=":refresh:preparedOrders.length > 0"> {{:refresh:preparedOrders.length }}</span></tab-heading>
+                    <div style="min-height:1000px;">
+                        <div class="container-fluid container-fullw">
+                            <div class="row margin-top-5" ng-repeat="order in preparedOrders | orderBy:'+OrderDate'" order="order">
+                                <div class="col-sm-10 col-xs-10">
+                                    <accordion close-others="oneAtATime" class="accordion">
+                                        <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                            <accordion-heading>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="col-sm-3 col-xs-3 text-bold pull-left" ng-click="SelectItem(order.id)">
+                                                        {{::order.OrderNumber}}
+                                                    </span>
+                                                    <span class="col-sm-4 col-xs-4 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                        <span class="text-dark text-bold" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                                    </span>
+                                                    <span class="col-sm-4 col-xs-4 pull-right" style="font-size:15px;">
+                                                        <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                            Sipariş Süresi<br />
+                                                            {{order.TimerStr}}. Dk !
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="col-sm-8 col-xs-8 text-small text-uppercase">
+                                                        {{::order.Address.StreetAddress}}
+                                                    </span>
+                                                </div>
+                                            </accordion-heading>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::orderid}} : </span> {{::order.id}}
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::ordertype}} :</span>  {{::order.OrderType}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::ordertime}} : </span>  {{::order.OrderDateTXT}}
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::estimateddeliverytime}} :</span>  {{::order.DeliveryDateTXT }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark">{{::address}} :</span>   {{::order.Address.StreetAddress}}
+                                                    {{::order.Address.AppartmentName}} Apt.
+                                                    N: {{::order.Address.AddressNo}}
+                                                    D: {{::order.Address.AppartmentNo}}
+                                                    Kat: {{::order.Address.Floor}}
+                                                    Giriş: {{::order.Address.Entrance}}
+                                                    Tarif: {{::order.Address.Landmark}}
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark"> {{::ordercontent}} : </span> <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} TL /  {{::order.PaymentType.PaymentType.name}}
+                                                </div>
+                                            </div>
+                                        </accordion-group>
+                                    </accordion>
+                                </div>
+                                <div class="col-sm-2 col-xs-2">
+                                    <button type="button" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-o btn-primary btn-scroll btn-scroll-top fa-mail-forward pull-right" ng-click="ControlOrderType(order)">
+                                        <span>{{::send}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <tab-heading>{{::outside}} <span class="badge badge-danger" ng-if=":refresh:outOrders.length > 0"> {{:refresh:outOrders.length}}</span></tab-heading>
+                    <div style="min-height:1000px;">
+                        <div class="container-fluid container-fullw">
+                            <div class="row margin-top-5" ng-repeat="order in outOrders | orderBy:'+OrderDate'" order="order">
+                                <div class="col-sm-10 col-xs-10">
+                                    <accordion close-others="oneAtATime" class="accordion">
+                                        <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                            <accordion-heading>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="col-sm-3 col-xs-3 text-bold pull-left" ng-click="SelectItem(order.id)">
+                                                        {{::order.OrderNumber}}
+                                                    </span>
+                                                    <span class="col-sm-4 col-xs-4 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                        <span class="text-dark text-bold" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                                    </span>
+                                                    <span class="col-sm-4 col-xs-4 pull-right" style="font-size:15px;">
+                                                        <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                            Sipariş Süresi<br />
+                                                            {{order.TimerStr}}. Dk !
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="col-sm-8 col-xs-8 text-small text-uppercase">
+                                                        {{::order.Address.StreetAddress}}
+                                                    </span>
+                                                </div>
+                                            </accordion-heading>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::orderid}} : </span> {{::order.id}}
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::ordertype}} :</span>  {{::order.OrderType}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::ordertime}} : </span>  {{::order.OrderDateTXT}}
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <span class="text-bold text-dark">{{::estimateddeliverytime}} :</span>  {{::order.DeliveryDateTXT }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark">{{::address}} :</span>   {{::order.Address.StreetAddress}}
+                                                    {{::order.Address.AppartmentName}} Apt.
+                                                    N: {{::order.Address.AddressNo}}
+                                                    D: {{::order.Address.AppartmentNo}}
+                                                    Kat: {{::order.Address.Floor}}
+                                                    Giriş: {{::order.Address.Entrance}}
+                                                    Tarif: {{::order.Address.Landmark}}
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark"> {{::ordercontent}} : </span> <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                                </div>
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} TL /  {{::order.PaymentType.PaymentType.name}}
+                                                </div>
+                                            </div>
+                                        </accordion-group>
+                                    </accordion>
+                                </div>
+                                <div class="col-sm-2 col-xs-2">
+                                    <button type="button" class="col-lg-12 btn btn-o btn-primary btn-scroll btn-scroll-top fa-mail-forward pull-right" ng-click="backdriver(order)">
+                                        <span>{{::return}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+
+            <tabset class="tabbable">
+                <tab class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <tab-heading>{{::driverlist}} </tab-heading>
+                    <div style="min-height:1000px;">
+                        <table ng-table="dis.tableParams" class="table table-striped col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <tr>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::drivername}}</th>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::vehicle}}</th>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::totalorder}}</th>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::statetime}}</th>
+                            </tr>
+                            <tr ng-repeat="item in $data | orderBy:['-StateTime']"
+                                ng-class="{'list-group-item-danger':item.VehicleState=='Out', 'strike':item.VehicleState=='Out', 'text-red':item.VehicleState=='Out', 'bg-danger':item.VehicleState=='Out'}" ng-if=":refresh:item.isActive==true" ng-show="item.VehicleState !='Out'">
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Driver}}</label>
+                                </td>
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Vehicle}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.OrderStates.lengthTXT}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.StateTimeTXT}} dk.</label>
+                                </td>
+                            </tr>
+                            <tr class="margin-top-5" ng-repeat="item in $data | orderBy:['-StateTime']"
+                                ng-class="{'list-group-item-danger':item.VehicleState=='Out', 'strike':item.VehicleState=='Out', 'text-red':item.VehicleState=='Out', 'bg-danger':item.VehicleState=='Out'}" ng-if=":refresh:item.isActive==true" ng-show="item.VehicleState=='Out'">
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Driver}}</label>
+                                </td>
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Vehicle}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.OrderStates.lengthTXT}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.StateTimeTXT}} dk.</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--////////////////////////////////////////////////////////////*////////////////////////////////////////////////////////////*////////////////////////////////////////////////////////////*-->
+<!--<div ng-init="app.layout.isSidebarClosed=true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="dispatcherCtrl as dis">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button class="btn btn-scroll btn-success btn-scroll-top ti-new-window" ng-click="homedeliveryOrder()"><span class="text-extra-large text-bold">{{::neworder}} </span></button>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center text-bold" ng-if="::user.restrictions.dispatchhomedelivery=='Enable'">
+                <h2>{{::homedelivery}} <span ng-if="ShowObject==true" class="center"><span class="fa fa-spin fa-spinner center"></span></span><br /></h2>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button type="button" class="btn btn-o btn-primary btn-scroll btn-scroll-top fa-lock pull-right" ng-click="DriverVehicle()" ng-if="::user.restrictions.zimmet=='Enable'">
+                    <span>Zimmet</span>
+                </button>
+            </div>
+        </div>
+        <div class="container-fluid container-fullw bg-white" style="min-height:1000px;">
+            <tabset class="tabbable col-lg-9">
+                <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <tab-heading>{{:refresh:new}} <span class="badge badge badge-warning" ng-if=":refresh:preparingOrders.length > 0"> {{:refresh:preparingOrders.length }}</span></tab-heading>
+                    <div style="min-height:1000px;">
+                        <div class="container-fluid container-fullw">
+                            <div class="row margin-top-5" ng-repeat="order in :refresh:preparingOrders | orderBy:'+OrderDate'" order="order">
+                                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                    <accordion close-others="oneAtATime" class="accordion">
+                                        <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                            <accordion-heading>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold pull-left" ng-click="SelectItem(order.id)">
+                                                    {{::order.OrderNumber}}
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-large text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                    <span class="text-dark text-bold text-large" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-small text-uppercase">
+                                                    {{::order.Address.StreetAddress}} <br />
+                                                    <span class="text-bold">(APT: {{::order.Address.AppartmentName}})</span><br />
+                                                    <span ng-if="user.Store.MemberID != 106851154380"> N: {{::order.Address.AddressNo}} / D: {{::order.Address.AppartmentNo}} / K: {{::order.Address.Floor}} </span>
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-orange text-right">
+                                                    {{::order.PaymentType.PaymentType.name}}
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-yellow text-right">
+                                                    {{::order.OrderState}}
+                                                </span>
+                                                <span class="col-lg-3 col-md-3 col-sm-2 col-xs-2 pull-right" style="font-size:25px;">
+                                                    <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                        Sipariş Süresi<br />
+                                                        {{order.TimerStr}}. Dk !
+                                                    </span>
+                                                </span>
+                                            </accordion-heading>
+                                            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <tr>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::orderid}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertype}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertime}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::estimateddeliverytime}}</th>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::address}}</th>
+                                                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::ordercontent}}</th>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::totalamount}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                        <label>
+                                                            {{::order.id}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>
+                                                            {{::order.OrderType}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>{{::order.OrderDateTXT }}</label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>{{::order.DeliveryDateTXT }}</label>
+                                                    </td>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                        <label class="col-lg-10 col-md-11 col-sm-12 col-xs-12">
+                                                            {{::order.Address.StreetAddress}}
+                                                            {{::order.Address.AppartmentName}} Apt.
+                                                            N: {{::order.Address.AddressNo}}
+                                                            D: {{::order.Address.AppartmentNo}}
+                                                            Kat: {{::order.Address.Floor}}
+                                                            Giriş: {{::order.Address.Entrance}}
+                                                            Tarif: {{::order.Address.Landmark}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                        <div>
+                                                            <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                        <label class="margin-left-10">
+                                                            {{::order.AmountTXT}} TL  <br />
+                                                            {{::order.PaymentType.PaymentType.name}}
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </accordion-group>
+                                    </accordion>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="::user.restrictions.reprintorder=='Enable'">
+                                        <button type="button" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right btn btn-o btn-red btn-scroll btn-scroll-left fa fa-print" ng-click="RePrintOrder(order.id)">
+                                            <span>{{::reprint}}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <tab-heading>{{::prepared}} <span class="badge badge badge-success" ng-if=":refresh:preparedOrders.length > 0"> {{:refresh:preparedOrders.length }}</span></tab-heading>
+                    <div class="container-fluid container-fullw">
+                        <div class="row margin-top-5" ng-repeat="order in preparedOrders | orderBy:'+OrderDate'" order="order">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <accordion close-others="oneAtATime" class="accordion">
+                                    <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                        <accordion-heading>
+                                            <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold pull-left" ng-click="SelectItem(order.id)">
+                                                {{::order.OrderNumber}}
+                                            </span>
+                                            <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-large text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                <span class="text-dark text-bold text-large text-uppercase" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                            </span>
+                                            <span class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-small text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                {{::order.Address.StreetAddress}}
+                                                <span class="text-bold">(APT: {{::order.Address.AppartmentName}})</span>
+                                                <span ng-if="user.Store.MemberID != 106851154380"> N: {{::order.Address.AddressNo}} / D:{{::order.Address.AppartmentNo}} / K: {{::order.Address.Floor}} </span>
+                                            </span>
+                                            <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-orange center">
+                                                {{::order.PaymentType.PaymentType.name}}
+                                            </span>
+                                            <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                Sipariş Süresi<br />
+                                                <span class="text-bold" style="font-size:25px;" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                    {{order.TimerStr}}. Dk !
+                                                </span>
+                                            </span>
+                                            <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 pull-right">
+                                                <button type="button" class="btn btn-primary btn-o fa fa-mail-forward" style="width:40px; height:40px;" ng-click="ControlOrderType(order)"></button>
+                                                <button type="button" class="pull-right btn btn-red btn-o fa fa-print" style="width:40px; height:40px;" ng-click="RePrintOrder(order.id)"></button>
+                                            </span>
+                                        </accordion-heading>
+                                        <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <tr>
+                                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::orderid}}</th>
+                                                <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertype}}</th>
+                                                <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertime}}</th>
+                                                <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::estimateddeliverytime}}</th>
+                                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::address}}</th>
+                                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::ordercontent}}</th>
+                                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::totalamount}}</th>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                    <label>
+                                                        {{::order.id}}
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                    <label>
+                                                        {{::order.OrderType}}
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                    <label>{{::order.OrderDateTXT}}</label>
+                                                </td>
+                                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                    <label>{{::order.DeliveryDateTXT }}</label>
+                                                </td>
+                                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                    <label class="col-lg-10 col-md-11 col-sm-12 col-xs-12">
+                                                        {{::order.Address.StreetAddress}}
+                                                        {{::order.Address.AppartmentName}} Apt.
+                                                        N: {{::order.Address.AddressNo}}
+                                                        D: {{::order.Address.AppartmentNo}}
+                                                        Kat: {{::order.Address.Floor}}
+                                                        Giriş: {{::order.Address.Entrance}}
+                                                        Tarif: {{::order.Address.Landmark}}
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                    <div>
+                                                        <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                                    </div>
+                                                </td>
+                                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                    <label>
+                                                        {{::order.AmountTXT}} TL <br />
+                                                        {{::order.PaymentType.PaymentType.name}}
+                                                    </label> <br />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </accordion-group>
+                                </accordion>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <tab-heading>{{::outside}} <span class="badge badge-danger" ng-if=":refresh:outOrders.length > 0"> {{:refresh:outOrders.length}}</span></tab-heading>
+                    <div style="min-height:1000px;">
+                        <div class="container-fluid container-fullw">
+                            <div class="row margin-top-5" ng-repeat="order in outOrders | orderBy:'+OrderDate'" order="order">
+                                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                    <accordion close-others="oneAtATime" class="accordion">
+                                        <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                            <accordion-heading>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold pull-left">
+                                                    {{::order.OrderNumber}}
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-small text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                    <span class="text-dark text-bold text-large text-uppercase" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-small text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                    {{::order.Address.StreetAddress}} <br />
+                                                    <span class="text-bold">(APT: {{::order.Address.AppartmentName}})</span><br />
+                                                    <span ng-if="user.Store.MemberID != 106851154380"> N: {{::order.Address.AddressNo}} / D:{{::order.Address.AppartmentNo}} / K: {{::order.Address.Floor}} </span>
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-orange text-right">
+                                                    {{::order.PaymentType.PaymentType.name}}
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-red text-right">
+                                                    {{::order.OrderState}}
+                                                </span>
+                                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-green text-right">
+                                                    {{::order.states[0].Driver}} / {{::order.states[0].OrderStateDateTXT}}<br />
+                                                    <span class="text-extra-large text-bold text-blue">{{::order.calculatedTime}} .DK</span>
+                                                </span>
+                                                <span class="col-lg-3 col-md-3 col-sm-2 col-xs-2 pull-right" style="font-size:25px;">
+                                                    <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                        Sipariş Süresi<br />
+                                                        {{order.TimerStr}}. Dk !
+                                                    </span>
+                                                </span>
+                                            </accordion-heading>
+                                            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <tr>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::orderid}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertype}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertime}}</th>
+                                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::estimateddeliverytime}}</th>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::address}}</th>
+                                                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::ordercontent}}</th>
+                                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::totalamount}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                        <label>
+                                                            {{::order.id}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>
+                                                            {{::order.OrderType}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>{{::order.OrderDateTXT }}</label>
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label>{{::order.DeliveryDateTXT }}</label>
+                                                    </td>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                        <label class="col-lg-10 col-md-11 col-sm-12 col-xs-12">
+                                                            {{::order.Address.StreetAddress}}
+                                                            {{::order.Address.AppartmentName}} Apt.
+                                                            N: {{::order.Address.AddressNo}}
+                                                            D: {{::order.Address.AppartmentNo}}
+                                                            Kat: {{::order.Address.Floor}}
+                                                            Giriş: {{::order.Address.Entrance}}
+                                                            Tarif: {{::order.Address.Landmark}}
+                                                        </label>
+                                                    </td>
+                                                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                        <div>
+                                                            <span ng-repeat='member in :refresh:order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                        <label class="margin-left-10">
+                                                            {{::order.AmountTXT}} TL  <br />
+                                                            {{::order.PaymentType.PaymentType.name}}
+                                                        </label><br />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </accordion-group>
+                                    </accordion>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    <button type="button" class="col-lg-12 btn btn-o btn-primary btn-scroll btn-scroll-top fa-mail-forward pull-right" ng-click="backdriver(order)">
+                                        <span>{{::return}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+            <tabset class="tabbable col-lg-3">
+                <tab class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <tab-heading>{{::driverlist}} </tab-heading>
+                    <div style="min-height:1000px;">
+                        <table ng-table="dis.tableParams" class="table table-striped col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <tr>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::drivername}}</th>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::vehicle}}</th>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::totalorder}}</th>
+                                <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::statetime}}</th>
+                            </tr>
+                            <tr ng-repeat="item in $data | orderBy:['-StateTime']"
+                                ng-class="{'list-group-item-danger':item.VehicleState=='Out', 'strike':item.VehicleState=='Out', 'text-red':item.VehicleState=='Out', 'bg-danger':item.VehicleState=='Out'}" ng-if=":refresh:item.isActive==true" ng-show="item.VehicleState !='Out'">
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Driver}}</label>
+                                </td>
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Vehicle}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.OrderStates.lengthTXT}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.StateTimeTXT}} dk.</label>
+                                </td>
+                            </tr>
+                            <tr class="margin-top-5" ng-repeat="item in $data | orderBy:['-StateTime']"
+                                ng-class="{'list-group-item-danger':item.VehicleState=='Out', 'strike':item.VehicleState=='Out', 'text-red':item.VehicleState=='Out', 'bg-danger':item.VehicleState=='Out'}" ng-if=":refresh:item.isActive==true" ng-show="item.VehicleState=='Out'">
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Driver}}</label>
+                                </td>
+                                <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Vehicle}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.OrderStates.lengthTXT}}</label>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                                    <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.StateTimeTXT}} dk.</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>-->
+<!--////////////////////////////////////////////////////////////*////////////////////////////////////////////////////////////*////////////////////////////////////////////////////////////*-->
+<!--<div ng-init="app.layout.isSidebarClosed=true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="dispatcherCtrl as dis">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <button class="btn btn-scroll btn-success btn-scroll-top ti-new-window" ng-click="homedeliveryOrder()"><span class="text-extra-large text-bold">{{::neworder}} </span></button>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center text-bold" ng-if="::user.restrictions.dispatchhomedelivery=='Enable'">
+            <h2>{{::homedelivery}} <span ng-if="ShowObject==true" class="center"><span class="fa fa-spin fa-spinner center"></span></span><br /></h2>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <button type="button" class="btn btn-o btn-primary btn-scroll btn-scroll-top fa-lock pull-right" ng-click="DriverVehicle()" ng-if="::user.restrictions.zimmet=='Enable'">
+                <span>Zimmet</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-extra-large">
+                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></span>
+                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center text-uppercase text-bold text-dark">
+                    {{::prepared}} <span class="badge badge badge-success" ng-if=":refresh:preparedOrders.length > 0"> {{:refresh:preparedOrders.length }}</span>
+                </span>
+                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></span>
+            </div>
+            <div class="container-fluid container-fullw">
+                <div class="row margin-top-5" ng-repeat="order in preparedOrders | orderBy:'+OrderDate'" order="order">
+                    <accordion close-others="oneAtATime" class="accordion">
+                        <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                            <accordion-heading>
+                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold pull-left" ng-click="SelectItem(order.id)" style="font-size:20px;">
+                                    {{::order.OrderNumber}}
+                                    <br />
+                                    <span class="col-lg-12 text-bold text-extra-large" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                        {{order.TimerStr}}. Dk !
+                                    </span>
+                                </span>
+                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-large text-uppercase" ng-if="::order.OrderTypeID==2">
+                                    <span class="text-dark text-bold text-large text-uppercase" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                </span>
+                                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-small text-uppercase" ng-if="::order.OrderTypeID==2" style="overflow:hidden; text-overflow:clip;">
+                                    {{::order.Address.StreetAddress}}
+                                    <span class="text-bold">(APT: {{::order.Address.AppartmentName}})</span>
+                                    <span ng-if="user.Store.MemberID != 106851154380"> N: {{::order.Address.AddressNo}} / D:{{::order.Address.AppartmentNo}} / K: {{::order.Address.Floor}} </span>
+                                </span>
+                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-orange center">
+                                    {{::order.PaymentType.PaymentType.name}}
+                                </span>
+                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right">
+                                    <button type="button" class="btn btn-primary btn-o fa fa-mail-forward" style="width:40px; height:40px;" ng-click="ControlOrderType(order)"></button>
+                                    <button type="button" class="pull-right btn btn-red btn-o fa fa-print" style="width:40px; height:40px;" ng-click="RePrintOrder(order.id)"></button>
+                                </span>
+                            </accordion-heading>
+                            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <tr>
+                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::orderid}}</th>
+                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertime}}</th>
+                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::estimateddeliverytime}}</th>
+                                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::ordercontent}}</th>
+                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::totalamount}}</th>
+                                </tr>
+                                <tr>
+                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                        <label>
+                                            {{::order.id}}
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <label>{{::order.OrderDateTXT}}</label>
+                                    </td>
+                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <label>{{::order.DeliveryDateTXT }}</label>
+                                    </td>
+                                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <div>
+                                            <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                        </div>
+                                    </td>
+                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                        <label>
+                                            {{::order.AmountTXT}} TL <br />
+                                            {{::order.PaymentType.PaymentType.name}}
+                                        </label> <br />
+                                    </td>
+                                </tr>
+                            </table>
+                        </accordion-group>
+                    </accordion>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-extra-large">
+                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></span>
+                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center text-uppercase text-bold text-dark">
+                    {{::outside}} <span class="badge badge-danger" ng-if=":refresh:outOrders.length > 0"> {{:refresh:outOrders.length}}</span>
+                </span>
+                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></span>
+            </div>
+            <div class="container-fluid container-fullw">
+                <div class="row margin-top-5" ng-repeat="order in outOrders | orderBy:'+OrderDate'" order="order">
+                    <accordion close-others="oneAtATime" class="accordion">
+                        <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                            <accordion-heading>
+                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold pull-left" style="font-size:20px;">
+                                    {{::order.OrderNumber}}<br />
+                                    <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                        {{order.TimerStr}}. Dk !
+                                    </span>
+                                </span>
+                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-small text-uppercase" ng-if="::order.OrderTypeID==2">
+                                    <span class="text-dark text-bold text-large text-uppercase" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                </span>
+                                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-small text-uppercase" ng-if="::order.OrderTypeID==2" style="overflow:hidden; text-overflow:clip;">
+                                    {{::order.Address.StreetAddress}}
+                                    <span class="text-bold">(APT: {{::order.Address.AppartmentName}})</span>
+                                    <span ng-if="user.Store.MemberID != 106851154380"> N: {{::order.Address.AddressNo}} / D:{{::order.Address.AppartmentNo}} / K: {{::order.Address.Floor}} </span>
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-green text-right">
+                                    {{::order.states[0].Driver}}
+                                </span>
+                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-green text-right">
+                                    {{::order.states[0].OrderStateDateTXT}}<br />
+                                    <span class="text-extra-large text-bold text-blue">{{::order.calculatedTime}} .DK</span>
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    <button type="button" class="btn btn-primary btn-o fa fa-rotate-left pull-right" style="width:40px; height:40px;" ng-click="backdriver(order)"></button>
+                                </span>
+                            </accordion-heading>
+                            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <tr>
+                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::orderid}}</th>
+                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertime}}</th>
+                                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::estimateddeliverytime}}</th>
+                                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::ordercontent}}</th>
+                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::totalamount}}</th>
+                                </tr>
+                                <tr>
+                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                        <label>
+                                            {{::order.id}}
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <label>{{::order.OrderDateTXT }}</label>
+                                    </td>
+                                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <label>{{::order.DeliveryDateTXT }}</label>
+                                    </td>
+                                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <div>
+                                            <span ng-repeat='member in :refresh:order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                        </div>
+                                    </td>
+                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                        <label class="margin-left-10">
+                                            {{::order.AmountTXT}} TL  <br />
+                                            {{::order.PaymentType.PaymentType.name}}
+                                        </label><br />
+                                    </td>
+                                </tr>
+                            </table>
+                        </accordion-group>
+                    </accordion>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+            {{::driverlist}}
+            <div style="min-height:1000px;">
+                <table ng-table="dis.tableParams" class="table table-striped col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <tr>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::drivername}}</th>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::vehicle}}</th>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::totalorder}}</th>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::statetime}}</th>
+                    </tr>
+                    <tr ng-repeat="item in $data | orderBy:['-StateTime']"
+                        ng-class="{'list-group-item-danger':item.VehicleState=='Out', 'strike':item.VehicleState=='Out', 'text-red':item.VehicleState=='Out', 'bg-danger':item.VehicleState=='Out'}" ng-if=":refresh:item.isActive==true" ng-show="item.VehicleState !='Out'">
+                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Driver}}</label>
+                        </td>
+                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Vehicle}}</label>
+                        </td>
+                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.OrderStates.lengthTXT}}</label>
+                        </td>
+                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.StateTimeTXT}} dk.</label>
+                        </td>
+                    </tr>
+                    <tr class="margin-top-5" ng-repeat="item in $data | orderBy:['-StateTime']"
+                        ng-class="{'list-group-item-danger':item.VehicleState=='Out', 'strike':item.VehicleState=='Out', 'text-red':item.VehicleState=='Out', 'bg-danger':item.VehicleState=='Out'}" ng-if=":refresh:item.isActive==true" ng-show="item.VehicleState=='Out'">
+                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Driver}}</label>
+                        </td>
+                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Vehicle}}</label>
+                        </td>
+                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.OrderStates.lengthTXT}}</label>
+                        </td>
+                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.StateTimeTXT}} dk.</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--////////////////////////////////////////////////////////////*////////////////////////////////////////////////////////////*////////////////////////////////////////////////////////////*-->
+<!--<div ng-init="app.layout.isSidebarClosed=true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="dispatcherCtrl as dis">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <button class="btn btn-scroll btn-success btn-scroll-top ti-new-window" ng-click="homedeliveryOrder()"><span class="text-extra-large text-bold">{{::neworder}} </span></button>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center text-bold" ng-if="::user.restrictions.dispatchhomedelivery=='Enable'">
+            <h2>{{::homedelivery}} <span ng-if="ShowObject==true" class="center"><span class="fa fa-spin fa-spinner center"></span></span><br /></h2>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <button type="button" class="btn btn-o btn-primary btn-scroll btn-scroll-top fa-lock pull-right" ng-click="DriverVehicle()" ng-if="::user.restrictions.zimmet=='Enable'">
+                <span>Zimmet</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 scrollbar" id="style-6" style="overflow:auto;" ct-fullheight="window" data-ct-fullheight-exclusion="header">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-extra-large bg-grey">
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center text-uppercase text-bold text-dark">
+                        {{::prepared}} <span class="badge badge badge-success" ng-if=":refresh:preparedOrders.length > 0"> {{:refresh:preparedOrders.length }}</span>
+                    </span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></span>
+                </div>
+                <div class="container-fluid container-fullw scrollbar" style="min-height:300px; max-height:300px; overflow:auto;">
+                    <div class="row margin-top-5" ng-repeat="order in preparedOrders | orderBy:'+OrderDate'" order="order">
+                        <accordion close-others="oneAtATime" class="accordion">
+                            <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                <accordion-heading>
+                                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold pull-left text-large" ng-click="SelectItem(order.id)">
+                                        {{::order.OrderNumber}}
+                                    </span>
+                                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-large text-uppercase" ng-if="::order.OrderTypeID==2">
+                                        <span class="text-dark text-bold text-large text-uppercase" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                    </span>
+                                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-small text-uppercase" ng-if="::order.OrderTypeID==2">
+                                        {{::order.Address.StreetAddress}}
+                                        <span class="text-bold">(APT: {{::order.Address.AppartmentName}})</span>
+                                        <span ng-if="user.Store.MemberID != 106851154380"> N: {{::order.Address.AddressNo}} / D:{{::order.Address.AppartmentNo}} / K: {{::order.Address.Floor}} </span>
+                                    </span>
+                                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-orange center">
+                                        {{::order.PaymentType.PaymentType.name}}
+                                    </span>
+                                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+
+                                    </span>
+                                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="font-size:20px;">
+                                        <span class="col-lg-12 text-bold text-extra-large" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                            {{order.TimerStr}}. DK !
+                                        </span>
+                                    </span>
+                                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 pull-right">
+                                        <button type="button" class="btn btn-primary btn-o fa fa-mail-forward pull-left" style="width:40px; height:40px;" ng-click="ControlOrderType(order)"></button>
+                                        <button type="button" class="btn btn-red btn-o fa fa-print pull-right" style="width:40px; height:40px;" ng-click="RePrintOrder(order.id)"></button>
+                                    </span>
+                                </accordion-heading>
+                                <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <tr>
+                                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::orderid}}</th>
+                                        <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertime}}</th>
+                                        <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::estimateddeliverytime}}</th>
+                                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::address}}</th>
+                                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::ordercontent}}</th>
+                                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::totalamount}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                            <label>
+                                                {{::order.id}}
+                                            </label>
+                                        </td>
+                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                            <label>{{::order.OrderDateTXT}}</label>
+                                        </td>
+                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                            <label>{{::order.DeliveryDateTXT }}</label>
+                                        </td>
+                                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                            <label class="col-lg-10 col-md-11 col-sm-12 col-xs-12">
+                                                {{::order.Address.StreetAddress}}
+                                                {{::order.Address.AppartmentName}} Apt.
+                                                N: {{::order.Address.AddressNo}}
+                                                D: {{::order.Address.AppartmentNo}}
+                                                Kat: {{::order.Address.Floor}}
+                                                Giriş: {{::order.Address.Entrance}}
+                                                Tarif: {{::order.Address.Landmark}}
+                                            </label>
+                                        </td>
+                                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                            <div>
+                                                <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                            </div>
+                                        </td>
+                                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                            <label>
+                                                {{::order.AmountTXT}} TL <br />
+                                                {{::order.PaymentType.PaymentType.name}}
+                                            </label> <br />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </accordion-group>
+                        </accordion>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-extra-large bg-grey">
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center text-uppercase text-bold text-dark">
+                        {{::outside}} <span class="badge badge-danger" ng-if=":refresh:outOrders.length > 0"> {{:refresh:outOrders.length}}</span>
+                    </span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></span>
+                </div>
+                <div class="container-fluid container-fullw scrollbar" style="min-height:300px; max-height:300px;overflow:auto;">
+                    <div class="row margin-top-5" ng-repeat="order in outOrders | orderBy:'+OrderDate'" order="order">
+                        <accordion close-others="oneAtATime" class="accordion">
+                            <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                <accordion-heading>
+                                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold pull-left text-large">
+                                        {{::order.OrderNumber}}
+                                    </span>
+                                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-small text-uppercase" ng-if="::order.OrderTypeID==2">
+                                        <span class="text-dark text-bold text-large text-uppercase" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                    </span>
+                                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-small text-uppercase" ng-if="::order.OrderTypeID==2">
+                                        {{::order.Address.StreetAddress}}
+                                        <span class="text-bold">(APT: {{::order.Address.AppartmentName}})</span>
+                                        <span ng-if="user.Store.MemberID != 106851154380"> N: {{::order.Address.AddressNo}} / D:{{::order.Address.AppartmentNo}} / K: {{::order.Address.Floor}} </span>
+                                    </span>
+                                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-green center">
+                                        {{::order.states[0].Driver}}
+                                    </span>
+                                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-green center">
+                                        {{::order.states[0].OrderStateDateTXT}}<br />
+                                        <span class="text-extra-large text-bold text-blue">{{::order.calculatedTime}} .DK</span>
+                                    </span>
+                                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="font-size:20px;">
+                                        <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                            {{order.TimerStr}}. DK !
+                                        </span>
+                                    </span>
+                                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 pull-right">
+                                        <button type="button" class="btn btn-primary btn-o fa fa-rotate-left pull-right" style="width:40px; height:40px;" ng-click="backdriver(order)"></button>
+                                    </span>
+                                </accordion-heading>
+                                <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <tr>
+                                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::orderid}}</th>
+                                        <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::ordertime}}</th>
+                                        <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::estimateddeliverytime}}</th>
+                                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::address}}</th>
+                                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::ordercontent}}</th>
+                                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::totalamount}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                            <label>
+                                                {{::order.id}}
+                                            </label>
+                                        </td>
+                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                            <label>{{::order.OrderDateTXT }}</label>
+                                        </td>
+                                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                            <label>{{::order.DeliveryDateTXT }}</label>
+                                        </td>
+                                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                            <label class="col-lg-10 col-md-11 col-sm-12 col-xs-12">
+                                                {{::order.Address.StreetAddress}}
+                                                {{::order.Address.AppartmentName}} Apt.
+                                                N: {{::order.Address.AddressNo}}
+                                                D: {{::order.Address.AppartmentNo}}
+                                                Kat: {{::order.Address.Floor}}
+                                                Giriş: {{::order.Address.Entrance}}
+                                                Tarif: {{::order.Address.Landmark}}
+                                            </label>
+                                        </td>
+                                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                            <div>
+                                                <span ng-repeat='member in :refresh:order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                            </div>
+                                        </td>
+                                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                            <label class="margin-left-10">
+                                                {{::order.AmountTXT}} TL  <br />
+                                                {{::order.PaymentType.PaymentType.name}}
+                                            </label><br />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </accordion-group>
+                        </accordion>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            {{::driverlist}}
+            <div style="min-height:500px;">
+                <table ng-table="dis.tableParams" class="table table-striped col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <tr>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::drivername}}</th>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::vehicle}}</th>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::totalorder}}</th>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::statetime}}</th>
+                    </tr>
+                    <tr ng-repeat="item in $data | orderBy:['-StateTime']"
+                        ng-class="{'list-group-item-danger':item.VehicleState=='Out', 'strike':item.VehicleState=='Out', 'text-red':item.VehicleState=='Out', 'bg-danger':item.VehicleState=='Out'}" ng-if=":refresh:item.isActive==true" ng-show="item.VehicleState !='Out'">
+                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Driver}}</label>
+                        </td>
+                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Vehicle}}</label>
+                        </td>
+                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.OrderStates.lengthTXT}}</label>
+                        </td>
+                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.StateTimeTXT}} dk.</label>
+                        </td>
+                    </tr>
+                    <tr class="margin-top-5" ng-repeat="item in $data | orderBy:['-StateTime']"
+                        ng-class="{'list-group-item-danger':item.VehicleState=='Out', 'strike':item.VehicleState=='Out', 'text-red':item.VehicleState=='Out', 'bg-danger':item.VehicleState=='Out'}" ng-if=":refresh:item.isActive==true" ng-show="item.VehicleState=='Out'">
+                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Driver}}</label>
+                        </td>
+                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.Vehicle}}</label>
+                        </td>
+                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.OrderStates.lengthTXT}}</label>
+                        </td>
+                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{:refresh:item.StateTimeTXT}} dk.</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<tabset class="tabbable col-sm-12 col-xs-12 visible-sm visible-md">
+        <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <tab-heading>{{:refresh:new}} <span class="badge badge badge-warning" ng-if=":refresh:preparingOrders.length > 0"> {{:refresh:preparingOrders.length }}</span></tab-heading>
+            <div style="min-height:1000px;">
+                <div class="container-fluid container-fullw">
+                    <div class="row margin-top-5" ng-repeat="order in :refresh:preparingOrders | orderBy:'+OrderDate'" order="order">
+                        <div class="col-sm-12 col-xs-12">
+                            <accordion close-others="oneAtATime" class="accordion">
+                                <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                    <accordion-heading>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="col-sm-4 col-xs-4 text-bold pull-left" ng-click="SelectItem(order.id)">
+                                                {{::order.OrderNumber}}
+                                            </span>
+                                            <span class="col-sm-4 col-xs-4 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                <span class="text-dark text-bold" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                            </span>
+                                            <span class="col-sm-4 col-xs-4 pull-right" style="font-size:15px;">
+                                                <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                    Sipariş Süresi<br />
+                                                    {{order.TimerStr}}. Dk !
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="col-sm-8 col-xs-8 text-small text-uppercase">
+                                                {{::order.Address.StreetAddress}}
+                                            </span>
+                                        </div>
+                                    </accordion-heading>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::orderid}} : </span> {{::order.id}}
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::ordertype}} :</span>  {{::order.OrderType}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::ordertime}} : </span>  {{::order.OrderDateTXT}}
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::estimateddeliverytime}} :</span>  {{::order.DeliveryDateTXT }}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="text-bold text-dark">{{::address}} :</span>   {{::order.Address.StreetAddress}}
+                                            {{::order.Address.AppartmentName}} Apt.
+                                            N: {{::order.Address.AddressNo}}
+                                            D: {{::order.Address.AppartmentNo}}
+                                            Kat: {{::order.Address.Floor}}
+                                            Giriş: {{::order.Address.Entrance}}
+                                            Tarif: {{::order.Address.Landmark}}
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="text-bold text-dark"> {{::ordercontent}} : </span> <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} TL /  {{::order.PaymentType.PaymentType.name}}
+                                        </div>
+                                    </div>
+                                </accordion-group>
+                            </accordion>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <tab-heading>{{::prepared}} <span class="badge badge badge-success" ng-if=":refresh:preparedOrders.length > 0"> {{:refresh:preparedOrders.length }}</span></tab-heading>
+            <div style="min-height:1000px;">
+                <div class="container-fluid container-fullw">
+                    <div class="row margin-top-5" ng-repeat="order in preparedOrders | orderBy:'+OrderDate'" order="order">
+                        <div class="col-sm-10 col-xs-10">
+                            <accordion close-others="oneAtATime" class="accordion">
+                                <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                    <accordion-heading>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="col-sm-3 col-xs-3 text-bold pull-left" ng-click="SelectItem(order.id)">
+                                                {{::order.OrderNumber}}
+                                            </span>
+                                            <span class="col-sm-4 col-xs-4 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                <span class="text-dark text-bold" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                            </span>
+                                            <span class="col-sm-4 col-xs-4 pull-right" style="font-size:15px;">
+                                                <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                    Sipariş Süresi<br />
+                                                    {{order.TimerStr}}. Dk !
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="col-sm-8 col-xs-8 text-small text-uppercase">
+                                                {{::order.Address.StreetAddress}}
+                                            </span>
+                                        </div>
+                                    </accordion-heading>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::orderid}} : </span> {{::order.id}}
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::ordertype}} :</span>  {{::order.OrderType}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::ordertime}} : </span>  {{::order.OrderDateTXT}}
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::estimateddeliverytime}} :</span>  {{::order.DeliveryDateTXT }}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="text-bold text-dark">{{::address}} :</span>   {{::order.Address.StreetAddress}}
+                                            {{::order.Address.AppartmentName}} Apt.
+                                            N: {{::order.Address.AddressNo}}
+                                            D: {{::order.Address.AppartmentNo}}
+                                            Kat: {{::order.Address.Floor}}
+                                            Giriş: {{::order.Address.Entrance}}
+                                            Tarif: {{::order.Address.Landmark}}
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="text-bold text-dark"> {{::ordercontent}} : </span> <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} TL /  {{::order.PaymentType.PaymentType.name}}
+                                        </div>
+                                    </div>
+                                </accordion-group>
+                            </accordion>
+                        </div>
+                        <div class="col-sm-2 col-xs-2">
+                            <button type="button" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-o btn-primary btn-scroll btn-scroll-top fa-mail-forward pull-right" ng-click="ControlOrderType(order)">
+                                <span>{{::send}}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <tab-heading>{{::outside}} <span class="badge badge-danger" ng-if=":refresh:outOrders.length > 0"> {{:refresh:outOrders.length}}</span></tab-heading>
+            <div style="min-height:1000px;">
+                <div class="container-fluid container-fullw">
+                    <div class="row margin-top-5" ng-repeat="order in outOrders | orderBy:'+OrderDate'" order="order">
+                        <div class="col-sm-10 col-xs-10">
+                            <accordion close-others="oneAtATime" class="accordion">
+                                <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                    <accordion-heading>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="col-sm-3 col-xs-3 text-bold pull-left" ng-click="SelectItem(order.id)">
+                                                {{::order.OrderNumber}}
+                                            </span>
+                                            <span class="col-sm-4 col-xs-4 text-uppercase" ng-if="::order.OrderTypeID==2">
+                                                <span class="text-dark text-bold" ng-repeat="person in ::order.persons">{{::person.Person}}</span>
+                                            </span>
+                                            <span class="col-sm-4 col-xs-4 pull-right" style="font-size:15px;">
+                                                <span class="col-lg-12 text-bold pull-right" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true, 'label label-warning':order.TimerStr >= 15}">
+                                                    Sipariş Süresi<br />
+                                                    {{order.TimerStr}}. Dk !
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="col-sm-8 col-xs-8 text-small text-uppercase">
+                                                {{::order.Address.StreetAddress}}
+                                            </span>
+                                        </div>
+                                    </accordion-heading>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::orderid}} : </span> {{::order.id}}
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::ordertype}} :</span>  {{::order.OrderType}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::ordertime}} : </span>  {{::order.OrderDateTXT}}
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="text-bold text-dark">{{::estimateddeliverytime}} :</span>  {{::order.DeliveryDateTXT }}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="text-bold text-dark">{{::address}} :</span>   {{::order.Address.StreetAddress}}
+                                            {{::order.Address.AppartmentName}} Apt.
+                                            N: {{::order.Address.AddressNo}}
+                                            D: {{::order.Address.AppartmentNo}}
+                                            Kat: {{::order.Address.Floor}}
+                                            Giriş: {{::order.Address.Entrance}}
+                                            Tarif: {{::order.Address.Landmark}}
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="text-bold text-dark"> {{::ordercontent}} : </span> <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} TL /  {{::order.PaymentType.PaymentType.name}}
+                                        </div>
+                                    </div>
+                                </accordion-group>
+                            </accordion>
+                        </div>
+                        <div class="col-sm-2 col-xs-2">
+                            <button type="button" class="col-lg-12 btn btn-o btn-primary btn-scroll btn-scroll-top fa-mail-forward pull-right" ng-click="backdriver(order)">
+                                <span>{{::return}}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>-->

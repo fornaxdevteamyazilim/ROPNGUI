@@ -1,0 +1,59 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+<div ng-controller="lastordersCtrl as lo" ng-init="app.layout.isSidebarClosed=true">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.LASTORDERS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <table ng-table="lo.tableParams" class="table table-striped table-hover">
+            <tr ng-repeat="item in $data  | orderBy:'-TakeDateTime'"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td data-title="trTakeDateTime" data-sortable="'TakeDateTime'" style="width:10%">
+                    {{ item.TakeDateTime | date : 'dd-MM-yyyy HH:mm:ss' }}
+                </td>
+                <td data-title="trAddressType" data-sortable="'AddressType'" style="width:5%">
+                    {{ item.AddressType }}
+                </td>
+                <td data-title="trTakenBy" data-sortable="'TakenBy'" style="width:5%">
+                    {{ item.TakenBy }}
+                </td>
+                <td data-title="trStore" data-sortable="'Store'" style="width:5%">
+                    {{ item.Store }}
+                </td>
+                <td data-title="trOrderAmount" data-sortable="'OrderAmount'" style="width:5%">
+                    <label ng-class="{'badge':item.OrderAmount >= 50}"> {{ item.OrderAmount | number:2 }} TL</label>                   
+                </td>
+                <td data-title="trAddress" data-sortable="'Address'" style="width:20%">
+                    {{ item.Address }}
+                </td>
+                <td data-title="trPersonName" data-sortable="'PersonName'" style="width:5%">
+                    {{ item.PersonName }}
+                </td>
+                <td data-title="trPhone" data-sortable="'Phone'" style="width:2%">
+                    <span class="col-lg-2">
+                        {{ item.Phone }}
+                    </span>
+                </td>
+                <td data-title="trComboMeals" data-sortable="'ComboMeals'" style="width:10%">
+                    {{ item.ComboMeals }}
+                </td>
+                <td data-title="trProducts" data-sortable="'Products'" style="width:10%">
+                    {{ item.Products }}
+                </td>
+                <td data-title="trOptions" data-sortable="'Options'" style="width:10%">
+                    {{ item.Options }}
+                </td>
+            </tr>
+        </table>
+    </div> 
+</div>

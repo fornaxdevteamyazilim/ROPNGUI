@@ -1,0 +1,2038 @@
+﻿<style>
+    #iframest {
+        width: 1200px;
+        height: 600px;
+        border: hidden;
+    }
+</style>
+
+
+<div ng-controller="documentsCtrl as dc">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <span class="mainTitle text-dark col-lg-8 col-md-8 col-sm-8 col-xs-12" style="font-size:25px;" translate="tittle.DOCUMENTS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+    </div>
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="timeline">
+                    <div class="timeline">
+                        <div class="spine"></div>
+                        <div class="date_separator" id="november">
+                            <span>ANA EKRAN</span>
+                        </div>
+                        <ul class="columns">
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ANA EKRAN</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Ana Ekranda kısayol butonları, toplam sipariş adetleriniz, net tutar, ortalama gibi bilgiler yer almaktadır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docAnaEkran">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ EKRANLARI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Ana ekranda sipariş butonlarının kısa yolu bulunmaktadır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docSiparisEkranlari">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">03</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Sipariş listesinden günlük alınan siparişleri görebiliriz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docSiparisListesi">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">04</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ YÖNETİMİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Sipariş Yönetimi ekranında paket siparişlerin takibini yapabiliriz.
+                                        Paket siparişlerin motorcu üzerine atma, dönüş işlemlerini yapabilir, aktif motorcuları buradan görebiliriz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docSiparisYonetimi">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">05</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">CARİ ÖDEME EKRANI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Cari borç ödemesinin kaydedileceği ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docCariEkrani">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">06</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">KASA GİRİŞ ÇIKIŞ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Kasa giriş çıkış işlemlerinin yapıldığı alandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docKasaGirisCikis">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">07</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">PERSONEL TAHSİLAT EKRANI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Personel tahsilat ekranında hangi motorcunun hangi siparişlere gittiğini ve üzerinde ne kadar para olması gerektiğini görürüz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docPersonelAdisEkr">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">08</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">GÜN SONU İŞLEMLERİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Restoranlar gün sonunda tüm adisyonlarını kapattıktan sonra gün sonu almak zorundadır. Bu işlemi ana ekranda bulunan “Gün Sonu İşlemleri“ butonundan yapabilirsiniz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docGunSonuIslemi">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <div class="date_separator" id="november">
+                            <span>KOKPIT</span>
+                        </div>
+                        <ul class="columns">
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">KOKPIT</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Restoranla ilgili satış, maliyet vs. gibi bilgilerin özet olarak gösterildiği alandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docKokpit">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="date_separator" id="november">
+                            <span>EKRANLAR</span>
+                        </div>
+                        <ul class="columns">
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ŞİFRE DEĞİŞTİRME</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Kullanıcı şifre değişimi ayarları.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docSifreDegisimi">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">MUTFAK EKRANI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Mutfak ekranı aktif siparişlerin içeriğinin ve hazırlama sürelerinin görüldüğü ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docMutfakEkrani">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">03</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">HESAP İŞLEMLERİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Kasa giriş çıkış işlemlerinin listelendiği alandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docHesapIsl">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">04</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">MASA PLANI DÜZENLEME</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Masa planı düzeninin yapıldığı ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docMasaPlaniDuz">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white" ng-if="user.restrictions.complaintlist=='Enable'">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">04</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ŞİKAYETLER</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Restorana ait şikayetlerin listelendiği ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docSikayetler">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white" ng-if="user.restrictions.complaintlist=='Enable'">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">05</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ŞİKAYET EKLEME VE DÜZENLEME</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Şikayet ve şikayet sonuçlarının girildiği ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.docSikayetEkleDuz">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="date_separator" id="november">
+                            <span>ÇAĞRI MERKEZİ EKRANLARI</span>
+                        </div>
+                        <ul class="columns">
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÇAĞRI MERKEZİ ANA SAYFA</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Çağrı merkezi kullanıcılarının hangi şubede onay bekleyen aktif sipariş olduğunu takip ettikleri ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCDocuments.docCmAnaSayfa">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÇAĞRI MERKEZİ SİPARİŞLERİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                       Çağrı merkezinden alınan son yirmi siparişin gösterildiği ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCDocuments.docCmSiparisleri">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">03</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÇAĞRI EKRANI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Sisteme düşen çağrıların takibinin yapılabileceği ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCDocuments.docCmCagriEkrani">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">04</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÇAĞRI YÖNLENDİRME</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Çağrıların yönlendirme yapılabileceği ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCDocuments.docCmCagriYonlendirme">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">05</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">RESTORANLAR</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Tüm restoranların listelendiği ve restoran ayarlarının yapıldığı ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCDocuments.docCmRestoranlar">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">06</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">RESTORAN NOTLARI LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Restoranlarla ilgili kayıtlı notlar ve özet bilgilerin listelendiği ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCDocuments.docCmRestoranNotList">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">07</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">RESTORAN YÖNLENDİRME</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Tüm restoranların listelendiği ve restoran ayarlarının yapıldığı ekrandır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCDocuments.docCmRestoranYonl">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <!--<li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">08</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ADRESLER</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Kullanıcı şifre değişimi ayarları.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCDocuments.docCmAdresler">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>-->
+                            <!--<li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">09</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ADRES BİRLEŞTİRME</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Kullanıcı şifre değişimi ayarları.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCDocuments.docCmAdresBirlestirme">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>-->
+                            <!--<li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">10</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ŞİKAYET YÖNETİMİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Kullanıcı şifre değişimi ayarları.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCDocuments.docCmSikayetYonetimi">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>-->
+                        </ul>
+                        <div class="date_separator" id="october" ng-if="user.restrictions.reports=='Enable'">
+                            <span>RAPORLAR</span>
+                        </div>
+                        <div class="date_separator3" ng-if="user.restrictions.stockandcostreports=='Enable'">
+                            <span>STOK VE MALİYET RAPORLARI</span>
+                        </div>
+                        <ul class="columns" ng-if="user.restrictions.stockandcostreports=='Enable'">
+                            <li ng-if="user.restrictions.transactionreports=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">MALZEME HAREKET RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Restoranın iki tarih arasında ki hareketlerinin tiplere göre listelendiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docMalHarRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.consuptionsreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">KULLANILAN MALZEME RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Bu raporda seçilen tarih aralıklarında kullanılan malzeme ve miktarları yer almaktadır.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docKulMalzRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.comparereport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">03</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">GERÇEKLEŞEN MALİYET RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Raporda seçtiğiniz restoranın iki tarih arasında etiket tipine göre envanter hareketlerinin (sayım,giren,çıkan,kullanılan,fark vs.) hepsinin tek bir listede gösterildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docGercMalRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.comparereport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">04</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">GERÇEK/HESAPLANAN BAKİYE LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Bu raporda seçilen tarihler arası depodaki toplam malzemenin dönem başı değeri, varsa yarı mamul stoğu, toplam giren malzeme, toplam kullanılan malzeme, toplam çıkan malzeme sonucunda hesaplanan miktar, depoda bulunan gerçek malzeme miktarı görülür.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docGerHesBakLis">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.balancelist=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">05</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">BAKİYE LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Gerçek hesaplanan bakiye listesi gibi depolarımızda bulunan malzeme miktarlarını görüntüleyeceğimiz rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docBakLis">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.usagereport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">06</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÜRETİM KONTROL</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Bu raporda seçilen tarih aralıklarında hangi malzemenin hangi ürünün içinde kullanıldığı, reçete sayısı ve ürün sayısı bilgileri yer almaktadır. Etiket seçimi alanından istediğiniz bir grubu veya malzeme alanından bir envanter seçerek filtreleme ile sadece o grup veya envanterin listelenmesini sağlayabilirsiniz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docUreKont">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.inventorywaste=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">07</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ENVANTER ATIK RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçtiğiniz tarihler arasında ki envanter atık miktarlarını görebilirsiniz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docEnvAtikRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.InventoryUsages=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">08</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">MALZEME TÜKETİM ANALİZ RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Raporda seçtiğiniz restoranın iki tarih arasında ki kullanılan ürünlerin adetini ve envanter-ürün bağlarını görebilirsiniz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docMalzTukeAnlRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.productwastereport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">09</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÜRÜN ATIK RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçtiğiniz tarihler arasında ki atık yapılmış ürünleri ve miktarlarını görebilirsiniz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docUrunAtikRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.inventorycosts=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">10</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">AKTİF DÖNEM MALİYETLER</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Aktif dönemde tüm şubelerin ideal ve gerçekleşen maliyet değerlerinin verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docAktifDonMaliyetRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.inventoryperiodiccosts=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">11</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">DÖNEMSEL MALİYETLER</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçtiğiniz tarihler arasında ideal ve gerçekleşen maliyet değerlerinin verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docDonemselMaliyetRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.inventoryrecipesreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">12</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ENVANTER REÇETELERİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçtiğiniz dönemde herhangi bir envanter seçimi yapmadıysanız tüm ürünlerin reçeteleri listelenir.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docEnvRec">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.inventoryrecipesreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">13</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÜRÜN MALİYET LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçtiğiniz dönemde herhangi bir ürün seçimi yapmadıysanız tüm ürünlerin reçeteleri listelenir.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docUrunMalList">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="date_separator3" ng-if="user.restrictions.otherreports=='Enable'">
+                            <span>DİĞER RAPORLAR</span>
+                        </div>
+                        <ul class="columns" ng-if="user.restrictions.otherreports=='Enable'">
+                            <li ng-if="user.restrictions.orderlistreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Raporda seçtiğiniz restoranın iki tarih arasında ki tüm siparişlerinin listelendiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSipList">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.newpersonrecord=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">YENİ KAYIT MÜŞTERİ RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Rapor seçtiğiniz restoranın iki tarih arasında yeni kayıt olmuş müşteri datasını verir.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docYeniKayitMust">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.regionanalisysreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">03</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">BÖLGE ANALİZİ RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Rapor seçtiğiniz restoranın iki tarih arasında ki ve sistemde ki genel toplam bölge analizi verilerini verir.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docBolgeAnaliziRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.regionanalisysreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">04</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">RESTORAN SERVİS BÖLGELERİ RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen restorana tanımlı tüm index datasını veren rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docServisBolRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.customerlistreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">05</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">MÜŞTERİ LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arası sipariş veren müşterileri görebileceğiniz rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docMustList">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.customerconsuptionreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">06</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">MÜŞTERİ TÜKETİM RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arası müşteri tüketimlerini (adisyon sayısı, toplam tutar, son sipariş tarihi, aktif olmadığı gün sayısını, müşteri oluşturma tarihlerini) verir.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docMustTukRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="date_separator3" ng-if="user.restrictions.giroreports=='Enable'">
+                            <span>CİRO RAPORLARI</span>
+                        </div>
+                        <ul class="columns" ng-if="user.restrictions.giroreports=='Enable'">
+                            <li ng-if="user.restrictions.cashreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">KASA RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihte restoran için ödemesi kapanmış tüm siparişler adet ve tutar olarak görünür.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docKasaRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.storecashcontrol=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">KASA İCMAL RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Bu raporda işletme tarihi seçimi yapıldıktan sonra o tarihte ki siparişlerin tutar, ödeme durumu, sipariş durumu, ödeme toplamı ve fark gibi alanlarını görebilir ve kasa kontrolünü yapabilirsiniz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docKasaIcmal">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.orderpayments=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">03</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">GERÇEKLEŞEN ÖDEMELER RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        İstenilen tarih aralıklarında restoranın almış olduğu siparişlerin hangi ödeme tipinde kapatıldığı ile ilgili bilgilerin kontrol edilebileceği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docGercOdem">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.turnoverbydaysreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">04</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">GÜNLERE GÖRE CİRO RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Raporda seçilen tarih aralıklarında yetkili şubelerin toplamda ne kadar ciro yaptığıyla ilgili bilgileri verir.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docGunGoreCiro">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.trends=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">05</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">TREND RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Yetkili olduğunuz restoranların bugün, geçen hafta, önceki gün, aylık ciro, ac, tc değerleri ve hesaplanan trend değerlerinin listelendiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docTrendRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.cashreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">06</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">CARİ BORÇ DURUMU RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçili restoran için cari borcu olan müşteriler listelenir.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docCariBorRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="date_separator3" ng-if="user.restrictions.productsalesreports=='Enable'">
+                            <span>ÜRÜN SATIŞ RAPORLARI</span>
+                        </div>
+                        <ul class="columns" ng-if="user.restrictions.productusagecounts=='Enable'">
+                            <li ng-if="user.restrictions.productsalesreports=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÜRÜN SATIŞ LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        İstenilen tarih aralıklarında satılmış olan ürünlerin toplam adeti, oranı, fiyatı gibi bilgileri görebileceğiniz rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docGunlukUrunSatLis">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.storesalesstatistics=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">RESTORAN SATIŞ İSTATİSTİKLERİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında ki sipariş toplamı, sayısı ve belli ürün gruplarının sipariş adetleri ve yüzdelerinin verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docResSatisIstRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.productsalesbydays=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">03</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">GÜNLERE GÖRE ÜRÜN SATIŞ(ADET)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Raporda seçilen tarihler arasında farklı şablonlar ile ürün satış adetlerini görebilirsiniz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docGunGoreUrSat">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.productwithrelations=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">04</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">MENÜ ÜRÜN SATIŞ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Bu raporda seçilen tarihler arasında satışı yapılmış ürünleri, kampanyaları görebilirsiniz. Hangi kampanyanın içerisinde hangi üründen kaç adet satılmış, ürünün fiyatı maliyeti gibi detaylar bulunur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docMenuUrunSat">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.menuincom=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">05</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">MENÜ SATIŞ GELİRİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Bu raporda seçilen tarihler arasında satışı yapılmış kampanyaları görebilirsiniz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docMenuSatGeliri">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.productcostdetails=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">06</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÜRÜN MALİYET RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Ürün alanında seçilen ürünün içerisine tanımlı malzemelerin miktar, fiyat ve maliyet bilgilerinin verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docUrunMaliyet">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="date_separator3" ng-if="user.restrictions.orderreports=='Enable'">
+                            <span>SİPARİŞ RAPORLARI</span>
+                        </div>
+                        <ul class="columns" ng-if="user.restrictions.orderreports=='Enable'">
+                            <li ng-if="user.restrictions.orderdriverlist=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ SÜRÜCÜ LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında, hangi siparişe hangi motorcunun gittiği ve tüm motorcular için toplamda ne kadarlık ve kaç adet siparişleri olduğunu bu rapordan alabilirsiniz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSipSurucuLis">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.OrderPayments=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÖDEME TİPLERİNE GÖRE SİPARİŞLER</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında yetkili olunan tüm restoranların şablonlara göre gerçekleşen ödeme tipleri dağılımlarının verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docOdeTipGorSip">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.performance=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">03</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ PERFORMANSLARI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında paket siparişlerin hazırlama,bekleme,çıkış,dönüş sürelerinin hesaplandığı rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSipPerf">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.orderlog=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">04</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ LOG RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında ki tüm siparişlerin adımları ve güncellemelerin listelendiği log raporudur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSipLogRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.ReturnedProducts=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">05</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">RETURN (İPTAL ADİSYON) ÜRÜN LİSTESİ (ADET)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında şablonlara göre filtreleme yapılarak iptal edilmiş siparişlerin içerisinde ki ürün adetlerinin verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docReturnLisAdet">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.ReturnedProductsDetailed=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">06</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">RETURN (İPTAL ADİSYON) ÜRÜN LİSTESİ (DETAY)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında iptal edilmiş siparişlerin içerisinde ki ürün adetleri, tutarları, sipariş kaynağı, iptal eden kullanıcı bilgisi ve iptal notunun detay olarak verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docReturnLisDetay">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.deletedorderitems=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">07</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİLİNEN SİPARİŞ KALEMLERİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında siparişe girilmiş daha sonra sipariş kalemlerinden silinmiş ürünlerin listelendiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSilinenSipKal">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.orderpromotionreport=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">08</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ İNDİRİM RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında hangi siparişe ne kadarlık hangi indirimden ve hangi kodla indirim eklendiği bilgilerini bu rapordan görebilirsiniz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSipIndRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.ordertotals=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">09</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ TOPLAMLARI RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında sipariş tiplerinin toplam ve adet dağılımlarını görebilirsiniz.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSipTopRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.performance=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">10</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">MUTFAK PERFORMANSLARI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında tüm siparişlerin hazırlama,pişme,bekleme,çıkış sürelerinin hesaplandığı rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docMutPerf">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.orderlaststates=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">11</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ DURUMLARI TOPLAMLARI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında yetkili tüm restoranların sipariş durumlarının adet ve tutar dağılımlarının verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSipDurTop">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.OrderTotalsStoreByOrderType=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">12</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ TİPİNE GÖRE SİPARİŞLER RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında şablonlara göre sipariş tiplerinde sipariş toplamlarının verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSipTipGoreSip">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.ProductSales=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">13</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÜRÜN SATIŞ LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında şablonlara göre satılan ürünlerin adet ve toplamlarının verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docUrunSatLis">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.ProductSales=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">14</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">KULLANICI ÜRÜN SATIŞ LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında şablonlara göre kullanıcı bazlı satılan ürünlerin adet ve toplamlarının verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docKulUrunSatLis">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.OrderCountsBySourceType=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">15</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ KAYNAĞINA GÖRE SİPARİŞ ADETLERİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında tüm restoranların sipariş kaynaklarına göre sipariş adetlerinin verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSipKayGoreSipAd">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.ordertotalsbypaymenttypepivot=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">16</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ÖDEME TİPLERİNE GÖRE SİPARİŞ TOPLAMLARI PİVOT RAPORU</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arasında tüm restoranların ödeme tiplerine göre sipariş toplamları dağılımlarının verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docOdemTipGoreSipTop">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="date_separator3" id="" ng-if="user.restrictions.callcenterreports=='Enable'">
+                            <span>ÇAĞRI MERKEZİ RAPORLARI</span>
+                        </div>
+                        <ul class="columns">
+                            <li ng-if="user.restrictions.agentorders=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">AGENT SATIŞLARI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        İstenilen tarih aralıklarında kullanıcıların almış olduğu siparişlerin tarihi, kullanıcı ismi, sipariş sayısı ve sipariş tutarı bilgilerinin bulunduğu rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCreportDocuments.docAgentSat">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.ordertotals=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SİPARİŞ TOPLAMLARI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        İstenilen tarih aralıklarında restoranların toplam sipariş sayısı ve tutarlarının listelendiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCreportDocuments.docSipTop">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.storeorders=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">03</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ŞUBE SİPARİŞLERİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        İstenilen tarih aralıklarında restoranların hangi saatte kaç sipariş aldığını ve sipariş tutarını görebildiğimiz rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCreportDocuments.docSubeSip">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.agentsalesstatistics=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">04</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">AGENT SATIŞ İSTATİSTİKLERİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Kullanıcıların toplam sipariş tutarlarını, adetlerini, yan ürün adet ve yüzdelerini, nefis kenar adet ve yüzdelerinin listelendiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCreportDocuments.docAgentSatIst">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.hourlyorders=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">05</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SAATLİK SİPARİŞLER (ADET)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        İstenilen tarih aralıklarında tüm restoranların hangi saatte kaç sipariş aldığını görebildiğimiz rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCreportDocuments.docSaatlikSip">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.hourlyorderslist=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">06</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SAATLİK SİPARİŞLER LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCreportDocuments.docSaatlikSipLis">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.dailytotals=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">07</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">GÜNLÜK TOPLAMLAR</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        İstenilen tarih aralıklarında tüm restoranların gel al ve paket sipariş adetlerinin ve tutarlarının görülebildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCreportDocuments.docGunlukTop">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.hourlytotals=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">08</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SAATLERE GÖRE GÜNLÜK TOPLAMLAR</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        İstenilen tarih aralıklarında tüm restoranların saatlere göre gel al ve paket sipariş adetlerinin ve tutarlarının görülebildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCreportDocuments.docSaatlereGoreGunTop">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.storepayenttypes=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">09</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">RESTORANLARIN ÖDEME DAĞILIMLARI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        İstenilen tarih aralıklarında restoranların hangi ödeme tipinden kaç sipariş aldığını ve toplam sipariş tutarını görebildiğimiz rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.CCreportDocuments.docRestOdemeDag">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="date_separator3" ng-if="user.restrictions.complaintreports=='Enable'">
+                            <span>ŞİKAYET RAPORLARI</span>
+                        </div>
+                        <ul class="columns">
+                            <li ng-if="user.restrictions.complaintlistreports=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">ŞİKAYET LİSTESİ </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arası girilen şikayetlerin listesidir.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSikayetListRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="date_separator3" ng-if="user.restrictions.smsreports=='Enable'">
+                            <span>SMS RAPORLARI</span>
+                        </div>
+                        <ul class="columns">
+                            <li ng-if="user.restrictions.smslist=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">SMS LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen restoranın sms onayı vermiş tüm müşterilerinin listelendiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docSmsListRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.generalsmslist=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">GENEL SMS LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arası sms onayı vermiş müşterilerin listesidir.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docGenelSmsListRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="date_separator3" ng-if="user.restrictions.storereports=='Enable'">
+                            <span>RESTORAN RAPORLARI</span>
+                        </div>
+                        <ul class="columns" ng-if="user.restrictions.storereports=='Enable'">
+                            <li ng-if="user.restrictions.storeperformance=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">RESTORAN ANALİZİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arası yetkili olunan tüm restoranların ciro, tc, ac, sipariş durum süreleri vb. bilgilerin verildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docRestAnaliziRap">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.storelogs=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">RESTORAN LOGLARI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arası şubelerin ayarlarında yapılan değişiklikleri ve kim tarafından yapıldığını gösteren rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docRestLog">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="date_separator3" ng-if="user.restrictions.accounting=='Enable'">
+                            <span>MUHASEBE RAPORLARI</span>
+                        </div>
+                        <ul class="columns" ng-if="user.restrictions.accounting=='Enable'">
+                            <li ng-if="user.restrictions.realpaymentspivot=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">01</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">GERÇEKLEŞEN ÖDEMELERE GÖRE CİRO</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Seçilen tarihler arası yetkili olunan tüm restoranların gerçekleşen ödemelere göre toplam cirolarının gösterildiği rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docGercOdemGoreCiro">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="user.restrictions.inventorybalancelist=='Enable'">
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">02</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-bold">DÖNEM SONU BAKİYE LİSTESİ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content" style="width:35vw; height:7vh">
+                                        Dönem sonunda şubeye göre hangi envanterden ne kadar kullanıldığını gösteren rapordur.
+                                    </div>
+                                    <div class="readmore">
+                                        <a href="#" class="btn btn-primary btn-o btn-wide" ui-sref="app.help.reportDocuments.docDonemSonuBakLis">
+                                            Dokümana Git  <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

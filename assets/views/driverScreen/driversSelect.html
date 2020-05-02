@@ -1,0 +1,66 @@
+﻿<div class="panel-body">
+    <div class="col-md-12 center">
+        <!--<fieldset>
+            <h3 class="modal-title">Driver Select</h3>
+        </fieldset>-->
+        
+        <div class="table-responsive">
+            <fieldset>
+                <legend>
+                    Driver Select
+                </legend>
+                <table class="table table-striped table-hover">
+                    <tr ng-class="{'active': item.id === SelectedItem,strike: !item.Active,red: !item.Active}">
+                        <td data-title="'Filter Name'" style="width:15%">
+                            <div class="checkbox clip-check check-primary">
+                                <input type="checkbox" id="checkbox1" value="1">
+                                <label for="checkbox1">
+                                </label>
+                            </div>
+                        </td>
+                        <td data-title="'Filter Name'" style="width:15%">
+                            34LC248
+                        </td>
+                        <td data-title="'Filter Object'" data-sortable="'FilterObjectID'" style="width:15%">
+                            Honda Spacy
+                        </td>
+                        <td data-title="'Schedule'" data-sortable="'ScheduleID'" style="width:15%">
+                            Ali
+                        </td>
+                        <td data-title="'Filter Level'" data-sortable="'FilterLevelID'" style="width:20%">
+                            YILMAZ
+                        </td>
+                    </tr>
+                </table>
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <td data-title="'Filter Name'" style="width:15%" ng-click="SelectItem(item.id)">
+                            <div class="checkbox clip-check check-primary">
+                                <input type="checkbox" id="checkbox1" value="1">
+                                <label for="checkbox1">
+                                </label>
+                            </div>
+                        </td>
+                        <td data-title="'Filter Name'" style="width:15%" ng-click="SelectItem(item.id)">
+                            34FR121
+                        </td>
+                        <td data-title="'Filter Object'" data-sortable="'FilterObjectID'" style="width:15%">
+                            Honda Fizy
+                        </td>
+                        <td data-title="'Schedule'" data-sortable="'ScheduleID'" style="width:15%">
+                            Mehmet
+                        </td>
+                        <td data-title="'Filter Level'" data-sortable="'FilterLevelID'" style="width:20%">
+                            USLU
+                        </td>
+                    </tr>
+
+                </table>
+            </fieldset>
+</div>
+    </div>
+</div>
+<div class="panel center">
+    <button class="btn btn-o btn-success ti-check" ng-click="ok()"></button> -
+    <button class="btn btn-o btn-danger ti-close" ng-click="cancel()"></button>
+</div>

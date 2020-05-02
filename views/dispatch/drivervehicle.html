@@ -1,0 +1,77 @@
+﻿<div class="panel-body">
+    <div>
+        <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()">
+            <span translate="main.ADDDRIVER"></span>
+        </a>
+        <br />
+        <table ng-table="tableParams" class="table table-striped table-hover">
+            <tr ng-repeat="item in $data"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td data-title="trDriversName" data-sortable="'DriverID'" ng-click="rowform.$show()" class="ng" style="width:10%">
+                    <!--<span class="text-capitalize" editable-select="item.DriverID" e-name="DriverID" e-ng-model="item.DriverID" e-form="rowform"
+                          e-ng-options="q.id as q.name for q in drivers | filter: {UserRoleID: '106761563444'}" e-style="width:10vw;" ng-if="user.Store.MemberID==106851154380">
+                        {{ShowObject('drivers','id',item.DriverID,'name')}}
+                    </span>-->
+                    <span class="text-capitalize" editable-select="item.DriverID" e-name="DriverID" e-ng-model="item.DriverID" e-form="rowform"
+                          e-ng-options="q.id as q.name for q in drivers" e-style="width:10vw;" ng-if="user.Store.MemberID==300000000000">
+                        {{ShowObject('drivers','id',item.DriverID,'name')}}
+                    </span>
+                </td>
+                <td data-title="trVehiclePlate" data-sortable="'VehicleID'" style="width:10%">
+                    <span class="text-capitalize" editable-select="item.VehicleID" e-name="VehicleID" e-ng-model="item.VehicleID" e-form="rowform"
+                          e-ng-options="q.id as q.Plate for q in vehicles" e-style="width:10vw;">
+                        {{ShowObject('vehicles','id',item.VehicleID,'Plate')}}
+                    </span>
+                </td>
+                <td data-title="trStartKilometer" data-sortable="'StartKM'" ng-click="rowform.$show()" style="width:10%">
+                    <span editable-text="item.StartKM" e-name="StartKM" e-form="rowform" e-ng-model="item.StartKM" e-style="width:6vw;">
+                        {{ item.StartKM }}
+                    </span>
+                </td>
+                <td data-title="trStartDate" data-sortable="'StartDate'" style="width:10%">
+                    {{ item.StartDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+                <td data-title="trActive" data-sortable="'isActive'" style="width:10%" ng-click="isActivePasif(item.isActive)">
+                    <span class="text-capitalize" editable-checkbox="item.isActive" e-form="rowform" e-ng-model="item.isActive" e-required
+                          e-ng-true-value="true"
+                          e-ng-false-value="false" e-style="width:5vw;">
+                        {{ item.isActive && "Active" || "Passive" }}
+                    </span>
+                </td>
+                <td data-title="trEndDate" data-sortable="'EndDate'" width="10%">
+                    {{ item.EndDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+                    <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                          shown="inserted == item|| !item.id">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                    </form>
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()" translate="main.EDIT"> Edit</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)" translate="main.DELETE"> Remove</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="panel center">
+    <button class="btn btn-o btn-primary" ng-click="ok()">OK</button> -
+    <button class="btn btn-danger btn-o" ng-click="cancel()">Cancel</button>
+</div>

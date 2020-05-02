@@ -1,0 +1,17 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">{{'main.SELECTCOUNT' | translate}}<button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body">
+    <!--<div class="col-lg-6">
+        <label>İlk Sayım</label>
+        <select class="col-lg-12" ng-options="q.id as q.DateTime+'/'+q.Description for q in inventorycounts" ng-model="item.Count.DateTime"> </select>
+    </div>-->
+    <div class="col-lg-6">
+        <label>İlk Sayım</label>
+        <select class="col-lg-12" ng-options="q.id as q.DateTime+'/'+q.Description for q in inventorycounts" ng-model="item.Count2.DateTime"></select>
+    </div>
+</div>
+<div class="modal-footer center">
+    <button ng-click="ComboCountValue2(item)" class="btn btn-primary">{{'main.OK' | translate}}</button>
+</div>

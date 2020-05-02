@@ -1,0 +1,22 @@
+﻿<div ng-controller="streetaddressCtrl as vm">
+    <form name="myForm" class="form-horizontal">
+        <div class="control-group" ng-class="{error: myForm.streetaddress.$invalid}">
+            <label class="control-label" for="streetaddressname">StreetAddress</label>
+            <div class="controls">
+                <input type="text" name="streetaddressname" ng-model="streetaddress.name" required>
+            </div>
+        </div>
+        <br>
+        <a href="#/app/streetaddress/streetaddresses/list" class="btn">Cancel</a>
+        <button ng-click="save()" ng-disabled="isClean() || myForm.$invalid"
+                class="btn btn-primary">
+            Save
+        </button>
+        <button ng-click="destroy()"
+                ng-show="streetaddress.id" class="btn btn-danger">
+            Delete
+        </button>
+    </form>
+    <pre>$scope.streetaddress = {{streetaddress|json}}</pre>
+    <pre>$scope.original = {{original|json}}</pre>
+</div>

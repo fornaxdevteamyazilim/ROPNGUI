@@ -1,0 +1,85 @@
+﻿<div ng-controller="complaintauditsCtrl as ca">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.COMPLAITAUDITS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="addItem()">
+                    <span translate="main.ADD"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table ng-table="ca.tableParams" class="table table-striped table-hover">
+            <tr ng-repeat="item in $data"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td data-title="trComplaintSubject" data-sortable="'ComplaintSubjectID'" style="width:15%" ng-click="rowform.$show()">
+                    <span class="text-capitalize" editable-select="item.ComplaintSubjectID" e-name="ComplaintSubjectID" e-ng-model="item.ComplaintSubjectID" e-form="rowform"
+                          e-ng-options="q.id as q.name for q in complaintsubjects | orderBy:'name'" e-style="width:10vw;">
+                        {{ShowObject('complaintsubjects','id',item.ComplaintSubjectID,'name')}}
+                    </span>
+                </td>
+                <td data-title="trNgUser" data-sortable="'NGUserID'" style="width:15%" ng-click="rowform.$show()">
+                    <span class="text-capitalize" editable-select="item.NGUserID" e-name="NGUserID" e-ng-model="item.NGUserID" e-form="rowform"
+                          e-ng-options="q.id as q.name for q in ngusers | orderBy:'name'"  e-style="width:10vw;">
+                        {{ShowObject('ngusers','id',item.NGUserID,'name')}}
+                    </span>
+                </td>
+                <td data-title="trOnOpen" data-sortable="'onOpen'" style="width:10%">
+                    <span class="text-capitalize" editable-checkbox="item.onOpen" e-form="rowform" e-ng-model="item.onOpen" e-required
+                          e-ng-true-value="true"
+                          e-ng-false-value="false" e-style="width:5vw;">
+                        {{ item.onOpen && "Active" || "Passive" }}
+                    </span>
+                </td>
+                <td data-title="trOnClose" data-sortable="'onClose'" style="width:10%">
+                    <span class="text-capitalize" editable-checkbox="item.onClose" e-form="rowform" e-ng-model="item.onClose" e-required
+                          e-ng-true-value="true"
+                          e-ng-false-value="false" e-style="width:5vw;">
+                        {{ item.onClose && "Active" || "Passive" }}
+                    </span>
+                </td>
+                <td data-title="trStillOpenHours" data-sortable="'stillOpenHours'" style="width:15%" class="ng">
+                    <span editable-text="item.stillOpenHours" e-name="stillOpenHours" e-form="rowform" e-ng-model="item.stillOpenHours" e-style="width:10vw;">
+                        {{ item.stillOpenHours }}
+                    </span>
+                </td>
+                <td data-title="trDailyCount" data-sortable="'dailyCount'" style="width:15%" class="ng">
+                    <span editable-text="item.dailyCount" e-name="dailyCount" e-form="rowform" e-ng-model="item.dailyCount" e-style="width:10vw;">
+                        {{ item.dailyCount }}
+                    </span>
+                </td>
+                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+                    <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                          shown="inserted == item|| !item.id">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                    </form>
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()" translate="main.EDIT"> Edit</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)" translate="main.DELETE"> Remove</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

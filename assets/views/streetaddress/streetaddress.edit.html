@@ -1,0 +1,37 @@
+﻿<div class="panel-body panel-white">
+    <div class="col-md-12 center">
+        <fieldset>
+           <legend>  {{item.name}}  {{item.StreetAddressType}}  {{item.Quarter}}</legend>
+            <form name="streetaddress">
+                <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                    <div class="form-group col-sm-12 col-lg-8 col-md-8 col-xs-12">
+                        <label translate="main.STREETADDRESS" for="streetaddress"></label>
+                        <input id="item.id" type="text" class="form-control text-uppercase" ng-model="item.name" required>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-4 col-md-4 col-xs-6">
+                        <label for="StreetAddressTypeID" translate="main.ADDRESSTYPENAME"></label>
+                        <select id="StreetAddressTypeID" ng-options="s.Value as s.Name for s in streetaddresstype | orderBy:'+Name'" class="form-control text-capitalize ng" ng-model="item.StreetAddressTypeID"></select>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                    <div class="form-group col-sm-6 col-lg-4 col-md-4 col-xs-6">
+                        <label translate="main.TOWN" for="GenderType"></label>
+                        <select id="store" ng-options="t.id as t.name for t in towns | orderBy:'+name'" class="form-control text-capitalize ng" ng-model="TownID" ng-change="LoadSubcities(TownID)"></select>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-4 col-md-4 col-xs-6">
+                        <label translate="main.SUBCITY" for="GenderType"></label>
+                        <select id="store" ng-options="sb.id as sb.name for sb in subcities | orderBy:'+name'" class="form-control text-capitalize ng" ng-model="SubcityID" ng-change="LoadQuarters(SubcityID)"></select>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-4 col-md-4 col-xs-6">
+                        <label translate="main.QUARTER" for="GenderType"></label>
+                        <select id="store" ng-options="q.id as q.name for q in quarters | orderBy:'+name'" class="form-control text-capitalize ng" ng-model="item.QuarterID"></select>
+                    </div>
+                </div>
+            </form>
+        </fieldset>        
+    </div>
+    <div class="col-md-12 center">
+        <button class="btn btn-o btn-primary" ng-click="saveData(item)">Kaydet</button> 
+        <button class="btn btn-o btn-primary" ng-click="cancel()">İptal</button>
+    </div>
+</div>

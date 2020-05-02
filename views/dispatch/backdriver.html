@@ -1,0 +1,49 @@
+﻿
+<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+
+</style>-->
+
+<div class="panel-body">
+    <div>
+        <h3 class="center">{{'main.RETURN' | translate}}<button class="btn btn-red btn-sm ti-close pull-right" ng-click="cancel()"></button></h3>
+    </div>
+    <div class="col-lg-12 center">
+            <div class="panel col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <fieldset  style="min-height:10vw;">
+                    <legend>
+                       {{'main.DELIVERED' | translate}}
+                    </legend>
+                    <label class="pull-left text-capitalize">
+                       {{'main.DRIVERNAME' | translate}} :  {{driver.name}}
+                    </label>
+                    <button class="btn btn-lg ti-check pull-right" ng-click="SaveDriverReturn(driver,10)"></button>
+                </fieldset>
+            </div>
+            <div class="panel col-lg-6 col-md-6 col-sm-6 col-xs-12"  ng-if="user.restrictions.notdelivered=='Enable'">
+                <fieldset class="text-capitalize"  style="min-height:10vw;">
+                    <legend>
+                        {{'main.NOTDELIVERED' | translate}}
+                    </legend>
+                    <label class="pull-left text-capitalize">
+                        {{'main.DRIVERNAME' | translate}} :  {{driver.name}}
+                    </label>
+                        <label class="col-lg-8 pull-left">
+                            <label class="pull-left">Geri Dönüş Sebebi</label>
+                            <select ng-options="q.id as q.Description for q in reasons" class="form-control pull-right" ng-model="OrderReasonID" with="20%"><option value=""></option></select>
+                        </label>
+                        <button class="btn btn-lg ti-check pull-right margin-top-20" ng-show="OrderReasonID" ng-click="SaveDriverReturn(driver,9,OrderReasonID)"></button>
+                </fieldset>
+            </div>
+    </div>
+</div>
+
+
+
+
+

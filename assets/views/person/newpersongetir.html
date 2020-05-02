@@ -1,0 +1,171 @@
+﻿<style>
+
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+
+</style>
+
+<h3 class="modal-title center margin-top-10">{{'main.PERSONEDIT' | translate}}<button class="btn btn-danger ti-close pull-right margin-right-5" ng-click="ok()"></button></h3>
+
+<div class="panel panel-white">
+    <div class="panel-body">
+        <fieldset>
+            <legend translate="main.PERSON"></legend>
+            <form name="userDetailForm" ng-submit="submitForm()" novalidate>
+                <div class="form-group col-sm-12 col-lg-3 col-md-3 col-xs-12">
+                    <label for="person">{{:: phone}}</label>
+                    <input id="pnumber" class="form-control" placeholder="(999) 999 99 99" type="text" ng-model="item.PersonPhone" maxlength="10" required />
+                </div>
+                <div class="form-group col-sm-12 col-lg-3 col-md-3 col-xs-12">
+                    <label for="person">{{:: namesurname}}</label>
+                    <input id="item.id" type="text" class="form-control text-uppercase" ng-model="item.name" required>
+                </div>
+                <div class="form-group col-sm-12 col-lg-3 col-md-3 col-xs-12">
+                    <label for="GenderType">{{:: gender}}</label>
+                    <select id="GenderTypeID" class="form-control text-uppercase" ng-change="ChangeGenderType(item.GenderTypeID)" ng-model="item.GenderTypeID">
+                        <option ng-repeat="sel in gendertypes" ng-selected="item.GenderTypeID == sel.Value" value="{{sel.Value}}">{{sel.Name}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-12 col-lg-3 col-md-3 col-xs-12 pull-right">
+                    <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                        <button class="col-lg-5 btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-right margin-top-10" ng-disabled="!item.name" ng-click="saveData(item)">
+                            <span>{{:: save}}</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                    <div class="form-group col-sm-12 col-lg-3 col-md-6 col-xs-12">
+                        <label for="Title">{{:: hiddencustomernote}}</label>
+                        <textarea type="text" style='min-height:60px; max-width:200px; max-height:100px; min-width:200px;' class="form-control text-uppercase" ng-model="item.hiddennotes"></textarea>
+                    </div>
+                    <div class="form-group col-sm-12 col-lg-2 col-md-6 col-xs-12">
+                        <label for="Title">{{:: customerspecialnotestitle}}</label>
+                        <input type="text" class="form-control text-uppercase" ng-model="item.PersonDetails[0].Name">
+                    </div>
+                    <div class="form-group col-sm-12 col-lg-3 col-md-6 col-xs-12">
+                        <label for="Title">{{:: customerspecialnotes}}</label>
+                        <textarea type="text" style='min-height:60px; max-width:200px; max-height:100px; min-width:200px;' class="form-control text-uppercase" ng-model="item.PersonDetails[0].Data"></textarea>
+                    </div>
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                        <label class="margin-left-10">{{:: marketingquestion}}</label>
+                        <br />
+                        <div class="margin-top-5 margin-left-20" ng-show="newPersonID">
+                            <a class="margin-top-5 margin-left-10" ng-model="MPSMS.Approved">
+                                <i class="fa fa-2x fa-check-square-o" ng-if="MPSMS.Approved == true" ng-click="SaveMarketingPermission(MPSMS,0,false)"></i>
+                                <i class="fa fa-2x fa-minus-square-o" ng-if="MPSMS.Approved == false" ng-click="SaveMarketingPermission(MPSMS,0,true)"></i>
+                                <i class="fa fa-2x fa-square-o" ng-if="MPSMS.Approved == null" ng-click="SaveMarketingPermission(MPSMS,0,true)"></i>
+                                SMS
+                            </a>
+                            <a class="margin-top-5 margin-left-10" ng-model="MPEMAIL.Approved">
+                                <i class="fa fa-2x fa-check-square-o" ng-if="MPEMAIL.Approved == true" ng-click="SaveMarketingPermission(MPEMAIL,1,false)"></i>
+                                <i class="fa fa-2x fa-minus-square-o" ng-if="MPEMAIL.Approved == false" ng-click="SaveMarketingPermission(MPEMAIL,1, true)"></i>
+                                <i class="fa fa-2x fa-square-o" ng-if="MPEMAIL.Approved == null" ng-click="SaveMarketingPermission(MPEMAIL,1,true)"></i>
+                                E-mail
+                            </a>
+                            <a class="margin-top-5 margin-left-10" ng-model="MPKVKK.Approved">
+                                <i class="fa fa-2x fa-check-square-o" ng-if="MPKVKK.Approved == true" ng-click="SaveMarketingPermission(MPKVKK,2,false)"></i>
+                                <i class="fa fa-2x fa-minus-square-o" ng-if="MPKVKK.Approved == false" ng-click="SaveMarketingPermission(MPKVKK,2,true)"></i>
+                                <i class="fa fa-2x fa-square-o" ng-if="MPKVKK.Approved == null" ng-click="SaveMarketingPermission(MPKVKK,2,true)"></i>
+                                KVKK
+                            </a>
+                        </div>
+                        <div class="pull-right margin-top-10" ng-show="newPersonID">
+                            <a class="btn btn-warning btn-md tooltips tooltips pull-right" tooltip="GEL-AL SİPARİŞ" tooltip-placement="right" ng-click="TakeOrder(item.id,1,item.PersonPhones)">
+                                <img src="assets/images/gelal.png" style="width:20px; height:20px;" /><br />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+        <fieldset>
+            <legend translate="main.ADDRESS"></legend>
+            <form name="userForm" ng-submit="submitForm()" novalidate ng-show="newPersonID">
+                <div div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12" ng-if="ShowAddressPart != false">
+                    <div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                        <div class="form-group col-lg-6 col-sm-6 col-md-6 col-xs-12" ng-class="{ 'has-error' : userForm.FormatedAddress.$invalid && !userForm.FormatedAddress.$pristine }">
+                            <label translate="main.STREETQUARTER" class="text-bold">*StreetAddress</label>
+                            <input type="text" name="FormatedAddress" class="form-control text-uppercase ng" ng-model="FormatedAddress" readonly ng-click="StreetAddressSelector(Address.StreetAddress.id)" required>
+                            <p ng-show="userForm.FormatedAddress.$invalid && !userForm.FormatedAddress.$pristine" class="help-block">Street Address Name is required.</p>
+                        </div>
+                        <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-12" ng-class="{ 'has-error' : userForm.AddressNo.$invalid && !userForm.AddressNo.$pristine }">
+                            <label translate="main.*ADDRESSNO" class="text-bold">*Address No</label>
+                            <input type="number" name="AddressNo" class="form-control" ng-model="Address.AddressNo" required>
+                        </div>
+                        <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                            <label translate="main.ENTERANCE">Entrance</label>
+                            <input type="text" name="Entrance" class="form-control text-uppercase" ng-model="Address.Entrance" maxlength="50">
+                        </div>
+                        <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                            <label translate="main.FLOOR">Floor</label>
+                            <input type="number" name="Floor" class="form-control" ng-model="Address.Floor">
+                        </div>
+                        <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                            <label translate="main.*APERTMENTNO"></label>
+                            <input type="number" name="AppartmentNo" class="form-control" ng-model="Address.AppartmentNo">
+                        </div>
+                        <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                            <label translate="main.APERTMENTNAME">Appartment Name</label>
+                            <input type="text" name="AppartmentName" class="form-control text-uppercase" ng-model="Address.AppartmentName" maxlength="50">
+                        </div>
+                        <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                            <label translate="main.EXTENSIONNUMBER">Extension Number</label>
+                            <input type="number" name="extensionNumber" class="form-control" ng-model="personitem.extensionNumber">
+                        </div>
+                        <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                            <label translate="main.*ADDRESSTYPE" class="text-bold">*AddressType</label><br />
+                            <select name="AddressTypeID" ng-options="q.Value as q.Name for q in addresstypes | orderBy:'+Name'" class="form-control ng" ng-model="Address.AddressTypeID" required ng-change="GetAddressType(Address)"></select>
+                            <span class="error" ng-show="userForm.Address.AddressTypeID.$dirty && userForm.Address.AddressTypeID.$invalid">Select service</span>
+                        </div>
+                        <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                            <label translate="main.COMPANY" for="person"></label>
+                            <input id="personitem.id" type="text" class="form-control text-uppercase" ng-model="personitem.CompanyName" maxlength="50">
+                        </div>
+                        <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                            <label translate="main.STORE">Name</label>
+                            <input type="text" name="name" class="form-control text-uppercase" ng-model="personitem.Store.name" readonly>
+                        </div>
+                        <div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12" ng-class="{ 'has-error' : userForm.AddressTypeID.$invalid && !userForm.AddressTypeID.$pristine }">
+                            <div class="form-group col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                                <label translate="main.ADDRESSNOTE" for="Notes">
+                                    Address Note
+                                </label>
+                                <textarea id="Notes" type="text" style='min-height:100px; max-width:300px; max-height:150px' class="form-control text-capitalize" ng-model="Address.Notes"></textarea>
+                            </div>
+                            <div class="form-group col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                                <label translate="main.LANDMARK">Landmark</label>
+                                <textarea type="text" style='min-height:100px; max-width:300px; max-height:150px' class="form-control text-uppercase" ng-model="Address.Landmark"></textarea>
+                            </div>
+                            <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                                <label translate="main.ADRESSISACTIVE" class="text-bold">*isActive</label>
+                                <select id="isActive" class="form-control text-uppercase" ng-model="item.isActive" ng-options="q.Value as q.name for q in isActives" required>
+                                    <!--<option ng-repeat="actives in isActives" ng-selected="item.isActive == actives.Value" value="{{actives.Value}}">{{actives.name}}</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12" ng-class="{ 'has-error' : userForm.AddressTypeID.$invalid && !userForm.AddressTypeID.$pristine }">
+                            <div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12 pull-left">
+                                <button ng type="submit" class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save pull-right margin-top-20" ng-disabled="userForm.$invalid" ng-click="SaveAddressData(personitem)">
+                                    <span translate="main.SAVE">Save Person Address</span>
+                                </button>
+                            </div><br />
+                            <div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12 pull-right" ng-if="user.UserRole.Name != 'Alonet'">
+                                <button ng-show="AddressID != 'new' && item.isActive == true" class="margin-top-20 btn btn-success btn-wide tooltips ti-shopping-cart pull-right btn-scroll btn-scroll-left fa  fa-save" tooltip="{{'main.HOMEDELIVERY' |translate}}" tooltip-placement="top" ng-disabled="userForm.$invalid" ng-click="SaveAddressData(personitem,'Order')" ng-dblclick="BottonDblcilik()">
+                                    <span translate="main.HOMEDELIVERY">HomeDelivery Order</span>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold text-dark">
+                            Koyu renk yazılmış ve * işareti olan alanlar zorunludur.
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+</div>
+

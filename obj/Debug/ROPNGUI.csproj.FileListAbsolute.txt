@@ -1,0 +1,14 @@
+C:\Users\FEHİM\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\bin\ROPNGUI.dll.config
+C:\Users\FEHİM\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\bin\ROPNGUI.dll
+C:\Users\FEHİM\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\bin\ROPNGUI.pdb
+C:\Users\FEHİM\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Debug\ROPNGUI.dll
+C:\Users\FEHİM\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Debug\ROPNGUI.pdb
+C:\Users\FEHİM\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Debug\ROPNGUI.csprojAssemblyReference.cache
+C:\Users\FEHİM\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Debug\ROPNGUI.csproj.CoreCompileInputs.cache
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\bin\ROPNGUI.dll.config
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\bin\ROPNGUI.dll
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\bin\ROPNGUI.pdb
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Debug\ROPNGUI.csprojAssemblyReference.cache
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Debug\ROPNGUI.csproj.CoreCompileInputs.cache
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Debug\ROPNGUI.dll
+C:\Users\Fehim\Source\Workspaces\ROPNG\ROPNG.Client\ROPNGUI\obj\Debug\ROPNGUI.pdb

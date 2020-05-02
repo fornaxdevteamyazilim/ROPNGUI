@@ -1,0 +1,121 @@
+﻿<!--<style>
+        [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+
+<div ng-controller="dailysalesCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h1 class="mainTitle col-lg-8 col-md-8 col-sm-12 col-xs-12" translate="tittle.CALLCENTERREPORTS" translate-values="{ appName: app.name }">{{ mainTitle }}</h1><br /><br />
+    </div>
+    <hr />
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <label translate="main.STARTDATE" style="color:black;" class="text-bold">Başlangıç Tarihi :</label><br /><label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <label translate="main.ENDDATE" style="color:black;" class="text-bold">Bitiş Tarihi :</label><br /><label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 margin-top-10">
+            <label style="color:black;" class="text-bold"></label><br />
+            <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-twitch center" ng-click="LoadAgentOrders(StartDate,EndDate)">
+                <span translate="main.REPORT">Raporla</span>
+            </button>
+        </div>
+    </div>
+
+    <hr />
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive">
+        <fieldset>
+            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table">
+                <tr>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.ORDERDATE' | translate}}</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.USER' | translate}}</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.ORDERCOUNT' | translate}}</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.ORDERAMOUNT' | translate}}</th>
+                </tr>
+                <tr ng-repeat="item in AgentOrders">
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <div>
+                            {{item.OrderDate  | date:'dd-MM-yyyy'}}
+                        </div>
+                    </td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <div class="text-uppercase">
+                            {{item.UserID || '-'}}
+                        </div>
+                    </td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <div>
+                            <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold" style="color:black;">{{item.OrdersCount}} <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right" translate="main.PIECE"></label></label>
+                        </div>
+                    </td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <div>
+                            <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold" style="color:black;">{{item.OrdersAmount | number:2}} <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right">TL</label></label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <tr class="bg-grey">
+                    <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <label translate="main.TOTAL" class="text-bold" style="color:black;">Toplam</label>
+                    </td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold" style="color:black;">{{TotalOrders}} <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right" style="color:black;" translate="main.PIECE"></label></label>
+                    </td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold" style="color:black;">{{TotalAmount | number:2}} <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right" style="color:black;">TL</label></label>
+                    </td>
+                </tr>
+
+            </table>
+
+        </fieldset>
+    </div>
+</div>
+
+
+<!-------------------------------------------------------------------------------------------------------------------------------->
+
+<!--<style>
+      [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+<!--<div ng-controller="dailysalesCtrl ">
+    <div class="panel-white margin-top-20">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <label translate="main.STARTDATE" style="color:black;" class="text-bold">Başlangıç Tarihi :</label><br /><label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <label translate="main.ENDDATE" style="color:black;" class="text-bold">Bitiş Tarihi :</label><br /><label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 margin-top-10">
+                <label style="color:black;" class="text-bold"></label><br />
+                <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-twitch center" ng-click="LoadStoreAgentOrders(StartDate,EndDate)">
+                    <span translate="main.REPORT">Raporla</span>
+                </button>
+            </div>
+        </div>
+
+        <div ng-show="user.UserRole.Name =='Admin'" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 margin-top-15">
+            <button class="btn btn-primary col-lg-4" ng-click="ShowReport(true)" translate="main.EDITMODE">Edit Mode</button>
+            <button class="btn btn-primary col-lg-4 margin-left-10" ng-click="ShowReport(false)" translate="main.VIEWMODE">View Mode</button>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15" id="report"></div>
+        <pivot ng-if="ctrl.table.editMode" data="ctrl.table.data" config="ctrl.table.config" edit-mode="true"></pivot> burası hep kapalı
+        <pivot ng-if="!ctrl.table.editMode" data="ctrl.table.data" config="ctrl.table.config" edit-mode="false"></pivot> burası hep kapalı
+    </div>
+</div>-->

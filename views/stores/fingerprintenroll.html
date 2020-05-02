@@ -1,0 +1,39 @@
+﻿<!--<style>
+
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+<div print-section ng-controller="fingerprintenrollCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.FINGERPRINTENROLL" translate-values="{ appName: app.name }">{{ ::mainTitle }}</span>
+            </div>
+            <div print-remove class="col-lg-8 col-md-8 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive">
+        <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-6">
+            <label class="text-bold">{{:: 'main.SELECTUSER' | translate}}</label>
+            <select ng-options="q.id as q.name for q in UserList  | filter: {isFingerPrintExist:false}  | orderBy:'+name'" class="form-control text-capitalize ng" ng-model="UserID"></select>
+        </div>
+        <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-6 margin-top-25">
+            <a class="btn btn-wide btn-green btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="StartEnroll()">
+                <span>{{:: 'main.START' | translate}}</span>
+            </a>
+        </div>
+        <div ng-repeat="msg in ClientMessages track by $index">
+            {{$index}}-{{msg.MessageType}}:{{msg.Message}}
+        </div>
+    </div>
+
+</div>

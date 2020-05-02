@@ -1,0 +1,620 @@
+﻿<style>
+    /*[class*="col-"] {
+            background-color: #eee;
+            background-color: rgba(86,61,124,.15);
+            border: 1px solid #ddd;
+            border: 1px solid rgba(86,61,124,.2);
+        }*/
+
+    /*th {
+        background-color: #4CAF50;
+        color:white;
+    }*/
+</style>
+<div print-section ng-controller="trendsCtrl">
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class='text-extra-large col-lg-12 fa fa-spin fa-spinner'></span><br />
+        <span class='text-extra-large'>{{'main.LOADING' | translate}}</span>
+    </div>
+    <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+            <span class="col-lg-12 text-bold pull-left">{{::user.Store.Member}} - {{::user.Store.name}}</span><br />
+            <span class="col-lg-12 text-bold pull-left">{{::user.FullName}} </span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-5">
+            <span class="mainTitle text-dark text-bold center" style="font-size:18px;" translate="tittle.TRENDSREPORT" translate-values="{ appName: app.name }">{{ ::mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <span class="col-lg-12 pull-right">{{Time | date:'dd-MM-yyyy HH:mm'}} </span>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div print-remove class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.TRENDSREPORT" translate-values="{ appName: app.name }">{{ ::mainTitle }}</span>
+                <i class="fa fa-info-circle" style="font-size:25px;" popover="Yetkili olduğunuz restoranların bugün, geçen hafta, önceki gün, aylık ciro, ac, tc değerleri ve hesaplanan trend değerlerinin listelendiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+            </div>
+            <div print-remove class="col-lg-4 col-md-4 col-sm-6 col-xs-6 margin-top-10">
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="loadtrendsReport()">
+                    <img ng-src="assets/images/report.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#trendsreport')">
+                    <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                </button>
+                <!--<button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.DOWNLOAD' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadStoreCashxls()">
+                    <img ng-src="assets/images/download.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                </button>-->
+                <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                    <img ng-src="assets/images/print.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+        <div print-remove class="col-sm-12 col-xs-12 visible-sm visible-xs">
+            <div class="col-sm-12 col-xs-12">
+                <div class="col-sm-8 col-xs-8 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:15px;" translate="tittle.TRENDSREPORT" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right">
+                    <a class="btn btn-red ti-back-left" ng-click="Back()"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive">
+        <div print-remove class="table-responsive">
+            <table class="hidden">
+                <tr>
+                    <th>{{'main.REPORTDATE' | translate}}</th>
+                    <th>{{'main.USER' | translate}}</th>
+                    <th>{{'main.USERSTORE' | translate}}</th>
+                </tr>
+                <tr>
+                    <td>{{Time | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{user.FullName}}</td>
+                    <td>{{user.Store.Member}} - {{user.Store.name}}</td>
+                </tr>
+            </table>
+            <br />
+            <div class="visible-sm visible-xs">
+                <div class="col-sm-6" ng-repeat="item in :refresh:trendresult | orderBy:'+Store'">
+                    <div class="panel panel-white" id="panel5">
+                        <div class="panel-heading">
+                            <h4 class="panel-title text-primary">
+                                <span class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-click="selectedStore(item.StoreID, item.Store)">{{item.RegionalSalesRank}} - {{item.Store }}</span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></span>
+                                <span class="col-lg-3 col-md-3 col-sm-3 col-xs-3 margin-right-10">
+                                    <label ng-class="{'badge badge-danger':item.TodayIncome < item.PrewWeekIncome ,'badge badge-success':item.TodayIncome > item.PrewWeekIncome , 'badge badge-inverse':item.TodayIncome == item.PrewWeekIncome}">{{item.TodayIncome | number:2 }} TL</label>
+                                </span>
+                                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-right-10">
+                                    <label ng-class="{'badge badge-danger':item.TodayTC < item.PrewWeekTC ,'badge badge-success':item.TodayTC > item.PrewWeekTC , 'badge badge-inverse':item.TodayTC == item.PrewWeekTC}">{{item.TodayTC }}</label>
+                                </span>
+                                <!--<span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    {{item.SalesRank }}
+                                </span>-->
+                            </h4>
+                            <ct-paneltool class="panel-tools" tool-collapse="tool-collapse"></ct-paneltool>
+                        </div>
+                        <div collapse="panel5" ng-init="panel5=true" class="panel-wrapper">
+                            <div class="panel-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold text-dark pull-right text-large">
+                                    {{'main.SALESRANK' | translate}} : {{item.SalesRank }}
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.TODAY' | translate}}</h5>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYINCOME' | translate}} : <span class="pull-right"> <label ng-class="{'badge badge-danger':item.TodayIncome < item.PrewWeekIncome ,'badge badge-success':item.TodayIncome > item.PrewWeekIncome , 'badge badge-inverse':item.TodayIncome == item.PrewWeekIncome}">{{item.TodayIncome | number:2 }}</label> TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} :
+                                        <span class="pull-right">
+                                            <span ng-class="{'fa fa-arrow-down':item.TodayTC < item.PrewWeekTC, 'fa fa-arrow-up':item.TodayTC > item.PrewWeekTC}"></span>
+                                            <label ng-class="{'badge badge-danger':item.TodayTC < item.PrewWeekTC ,'badge badge-success':item.TodayTC > item.PrewWeekTC , 'badge badge-inverse':item.TodayTC == item.PrewWeekTC}">{{item.TodayTC }}</label> {{'main.PIECE' | translate}}
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYAC' | translate}} : <span class="pull-right">{{::item.TodayAC | number:2}} TL</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.PREWWEEK' | translate}}</h5>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYINCOME' | translate}} : <span class="pull-right">{{::item.PrewWeekIncome | number:2 }} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} : <span class="pull-right">{{::item.PrewWeekTC }} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYAC' | translate}} : <span class="pull-right">{{::item.PrewWeekAC | number:2 }} TL</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.LASTDAY' | translate}}n</h5>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYINCOME' | translate}} : <span class="pull-right">{{::item.LastDayIncome | number:2 }} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} : <span class="pull-right">{{::item.LastDayTC }} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYAC' | translate}} : <span class="pull-right">{{::item.LastDayAC | number:2 }} TL</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">Ö{{'main.PREVMONTH' | translate}}</h5>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYINCOME' | translate}} : <span class="pull-right">{{::item.TotalPrevMonthToDateIncome | number:2 }} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} : <span class="pull-right">{{::item.PrevMonthToDateTC }} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYAC' | translate}} : <span class="pull-right">{{::item.PrevMonthToDateAC | number:2 }} TL</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.MONTHLYINCOME' | translate}}</h5>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border:1px solid;">
+                                        {{'main.DAILYINCOME' | translate}} : <span class="pull-right">{{::item.DailyIncome | number:2 }} TL</span>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border:1px solid;">
+                                        {{'main.TODAYINCOME' | translate}} : <span class="pull-right">{{::item.TotalMonthlyIncome | number:2 }} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} : <span class="pull-right">{{::item.MonthlyTC }} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYAC' | translate}} : <span class="pull-right">{{::item.MonthlyAC | number:2 }} TL</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.TREND' | translate}}</h5>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.INCOMETREND' | translate}} : <span class="pull-right">{{::item.IncomeTrend | number:2 }} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TCTREND' | translate}} : <span class="pull-right">{{::item.TCTrend }} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.HITRATE' | translate}} % :
+                                        <span class="pull-right text-bold text-success" ng-if="item.SalesTarget < item.IncomeTrend">{{::item.HitRate | number:2 }}</span>
+                                        <span class="pull-right text-bold text-red" ng-if="item.SalesTarget > item.IncomeTrend">{{::item.HitRate | number:2 }}</span>
+                                        <span class="pull-right" ng-if="item.SalesTarget == item.IncomeTrend">{{::item.HitRate | number:2 }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.TARGETS' | translate}}</h5>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYINCOME' | translate}} : <span class="pull-right">{{::item.SalesTarget | number:2 }} TL</span>
+                                    </div>
+                                    <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} : <span class="pull-right">{{::item.TCTarget }} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYAC' | translate}} : <span class="pull-right">{{::item.ACTarget | number:2 }} TL</span>
+                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xs-12">
+                    <div class="panel panel-white" id="panel5">
+                        <div class="panel-heading">
+                            <h4 class="col-lg-8 col-md-8 col-sm-8 col-xs-8 panel-title text-primary">{{'main.GENERALTOTAL' | translate}}</h4>
+                            <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></span>
+                            <span class="col-lg-3 col-md-3 col-sm-3 col-xs-3 margin-right-10">
+                                <label class="badge badge-success">{{:refresh:totalToday| number:2}} TL</label>
+                            </span>
+                            <ct-paneltool class="panel-tools" tool-collapse="tool-collapse"></ct-paneltool>
+                        </div>
+                        <div collapse="panel5" ng-init="panel5=true" class="panel-wrapper">
+                            <div class="panel-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.TODAY' | translate}}</h5>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYINCOME' | translate}} : <span class="pull-right">{{:refresh:totalToday| number:2}} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} : <span class="pull-right">{{:refresh:totalTodayTC}} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">G{{'main.PREWWEEK' | translate}}</h5>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYINCOME' | translate}} : <span class="pull-right">{{:refresh:totalPrewWeekIncome| number:2}} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} : <span class="pull-right">{{:refresh:totalPrewWeekTC}} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.LASTDAY' | translate}}</h5>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYINCOME' | translate}} : <span class="pull-right">{{:refresh:totalLastDayIncome| number:2}} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} : <span class="pull-right">{{:refresh:totalLastDayTC}} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.PREVMONTH' | translate}}</h5>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYINCOME' | translate}} : <span class="pull-right">{{:refresh:totalPrevMonth| number:2}} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} : <span class="pull-right">{{:refresh:totalPrevMonthTC}} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.MONTHLYINCOME' | translate}}</h5>
+                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.DAILYINCOME' | translate}} : <span class="pull-right">{{:refresh:totalDailyIncome| number:2}} TL</span>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYINCOME' | translate}} : <span class="pull-right">{{:refresh:totalTotalMonthlyIncome| number:2}} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} : <span class="pull-right">{{:refresh:totalMonthlyTC}} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.TREND' | translate}}</h5>
+                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.INCOMETREND' | translate}} : <span class="pull-right">{{:refresh:totalIncomeTrend| number:2}} TL</span>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TCTREND' | translate}} : <span class="pull-right">{{:refresh:totalTCTrend}} {{'main.PIECE' | translate}}</span>
+                                    </div>
+                                    <!--<div class="col-lg-12 col-md-12 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.HITRATE' | translate}} : <span class="pull-right">{{:refresh:HitRate}}</span>
+                                    </div>-->
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                                    <h5 class="text-bold text-dark">{{'main.TARGETS' | translate}}</h5>
+                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.SALESTARGET' | translate}} : <span class="pull-right">{{:refresh:totalSalesTarget| number:2}} TL</span>
+                                    </div>
+                                    <!--<div class="col-lg-12 col-md-12 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TODAYTC' | translate}} : <span class="pull-right">{{:refresh:totalTcTarget}} {{'main.PIECE' | translate}}</span>
+                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive visible-lg visible-md" id="trendsreport">
+            <table class="hidden">
+                <tr>
+                    <th>{{'main.REPORTDATE' | translate}}</th>
+                    <th>{{'main.USER' | translate}}</th>
+                    <th>{{'main.USERSTORE' | translate}}</th>
+                </tr>
+                <tr>
+                    <td>{{Time | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{user.FullName}}</td>
+                    <td>{{user.Store.Member}} - {{user.Store.name}}</td>
+                </tr>
+            </table>
+            <br />
+            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                <thead>
+                    <tr>
+                        <th colspan="3" class="col-lg-3 text-bold"></th>
+                        <th colspan="3" class="col-lg-3 text-bold bg-grey">{{'main.TODAY' | translate}}</th>
+                        <th colspan="3" class="col-lg-3 text-bold">{{'main.PREWWEEK' | translate}}</th>
+                        <th colspan="3" class="col-lg-3 text-bold bg-grey">{{'main.LASTDAY' | translate}}</th>
+                        <th colspan="3" class="col-lg-3 text-bold">{{'main.PREVMONTH' | translate}}</th>
+                        <th colspan="4" class="col-lg-4 text-bold bg-grey">{{'main.MONTHLYINCOME' | translate}}</th>
+                        <th colspan="3" class="col-lg-3 text-bold">{{'main.TREND' | translate}}</th>
+                        <th colspan="1" class="col-lg-1 text-bold bg-grey">{{'main.TARGETS' | translate}}</th>
+                    </tr>
+                    <tr>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('Store')">{{'main.STORE' | translate}}</th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('RegionalSalesRank')">{{'main.REGIONALSALESRANK' | translate}}</th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('SalesRank')">{{'main.SALESRANK' | translate}}</th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey" ng-click="ChangeSortData('TodayIncome')"> <span class="pull-right">{{'main.TODAYINCOME' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey" ng-click="ChangeSortData('TodayTC')"><span class="pull-right">{{'main.TODAYTC' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey" ng-click="ChangeSortData('TodayAC')"><span class="pull-right">{{'main.TODAYAC' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('PrewWeekIncome')"> <span class="pull-right">{{'main.TODAYINCOME' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('PrewWeekTC')"><span class="pull-right">{{'main.TODAYTC' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('PrewWeekAC')"><span class="pull-right">{{'main.TODAYAC' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey" ng-click="ChangeSortData('LastDayIncome')"><span class="pull-right">{{'main.TODAYINCOME' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey"><span class="pull-right" ng-click="ChangeSortData('LastDayTC')">{{'main.TODAYTC' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey"><span class="pull-right" ng-click="ChangeSortData('LastDayAC')">{{'main.TODAYAC' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('TotalPrevMonthToDateIncome')"> <span class="pull-right">{{'main.TODAYINCOME' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('PrevMonthToDateTC')"> <span class="pull-right">{{'main.TODAYTC' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('PrevMonthToDateAC')"> <span class="pull-right">{{'main.TODAYAC' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey"><span class="pull-right" ng-click="ChangeSortData('DailyIncome')">{{'main.DAILYINCOME' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey"><span class="pull-right" ng-click="ChangeSortData('TotalMonthlyIncome')">{{'main.TODAYINCOME' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey"><span class="pull-right" ng-click="ChangeSortData('MonthlyTC')">{{'main.TODAYTC' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey"><span class="pull-right" ng-click="ChangeSortData('MonthlyAC')">{{'main.TODAYAC' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right" ng-click="ChangeSortData('TCTrend')">{{'main.TCTREND' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right" ng-click="ChangeSortData('IncomeTrend')">{{'main.INCOMETREND' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right" ng-click="ChangeSortData('HitRate')">{{'main.HITRATE' | translate}} %</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey"><span class="pull-right" ng-click="ChangeSortData('SalesTarget')">{{'main.SALESTARGET' | translate}} (TL)</span></th>
+                        <!--<th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey"><span class="pull-right" ng-click="ChangeSortData('TCTarget')">{{'main.TCTARGET' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey"><span class="pull-right" ng-click="ChangeSortData('ACTarget')">{{'main.ACTARGET' | translate}} (TL)</span></th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in :refresh:trendresult | orderBy:SortData">
+                        <!--| orderBy:SortData-->
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3" ng-click="selectedStore(item.StoreID, item.Store)">
+                            {{item.Store }}
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            {{item.RegionalSalesRank}}
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            {{item.SalesRank }}
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right"> <label ng-class="{'badge badge-danger':item.TodayIncome < item.PrewWeekIncome ,'badge badge-success':item.TodayIncome > item.PrewWeekIncome , 'badge badge-inverse':item.TodayIncome == item.PrewWeekIncome}">{{item.TodayIncome | number:2 }} ₺</label></span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span>
+                                <label ng-class="{'badge badge-danger':item.TodayTC < item.PrewWeekTC ,'badge badge-success':item.TodayTC > item.PrewWeekTC , 'badge badge-inverse':item.TodayTC == item.PrewWeekTC}">
+                                    {{item.TodayTC }}
+                                    <span ng-class="{'fa fa-arrow-down':item.TodayTC < item.PrewWeekTC, 'fa fa-arrow-up':item.TodayTC > item.PrewWeekTC}"></span>
+                                </label>
+                            </span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right">{{::item.TodayAC | number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right">{{::item.PrewWeekIncome | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right">{{::item.PrewWeekTC }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right">{{::item.PrewWeekAC | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right">{{::item.LastDayIncome | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right">{{::item.LastDayTC }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right">{{::item.LastDayAC | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right">{{::item.TotalPrevMonthToDateIncome | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right">{{::item.PrevMonthToDateTC }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right">{{::item.PrevMonthToDateAC | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right">{{::item.DailyIncome | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right">{{::item.TotalMonthlyIncome | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right">{{::item.MonthlyTC }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right">{{::item.MonthlyAC | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right">{{::item.TCTrend }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right">{{::item.IncomeTrend | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <!--<span class="pull-right">{{::item.HitRate |abs  | number:2 }}</span>-->
+                            <span class="pull-right text-bold text-success" ng-if="item.SalesTarget < item.IncomeTrend">{{::item.HitRate | number:2 }}</span>
+                            <span class="pull-right text-bold text-red" ng-if="item.SalesTarget > item.IncomeTrend">{{::item.HitRate | number:2 }}</span>
+                            <span class="pull-right" ng-if="item.SalesTarget == item.IncomeTrend">{{::item.HitRate | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right">{{::item.SalesTarget | number:2 }}</span>
+                        </td>
+                        <!--<td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right">{{::item.TCTarget }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right">{{::item.ACTarget | number:2 }}</span>
+                        </td>-->
+                    </tr>
+                    <tr class="bg-grey">
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-uppercase">
+                            <span class="pull-left text-bold">{{'main.GENERALTOTAL' | translate}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold"></span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold"></span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalToday| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalTodayTC}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{totalToday / totalTodayTC| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalPrewWeekIncome| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalPrewWeekTC}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{totalPrewWeekIncome / totalPrewWeekTC| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalLastDayIncome| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalLastDayTC}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{totalLastDayIncome / totalLastDayTC| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalPrevMonth| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalPrevMonthTC}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{totalPrevMonth / totalPrevMonthTC| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalDailyIncome| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalTotalMonthlyIncome| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalMonthlyTC}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{totalTotalMonthlyIncome / totalMonthlyTC| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalTCTrend}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalIncomeTrend| number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <!--<span class="pull-right">
+                                {{((totalIncomeTrend / totalSalesTarget)-1)*100 | number:2 }}
+                            </span>-->
+                            <span class="pull-right text-bold text-success" ng-if="totalSalesTarget < totalIncomeTrend">{{((totalIncomeTrend / totalSalesTarget)-1)*100 | number:2 }}</span>
+                            <span class="pull-right text-bold text-red" ng-if="totalSalesTarget > totalIncomeTrend">{{((totalIncomeTrend / totalSalesTarget)-1)*100 | number:2 }}</span>
+                            <span class="pull-right" ng-if="totalSalesTarget == totalIncomeTrend">{{((totalIncomeTrend / totalSalesTarget)-1)*100 | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalSalesTarget| number:2
+                                }}
+                            </span>
+                        </td>
+                        <!--<td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold">{{:refresh:totalTcTarget}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                            <span class="pull-right text-bold"></span>
+                        </td>-->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div print-only class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive visible-print hidden margin-top-15">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-5">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.STORE' | translate}}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.TODAYINCOME' | translate}} (TL)</span></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.TODAYTC' | translate}} / <br /> {{'main.TODAYAC' | translate}} (TL)</span></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.PREWEEKINCOME' | translate}} (TL)</span></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.PREWEEKTC' | translate}} /<br /> {{'main.PREWEEKAC' | translate}} (TL)</span></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.LASTDAYINCOME' | translate}} (TL)</span></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.LASTDAYTC' | translate}} /<br /> {{'main.LASTDAYAC' | translate}} (TL)</span></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.DAILYINCOME' | translate}} (TL)</span></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.TOTALMONTHLYINCOME' | translate}} (TL)</span></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.MONTHLYTC' | translate}} /<br /> {{'main.MONTHLYAC' | translate}} (TL)</span></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.TCTREND' | translate}}</span></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.INCOMETREND' | translate}} (TL)</span></div>
+        </div>
+        <hr />
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="item in :refresh:trendresult | orderBy:'+Store'" style="border-bottom:1px solid;">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                {{item.Store }}
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right">{{:refresh:item.TodayIncome | number:2 }}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right"><label>{{item.TodayTC }}</label> <span ng-class="{'fa fa-arrow-down':item.TodayTC < item.PrewWeekTC, 'fa fa-arrow-up':item.TodayTC > item.PrewWeekTC}"></span> / <br /> {{item.TodayAC | number:2}}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right">{{:refresh:item.PrewWeekIncome | number:2 }}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right">{{:refresh:item.PrewWeekTC }} / <br /> {{:refresh:item.PrewWeekAC | number:2 }}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right">{{:refresh:item.LastDayIncome | number:2 }}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right">{{:refresh:item.LastDayTC }} / <br /> {{:refresh:item.LastDayAC | number:2 }}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right">{{:refresh:item.DailyIncome | number:2 }}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right">{{:refresh:item.TotalMonthlyIncome | number:2 }}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right">{{:refresh:item.MonthlyTC }} / <br /> {{:refresh:item.MonthlyAC | number:2 }}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right">{{:refresh:item.TCTrend }}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right">{{:refresh:item.IncomeTrend | number:2 }}</span>
+            </div>
+        </div>
+        <div class="bg-grey">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-uppercase">
+                {{'main.GENERALTOTAL' | translate}}
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right text-bold">{{:refresh:totalToday| number:2}}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right text-bold">{{:refresh:totalTodayTC}}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right text-bold">{{:refresh:totalPrewWeekIncome| number:2}}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right text-bold">{{:refresh:totalPrewWeekTC}}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right text-bold">{{:refresh:totalLastDayIncome| number:2}}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right text-bold">{{:refresh:totalLastDayTC}}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right text-bold">{{:refresh:totalDailyIncome| number:2}}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right text-bold">{{:refresh:totalTotalMonthlyIncome| number:2}}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right text-bold">{{:refresh:totalMonthlyTC}}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right text-bold">{{:refresh:totalTCTrend}}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <span class="pull-right text-bold">{{:refresh:totalIncomeTrend| number:2}}</span>
+            </div>
+        </div>
+    </div>
+</div>

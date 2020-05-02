@@ -1,0 +1,210 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+<div ng-controller="dispatcherCtrl as kds" ng-init="app.layout.isSidebarClosed=true">
+    <div>
+        <span class="mainTitle text-dark col-lg-8 col-md-8 col-sm-8 col-xs-12" style="font-size:25px;" translate="tittle.DISPATCHLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+    </div>
+    <panel class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="min-height:500px;">
+            <fieldset class="col-lg-6" style="min-height:300px;">
+                <legend>{{'main.NEW' | translate}} </legend>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="order in orders|filter:{OrderStateID:4}" order="order">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <label class="text-bold" style="color:black;">{{order.id}} / {{order.OrderNumber}}</label>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <label ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true }"> {{order.TimerStr}}</label>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <button class="btn btn-default btn-o ti-plus pull-right" ng-click="itemdetails(order)"></button>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="col-lg-6" style="min-height:300px;">
+                <legend>{{'main.PREPARED' | translate}} </legend>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="order in orders|filter:{OrderStateID:5}" order="order">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <label class="text-bold" style="color:black;">{{order.id}} / {{order.OrderNumber}}</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <label ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true }"> {{order.TimerStr}}</label>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <button class="btn btn-default btn-o ti-plus" ng-click="itemdetails(order)"></button>
+                    </div>
+                    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+                        <button type="button" class="btn btn-o btn-primary ti-back-right pull-right" ng-click="ControlOrderType(order)"></button>
+                    </div>
+                </div>
+            </fieldset>
+    </panel>
+    <panel class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="min-height:500px;">
+        <fieldset class="col-lg-6" style="min-height:300px;">
+            <legend>{{'main.OUTSIDE' | translate}} </legend>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="order in orders|filter:{OrderStateID:6}" order="order">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label class="text-bold" style="color:black;">{{order.id}} / {{order.OrderNumber}}</label>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 text-bold text-green text-right">
+                    {{order.states[0].Driver.name}} / {{order.states[0].OrderStateDate | date: 'HH:mm:ss'}}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <button class="btn btn-default btn-o ti-plus" ng-click="itemdetails(order)"></button>
+                </div>
+                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+                    <button type="button" class="btn btn-o btn-primary ti-back-left pull-right" ng-click="backdriver(order)"></button>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="col-lg-6">
+            <legend>{{'main.DRIVERLIST' | translate}} </legend>
+            <div style="min-height:300px;">
+                <table ng-table="kds.tableParams" class="table table-striped col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <tr>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.DRIVERNAME' | translate}}</th>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.VEHICLE' | translate}}</th>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.TOTALORDER' | translate}}</th>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.STATETIME' | translate}}</th>
+                    </tr>
+                    <tr class="ng" ng-repeat="item in $data | orderBy:['-StateTime']"
+                        ng-class="{'list-group-item-danger':item.VehicleState == 'Out', 'strike':item.VehicleState == 'Out', 'text-red':item.VehicleState == 'Out', 'bg-danger':item.VehicleState == 'Out'}">
+                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.Driver.name}}</label>
+                        </td>
+                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.Vehicle.Plate}}</label>
+                        </td>
+                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.OrderStates.length/2 | number:0}}</label>
+                        </td>
+                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.StateTime/60 |number:0}} dk.</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </panel>
+</div>
+
+
+<!--<div ng-controller="dispatcherCtrl as kds" ng-init="app.layout.isSidebarClosed=true">
+    <div>
+        <h1 class="mainTitle col-lg-8" translate="tittle.DISPATCHLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</h1><br /><br />
+    </div>
+    <fieldset class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="min-height:300px;">
+        <table class="col-lg-8 col-md-8 col-sm-8 col-xs-8 table table-hover">
+            <tr>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">Sipariş Numarası</th>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">Sipariş Tipi</th>
+                <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">Adres</th>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">Sipariş Durumu</th>
+                <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">Sipariş Geçen Süre</th>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">Sipariş Detay</th>
+            </tr>
+            <tr ng-repeat="order in orders|filter:{OrderStateID:4}" order="order">
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                    <label class="text-bold" style="color:black;">{{order.OrderNumber}}</label>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                    <label class="text-bold" style="color:black;">{{order.OrderType}}</label>
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label class="text-bold" style="color:black;">
+                        {{order.Address.StreetAddress.name}} - {{order.Address.StreetAddress.Quarter.name}}
+                    </label>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                    <label class="text-bold text-yellow center">{{order.OrderState}}</label>
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label class="col-lg-8 col-md-8 col-sm-10 col-xs-12" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true }">Delivery: {{order.TimerStr}}</label>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 center">
+                    <button class="btn btn-default btn-o ti-plus" ng-click="itemdetails(order)"></button>
+                </td>
+            </tr>
+            <tr ng-repeat="order in orders|filter:{OrderStateID:5}" order="order">
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                    <label class="text-bold" style="color:black;">{{order.OrderNumber}}</label>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                    <label class="text-bold" style="color:black;">{{order.OrderType}}</label>
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label class="text-bold" style="color:black;">
+                        {{order.Address.StreetAddress.name}} - {{order.Address.StreetAddress.Quarter.name}}
+                    </label>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                    <label class="text-bold text-green center">{{order.OrderState}}</label>
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label class="col-lg-8 col-md-8 col-sm-10 col-xs-12" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true }">Delivery: {{order.TimerStr}}</label>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 center">
+                    <button class="btn btn-default btn-o ti-plus" ng-click="itemdetails(order)"></button>
+                </td>
+            </tr>
+            <tr ng-repeat="order in orders|filter:{OrderStateID:6}" order="order">
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                    <label class="text-bold" style="color:black;">{{order.OrderNumber}}</label>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                    <label class="text-bold" style="color:black;">{{order.OrderType}}</label>
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label class="text-bold" style="color:black;">
+                        {{order.Address.StreetAddress.name}} - {{order.Address.StreetAddress.Quarter.name}}
+                    </label>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                    <label class="text-bold text-red center">{{order.OrderState}}</label>
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label class="col-lg-8 col-md-8 col-sm-10 col-xs-12" ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true }">Delivery: {{order.TimerStr}}</label>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 center">
+                    <button class="btn btn-default btn-o ti-plus" ng-click="itemdetails(order)"></button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    
+    <fieldset class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <legend>{{'main.DRIVERLIST' | translate}} </legend>
+        <div style="min-height:300px;">
+            <table ng-table="kds.tableParams" class="table table-striped col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <tr>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.DRIVERNAME' | translate}}</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.VEHICLE' | translate}}</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.TOTALORDER' | translate}}</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.STATETIME' | translate}}</th>
+                </tr>
+                <tr class="ng" ng-repeat="item in $data | orderBy:['-StateTime']"
+                    ng-class="{'list-group-item-danger':item.VehicleState == 'Out', 'strike':item.VehicleState == 'Out', 'text-red':item.VehicleState == 'Out', 'bg-danger':item.VehicleState == 'Out'}">
+                    <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" style="color:black;">
+                        <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.Driver.name}}</label>
+                    </td>
+                    <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" style="color:black;">
+                        <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.Vehicle.Plate}}</label>
+                    </td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" style="color:black;">
+                        <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.OrderStates.length/2 | number:0}}</label>
+                    </td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" style="color:black;">
+                        <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.StateTime/60 |number:0}} dk.</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+</div>-->

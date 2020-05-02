@@ -1,0 +1,37 @@
+﻿<div class="modal-header" ng-controller="addcashCtrl">
+    <h3 class="modal-title">Kasa Giriş / Çıkış<button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body">
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <h3 class="modal-title">Kasa Giriş</h3>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="color:black;" class="text-bold margin-top-5">Alınan Miktar</label><br />
+            <label><input type="text" class="form-control" ng-model="item.Amount" required></label>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label translate="main.DESCRIPTION" style="color:black;" class="text-bold"></label><br />
+            <textarea style='max-height:100px; max-width:280px;' placeholder='{{main.DESCRIPTION}}' id='form-field-22' class='form-group  form-control col-lg-12 col-md-12 col-sm-12 col-xs-12' ng-model='item.Description' required></textarea>
+        </div>
+        <div class="col-lg-12">
+            <button translate="main.SAVE" class="btn btn-primary col-lg-5 margin-top-5 pull-right" ng-click="LoadAddCash(item)"></button>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <h3 class="modal-title">Kasa Çıkış</h3>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="color:black;" class="text-bold margin-top-5">Verilen Miktar</label><br />
+            <label><input type="text" class="form-control" ng-model="item.Amount" required></label>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label translate="main.DESCRIPTION" style="color:black;" class="text-bold"></label><br />
+            <textarea style='max-height:100px; max-width:280px;' placeholder='{{main.DESCRIPTION}}' id='form-field-22' class='form-group  form-control col-lg-12 col-md-12 col-sm-12 col-xs-12' ng-model='item.Description' required></textarea>
+        </div>
+        <div class="col-lg-12">
+            <button translate="main.SAVE" class="btn btn-primary col-lg-5 margin-top-5 pull-right" ng-click="LoadCheckOutCash(item)"></button>
+        </div>
+    </div>
+
+    
+</div>

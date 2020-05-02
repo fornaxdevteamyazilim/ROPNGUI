@@ -1,0 +1,17 @@
+﻿<div ng-controller="videosCtrl as vp">
+    <fieldset>
+        <legend>RopNG Eğitim Videoları</legend>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label class="text-bold pull-left">Video Seçiniz :</label>
+            <select class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left" ng-model="video.id" ng-change="SlectedVideo(video.id)">
+                <option ng-repeat="video in videos" value="{{video.id}}">{{video.name}}</option>
+            </select>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+            <video id="videoplayer" width="700" height="500" controls>
+                <source id="mp4_src" src="{{vp.url}}" type="video/mp4">
+                <source id="ogg_src" src="{{vp.oggurl}}" type="video/ogg">
+            </video>
+        </div>
+    </fieldset>
+</div>

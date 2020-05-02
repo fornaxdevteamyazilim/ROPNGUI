@@ -1,0 +1,132 @@
+﻿<div  print-section ng-controller="productsalesbyhoursCtrl as ctrl">
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+            <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+            <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <span class="mainTitle text-dark text-bold center" style="font-size:18px;" translate="tittle.PRODUCTSALESBYHOURS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <span class="col-lg-12 pull-right">Başlangıç Tarihi: {{DateFromDate| date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">Bitiş Tarihi: {{DateToDate| date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">{{Time | date:'dd-MM-yyyy HH:mm'}} </span>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-10">
+                <span print-only class="mainTitle text-dark" style="font-size:25px;" translate="tittle.PRODUCTSALESBYHOURS" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+                <br />
+                <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5">
+                    <button class="btn btn-info margin-top-25" ng-click="ShowReport(true)" translate="main.EDITMODE">Edit Mode</button>
+                    <button class="btn btn-info margin-top-25" ng-click="ShowReport(false)" translate="main.VIEWMODE">View Mode</button>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">
+                <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="text-bold" translate="main.STARTDATE">Başlangıç Tarihi :</span> <span class="text-bold">*</span><br />
+                    <label><input id="Date" type="text" class="form-control " ng-model="DateFromDate" readonly ng-click="FromDate()" required></label>
+                </div>
+                <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="text-bold" translate="main.ENDDATE">Bitiş Tarihi :</span> <span class="text-bold">*</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="DateToDate" readonly ng-click="ToDate()" required></label>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-4 col-sm-6 col-xs-6 margin-top-10">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <span translate="main.ORDERTYPE">Sipariş Tipi</span><br />
+                    <select class="col-lg-10 col-md-10 col-sm-10 col-xs-10 form-control" ng-model="item.OrderTypeID" ng-change="OrderTypeID">
+                        <option value="">{{'main.ALL' | translate}}</option>
+                        <option ng-repeat="item in ordertypes | orderBy:'+Name'" value="{{item.Value}}">{{item.Name}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-20">
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadData()">
+                        <img ng-src="assets/images/report.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#report')">
+                        <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                    </button>
+                    <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                        <img ng-src="assets/images/print.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+
+        <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-sm-10 col-xs-10 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:15px;" translate="tittle.PRODUCTSALESBYHOURS" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <button class="col-sm-6 col-xs-6 btn btn-info margin-top-5" ng-click="ShowReport(true)" translate="main.EDITMODE" style="overflow:hidden; white-space:nowrap;">Edit Mode</button>
+                        <button class="col-sm-6 col-xs-6 btn btn-info margin-top-5" ng-click="ShowReport(false)" translate="main.VIEWMODE" style="overflow:hidden; white-space:nowrap;">View Mode</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-sm-4 col-xs-6">
+                    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+                        <span><input id="Date" type="text" class="form-control " ng-model="DateFromDate" readonly ng-click="FromDate()" required></span>
+                    </div>
+                    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+                        <span><input id="Date" type="text" class="form-control" ng-model="DateToDate" readonly ng-click="ToDate()" required></span>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-sm-9 col-xs-12">
+                        <span translate="main.ORDERTYPE">Sipariş Tipi</span><br />
+                        <select class="form-control" ng-model="item.OrderTypeID" ng-change="OrderTypeID">
+                            <option value="">{{'main.ALL' | translate}}</option>
+                            <option ng-repeat="item in ordertypes | orderBy:'+Name'" value="{{item.Value}}">{{item.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-sm-12 col-xs-12 margin-top-15">
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadData()">
+                            <img ng-src="assets/images/report.png" style="width:4vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#report')">
+                            <img ng-src="assets/images/excel.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        </button>
+                        <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                            <img ng-src="assets/images/print.png" style="width:4vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive" id="report"  ng-hide="isWaiting==true"></div>
+        <!--<pivot ng-if="ctrl.table.editMode" data="ctrl.table.data" config="ctrl.table.config" edit-mode="true"></pivot>
+        <pivot ng-if="!ctrl.table.editMode" data="ctrl.table.data" config="ctrl.table.config" edit-mode="false"></pivot>-->
+</div>

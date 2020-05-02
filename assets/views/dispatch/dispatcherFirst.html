@@ -1,0 +1,159 @@
+﻿<div ng-controller="dispatcherCtrl as kds" ng-init="app.layout.isSidebarClosed=true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="row panel panel-white" ng-repeat="order in orders|filter:({OrderStateID:4}||{OrderStateID:3})" order="order">
+            <div class="row panel-heading">
+                <h3 class="text-center bg-grey text-capitalize" translate="main.NEW">Yeni </h3>
+                <h5 class="text-bold">{{order.id}} / {{order.OrderNumber}} <label ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true }" class="pull-right">Delivery: {{order.TimerStr}}</label></h5>
+
+                <label class="text-bold pull-left">{{order.OrderType}}</label>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label class="text-bold pull-left"> {{order.Address.StreetAddress.name}} - {{order.Address.StreetAddress.Quarter.name}} - {{order.Address.StreetAddress.Quarter.Subcity.name}} - {{order.Address.StreetAddress.Quarter.Subcity.Town.name}}</label>
+                    {{order.states[0].ProductState.Description}}
+                </div>
+            </div>
+            <div class="row panel-body">
+                <form role="form">
+                    <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div><span ng-repeat='member in order.items'><kvsorder-item member='member'></kvsorder-item></span></div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="row panel panel-white" ng-repeat="order in orders|filter:{OrderStateID:5}" order="order">
+            <div class="row panel-heading col-lg-12">
+                <h3 class="text-center bg-green text-capitalize" translate="main.PREPARED">Hazır  </h3>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="text-bold text-green">
+                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold pull-left">{{order.id}} / {{order.OrderNumber}} </label>
+                        <label class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-bold "> {{order.OrderType}}</label>
+                        <label ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true }" class="col-lg-5 col-md-5 col-sm-5 col-xs-5 pull-right text-capitalize">{{order.TimerStr}}</label>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
+
+                        <button type="button" class="btn btn-o btn-primary btn-scroll btn-scroll-top fa-mail-forward pull-right" ng-click="ControlOrderType(order)">
+                            <span translate="main.SENDORDER">Siparişi Gönder</span>
+                        </button>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                        <label class="text-bold pull-left text-extra-large text-capitalize" ng-repeat="item in order.persons">{{item.Person.name||"(Unnamed)"}}</label>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label class="text-bold pull-left"> {{order.Address.StreetAddress.name}} - {{order.Address.StreetAddress.Quarter.name}} - {{order.Address.StreetAddress.Quarter.Subcity.name}} -  {{order.Address.StreetAddress.Quarter.Subcity.Town.name}}</label>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-body">
+                    <form role="form">
+                        <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div><span ng-repeat='member in order.items'><kvsorder-item member='member'></kvsorder-item></span></div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="row panel panel-white" ng-repeat="order in orders|filter:{OrderStateID:6}" order="order">
+            <div class="row panel-heading col-lg-12">
+                <h3 class="text-center bg-red text-capitalize" translate="main.OUTSIDE"></h3>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="text-bold text-green">
+                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold pull-left">{{order.id}} / {{order.OrderNumber}} </label>
+                        <label class="text-bold pull-left text-extra-large text-capitalize" ng-repeat="item in order.persons">{{item.Person.name||"(Unnamed)"}}</label>
+                        <label ng-class="{'label label-success':order.isLate==false, 'label label-danger':order.isLate==true }" class="col-lg-5 col-md-5 col-sm-5 col-xs-5 pull-right text-capitalize">{{order.TimerStr}}</label>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
+                        <button type="button" class="btn btn-o btn-primary btn-scroll btn-scroll-top fa-mail-forward pull-right" ng-click="backdriver(order)">
+                            <span translate="main.RETURN"></span>
+                        </button>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                        <button type="button" class="btn btn-o btn-primary btn-scroll btn-scroll-top ti-plus" ng-click="orderitemdetails(order)">
+                            <span translate="main.ORDERDETAILS"></span>
+                        </button>                       
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-body">
+                    <form role="form">
+                        <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold">Sipariş Tipi</span>
+                                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold">{{'main.ORDERTIME' | translate}}</span>
+                                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold">{{'main.ORDEROUTTIME' | translate}}</span>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5">
+                                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label>
+                                            {{order.OrderType}}
+                                        </label>
+                                    </span>
+                                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-5">
+                                        <label>{{order.OrderDate | date: 'HH:mm:ss' }}</label>
+                                    </span>
+                                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-5">
+                                        <label>{{order.DeliveryDate | date: 'HH:mm:ss' }}</label>
+                                    </span>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-bold">Adres</span>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  margin-top-5">
+                                    <span class="col-lg-11">Apartman Adı: {{order.Address.AppartmentName}}</span>
+                                    <span class="col-lg-5">Daire No: {{order.Address.AppartmentNo}}</span>
+                                    <span class="col-lg-5">Dış Kapı No: {{order.Address.AddressNo}}</span>
+                                    <span class="col-lg-5">Giriş: {{order.Address.Entrance}}</span>
+                                    <span class="col-lg-5">Kat: {{order.Address.Floor}}</span>
+                                    <span class="col-lg-11">{{order.Address.StreetAddress.Quarter.name}} Mahalle / Cadde</span>
+                                    <span class="col-lg-11">{{order.Address.StreetAddress.name}}  Sokak </span>
+                                    <span class="col-lg-11">{{order.Address.StreetAddress.Quarter.Subcity.name}} / {{order.Address.StreetAddress.Quarter.Subcity.Town.name}}</span>
+                                    <span class="col-lg-11">Adres Tarifi: {{order.Address.Landmark}}</span>
+                                </div>
+                            </div>
+                            <!--<table class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <tr>
+                                    <th class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Sipariş Tipi</th>
+                                    <th class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{'main.ORDERTIME' | translate}}</th>
+                                    <th class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{'main.ORDEROUTTIME' | translate}}</th>
+                                    <th class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Adres</th>
+                                </tr>
+                                <tr>
+                                    <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label>
+                                            {{order.OrderType}}
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label>{{order.OrderDate | date: 'HH:mm:ss' }}</label>
+                                    </td>
+                                    <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label>{{order.DeliveryDate | date: 'HH:mm:ss' }}</label>
+                                    </td>
+                                    <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <span class="col-lg-11">Apartman Adı: {{order.Address.AppartmentName}}</span>
+                                        <span class="col-lg-5">Daire No: {{order.Address.AppartmentNo}}</span>
+                                        <span class="col-lg-5">Dış Kapı No: {{order.Address.AddressNo}}</span>
+                                        <span class="col-lg-5">Giriş: {{order.Address.Entrance}}</span>
+                                        <span class="col-lg-5">Kat: {{order.Address.Floor}}</span>
+                                        <span class="col-lg-11">{{order.Address.StreetAddress.Quarter.name}} Mahalle / Cadde</span>
+                                        <span class="col-lg-11">{{order.Address.StreetAddress.name}}  Sokak </span>
+                                        <span class="col-lg-11">{{order.Address.StreetAddress.Quarter.Subcity.name}} / {{order.Address.StreetAddress.Quarter.Subcity.Town.name}}</span>
+                                        <span class="col-lg-11">Adres Tarifi: {{order.Address.Landmark}}</span>
+                                    </td>
+                                </tr>
+                            </table>-->
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

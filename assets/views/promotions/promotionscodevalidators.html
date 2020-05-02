@@ -1,0 +1,57 @@
+﻿
+<div ng-controller="promotionscodevalidatorsCtrl as pcv">
+    <div>
+        <h1 class="mainTitle col-lg-8" translate="tittle.PROMOTIONSCODEVALIDATOR" translate-values="{ appName: app.name }">{{ mainTitle }}</h1><br /><br />
+        <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="addItem()">
+            <span translate="main.ADD"></span>
+        </a>
+    </div>
+    <p>
+        <input id="searchbyproductname" focus="true" class="form-control" placeholder="{{'main.SEARCHBYNAME' | translate}}" type="text" ng-model="pr.search" ng-model-options="{ debounce: 500 }" />
+    </p>
+    <div>
+        <table ng-table="pcv.tableParams" class="table table-striped table-hover">
+            <tr ng-repeat="item in $data"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td data-title="trName" data-sortable="'name'" style="width:7%" ng-click="rowform.$show()" class="ng">
+                    <span editable-text="item.name" e-name="name" e-form="rowform" e-ng-model="item.name" e-style="width:7vw;" >
+                        {{ item.name }}
+                    </span>
+                </td>
+                <td data-title="trisExternal" data-sortable="'isExternal'" style="width:7%">
+                    <span editable-checkbox="item.isExternal" e-form="rowform" e-ng-model="item.isExternal"
+                          e-ng-true-value="true"
+                          e-ng-false-value="false">
+                        {{ item.isExternal && "Active" || "Passive" }}
+                    </span>
+                </td>
+                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="2%">
+                    <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                          shown="inserted == item|| !item.id">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                    </form>
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="Edit Period" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="Remove" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()"> Edit</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)"> Remove</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

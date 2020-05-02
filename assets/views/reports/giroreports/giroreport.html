@@ -1,0 +1,137 @@
+﻿
+<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+<div ng-controller="giroreportCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-20">
+            <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.GIROREPORT" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+                <label><input id="Date" type="text" class="form-control" ng-model="DateToDate" readonly ng-click="ToDate()" required></label>
+
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+                <label><input id="Date" type="text" class="form-control" ng-model="DateFromDate" readonly ng-click="FromDate()" required></label>
+
+            </div>
+        </div>
+        <!--<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 margin-top-25">
+            <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-twitch center margin-top-15" ng-click="LoadAgentOrders(StartDate,EndDate)">
+                <span translate="main.REPORT">Raporla</span>
+            </button>
+            <br />
+            <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-twitch center margin-top-10" ng-click="AgentOrdersExcel()">
+                <span translate="main.EXCEL">Excel</span>
+            </button>
+        </div>-->
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-20 pull-right">
+            <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                <span translate="main.BACK">Back</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" ng-hide="isWaiting==true">
+        <fieldset>
+            <div class="col-lg-12 table ng-table table-responsive">
+                <div class="row">
+                    <span class="col-lg-1 col-md-3 col-sm-3 col-xs-3 text-left text-bold" style="color:black;">Açıklama</span>
+                    <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3 text-right text-bold" style="color:black;">Ticket</span>
+                    <span class="col-lg-1 col-md-3 col-sm-3 col-xs-3 text-right text-bold" style="color:black;">Kişi</span>
+                    <span class="col-lg-1 col-md-3 col-sm-3 col-xs-3 text-right text-bold" style="color:black;">Toplam</span>
+                    <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3 text-right text-bold" style="color:black;">İndirim</span>
+                    <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3 text-right text-bold" style="color:black;">Ek İlave</span>
+                    <span class="col-lg-1 col-md-3 col-sm-3 col-xs-3 text-right text-bold" style="color:black;">Kdv</span>
+                    <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3 text-right text-bold" style="color:black;">Kdv Hariç</span>
+                </div>
+            </div><hr width=100%; size="20" ; color=”black”><br />
+            <div class="col-lg-12 table ng-table table-responsive" ng-repeat="years in giroreports[0].items">
+                <div ng-repeat="months in years.items">
+                    <div>
+                        <span class="col-lg-12 col-md-3 col-sm-3 col-xs-3 text-left text-bold" style="color:black;">{{months.Description}}-{{years.Description}}</span>
+                    </div><hr />
+                    <div class="row">
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12 text-bold"><label class="pull-left" style="color:black;">{{months.Description}}</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{months.TicketCount}} TL</label></div>
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{months.PersonsCount}} Adet</label></div>
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{months.TotalAmount | number:2}} TL</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{months.DiscontAmount | number:2}} TL</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{months.ExtraAmount | number:2}} TL</label></div>
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{months.VAT | number:2 }} TL</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{months.Value}} TL</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12 text-bold"><label class="pull-left" style="color:black;">{{years.Description}}</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{years.TicketCount}} TL</label></div>
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{years.PersonsCount}} Adet</label></div>
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{years.TotalAmount | number:2}} TL</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{years.DiscontAmount | number:2}} TL</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{years.ExtraAmount | number:2}} TL</label></div>
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{years.VAT | number:2 }} TL</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{years.Value}} TL</label></div>
+                    </div>
+
+                </div>
+            </div>
+            <hr width=100%; size="20" ; color=”black”><br />
+            <div ng-repeat="years in giroreports[0].items">
+                <div ng-repeat="months in years.items">
+                    <div class="row" ng-repeat="days in months.items">
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12 text-bold"><label class="pull-left" style="color:black;">{{days.Description}}</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{days.TicketCount}} TL</label></div>
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{days.PersonsCount}} Adet</label></div>
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{days.TotalAmount | number:2}} TL</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{days.DiscontAmount | number:2}} TL</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{days.ExtraAmount | number:2}} TL</label></div>
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{days.VAT | number:2 }} TL</label></div>
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{days.Value}} TL</label></div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <!--<div ng-repeat="group in giroreports">
+                <span class="col-lg-1 col-md-3 col-sm-3 col-xs-12 text-bold"><label class="pull-left" style="color:black;">{{group.Description}}</label></span>
+                <span class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{group.TicketCount}} TL</label></span>
+                <span class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{group.PersonsCount}} Adet</label></span>
+                <span class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{group.TotalAmount | number:2}} TL</label></span>
+                <span class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{group.DiscontAmount | number:2}} TL</label></span>
+                <span class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{group.ExtraAmount | number:2}} TL</label></span>
+                <span class="col-lg-1 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{group.VAT | number:2 }} TL</label></span>
+                <span class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-bold"><label class="pull-right" style="color:black;">{{group.Value}} TL</label></span>
+            </div>-->
+            <table class="table table-striped table-hover table-responsive col-lg-12 pull-right">
+                <tr ng-repeat="group in giroreports">
+                    <td class="col-lg-1 col-md-3 col-sm-3 col-xs-12"><label class="text-bold pull-left" style="color:black;">{{group.Description}}</label></td>
+                    <td class="col-lg-2 col-md-3 col-sm-3 col-xs-4"><label class="text-bold pull-right" style="color:black;">{{group.TicketCount}} TL</label></td>
+                    <td class="col-lg-1 col-md-3 col-sm-3 col-xs-4"><label class="text-bold pull-right" style="color:black;">{{group.PersonsCount}} Adet</label></td>
+                    <td class="col-lg-1 col-md-3 col-sm-3 col-xs-4"><label class="text-bold pull-right" style="color:black;">{{group.TotalAmount | number:2}} TL</label></td>
+                    <td class="col-lg-2 col-md-3 col-sm-3 col-xs-4"><label class="text-bold pull-right" style="color:black;">{{group.DiscontAmount | number:2}} TL</label></td>
+                    <td class="col-lg-2 col-md-3 col-sm-3 col-xs-4"><label class="text-bold pull-right" style="color:black;">{{group.ExtraAmount | number:2}} TL</label></td>
+                    <td class="col-lg-1 col-md-3 col-sm-3 col-xs-4"><label class="text-bold pull-right" style="color:black;">{{group.VAT | number:2 }} TL</label></td>
+                    <td class="col-lg-2 col-md-3 col-sm-3 col-xs-4"><label class="text-bold pull-right" style="color:black;">{{group.Value}} TL</label></td>
+            </table>
+        </fieldset>
+    </div>
+
+</div>
+
+

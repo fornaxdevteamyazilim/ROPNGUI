@@ -1,0 +1,526 @@
+﻿<style>
+    .ng {
+    }
+
+        .ng:hover {
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+    .strike {
+        text-decoration: line-through;
+    }
+
+    .red {
+        color: red;
+    }
+
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+</style>
+<div ng-controller="orderlistCtrl as ao">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="ShowObject==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="ShowObject==true" ng-if="::user.restrictions.orderlistcc=='Enable'">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-8 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ORDERLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 margin-top-5">
+                <br />
+                <p>
+                    <input class="form-control" placeholder="{{:: searchbyordernumberpersonnameorpersonphone}}" type="text" ng-model="ao.search" ng-model-options="{ debounce: 1000 }"/>
+                </p>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 margin-top-5" ng-if="hideCombo != true">
+                <span for="ComplaintStatusID">
+                    {{:: selectorderstatus}}
+                </span><br />
+                       <select id="OrderStateID" class="form-control" ng-model="OrderStateID" ng-change="changeOrderState(OrderStateID)">
+                           <option value="OrderStateID >0">{{:: allorder}}</option>
+                           <option value="OrderTypeID=2">{{:: hdorders}}</option>
+                           <option value="OrderTypeID=3" ng-if="user.Store.MemberID == 106851154380">{{:: hnrorders}}</option>
+                           <option value="OrderTypeID=1">{{:: takeawayorders}}</option>
+                           <option value="OrderTypeID=0">{{:: tableorders}}</option>
+                           <option value="OrderTypeID=4">{{:: stafforders}}</option>
+                           <option value="OrderTypeID=5">{{:: pickuporders}}</option>
+                           <option value="OrderTypeID=6">{{:: mallorders}}</option>
+                           <option value="OrderTypeID=7">{{:: hdorders}}</option>
+                           <option value="PaymentStatusID=0">{{:: openorder}}</option>
+                           <option value="PaymentStatusID=1">{{:: closedorder}}</option>
+                           <option value="OrderStateID=10">{{:: deliveredorder}}</option>
+                           <option value="OrderStateID=11">{{:: delayed}}</option>
+                           <option value="OrderStateID=6">{{:: outorder}}</option>
+                           <option value="OrderStateID=5">{{:: preparedorder}}</option>
+                           <option value="OrderStateID=4">{{:: preparingdorder}}</option>
+                           <option value="OrderStateID in (4,5)">{{:: ordersinstore}}</option>
+                           <option value="OrderStateID=1">{{:: neworder}}</option>
+                           <option value="OrderStateID=13">{{:: awaitingauthorization}}</option>
+                           <option value="OrderStateID=8">{{:: rejected}}</option>
+                           <option value="OrderStateID=7">{{:: cancell}}</option>
+                       </select>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ORDERLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right visible-sm visible-xs">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 margin-top-5">
+                    <br />
+                    <p>
+                        <input class="form-control" placeholder="{{:: searchbyordernumberpersonnameorpersonphone}}" type="text" ng-model="ao.search" ng-model-options="{ debounce: 1000 }" />
+                    </p>
+                </div>
+                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6 margin-top-5" ng-if="hideCombo != true">
+                    <span for="ComplaintStatusID">
+                        {{:: selectorderstatus}}
+                    </span><br />
+                           <select id="OrderStateID" class="form-control" ng-model="OrderStateID" ng-change="changeOrderState(OrderStateID)">
+                               <option value="OrderStateID >0">{{:: allorder}}</option>
+                               <option value="OrderTypeID=2">{{:: hdorders}}</option>
+                               <option value="OrderTypeID=3" ng-if="user.Store.MemberID == 106851154380">{{:: hnrorders}}</option>
+                               <option value="OrderTypeID=1">{{:: takeawayorders}}</option>
+                               <option value="OrderTypeID=0">{{:: tableorders}}</option>
+                               <option value="OrderTypeID=4">{{:: stafforders}}</option>
+                               <option value="OrderTypeID=5">{{:: pickuporders}}</option>
+                               <option value="OrderTypeID=6">{{:: mallorders}}</option>
+                               <option value="OrderTypeID=7">{{:: hdorders}}</option>
+                               <option value="PaymentStatusID=0">{{:: openorder}}</option>
+                               <option value="PaymentStatusID=1">{{:: closedorder}}</option>
+                               <option value="OrderStateID=10">{{:: deliveredorder}}</option>
+                               <option value="OrderStateID=11">{{:: delayed}}</option>
+                               <option value="OrderStateID=6">{{:: outorder}}</option>
+                               <option value="OrderStateID=5">{{:: preparedorder}}</option>
+                               <option value="OrderStateID=4">{{:: preparingdorder}}</option>
+                               <option value="OrderStateID in (4,5)">{{:: ordersinstore}}</option>
+                               <option value="OrderStateID=1">{{:: neworder}}</option>
+                               <option value="OrderStateID=13">{{:: awaitingauthorization}}</option>
+                               <option value="OrderStateID=8">{{:: rejected}}</option>
+                               <option value="OrderStateID=7">{{:: cancell}}</option>
+                           </select>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive col-lg-12">
+            <table ng-table="ao.tableParams" class="table table-striped table-hover">
+                <tbody ng-repeat="item in $data">
+                    <tr ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)" ng-class="::{'strike':item.OrderStateID == 14,'red':item.OrderStateID == 14}">
+                        <td data-title="trOrderNo" data-sortable="'OrderNumber'" width="10%" ng-click="SelectItem(item)" class="ng">
+                            {{ :: item.id  }}
+                        </td>
+                        <td data-title="trOrderNumber" data-sortable="'OrderNumber'" width="7%">
+                            <span ng-if="item.OrderTypeID != 0">
+                                <label class="tooltips ti-thought hidden-sm hidden-xs" tooltip="{{::item.OrderProducts}}" tooltip-placement="right"></label>
+                                {{ :: item.OrderNumber  }}
+                            </span>
+                            <span ng-if="item.OrderTypeID == 0">
+                                <label class="tooltips ti-thought hidden-sm hidden-xs" tooltip="{{::item.OrderProducts}}" tooltip-placement="right"></label>
+                                {{ :: item.Description  }}
+                            </span>
+                        </td>
+                        <td data-title="trOrderDate" data-sortable="'OrderDate'" width="13%">
+                            {{ :: item.OrderDateTXT}}
+                        </td>
+                        <td class="text-capitalize" data-title="trOrderState" data-sortable="'OrderStateID'" width="10%">
+                            {{ ::item.OrderState}}
+                        </td>
+                        <td class="text-capitalize" data-title="trStore" data-sortable="'StoreID'" width="10%" ng-click="orderStatus(item)">
+                            {{ :: item.Store }}
+                        </td>
+                        <td class="text-uppercase " data-title="trPerson" data-sortable="'PersonID'" width="12%">
+                            {{ :: item.persons[0].Person }} <span ng-if="::item.Alias">({{::item.Alias}})</span>
+                        </td>
+                        <td class="text-capitalize" data-title="trAddressType" data-sortable="'AddressID'" width="10%">
+                            {{ :: item.Address.AddressType }}
+                        </td>
+                        <td class="text-capitalize" data-title="trOrderType" data-sortable="'OrderTypeID'" width="10%">
+                            {{ :: item.OrderType}}
+                        </td>
+                        <td data-title="trVAT" data-sortable="'VAT'" width="10%">
+                            {{:: item.VATTXT}} <span>&#8378;</span>
+                        </td>
+                        <td data-title="trAmount" data-sortable="'Amount'" width="10%">
+                            {{:: item.Amount|number:2}} <span>&#8378;</span>
+                        </td>
+                        <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+                            <div class="buttons pull-right" ng-show="!rowform.$visible">
+                                <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{::orderdetails}}" tooltip-placement="top" href="#/app/orders/orderDetail/{{::item.id}}"></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="ShowObject==true" ng-if="::user.restrictions.orderliststore=='Enable'">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-8 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ORDERLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 margin-top-5">
+                <br />
+                <p>
+                    <input class="form-control" placeholder="{{:: searchbyordernumberpersonnameorpersonphone}}" type="text" ng-model="ao.search" ng-model-options="{ debounce: 1000 }" />
+                </p>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 margin-top-5" ng-if="hideCombo != true">
+                <span for="ComplaintStatusID">
+                    {{:: selectorderstatus}}
+                </span><br />
+                       <select id="OrderStateID" class="form-control" ng-model="OrderStateID" ng-change="changeOrderState(OrderStateID)">
+                           <option value="OrderStateID >0">{{:: allorder}}</option>
+                           <option value="OrderTypeID=2">{{:: hdorders}}</option>
+                           <option value="OrderTypeID=3" ng-if="user.Store.MemberID == 106851154380">{{:: hnrorders}}</option>
+                           <option value="OrderTypeID=1">{{:: takeawayorders}}</option>
+                           <option value="OrderTypeID=0">{{:: tableorders}}</option>
+                           <option value="OrderTypeID=4">{{:: stafforders}}</option>
+                           <option value="OrderTypeID=5">{{:: pickuporders}}</option>
+                           <option value="OrderTypeID=6">{{:: mallorders}}</option>
+                           <option value="OrderTypeID=7">{{:: hdorders}}</option>
+                           <option value="PaymentStatusID=0">{{:: openorder}}</option>
+                           <option value="PaymentStatusID=1">{{:: closedorder}}</option>
+                           <option value="OrderStateID=10">{{:: deliveredorder}}</option>
+                           <option value="OrderStateID=11">{{:: delayed}}</option>
+                           <option value="OrderStateID=6">{{:: outorder}}</option>
+                           <option value="OrderStateID=5">{{:: preparedorder}}</option>
+                           <option value="OrderStateID=4">{{:: preparingdorder}}</option>
+                           <option value="OrderStateID in (4,5)">{{:: ordersinstore}}</option>
+                           <option value="OrderStateID=1">{{:: neworder}}</option>
+                           <option value="OrderStateID=13">{{:: awaitingauthorization}}</option>
+                           <option value="OrderStateID=8">{{:: rejected}}</option>
+                           <option value="OrderStateID=7">{{:: cancell}}</option>
+                       </select>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ORDERLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right visible-sm visible-xs">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 margin-top-5">
+                    <br />
+                    <p>
+                        <input class="form-control" placeholder="{{:: searchbyordernumberpersonnameorpersonphone}}" type="text" ng-model="ao.search" ng-model-options="{ debounce: 1000 }" />
+                    </p>
+                </div>
+                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6 margin-top-5" ng-if="hideCombo != true">
+                    <span for="ComplaintStatusID">
+                        {{:: selectorderstatus}}
+                    </span><br />
+                           <select id="OrderStateID" class="form-control" ng-model="OrderStateID" ng-change="changeOrderState(OrderStateID)">
+                               <option value="OrderStateID >0">{{:: allorder}}</option>
+                               <option value="OrderTypeID=2">{{:: hdorders}}</option>
+                               <option value="OrderTypeID=3" ng-if="user.Store.MemberID == 106851154380">{{:: hnrorders}}</option>
+                               <option value="OrderTypeID=1">{{:: takeawayorders}}</option>
+                               <option value="OrderTypeID=0">{{:: tableorders}}</option>
+                               <option value="OrderTypeID=4">{{:: stafforders}}</option>
+                               <option value="OrderTypeID=5">{{:: pickuporders}}</option>
+                               <option value="OrderTypeID=6">{{:: mallorders}}</option>
+                               <option value="OrderTypeID=7">{{:: hdorders}}</option>
+                               <option value="PaymentStatusID=0">{{:: openorder}}</option>
+                               <option value="PaymentStatusID=1">{{:: closedorder}}</option>
+                               <option value="OrderStateID=10">{{:: deliveredorder}}</option>
+                               <option value="OrderStateID=11">{{:: delayed}}</option>
+                               <option value="OrderStateID=6">{{:: outorder}}</option>
+                               <option value="OrderStateID=5">{{:: preparedorder}}</option>
+                               <option value="OrderStateID=4">{{:: preparingdorder}}</option>
+                               <option value="OrderStateID in (4,5)">{{:: ordersinstore}}</option>
+                               <option value="OrderStateID=1">{{:: neworder}}</option>
+                               <option value="OrderStateID=13">{{:: awaitingauthorization}}</option>
+                               <option value="OrderStateID=8">{{:: rejected}}</option>
+                               <option value="OrderStateID=7">{{:: cancell}}</option>
+                           </select>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive col-lg-12">
+            <table ng-table="ao.tableParams" class="table table-striped table-hover">
+                <tbody ng-repeat="item in $data">
+                    <tr ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)" ng-class="{'strike':item.OrderStateID == 14,'red':item.OrderStateID == 14}">
+                        <td data-title="trOrderNumber" data-sortable="'OrderNumber'" width="7%" ng-click="SelectItem(item)" class="ng">
+                            <span ng-if="item.OrderTypeID != 0">
+                                <label class="tooltips ti-thought hidden-sm hidden-xs" tooltip="{{::item.OrderProducts}}" tooltip-placement="right"></label>
+                                {{ :: item.OrderNumber  }}
+                            </span>
+                            <span ng-if="item.OrderTypeID == 0">
+                                <label class="tooltips ti-thought hidden-sm hidden-xs" tooltip="{{::item.OrderProducts}}" tooltip-placement="right"></label>
+                                {{ :: item.Description  }}
+                            </span>
+                        </td>
+                        <td data-title="trOrderHour" data-sortable="'OrderDate'" width="7%">
+                            {{ :: item.OrderDate | date:'HH:mm'}}
+                        </td>
+                        <td class="text-capitalize" data-title="trOrderState" width="10%">
+                            {{ ::item.OrderState}}
+                        </td>
+                        <td class="text-uppercase" data-title="trPerson" width="10%">
+                            {{ :: item.persons[0].Person }} <span ng-if="::item.Alias">({{::item.Alias}})</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trAddress" width="30%">
+                            <span ng-if="item.AddressID && item.AddressID != ''" class="text-uppercase">
+                                {{:: item.Address.StreetAddress}} - N: {{:: item.Address.AddressNo}} / D:{{:: item.Address.AppartmentNo}} / Kat:{{:: item.Address.Floor}} / {{:: item.Address.AppartmentName}} Apt.
+                                <br />
+                                {{:: item.Address.Landmark}}
+                            </span>
+                        </td>
+                        <td data-title="trOrderSource" width="5%">
+                            {{:: item.OrderSource}}
+                        </td>
+                        <td data-title="trAmount" width="10%">
+                            {{:: item.Amount|number:2}} <span>&#8378;</span>
+                        </td>
+                        <td data-title="trPromotion" width="10%">
+                            <span ng-repeat="promotion in ::item.promotions">
+                                {{:: promotion.Promotion.name}}
+                            </span>
+                        </td>
+                        <td data-title="trPaymenttype" width="10%">
+                            <span ng-repeat="payment in item.payments">
+                                {{:: payment.PaymentType || "null"}}
+                            </span>
+                        </td>
+                        <td data-title="trPaymentStatus" width="5%">
+                            {{:: item.PaymentStatus}}
+                        </td>
+                        <td data-title="trDriverName" width="5%">
+                            {{ ::item.states[0].Driver}}
+                        </td>
+                        <td data-title="trisCharged" data-sortable="'item.isCharged'" width="5%">
+                            <div ng-if="item.OrderTypeID==2 || item.OrderTypeID==7 && item.isCharged == false">
+                                <span ng-class="{'text-red': item.isCharged == false}">{{:: open}}</span>
+                            </div>
+                            <div ng-if="item.OrderTypeID==2 || item.OrderTypeID==7 && item.isCharged == true">
+                                <span>{{:: close}}</span>
+                            </div>
+                        </td>
+                        <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="2%">
+                            <div class="buttons pull-right" ng-show="!rowform.$visible">
+                                <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{::orderdetails}}" tooltip-placement="top" href="#/app/orders/orderDetail/{{::item.id}}"></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="ShowObject==true" ng-if="user.restrictions.orderlistadmin=='Enable'">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-8 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ORDERLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 margin-top-5">
+                <br />
+                <p>
+                    <input class="form-control" placeholder="{{:: searchbyordernumberpersonnameorpersonphone}}" type="text" ng-model="ao.search" ng-model-options="{ debounce: 1000 }" />
+                </p>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 margin-top-5" ng-if="hideCombo != true">
+                <span for="ComplaintStatusID">
+                    {{:: selectorderstatus}}
+                </span><br />
+                       <select id="OrderStateID" class="form-control" ng-model="OrderStateID" ng-change="changeOrderState(OrderStateID)">
+                           <option value="OrderStateID >0">{{:: allorder}}</option>
+                           <option value="OrderTypeID=2">{{:: hdorders}}</option>
+                           <option value="OrderTypeID=3" ng-if="user.Store.MemberID == 106851154380">{{:: hnrorders}}</option>
+                           <option value="OrderTypeID=1">{{:: takeawayorders}}</option>
+                           <option value="OrderTypeID=0">{{:: tableorders}}</option>
+                           <option value="OrderTypeID=4">{{:: stafforders}}</option>
+                           <option value="OrderTypeID=5">{{:: pickuporders}}</option>
+                           <option value="OrderTypeID=6">{{:: mallorders}}</option>
+                           <option value="OrderTypeID=7">{{:: hdorders}}</option>
+                           <option value="PaymentStatusID=0">{{:: openorder}}</option>
+                           <option value="PaymentStatusID=1">{{:: closedorder}}</option>
+                           <option value="OrderStateID=10">{{:: deliveredorder}}</option>
+                           <option value="OrderStateID=11">{{:: delayed}}</option>
+                           <option value="OrderStateID=6">{{:: outorder}}</option>
+                           <option value="OrderStateID=5">{{:: preparedorder}}</option>
+                           <option value="OrderStateID=4">{{:: preparingdorder}}</option>
+                           <option value="OrderStateID in (4,5)">{{:: ordersinstore}}</option>
+                           <option value="OrderStateID=1">{{:: neworder}}</option>
+                           <option value="OrderStateID=13">{{:: awaitingauthorization}}</option>
+                           <option value="OrderStateID=8">{{:: rejected}}</option>
+                           <option value="OrderStateID=7">{{:: cancell}}</option>
+                       </select>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ORDERLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right visible-sm visible-xs">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 margin-top-5">
+                    <br />
+                    <p>
+                        <input class="form-control" placeholder="{{:: searchbyordernumberpersonnameorpersonphone}}" type="text" ng-model="ao.search" ng-model-options="{ debounce: 1000 }" />
+                    </p>
+                </div>
+                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6 margin-top-5" ng-if="hideCombo != true">
+                    <span for="ComplaintStatusID">
+                        {{:: selectorderstatus}}
+                    </span><br />
+                           <select id="OrderStateID" class="form-control" ng-model="OrderStateID" ng-change="changeOrderState(OrderStateID)">
+                               <option value="OrderStateID >0">{{:: allorder}}</option>
+                               <option value="OrderTypeID=2">{{:: hdorders}}</option>
+                               <option value="OrderTypeID=3" ng-if="user.Store.MemberID == 106851154380">{{:: hnrorders}}</option>
+                               <option value="OrderTypeID=1">{{:: takeawayorders}}</option>
+                               <option value="OrderTypeID=0">{{:: tableorders}}</option>
+                               <option value="OrderTypeID=4">{{:: stafforders}}</option>
+                               <option value="OrderTypeID=5">{{:: pickuporders}}</option>
+                               <option value="OrderTypeID=6">{{:: mallorders}}</option>
+                               <option value="OrderTypeID=7">{{:: hdorders}}</option>
+                               <option value="PaymentStatusID=0">{{:: openorder}}</option>
+                               <option value="PaymentStatusID=1">{{:: closedorder}}</option>
+                               <option value="OrderStateID=10">{{:: deliveredorder}}</option>
+                               <option value="OrderStateID=11">{{:: delayed}}</option>
+                               <option value="OrderStateID=6">{{:: outorder}}</option>
+                               <option value="OrderStateID=5">{{:: preparedorder}}</option>
+                               <option value="OrderStateID=4">{{:: preparingdorder}}</option>
+                               <option value="OrderStateID in (4,5)">{{:: ordersinstore}}</option>
+                               <option value="OrderStateID=1">{{:: neworder}}</option>
+                               <option value="OrderStateID=13">{{:: awaitingauthorization}}</option>
+                               <option value="OrderStateID=8">{{:: rejected}}</option>
+                               <option value="OrderStateID=7">{{:: cancell}}</option>
+                           </select>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive col-lg-12">
+            <table ng-table="ao.tableParams" class="table table-striped table-hover">
+                <tbody ng-repeat="item in $data | orderBy:'-OrderDate'">
+                    <tr ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)" ng-class="{'strike':item.OrderStateID == 14,'red':item.OrderStateID == 14}">
+                        <td data-title="trOrderNo" data-sortable="'OrderNumber'" width="10%" ng-click="SelectItem(item)" class="ng">
+                            {{ :: item.id  }}
+                        </td>
+                        <td data-title="trOrderNumber" data-sortable="'OrderNumber'" width="7%">
+                            <span ng-if="item.OrderTypeID != 0">
+                                <label class="tooltips ti-thought hidden-sm hidden-xs" tooltip="{{::item.OrderProducts}}" tooltip-placement="right"></label>
+                                {{ :: item.OrderNumber  }}
+                            </span>
+                            <span ng-if="item.OrderTypeID == 0">
+                                <label class="tooltips ti-thought hidden-sm hidden-xs" tooltip="{{::item.OrderProducts}}" tooltip-placement="right"></label>
+                               {{ :: item.Description  }}
+                            </span>
+                        </td>
+                        <td data-title="trOrderDate" data-sortable="'OrderDate'" width="13%">
+                            {{ :: item.OrderDateTXT}}
+                        </td>
+                        <td class="text-capitalize" data-title="trOrderState" data-sortable="'OrderStateID'" width="10%">
+                            {{ item.OrderState}}
+                        </td>
+                        <td class="text-capitalize" data-title="trStore" data-sortable="'StoreID'" width="10%" ng-click="orderStatus(item)">
+                            {{ :: item.Store }}
+                        </td>
+                        <td data-title="trOrderSource" width="5%">
+                            {{:: item.OrderSource}}
+                        </td>
+                        <td class="text-uppercase" data-title="trPerson" data-sortable="'PersonID'" width="10%">
+                            {{ :: item.persons[0].Person }} <span ng-if="::item.Alias">({{::item.Alias}})</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-sortable="'Address'" data-title="trAddress" width="10%">
+                            <div class="pop-div col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="::item.OrderTypeID == 2 || item.OrderTypeID == 7">
+                                <label class="tooltips ti-direction-alt hidden-sm hidden-xs text-uppercase" tooltip="{{:: item.Address.StreetAddress}}" tooltip-placement="right"></label>
+                            </div>
+                        </td>
+                        <td data-title="trVAT" data-sortable="'VAT'" width="10%">
+                            {{:: item.VAT|number:2}} <span>&#8378;</span>
+                        </td>
+                        <td data-title="trAmount" data-sortable="'Amount'" width="10%">
+                            {{:: item.Amount|number:2}} <span>&#8378;</span>
+                        </td>
+                        <td data-title="trPromotion" data-sortable="'PaymentTypeID'" width="10%">
+                            <span ng-repeat="promotion in ::item.promotions">
+                                {{:: promotion.Promotion.name}}
+                            </span>
+                        </td>
+                        <td data-title="trEfatura" data-sortable="'Efatura'" width="10%">
+                            <span class="fa fa-check" ng-if="item.orderInvoice.id">
+
+                                <!--{{item.orderInvoice.id}}-->
+                            </span>
+                        </td>
+                        <td data-title="trPaymenttype" data-sortable="'Promotion'" width="10%">
+                            <span ng-repeat="payment in ::item.payments">
+                                {{:: payment.PaymentType}}
+                            </span>
+                        </td>
+                        <td data-title="trPaymentStatus" data-sortable="'PaymentStatus'" width="5%">
+                            {{:: item.PaymentStatus}}
+                        </td>
+                        <td data-title="trDriverName" data-sortable="'item.states.Driver.name'" width="5%">
+                            {{ ::item.states[0].Driver}}
+                        </td>
+                        <td data-title="trisCharged" data-sortable="'item.isCharged'" width="5%">
+                            <div ng-if="item.OrderTypeID==2 && item.isCharged == false">
+                                <span ng-class="{'text-red': item.isCharged == false}">{{:: open}}</span>
+                            </div>
+                            <div ng-if="item.OrderTypeID==2 && item.isCharged == true">
+                                <span>{{:: close}}</span>
+                            </div>
+                            <div ng-if="item.OrderTypeID==7 && item.isCharged == false">
+                                <span ng-class="{'text-red': item.isCharged == false}">{{:: open}}</span>
+                            </div>
+                            <div ng-if="item.OrderTypeID==7 && item.isCharged == true">
+                                <span>{{:: close}}</span>
+                            </div>
+                        </td>
+                        <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="2%">
+                            <div class="buttons pull-right" ng-show="!rowform.$visible">
+                                <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{::orderdetails}}" tooltip-placement="top" href="#/app/orders/orderDetail/{{::item.id}}"></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name"            : "ROPNG Little Caesars",
+  "description"     : "ROPNG Chrome Application for Little Caesars",
+  "short_name"      : "ROPNG LC",
+  "version"         : "1.0.0.20",
+  "icons": {
+    "16": "assets/images/icon/icon-16.png",
+    "48": "assets/images/icon/icon-48.png",
+    "128": "assets/images/icon/icon-128.png"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage"
+  ],
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "minimum_chrome_version": "28",
+   "content_security_policy": "script-src 'self' http://pizzahut.ropng.site:9075/; object-src 'self';connect-src http://test.yazilimocagi.net:9065/ ",
+  "web_accessible_resources": [
+    "assets/images/"
+  ]
+}
+

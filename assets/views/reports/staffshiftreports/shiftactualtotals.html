@@ -1,0 +1,419 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+<div print-section ng-controller="shiftactualtotalsCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+            <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+            <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span><br />
+            <span class="col-lg-12 pull-left" ng-if="user.restrictions.storeselected=='Enable'">{{'main.SELECTEDSTORE' | translate}}: {{selectedStore[0].name}}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <span class="mainTitle text-dark text-bold center" style="font-size:18px;" translate="tittle.SHIFTACTUALTOTALS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <span class="col-lg-12 pull-right">Başlangıç Tarihi: {{ReportParameters.StartDate| date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">Bitiş Tarihi: {{ReportParameters.EndDate| date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">{{Time | date:'dd-MM-yyyy HH:mm'}} </span>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div print-remove class="col-lg-4 col-md-3 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.SHIFTACTUALTOTALS" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+                <i class="fa fa-info-circle" style="font-size:25px;" popover="Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen haftaya göre hangi kullanıcının kaç gün ve saat gerçekleşen vardiyasının olduğunu ve şubenin gün bazlı toplamını veren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <span class="text-bold" translate="main.YEAR"></span> <span class="text-bold">*</span><br />
+                    <!--<label><input type="text" class="form-control" ng-model="Year" size="4"></label>-->
+                    <select class="form-control" id="Year" name="Year" ng-model="year">
+                        <option ng-repeat="Year in years" value="{{Year.Id}}">{{Year.Name}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <span class="text-bold" translate="main.WEEK"></span> <span class="text-bold">*</span><br />
+                    <!--<label><input type="text" class="form-control" ng-model="Week" size="4"></label>-->
+                    <select class="form-control" id="Week" name="Week" ng-model="week">
+                        <option ng-repeat="Week in weeks" value="{{Week.Id}}">{{Week.Name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-3 col-sm-6 col-xs-6 margin-top-10">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadData()">
+                        <img ng-src="assets/images/report.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#staffshiftdiff')">
+                        <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                    </button>
+                    <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                        <img ng-src="assets/images/print.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+
+        <div print-remove class="col-sm-12 col-xs-12 visible-sm visible-xs">
+            <div class="col-sm-12 col-xs-12">
+                <div print-remove class="col-sm-10 col-xs-10 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:15px;" translate="tittle.SHIFTACTUALTOTALS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12">
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-md-12 col-sm-12 col-xs-12 margin-top-5">
+                        <span class="text-bold" translate="main.YEAR"></span> <span class="text-bold">*</span><br />
+                        <!--<label><input type="text" class="form-control" ng-model="Year" size="4"></label>-->
+                        <select class="form-control" id="Year" name="Year" ng-model="year">
+                            <option ng-repeat="Year in years" value="{{Year.Id}}">{{Year.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 margin-top-5">
+                        <span class="text-bold" translate="main.WEEK"></span> <span class="text-bold">*</span><br />
+                        <!--<label><input type="text" class="form-control" ng-model="Week" size="4"></label>-->
+                        <select class="form-control" id="Week" name="Week" ng-model="week">
+                            <option ng-repeat="Week in weeks" value="{{Week.Id}}">{{Week.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-sm-12 col-xs-12 margin-top-20">
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadData()">
+                            <img ng-src="assets/images/report.png" style="width:4vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#staffshiftdiff')">
+                            <img ng-src="assets/images/excel.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        </button>
+                        <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                            <img ng-src="assets/images/print.png" style="width:4vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" ng-hide="isWaiting==true">
+        <fieldset print-only class="table-responsive">
+            <div class="container-fluid container-fullw">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5" ng-repeat="ps in data.items | orderBy:'+Store'" style="border-bottom:1px solid; font-size:13px;">
+                            <accordion close-others="oneAtATime" class="accordion">
+                                <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                    <accordion-heading>
+                                        <span class="text-bold text-dark text-uppercase"> {{ps.Store}} </span>
+                                    </accordion-heading>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold text-dark">
+                                            <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold">{{'main.USER' | translate}}</span>
+                                            <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold"> <span class="pull-right">{{'main.TOTALSHIFT' | translate}}</span></span>
+                                            <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold"> <span class="pull-right">{{'main.TOTALHOURS' | translate}}</span></span>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-uppercase text-bold margin-top-5 text-dark" ng-repeat="pss in ps.persons |orderBy:'+User'">
+                                            <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                {{pss.User}}
+                                            </span>
+                                            <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                <span class="pull-right">{{pss.TotaShifts}}</span>
+                                            </span>
+                                            <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                <span class="pull-right">{{pss.TotalHours}}</span>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-light-grey margin-top-5">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.STORETOTAL' | translate}}</span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.TOTALITEMS' | translate}}</span></span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right"></span></span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.ORDERSCOUNT' | translate}}</span></span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D1HOURSSTAFFCOUNT' | translate}}</span></span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D2HOURSSTAFFCOUNT' | translate}}</span></span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D3HOURSSTAFFCOUNT' | translate}}</span></span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D4HOURSSTAFFCOUNT' | translate}}</span></span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D5HOURSSTAFFCOUNT' | translate}}</span></span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D6HOURSSTAFFCOUNT' | translate}}</span></span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D7HOURSSTAFFCOUNT' | translate}}</span></span>
+                                                <!--<span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.LABORRATIO' | translate}}</span></span>-->
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.TOTALHOURS' | translate}}</span></span>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"> </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                                    <span class="pull-right">  {{ps.TotalItems}}</span>
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                                    <!--<span class="pull-right">{{ps.TotalHours}}</span>-->
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                                    <span class="pull-right">{{ps.ordersCount}}</span>
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                                    <span class="pull-right">{{ps.D1StaffCount}} / {{ps.D1Hours}}</span>
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                                    <span class="pull-right">{{ps.D2StaffCount}} / {{ps.D2Hours}}</span>
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                                    <span class="pull-right"> {{ps.D3StaffCount}} / {{ps.D3Hours}}</span>
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                                    <span class="pull-right">{{ps.D4StaffCount}} / {{ps.D4Hours}}</span>
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                                    <span class="pull-right">{{ps.D5StaffCount}} / {{ps.D5Hours}}</span>
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                                    <span class="pull-right">{{ps.D6StaffCount}} / {{ps.D6Hours}}</span>
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                                    <span class="pull-right"> {{ps.D7StaffCount}} / {{ps.D7Hours}}</span>
+                                                </span>
+                                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                                    <!--<span class="pull-right">{{ps.LaborRatio |number:2}}</span>-->
+                                                    <span class="pull-right">{{ps.TotalHours}}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </accordion-group>
+                            </accordion>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold table table-responsive bg-dark-grey margin-top-5">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.WEEK' | translate}} - {{'main.YEAR' | translate}}</span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.TOTALITEMS' | translate}}</span></span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right"></span></span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.ORDERSCOUNT' | translate}}</span></span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D1HOURSSTAFFCOUNT' | translate}}</span></span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D2HOURSSTAFFCOUNT' | translate}}</span></span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D3HOURSSTAFFCOUNT' | translate}}</span></span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D4HOURSSTAFFCOUNT' | translate}}</span></span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D5HOURSSTAFFCOUNT' | translate}}</span></span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D6HOURSSTAFFCOUNT' | translate}}</span></span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D7HOURSSTAFFCOUNT' | translate}}</span></span>
+                                <!--<span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.LABORRATIO' | translate}}</span></span>-->
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.TOTALHOURS' | translate}}</span></span>
+
+                            </div>
+                            <div class="text-bold text-uppercase">
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    {{data.PeriodWeek}} - {{data.PeriodYear}}
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{data.TotalItems}}</span>
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <!--<span class="pull-right">{{data.TotalHours}}</span>-->
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right"> {{data.ordersCount}}</span>
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right"> {{data.D1Hours}} / {{data.D1StaffCount}}</span>
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right"> {{its.D2Hours}} / {{data.D2StaffCount}}</span>
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{data.D3Hours}} / {{data.D3StaffCount}}</span>
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{data.D4Hours}} / {{data.D4StaffCount}}</span>
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{data.D5Hours}} / {{data.D5StaffCount}}</span>
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right"> {{data.D6Hours}} / {{data.D6StaffCount}}</span>
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right"> {{data.D7Hours}} / {{data.D7StaffCount}}</span>
+                                </span>
+                                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <!--<span class="pull-right"> {{data.LaborRatio |number:2}}</span>-->
+                                    <span class="pull-right">{{data.TotalHours}}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset print-remove class="table-responsive hidden" id="staffshiftdiff">
+            <table class="hidden">
+                <tr>
+                    <th>{{'main.YEAR' | translate}}</th>
+                    <th>{{'main.WEEK' | translate}}</th>
+                    <th>{{'main.REPORTDATE' | translate}}</th>
+                    <th>{{'main.USER' | translate}}</th>
+                    <th>{{'main.USERSTORE' | translate}}</th>
+                </tr>
+                <tr>
+                    <td>{{selectedYear[0].Name}}</td>
+                    <td>{{selectedWeek[0].Name}}</td>
+                    <td>{{Time | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{user.FullName}}</td>
+                    <td>{{user.Store.Member}} - {{user.Store.name}}</td>
+                </tr>
+            </table>
+            <br />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5" ng-repeat="ps in data.items | orderBy:'+ps.User'">
+                    <span class="text-bold text-dark text-uppercase"> {{ps.Store}} </span>
+                    <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive">
+                        <tr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold text-dark">
+                            <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold">{{'main.USER' | translate}}</td>
+                            <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold"> <span class="pull-right">{{'main.TOTALSHIFT' | translate}}</span></td>
+                            <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold"> <span class="pull-right">{{'main.TOTALHOURS' | translate}}</span></td>
+                        </tr>
+                        <tr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-uppercase text-bold margin-top-5 text-dark" ng-repeat="pss in ps.persons">
+                            <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                {{pss.User}}
+                            </td>
+                            <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <span class="pull-right">{{pss.TotaShifts}}</span>
+                            </td>
+                            <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <span class="pull-right">{{pss.TotalHours}}</span>
+                            </td>
+                        </tr>
+                            <tr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.STORETOTAL' | translate}}</th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.TOTALITEMS' | translate}}</span></th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.TOTALHOURS' | translate}}</span></th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.ORDERSCOUNT' | translate}}</span></th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D1HOURSSTAFFCOUNT' | translate}}</span></th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D2HOURSSTAFFCOUNT' | translate}}</span></th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D3HOURSSTAFFCOUNT' | translate}}</span></th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D4HOURSSTAFFCOUNT' | translate}}</span></th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D5HOURSSTAFFCOUNT' | translate}}</span></th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D6HOURSSTAFFCOUNT' | translate}}</span></th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D7HOURSSTAFFCOUNT' | translate}}</span></th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.LABORRATIO' | translate}}</span></th>
+                            </tr>
+                            <tr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"> </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">  {{ps.TotalItems}}</span>
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{ps.TotalHours}}</span>
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{ps.ordersCount}}</span>
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{ps.D1StaffCount}} / {{ps.D1Hours}}</span>
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{ps.D2StaffCount}} / {{ps.D2Hours}}</span>
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right"> {{ps.D3StaffCount}} / {{ps.D3Hours}}</span>
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{ps.D4StaffCount}} / {{ps.D4Hours}}</span>
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{ps.D5StaffCount}} / {{ps.D5Hours}}</span>
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{ps.D6StaffCount}} / {{ps.D6Hours}}</span>
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right"> {{ps.D7StaffCount}} / {{ps.D7Hours}}</span>
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                                    <span class="pull-right">{{ps.LaborRatio |number:2}}</span>
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+                <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold table table-responsive bg-dark-grey margin-top-5">
+                    <tr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.WEEK' | translate}} - {{'main.YEAR' | translate}}</th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.TOTALITEMS' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.TOTALHOURS' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.ORDERSCOUNT' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D1HOURSSTAFFCOUNT' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D2HOURSSTAFFCOUNT' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D3HOURSSTAFFCOUNT' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D4HOURSSTAFFCOUNT' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D5HOURSSTAFFCOUNT' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D6HOURSSTAFFCOUNT' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.D7HOURSSTAFFCOUNT' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.LABORRATIO' | translate}}</span></th>
+                    </tr>
+                    <tr class="text-bold text-uppercase">
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            {{data.PeriodWeek}} - {{data.PeriodYear}}
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            <span class="pull-right">{{data.TotalItems}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            <span class="pull-right">{{data.TotalHours}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            <span class="pull-right"> {{data.ordersCount}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            <span class="pull-right"> {{data.D1Hours}} / {{data.D1StaffCount}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            <span class="pull-right"> {{its.D2Hours}} / {{data.D2StaffCount}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            <span class="pull-right">{{data.D3Hours}} / {{data.D3StaffCount}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            <span class="pull-right">{{data.D4Hours}} / {{data.D4StaffCount}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            <span class="pull-right">{{data.D5Hours}} / {{data.D5StaffCount}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            <span class="pull-right"> {{data.D6Hours}} / {{data.D6StaffCount}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            <span class="pull-right"> {{data.D7Hours}} / {{data.D7StaffCount}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">
+                            <span class="pull-right"> {{data.LaborRatio |number:2}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+</div>

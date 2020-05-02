@@ -1,0 +1,34 @@
+﻿<style>
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+    .modal {
+   top: 25% !important;
+   opacity: 1 !important;
+}
+    .modal-backdrop {
+   opacity: 0 !important;
+}
+</style>
+
+<div class="modal-header center">
+    <h4 class="modal-title center"><span class="center">{{ordernumber}} :{{OrderNo}}</span><button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h4>
+</div>
+<div class="panel-body panel panel-white">
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" for="PaymentTypeID" translate="main.PAYMENTTYPE">
+                PaymentType
+            </label>
+            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <button class="btn btn-default btn-o tooltips" tooltip="Ödeme Tipini Kaydet!" tooltip-placement="top" style="color:black; overflow:hidden; width:85px; height:50px;" ng-click="SaveData(item.id)" ng-repeat="item in storepaymenttypes">{{item.PaymentType.name}}</button>
+            </span>
+        </div>
+    </div>
+    <br />
+</div>
+<div class="modal-footer center">
+</div>

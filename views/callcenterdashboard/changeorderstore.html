@@ -1,0 +1,19 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title center">{{'main.PLEASESELECTNEWSTORE' | translate}}<button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body panel panel-white">
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label translate="main.STORE" for="OrderReasonID">
+                Store
+            </label>
+            <span class="col-lg-12">
+                <select id="StoreID" class="form-control center" ng-options="q.id as q.name for q in Stores| orderBy:'+name'" ng-model="item.StoreID"></select>
+            </span>
+        </div>
+    </div>
+    <br />
+</div>
+<div class="modal-footer center">
+    <button class="btn btn-primary" ng-click="SaveData(item)">{{'main.OK' | translate}}</button>
+</div>

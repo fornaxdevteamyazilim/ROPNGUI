@@ -1,0 +1,17 @@
+﻿<div class="panel-body">
+    <div class="col-md-12 center">
+        <h3 class="modal-title">Date</h3>
+        <h3 class="text-dark">{{ DateTime | date: 'yyyy-MM-dd'  }}</h3>
+    </div>
+    <div class="col-md-12 center">
+        <div class="inline-block min-height-180">
+            <datepicker ng-model="DateTime" min-date="minDate" show-weeks="true" starting-day="1"class="well well-sm"></datepicker>
+        </div>
+    </div>
+</div>
+<div class="panel center">
+    <button class="btn btn-o btn-success " ng-click="today()">Today</button> -
+    <button class="btn btn-o btn-warning " ng-click="clear()">Clear</button> -
+    <button class="btn btn-o btn-primary" ng-click="ok()">OK</button> -
+    <button class="btn btn-danger btn-o" ng-click="cancel()">Cancel</button>
+</div>

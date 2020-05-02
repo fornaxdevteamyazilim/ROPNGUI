@@ -1,0 +1,119 @@
+﻿<!--<style>
+        [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+<div ng-controller="orderpaymentcomparepivotCtrl" class="panel-body">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ORDERPAYMENTCOMPAREPIVOT" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="text-bold" translate="main.STARTDATE">Başlangıç Tarihi :</span> <span class="text-bold">*</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="text-bold" translate="main.ENDDATE">Bitiş Tarihi :</span> <span class="text-bold">*</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-25">
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadOrderPaymentComparePivot()">
+                    <img ng-src="assets/images/report.png" style="width:2.5vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+                <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#report')">
+                    <img ng-src="assets/images/excel.png" style="width:2.5vw; height:3vh;" class="center" /><br />
+                </button>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-5 visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+
+
+        <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs">
+            <div class="col-sm-12 col-xs-12">
+                <div print-remove class="col-sm-10 col-xs-10 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:15px;" translate="tittle.ORDERPAYMENTCOMPAREPIVOT" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12">
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+                        <span><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></span>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+                        <span><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></span>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15">
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadOrderPaymentComparePivot()">
+                            <img ng-src="assets/images/report.png" style="width:4vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#report')">
+                            <img ng-src="assets/images/excel.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" ng-hide="isWaiting==true">
+        <fieldset class="table-responsive" id="report">
+            <table class="hidden">
+                <tr>
+                    <th>{{'main.STARTDATE' | translate}}</th>
+                    <th>{{'main.ENDDATE' | translate}}</th>
+                    <th>{{'main.REPORTDATE' | translate}}</th>
+                    <th>{{'main.USER' | translate}}</th>
+                    <th>{{'main.USERSTORE' | translate}}</th>
+                </tr>
+                <tr>
+                    <td>{{StartDate| date:'dd-MM-yyyy'}}</td>
+                    <td>{{EndDate| date:'dd-MM-yyyy'}}</td>
+                    <td>{{Time | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{user.FullName}}</td>
+                    <td>{{user.Store.Member}} - {{user.Store.name}}</td>
+                </tr>
+            </table>
+            <br />
+            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10 table ng-table table-responsive">
+                <tr>
+                    <th class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-left text-bold" style="color:black;" ng-repeat="(key,value) in OrderPaymentComparePivot[0]">
+                        {{key}}
+                    </th>
+                </tr>
+                <tr ng-repeat="(key,value) in OrderPaymentComparePivot">
+                    <td ng-repeat="item in value">{{item}} </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+</div>

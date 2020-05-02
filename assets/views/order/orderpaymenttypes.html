@@ -1,0 +1,20 @@
+﻿<div class="modal-header center">
+    <h3 class="modal-title center"><span class="center">{{::trOrderNumber}} :{{OrderNo}} - {{OrderNumber}}</span><button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body panel panel-white">
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+            <label for="OrderStateID">
+                Order State
+            </label>
+            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <select id="PaymentType" ng-options="q.id as q.PaymentType.name for q in paymenttypes |orderBy:'+PaymentType.name'" class="form-control text-capitalize" ng-model="item.PaymentTypeID"></select>
+            </span>
+        </div>
+    </div>
+    <br />
+</div>
+<div class="modal-footer center">
+    <button class="btn btn-primary" ng-click="SaveData(item)">OK</button>
+</div>
+

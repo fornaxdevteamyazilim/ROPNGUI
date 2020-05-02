@@ -1,0 +1,139 @@
+﻿--------------------------------
+23.07.2015
+--------------------------------
+	 (Emre MERDAN) : "Tanımlar" altında "Envanterler" segmesi "Birimler" sayfası oluşturuldu. 
+--------------------------------
+24.07.2015 11.30
+--------------------------------
+	 (Emre MERDAN) : "Brands" html ve ctrl dosya isimleri "systems" olarak değiştirildi.
+--------------------------------
+05.08.2015 
+--------------------------------
+	(Mahmut Erakatay) : Araçlar(Vechile) , Payment Type ve Store Payment Type çekildi. Adreslerdeki Quarter düzeltildi. 
+Conrtoller ve viewler düzenlendi. Menü listesi toplarlandı.
+--------------------------------
+06.08.2015
+--------------------------------
+	(Ecem Çalışkan) : Inventory Transform Recipe & Inventory Transform Recipe Item 'ın Controller ve Viewları oluşturuldu, düzenlendi ve hatalar giderildi.
+    (Mahmut Erakatay) : StoreGroup ve Store group item oluşturuldu . 
+Tekrardan bozulan menüler düzenlendi.Inventory Transform düzenlendi.
+	(Emre Merdan) : dün(05.08.2015) oluşturulan "store" sayfası bilgileri düzeltildi, 
+"store.item" sayfasında store bilgileri düzeltildi  put ve post olayları test edildi.
+"Store.edit" sayfası ikinci bölüm "store payment" tab bölümü oluşturuldu. 
+--------------------------------
+07.08.2015
+--------------------------------
+	 (Mahmut Erakatay) : Tercüme dosyaları (DE.json ve IT.json ) çıkartıldı. 
+ Seçenek ikiye düşürüldü. Menülerin ikonları yerleri değiştirildi. 
+ Menüler istenilen şekilde sınıflanıp temizlendi. Sade bir hale getirildi.
+	 (Ecem Çalışkan) : AddressTypes, InventoryAdjustTypes, Units ve PaymentTypes controller'ları Settings'in altına taşındı. 
+Systems controller'ı Others'ın altına taşındı. DeliveryType ve StoreType eklendi.
+	 (Emre Merdan) : Store ve store item bitirildi. 
+--------------------------------
+10.08.2015
+--------------------------------
+	 (Mahmut Erakatay) : Grid çekildi. translate dosyasındaki hatalar giderildi.
+store group ve item linkleri düzeltildi. kalanı emre arkadaşımıza devredildi. 
+Bulunan hatalar arkadaşlara dağıtıldı.
+	 (Ecem Çalışkan) : taşınmadan dolayı olan delivery ve translate dosyasındaki geri kalan hatalar düzeltildi. 
+Store mimarisi taslağı oluşturuldu.(dokumante etmek için)
+--------------------------------
+21.08.2015 
+--------------------------------
+	(Mahmut Erakatay) : Sale Saleitem new design yapıldı. KDV oranı toplam tutarlar eklendi. 
+Adjust Adjust item hatalarına bakıldı başlıca hatalar giderildi fakat yarım kaldı. 
+Document type edit sayfasına çekildi. Kod organizasyon planlaması yapıldı.Repository de member silindi . 
+Recipe Recipe item a quantity çekildi.
+	 (Ecem Çalışkan) : Menü düzenlemeleri yapıldı gerekli tanımlamaların nerde olacağına karar verildi. 
+Transform hataları giderildi. Brand toaster düzeltildi. recipede save hatası giderildi. 
+Transfer Transfer item daki from /to repository düzeltildi.
+	 (Emre Merdan) : delivery delivery item çekildi. Aşağıda da hesplamalar yapıldı. 
+Store adres tabı adres tabında pod tablosu double click yerine tek click oldu. 
+vehicle ek fieldler eklendi store vehicle da uygulandı.
+--------------------------------
+24.08.2015
+--------------------------------
+	 (Mahmut Erakatay) : Inventory ve Inventory units in Yeni halleri apiden çekildi, 
+ekranlar oluşturuldu ve ekranlara uygulandı. Diğer ekranlara uygulandı. Transform ve adjust yarım kaldı. Yeni fieldlere post yapıldı.
+	 (Ecem Çalışkan) : Inventory ve Inventory units Yeni ekranlara uygulandı. Yeni fieldlere veriler post edildi.
+--------------------------------
+25.08.2015
+--------------------------------
+	 (Mahmut Erakatay) : Dünden eksik kalan hatalar düzeltildi inventory transform düzeltildi,
+fakat yeni ekran inşaa edileceği için recipe recipe item ve recipeoutputitem inşaa edildi.
+	 (Ecem Çalışkan) : Dünden eksik kalan hatalar ve menü düzenlemesi yapıldı . Transformun yeni ekranı inşaa edildi. 
+--------------------------------
+26.08.2015 
+--------------------------------
+	(Emre MERDAN) : -inventorydelivery.html--> 'Amount' field silindi yerine 'GrantTotal' eklendi. 'TL' simgesi eklendi. 
+inventorydelivery.edit.html-->'VAT' değeri gelmiyordu hesaplanması yapıldı düzeltildi. 'GrantTotal' hesaplanması yapıldı delivery.html sayfası ile ilişkilendirildi. 
+'Discount' değeri kaydetmiyordu düzeltildi. 'Discount' indirimi yapıldı 'VATDiscount' field a indirim yüzde cinsinden yansıtıldı. 
+gerekli yerlere 'TL' simgesi eklendi. inventoryreciep.html--> items id ye göre cekildi düzeltme yapıldı.  
+	(Ecem Çalışkan) : Inventory Transform Item ve Output Item ekranlarına RecipeItem daki bilgilerin gelmesi sağlandı. 
+Ekranla ilgili hatalar giderildi.Toaster hatası olan sayfalar düzeltildi.Yorum satırındaki kodlar temizlendi
+	(Mahmut Erakatay) : Dün Recipe de yapılmış olan hatalar bugün düzeltildi . 
+Yenilik olarak :ekleme yapıldığında hiçbirşey görünmeyen fieldlar default değerler getirildi.
+Purchase item total fieldi boş gelmiyor.Recipe back butonu değişti.Hata alınan vehicle ve pod düzeltildi.
+Adjust type menüden kaldırıldı(enum hale geçti o yüzden).Check list oluşturuldu.
+--------------------------------
+27.08.2015
+--------------------------------
+	 (Ecem Çalışkan) : Yapılan Yenilikler: Edit moduna geçen editable textlerin boyutları ayarlandı.
+Inventory transform item ve output item verileri seçilen recipe göre gelmiyordu o getirildi.
+ekran düzenlemeleri yapıldı.  Test Yapıldı. Sayfalardaki edit ve delete butonları düzenlendi. 
+Yeni inşaa edilecek schedule ekranının taslağı hazırlandı.
+	 (Mahmut Erakatay) : Yapılan Yenilikler: Recipe de description Definition (Tarif) olarak değiştirildi.
+Delete butonlarından sonra confirm gelmiyordu onlar getirildi (count items purchase items) adres ve pod tablarının yerleri değiştirildi ergonomik açıdan .
+branda yeni veriler eklendi mantıklı ve gerekli veriler. iki ekranlı sayfaların ilk ekranlarındaki edit butonları 
+satır içerisine alındı ve delete butonu kaldırıldı ergonomik açıdan . Test yapıldı eksikler görüldü. Yarının planlaması yapıldı.
+	 (Emre MERDAN) : Store-> Pod tablosuna "ng-click" fonksiyonu eklendi. Keypres fonksionu eklendi. 
+Adjust->Form düzeltme eklendi. "new adjust" butonu eklendi
+Adjust->Adjust.edit-> Kayıt yapmıyordu ve date field ı kayıt hatası veriyordu düzeltildi.
+Transform-> ve Transfor.edit button görünüzmleri düzeltildi.
+--------------------------------
+28.08.2015
+--------------------------------
+	 (Mahmut Erakatay) : Yapılan yenilikler: İkili ekranların hepsinin ilk ekranında iki tık yerine tek tıkla ikinci ekrana geçmesi sağlandı. 
+Buna bağlı olarak view sayfaları da düzeltildi.
+Arka taraftaki kod düzenlemeleri yapıldı. test yapıldı ve yapılan testler sırasında birkaç düzeltme yapıldı. 
+	 (Ecem Çalışkan) : Inventories klasörü altında ki tüm controller'ların içindeki load'lar ShowObject'e çekildi. 
+Controllerlarda ki bu değişime bağlı olarak view sayfaları da düzenlendi.
+TransformItem sayfasında ShowObject'e çekerken sorun çıkıyordu,o sorun giderildi. 
+Tüm sayfalardaki New/Add butonlarının yerleri kullanım kolaylığı amacıyla yer değiştirip, Sayfa başlığının yanına 
+sağa hizzalı şekilde konumlandırıldı. Definitions bölümünde Inventories ve alt grupları hepsi seçili geliyor ve 
+diğer tanımlamaları seçtiğimizde de seçili kalıyordu bu hata nav.html de düzeltildi.
+Test yapıldı,testten çıkan hatalar not alındı ve bir kısmı düzeltildi.
+	 (Emre MERDAN) : Defination->  schedule ve schedule.edit sayfaları oluşturuldu.
+--------------------------------
+31.08.2015 
+--------------------------------
+	 (Ecem Çalışkan) : Taggingle ilgili araştırma yapıldı. Schedule ile ilgili ekran tasarımı üzerine karar verildi. Menu üzerinde Filter'ın yeri değiştirildi.
+	 (Emre MERDAN) : Schedule.edit-> kayıt hatası ve ScheduleTypeID ye göre get yapmıyordu.Yeni kayıt yaparken items hata veriyordu.
+Store->Store.edit->Vehicle-> StoreID ye göre get hatası ve kayıt hatası veriyordu düzeltildi. GetStoreID fonksiyonu oluşturuldu.
+Schedule-> Edit buttonu doğru çalışmıyordu link yerie buttun eklendi.
+--------------------------------
+01.09.2015
+--------------------------------
+	 (Emre MERDAN) : Öğlene kadar yaptıklarım!!!! Schedule-> sayfası oluşturuldu. Ana menüde "inventory" nin altında menü açıldı.
+schedule-> Schedule.item sayfası oluşturuldu.  Definitiondaki Schedule.edit-> Schedule taype kaydedildikten sonra Schedule items gelmesi için düzeltme yapıldı.
+--------------------------------
+09.09.2015
+--------------------------------
+	 (Mahmut Erakatay) : Sortable hataları düzeltildi. tek tık ile edit moduna geçme yapıldı (bu ikili sayfalarda ikinci sayfaya geçme oluyor) schedule type hataları düzeltildi.
+	 (Ecem Çalışkan) :  Tek tık ile edit moduna geçme yapıldı. dosya taşıma yapıldı. diğer sayfalardaki hatalar giderldi.
+Yeni iconlar eklendi ve daha önce belirlenen bazı iconlar değiştirildi.
+	 (Emre MERDAN) : İkili sayfalarda (lit -> edit) Edit bottununda oluşan hata düzeltildi. 
+Aynı sayfalarda edit butonunda yapılan değişiklikten dolayı delet buttonları çalışmıyordu düzeltildi. 
+Tag html sayfasında tag name/tagtype şeklinde gösterilmesi sağlandı. 
+Buttonun şekli ve yeri değiştirildi. tag html sayfasından pager kaldırıldı. 
+Street adress poppuop sayfasından pager kaldırıldı. 
+--------------------------------
+10.09.2015 
+--------------------------------
+	(Ecem Çalışkan) : Inventory de Quantity ve Price fieldlarının editable özellikleri kaldırıldı.
+Edit sayfalarında eksik kalmış olan click editler aktif edildi. Nav.html de ki hatalar giderildi.
+--------------------------------
+11.09.2015 
+--------------------------------
+	(Ecem Çalışkan) : Inventory Delivery.edit , Purchase.edit, Sale.edit, Transfer.edit, Transform.edit sayfalarında ki save butonlarının yeri değiştirildi.
+Test aşamasında gözlenen hatalar giderildi. Schedule Type ekranında tag butonu çalışmıyordu o düzeltildi.
