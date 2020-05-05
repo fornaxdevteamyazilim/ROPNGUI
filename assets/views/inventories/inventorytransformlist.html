@@ -1,0 +1,107 @@
+﻿<div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+    <span class="margin-bottom-10 visible-lg">
+        <img src="assets/images/loader.gif" />
+    </span>
+    <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+        <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+    </span>
+</div>
+<div ng-controller="inventorytransformlistCtrl  as itr" ng-hide="isWaiting==true">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.INVENTORYTRANSFORM" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 margin-top-10">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="addItem()">
+                    <span>{{:: addnewtransform}}</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                <span>{{:: startdate}}</span><br />
+                <label><input id="Date" type="text" class="form-control" ng-model="ReportParameters.StartDate" readonly ng-click="SelectStartDate()"></label>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                <span>{{:: enddate}}</span><br />
+                <label><input id="Date" type="text" class="form-control" ng-model="ReportParameters.EndDate" readonly ng-click="SelectEndDate()" required></label>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6" ng-if="user.restrictions.selectstore=='Enable'">
+                <span>{{:: selectstore}}</span>
+                <select class="form-control text-capitalize ng" data-ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" data-ng-model="StoreID" ng-change="ChangeStore(StoreID)"></select><br />
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-twitch margin-top-15 pull-left margin-left-15" ng-click="LoadTransforms()">
+                    <span>{{:: showtransforms}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-hide="isWaiting==true">
+        <table ng-table="itr.tableParams" class="table table-striped table-hover">
+            <tr ng-repeat="item in $data  | orderBy:'+Store.name'"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td data-title="trInventoryRecipe" width="11%" ng-click="rowform.$show()">
+                    <span class="text-capitalize" editable-select="item.InventoryRecipeID" e-name="InventoryRecipeID" e-ng-model="item.InventoryRecipeID" e-form="rowform"
+                          e-ng-options="q.id as q.name for q in inventoryrecipes | orderBy:'+name'">
+                        {{ ShowObject('inventoryrecipes','id',item.InventoryRecipeID,'name') }}
+                    </span>
+                </td>
+                <!--<td data-title="trRepository" data-sortable="'RepositoryID'" style="width:20%" ng-click="rowform.$show()">
+                    <span class="text-capitalize" editable-select="item.RepositoryID" e-name="RepositoryID" e-ng-model="item.RepositoryID" e-form="rowform"
+                          e-ng-options="q.id as q.fullname for q in repositories | orderBy:'+name'" e-style="width: 10vw;" ng-click="rowform.$show()">
+                        {{ShowObject('repositories','id',item.RepositoryID,'fullname')}}
+                    </span>
+                </td>-->
+                <td class="text-capitalize" data-title="trRepository" width="20%">
+                    {{ item.Repository }}
+                </td>
+                <td data-title="trOutputFactor" width="11%">
+                    <span e-name="OutputFactor" editable-number="item.OutputFactor" e-min="0" e-form="rowform" e-ng-model="item.OutputFactor">
+                        {{ item.OutputFactor }}
+                    </span>
+                </td>
+                <td data-title="trTransformDate" data-sortable="'TransformDate'" width="14%">
+                    <input id="Date"
+                           type="text"
+                           class="form-control"
+                           ng-model="item.TransformDate"
+                           readonly
+                           ng-click="datepopuptransformdate(item)" ng-show="rowform.$visible">
+                    <span ng-show="!rowform.$visible" e-name="TransformDate" e-form="rowform" e-ng-model="item.TransformDate">
+                        {{ item.TransformDate| date:'dd.MM.yyyy' }}
+                    </span>
+                </td>
+                <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+                    <form editable-form name="rowform" onbeforesave="saveItem($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                          shown="inserted == item || !item.id">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                    </form>
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{:: delete}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()"> {{:: edit}}</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)"> {{:: delete}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿<style>
+    #iframest {
+        width: 160vh;
+        height: 40vw;
+        border: hidden;
+        margin-left: 20px;
+    }
+</style>
+
+<div ng-controller="documentsCtrl as dc">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 margin-top-10">
+            <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.CUSTOMERLIST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                <span translate="main.BACK">Back</span>
+            </a>
+        </div>
+    </div>
+    <div class="panel panel-white" style="overflow:auto;" ct-fullheight="window" data-ct-fullheight-exclusion="header">
+        <iframe id="iframest" src="https://docs.google.com/document/d/e/2PACX-1vSR8ZhuvwTym2Mb_0jJ48MAfgKjJ-4FAka0iB8PiNAnX7oBM4M-BSZEOedSsdOF3mEBXQEeLTmbSVId/pub"></iframe>
+    </div>
+</div>

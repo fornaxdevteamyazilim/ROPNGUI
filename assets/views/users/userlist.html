@@ -1,0 +1,65 @@
+﻿<style>
+    .strike {
+        text-decoration: line-through;
+    }
+
+    .red {
+        color: red;
+    }
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+</style>
+<div ng-controller="userlistCtrl as us" ng-init="app.layout.isSidebarClosed=false">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.USER" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 margin-top-10">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top pull-right ti-plus" href="#/app/users/useredit/new">
+                    <span translate="main.ADDNEWUSER"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>
+                <input class="form-control" placeholder="{{'main.SEARCHBYNAME' | translate}}" type="text" ng-model="us.search" ng-model-options="{ debounce: 500 }" />
+            </p>
+        </div>
+    </div>
+    <div>
+        <table ng-table="us.tableParams" class="table table-striped table-hover table-condensed">
+            <tr ng-repeat="item in $data | orderBy:'+name'"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)" ng-class="{'strike':item.isActive == false,'red':item.isActive == false}"> 
+                <td data-title="trName" data-sortable="'name'" style="width:20%" ng-click="SelectItem(item.id)"  class="ng">
+                    {{ item.name }}
+                </td>
+                <td data-title="trFullName" data-sortable="'FullName'" style="width:20%">
+                    {{ item.FullName }}
+                </td>
+                <td data-title="trStoreID" data-sortable="'StoreID'" style="width:20%">
+                    {{ ShowObject('stores','id',item.StoreID,'name') }}
+                </td>
+                <td data-title="trUserRoleName" style="width:25%">
+                    {{ item.UserRole.Name }}
+                </td>
+                <td data-title="trisActive" style="width:25%">
+                    {{ item.isActive }}
+                </td>
+                <td data-title="trCommand" data-sortable="'Command'" style="width:15%">
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" href="#/app/users/useredit/{{item.id}}"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-alert" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br />
+    </div>
+</div>

@@ -1,0 +1,266 @@
+﻿<!--<style>
+        [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+
+<div print-section ng-controller="orderpaymentsCtrl">
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+            <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+            <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span><br />
+            <span class="col-lg-12 pull-left" ng-if="user.restrictions.storeselected=='Enable'">{{'main.SELECTEDSTORE' | translate}}: {{selectedStore[0].name}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <span class="mainTitle text-dark text-bold center" style="font-size:18px;" translate="tittle.ORDERPAYMENTS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <span class="col-lg-12 pull-right">Başlangıç Tarihi: {{StartDate| date:'yyyy-MM-dd'}}</span><br />
+            <span class="col-lg-12 pull-right">Bitiş Tarihi: {{EndDate| date:'yyyy-MM-dd'}}</span><br />
+            <span class="col-lg-12 pull-right">{{Time | date:'yyyy-MM-dd HH:mm'}}</span>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div print-remove class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ORDERPAYMENTS" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+                <i class="fa fa-info-circle" style="font-size:25px;" popover="Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen tarihler arası restoran için gerçekleşen ödeme tiplerine göre siparişler toplamının görülebileceği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="text-bold" translate="main.STARTDATE">Başlangıç Tarihi :</span> <span class="text-bold">*</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="text-bold" translate="main.ENDDATE">Bitiş Tarihi :</span> <span class="text-bold">*</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+                </div>
+
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">
+                <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span translate="main.PAYMENTTYPE">Ödeme Tipi</span><br />
+                    <select class="col-lg-8 col-md-8 col-sm-12 col-xs-12 form-control" ng-options="q.id as q.PaymentType.name for q in storepaymenttypes | orderBy: '+PaymentType.name'" ng-model="PaymentTypeID" ng-change="GetPayment(PaymentTypeID)">
+                        <option value=''>Tümü !</option>
+                    </select>
+                </div><br />
+             <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5" ng-if="user.restrictions.storeselected=='Enable'">
+            <span class="text-bold" translate="main.STORE"></span> <span class="text-bold">*</span><br />
+            <select class="col-lg-8 col-md-8 col-sm-12 col-xs-12 form-control" ng-change="GetSoreID(StoreID)" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID">
+                <option value=''></option>
+            </select>
+                 </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-3 col-sm-6 col-xs-6 margin-top-25">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadOrderPayments(StartDate,EndDate)">
+                        <img ng-src="assets/images/report.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#orderpayments')">
+                        <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                    </button>
+                    <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                        <img ng-src="assets/images/print.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+
+        <div print-remove class="col-sm-12 col-xs-12 visible-sm visible-xs">
+            <div class="col-sm-12 col-xs-12">
+                <div print-remove class="col-sm-10 col-xs-10 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:15px;" translate="tittle.ORDERPAYMENTS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12">
+                <div class="col-sm-6 col-xs-6">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+                        <label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+                        <label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                    <div print-remove class="col-sm-9 col-xs-12">
+                        <span translate="main.PAYMENTTYPE">Ödeme Tipi</span><br />
+                        <select class="form-control" ng-options="q.id as q.PaymentType.name for q in storepaymenttypes | orderBy: '+PaymentType.name'" ng-model="PaymentTypeID" ng-change="GetPayment(PaymentTypeID)"></select>
+                    </div><br />
+                    <div print-remove class="col-sm-9 col-xs-12 margin-top-5" ng-if="user.restrictions.storeselected=='Enable'">
+                        <span translate="main.STORE"></span><br />
+                        <select class="form-control" ng-change="GetSoreID(StoreID)" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-6">
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadOrderPayments(StartDate,EndDate)">
+                        <img ng-src="assets/images/report.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#orderpayments')">
+                        <img ng-src="assets/images/excel.png" style="width:4vw; height:3vh;" class="center" /><br />
+                    </button>
+                    <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                        <img ng-src="assets/images/print.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+            </div>
+        </div>
+    </div>
+
+    <div print-only class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" ng-hide="isWaiting==true">
+        <fieldset print-remove class="table-responsive" id="orderpayments">
+            <table class="hidden">
+                <tr>
+                    <th>{{'main.STARTDATE' | translate}}</th>
+                    <th>{{'main.ENDDATE' | translate}}</th>
+                    <th>{{'main.REPORTDATE' | translate}}</th>
+                    <th>{{'main.USER' | translate}}</th>
+                    <th>{{'main.USERSTORE' | translate}}</th>
+                    <th>{{'main.SELECTEDSTORE' | translate}}</th>
+                    <th>{{'main.SELECTEDPAYMENTTYPE' | translate}}</th>
+                </tr>
+                <tr>
+                    <td>{{StartDate| date:'dd-MM-yyyy'}}</td>
+                    <td>{{EndDate| date:'dd-MM-yyyy'}}</td>
+                    <td>{{Time | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{user.FullName}}</td>
+                    <td>{{user.Store.Member}} - {{user.Store.name}}</td>
+                    <td>{{selectedStore[0].name}}</td>
+                    <!--<td>{{selectedPaymentType[0].name}}</td>-->
+                </tr>
+            </table>
+            <br />
+            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table table-responsive">
+                <tr>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold">{{'main.ORDERNUMBER' | translate}}</th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold">{{'main.ORDERDATE' | translate}}</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.ORDERTYPE' | translate}}</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.PAYMENTSTATUS' | translate}}</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.DISCOUNT' | translate}}</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.PAYMENTTYPE' | translate}}</th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold">{{'main.PAYMENTDATE' | translate}}</th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></th>
+                </tr>
+                <tr ng-repeat="item in OrderPayments | orderBy:'-Order.OrderDate'">
+
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-3" ng-click="RunOrderDetail(item.Order.id)">
+                        {{item.Order.OrderNumber}}
+                    </td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        {{item.Order.OrderDate  | date:'yyyy-MM-dd HH:mm:ss'}}
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                        {{ShowObject('ordertype','Value',item.Order.OrderTypeID,'Name')}}
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                        {{ShowObject('paymentstatus','Value',item.Order.PaymentStatusID,'Name')}}
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                      <span class="pull-right">{{item.Order.Discounts}}</span>  
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                        {{item.PaymentType}}
+                    </td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        {{item.PaymentDate| date:'yyyy-MM-dd HH:mm:ss'}}
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                        <span class="pull-right">{{item.Amount |number:2}}</span> 
+                    </td>
+                </tr>
+                <tr class="bg-grey text-bold text-dark text-uppercase">
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-3">{{'main.GENERALTOTAL' | translate}}</td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-3"><span ng-if="totalorder > 0">{{totalorder}}</span></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3"><span class="pull-right">{{TotalDiscount | number:2}}</span></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3"></td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-3"></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3"><span class="pull-right">{{Total | number:2}}</span></td>
+                </tr>
+            </table>
+            </fieldset>
+
+            <fieldset class="visible-print hidden">
+            <div print-only class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table table-responsive">
+                <div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold">{{'main.ORDERNUMBER' | translate}}</div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold">{{'main.ORDERDATE' | translate}}</div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold">{{'main.ORDERTYPE' | translate}}</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.PAYMENTSTATUS' | translate}}</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right margin-right-10">{{'main.DISCOUNT' | translate}}</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.PAYMENTTYPE' | translate}}</div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold">{{'main.PAYMENTDATE' | translate}}</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table margin-top-15" ng-repeat="item in OrderPayments | orderBy:'-Order.OrderDate'" style="border-bottom:1px solid;">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        {{item.Order.OrderNumber}}
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        {{item.Order.OrderDate  | date:'yyyy-MM-dd HH:mm:ss'}}
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        {{ShowObject('ordertype','Value',item.Order.OrderTypeID,'Name')}}
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                        {{ShowObject('paymentstatus','Value',item.Order.PaymentStatusID,'Name')}}
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                        <span class="pull-right margin-right-10">{{item.Order.Discounts}}</span> 
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                        {{item.PaymentType}}
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        {{item.PaymentDate| date:'yyyy-MM-dd HH:mm:ss'}}
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                        <span class="pull-right">{{item.Amount | number:2}}</span>  
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive bg-grey margin-top-5">
+                    <div class="bg-grey">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">{{'main.GENERALTOTAL' | translate}}</div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"><span ng-if="totalorder > 0">{{totalorder}}</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3"></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3"></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3"></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3"><span class="pull-right">{{TotalDiscount | number:2}}</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3"></div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3"><span class="pull-right">{{Total | number:2}}</span></div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

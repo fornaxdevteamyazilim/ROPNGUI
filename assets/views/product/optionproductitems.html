@@ -1,0 +1,178 @@
+﻿<div class="col-lg-12">
+    <tabset class="tabbable tabs-left">
+        <tab heading="{{'main.PRODUCTITEMS' | translate}}">
+            <div ng-controller="productoptionproductitemCtrl as popi">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()">
+                    <span translate="main.ADDPRODUCTITEM"></span>
+                </a>
+                <br />
+                <table ng-table="popi.tableParams" class="table table-striped table-hover">
+                    <tr ng-repeat="item in $data"
+                        ng-class="{'isActiveValue': item.id==SelectedItem, strike: !item.isActiveValue, red: !item.isActiveValue}"
+                        ng-keyup="FormKeyPress($event,productrowform,$data[$index],$index)">
+                        <td data-title="trProduct" data-sortable="'ProductID'" style="width:13%" ng-click="productrowform.$show()" class="ng">
+                            <span class="text-capitalize" editable-select="item.ProductID" e-name="ProductID" e-ng-options="q.id as q.name +'/'+ q.Size for q in products | orderBy:'+name'" e-style="width: 10vw;"
+                                  e-form="productrowform" e-ng-model="item.ProductID" ng-click="productrowform.$show()">
+                                {{ ShowObject('products','id',item.ProductID,'name') }} / {{ ShowObject('sizes','Value',item.SizeID,'Name') }}
+                            </span>
+                        </td>
+                        <td data-title="trFilter" data-sortable="'isActiveFilter'" style="width:13%" class="ng">
+                            <span class="text-capitalize" editable-select="item.isActiveFilter" e-name="isActiveFilter" e-ng-options="q.id as q.Name for q in filters | orderBy:'+Name'" e-style="width: 10vw;"
+                                  e-form="productrowform" e-ng-model="item.isActiveFilter">
+                                {{ ShowObject('filters','id',item.isActiveFilter,'Name') }}
+                            </span>
+                        </td>
+                        <td data-title="trActive" style="width:13%" class="ng">
+                            <span class="text-capitalize" e-name="isActiveValue" e-form="productrowform" e-ng-model="item.isActiveFilter">
+                                {{ item.isActiveValue  }}
+                            </span>
+                        </td>
+                        <td data-title="trQuantity" style="width:20%">
+                            <span editable-number="item.DefaultQuantity" e-form="productrowform" e-ng-model="item.DefaultQuantity" e-required
+                                  e-ng-true-value="true"
+                                  e-ng-false-value="false">
+                                {{ item.DefaultQuantity }}
+                            </span>
+                        </td>
+                        <td data-title="trIndex" style="width:10%">
+                            <span editable-number="item.Index" e-form="productrowform" e-ng-model="item.Index" e-required
+                                  e-ng-true-value="true"
+                                  e-ng-false-value="false">
+                                {{ item.Index }}
+                            </span>
+                        </td>
+                        <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+                            <form editable-form name="productrowform" onaftersave="saveData(item)" ng-show="productrowform.$visible" class="form-buttons form-inline"
+                                  shown="inserted == item|| !item.id">
+                                <button type="submit" ng-disabled="productrowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                                <button type="button" ng-disabled="productrowform.$waiting" ng-click="cancelForm(productrowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                            </form>
+                            <div class="buttons pull-right" ng-show="!productrowform.$visible">
+                                <a class="btn btn-transparent btn-sm tooltips ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="productrowform.$show()"></a>
+                                <a class="btn btn-transparent btn-sm tooltips ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                                <a class="btn btn-transparent btn-sm tooltips ti-alert" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </tab>
+        <tab heading="{{'main.PROTOTYPEITEMS' | translate}}">
+            <div ng-controller="productoptionprototypeitemCtrl as pro">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()">
+                    <span translate="main.ADDPROTOTYPEITEM"></span>
+                </a>
+                <br />
+                <table ng-table="pro.tableParams" class="table table-striped table-hover">
+                    <tr ng-repeat="item in $data"
+                        ng-class=" {'isActiveValue': item.id==SelectedItem, strike: !item.isActiveValue, red: !item.isActiveValue}"
+                        ng-keyup="FormKeyPress($event,prototyperowform,$data[$index],$index)">
+                        <td data-title="trProductPrototype" data-sortable="'ProductPrototypeID'" style="width:13%" ng-click="prototyperowform.$show()" class="ng">
+                            <span class="text-capitalize" editable-select="item.ProductPrototypeID" e-name="ProductPrototypeID" e-ng-options="q.id as q.name for q in productprototypes | orderBy:'+name'" e-style="width: 10vw;"
+                                  e-form="prototyperowform" e-ng-model="item.ProductPrototypeID" ng-click="prototyperowform.$show()">
+                                {{ ShowObject('productprototypes','id',item.ProductPrototypeID,'name') }}
+                            </span>
+                        </td>
+                        <td data-title="trSize" data-sortable="'SizeID'" width="13%" class="ng">
+                            <span editable-select="item.SizeID" e-name="SizeID" e-ng-options="q.Value as q.Name for q in sizes | orderBy:'+Name'"
+                                  e-form="prototyperowform" e-ng-model="item.SizeID">
+                                {{ ShowObject('sizes','Value',item.SizeID,'Name') }}
+                            </span>
+                        </td>
+                        <td data-title="trFilter" data-sortable="'isActiveFilter'" style="width:13%" class="ng">
+                            <span class="text-capitalize" editable-select="item.isActiveFilter" e-name="isActiveFilter" e-ng-options="q.id as q.Name for q in filters | orderBy:'+Name'" e-style="width: 10vw;"
+                                  e-form="prototyperowform" e-ng-model="item.isActiveFilter">
+                                {{ ShowObject('filters','id',item.isActiveFilter,'Name') }}
+                            </span>
+                        </td>
+                        <td class="text-capitalize ng" data-title="trActive" style="width:13%">
+                            <span e-name="isActiveValue" e-form="prototyperowform" e-ng-model="item.isActiveFilter">
+                                {{ item.isActiveValue  }}
+                            </span>
+                        </td>
+                        <td data-title="trQuantity" style="width:20%">
+                            <span editable-number="item.DefaultQuantity" e-form="prototyperowform" e-ng-model="item.DefaultQuantity" e-required>
+                                {{ item.DefaultQuantity }}
+                            </span>
+                        </td>
+                        <td data-title="trIndex" style="width:10%">
+                            <span editable-number="item.Index" e-form="prototyperowform" e-ng-model="item.Index" e-required
+                                  e-ng-true-value="true"
+                                  e-ng-false-value="false">
+                                {{ item.Index }}
+                            </span>
+                        </td>
+                        <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+                            <form editable-form name="prototyperowform" onaftersave="saveData(item)" ng-show="prototyperowform.$visible" class="form-buttons form-inline"
+                                  shown="inserted == item|| !item.id">
+                                <button type="submit" ng-disabled="prototyperowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                                <button type="button" ng-disabled="prototyperowform.$waiting" ng-click="cancelForm(prototyperowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                            </form>
+                            <div class="buttons pull-right" ng-show="!prototyperowform.$visible">
+                                <a class="btn btn-transparent btn-sm tooltips ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="prototyperowform.$show()"></a>
+                                <a class="btn btn-transparent btn-sm tooltips ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                                <a class="btn btn-transparent btn-sm tooltips ti-alert" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </tab>
+        <tab heading="{{'main.FILTERITEMS' | translate}}">
+            <div ng-controller="productoptionfilteritemCtrl as pf">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()">
+                    <span translate="main.ADDFILTERITEM"></span>
+                </a>
+                <br />
+                <table ng-table="pf.tableParams" class="table table-striped table-hover">
+                    <tr ng-repeat="item in $data"
+                        ng-class=" {'isActiveValue': item.id==SelectedItem, strike: !item.isActiveValue, red: !item.isActiveValue}"
+                        ng-keyup="FormKeyPress($event,filterrowform,$data[$index],$index)">
+                        <td data-title="trSize" data-sortable="'SizeID'" width="13%" ng-click="StartEdit(filterrowform)" class="ng">
+                            <span editable-select="item.SizeID" e-name="SizeID" e-ng-options="q.Value as q.Name for q in sizes | orderBy:'+Name'"
+                                  e-form="filterrowform" e-ng-model="item.SizeID" ng-click="StartEdit(filterrowform)">
+                                {{ ShowObject('sizes','Value',item.SizeID,'Name') }}
+                            </span>
+                        </td>
+                        <td data-title="trFilter" data-sortable="'isActiveFilter'" style="width:13%" class="ng">
+                            <span class="text-capitalize" editable-select="item.isActiveFilter" e-name="isActiveFilter"
+                                  e-ng-options="q.id as q.Name for q in filters | orderBy:'+Name'" e-style="width: 10vw;"
+                                  e-form="filterrowform" e-ng-model="item.isActiveFilter">
+                                {{ ShowObject('filters','id',item.isActiveFilter,'Name') }}
+                            </span>
+                        </td>
+                        <td data-title="trActive" data-sortable="'isActiveValue'" style="width:13%" class="ng">
+                            <span class="text-capitalize" e-name="isActiveValue" e-form="filterrowform" e-ng-model="item.isActiveFilter">
+                                {{ item.isActiveValue  }}
+                            </span>
+                        </td>
+                        <td data-title="trOptionItemFilter" width="8%" class="ng">
+                            <span class="text-capitalize" editable-text="item.OptionItemFilter" e-name="OptionItemFilter" e-form="filterrowform" e-ng-model="item.OptionItemFilter">
+                                {{ item.OptionItemFilter }}
+                            </span>
+                        </td>
+                        <td data-title="trIndex" style="width:20%">
+                            <span editable-number="item.Index" e-form="filterrowform" e-ng-model="item.Index" e-required
+                                  e-ng-true-value="true"
+                                  e-ng-false-value="false">
+                                {{ item.Index }}
+                            </span>
+                        </td>
+                        <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+                            <form editable-form name="filterrowform" onaftersave="saveData(item)" ng-show="filterrowform.$visible" class="form-buttons form-inline"
+                                  shown="inserted == item|| !item.id">
+                                <button type="submit" ng-disabled="filterrowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                                <button type="button" ng-disabled="filterrowform.$waiting" ng-click="cancelForm(filterrowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                            </form>
+                            <div class="buttons pull-right" ng-show="!filterrowform.$visible">
+                                <a class="btn btn-transparent btn-sm tooltips ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="StartEdit(filterrowform)"></a>
+                                <a class="btn btn-transparent btn-sm tooltips ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                                <a class="btn btn-transparent btn-sm tooltips ti-alert" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </tab>
+    </tabset>
+</div>

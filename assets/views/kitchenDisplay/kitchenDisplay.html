@@ -1,0 +1,48 @@
+﻿<style>
+    .strike {
+        text-decoration: line-through;
+    }
+
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+</style>
+<div ng-controller="kdsCtrl" ng-init="app.layout.isSidebarClosed=true">
+    <div class="panel-body col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: ordernumber}}</label>
+                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: productname}}</label>
+                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: materials}}</label>
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: state}}</label>
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{:: duration}}</label>
+                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: timer}}</label>
+                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{:: timerstr}}</label>
+            </div>
+            <hr />
+            <div class="row border-around list-group-item-success center col-xs-12 col-lg-12 col-md-12 col-sm-12 ng" style="min-height:70px;" ng-repeat="item in orderitemstates" ng-class="{item.isTimedOut?'list-group-item-success':'list-group-item-danger' ,'bg-white':item.ProductState.Duration<1}" ng-click="RemoveItem(item)">
+                <span class="col-lg-2 col-md-2 col-sm-1 col-xs-1 text-bold text-large">{{ :: item.OrderItem.OrderID }}</span>
+                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-left text-large">{{:: item.OrderItem.Quantity  }} X {{:: item.OrderItem.Product.name|| item.OrderItem.Product.ProductPrototype.name + '(' + item.OrderItem.Product.Size+')'}}</span>
+                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label ng-if="oitem.Quantity<=0" ng-repeat="oitem in item.OrderItem.items track by oitem.id" class="col-lg-12 text-bold text-success" style="font-size:15px; height:15px;" ng-class="{'text-danger':item.isTimedOut}">
+                        <label ng-if="oitem.Quantity<=0" class="text-extra-large text-bold text-success col-lg-2" ng-class="{'text-danger':item.isTimedOut}"> (-) </label>
+                        <span class="col-lg-10" style="text-align:left;" ng-class="{'strike':oitem.Quantity<=0 }"> <span ng-if="oitem.Quantity>1">{{:: oitem.Quantity}} X </span> {{:: oitem.Product.name|| oitem.Product.ProductPrototype.name}}  </span>
+                    </label>
+                    <label ng-if="oitem.Quantity>=1" ng-repeat="oitem in item.OrderItem.items track by oitem.id" class="col-lg-12 text-bold text-success" style="font-size:15px; height:15px;" ng-class="{'text-danger':item.isTimedOut}">
+                        <label ng-if="oitem.Quantity>=1" class="text-extra-large text-bold text-success col-lg-2" ng-class="{'text-danger':item.isTimedOut}"> (+) </label>
+                        <span class="col-lg-10" style="text-align:left;"> <span ng-if="oitem.Quantity>1">{{:: oitem.Quantity}} X</span> {{:: oitem.Product.name|| oitem.Product.ProductPrototype.name}}  </span>
+                    </label>
+                </span>
+                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-capitalize text-bold text-large">{{:: item.ProductState.Description }}</span>
+                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-large">{{:: item.ProductState.Duration  }}</span>
+                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="font-size:30px; height:20px;"><label class="text-danger" ng-if="item.ProductState.Duration>0">{{item.Timer  }}</label></span>
+                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold text-large">{{item.TimerStr  }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+

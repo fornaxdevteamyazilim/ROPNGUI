@@ -1,0 +1,65 @@
+﻿<div ng-controller="podCtrl as vm" ng-init="app.layout.isSidebarClosed=false">
+    <!--<div>
+        <h1 class="mainTitle" translate="tittle.POD" translate-values="{ appName: app.name }">{{ mainTitle }}</h1>
+        <button class="btn btn-wide btn-primary" ng-click="addItem()"> <i class="ti-plus"></i> Add Pod</button>
+    </div>-->
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <span class="mainTitle text-dark col-lg-8 col-md-8 col-sm-8 col-xs-12" style="font-size:25px;" translate="tittle.POD" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+        <button class="btn btn-primary btn-wide" ng-click="addItem()">
+            <i class="ti-plus"></i> Add Pod
+        </button>
+    </div>
+    <table ng-table="vm.tableParams" class="table table-striped table-bordered table-hover">
+        <tr ng-repeat="item in $data"
+            ng-dblclick="rowform.$show()"
+            ng-click="SelectItem(item.id)"
+            ng-class="{'active': item.id === SelectedItem}"
+            ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+            <td data-title="'Pod'" data-sortable="'name'"  class="ng">
+                <span editable-text="item.name" e-name="name" e-form="rowform" e-ng-model="item.name" e-required e-style="width: 10vw;">
+                    {{ item.name}}
+                </span>
+            </td>
+            <td data-title="'Store '" data-sortable="'name'" style="width:auto" >
+                <span editable-select="item.StoreID" e-name="StoreID" onshow="loadStore()" e-ng-model="item.StoreID" e-form="rowform"
+                      e-ng-options="q.id as q.name for q in store ">
+                    {{item.Store.name }}
+                </span>
+            </td>
+            <td data-title="'Routed To Store '" data-sortable="'name'" style="width:auto">
+                <span editable-select="item.RoutedToStoreID" e-name="RoutedToStoreID" onshow="loadRoutedToStore()" e-ng-model="item.RoutedToStoreID" e-form="rowform"
+                      e-ng-options="q.id as q.name for q in pod ">
+                    {{item.RoutedToStoreID.name }}
+                </span>
+            </td>
+            <td data-title="'Active'"  grid-column-sizing:auto;">
+                <span editable-checkbox="item.isActive" e-form="rowform" e-ng-model="item.isActive" e-ng-true-value="true" e-ng-false-value="false" e-required>
+                    {{ item.isActive && "No" || "Yes"}}
+                </span>
+            </td>
+            <td data-title="'Delivery Time'" data-sortable="'unit Count'">
+                <span editable-text="item.DeliveryTime" e-name="DeliveryTime" e-form="rowform" e-ng-model="item.DeliveryTime">
+                    {{ item.DeliveryTime }}
+                </span>
+            </td>
+            <td data-title="'Min Amount'" data-sortable="'unit Count'">
+                <span editable-text="item.MinAmount" e-name="MinAmount" e-form="rowform" e-ng-model="item.MinAmount">
+                    {{ item.MinAmount }}
+                </span>
+            </td>
+            <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="'Commands'" width="10%">
+                <!-- form -->
+                <form editable-form name="rowform" onaftersave="saveData()" ng-show="rowform.$visible" class="form-buttons form-inline"
+                      shown="inserted == item || !item.id">
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-light-green ti-check" ng-click="pop()"></button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-danger ti-close"></button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button class="btn btn-primary ti-pencil" ng-click="rowform.$show()" translate="main.EDIT"></button>
+                    <button class="btn btn-danger ti-close" ng-click="removeItem($index)"translate="main.DELETE"></button>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br />
+</div>

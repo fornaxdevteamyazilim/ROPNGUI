@@ -1,0 +1,126 @@
+﻿<div class="modal-header center">
+    <h3 class="modal-title center"><span class="center">{{'main.ORDERNUMBER' | translate}} : {{:: item.OrderNumber}}</span><button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body panel panel-white">
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <legend translate="main.ORDERDETAILS"></legend>
+            <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 row text-bold text-dark">
+                        <span class="col-lg-1">{{'main.ORDERNO' | translate}}</span>
+                        <span class="col-lg-2">{{'main.ORDERSOURCEE' | translate}}</span>
+                        <span class="col-lg-1">{{'main.AMOUNT' | translate}}</span>
+                        <span class="col-lg-1">{{'main.PAYMENTTYPEID' | translate}}</span>
+                        <span class="col-lg-1">{{'main.ORDERSTATUS' | translate}}</span>
+                        <span class="col-lg-2">{{'main.ORDERDATE' | translate}}</span>
+                        <span class="col-lg-2">{{'main.DELIVERYDATE' | translate}}</span>
+                        <span class="col-lg-2">{{'main.PERSON' | translate}}</span>
+                    </div>
+                    <hr />
+                    <div class="col-lg-12 row text-capitalize">
+                        <span class="col-lg-2">
+                            {{:: item.id}} -
+                            {{:: item.OrderNumber}}<br />
+                            {{:: item.StoreTable.name}}
+                        </span>
+                        <span class="col-lg-2">{{:: item.OrderSource}}</span>
+                        <span class="col-lg-1">{{:: item.Amount | number : 2}} TL</span>
+                        <span class="col-lg-1">{{:: item.PaymentType.PaymentType.name}}</span>
+                        <span class="col-lg-2">{{:: item.OrderState}}</span>
+                        <span class="col-lg-2">{{:: item.OrderDate | date:'dd-MM-yyyy / HH:mm:ss'}}</span>
+                        <span class="col-lg-2">{{:: item.DeliveryDate | date:'dd-MM-yyyy / HH:mm:ss'}}</span>
+                        <span class="col-lg-1"  ng-repeat="person in item.persons">{{person.Person}}
+                            <span ng-if="item.Alias">{{item.Alias}}</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                        <span class="col-lg-1">{{'main.PAYMENTSTATUSID' | translate}}</span>
+                        <span class="col-lg-2">{{'main.AGENT' | translate}}</span>
+                        <span class="col-lg-4">{{'main.ADDRESS' | translate}}</span>
+                        <span class="col-lg-1">{{'main.FLOOR' | translate}}</span>
+                        <span class="col-lg-1">{{'main.ADDRESSNO' | translate}}</span>
+                        <span class="col-lg-2">{{'main.APPERTMENTNAME' | translate}}</span>
+                    </div>
+                    <hr />
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                        <span class="col-lg-1">{{:: item.PaymentStatus}}</span>
+                        <span class="col-lg-2">{{:: User}}</span>
+                        <span class="col-lg-4">{{:: item.Address.StreetAddress}}</span>
+                        <span class="col-lg-1">{{:: item.Address.Floor}}</span>
+                        <span class="col-lg-1">{{:: item.Address.AddressNo}}</span>
+                        <span class="col-lg-2">{{:: item.Address.AppartmentName}}</span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <legend translate="main.ORDERITEMDETAILS"></legend>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                    <span class="col-lg-6 col-md-6 col-sm-6 col-xs-12">{{'main.ORDERCONTENT' | translate}}</span>
+                    <span class="col-lg-6 col-md-6 col-sm-6 col-xs-12">{{'main.PROMOTIONNAME' | translate}}</span>
+                </div>
+                <hr />
+                <div class="ccol-lg-12 col-md-12 col-sm-12 col-xs-12" style="min-height:100px;">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold text-dark" ng-repeat="oritem in orderItems">
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-capitalize">
+                                {{oritem.Quantity}}X{{oritem.Product  || oritem.ProductPrototype}}
+                            </span>
+                            <div ng-repeat="items in oritem.items">
+                                <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    {{items.Product|| items.ProductPrototype}}
+                                </span>
+                                <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="item in items.items">
+                                    {{item.Product|| item.ProductPrototype}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 row" ng-repeat="code in item.promotions track by code.id">
+                        <span>{{:: code.Promotion.name}} / ({{:: code.Amount | number:2}}) </span>
+                        <span>{{:: code.Code}}</span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <legend translate="main.SATATES"></legend>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                        <span class="col-lg-3 col-md-3 col-sm-4 col-xs-4">{{'main.STATE' | translate}}</span>
+                        <span class="col-lg-3 col-md-3 col-sm-4 col-xs-4">{{'main.DATE' | translate}}</span>
+                        <span class="col-lg-3 col-md-3 col-sm-4 col-xs-4">{{'main.USER' | translate}}</span>
+                    </div>
+                    <hr />
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize" ng-repeat="state in item.states track by state.id">
+                        <span class="col-lg-3 col-md-4 col-sm-4 col-xs-4 text text-bold text-extra-large">{{:: state.OrderStateName}}</span>
+                        <span class="col-lg-3 col-md-4 col-sm-4 col-xs-4">{{:: state.OrderStateDate  | date:'dd-MM-yyyy / HH:mm:ss'}}</span>
+                        <span class="col-lg-3 col-md-4 col-sm-4 col-xs-4">{{ state.User}} <span class="pull-right text text-large text-bold" ng-if="state.Driver"> {{ state.Driver}}</span> </span>
+                        <span class="col-lg-3 col-md-4 col-sm-4 col-xs-4" ng-if="state.OrderReasonID != null"> <span class="text text-bold text-extra-large">İptal Sebebi: {{:: state.OrderReason.Description}} </span></span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <legend translate="main.PAYMENT"></legend>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                        <span class="col-lg-3 col-md-3 col-sm-4 col-xs-4">{{'main.PAYMENTTYPE' | translate}}</span>
+                        <span class="col-lg-3 col-md-3 col-sm-4 col-xs-4">{{'main.DATE' | translate}}</span>
+                        <span class="col-lg-3 col-md-3 col-sm-4 col-xs-4">{{'main.AMOUNT' | translate}}</span>
+                    </div>
+                    <hr />
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize" ng-repeat="payment in item.payments track by payment.id">
+                        <span class="col-lg-3 col-md-4 col-sm-4 col-xs-4 text text-bold text-extra-large">{{:: payment.PaymentType}}</span>
+                        <span class="col-lg-3 col-md-4 col-sm-4 col-xs-4">{{:: payment.PaymentDate  | date:'dd-MM-yyyy / HH:mm:ss'}}</span>
+                        <span class="col-lg-3 col-md-4 col-sm-4 col-xs-4">{{:: payment.Amount | number:2}}</span>
+                    </div>
+                </div>
+            </fieldset>
+        </fieldset>
+    </div>
+    <br />
+</div>
+<div class="modal-footer center">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+</div>

@@ -1,0 +1,22 @@
+﻿<div ng-controller="systemsEditCtrl as vm">
+    <form name="myForm" class="form-horizontal">
+        <div class="control-group" ng-class="{error: myForm.item.$invalid}">
+            <label class="control-label" for="brandname">System</label>
+            <div class="controls">
+                <input type="text" name="brandname" ng-model="item.name" required>
+            </div>
+        </div>
+        <br>
+        <a href="#/app/others/systems/list" class="btn">Cancel</a>
+        <button ng-click="save()" ng-disabled="isClean() || myForm.$invalid"
+                class="btn btn-primary">
+            Save
+        </button>
+        <button ng-click="destroy()"
+                ng-show="item.id" class="btn btn-danger">
+            Delete
+        </button>
+    </form>
+    <pre>$scope.brand = {{item|json}}</pre>
+    <pre>$scope.original = {{original|json}}</pre>
+</div>

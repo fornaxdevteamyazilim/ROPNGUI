@@ -1,0 +1,97 @@
+﻿<!--<style>
+    .ng{
+
+    }
+    .ng:hover{
+        background-color:ActiveBorder;
+    }
+</style>-->
+<div class="col-md-12 modal-header center">
+    <h3 class="modal-title">{{'main.SELECTADDRESS' | translate}}<button class="btn btn-danger ti-close pull-right" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body">
+    <div>
+        <div class="form-group col-sm-12 col-lg-6 col-md-6 col-xs-12 ng">
+            <label translate="main.SELECTTOWN" for="OrderStatusID" class="margin-top-10 ng">
+                --Select Town--
+            </label>
+            <select id="TownID" class="form-control ng" ng-model="TownID" ng-options="q.id as q.name for q in towns | orderBy:'+name'" ng-change="TownCahnge(TownID)"><option value="">{{'main.PLEASESELECTTOWN' | translate}}</option></select>
+        </div>
+        <div class="form-group col-sm-12 col-lg-6 col-md-6 col-xs-12 ng">
+            <label translate="main.SELECTSUBCITY" for="OrderStatusID" class="margin-top-10 ng">
+                --Select Subcity--
+            </label>
+            <select id="SubcityID" class="form-control ng" ng-model="SubcitieID" ng-options="q.id as q.name for q in Subcities | orderBy:'+name'" ng-change="SubcityChange(SubcitieID)"><option value="">{{'main.PLEASESELECTSUBCITY' | translate}}</option></select>
+        </div>
+        <div class="form-group col-sm-12 col-lg-6 col-md-6 col-xs-12 ng">
+            <label translate="main.SELECTQUARTER" class="margin-top-10 ng">
+                --Select Quarter--
+            </label>
+            <select id="QuarterID" class="form-control ng" ng-model="QuarterID" ng-options="q.id as q.name for q in Quarters | orderBy:'+name'" ng-change="QuerterChange(QuarterID)"><option value="">{{'main.PLEASESELECTQUARTER' | translate}} </option></select>
+        </div>
+        <div ng-show="InfoNotes.length" class="form-group col-sm-12 col-lg-6 col-md-6 col-xs-12 ng">
+            <label translate="main.YSADDRESS" for="Adress">
+                Adres
+            </label>
+            <textarea id="Adress" type="text" style='min-height:50px;min-width:280px; max-width:215px; max-height:150px' class="form-control text-capitalize" ng-model="InfoNotes" readonly></textarea>
+        </div>
+    </div>
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12 ng">
+        <p>
+            <br />
+            <label class="text text-bold text-extra-large text-primary fa fa-spinner col-lg-12" ng-if="isSearch==true">{{'main.SEARCHING' | translate}} {{search}}</label>
+            <input id="search" class="form-control" placeholder="{{'main.SEARCHBYSTREETNAME' | translate}}" type="text" ng-model="search" ng-model-options="{ debounce: 1000 }" autofocus data-style="expand-right" />    <!--ng-virtual-keyboard-->
+        </p>
+        <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+            <div class="radio clip-radio radio-primary col-sm-3 col-lg-3 col-md-3 col-xs-3 margin-top-0">
+                <input type="radio" ng-model="Method" name="0" id="0" value="0">
+                <label for="0">
+                    Eşit ise
+                </label>
+            </div>
+            <div class="radio clip-radio radio-primary col-sm-3 col-lg-3 col-md-3 col-xs-3 margin-top-0">
+                <input type="radio" ng-model="Method" name="1" id="1" value="1">
+                <label for="1">
+                    İçeriyor ise
+                </label>
+            </div>
+            <div class="radio clip-radio radio-primary col-sm-3 col-lg-3 col-md-3 col-xs-3 margin-top-0">
+                <input type="radio" ng-model="Method" name="2" id="2" value="2">
+                <label for="2">
+                    Başlayan ile
+                </label>
+            </div>
+            <div class="radio clip-radio radio-primary col-sm-3 col-lg-3 col-md-3 col-xs-3 margin-top-0">
+                <input type="radio" ng-model="Method" name="3" id="3" value="3">
+                <label for="3">
+                    Biten ile
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="panel-scroll height-200" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true">
+        <table ng-table="tableParams" class="table table-striped table-hover">
+            <tr class="ng" ng-repeat="item in $data"
+                ng-dblclick="rowform.$show()"
+                ng-click="SelectItem($index)"
+                ng-class="{'active': $index === SelectedItem}"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td class="text-capitalize" data-title="trStreetName" data-sortable="'name'" width="20%">
+                    {{ item.name || rowform.$show() }}
+                </td>
+                <td class="text-capitalize" data-title="trType" data-sortable="'StreetAddressType'" width="10%">
+                    {{ item.StreetAddressType}}
+                </td>
+                <td class="text-capitalize" data-title="trAddress" data-sortable="'Quarter'" width="30%">
+                    {{ item.Quarter}}
+                </td>
+                <td class="text-capitalize" data-title="trStore" data-sortable="'Store'" width="20%">
+                    {{item.StoreStreetAddressess[0].Store}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!--<div class="modal-footer center">
+    <button class="btn btn-primary" ng-click="ok()" ng-disabled="SelectedItem==null" translate="main.OK">OK</button>
+</div>-->

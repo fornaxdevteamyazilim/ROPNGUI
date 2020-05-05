@@ -1,0 +1,28 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+<div class="modal-header center">
+    <h3 class="modal-title center"><span class="center">{{ordernumber}} :{{OrderNo}} - {{OrderNumber}}</span><button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body panel panel-white">
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label class="col-lg-4 col-md-4 col-sm-4 col-xs-6" for="PaymentTypeID" translate="main.PROMOTION">
+                Promotion
+            </label>
+            <span class="col-lg-8 col-md-8 col-sm-8 col-xs-6">
+                <button class="remove" ng-options="q.id as q.PaymentType.name for q in storepaymenttypes " ng-model="item.PaymentTypeID"></button>
+            </span>
+        </div>
+    </div>
+    <br />
+</div>
+<div class="modal-footer center">
+    <button class="btn btn-primary" ng-click="SaveData(item)">OK</button>
+</div>

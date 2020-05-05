@@ -1,0 +1,594 @@
+﻿<style>
+	.ng {
+	}
+
+		.ng:hover {
+			background-color: transparent;
+			cursor: pointer;
+		}
+
+	.strike {
+		text-decoration: line-through;
+	}
+
+	.red {
+		color: red;
+	}
+
+	/*[class*="col-"] {
+		background-color: #eee;
+		background-color: rgba(86,61,124,.15);
+		border: 1px solid #ddd;
+		border: 1px solid rgba(86,61,124,.2);
+	}*/
+</style>
+<div ng-controller="personeditCtrl as pe">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+			<div class="col-lg-12 col-md-12 col-sm-8 col-xs-8 margin-top-10">
+				<span class="mainTitle text-dark text-uppercase" style="font-size:25px;" translate="tittle.PERSONITEM" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10">
+			<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right visible-lg">
+				<a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left margin-right-10 pull-right" ng-click="Back()">
+					<span translate="main.BACK"></span>
+				</a>
+			</div>
+			<div class="col-md-1 margin-top-5 pull-right visible-md">
+				<a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel panel-white">
+			<div class="panel-body">
+				<form role="form" name="userForm" ng-submit="submitForm()" novalidate>
+					<div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-6" ng-show="$stateParams.id=='new'">
+						<label for="person">{{:: phone}}</label>
+						<input id="pnumber" class="form-control" placeholder="(999) 999 99 99" type="text" ng-model="item.PersonPhone" maxlength="10" required />
+					</div>
+					<div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-6">
+						<label for="person">{{:: namesurname}}</label>
+						<input id="item.id" type="text" class="form-control text-uppercase" ng-model="item.name" required>
+					</div>
+					<div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-6">
+						<label for="GenderType">{{:: gender}}</label>
+						<select id="GenderTypeID" class="form-control text-uppercase" ng-change="ChangeGenderType(item.GenderTypeID)" ng-model="item.GenderTypeID">
+							<option ng-repeat="sel in gendertypes" ng-selected="item.GenderTypeID == sel.Value" value="{{sel.Value}}">{{sel.Name}}</option>
+						</select>
+					</div>
+
+					<!-- //////////////////  visible-lg visible-md /////////////// -->
+
+					<div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12 visible-lg visible-md">
+						<div class="form-group col-sm-6 col-lg-3 col-md-4 col-xs-6">
+							<label for="Title">{{:: hiddencustomernote}}</label>
+							<textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.hiddennotes"></textarea>
+						</div>
+						<div class="form-group col-sm-12 col-lg-2 col-md-4 col-xs-12">
+							<label for="Title">{{:: customerspecialnotestitle}}</label>
+							<input type="text" class="form-control text-uppercase" ng-model="item.PersonDetails[0].Name">
+						</div>
+						<div class="form-group col-sm-12 col-lg-3 col-md-4 col-xs-12">
+							<label for="Title">{{:: customerspecialnotes}}</label>
+							<textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.PersonDetails[0].Data"></textarea>
+						</div>
+
+						<div class="col-lg-12 col-md-12 visible-md" ng-if="user.UserRole.Name == 'CALLCENTER' || user.UserRole.Name == 'CCMANAGER' || user.UserRole.Name == 'CMRESTORANHATTI' || user.UserRole.Name == 'Admin'|| user.UserRole.Name == 'PHAdmin' || user.UserRole.Name == 'Alonet'">
+
+							<div class="col-lg-3 col-md-6 pull-right">
+								<div class="col-md-6 visible-md">
+									<button class="col-lg-5 btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-left margin-top-5" ng-disabled="!item.name" ng-click="saveData(item)">
+										<span>{{:: save}}</span>
+									</button>
+								</div>
+								<div class="col-lg-12 col-md-6" ng-if="user.UserRole.Name != 'Alonet'">
+									<button class="col-lg-5 btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save margin-top-5 pull-right" ng-disabled="ShowButton==false" ng-click="ComplaintPerson(item)">
+										<span>{{:: complaint}}</span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg">
+							<div class="col-lg-2 col-md-6 pull-left">
+								<button class="col-lg-5 btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-left margin-top-5" ng-disabled="!item.name" ng-click="saveData(item)">
+									<span>{{:: save}}</span>
+								</button>
+							</div>
+							<div class="col-lg-2 col-md-6 pull-right">
+								<div class="col-lg-12 col-md-6" ng-if="user.UserRole.Name != 'Alonet'">
+									<button class="col-lg-5 btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save margin-top-5 pull-right" ng-disabled="ShowButton==false" ng-click="ComplaintPerson(item)">
+										<span>{{:: complaint}}</span>
+									</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- //////////////////  visible-sm visible-xs /////////////// -->
+
+					<div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12 visible-sm visible-xs">
+						<div class="col-sm-12 col-xs-12">
+							<div class="form-group col-sm-6 col-xs-6">
+								<label for="Title">{{:: hiddencustomernote}}</label>
+								<textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.hiddennotes"></textarea>
+							</div>
+						</div>
+						<div class="col-sm-12 col-xs-12">
+							<div class="form-group col-sm-6 col-xs-6">
+								<label for="Title">{{:: customerspecialnotestitle}}</label>
+								<input type="text" class="form-control text-uppercase" ng-model="item.PersonDetails[0].Name">
+							</div>
+							<div class="form-group col-sm-6 col-xs-6">
+								<label for="Title">{{:: customerspecialnotes}}</label>
+								<textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.PersonDetails[0].Data"></textarea>
+							</div>
+						</div>
+						<div class="col-sm-12 col-xs-12">
+							<div class="col-sm-6 col-xs-6 pull-left">
+								<button class="col-lg-5 btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-left margin-top-5" ng-disabled="!item.name" ng-click="saveData(item)">
+									<span>{{:: save}}</span>
+								</button>
+							</div>
+							<div class="col-sm-6 col-xs-6 pull-right">
+								<div class="col-sm-12 col-lg-12 col-md-12 col-xs-12" ng-if="user.UserRole.Name != 'Alonet'">
+									<button class="col-lg-5 btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save margin-top-5 pull-right" ng-disabled="ShowButton==false" ng-click="ComplaintPerson(item)">
+										<span>{{:: complaint}}</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<br />
+		<div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<tabset justified="true" class="tabbable" ng-show="PersonID != 'new'">
+					<tab heading="{{:: address}}">
+						<div ng-controller="personeditCtrl as pe">
+							<button class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus text-center" ng-click="AdAddressPersonGetir(item.id)"><span>{{:: addnew}}</span></button>
+							<div class="table-responsive">
+								<table ng-table="pe.addresstableParams" class="table table-striped table-hover">
+									<tr ng-repeat="item in $data "
+										ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)" ng-class="{'strike':item.isActive == false,'red':item.isActive == false}">
+										<td width="8%">
+											<div ng-if="user.UserRole.Name != 'Alonet'">
+												<div class="buttons pull-left" ng-show="!rowform.$visible">
+													<a ng-if="user.Store != null && item.isActive == true" ng-class="{'btn btn-success btn-md':item.Store.id==user.Store.id,'btn btn-danger btn-md':item.Store.id!=user.Store.id,}" tooltip="{{:: homedelivery}}" tooltip-placement="left" ng-click="CheckOrderStore(item,7)">
+														<img src="assets/images/2.png" style="width:20px; height:20px;" class="center" /><br />
+													</a>
+													<a ng-if="user.Store == null && item.isActive == true" class="btn btn-success btn-md tooltips" tooltip="{{:: homedelivery}}" tooltip-placement="left" ng-click="CheckOrderStore(item,7)">
+														<img src="assets/images/2.png" style="width:20px; height:20px;" class="center" /><br />
+													</a>
+												</div>
+											</div>
+										</td>
+										<td data-title="trStreetAddressName" data-sortable="'name'" width="30%" ng-click="SelectItem(item.id)" class="text-capitalize">
+											{{:: item.Address.StreetAddress}}
+										</td>
+										<td data-title="trAddressNo" data-sortable="'item.AddressID'" width="13%">
+											{{:: item.Address.AddressNo }}
+										</td>
+										<td data-title="trEnterance" data-sortable="'item.AddressID'" width="13%" class="text-capitalize">
+											{{:: item.Address.Entrance }}
+										</td>
+										<td data-title="trFloor" data-sortable="'item.AddressID'" width="13%">
+											{{:: item.Address.Floor }}
+										</td>
+										<td data-title="trAddressDefinition" data-sortable="'item.AddressID'" width="13%">
+											{{:: item.Address.AddressTypeName }}
+											<div class="buttons pull-right" ng-show="!rowform.$visible" ng-if="item.Store.id==user.Store.id || user.UserRole.Name == 'CALLCENTER' || user.UserRole.Name == 'CCMANAGER' || user.UserRole.Name == 'CMRESTORANHATTI' || user.UserRole.Name == 'Admin'|| user.UserRole.Name == 'PHAdmin'">
+												<a class="btn btn-transparent btn-sm tooltips  ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" tooltip-placement="top" href="#/app/orders/person/getirpersonaddressedit/{{item.id}}"></a>
+												<a class="btn btn-transparent btn-sm tooltips  ti-plus hidden-sm hidden-xs" tooltip="{{:: add}}" tooltip-placement="top" href="#/app/orders/person/getirpersonaddressedit/new"></a>
+											</div>
+											<div class="visible-xs visible-sm hidden-md hidden-lg">
+												<div class="btn-group" dropdown is-open="status.isopen">
+													<button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+														<i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+													</button>
+													<ul class="dropdown-menu pull-right dropdown-light" role="menu">
+														<li>
+															<a class="btn btn-transparent btn-sm ti-pencil" href="#/app/orders/person/getirpersonaddressedit/{{item.id}}">{{:: edit}}</a>
+														</li>
+														<li>
+															<a class="btn btn-transparent btn-sm ti-plus" href="#/app/orders/person/getirpersonaddressedit/new">{{:: add}}</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+
+										</td>
+
+									</tr>
+								</table>
+							</div>
+						</div>
+					</tab>
+					<tab heading="{{'main.PHONES' | translate}}">
+						<div ng-controller="personphoneCtrl as pp">
+							<a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()">
+								<span translate="main.ADDNEW"></span>
+							</a>
+							<br />
+							<div class="table-responsive">
+								<table ng-table="pp.tableParams" class="table table-striped table-hover">
+									<tr ng-repeat="item in $data"
+										ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+										<td data-title="trNumber" data-sortable="'Number'" width="90%" ng-click="rowform.$show()">
+											<span editable-text="item.Number" e-name="Number" e-type="text" e-placeholder="(999) 999 99 99" e-maxlength="10" e-form="rowform" e-ng-model="item.Number" e-style="width: 30vw;">
+												{{ item.Number }}
+											</span>
+										</td>
+										<td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+											<form editable-form name="rowform" onaftersave="saveData(item, $index)" ng-show="rowform.$visible" class="form-buttons form-inline"
+												  shown="inserted == item|| !item.id">
+												<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm ti-check"></button>
+												<button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm ti-close"></button>
+											</form>
+											<div class="buttons pull-right" ng-show="!rowform.$visible">
+												<a class="btn btn-transparent btn-sm tooltips  ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+												<a class="btn btn-transparent btn-sm tooltips ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</tab>
+					<tab heading="{{'main.EMAILS' | translate}}">
+						<div ng-controller="personemailCtrl as pel">
+							<a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()">
+								<span translate="main.ADDNEW"></span>
+							</a>
+							<div class="table-responsive">
+								<table ng-table="pel.tableParams" class="table table-striped table-hover">
+									<tr ng-repeat="item in $data"
+										ng-dblclick="rowform.$show()"
+										ng-click="SelectItem(item.id)"
+										ng-class="{'active': item.id === SelectedItem}"
+										ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+										<br />
+										<td data-title="trEmail" data-sortable="'email'" width="90%" ng-click="rowform.$show()">
+											<span editable-text="item.email" e-name="email" e-form="rowform" e-ng-model="item.email">
+												{{ item.email }}
+											</span>
+										</td>
+										<td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+											<form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+												  shown="inserted == item || !item.id">
+												<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm ti-check"></button>
+												<button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm ti-close"></button>
+											</form>
+											<div class="buttons pull-right" ng-show="!rowform.$visible">
+												<a class="btn btn-transparent tooltips btn-sm ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+												<a class="btn btn-transparent tooltips btn-sm ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</tab>
+					<tab heading="{{'main.SPECIALDATES' | translate}}">
+						<div ng-controller="PersonSpecialDatesCtrl as psd">
+							<a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()">
+								<span translate="main.ADDNEW"></span>
+							</a>
+							<div class="table-responsive">
+								<table ng-table="psd.tableParams" class="table table-striped table-hover">
+									<tr ng-repeat="item in $data"
+										ng-dblclick="rowform.$show()"
+										ng-click="SelectItem(item.id)"
+										ng-class="{'active': item.id === SelectedItem}"
+										ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+										<td data-title="trSpecialDate" data-sortable="'SpecialDate'" width="30%">
+											<input id="Date" type="text" class="form-control width-200 " ng-model="item.SpecialDate" ng-click="datepopup(item)" ng-show="rowform.$visible">
+											<span ng-show="!rowform.$visible" e-name="SpecialDate" e-form="rowform" e-ng-model="item.SpecialDate">
+												{{ item.SpecialDate | date:'dd-MM-yyyy' }}
+											</span>
+										</td>
+										<td data-title="trSpecialDateType" data-sortable="'SpecialDateTypeID'" style="width:30%">
+											<span editable-select="item.SpecialDateTypeID" e-name="SpecialDateTypeID" e-ng-options="q.Value as q.Name for q in specialdatetypes" e-style="width: 30vw;"
+												  e-form="rowform" e-ng-model="item.SpecialDateTypeID">
+												{{ ShowObject('specialdatetypes','Value',item.SpecialDateTypeID,'Name') }}
+											</span>
+										</td>
+										<td data-title="trSpecialDateNote" data-sortable="'Notes'" width="30%">
+											<span class="text-capitalize" editable-text="item.Notes" e-name="Notes" e-form="rowform" e-ng-model="item.Notes" e-style="width: 30vw;">
+												{{ item.Notes }}
+											</span>
+										</td>
+										<td style="white-space: nowrap;grid-column-sizing:auto; " data-title="trCommands" width="1%">
+											<form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+												  shown="inserted == item || !item.id">
+												<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm ti-check"></button>
+												<button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm ti-close"></button>
+											</form>
+											<div class="buttons pull-right" ng-show="!rowform.$visible">
+												<a class="btn btn-transparent tooltips btn-sm ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+												<a class="btn btn-transparent tooltips btn-sm ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</tab>
+					<tab heading="{{'main.PERSONACOUNT' | translate}}">
+						<div class="panel panel-white" ng-controller="personaccountCtrl as pa">
+							<div class="panel-body">
+								<form role="form" name="deliveryheader">
+									<div class="form-group col-sm-6 col-lg-6 col-md-6 col-xs-6">
+										<label translate="main.DEBITLIMIT" for="DebitLimit"></label>
+										<input id="DebitLimit" type="text" class="form-control text-capitalize" ng-model="PersonAccount[0].DebitLimit">
+									</div>
+									<div class="form-group col-sm-6 col-lg-6 col-md-6 col-xs-6">
+										<label translate="main.DEBITLIMITTYPE" for="DebitLimitType"></label><br />
+										<select id="DebitLimitType" ng-options="q.Value as q.Name for q in accountlimittypes | orderBy:'+Name'" class="form-control text-capitalize" ng-model="PersonAccount[0].DebitLimitType"></select>
+									</div>
+									<div class="form-group col-sm-4 col-lg-4 col-md-4 col-xs-6">
+										<label translate="main.FREEORDERLIMIT" for="FreeOrderLimit"></label>
+										<input id="FreeOrderLimit" type="text" class="form-control text-capitalize" ng-model="PersonAccount[0].FreeOrderLimit">
+									</div>
+									<div class="form-group col-sm-4 col-lg-4 col-md-4 col-xs-6">
+										<label translate="main.DEBITLIMITTYPE" for="FreeOrderLimitType"></label><br />
+										<select id="FreeOrderLimitType" ng-options="q.Value as q.Name for q in accountlimittypes | orderBy:'+Name'" class="form-control text-capitalize" ng-model="PersonAccount[0].FreeOrderLimitType"></select>
+									</div>
+									<div class="form-group col-sm-4 col-lg-4 col-md-4 col-xs-6">
+										<label translate="main.ACTIVE" for="isActive"></label><br />
+										<select id="isActive" ng-model="PersonAccount[0].isActive" class="form-control"
+												ng-options="o.v as o.n for o in [{ n: 'Passive', v: false }, { n: 'Active', v: true }]"></select>
+									</div>
+									<div class="form-group col-sm-4 col-lg-4 col-md-4 col-xs-6">
+										<label translate="main.CURRENT" for="Current"></label><br />
+										<input id="Current" type="text" class="form-control text-capitalize" ng-model="PersonAccount[0].Current" readonly>
+									</div>
+									<br />
+									<div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-6">
+										<button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-right" ng-click="saveData(PersonAccount[0])">
+											<span translate="main.SAVE">Save Delivery</span>
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</tab>
+					<tab heading="{{'main.ORDERS' | translate}}">
+						<div class="table-responsive" ng-controller="personeditCtrl">
+							<table ng-table="pe.ordertableParams" class="table table-striped table-hover">
+								<tr ng-repeat="item in $data">
+									<td data-title="trOrderNo" data-sortable="'OrderNumber'" ng-click="OrderDetails(item)" width="10%">
+										{{ item.id }}
+									</td>
+									<td data-title="trOrderNumber" data-sortable="'OrderNumber'" ng-click="OrderDetails(item)" width="10%">
+										{{ item.OrderNumber }}
+									</td>
+									<td data-title="trStore" data-sortable="'StoreID'" class="text-capitalize" width="10%">
+										{{ item.Store }}
+									</td>
+									<td data-title="trAddress" data-sortable="'Address'" class="text-capitalize" width="20%">
+										{{ ShowObject('addresstypes','Value',item.Address.AddressType,'Name') }}
+									</td>
+									<td data-title="trVAT" data-sortable="'VAT'" width="10%">
+										{{ item.VAT | number : 2}}
+									</td>
+									<td data-title="trAmount" data-sortable="'Amount'" width="10%">
+										{{ item.Amount | number : 2}}
+									</td>
+									<td data-title="trOrderDate" data-sortable="Date" width="10%">
+										{{item.OrderDate| date:'dd.MM.yyyy HH:mm'}}
+										<!--</td>
+										<td width="10%">
+											<div class="buttons pull-right" ng-show="!rowform.$visible">
+												<a class="col-lg-1 col-md-1 col-sm-1 col-xs-1 btn btn-transparent tooltips ti-pencil hidden-sm hidden-xs pull-left" tooltip="{{'main.ORDERDETAILS' |translate}}" tooltip-placement="top" href="#/app/orders/orderDetail/{{item.id}}"></a>
+												<a class="col-lg-11 col-md-11 col-sm-11 col-xs-11 btn btn-primary btn-sm btn-wide btn-scroll btn-scroll-top pull-right fa fa-save" ng-click="ComplaintOrder(item)">
+													<span translate="main.COMPLAINT"></span>
+												</a>
+											</div>
+										</td>-->
+
+									<td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+										<a class="col-lg-1 col-md-1 col-sm-1 col-xs-1 btn btn-transparent tooltips ti-pencil hidden-sm hidden-xs pull-left" tooltip="{{'main.ORDERDETAILS' |translate}}" tooltip-placement="top" href="#/app/orders/orderDetail/{{item.id}}"></a>
+										<a class="col-lg-1 col-md-1 col-sm-1 col-xs-1 btn tooltips ti-comments hidden-sm hidden-xs pull-right" tooltip="{{'main.COMPLAINT' |translate}}" tooltip-placement="top" ng-click="ComplaintOrder(item)" ng-if="user.UserRole.Name != 'Alonet'"></a>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</tab>
+					<tab heading="{{'main.INVOICEINFO' | translate}}">
+						<div ng-controller="personinvoiceinfoCtrl as pii">
+							<a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()">
+								<span translate="main.ADDNEW"></span>
+							</a>
+							<div class="table-responsive">
+								<table ng-table="pii.tableParams" class="table table-striped table-hover">
+									<tr ng-repeat="item in $data"
+										ng-dblclick="rowform.$show()"
+										ng-click="SelectItem(item.id)"
+										ng-class="{'active': item.id === SelectedItem}"
+										ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+										<br />
+										<td data-title="trTaxNumber" data-sortable="'TaxNumber'" width="20%" ng-click="rowform.$show()">
+											<span editable-text="item.TaxNumber" e-name="TaxNumber" e-form="rowform" e-ng-model="item.TaxNumber">
+												{{ item.TaxNumber }}
+											</span>
+										</td>
+										<td data-title="trTaxOffice" data-sortable="'TaxOffice'" width="20%" ng-click="rowform.$show()">
+											<span editable-text="item.TaxOffice" e-name="TaxOffice" e-form="rowform" e-ng-model="item.TaxOffice">
+												{{ item.TaxOffice }}
+											</span>
+										</td>
+										<td data-title="trCompanyTitle" data-sortable="'Title'" width="20%" ng-click="rowform.$show()">
+											<span editable-text="item.Title" e-name="Title" e-form="rowform" e-ng-model="item.Title">
+												{{ item.Title }}
+											</span>
+										</td>
+										<td data-title="trAddress" data-sortable="'Address'" width="20%" ng-click="rowform.$show()">
+											<span editable-text="item.Address" e-name="Address" e-form="rowform" e-ng-model="item.Address">
+												{{ item.Address }}
+											</span>
+										</td>
+										<td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+											<form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+												  shown="inserted == item || !item.id">
+												<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm ti-check"></button>
+												<button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm ti-close"></button>
+											</form>
+											<div class="buttons pull-right" ng-show="!rowform.$visible">
+												<a class="btn btn-transparent tooltips btn-sm ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+												<a class="btn btn-transparent tooltips btn-sm ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</tab>
+					<tab heading="{{'main.COMPLAINTS' | translate}}">
+						<div ng-controller="personcomplaintsCtrl as pcomp">
+							<div class="table-responsive">
+								<table ng-table="pcomp.tableParams" class="table table-striped table-hover">
+									<tr ng-repeat="item in $data"
+										ng-dblclick="rowform.$show()"
+										ng-click="SelectItem(item.id)"
+										ng-class="{'active': item.id === SelectedItem}"
+										ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+										<td data-title="trPerson" data-sortable="'StoreID'" ng-click="SelectItem(item.id)" width="10%">
+											{{item.Person.name}}
+										</td>
+										<td data-title="trStore" data-sortable="'StoreID'" width="7%">
+											{{item.Store.name}}
+										</td>
+										<td data-title="trComplainStatus" data-sortable="'ComplaintStatusID'" width="5%">
+											{{item.ComplaintStatus}}
+										</td>
+
+										<td data-title="trComplaintSubject" data-sortable="'ComplaintSubjectID'" width="7%">
+											{{item.ComplaintSubject.name}}
+										</td>
+										<td data-title="trComplaintDate" data-sortable="'ComplaintDate'" width="10%">
+											{{ item.ComplaintDate }}
+										</td>
+										<td data-title="trIncidentNotes" data-sortable="'IncidentNotes'" width="5%">
+											{{ item.IncidentNotes }}
+										</td>
+										<td data-title="trComplaintNote" data-sortable="'ComplaintNote'" width="25%">
+											{{ item.ComplaintNote }}
+										</td>
+										<td data-title="trCustomerReacitonNotes" data-sortable="'CustomerReacitonNotes'" width="10%">
+											{{ item.CustomerReacitonNotes }}
+										</td>
+										<td data-title="trConclusionNotes" data-sortable="'ConclusionNotes'" width="10%">
+											{{ item.ConclusionNotes }}
+										</td>
+										<td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+											<form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+												  shown="inserted == item || !item.id">
+												<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm ti-check"></button>
+												<button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm ti-close"></button>
+											</form>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</tab>
+					<tab heading="{{'main.UNSUPPORTEDADDRESSESS' | translate}}">
+						<div ng-controller="unsupportedaddressessCtrl as usa">
+							<a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()">
+								<span translate="main.ADDNEW"></span>
+							</a>
+							<div class="table-responsive">
+								<table ng-table="usa.tableParams" class="table table-striped table-hover">
+									<tr ng-repeat="item in $data"
+										ng-dblclick="rowform.$show()"
+										ng-click="SelectItem(item.id)"
+										ng-class="{'active': item.id === SelectedItem}"
+										ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+										<br />
+										<td data-title="trTown" data-sortable="'Town'" width="20%" ng-click="rowform.$show()">
+											<span editable-text="item.Town" e-name="Town" e-form="rowform" e-ng-model="item.Town">
+												{{ item.Town }}
+											</span>
+										</td>
+										<td data-title="trSubcity" data-sortable="'Subcity'" width="20%" ng-click="rowform.$show()">
+											<span editable-text="item.Subcity" e-name="Subcity" e-form="rowform" e-ng-model="item.Subcity">
+												{{ item.Subcity }}
+											</span>
+										</td>
+										<td data-title="trQuarter" data-sortable="'Quarter'" width="20%" ng-click="rowform.$show()">
+											<span editable-text="item.Quarter" e-name="Quarter" e-form="rowform" e-ng-model="item.Quarter">
+												{{ item.Quarter }}
+											</span>
+										</td>
+										<td data-title="trAddress" data-sortable="'Address'" width="20%" ng-click="rowform.$show()">
+											<span editable-text="item.Address" e-name="Address" e-form="rowform" e-ng-model="item.Address">
+												{{ item.Address }}
+											</span>
+										</td>
+										<td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+											<form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+												  shown="inserted == item || !item.id">
+												<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm ti-check"></button>
+												<button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm ti-close"></button>
+											</form>
+											<div class="buttons pull-right" ng-show="!rowform.$visible">
+												<a class="btn btn-transparent tooltips btn-sm ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+												<a class="btn btn-transparent tooltips btn-sm ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</tab>
+					<tab heading="{{'main.ACCOUNTTRANSACTIONS' | translate}}">
+						<div ng-controller="personaccounttransactionsCtrl as pat">
+							<div class="table-responsive">
+								<table ng-table="pat.tableParams" class="table table-striped table-hover">
+									<tr ng-repeat="item in $data | orderBy:'-TransacitonDate'"
+										ng-dblclick="rowform.$show()"
+										ng-click="SelectItem(item.id)"
+										ng-class="{'active': item.id === SelectedItem}"
+										ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+										<td data-title="trTransactionTypeDescription" data-sortable="'TransactionTypeDescrition'" width="10%" ng-click="rowform.$show()">
+											{{ item.TransactionTypeDescrition }}
+										</td>
+										<td data-title="trPaymentType" data-sortable="'PaymentType'" width="10%" ng-click="rowform.$show()">
+											{{ item.PaymentType }}
+										</td>
+										<td data-title="trDescription" data-sortable="'Description'" width="10%" ng-click="rowform.$show()">
+											{{ item.Description }}
+										</td>
+										<td data-title="trTransactionDate" data-sortable="'TransacitonDate'" width="10%" ng-click="rowform.$show()">
+											{{ item.TransacitonDate | date:'dd-MM-yyyy HH:mm' }}
+										</td>
+										<td data-title="trOperationDate" data-sortable="'OperationDate'" width="10%" ng-click="rowform.$show()">
+											{{ item.OperationDate | date:'dd-MM-yyyy' }}
+										</td>
+										<td data-title="trAmount" data-sortable="'Amount'" width="10%" ng-click="rowform.$show()">
+											{{ item.Amount | number:2 }}
+										</td>
+										<!--<td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+											<form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
+												  shown="inserted == item || !item.id">
+												<button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm ti-close"></button>
+											</form>
+											<div class="buttons pull-right" ng-show="!rowform.$visible">
+												<a class="btn btn-transparent tooltips btn-sm ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+											</div>
+										</td>-->
+									</tr>
+								</table>
+							</div>
+						</div>
+					</tab>
+				</tabset>
+			</div>
+		</div>
+	</div>
+</div>

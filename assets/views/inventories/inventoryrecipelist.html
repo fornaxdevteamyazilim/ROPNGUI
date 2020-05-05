@@ -1,0 +1,59 @@
+﻿<div ng-controller="inventoryrecipelistCtrl as ir" ng-init="app.layout.isSidebarClosed=false">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.INVENTORYRECIPE" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 margin-top-10">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" href="#/app/inventory/inventoryrecipe/edit/new">
+                    <span translate="main.ADDRECIPE"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>
+                <input class="form-control" placeholder="{{'main.SEARCHBYRECIPENAME' | translate}}" type="text" ng-model="ir.search" ng-model-options="{ debounce: 500 }" />
+            </p>
+        </div>
+    </div>
+    <table ng-table="ir.tableParams" class="table table-striped table-hover">
+        <tr ng-repeat="item in $data | orderBy:'+name'"
+            ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+            <td class="text-uppercase ng" data-title="trName" data-sortable="'name'" width="22%" ng-click="SelectItem(item.id)">
+                {{ item.name  }}
+            </td>
+            <td class="text-uppercase" data-title="trDefinition" data-sortable="'Description'" width="22%">
+                {{ item.Description }}
+            </td>
+            <!--<td class="text-capitalize" data-title="trNote" data-sortable="'Notes'" width="22%">
+                {{ item.Notes }}
+            </td>-->
+            <td data-title="trOutputQuantity" data-sortable="'OutputQuantity'" width="22%">
+                {{ item.OutputQuantity  }}
+                <div class="buttons pull-right">
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" href="#/app/inventory/inventoryrecipe/edit/{{item.id}}"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-alert hidden-sm hidden-xs" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" href="#/app/inventory/inventoryrecipe/edit/{{item.id}}" translate="main.EDIT"> Edit</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-alert" ng-click="open(item.id)" translate="main.TAG"> Tag</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

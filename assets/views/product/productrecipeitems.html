@@ -1,0 +1,84 @@
+﻿<div class="col-lg-12">
+    <tabset class="tabbable tabs-left">
+        <tab heading="{{'main.RECIPEITEMS' | translate}}">
+            <div ng-controller="productrecipeitemCtrl as pri">
+                <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+                    <span class="margin-bottom-10 visible-lg">
+                        <img src="assets/images/loader.gif" />
+                    </span>
+                    <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+                        <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+                    </span>
+                </div>
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()" ng-hide="isWaiting==true">
+                    <span translate="main.ADDRECIPEITEM"></span>
+                </a>
+                <br />
+                <table ng-table="pri.tableParams" class="table table-striped table-hover" ng-hide="isWaiting==true">
+                    <tr ng-repeat="item in $data"
+                        ng-class=" {'isActiveValue': item.id==SelectedItem, strike: !item.isActiveValue, red: !item.isActiveValue}"
+                        ng-keyup="FormKeyPress($event,productrowform,$data[$index],$index)">
+                        <td data-title="trSize" data-sortable="'SizeID'" style="width:13%" ng-click="productrowform.$show()" class="ng">
+                            <span class="text-capitalize" editable-select="item.SizeID" e-name="SizeID" e-ng-options="q.Value as q.Name for q in sizes | orderBy:'+Name'"
+                                  e-form="productrowform" e-ng-model="item.SizeID" ng-click="productrowform.$show()">
+                                {{ ShowObject('sizes','Value',item.SizeID,'Name') }}
+                            </span>
+                        </td>
+                        <td data-title="trOrderType" data-sortable="'OrderTypeID'" style="width:13%">
+                            <span class="text-capitalize" editable-select="item.OrderTypeID" e-name="OrderTypeID" e-ng-options="q.Value as q.Name for q in ordertypes | orderBy:'+Name'"
+                                  e-form="productrowform" e-ng-model="item.OrderTypeID">
+                                {{ ShowObject('ordertypes','Value',item.OrderTypeID,'Name') }}
+                            </span>
+                        </td>
+                        <td data-title="trFilter" data-sortable="'isActiveFilter'" style="width:13%" class="ng">
+                            <span class="text-capitalize" editable-select="item.isActiveFilter" e-name="isActiveFilter" e-ng-options="q.id as q.Name for q in filters | orderBy:'+Name'"
+                                  e-form="productrowform" e-ng-model="item.isActiveFilter">
+                                {{ ShowObject('filters','id',item.isActiveFilter,'Name') }}
+                            </span>
+                        </td>
+                        <td data-title="trActive" style="width:10%">
+                            <span class="text-capitalize" e-name="isActiveValue" e-form="productrowform" e-ng-model="item.isActiveFilter">
+                                {{ item.isActiveValue  }}
+                            </span>
+                        </td>
+                        <!--<td data-title="trInventory" data-sortable="'InventoryID'" width="22%" class="ng">
+                            <span class="text-capitalize" editable-select="item.InventoryID" e-name="InventoryID" e-ng-model="item.InventoryID" e-form="productrowform" e-ng-blur="LoadInventorySpecificUnits(productrowform.$data.InventoryID)" e-ng-options="q.id as q.name for q in inventories  | orderBy:'+name' ">
+                                {{ ShowObject('inventories','id',item.InventoryID,'name') }}
+                            </span>
+                        </td>-->
+                        <td data-title="trInventory" width="22%" class="ng">
+                            <span class="text-capitalize" editable-select="item.InventoryUnit.InventoryID" e-name="InventoryID" e-ng-model="item.InventoryUnit.InventoryID" e-form="productrowform" e-ng-options="q.id as q.name for q in inventories  | orderBy:'+name' ">
+                                {{ ShowObject('inventories','id',item.InventoryUnit.InventoryID,'name') }}
+                            </span>
+                        </td>
+                        <td data-title="trUnitCount" data-sortable="'UnitCount'" width="10%">
+                            <span editable-number="item.UnitCount" e-min="0" e-name="UnitCount" e-form="productrowform" e-ng-model="item.UnitCount">
+                                {{ item.UnitCount }}
+                            </span>
+                        </td>
+                        <td data-title="trInventoryUnit" data-sortable="'InventoryUnitID'" width="22%" class="ng">
+                            <span class="text-capitalize" editable-select="item.InventoryUnitID" e-name="InventoryUnitID" e-ng-model="item.InventoryUnitID" e-form="productrowform"
+                                  e-ng-options="q.id as q.name for q in inventoryunits | orderBy:'+name' ">
+                                {{ ShowObject('inventoryunits','id',item.InventoryUnitID,'name') }}
+                            </span>
+                        </td>
+                        <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+                            <form editable-form name="productrowform" onaftersave="saveData(item)" ng-show="productrowform.$visible" class="form-buttons form-inline"
+                                  shown="inserted == item|| !item.id">
+                                <button type="submit" ng-disabled="productrowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                                <button type="button" ng-disabled="productrowform.$waiting" ng-click="cancelForm(productrowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                            </form>
+                            <div class="buttons pull-right" ng-show="!productrowform.$visible">
+                                <a class="btn btn-transparent btn-sm tooltips ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="productrowform.$show()"></a>
+                                <a class="btn btn-transparent btn-sm tooltips ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                                <a class="btn btn-transparent btn-sm tooltips ti-alert" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+                </div>
+        </tab>
+    </tabset>
+</div>

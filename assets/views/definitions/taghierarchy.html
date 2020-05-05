@@ -1,0 +1,30 @@
+﻿<div ng-controller="taghierarchyCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.TAGHIERARCHY" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-sm-6 col-lg-6 col-md-6 col-xs-12">
+            <label translate="main.TAGTYPE" for="TagType">
+                Tag Type
+            </label>
+            <select id="TagTypeID" class="form-control ng" ng-options="q.Value as q.Name for q in tagtypes |orderBy: '+Name'" ng-model="item.TagTypeID" ng-change="LoadTags(item.TagTypeID)"></select>
+        </div>
+        <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <!--<div ng-repeat="tag in tags">
+                {{tag.item.name}}
+            </div>-->
+            <div class="form-group col-sm-6 col-lg-6 col-md-6 col-xs-12">
+                <div id="nestables"></div>
+            </div>
+            <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-disabled="isClean()" ng-click="saveData(tags)">
+                    <span translate="main.SAVE">Save Person</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

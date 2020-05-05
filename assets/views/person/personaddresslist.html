@@ -1,0 +1,52 @@
+﻿<div ng-controller="personaddresseslistCtrl as ad" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   
+    <div class="table-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <table ng-table="ad.tableParams" class="table table-striped table-hover table-condensed table-bordered" ng-hide="itemscount==0">
+            <tr ng-repeat="item in $data "
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                <td>
+                    <div class="buttons pull-left" ng-show="!rowform.$visible">
+                        <button class="btn btn-xs btn-success btn-o  tooltips ti-shopping-cart" tooltip="HD Order" tooltip-placement="top" ng-click="HomeOrder(item,2)"></button>
+                    </div>
+                </td>
+                <td class="text-uppercase" data-title="'Street Address Name'" data-sortable="'name'" width="30%" ng-click="SelectItem(item.id)">
+                    {{ item.Address.StreetAddress.name }}/{{item.Address.StreetAddress.Quarter.name}}/{{item.Address.StreetAddress.Quarter.Subcity.name}}/{{item.Address.StreetAddress.Quarter.Subcity.Town.name}}
+                </td>
+                <td class="text-uppercase" data-title="'Apertment Name'" data-sortable="'item.AddressID'" width="13%">
+                    {{ item.Address.AppartmentName }}
+                </td>
+                <td data-title="'Address No'" data-sortable="'item.AddressID'" width="13%">
+                    {{ item.Address.AddressNo }}
+                </td>
+                <td class="text-capitalize" data-title="'Entrance'" data-sortable="'item.AddressID'" width="13%">
+                    {{ item.Address.Entrance }}
+                </td>
+                <td data-title="'Floor'" data-sortable="'item.AddressID'" width="13%">
+                    {{ item.Address.Floor }}
+                </td>
+                <td class="text-capitalize" data-title="'Address Type'" data-sortable="'item.AddressID'" width="13%">
+                    {{ item.Address.AddressType }}
+                    <div class="buttons pull-right" ng-show="!rowform.$visible">
+                        <a class="btn btn-transparent btn-sm tooltips ti-pencil" tooltip="Edit" tooltip-placement="top" href="#/app/orders/person/personaddressedit/{{item.id}}"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-plus" tooltip="Add New Address" tooltip-placement="top" ng-click="AdAddressPerson(item.PersonID)"></a>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil" href="#/app/orders/person/personaddressedit/{{item.id}}"  translate="main.EDIT"></a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-plus" ng-click="AdAddressPerson(item.PersonID)"  translate="main.ADD"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

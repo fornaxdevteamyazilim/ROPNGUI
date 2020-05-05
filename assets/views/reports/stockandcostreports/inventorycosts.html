@@ -1,0 +1,245 @@
+﻿<style>
+    .ng {
+    }
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+</style>
+<div print-section ng-controller="inventorycostsCtrl">
+    <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+            <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+            <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <span class="text-bold text-dark" style="font-size:18px;" translate="tittle.INVENTORYCOST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <span class="col-lg-12 pull-right">{{Time | date:'dd-MM-yyyy HH:mm'}} </span>
+        </div>
+    </div>
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 visible-lg visible-md">
+            <div print-remove class="col-lg-4 col-md-6 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.INVENTORYCOST" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+                <i class="fa fa-info-circle" style="font-size:25px;" popover="Aktif dönemde tüm şubelerin ideal ve gerçekleşen maliyet değerlerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+            </div>
+            <div print-remove class="col-lg-2 col-md-3 margin-top-10">
+                <div class="col-lg-12 col-md-12 margin-top-15">
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadResults()">
+                        <img ng-src="assets/images/report.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#inventorycost')">
+                        <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                    </button>
+                    <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                        <img ng-src="assets/images/print.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+
+        <div print-remove class="col-sm-12 col-xs-12 visible-sm visible-xs">
+            <div class="col-sm-12 col-xs-12">
+                <div print-remove class="col-sm-10 col-xs-10 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:15px;" translate="tittle.INVENTORYCOST" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12">
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-sm-12 col-xs-12 margin-top-10">
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadResults()">
+                            <img ng-src="assets/images/report.png" style="width:4vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#inventorycost')">
+                            <img ng-src="assets/images/excel.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        </button>
+                        <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                            <img ng-src="assets/images/print.png" style="width:4vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" ng-hide="isWaiting==true">
+        <fieldset class="table-responsive" id="inventorycost">
+            <table class="hidden">
+                <tr>
+                    <th>{{'main.REPORTDATE' | translate}}</th>
+                    <th>{{'main.USER' | translate}}</th>
+                    <th>{{'main.USERSTORE' | translate}}</th>
+                </tr>
+                <tr>
+                    <td>{{Time | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{user.FullName}}</td>
+                    <td>{{user.Store.Member}} - {{user.Store.name}}</td>
+                </tr>
+            </table>
+            <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive" id="inventorycost">
+                <input id="searchbyname" class="form-control" focus="true" placeholder="Filtre" type="text" ng-model="search" /><br />
+                <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table table-responsive">
+                    <tr>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.STORE' | translate}}</th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.IDEALTODAY' | translate}}(%)</span> </th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.FOODCOSTTODAY' | translate}}(%)</span> </th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.SALESTOTALTODAY' | translate}}(TL)</span> </th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.IDEAL' | translate}}(%)</span> </th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.FOODCOST' | translate}}(TL)</span> </th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.REAL' | translate}}(%)</span> </th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.REALFOODCOST' | translate}}(TL)</span></th>
+                        <!--<th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.WASTE' | translate}}(%)</span></th>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.WASTEFOODCOST' | translate}}(TL)</span></th>-->
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.SALESTOTAL' | translate}}(TL)</span> </th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.FIRSTCOUNTDATE' | translate}}</th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.LASTCOUNTDATE' | translate}}</th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.CALCULATEFROMDATE' | translate}}</th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.CALCULATETODATE' | translate}}</th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.CALCULATIONTIME' | translate}}</th>
+                    </tr>
+                    <tr style="border-bottom:1px solid; font-size:13px;" ng-repeat="item in resresult | orderBy:'+name' | filter:search track by item.StoreID">
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase">
+                            {{ ShowObject('stores','id',item.StoreID,'name') }}
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.IdealToday |number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.FoodCostToday |number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.SalesTotalToday |number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{(item.Ideal)*100 |number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.FoodCost |number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{(item.Real)*100 |number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.RealFoodCost |number:2}}</span>
+                        </td>
+                        <!--<td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <span class="pull-right">{{(item.Waste)*100 |number:2}}</span>
+                </td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <span class="pull-right">{{item.WasteFoodCost |number:2}}</span>
+                </td>-->
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.SalesTotal |number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            {{item.FirstCountDate | date:'dd-MM-yyyy'}}
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            {{item.LastCountDate | date:'dd-MM-yyyy'}}
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            {{item.FromDate | date:'dd-MM-yyyy'}}
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            {{item.ToDate | date:'dd-MM-yyyy'}}
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            {{item.CalculationTime | date:'dd-MM-yyyy HH:mm'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+
+
+
+            <div print-only class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive visible-print hidden" id="inventorycost">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold">{{'main.STORE' | translate}}</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold pull-right">{{'main.IDEALFOODCOSTTODAY' | translate}} (%)<br /> </span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold pull-right margin-right-10">{{'main.IDEAL' | translate}} (%)</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold pull-right">{{'main.FOODCOST' | translate}} (TL)</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold pull-right">{{'main.REAL' | translate}} (%)</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold pull-right margin-right-10">{{'main.REALFOODCOST' | translate}} (TL)</span></div>
+                        <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold pull-right margin-right-10">{{'main.WASTE' | translate}} (%)</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold pull-right margin-right-10">{{'main.WASTEFOODCOST' | translate}} (TL)</span></div>-->
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold pull-right">{{'main.SALESTOTALTODAYSALESTOTAL' | translate}} (TL)</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold  margin-right-10">{{'main.FIRSTCOUNTDATE' | translate}} / <br /> {{'main.LASTCOUNTDATE' | translate}}</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold">{{'main.CALCULATEFROMTODATE' | translate}}</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold margin-left-10">{{'main.CALCULATIONTIME' | translate}}</span></div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10" style="border-bottom:1px solid;" ng-repeat="item in resresult">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase">
+                            {{ ShowObject('stores','id',item.StoreID,'name') }}
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.IdealToday |number:2}}</span> <br />
+                            <span class="pull-right">{{item.FoodCostToday |number:2}}</span>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{(item.Ideal)*100 |number:2}}</span>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.FoodCost |number:2}}</span>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{(item.Real)*100 |number:2}}</span>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.RealFoodCost |number:2}}</span>
+                        </div>
+                        <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{(item.Waste)*100 |number:2}}</span>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.WasteFoodCost |number:2}}</span>
+                        </div>-->
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> 
+                            <span class="pull-right margin-right-10">{{item.SalesTotalToday |number:2}}</span> <br />
+                            <span class="pull-right margin-right-10">{{item.SalesTotal |number:2}}</span>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                           {{item.FirstCountDate | date:'dd-MM-yyyy'}} <br /> 
+                           {{item.LastCountDate | date:'dd-MM-yyyy'}}
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            {{item.FromDate | date:'dd-MM-yyyy'}} <br />
+                            {{item.ToDate | date:'dd-MM-yyyy'}}
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                          <span class="pull-right">{{item.CalculationTime | date:'dd-MM-yyyy HH:mm'}}</span>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+

@@ -1,0 +1,33 @@
+<!-- toaster directive -->
+<toaster-container toaster-options="{'time-out': 2000,'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+<!-- / toaster directive -->
+<!-- start: LOCK SCREEN -->
+<div class="row" ng-controller="login_lockCtrl">
+    <div class="lock-screen">
+        <div>
+            <img alt="" ng-src="assets/images/{{user.UserRole.MemberID}}.jpg" class="img-rounded" height="242" width="242" />
+            <div class="user-info">
+                <h4>{{user.name}}</h4>
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input name="theInput" type="password" placeholder="{{'main.CARDCODE' | translate}}" class="form-control" ng-model="item.password" auto-focus ng-keyup="FormKeyPress($event)"><!--ng-virtual-keyboard="{showKbSelect: true, numberPad: true,relative:true }"-->
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit" ng-click="InpuntKey(item.password)" autofocus>
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-hide="message == ''">
+                        <span ng-class="{'alert alert-danger':message}">
+                            {{message}}
+                        </span>
+                        <br />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: LOCK SCREEN -->

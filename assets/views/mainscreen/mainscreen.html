@@ -1,0 +1,687 @@
+﻿<style>
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+</style>
+<div ng-controller="mainscreenCtrl" class="panel" ng-init="app.layout.isSidebarClosed=true">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <div class="col-lg-12 col-md-12 visible-lg visible-md" style="max-height:100px;" ng-controller="VisitsCtrl">
+            <div class="margin-top-10 pull-left" ng-if="user.restrictions.changeysstorestatus=='Enable' && user.UserRole.Name != 'PHAdmin'">
+                <div>
+                    <span class="text-bold text-extra-large" ng-click="ChangeYsStore()">
+                        YS Restoran Durum Değişikliği İçin Tıklayınız !
+                    </span><br />
+                </div>
+            </div>
+            <ul class="mini-stats center" ng-if="user.restrictions.maindashboard=='Enable'">
+                <li>
+                    <div ng-if="user.restrictions.ysstorestatus=='Enable'">
+                        <div>
+                            <strong class="text-green text-large text-uppercase" ng-if="yemekSepetiStore.isOpen == true"> {{ open}} <i class="fa fa-check"></i></strong>
+                            <strong class="text-red text-large text-uppercase" ng-if="yemekSepetiStore.isOpen == false"> {{ close}} <i class="fa fa-exclamation"></i></strong>
+                            <p>
+                                {{'main.YSSTATUS' | translate}}[{{yemekSepetiStore.ServiceTime}}]
+                            </p>
+                        </div>
+                        <div class="pull-left" ng-if="user.restrictions.changeysstorestatus=='Enable' && user.UserRole.Name == 'PHAdmin'">
+                            <div>
+                                <span class="text-bold text-extra-large" ng-click="ChangeYsStore()">
+                                    YS Restoran Durum Değişikliği !
+                                </span><br />
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="values">
+                        <strong class="text-bricky">{{theClock}}</strong>
+                        <p>
+                            {{'main.ROPNGTIME' | translate}}
+
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="values">
+                        <strong class="text-blue">{{opdate|| 'Gün Sonu'}}</strong>
+                        <p>
+                            {{'main.OPERATIONDATE' | translate}}
+                        </p>
+                    </div>
+                </li>
+                <li ng-repeat="ordertype in OrdersOrderType">
+                    <div class="values">
+                        <strong class="text-dark">{{ordertype.OrdersCount}}</strong>
+                        <p>
+                            {{ordertype.OrderType}}
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="values">
+                        <strong class="text-dark">{{storePerformanceData.PeparingDuration || '00:00:00'}}</strong>
+                        <p>
+                            {{'main.AVRPREPARING' | translate}}
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="values">
+                        <strong class="text-dark">{{storePerformanceData.OutDuration || '00:00:00'}}</strong>
+                        <p>
+                            {{'main.AVROUT' | translate}}
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="values">
+                        <strong class="text-dark">{{storePerformanceData.DeliveryPeriod || '00:00:00'}}</strong>
+                        <p>
+                            {{'main.AVRDELIVERYY' | translate}}
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="values">
+                        <strong class="text-dark">{{storePerformanceData.Below30Percent|| 0 |number :2}}%</strong>
+                        <p>
+                            {{'main.AVRBELOW30' | translate}}
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div ng-if="ComplaintSatats.ActiveComplaints > 0" ng-click="login('#/app/complaints/complaints/list')">
+                        <strong class="value center margin-left-10 badge badge-warning" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3"> {{ComplaintSatats.ActiveComplaints}}  </strong>
+                        <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 3"> {{ComplaintSatats.ActiveComplaints}}  </strong>
+                        <p> {{:: activecomplaints}}</p>
+                    </div>
+                </li>
+                <li>
+                    <div ng-if="ComplaintSatats.LateComplanits > 0" ng-click="login('#/app/complaints/complaints/list')">
+                        <strong class="value center margin-left-10 badge badge-warning" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3"> {{ComplaintSatats.LateComplanits}}  </strong>
+                        <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 3"> {{ComplaintSatats.LateComplanits}}  </strong>
+                        <p>{{:: latecomplaints}}</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="sparkline">
+                        <span jq-sparkline ng-model="saless" type="bar" height="20px" bar-color="#D43F3A"></span>
+                    </div>
+                    <div class="values">
+                        <strong class="text-dark">{{OrderTotalCount}} Adet</strong>
+                        <p>
+                            {{:: sales}}
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="sparkline">
+                        <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
+                    </div>
+                    <div class="values">
+                        <strong class="text-dark">{{OrderTotalAmountTXT}} TL</strong>
+                        <p>
+                            {{:: totalamount }}
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="sparkline">
+                        <span jq-sparkline ng-model="referrals" type="bar" height="20px" bar-color="#46B8DA"></span>
+                    </div>
+                    <div class="values">
+                        <strong class="text-dark">{{OrderACTXT}}</strong>
+                        <p>
+                            {{:: average}}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+
+
+            <!--<div class="col-lg-2 col-md-2">
+            <div ng-if="user.restrictions.changeysstorestatus=='Enable'">
+                <label class="margin-top-5" tooltip="Restoran İşletme Tarihi" tooltip-placement="right">{{opdate}}</label><br />
+                <label class="margin-top-5 text-success" tooltip="ROPNG Merkezi Sistem Saati" tooltip-placement="bottom"><i class="ti-alarm-clock"></i>{{theClock}}</label><br />
+                <label>
+                    <span class="text-bold text-extra-large" ng-click="ChangeYsStore()">
+                        YS Restoran Durum Değişikliği İçin Tıklayınız !
+                    </span><br />
+                </label>
+            </div>
+            <div ng-if="user.restrictions.ysstorestatus=='Enable'">
+                <label class="margin-top-5" tooltip="Restoran İşletme Tarihi" tooltip-placement="right">{{opdate}}</label><br />
+                <label class="margin-top-5 text-success" tooltip="ROPNG Merkezi Sistem Saati" tooltip-placement="bottom"><i class="ti-alarm-clock"></i>{{theClock}}</label><br />
+                <label>
+                    <span class="text-bold text-extra-large">
+                        YS Durumu :
+                        <span class="text-uppercase text-bold text-green text-extra-large" ng-if="yemekSepetiStore.isOpen == true"> {{ open}} <i class="fa fa-check"></i></span>
+                        <span class="text-uppercase text-bold text-red text-extra-large" ng-if="yemekSepetiStore.isOpen == false"> {{ close}} <i class="fa fa-exclamation"></i></span>
+                    </span>
+                </label>
+            </div>
+        </div>-->
+            <!--<div class="col-lg-2 col-md-2 margin-top-5" ng-if="user.restrictions.maindashboard=='Enable'">
+            <div class="col-lg-12 col-md-12" ng-repeat="ordertype in OrdersOrderType">
+                <span class="col-lg-10 col-md-10 text-bold">{{ordertype.OrderType}}  :</span> <span class="col-lg-2 col-md-2 text-bold"> <span class="text-bold">{{ordertype.OrdersCount}}</span> </span><br />
+            </div>
+        </div>-->
+            <!--<div class="col-lg-4 col-md-3" ng-if="user.restrictions.maindashboard=='Enable'">
+            <div class="col-lg-3 col-md-3">
+                <strong class="value text-dark center" style="font-size:20px;">{{storePerformanceData.PeparingDuration}}  </strong>
+                <p class="no-margin">{{'main.AVRPREPARING' | translate}}</p>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <strong class="value text-dark center" style="font-size:20px;">{{storePerformanceData.OutDuration}}  </strong>
+                <p class="no-margin">{{'main.AVROUT' | translate}}</p>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <strong class="value text-dark center" style="font-size:20px;">{{storePerformanceData.DeliveryPeriod}} </strong>
+                <p class="no-margin">{{'main.AVRDELIVERYY' | translate}}</p>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <strong class="value text-dark center" style="font-size:20px;"> % {{storePerformanceData.Below30Percent |number :2}}</strong>
+                <p class="no-margin">{{'main.AVRBELOW30' | translate}}</p>
+            </div>
+        </div>-->
+            <!--<div class="col-lg-1 col-md-1"ng-if="user.restrictions.maindashboard=='Enable'" >
+            <div class="col-lg-6 col-md-6" ng-if="ComplaintSatats.ActiveComplaints > 0" ng-click="login('#/app/complaints/complaints/list')">
+                <strong class="value center margin-left-10 badge badge-warning" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3"> {{ComplaintSatats.ActiveComplaints}}  </strong>
+                <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 3"> {{ComplaintSatats.ActiveComplaints}}  </strong>
+                <p class="margin-left-10"> {{:: activecomplaints}}</p>
+            </div>
+            <div class="col-lg-6 col-md-6" ng-if="ComplaintSatats.LateComplanits > 0" ng-click="login('#/app/complaints/complaints/list')">
+                <strong class="value center margin-left-10 badge badge-warning" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3"> {{ComplaintSatats.LateComplanits}}  </strong>
+                <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 3"> {{ComplaintSatats.LateComplanits}}  </strong>
+                <p class="margin-left-10">{{:: latecomplaints}}</p>
+            </div>
+        </div>-->
+            <!--<div class="col-lg-3 col-md-4 pull-right" ng-if="user.restrictions.maindashboard=='Enable'">
+            <ul class="mini-stats pull-right">
+                <li>
+                    <div class="sparkline">
+                        <span jq-sparkline ng-model="saless" type="bar" height="20px" bar-color="#D43F3A"></span>
+                    </div>
+                    <div class="values">
+                        <strong class="text-dark">{{OrderTotalCount}} Adet</strong>
+                        <p class="text-small no-margin">
+                            {{:: sales}}
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="sparkline">
+                        <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
+                    </div>
+                    <div class="values">
+                        <strong class="text-dark">{{OrderTotalAmountTXT}} TL</strong>
+                        <p class="text-small no-margin">
+                            {{:: totalamount }}
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="sparkline">
+                        <span jq-sparkline ng-model="referrals" type="bar" height="20px" bar-color="#46B8DA"></span>
+                    </div>
+                    <div class="values">
+                        <strong class="text-dark">{{OrderACTXT}}</strong>
+                        <p class="text-small no-margin">
+                            {{:: average}}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>-->
+
+
+        </div>
+
+        <div class="col-sm-12 col-xs-12 visible-sm" style="max-height:100px;" ng-controller="VisitsCtrl">
+            <div class="margin-top-10 pull-left" ng-if="user.restrictions.changeysstorestatus=='Enable'">
+                <div>
+                    <span class="text-bold text-extra-large" ng-click="ChangeYsStore()">
+                        YS Restoran Durum Değişikliği İçin Tıklayınız !
+                    </span><br />
+                </div>
+            </div>
+            <div ng-if="user.restrictions.maindashboard=='Enable'">
+                <div class="col-ms-4 col-xs-4" ng-if="user.restrictions.ysstorestatus=='Enable'">
+                    <div>
+                        <strong class="text-green text-large text-uppercase" ng-if="yemekSepetiStore.isOpen == true"> {{ open}} <i class="fa fa-check"></i></strong>
+                        <strong class="text-red text-large text-uppercase" ng-if="yemekSepetiStore.isOpen == false"> {{ close}} <i class="fa fa-exclamation"></i></strong>
+                        <p>
+                            {{'main.YSSTATUS' | translate}}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-ms-4 col-xs-4 values">
+                    <strong class="text-bricky">{{theClock}}</strong>
+                    <p>
+                        {{'main.ROPNGTIME' | translate}}
+                    </p>
+                </div>
+                <div class="col-ms-4 col-xs-4 values">
+                    <strong class="text-blue">{{opdate|| 'Gün Sonu'}}</strong>
+                    <p>
+                        {{'main.OPERATIONDATE' | translate}}
+                    </p>
+                </div>
+                <div class="col-ms-4 col-xs-4" ng-repeat="ordertype in OrdersOrderType">
+                    <div class="values">
+                        <strong class="text-dark">{{ordertype.OrdersCount}}</strong>
+                        <p>
+                            {{ordertype.OrderType}}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-ms-3 col-xs-3 values">
+                    <strong class="text-dark">{{storePerformanceData.PeparingDuration || '00:00:00'}}</strong>
+                    <p>
+                        {{'main.AVRPREPARING' | translate}}
+                    </p>
+                </div>
+
+                <div class="col-ms-3 col-xs-3 values">
+                    <strong class="text-dark">{{storePerformanceData.OutDuration || '00:00:00'}}</strong>
+                    <p>
+                        {{'main.AVROUT' | translate}}
+                    </p>
+                </div>
+
+                <div class="col-ms-3 col-xs-3 values">
+                    <strong class="text-dark">{{storePerformanceData.DeliveryPeriod || '00:00:00'}}</strong>
+                    <p>
+                        {{'main.AVRDELIVERYY' | translate}}
+                    </p>
+                </div>
+
+                <div class="col-ms-3 col-xs-3 values">
+                    <strong class="text-dark">{{storePerformanceData.Below30Percent|| 0 |number :2}}%</strong>
+                    <p>
+                        {{'main.AVRBELOW30' | translate}}
+                    </p>
+                </div>
+
+                <div class="col-ms-4 col-xs-4" ng-if="ComplaintSatats.ActiveComplaints > 0" ng-click="login('#/app/complaints/complaints/list')">
+                    <strong class="value center margin-left-10 badge badge-warning" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3"> {{ComplaintSatats.ActiveComplaints}}  </strong>
+                    <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 3"> {{ComplaintSatats.ActiveComplaints}}  </strong>
+                    <p> {{:: activecomplaints}}</p>
+                </div>
+
+                <div class="col-ms-4 col-xs-4" ng-if="ComplaintSatats.LateComplanits > 0" ng-click="login('#/app/complaints/complaints/list')">
+                    <strong class="value center margin-left-10 badge badge-warning" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3"> {{ComplaintSatats.LateComplanits}}  </strong>
+                    <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 3"> {{ComplaintSatats.LateComplanits}}  </strong>
+                    <p>{{:: latecomplaints}}</p>
+                </div>
+                <div class="col-ms-4 col-xs-4">
+                    <div class="sparkline">
+                        <span jq-sparkline ng-model="saless" type="bar" height="20px" bar-color="#D43F3A"></span>
+                    </div>
+                    <div class="values">
+                        <strong class="text-dark">{{OrderTotalCount}} Adet</strong>
+                        <p>
+                            {{:: sales}}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-ms-4 col-xs-4">
+                    <div class="sparkline">
+                        <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
+                    </div>
+                    <div class="values">
+                        <strong class="text-dark">{{OrderTotalAmountTXT}} TL</strong>
+                        <p>
+                            {{:: totalamount }}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-ms-4 col-xs-4">
+                    <div class="sparkline">
+                        <span jq-sparkline ng-model="referrals" type="bar" height="20px" bar-color="#46B8DA"></span>
+                    </div>
+                    <div class="values">
+                        <strong class="text-dark">{{OrderACTXT}}</strong>
+                        <p>
+                            {{:: average}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="col-sm-12 col-xs-12 visible-xs " style="max-height:100px;" ng-controller="VisitsCtrl">
+            <div class="margin-top-10 pull-left" ng-if="user.restrictions.changeysstorestatus=='Enable'">
+                <div>
+                    <span class="text-bold text-extra-large" ng-click="ChangeYsStore()">
+                        YS Restoran Durum Değişikliği İçin Tıklayınız !
+                    </span><br />
+                </div>
+            </div>
+            <div ng-if="user.restrictions.maindashboard=='Enable'">
+                <div class="col-ms-6 col-xs-6" ng-if="user.restrictions.ysstorestatus=='Enable'">
+                    <div>
+                        <strong class="text-green text-large text-uppercase" ng-if="yemekSepetiStore.isOpen == true"> {{ open}} <i class="fa fa-check"></i></strong>
+                        <strong class="text-red text-large text-uppercase" ng-if="yemekSepetiStore.isOpen == false"> {{ close}} <i class="fa fa-exclamation"></i></strong>
+                        <p>
+                            {{'main.YSSTATUS' | translate}}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-ms-6 col-xs-6 values">
+                    <strong class="text-blue">{{opdate|| 'Gün Sonu'}}</strong>
+                    <p>
+                        {{'main.OPERATIONDATE' | translate}}
+                    </p>
+                </div>
+                <div class="col-xs-12">
+                    <div class="col-ms-3 col-xs-3 values">
+                        <strong class="text-dark">{{storePerformanceData.PeparingDuration || '00:00:00'}}</strong>
+                        <p>
+                            {{'main.AVRPREPARING' | translate}}
+                        </p>
+                    </div>
+
+                    <div class="col-ms-3 col-xs-3 values">
+                        <strong class="text-dark">{{storePerformanceData.OutDuration || '00:00:00'}}</strong>
+                        <p>
+                            {{'main.AVROUT' | translate}}
+                        </p>
+                    </div>
+
+                    <div class="col-ms-3 col-xs-3 values">
+                        <strong class="text-dark">{{storePerformanceData.DeliveryPeriod || '00:00:00'}}</strong>
+                        <p>
+                            {{'main.AVRDELIVERYY' | translate}}
+                        </p>
+                    </div>
+
+                    <div class="col-ms-3 col-xs-3 values">
+                        <strong class="text-dark">{{storePerformanceData.Below30Percent|| 0 |number :2}}%</strong>
+                        <p>
+                            {{'main.AVRBELOW30' | translate}} 
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-ms-6 col-xs-6" ng-if="ComplaintSatats.ActiveComplaints > 0" ng-click="login('#/app/complaints/complaints/list')">
+                    <strong class="value center margin-left-10 badge badge-warning" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3"> {{ComplaintSatats.ActiveComplaints}}  </strong>
+                    <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 3"> {{ComplaintSatats.ActiveComplaints}}  </strong>
+                    <p> {{:: activecomplaints}}</p>
+                </div>
+
+                <div class="col-ms-6 col-xs-6" ng-if="ComplaintSatats.LateComplanits > 0" ng-click="login('#/app/complaints/complaints/list')">
+                    <strong class="value center margin-left-10 badge badge-warning" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3"> {{ComplaintSatats.LateComplanits}}  </strong>
+                    <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;" ng-if="ComplaintSatats.ActiveComplaints > 3"> {{ComplaintSatats.LateComplanits}}  </strong>
+                    <p>{{:: latecomplaints}}</p>
+                </div>
+
+                <div class="col-xs-12">
+                    <div class="col-ms-4 col-xs-4">
+                        <div class="sparkline">
+                            <span jq-sparkline ng-model="saless" type="bar" height="20px" bar-color="#D43F3A"></span>
+                        </div>
+                        <div class="values">
+                            <strong class="text-dark">{{OrderTotalCount}} Adet</strong>
+                            <p>
+                                {{:: sales}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-ms-4 col-xs-4">
+                        <div class="sparkline">
+                            <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
+                        </div>
+                        <div class="values">
+                            <strong class="text-dark">{{OrderTotalAmountTXT}} TL</strong>
+                            <p>
+                                {{:: totalamount }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-ms-4 col-xs-4">
+                        <div class="sparkline">
+                            <span jq-sparkline ng-model="referrals" type="bar" height="20px" bar-color="#46B8DA"></span>
+                        </div>
+                        <div class="values">
+                            <strong class="text-dark">{{OrderACTXT}}</strong>
+                            <p>
+                                {{:: average}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 visible-lg margin-top-10">
+            <div ng-repeat="ordertype in ::user.Store.StoreOrderTypes" ng-if="user.restrictions.ordertypebuttons=='Enable'">
+                <div class="col-lg-3 col-md-4 center visible-lg visible-md">
+                    <button ng-click="selectRootOrderPage(ordertype.OrderTypeID)" class="btn btn-danger btn-o center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold">
+                        <img ng-src="assets/images/{{::ordertype.OrderTypeID}}.png" style="width:12vw; height:18.2vh;" class="center" /><br />
+                        <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{ordertype.OrderType}}</span>
+                    </button>
+                </div>
+            </div>
+            <div ng-if="user.restrictions.mainorderlist=='Enable'" class="col-lg-3 col-md-4 center visible-lg visible-md">
+                <button ng-click="login('#/app/orders/orderlist')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/siparisListe.png" style="width:12vw; height:18.2vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtORDERLIST}} </span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainkitchendisplay=='Enable'" class="col-lg-3 col-md-4 center visible-lg visible-md">
+                <button ng-click="login('#/app/kitchendisplay/kitchendisplay2')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/mutfakEkrani.png" style="width:12vw; height:18.2vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtKITCHENDISPLAY}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.maindispatcher=='Enable'" class="col-lg-3 col-md-4 center visible-lg visible-md">
+                <button ng-click="login('#/app/dispatcher/dispatcher')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/motorcuEkrani.png" style="width:12vw; height:18.2vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtDISPATCHER}}</span>
+                </button>
+            </div>
+
+            <div ng-if="user.restrictions.maincurrentpayment=='Enable'" class="col-lg-3 col-md-4 center visible-lg visible-md">
+                <button ng-click="selectcurrent()" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/cariOdeme.png" style="width:12vw; height:18.2vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtCASH}} </span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.maincashreport=='Enable'" class="col-lg-3 col-md-4 center visible-lg visible-md">
+                <button ng-click="login('#/app/reports/giroreports/maincashreport')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/kasaRaporu.png" style="width:12vw; height:18.2vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;"> {{txtCASHREPORT}}</span>
+                </button>
+            </div>
+
+            <div ng-if="user.restrictions.mainreport=='Enable'" class="col-lg-3 col-md-4 center visible-lg visible-md">
+                <button ng-click="login('#/app/reports/reportspage')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/raporlar.png" style="width:12vw; height:18.2vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;"> {{txtREPORTS}}</span>
+                </button>
+            </div>
+
+            <div ng-if="user.restrictions.mainaddoutcash=='Enable'" class="col-lg-3 col-md-4 center visible-lg visible-md">
+                <button ng-click="checkoutcash()" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/cikis.png" style="width:12vw; height:18.2vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtADDOUTCASH}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainnotpaid=='Enable'" class="col-lg-3 col-md-4 center visible-lg visible-md">
+                <button ng-click="selectnotpaid()" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/less14.png" style="width:12vw; height:18.2vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtNOTPAID}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainstaffpayment=='Enable' && user.restrictions.display!='Disable'" class="col-lg-3 col-md-4 center visible-lg visible-md">
+                <button ng-click="login('#/app/staffpayments/staffpayments')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/staffPayments.png" style="width:12vw; height:18.2vh;" /><br />
+                    <span style="width:20vw; height:25vh; color:black; font-size:0.8vw;">{{txtSTAFFPAYMENTS}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainendofday=='Enable'" class="col-lg-3 col-md-4 center visible-lg visible-md" ng-controller="endofdayCtrl">
+                <button ng-click="SaveEndOfDays()" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/gunSonu.png" style="width:12vw; height:16vh;" /><br />
+                    <span ng-if="ShowingObje==true" style="width:12vw; height:15vh;"><span class="fa fa-spin fa-spinner"></span></span><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtENDOFDAY}} </span>
+                </button>
+            </div>
+            
+            <div ng-if="user.UserRole.ShiftControl" class="col-lg-3 col-md-4 center visible-lg visible-md" >
+                <button ng-click="GoToClockIn()" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/fingerprint.png" style="width:12vw; height:16vh;" /><br />
+                    <span ng-if="ShowingObje==true" style="width:12vw; height:15vh;"><span class="fa fa-spin fa-spinner"></span></span><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtCLOCKINOUT}} </span>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-12 visible-md">
+            <div ng-repeat="ordertype in ::user.Store.StoreOrderTypes" ng-if="user.restrictions.ordertypebuttons=='Enable'">
+                <div class="col-md-4 center visible-md">
+                    <button ng-click="selectRootOrderPage(ordertype.OrderTypeID)" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold">
+                        <img ng-src="assets/images/{{::ordertype.OrderTypeID}}.png" style="width:10vw; height:15vh;" class="center" /><br />
+                        <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{::ordertype.OrderType}}</span>
+                    </button>
+                </div>
+            </div>
+            <div ng-if="user.restrictions.mainorderlist=='Enable'" class="col-md-4 center visible-md">
+                <button ng-click="login('#/app/orders/orderlist')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/siparisListe.png" style="width:10vw; height:15vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtORDERLIST}} </span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainkitchendisplay=='Enable'" class="col-md-4 center visible-md">
+                <button ng-click="login('#/app/kitchendisplay/kitchendisplay2')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/mutfakEkrani.png" style="width:10vw; height:15vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtKITCHENDISPLAY}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.maindispatcher=='Enable'" class="col-md-4 center visible-md">
+                <button ng-click="login('#/app/dispatcher/dispatcher')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/motorcuEkrani.png" style="width:10vw; height:15vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtDISPATCHER}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainstaffpayment=='Enable' && user.restrictions.display!='Disable'" class="col-md-4 center visible-md">
+                <button ng-click="login('#/app/staffpayments/staffpayments')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/staffPayments.png" style="width:10vw; height:15vh;" /><br />
+                    <span style="width:20vw; height:25vh; color:black; font-size:0.8vw;">{{txtSTAFFPAYMENT}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.maincashreport=='Enable'" class="col-md-4 center visible-md">
+                <button ng-click="login('#/app/reports/giroreports/maincashreport')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/kasaRaporu.png" style="width:10vw; height:15vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;"> {{txtCASHREPORT}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainreport=='Enable'" class="col-md-4 center visible-md">
+                <button ng-click="login('#/app/reports/reportspage')" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/raporlar.png" style="width:10vw; height:15vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;"> {{txtREPORTS}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.maincurrentpayment=='Enable'" class="col-md-4 center visible-md">
+                <button ng-click="selectcurrent()" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/cariOdeme.png" style="width:10vw; height:15vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtCASH}} </span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainaddoutcash=='Enable'" class="col-md-4 center visible-md">
+                <button ng-click="checkoutcash()" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/cikis.png" style="width:10vw; height:15vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtADDOUTCASH}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainnotpaid=='Enable'" class="col-md-4 center visible-md">
+                <button ng-click="selectnotpaid()" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/less14.png" style="width:10vw; height:15vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtNOTPAID}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainendofday=='Enable'" class="col-md-4 center visible-md" ng-controller="endofdayCtrl">
+                <button ng-click="SaveEndOfDays()" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/gunSonu.png" style="width:10vw; height:15vh;" /><br />
+                    <span ng-if="ShowingObje==true" style="width:10vw; height:15vh;"><span class="fa fa-spin fa-spinner"></span></span>
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtENDDAY}} </span>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-xs-12 visible-sm visible-xs" style="margin-top:150px;">
+            <div ng-repeat="ordertype in ::user.Store.StoreOrderTypes" ng-if="user.restrictions.ordertypebuttons=='Enable'">
+                <div class="col-sm-4 col-xs-6 center">
+                    <button ng-click="selectRootOrderPage(ordertype.OrderTypeID)" class="btn btn-azure btn-o margin-bottom-10 text-uppercase text-extra-large text-bold" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                        <img ng-src="assets/images/{{ordertype.OrderTypeID}}.png" style="width:90px; height:70px;" class="center" /><br />
+                        <span style="color:black; font-size:10px; white-space: nowrap; overflow:hidden; text-overflow:clip;">{{::ordertype.OrderType}}</span>
+                    </button>
+                </div>
+            </div>
+            <div ng-if="user.restrictions.mainorderlist=='Enable'" class="col-sm-4 col-xs-6 center">
+                <button ng-click="login('#/app/orders/orderlist')" class="btn btn-azure btn-o margin-bottom-10 text-uppercase text-extra-large text-bold" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                    <img src="assets/images/siparisListe.png" style="width:90px; height:70px;" class="center" /><br />
+                    <span style="color:black; font-size:10px; white-space: nowrap; overflow:hidden; text-overflow:clip;">{{txtORDERLIST}} </span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainkitchendisplay=='Enable'" class="col-sm-4 col-xs-6 center ">
+                <button ng-click="login('#/app/kitchendisplay/kitchendisplay2')" class="btn btn-azure btn-o margin-bottom-10 text-uppercase text-extra-large text-bold" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                    <img src="assets/images/mutfakEkrani.png" style="width:90px; height:70px;" class="center" /><br />
+                    <span style="color:black; font-size:10px; white-space: nowrap; overflow:hidden; text-overflow:clip;">{{txtKITCHENDISPLAY}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.maindispatcher=='Enable'" class="col-sm-4 col-xs-6 center ">
+                <button ng-click="login('#/app/dispatcher/dispatcher')" class="btn btn-azure btn-o margin-bottom-10 text-uppercase text-extra-large text-bold" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                    <img src="assets/images/motorcuEkrani.png" style="width:90px; height:70px;" class="center" /><br />
+                    <span style="color:black; font-size:10px; white-space: nowrap; overflow:hidden; text-overflow:clip;">{{txtDISPATCHER}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainstaffpayment=='Enable' && user.restrictions.display!='Disable'" class="col-sm-4 col-xs-6 center ">
+                <button ng-click="login('#/app/staffpayments/staffpayments')" class="btn btn-azure btn-o margin-bottom-10 text-uppercase text-extra-large text-bold" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                    <img src="assets/images/staffPayments.png" style="width:90px; height:70px;" class="center" /><br />
+                    <span style="color:black; font-size:5.5px; white-space: nowrap; overflow:hidden; text-overflow:clip;">{{txtSTAFFPAYMENTS}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.maincashreport=='Enable'" class="col-sm-4 col-xs-6 center ">
+                <button ng-click="login('#/app/reports/giroreports/maincashreport')" class="btn btn-azure btn-o margin-bottom-10 text-uppercase text-extra-large text-bold" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                    <img src="assets/images/kasaRaporu.png" style="width:90px; height:70px;" class="center" /><br />
+                    <span style="color:black; font-size:10px; white-space: nowrap; overflow:hidden; text-overflow:clip;"> {{txtCASHREPORT}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainreport=='Enable'" class="col-sm-4 col-xs-6 center ">
+                <button ng-click="login('#/app/reports/reportspage')" class="btn btn-azure btn-o margin-bottom-10 text-uppercase text-extra-large text-bold" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                    <img src="assets/images/raporlar.png" style="width:90px; height:70px;" class="center" /><br />
+                    <span style="color:black; font-size:10px; white-space: nowrap; overflow:hidden; text-overflow:clip;"> {{txtREPORTS}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.maincurrentpayment=='Enable'" class="col-sm-4 col-xs-6 center ">
+                <button ng-click="selectcurrent()" class="btn btn-azure btn-o margin-bottom-10 text-uppercase text-extra-large text-bold" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                    <img src="assets/images/cariOdeme.png" style="width:90px; height:70px;" class="center" /><br />
+                    <span style="color:black; font-size:10px; white-space: nowrap; overflow:hidden; text-overflow:clip;">{{txtCASH}} </span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainaddoutcash=='Enable'" class="col-sm-4 col-xs-6 center ">
+                <button ng-click="checkoutcash()" class="btn btn-azure btn-o margin-bottom-10 text-uppercase text-extra-large text-bold" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                    <img src="assets/images/cikis.png" style="width:90px; height:70px;" class="center" /><br />
+                    <span style="color:black; font-size:8px; white-space: nowrap; overflow:hidden; text-overflow:clip;">{{txtADDOUTCASH}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainnotpaid=='Enable'" class="col-sm-4 col-xs-6 center ">
+                <button ng-click="selectnotpaid()" class="btn btn-azure btn-o margin-bottom-10 text-uppercase text-extra-large text-bold" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                    <img src="assets/images/less14.png" style="width:90px; height:70px;" class="center" /><br />
+                    <span style="color:black; font-size:10px; white-space: nowrap; overflow:hidden; text-overflow:clip;">{{txtNOTPAID}}</span>
+                </button>
+            </div>
+            <div ng-if="user.restrictions.mainendofday=='Enable'" class="col-sm-4 col-xs-6 center  " ng-controller="endofdayCtrl">
+                <button ng-click="SaveEndOfDays()" class="btn btn-azure btn-o margin-bottom-10 text-uppercase text-extra-large text-bold" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                    <img src="assets/images/gunSonu.png" style="width:90px; height:70px;" class="center" /><br />
+                    <span ng-if="ShowingObje==true" style="color:black; font-size:6px; white-space: nowrap; overflow:hidden; text-overflow:clip;"><span class="fa fa-spin fa-spinner"></span></span><span style="width:10px; height:10px; color:black; font-size:6px;">  {{txtENDOFDAY}} </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

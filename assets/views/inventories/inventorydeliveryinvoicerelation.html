@@ -1,0 +1,61 @@
+﻿<div class="modal-header center">
+    <h3 class="modal-title center"><span class="center text-bold">{{'main.INVENTORYDELIVERY' | translate}} </span><button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body panel panel-white">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+        <form name="userForm" role="form">
+            <div class="form-group col-sm-8 col-lg-8 col-md-8 col-xs-8">
+                <label class="text-bold" translate="main.STORE"></label> &nbsp;<span class="symbol required"></span>
+                <select id="store" class="form-control text-uppercase ng" ng-model="item.StoreID ">
+                    <option value=""></option>
+                    <option value="">Tümü !</option>
+                    <option ng-repeat="item in store | orderBy:'+name'" value="{{item.id}}">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save margin-top-20" ng-disabled="userForm.$invalid" ng-click="UnasSigned(item)">
+                    <span translate="main.GETLIST"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+        <form name="userForm" role="form">
+            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-condensed">
+                <tr>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.DOCUMENTNUMBER' | translate}}</th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.DESCRIPTION' | translate}}</th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.DATETIME' | translate}}</th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.AMOUNT' | translate}}</th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.PAYMENTTERM' | translate}}</th>
+                </tr>
+                <tr ng-repeat="data in unassigned" style="border-bottom:1px solid; font-size:13px;">
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-model="aitem" data-sortable="'UnitSend'">
+                        <span><input type="checkbox" ng-model="data.isSelected"></span>
+                    </td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <span> {{data.DocumentNumber }}</span>
+                    </td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <span> {{data.Description }}</span>
+                    </td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <span> {{data.DeliveryDate | date:'dd.MM.yyyy' }}</span>
+                    </td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <span> {{data.Amount }}</span>
+                    </td>
+                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <span> {{data.PaymentTerm }}</span>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div class="modal-footer center">
+    <button class="btn btn-primary" ng-click="ok(unassigned)">TAMAM</button>
+    <button class="btn btn-danger" ng-click="cancel()">İPTAL</button>
+</div>
+

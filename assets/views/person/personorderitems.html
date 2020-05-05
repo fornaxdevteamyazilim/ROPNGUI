@@ -1,0 +1,76 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+
+<div class="modal-header center">
+    <h3 class="modal-title center"><span class="center">{{'main.ORDERNUMBER' | translate}} : {{OrderNumber}}</span><button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body panel panel-white">
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <legend translate="main.ORDERDETAILS"></legend>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="user.restrictions.repeatorder=='Enable'">
+                <button class="btn btn-success btn-lg fa fa-shopping-cart pull-right" ng-click="repeatOrder()" tooltip="Siparişi Tekrarla" tooltip-placement="top" ng-if="item.OrderTypeID==2 || item.OrderTypeID==7">
+                    <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true"></span>
+                                                                                         <span>{{'main.REPEATORDER' | translate}}</span>
+                </button>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark margin-top-5">
+                <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{'main.ORDERCONTENT' | translate}}</span>
+                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{'main.ORDERTYPE' | translate}}</span>
+                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.AMOUNT' | translate}}</span>
+            </div>
+            <hr />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="min-height:100px;">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="oritem in item.items">
+                        <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-capitalize">
+                            {{oritem.Quantity}} X  {{oritem.Product  || oritem.ProductPrototype}}
+                        </span>
+                        <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-capitalize" ng-repeat="items in oritem.items">
+                            {{items.Quantity}} X  {{items.Product || items.ProductPrototype}}
+                            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-left-10" ng-repeat="oitems in items.items">
+                                * {{oitems.Quantity}} X   {{oitems.Product}}
+                            </span>
+                        </span>
+
+                    </div>
+                </div>
+                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{item.OrderType}}</span>
+                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{item.Amount}} TL</span>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
+                <span class="col-lg-8 col-md-8 col-sm-8 col-xs-10">{{'main.ADDRESS' | translate}}</span>
+                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-2">{{'main.STORE' | translate}}</span>
+            </div>
+            <hr />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-10">
+                    <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span class="col-lg-12">{{item.Address.AddressType}}</span>
+                        <span class="col-lg-12">Apartman Adı: {{item.Address.AppartmentName}}</span>
+                        <span class="col-lg-4">Daire No: {{item.Address.AppartmentNo}}</span>
+                        <span class="col-lg-4">Dış Kapı No: {{item.Address.AddressNo}}</span>
+                        <span class="col-lg-4">Giriş: {{item.Address.Entrance}}</span>
+                        <span class="col-lg-4">Kat: {{item.Address.Floor}}</span>
+                        <span class="col-lg-12">{{item.Address.StreetAddress}}</span>
+                    </span>
+                </div>
+                <span class="col-lg-4 col-md-4 col-sm-4 col-xs-2">{{item.Store}}</span>
+            </div>
+            <!--<button class="btn btn-success btn-lg fa fa-shopping-cart pull-right" ng-click="repeatOrder()" ng-if="item.OrderTypeID==2 || item.OrderTypeID==7" tooltip="Siparişi Tekrarla" tooltip-placement="top">
+        <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true"></span>
+    </button>-->
+        </fieldset>
+    </div>
+    <br />
+</div>
+<div class="modal-footer center">
+    <button class="btn btn-primary" ng-click="ok()" ng-disabled="isSpinner == true">OK</button>
+</div>

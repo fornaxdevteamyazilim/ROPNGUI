@@ -1,0 +1,163 @@
+﻿(function () {
+    'use strict';
+    app.controller('storepaymenttypeCtrl', storepaymenttypeCtrl);
+    function storepaymenttypeCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope) {
+        var vm = this;
+        $scope.objectType = 'storepaymenttype';
+        $scope.SelectedItem = null;
+        vm.search = '';
+        $scope.SelectItem = function (id) {
+            $scope.SelectedItem = id;
+        };
+        $scope.saveData = function (data) {
+            if (data.restangularized) {
+                data.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Data updated", 'Data Update applyed to server.'); });
+            }
+            else {
+                Restangular.restangularizeElement('', data, $scope.objectType)
+                data.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Data added", 'Saved data to server.'); });
+                data.get();
+            }
+        }
+        $scope.FormKeyPress = function (event, rowform, data, index) {
+            if (event.keyCode === 13 && rowform.$visible) {
+                _update(rowform.$data, data);
+                $scope.saveData(data);
+                rowform.$cancel();
+                return data;
+            }
+            if (event.keyCode === 27 && rowform.$visible) {
+                $scope.cancelForm(rowform);
+            }
+        };
+        $scope.cancelForm = function (rowform) {
+            rowform.$cancel();
+            if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
+                $scope.cancelremove(vm.tableParams.data.length - 1, 1);
+                toaster.pop('warning', "Cancelled", 'Insert cancelled');
+            } else {
+                toaster.pop('warning', "Cancelled", 'Edit cancelled');
+            }
+        };
+        vm.tableParams = new ngTableParams({
+            page: 1,
+            count: 10,
+        },
+        {
+            getData: function ($defer, params) {
+                Restangular.all($scope.objectType).getList({
+                    pageNo: params.page(),
+                    pageSize: params.count(),
+                    search: (vm.search.length > 0) ? "PaymentType.name like '%" + vm.search + "%'" : "",
+                    sort: params.orderBy()
+                }).then(function (items) {
+                    params.total(items.paging.totalRecordCount);
+                    $scope.SelectedItem = items[0].id;
+                    $defer.resolve(items);
+                }, function (response) {
+                    toaster.pop('error', "Sunucu hatası", response);
+                    SweetAlert.swal("Server error!", angular.toJson(response, false), "error");
+                });
+            }
+        });
+
+        $scope.ShowObject = function (Container, idName, idvalue, resName) {
+            for (var i = 0; i < $scope[Container].length; i++) {
+                if ($scope[Container][i][idName] == idvalue)
+                    return $scope[Container][i][resName];
+            }
+            return idvalue || 'Not set';
+        };
+        $scope.loadEntities = function (EntityType, Container) {
+            if (!$scope[Container].length) {
+                Restangular.all(EntityType).getList({
+                    pageNo: 1,
+                    pageSize: 1000,
+                }).then(function (result) {
+                    $scope[Container] = result;
+                }, function (response) {
+                    toaster.pop('Warning', "Sunucu hatası", response);
+                });
+            }
+        };
+
+        $scope.paymenttypes = [];
+        $scope.loadEntities('enums/paymenttype', 'brands');
+        $scope.stores = [];
+        $scope.loadEntities('store', 'stores');
+
+        $scope.saveItem = function (data) {
+            _update(data, this.item);
+            $scope.saveData(this.item);
+            return this.item;
+        }
+        function _update(srcObj, destObj) {
+            for (var key in srcObj) {
+                if (destObj.hasOwnProperty(key) && srcObj.hasOwnProperty(key)) {
+                    destObj[key] = (srcObj[key] != undefined) ? srcObj[key] : '';
+                }
+                if (!destObj.hasOwnProperty(key) && srcObj.hasOwnProperty(key)) {
+                    destObj[key] = (srcObj[key] != undefined) ? srcObj[key] : '';
+                }
+            }
+        }
+        $scope.removeItem = function (index) {
+            SweetAlert.swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this record!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel please!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    if (vm.tableParams.data[index].fromServer) {
+                        vm.tableParams.data[index].remove();
+                        toaster.pop("error", "Dikkat!!", "Kayıt silindi!");
+                    }
+                    vm.tableParams.data.splice(index, 1);
+                    SweetAlert.swal("Deleted!", "Record deleted.", "success");
+                } else {
+                    SweetAlert.swal("Cancelled", "Delete operation cancellled", "error");
+                }
+            });
+
+        };
+        $scope.cancelremove = function (index) {
+            if (vm.tableParams.data[index].fromServer) {
+                vm.tableParams.data[index].remove();
+            }
+            vm.tableParams.data.splice(index, 1);
+        };
+        $scope.addItem = function () {
+            vm.tableParams.data.push({});
+        };
+        $scope.$watch(angular.bind(vm, function () {
+            return vm.search;
+        }), function (value) {
+            vm.tableParams.reload();
+        });
+        $scope.open = function (ObjectID) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'assets/views/Tags/ObjectTagEditModalContent.html',
+                controller: 'TagModalCtrl',
+                size: '',
+                resolve: {
+                    ObjectID: function () {
+                        return ObjectID;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.result = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+    };
+})();

@@ -1,0 +1,169 @@
+﻿<style>
+    .strike {
+        text-decoration: line-through;
+    }
+
+    .red {
+        color: red;
+    }
+</style>
+<div ng-controller="filtereditCtrl as ici" ng-init="app.layout.isSidebarClosed=true">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                    <span class="mainTitle text-dark text-uppercase" style="font-size:25px;" translate="tittle.FILTERITEM" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10">
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right visible-lg visible-md">
+                    <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left margin-right-10 pull-right" ng-click="Back()">
+                        <span translate="main.BACK"></span>
+                    </a>
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right visible-sm visible-xs">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel panel-white">
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group col-sm-6 col-lg-4 col-md-4 col-xs-12">
+                        <label translate="main.FILTEROBJECT" for="FilterObject">
+                            Filter Object
+                        </label><br />
+                        <select id="FilterObject" ng-options="q.Value as q.Name for q in filterobjects | orderBy:'+Name'" class="form-control ng" ng-model="item.FilterObjectID"></select>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-4 col-md-4 col-xs-12">
+                        <label translate="main.SCHEDULE" for="Schedule">
+                            Schedule
+                        </label><br />
+                        <select id="Schedule" ng-options="q.id as q.name for q in schedules | orderBy:'+name'" class="form-control ng" ng-model="item.ScheduleID"></select>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-4 col-md-4 col-xs-12">
+                        <label translate="main.FILTERACTIVE" for="FilterName">
+                            Filter Active
+                        </label><br />
+                        <select id="FilterActive" ng-model="item.Active" class="form-control ng"
+                                ng-options="o.v as o.n for o in [{ n: 'Passive', v: false }, { n: 'Active', v: true }]"></select>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-4 col-md-4 col-xs-12">
+                        <label translate="main.FILTERNAME" for="FilterName">
+                            Filter Name
+                        </label><br />
+                        <input id="Name" type="text" class="form-control" ng-model="item.Name" placeholder="">
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-4 col-md-4 col-xs-12">
+                        <label translate="main.FILTERLEVEL" for="FilterLevel">
+                            Filter Level
+                        </label><br />
+                        <select id="FilterLevel" ng-options="q.Value as q.Name for q in filterlevels | orderBy:'+Name'" class="form-control ng" ng-model="item.FilterLevelID"></select>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-4 col-md-4 col-xs-12">
+                        <label translate="main.FILTERTYPE" for="FilterType">
+                            Filter Type
+                        </label><br />
+                        <select id="filtertype" ng-options="q.Value as q.Name for q in filtertypes | orderBy:'+Name'" class="form-control ng" ng-model="item.FilterTypeID"></select>
+                    </div>
+                    <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-click="removedata(item.id)" ng-show="$stateParams.id !== 'new'">
+                        <span translate="main.DELETE">Delete Filter</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel panel-white">
+            <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus margin-top-10 margin-left-10" ng-click="addItem()">
+                <span translate="main.ADDFILTERITEM">Add Filter Item</span>
+            </a>
+            <br />
+            <div class="table-responsive">
+                <table ng-table="ici.tableParams" class="table table-striped table-hover">
+                    <tr ng-repeat="item in $data"
+                        ng-class=" {'active': item.id==SelectedItem, strike: !item.Active, red: !item.Active}"
+                        ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+                        <td data-title="trSchedule" data-sortable="'ScheduleID'" style="width:15%" ng-click="rowform.$show()" class="ng">
+                            <span editable-select="item.ScheduleID" e-name="ScheduleID" e-ng-options="q.id as q.name for q in schedules | orderBy:'+name'" e-style="width: 10vw;"
+                                  e-form="rowform" e-ng-model="item.ScheduleID" class="ng">
+                                {{ ShowObject('schedules','id',item.ScheduleID,'name') }}
+
+                            </span>
+                        </td>
+                        <td data-title="trFilterOperation" data-sortable="'FilterOperationID'" style="width:15%" class="ng">
+                            <span editable-select="item.FilterOperationID" e-name="FilterOperationID" e-ng-options="q.Value as q.Name for q in filteritemoperations | orderBy:'+Name'" e-style="width: 10vw;"
+                                  e-form="rowform" e-ng-model="item.FilterOperation" class="ng">
+                                {{ ShowObject('filteritemoperations','Value',item.FilterOperationID,'Name') }}
+                            </span>
+                        </td>
+                        <td data-title="trFilterCommand" data-sortable="'Command'" style="width:15%" class="ng">
+                            <span editable-select="item.Command" e-name="Command" e-ng-options="o as o for o in filtercommands"
+                                  e-form="rowform" e-ng-model="item.Command" e-style="width: 10vw;" class="ng">
+                                {{ item.Command }}
+                            </span>
+                        </td>
+                        <td data-title="trFilterParameter" data-sortable="'FilterParameter'" style="width:15%">
+                            <span editable-text="item.FilterParameter" e-name="FilterParameter" e-form="rowform" e-ng-model="item.FilterParameter" e-style="width: 10vw;">
+                                {{ item.FilterParameter }}
+                            </span>
+                        </td>
+                        <td data-title="trFilterCondition" data-sortable="'FilterConditionID'" style="width:15%" class="ng">
+                            <span editable-select="item.FilterConditionID" e-name="FilterConditionID" e-ng-options="q.Value as q.Name for q in filterconditions | orderBy:'+Name'" e-style="width: 10vw;"
+                                  e-form="rowform" e-ng-model="item.FilterConditionID" class="ng">
+                                {{ ShowObject('filterconditions','Value',item.FilterConditionID,'Name') }}
+                            </span>
+                        </td>
+                        <td data-title="trFilterValue" data-sortable="'FilterValue'" style="width:15%">
+                            <span editable-text="item.FilterValue" e-name="FilterValue" e-form="rowform" e-ng-model="item.FilterValue" e-style="width: 10vw;">
+                                {{ item.FilterValue }}
+                            </span>
+                        </td>
+                        <td data-title="trActive" data-sortable="'Active'" style="width:20%">
+                            <span editable-checkbox="item.Active" e-form="rowform" e-ng-model="item.Active" e-required
+                                  e-ng-true-value="true"
+                                  e-ng-false-value="false">
+                                {{ item.Active && "Active" || "Passive" }}
+                            </span>
+                        </td>
+                        <td data-title="trRow" data-sortable="'OrderNumber'" style="width:15%">
+                            <span editable-text="item.OrderNumber" e-name="OrderNumber" e-form="rowform" e-ng-model="item.OrderNumber" e-style="width: 10vw;">
+                                {{ item.OrderNumber }}
+                            </span>
+                        </td>
+                        <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
+                            <form editable-form name="rowform" onaftersave="saveItem($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                                  shown="inserted == item|| !item.id">
+                                <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>
+                                <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
+                            </form>
+                            <div class="buttons pull-right" ng-show="!rowform.$visible">
+                                <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                                <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                            </div>
+                            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                <div class="btn-group" dropdown is-open="status.isopen">
+                                    <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                        <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                        <li>
+                                            <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-click="rowform.$show()" translate="main.EDIT"> Edit</a>
+                                        </li>
+                                        <li>
+                                            <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)" translate="main.DELETE"> Remove</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus margin-top-10 margin-left-10" ng-click="SaveData()">
+                    <span translate="main.SAVE">Save Filter</span>
+                </button>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>

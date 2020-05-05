@@ -1,0 +1,336 @@
+﻿<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+<div print-section ng-controller="inventorywasteconsuptionsCtrl">
+    <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+            <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+            <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span><br />
+            <span class="col-lg-12 pull-left" ng-if="user.restrictions.storeselected=='Enable'">{{'main.SELECTEDSTORE' | translate}}: {{selectedStore[0].name}}</span><br />
+            <span class="col-lg-12 pull-left">Envanter Grubu: {{TagData.name}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <span class="text-bold text-dark" style="font-size:18px;" translate="tittle.INVENTORYWASTECONSUPTIONS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <span class="col-lg-12 pull-right">Başlangıç Tarihi: {{StartDate| date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">Bitiş Tarihi: {{EndDate| date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">{{Time | date:'dd-MM-yyyy HH:mm'}} </span>
+        </div>
+    </div>
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 visible-lg visible-md">
+            <div print-remove class="col-lg-4 col-md-4 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.INVENTORYWASTECONSUPTIONS" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+                <i class="fa fa-info-circle" style="font-size:25px;" popover="Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçtiğiniz tarihler arasında ki envanter atık miktarlarını görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <br />
+                <label class="col-lg-4 col-md-4 margin-top-10 text-bold text-dark text-large">
+                    <input ng-checked="ChangedAdjustValue" ng-click="GetAdjustValue(ChangedAdjustValue)" type="checkbox" ng-model="ChangedAdjustValue" />
+                    {{'main.INVENTORYADJUSTITEMS' | translate}}
+                </label>
+                <label class="col-lg-4 col-md-4 margin-top-10 text-bold text-dark text-large">
+                    <input ng-checked="ChangedWasteValue" ng-click="GetChangedWasteValue(ChangedWasteValue)" type="checkbox" ng-model="ChangedWasteValue" />
+                    {{'main.PRODUCTWASTE' | translate}}
+                </label>
+                <label class="col-lg-4 col-md-4 margin-top-10 text-bold text-dark text-large">
+                    <input ng-checked="ChangedReturnProducts" ng-click="GetChangedReturnProducts(ChangedReturnProducts)" type="checkbox" ng-model="ChangedReturnProducts" />
+                    {{'main.RETURNEDPRODUCTS' | translate}}
+                </label>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 margin-top-10">
+                <div class="col-lg-12 col-md-12">
+                    <span class="text-bold" translate="main.STARTDATE">Başlangıç Tarihi :</span> <span class="text-bold">*</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></label>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <span class="text-bold" translate="main.ENDDATE">Bitiş Tarihi :</span> <span class="text-bold">*</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></label>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 margin-top-10">
+                <div class="col-lg-12 col-md-12">
+                    <span translate="main.SELECTTAG">Tag Seçimi :</span><br />
+                    <label><input id="Date" type="text" class="form-control" ng-model="TagData.name" readonly ng-click="selecttag()" required></label>
+                </div>
+                <br />
+                <div print-remove class="col-lg-12 col-md-12" ng-if="user.restrictions.storeselected=='Enable'">
+                    <span class="text-bold" translate="main.STORE"></span> <span class="text-bold">*</span><br />
+                    <select class="col-lg-10 col-md-10 form-control" ng-change="GetSoreID(StoreID)" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID">
+                        <option value=''></option>
+                    </select>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-3 margin-top-10">
+                <div class="col-lg-12 col-md-12 margin-top-15">
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadInventoryTransactions(StartDate,EndDate)">
+                        <img ng-src="assets/images/report.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#productusagecount')">
+                        <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                    </button>
+                    <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                        <img ng-src="assets/images/print.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+
+
+        <div print-remove class="col-sm-12 col-xs-12 visible-sm visible-xs">
+            <div class="col-sm-12 col-xs-12">
+                <div print-remove class="col-sm-10 col-xs-10 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:15px;" translate="tittle.INVENTORYWASTECONSUPTIONS" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12">
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-sm-12 col-xs-12">
+                        <span translate="main.STARTDATE">Başlangıç Tarihi :</span><br />
+                        <span><input id="Date" type="text" class="form-control" ng-model="StartDate" readonly ng-click="SelectStartDate()" required></span>
+                    </div>
+                    <div class="col-sm-12 col-xs-12">
+                        <span translate="main.ENDDATE">Bitiş Tarihi :</span><br />
+                        <span><input id="Date" type="text" class="form-control" ng-model="EndDate" readonly ng-click="SelectEndDate()" required></span>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6 margin-top-5">
+                    <span class="col-sm-6 col-xs-12 margin-top-10 text-bold text-dark text-large">
+                        <input ng-checked="ChangedAdjustValue" ng-click="GetAdjustValue(ChangedAdjustValue)" type="checkbox" ng-model="ChangedAdjustValue" />
+                        Çiğ Atık
+                    </span>
+                    <span class="col-sm-6 col-xs-12 margin-top-10 text-bold text-dark text-large">
+                        <input ng-checked="ChangedWasteValue" ng-click="GetChangedWasteValue(ChangedWasteValue)" type="checkbox" ng-model="ChangedWasteValue" />
+                        Pişmiş Atık
+                    </span>
+                    <span class="col-xs-12 margin-top-10 text-bold text-dark text-large">
+                        <input ng-checked="ChangedReturnProducts" ng-click="GetChangedReturnProducts(ChangedReturnProducts)" type="checkbox" ng-model="ChangedReturnProducts" />
+                        Otomatik Atık
+                    </span>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-sm-9 col-xs-12">
+                        <span translate="main.SELECTTAG">Tag Seçimi :</span><br />
+                        <span><input id="Date" type="text" class="form-control" ng-model="TagData.name" readonly ng-click="selecttag()" required></span>
+                    </div>
+                    <div class="col-sm-12 col-xs-12 margin-top-5">
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadInventoryTransactions(StartDate,EndDate)">
+                            <img ng-src="assets/images/report.png" style="width:4vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#productusagecount')">
+                            <img ng-src="assets/images/excel.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        </button>
+                        <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                            <img ng-src="assets/images/print.png" style="width:4vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-sm-9 col-xs-12" ng-if="user.restrictions.storeselected=='Enable'">
+                        <span translate="main.STORE"></span><br />
+                        <select class="form-control" ng-change="GetSoreID(StoreID)" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID">
+                            <option value=''></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" ng-hide="isWaiting==true">
+        <fieldset class="table-responsive" id="productusagecount">
+            <table class="hidden">
+                <tr>
+                    <th>{{'main.STARTDATE' | translate}}</th>
+                    <th>{{'main.ENDDATE' | translate}}</th>
+                    <th>{{'main.REPORTDATE' | translate}}</th>
+                    <th>{{'main.USER' | translate}}</th>
+                    <th>{{'main.USERSTORE' | translate}}</th>
+                    <th ng-if="user.restrictions.storeselected=='Enable'">{{'main.SELECTEDSTORE' | translate}}</th>
+                    <th>{{'main.INVENTORYGROUP' | translate}}</th>
+                </tr>
+                <tr>
+                    <td>{{StartDate| date:'dd-MM-yyyy'}}</td>
+                    <td>{{EndDate| date:'dd-MM-yyyy'}}</td>
+                    <td>{{Time | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{user.FullName}}</td>
+                    <td>{{user.Store.Member}} - {{user.Store.name}}</td>
+                    <td ng-if="user.restrictions.storeselected=='Enable'">{{selectedStore[0].name}}</td>
+                    <td>{{TagData.name}}</td>
+                </tr>
+            </table>
+            <br />
+            <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive" ng-repeat="item in ProductUsageCounts">
+                <h2>{{item.InventoryGroup}}</h2>
+                <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table table-responsive">
+                    <tr>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.STORE' | translate}}</th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.INVENTORYCODE' | translate}}</th>
+                        <th class="col-lg-2 col-md-2 col-sm-3 col-xs-6">{{'main.MATERIALNAME' | translate}}</th>
+                        <th class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="pull-right">{{'main.USAGECOUNT' | translate}}</span></th>
+                        <th class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="pull-right">{{'main.UNITPRICE' | translate}} (TL)</span></th>
+                        <th class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></th>
+                        <th class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="pull-right">{{'main.RATIO' | translate}}</span></th>
+                        <th class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="pull-right">{{'main.GROUPRATIO' | translate}} (%)</span></th>
+                    </tr>
+                    <tr ng-repeat="data in item.InventoryTransactions">
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span>{{data.Store}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span>{{data.Inventory.AC_ItemCode}}</span>
+                        </td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-uppercase">
+                            <span class="pull-left">{{data.InventoryUnit.name }}</span>
+                        </td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                            <span class="pull-right">{{data.UnitCount  |abs | number:4}}</span>
+                        </td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                            <span class="pull-right">{{data.UnitPrice | number:2}}</span>
+                        </td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                            <span class="pull-right">{{data.UnitCount * data.UnitPrice  |abs | number:2}}</span>
+                        </td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                            <span class="pull-right">{{data.Ratio | number:2 }}</span>
+                        </td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                            <span class="pull-right">{{data.GroupRatio | number:2 }}</span>
+                        </td>
+                    </tr>
+                </table>
+                <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table table-responsive">
+                    <tr class="bg-grey" style="border-bottom:1px solid; font-size:13px;">
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                            <span class="text-bold text-dark text-uppercase">
+                                {{'main.GROUPTOTAL' | translate}}
+                            </span>
+                        </td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark"></span></td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark"></span></td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark"></span></td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark pull-right">{{item.Amount  |abs | number:2}}</span></td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark pull-right">{{item.Ratio  |abs | number:2}}</span></td>
+                        <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark"></span></td>
+                    </tr>
+                </table>
+            </div>
+            <table print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table table-responsive">
+                <tr class="bg-grey">
+                    <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                        <span class="text-bold text-dark text-uppercase">
+                            {{'main.GENERALAMOUNT' | translate}}
+                        </span>
+                    </td>
+                    <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark"></span></td>
+                    <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark"></span></td>
+                    <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark"></span></td>
+                    <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark pull-right">{{TotalAmount  |abs | number:2}}</span></td>
+                    <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark pull-right"></span></td>
+                    <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6"><span class="text-bold text-dark"></span></td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <div print-only class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive visible-print hidden margin-top-10">
+            <div ng-repeat="item in ProductUsageCounts">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h2>{{item.InventoryGroup}}</h2>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold">{{'main.STORE' | translate}}</div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold">{{'main.MATERIALNAME' | translate}}</div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold"><span class="pull-right">{{'main.USAGECOUNT' | translate}}</span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold"><span class="pull-right">{{'main.UNITPRICE' | translate}} (TL)</span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold"><span class="pull-right">{{'main.RATIO' | translate}}</span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold"><span class="pull-right">{{'main.GROUPRATIO' | translate}} (%)</span></div>
+                </div>
+                <hr />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15" ng-repeat="data in item.InventoryTransactions" style="border-bottom:1px solid;">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        {{data.Store }}
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        {{data.InventoryUnit.name }}
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        <span class="pull-right">{{data.UnitCount | number:4}}</span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        <span class="pull-right">{{data.UnitPrice | number:2}}</span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        <span class="pull-right">{{data.UnitCount * data.UnitPrice | number:2}}</span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        <span class="pull-right">{{data.Ratio | number:2}}</span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        <span class="pull-right">{{data.GroupRatio| number:2 }}</span>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive bg-grey margin-top-5">
+                    <div class="bg-grey">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                            <span class="text-bold text-dark text-uppercase">
+                                {{'main.GROUPTOTAL' | translate}}
+                            </span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark"></span></div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark"></span></div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark"></span></div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark pull-right">{{item.Amount | number:2}}</span></div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark pull-right">{{item.Ratio | number:2}}</span></div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive bg-grey margin-top-5">
+                <div class="bg-grey">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <span class="text-bold text-dark text-uppercase">
+                            {{'main.GENERALAMOUNT' | translate}}
+                        </span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark"></span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark"></span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark"></span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark pull-right">{{TotalAmount | number:2}}</span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark"></span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6"><span class="text-bold text-dark"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,188 @@
+﻿<!--<style>
+        [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+<div print-section ng-controller="accountbalancereportCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+            <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+            <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span><br />
+            <span class="col-lg-12 pull-left" ng-if="user.restrictions.storeselected=='Enable'">{{'main.SELECTEDSTORE' | translate}}: {{selectedStore[0].name}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <span class="mainTitle text-dark text-bold center" style="font-size:18px;" translate="tittle.ACCOUNTBALANCEREPORT" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <span class="col-lg-12 pull-right">{{Time | date:'dd-MM-yyyy HH:mm'}} </span>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div print-remove class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.ACCOUNTBALANCEREPORT" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+                <i class="fa fa-info-circle" style="font-size:25px;" popover="Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçili restoran için cari borcu olan müşteriler listelenir. Müşteri adının üzerine tıklayınca müşteriye ait cari borç detayları gösterilir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-5" ng-if="ShowStores == true">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label class="text-bold" translate="main.STORE">Store</label> <span class="text-bold">*</span><br />
+                    <select class="col-lg-8 col-md-8 col-sm-8 col-xs-12 form-control" ng-disabled="ObjectShow==true" ng-model="StoreID" ng-change="SetStoreID(StoreID)">
+                        <option value=""  ng-if="user.restrictions.storeselectall=='Enable'">Tümü !</option>
+                        <option ng-repeat="item in user.userstores | orderBy:'+name'" value="{{item.id}}">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-3 col-sm-6 col-xs-6 margin-top-25">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadAccountBalance()">
+                        <img ng-src="assets/images/report.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                    <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#accountbalance')">
+                        <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                    </button>
+                    <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                        <img ng-src="assets/images/print.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                        <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                    </button>
+                </div>
+            </div>
+            <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+
+        <div print-remove class="col-sm-12 col-xs-12 visible-sm visible-xs">
+            <div class="col-sm-12 col-xs-12">
+                <div print-remove class="col-sm-10 col-xs-10 margin-top-10">
+                    <span class="mainTitle text-dark" style="font-size:15px;" translate="tittle.ACCOUNTBALANCEREPORT" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+                </div>
+                <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right">
+                    <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12">
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-sm-9 col-xs-12" ng-if="ShowStores == true">
+                        <label translate="main.STORE">Store</label><br />
+                        <select class="form-control" ng-disabled="ObjectShow==true" ng-model="StoreID" ng-change="SetStoreID(StoreID)">
+                            <option value=""  ng-if="user.restrictions.storeselectall=='Enable'">Tümü !</option>
+                            <option ng-repeat="item in user.userstores | orderBy:'+name'" value="{{item.id}}">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="col-md-12 col-sm-12 col-xs-12 margin-top-20">
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="LoadAccountBalance()">
+                            <img ng-src="assets/images/report.png" style="width:4vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+                        <button class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" ng-click="exportToExcel('#accountbalance')">
+                            <img ng-src="assets/images/excel.png" style="width:4vw; height:3vh;" class="center" /><br />
+                        </button>
+                        <button print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                            <img ng-src="assets/images/print.png" style="width:4vw; height:3vh;" class="center" /><br />
+                            <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div print-only class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel table-responsive" ng-hide="isWaiting==true">
+        <fieldset class="table-responsive" id="accountbalance">
+            <table class="hidden">
+                <tr>
+                    <th>{{'main.REPORTDATE' | translate}}</th>
+                    <th>{{'main.USER' | translate}}</th>
+                    <th>{{'main.USERSTORE' | translate}}</th>
+                    <th>{{'main.SELECTEDSTORE' | translate}}</th>
+                </tr>
+                <tr>
+                    <td>{{Time | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{user.FullName}}</td>
+                    <td>{{user.Store.Member}} - {{user.Store.name}}</td>
+                    <td>{{selectedStore[0].name}}</td>
+                </tr>
+            </table>
+            <br />
+            <table print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table table-responsive">
+                <tr>
+                    <!--<th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.STORE' | translate}}</th>-->
+                    <th class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold">{{'main.PERSONNAME' | translate}}</th>
+                    <th class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold"><span class="pull-right">{{'main.CURRENT' | translate}} (TL)</span></th>
+                    <th class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold"><span class="pull-right">{{'main.LASTTRANSACTIONDATE' | translate}}</span></th>
+                </tr>
+                <tr ng-repeat="item in AccountBalance | orderBy:'+Current'">
+                    <!--<td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        {{item.StoreID}}
+                    </td>-->
+                    <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-click="getPersonDetails(item)">
+                        {{item.name}}
+                    </td>
+                    <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <span class="pull-right">{{item.Current |number:2}}</span>
+                    </td>
+                    <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <span class="pull-right">{{item.LastTransactionDate | date:'dd-MM-yyyy HH:mm'}}</span>
+                    </td>
+                </tr>
+                <tr class="bg-grey text-dark text-bold text-uppercase">
+                    <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{'main.TOTAL' | translate }}</td>
+                    <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><span class="pull-right">{{Total |number:2}}</span></td>
+                    <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+            <div>
+                <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.STORE' | translate}}</div>-->
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold">{{'main.PERSONNAME' | translate}}</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold"><span class="pull-right">{{'main.CURRENT' | translate}} (TL)</span></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold"><span class="pull-right">{{'main.LASTTRANSACTIONDATE' | translate}}</span></div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive margin-top-10" ng-repeat="item in AccountBalance | orderBy:'+Current'" style="border-bottom:1px solid;">
+                <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    {{item.StoreID}}
+                </div>-->
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    {{item.name}}
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <span class="pull-right">{{item.Current |number:2}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <span class="pull-right">{{item.LastTransactionDate| date:'dd-MM-yyyy HH:mm'}}</span>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive bg-grey margin-top-10 visible-print">
+                <div class="bg-grey">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <span class="text-bold text-dark text-uppercase">
+                            {{'main.GRANDTOTAL' | translate}}
+                        </span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><span class="text-bold text-dark pull-right">{{Total |number:2}}</span></div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><span class="text-bold text-dark pull-right"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

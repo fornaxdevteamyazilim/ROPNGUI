@@ -1,0 +1,55 @@
+﻿<div ng-controller="systemsCtrl as vm">
+    
+    <p>
+        <input class="form-control" placeholder="Search by name" type="text" ng-model="vm.search" ng-model-options="{ debounce: 500 }" />
+    </p>
+    <button class="btn btn-default" ng-click="addItem()"><i class="ti-plus"></i> Add System Setting</button>
+    <a class="btn btn-default" href="#/app/others/systems/edit/new">Add Form</a>
+    <table ng-table="vm.tableParams" class="table table-striped table-bordered table-hover">
+        <tr ng-repeat="item in $data"
+            ng-dblclick="rowform.$show()"
+            ng-click="SelectItem(item.id)"
+            ng-class="{'active': item.id === SelectedItem}"
+            ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
+            <!--<td data-title="'System ID'" data-sortable="'id'" style="width:20%; grid-row-sizing:auto;">
+                {{item.id}}
+            </td>-->
+            <td data-title="'System Name'" data-sortable="'name'" style="width:70%">
+                <span editable-text="item.name" e-name="name" e-form="rowform" e-ng-model="item.name" e-required e-style="width: 50vw;">
+                    {{ item.name || rowform.$show() }}
+                </span>
+            </td>
+            <td data-title="'isDefault'" style="width:20%; grid-column-sizing:auto;">
+                <span editable-checkbox="item.isDefault"
+                      e-name="isDefault"
+                      e-form="rowform"
+                      e-ng-model="item.isDefault"
+                      e-required>
+                    {{ item.isDefault && "Evet" || "Hayır"}}
+                </span>
+            </td>
+            <td data-title="'form edit'">
+                <a href="#/app/others/systems/edit/{{item.id}}" class="btn btn-default">Edit<i class="fa-edit"></i></a>
+            </td>
+            <td style="white-space: nowrap;grid-column-sizing:auto;">
+                <!-- form -->
+                <form editable-form name="rowform" onbeforesave="saveItem($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                      shown="inserted == item || !item.id">
+
+
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary" ng-click="pop()">
+                        save
+                    </button>
+
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-default">
+                        cancel
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                    <button class="btn btn-danger" ng-click="destroy($index)">del</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

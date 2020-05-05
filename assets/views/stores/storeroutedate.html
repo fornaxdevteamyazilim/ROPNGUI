@@ -1,0 +1,24 @@
+﻿<div class="panel-body">
+    <div class="col-md-12 center">
+        <h3 class="modal-title">Date</h3>
+        <h3 class="text-dark">{{ DateTime | date: 'yyyy-MM-dd HH:mm:ss'  }}</h3>
+    </div>
+    <div class="col-md-12 center">
+        <div class="inline-block min-height-180">
+            <datepicker ng-model="DateTime" min-date="minDate" show-weeks="true"starting-day="1" class="well well-sm"></datepicker>
+        </div>
+    </div>
+    <div class="col-md-12 center">
+        <h3 class="modal-title">Time</h3>
+        <div class="inline-block ">
+            <!--<uib-timepicker ng-model="Time" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>-->
+            <timepicker ng-model="DateTime" hour-step="hstep" minute-step="mstep" show-meridian="!ismeridian" class="well well-sm"></timepicker>
+        </div>
+    </div>
+</div>
+<div class="panel center">
+    <button class="btn btn-o btn-primary " ng-click="today()">{{'main.TODAY' | translate}}</button> -
+    <button class="btn btn-o btn-primary " ng-click="clear()">{{'main.CLEAR' | translate}}</button> -
+    <button class="btn btn-o btn-primary" ng-click="ok(DateTime)">{{'main.OK' | translate}}</button> -
+    <button class="btn btn-o btn-primary" ng-click="cancel()">{{'main.CANCEL' | translate}}</button>
+</div>

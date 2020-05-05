@@ -1,0 +1,68 @@
+﻿<div ng-controller="preferencesCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.PREFERENCES" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-sm-12 col-lg-6 col-md-6 col-xs-12">
+        <fieldset>
+            <legend  translate="main.SELECTCATEGORY">Select Category </legend>
+            <div class="radio clip-radio radio-primary radio-inline">
+                <input type="radio" id="Member" name="inline" value="Member" ng-model="Member" ng-click="GetCombobox('member')">
+                <label  translate="main.MEMBER" for="Member"></label>
+            </div>
+            <div class="radio clip-radio radio-primary radio-inline">
+                <input type="radio" id="Store" name="inline" value="Store" ng-model="Store" ng-click="GetCombobox('store')">
+                <label  translate="main.STORE" for="Store"></label>
+            </div>
+            <div class="radio clip-radio radio-primary radio-inline">
+                <input type="radio" id="User" name="inline" value="User"  ng-model="User" ng-click="GetCombobox('user')">
+                <label  translate="main.USER" for="User"></label>
+            </div>
+            <div class="radio clip-radio radio-primary radio-inline">
+                <input type="radio" id="User Role" name="inline" value="User Role" ng-model="UserRole" ng-click="GetCombobox('nguserrole')">
+                <label translate="main.USERROLE" for="User Role"></label>
+            </div>
+        </fieldset>
+    </div>
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <div class="form-group col-sm-12 col-lg-6 col-md-6 col-xs-12" ng-if="Show!=true">
+            <label translate="main.SELECTEDCATEGORY" for="Store"></label>
+            <select id="StoreID" class="form-control ng" ng-options="q.id as q.name for q in stores | orderBy:'+name'" ng-model="item.StoreID" ng-change="GetPreference(item.StoreID)"></select>
+        </div>
+        <div class="form-group col-sm-12 col-lg-6 col-md-6 col-xs-12" ng-if="Show==true">
+            <label translate="main.SELECTEDCATEGORY" for="Store">a</label>
+            <select id="NgUserRoleID" class="form-control ng" ng-options="q.id as q.Name for q in stores | orderBy:'+name'" ng-model="item.NgUserRoleID" ng-change="GetPreference(item.NgUserRoleID)"></select>
+        </div>
+    </div>
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12" ng-show="item.StoreID">
+        <fieldset>
+            <legend translate="main.EDITPREFERENCE"></legend>
+            <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                <label translate="main.PREFERANCENAME" for="Preferences"></label>
+                <select id="StoreID" class="form-control ng" ng-options="q.id as q.name for q in preference" ng-model="GetPreferencesList.preferences[0].PreferenceID"></select>
+                <!--<input id="GetPreferencesList.preferences[0].Preference.name" type="text" class="form-control text-uppercase" ng-model="GetPreferencesList.preferences[0].Preference.name" readonly>-->
+            </div>
+            <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                <label translate="main.PREFERENCEVALUE" for="Preferences"></label>
+                <select id="PreferenceValues" class="form-control" ng-model="GetPreferencesList.preferences[0].Value">
+                    <option value="True">True</option>
+                    <option value="False">False</option>
+                </select>
+            </div>
+            <!--<div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                <label translate="main.DefaultValue" for="Preferences">
+                    Preference Default Value
+                </label>
+                <input id="GetPreferencesList.preferences[0].Preference.DefaultValue" type="text" class="form-control text-uppercase" ng-model="GetPreferencesList.preferences[0].Preference.DefaultValue">
+            </div>-->
+        </fieldset>
+    </div>
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12" ng-show="GetPreferencesList.preferences[0].Value">
+        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save " ng-click="saveData(GetPreferencesList)">
+            <span translate="main.SAVE">Save Preferences</span>
+        </button>
+    </div>
+</div>

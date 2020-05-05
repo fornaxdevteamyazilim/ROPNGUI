@@ -1,0 +1,115 @@
+﻿<style>
+    .ng {
+     }
+      .ng:hover {
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+    .strike {
+        text-decoration: line-through;
+    }
+
+    .red {
+        color: red;
+    }
+    .blue {
+        color: aliceblue;
+    }
+    .text-danger {
+        color:aliceblue;
+    }
+        /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+
+</style>
+<div ng-controller="activeordersCtrl as ao">
+    <!--<div>
+        <h1 class="mainTitle col-lg-8 col-md-8 col-sm-8 col-xs-12" translate="tittle.ACTIVEORDERS" translate-values="{ appName: app.name }">{{ mainTitle }}</h1><br /><br />
+    </div>-->
+    <div class="panel panel-white col-lg-7 col-md-12 col-sm-12 col-xs-12 table-responsive margin-top-10">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 margin-top-10">
+                <span class="mainTitle" translate="tittle.ACTIVEORDERS" style="font-size:25px;" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12 margin-top-10">
+                <input id="searchbyname" class="form-control" focus="true" placeholder="{{'main.SEARCHBYNAME' | translate}}" type="text" ng-model="search" /><br />
+                <!--<label class="text text-bold text-primary pull-left fa fa-spinner"ng-if="isSearch==true"><span class="center">{{'main.SEARCHING' | translate}} {{search}}</span></label>-->
+            </div>
+        </div>
+        <table ng-table="ao.tableParams" class="table table-condensed text-danger">
+            <tr ng-repeat="item in $data |  orderBy:['-AlertActive'] | filter:search "
+                ng-class="{'list-group-item-danger':item.Active == false, 'strike':item.Active == false, 'text-red':item.Active == false, 'bg-danger':item.AlertActive > 0}"
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)"> 
+                <td data-title="trStoreName" data-sortable="'name'" style="width:30%" class="ng" ng-click="SelectItem('all',item.Store)">
+                <label ng-if="item.IntegrationActive == false" class="ti-bolt pull-left" style="color:black;" ></label> <label ng-class="{'text-white':item.AlertActive > 0, 'strike':item.Active == false}">{{item.Store.name}} </label>
+                </td>
+                <td data-title="trAcitveOrders" data-sortable="'AcitveOrders'" style="width:9%" class="ng">
+                    <label ng-class="{'text-white':item.AlertActive > 0, 'strike':item.Active == false}">{{ item.AcitveOrders }}  </label>
+                </td>
+                <td data-title="trNewOrders" data-sortable="'NewOrders'" style="width:9%" class="ng" ng-click="GetOrdes(1,item.Store)">
+                     <label ng-class="{'text-white':item.AlertActive > 0, 'strike':item.Active == false}">{{ item.NewOrders }} </label>
+                </td>
+                <td data-title="trPreparingOrders" data-sortable="'PreparingOrders'" style="width:9%" class="ng" ng-click="GetOrdes(4,item.Store)">
+                     <label ng-class="{'text-white':item.AlertActive > 0, 'strike':item.Active == false}">{{ item.PreparingOrders }} </label>
+                </td>
+                <td data-title="trPreparedOrders" data-sortable="'PreparedOrders'" style="width:9%" class="ng" ng-click="GetOrdes(5,item.Store)">
+                     <label ng-class="{'text-white':item.AlertActive > 0, 'strike':item.Active == false}">{{ item.PreparedOrders }}</label>
+                </td>
+                <td data-title="trOutOrders" data-sortable="'OutOrders'" style="width:9%" class="ng" ng-click="GetOrdes(6,item.Store)">
+                    <label ng-class="{'text-white':item.AlertActive > 0, 'strike':item.Active == false}">{{ item.OutOrders }}  </label>
+                </td>
+                <td data-title="trAwaitingOrders" data-sortable="'AwaitingOrders'" style="width:9%" class="ng" ng-click="GetOrdes(131920,item.Store)">
+                    <span  ng-class="{'btn btn-xs btn-default':item.AwaitingOrders>0}">
+                        <label ng-class="{'text-white':item.AlertActive > 0, 'text-dark':item.AwaitingOrders>0, 'strike':item.Active == false}">{{ item.AwaitingOrders }} </label>
+                    </span>
+                </td>
+                <td data-title="trDelayed" data-sortable="'Delayed'" style="width:9%" class="ng" ng-click="GetOrdes(11,item.Store)">
+                    <label ng-class="{'text-white':item.AlertActive > 0, 'strike':item.Active == false}">{{ item.Delayed }} </label>
+                </td>
+                <td data-title="trARefused" data-sortable="'Refused'" style="width:9%" class="ng" ng-click="GetOrdes(14,item.Store)">
+                    <span ng-class="{'btn btn-xs btn-default':item.Refused>0}">
+                        <label ng-class="{'text-white':item.AlertActive > 0,  'text-dark':item.Refused>0,  'strike':item.Active == false}">{{ item.Refused }} </label>
+                    </span>
+                    <button class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs pull-right" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="StoreEdit(item)"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="panel panel-white col-lg-5 col-md-12 col-sm-12 col-xs-12 table-responsive margin-top-10">
+        <div class="margin-top-5">
+            <span class="mainTitle margin-left-5" style="font-size:25px;">{{ Store }}</span>
+            <span class="pull-right" style="font-size:20px;">{{ nowTime}}</span><br /><br />
+        </div>
+        <table ng-table="tableParams" class="table table-striped table-hover table-condensed">
+            <tr ng-repeat="item in orders |  orderBy:'-OrderDate' "
+                ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)"
+                ng-class="{'strike':item.OrderStateID == 14,'red':item.OrderStateID == 14}">
+                <td data-title="trOrderNumber" data-sortable="'OrderNumber'" style="width:10%" class="ng" ng-click="OrderDetails(item.id)">
+                    {{ item.id }}
+                </td>
+                <td data-title="trPersonName" data-sortable="'Description'" style="width:20%" class="ng">
+                    {{ item.Description }}
+                </td>
+                <td data-title="trOrderState" data-sortable="'OrderState'" style="width:15%" class="ng">
+                    {{ item.OrderState }}
+                </td>
+                <td data-title="trOrderDate" data-sortable="'OrderDate'" style="width:20%" class="ng">
+                    {{ item.OrderDate | date:'yyyy-MM-dd / HH:mm:ss'}}
+                </td>
+                <td data-title="trDeliveryDate" data-sortable="'DeliveryDate'" style="width:20%" class="ng">
+                    {{ item.DeliveryDate | date:'yyyy-MM-dd / HH:mm:ss'}}
+                </td>
+                <td  data-title="trAttention" style="width:5%" class="ng center" >
+                    <button class="btn btn-o btn-primary  tooltips ti-direction-alt hidden-sm hidden-xs center" ng-if="ShowProsesingButton==true" tooltip="Sipariş Yönlendir!" tooltip-placement="top" ng-click="ChangeStore(item)"></button>
+                    <button class="btn btn-o btn-danger  tooltips  ti-control-shuffle hidden-sm hidden-xs center" ng-if="ShowChangeButton==true" tooltip="Sipariş Durumunu Değiştir!" tooltip-placement="top" ng-click="ChangeOrderState(item.id,4)"></button>
+                    <button class="btn btn-o btn-success tooltips ti-reload hidden-sm hidden-xs center" ng-if="ShowSendAgenButton==true" tooltip="Siparişi Tekrar Gönder!" tooltip-placement="top" ng-click="ChangeOrderState(item.id,13)"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
