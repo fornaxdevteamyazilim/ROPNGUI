@@ -50,6 +50,8 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
     });
     var NewOrderfresh = $scope.$on('NewOrder', function (event, data) {
         $scope.GetNewOrderCount();
+        $scope.AuditFinalizeOpDay();
+
     });
     var StoreStatsRefresh = $scope.$on('UpdateStats', function (event, data) {
         $scope.RefreshStoreStats(data);
@@ -352,7 +354,52 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
 
         })
     };
+    $scope.isFinalizeOpDayRequired = function () { //Gün sonu almaya gerek var mı?
+        if (userService && $rootScope.user && $rootScope.user.Store) {
+            if ($rootScope.user.Store.OperationDate) {
+                var date = new Date($rootScope.user.Store.OperationDate);
+                var today = new Date();
+                //eğer saat 0 ile 5 arasında ise, bir gün öncesi ile kıyaslanmalı.
+                if (today.getHours() < 5)
+                    today = today.addDays(-1);
+                return $filter('date')(date, 'dd-MM-yyyy') != $filter('date')(today, 'dd-MM-yyyy');
+            }
+            return false;
+        }
+    }
 
+    //$scope.isFinalizeOpDayRequired = function () { //Gün sonu almaya gerek var mı?
+    //    if (userService && $rootScope.user && $rootScope.user.Store) {
+    //        if ($rootScope.user.Store.OperationDate) {
+    //            var date = new Date($rootScope.user.Store.OperationDate);
+    //            var bugun = new date();
+    //            if ($filter('date')(date, 'dd-MM-yyyy') != $filter('date')(bugun, 'dd-MM-yyyy')) //işletme tarihi bugüne eşit mi?
+    //                return true; //Gün sonu al (bügüne eşit değil)
+    //            else
+    //                return false; //Gerek yok. Zaten bugüne eşit.
+    //        } else {
+    //            return false; //Gün sonu alınmış.
+    //        }
+    //    }
+    //    else
+    //        return false;
+    //}
+ 
+    $scope.AuditFinalizeOpDay = function () {
+        if ($scope.isFinalizeOpDayRequired()) {
+            SweetAlert.swal({
+                title: "GÜN SONU ALMALISINIZ",
+                text: "Lütfen Gün sonu alınız !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: $scope.OK,
+              
+                closeOnConfirm: true,
+          
+            });
+        }
+    };
     $scope.selectcurrent = function (item) {
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/specialoperations/currentend.html',

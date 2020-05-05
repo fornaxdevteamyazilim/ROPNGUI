@@ -155,8 +155,9 @@ app.run(['userService', function (userService) { }]);
 //app.value('signalRServer', 'http://10.101.252.150:9077');//Little Caesars 9077
 //app.value('signalRServer', 'http://10.101.252.150:9067');//Little Caesars 9067
 //app.value('signalRServer', 'http://pizzahut.ropng.site:9075');//PH - Test
-app.value('signalRServer', 'http://192.168.9.40:9065');//PH
+//app.value('signalRServer', 'http://192.168.9.40:9065');//PH
 //app.value('signalRServer', 'http://localhost:9065');//localhost
+app.value('signalRServer', 'http://192.168.9.40:9067');//PH test
 
 app.run(['callsService', function (callsService) { }]);
 app.run(['ngnotifyService', function (ngnotifyService) { }]);
