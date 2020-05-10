@@ -39,7 +39,7 @@
                     <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.ORDERDATE' | translate}}</span>
                     <div class="col-lg-2 col-md-1 col-sm-1 col-xs-1" ng-if="user.restrictions.dispatcherpaymentbuttons=='Enable'">
                         <button class="btn btn-o btn-success btn-lg ti-credit-card visible-lg pull-left" ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>
-                        <button class="btn btn-o btn-primary btn-lg ti-share tooltips visible-lg pull-right" tooltip-placement="top" tooltip="Siparişi Teslim Et!" ng-click="SaveOpenOrders(order)" ng-disabled="order.PaymentStatusID==0"></button>
+                        <button class="btn btn-o btn-primary btn-lg ti-share tooltips visible-lg pull-right" tooltip-placement="top" tooltip="Siparişi Teslim Et!" ng-click="SaveOpenOrders(order)" ng-disabled="order.PaymentStatusID==0 || order.OrderStateID==4"></button>
 
                         <button class="btn btn-o btn-success btn-md ti-credit-card visible-md visible-sm visible-xs pull-right" ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>
                         <button class="btn btn-o btn-primary btn-md ti-share visible-md visible-sm visible-xs pull-right margin-top-10" ng-click="SaveOpenOrders(order)" ng-disabled="order.PaymentStatusID==0"></button>
