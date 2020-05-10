@@ -50,10 +50,10 @@ function bonusspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
         searchPanel: { visible: true },
         //groupPanel: { visible: true },
         editing: {
-            //allowAdding: true,
+            allowAdding: true,
             allowUpdating: true,
-            //allowDeleting: true,
-            //allowInserting: true
+            allowDeleting: true,
+            allowInserting: true,
             useIcons: true
         },
         columnChooser: { enabled: false },

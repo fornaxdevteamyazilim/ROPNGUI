@@ -1568,7 +1568,7 @@
             </li>
         </ul>
     </li>
-    <li ng-class="{'active open':$state.includes('app.bonus')}">
+    <li ng-class="{'active open':$state.includes('app.loyality ')}" ng-if="user.restrictions.loyality =='Enable'">
         <a href="javascript:void(0)">
             <div class="item-content">
                 <div class="item-media">
@@ -1580,17 +1580,17 @@
             </div>
         </a>
         <ul class="sub-menu">
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-if="user.restrictions.BONUSSETTING=='Enable'">
                 <a ui-sref="app.bonus.bonussetting">
                     <i class="ti-cup"></i><span class="title" translate="sidebar.nav.bonus.BONUSSETTING">Bonus Setting</span>
                 </a>
             </li>
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-if="user.restrictions.BONUSEARNINGRULE=='Enable'">
                 <a ui-sref="app.bonus.bonusearningrule">
                     <i class="ti-cup"></i><span class="title" translate="sidebar.nav.bonus.BONUSEARNINGRULE">Bonus Earning Rule</span>
                 </a>
             </li>
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-if="user.restrictions.BONUSSPENDINGRULE=='Enable'">
                 <a ui-sref="app.bonus.bonusspendingrule">
                     <i class="ti-cup"></i><span class="title" translate="sidebar.nav.bonus.BONUSSPENDINGRULE">Bonus Spending Rule</span>
                 </a>
