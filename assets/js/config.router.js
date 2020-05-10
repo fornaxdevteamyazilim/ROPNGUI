@@ -2703,6 +2703,41 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Kitchen Display'
             }
+        }).state('app.bonus', {
+            url: '/bonus',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'bonus',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'bonus'
+            }
+        }).state('app.bonus.bonussetting', {
+            url: '/bonussetting',
+            templateUrl: "assets/views/bonus/bonussetting.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'bonussettingCtrl'),
+            title: 'Bonus Setting',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'Bonus Setting'
+            }
+        }).state('app.bonus.bonusearningrule', {
+            url: '/bonusearningrule',
+            templateUrl: "assets/views/bonus/bonusearningrule.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'bonusearningruleCtrl','dashboardCtrl'),
+            title: 'Bonus Earning Rule',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'Bonus Earning Rule'
+            }
+        }).state('app.bonus.bonusspendingrule', {
+            url: '/bonusspendingrule',
+            templateUrl: "assets/views/bonus/bonusspendingrule.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'bonusspendingruleCtrl','dashboardCtrl'),
+            title: 'Bonus Spending Rule',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'Bonus Spending Rule'
+            }
         }).state('app.hnr', {
             url: '/hnr',
             template: '<div ui-view class="fade-in-up"></div>',
