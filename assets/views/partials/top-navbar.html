@@ -141,7 +141,7 @@
                 </li>
             </ul>
         </li>
-        <li class="dropdown" dropdown on-toggle="toggled(open)" ng-if="user.UserRole.ShiftControl">
+        <li class="dropdown" dropdown on-toggle="toggled(open)" ng-if="user.UserRole.ShiftControl || user.restrictions.clockinout=='Enable'">
             <a class="dropdown-toggle margin-top-10" ui-sref="login.clockinout">
                 <i class="ti-alarm-clock" style="font-size:x-large;"></i>
             </a>

@@ -2010,6 +2010,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'productwithrelations'
             }
+        }).state('app.reports.productsalesreports.promotionanaisys', {
+            url: '/promotionanaisys',
+            templateUrl: "assets/views/reports/productsalesreports/promotionanaisys.html",
+            resolve: loadSequence('promotionanaisysCtrl'),
+            title: 'Promosyon Analizi Raporu',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'promotionanaisys'
+            }
         }).state('app.reports.productsalesreports.menuincom', {
             url: '/menuincom',
             templateUrl: "assets/views/reports/productsalesreports/menuincom.html",

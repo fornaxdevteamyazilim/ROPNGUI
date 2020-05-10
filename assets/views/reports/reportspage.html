@@ -470,6 +470,14 @@
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTWITHRELATIONS' |translate}}</span>
             </button>
         </div>
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.promotionanaisys=='Enable'">
+            <button ng-click="goReportsPage('app/reports/productsalesreports/promotionanaisys')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında menü alt detaylarını bu rapordan görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <br />
+                <br />
+                <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PROMOTIONANALISYS' |translate}}</span>
+            </button>
+        </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.menuincom=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/menuincom')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
                 <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında hangi kampanyanın içerisinde hangi üründen kaç adet ne kadardan satılmış, ürünün fiyatı maliyeti gibi bilgileri görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
@@ -503,13 +511,13 @@
             </button>
         </div>
         <!--<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.productsalesbyproto=='Enable'">
-            <button ng-click="goReportsPage('app/reports/productsalesreports/productsalesbyproto')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen prototipin hangi boyundan satıldığının adet ve tutar toplamları raporudur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
-                <br />
-                <br />
-                <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTSALESBYPROTO' |translate}}</span>
-            </button>
-        </div>-->
+        <button ng-click="goReportsPage('app/reports/productsalesreports/productsalesbyproto')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
+            <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen prototipin hangi boyundan satıldığının adet ve tutar toplamları raporudur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+            <br />
+            <br />
+            <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTSALESBYPROTO' |translate}}</span>
+        </button>
+    </div>-->
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.productsalespochette=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productsalespochette')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
                 <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Satılan taşıma poşetlerinin adet ve tutar toplamları raporudur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
@@ -1441,6 +1449,13 @@
                 <span style="width:25vw; height:25vh; color:black; font-size:12px;">{{'main.PRODUCTWITHRELATIONS' |translate}}</span>
             </button>
         </div>
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.promotionanaisys=='Enable'">
+            <button ng-click="goReportsPage('app/reports/productsalesreports/promotionanaisys')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
+                <br />
+                <br />
+                <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PROMOTIONANALISYS' |translate}}</span>
+            </button>
+        </div>
         <div class="col-sm-4 col-xs-4 visible-sm visible-xs" ng-if="user.restrictions.menuincom=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/menuincom')" class="btn btn-warning btn-o  center margin-left-10 margin-bottom-10 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:100px; height:100px; overflow:hidden;">
                 <br />
@@ -1470,12 +1485,12 @@
             </button>
         </div>
         <!--<div class="col-sm-4 col-xs-4 visible-sm visible-xs" ng-if="user.restrictions.productsalesbyproto=='Enable'">
-            <button ng-click="goReportsPage('app/reports/productsalesreports/productsalesbyproto')" class="btn btn-warning btn-o  center margin-left-10 margin-bottom-10 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:100px; height:100px; overflow:hidden;">
-                <br />
-                <br />
-                <span style="width:25vw; height:25vh; color:black; font-size:12px;">{{'main.PRODUCTSALESBYPROTO' |translate}}</span>
-            </button>
-        </div>-->
+        <button ng-click="goReportsPage('app/reports/productsalesreports/productsalesbyproto')" class="btn btn-warning btn-o  center margin-left-10 margin-bottom-10 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:100px; height:100px; overflow:hidden;">
+            <br />
+            <br />
+            <span style="width:25vw; height:25vh; color:black; font-size:12px;">{{'main.PRODUCTSALESBYPROTO' |translate}}</span>
+        </button>
+    </div>-->
         <div class="col-sm-4 col-xs-4 visible-sm visible-xs" ng-if="user.restrictions.productsalespochette=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productsalespochette')" class="btn btn-warning btn-o  center margin-left-10 margin-bottom-10 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:100px; height:100px; overflow:hidden;">
                 <br />

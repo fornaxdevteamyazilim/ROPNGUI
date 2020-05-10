@@ -181,7 +181,7 @@ function clockinoutreportCtrl($scope, $filter, $modal, $log, Restangular, SweetA
             { dataField: "InTime", dataType: "datetime", format: 'HH:mm', sortOrder: "desc" },
             { dataField: "OutTime", dataType: "datetime", format: 'HH:mm' },
             "InIPAddress",
-            "OutPIAddress",
+            "OutIPAddress",
             "isActive"
         ],
         summary: {

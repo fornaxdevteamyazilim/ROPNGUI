@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('PodsReportCtrl', PodsReportCtrl);
-function PodsReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING) {
+function PodsReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING, localStorageService) {
     var ctrl = this;
 
     $scope.gridOptions = {
@@ -41,7 +41,16 @@ function PodsReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                     dataSource: {                        
                         store: DevExpress.data.AspNet.createStore({
                             key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri +"/api/dxStore"
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                            onBeforeSend: function (method, ajaxOptions) {
+                                var authData = localStorageService.get('authorizationData');
+                                if (authData) {
+
+                                    ajaxOptions.headers = {
+                                        Authorization: 'Bearer ' + authData.token
+                                    };
+                                }
+                            }
                         })
                     }
                 }
@@ -54,7 +63,16 @@ function PodsReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                     dataSource: {
                         store: DevExpress.data.AspNet.createStore({
                             key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore"
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                            onBeforeSend: function (method, ajaxOptions) {
+                                var authData = localStorageService.get('authorizationData');
+                                if (authData) {
+
+                                    ajaxOptions.headers = {
+                                        Authorization: 'Bearer ' + authData.token
+                                    };
+                                }
+                            }
                         })
                     }
                 }
@@ -67,7 +85,9 @@ function PodsReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
             }, {
                 dataField: "MinAmount",
                 caption: "MinAmount",
-            }]        
+            },
+            { dataField: "StartTime", alignment: "right", dataType: "datetime", format: 'HH:mm' },
+            { dataField: "EndTime", alignment: "right", dataType: "datetime", format: 'HH:mm' }]        
     };
 
     $scope.getMasterDetailGridSettings = function (order) {

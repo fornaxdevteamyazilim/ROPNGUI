@@ -440,6 +440,18 @@
                                                 {{ item.MinAmount }}
                                             </span>
                                         </td>
+                                        <td data-title="trStartTime" data-sortable="'StartTime'">
+                                            <span editable-text="item.StartTime" e-name="StartTime" e-ng-model="item.StartTime" e-form="rowform"
+                                                  e-required e-show-meridian="false" e-style="width: 20vw;">
+                                                {{(item.StartTime |date:'HH:mm:ss') || 'empty'}}
+                                            </span>
+                                        </td>
+                                        <td data-title="trEndTime" data-sortable="'EndTime'">
+                                            <span editable-text="item.EndTime" e-name="EndTime" e-ng-model="item.EndTime" e-form="rowform"
+                                                  e-required e-show-meridian="false" e-style="width: 20vw;">
+                                                {{item.EndTime |date:'HH:mm:ss'}}
+                                            </span>   <!--editable-bstime-->
+                                        </td>
                                         <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                                             <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
                                                   shown="inserted == item || !item.id">

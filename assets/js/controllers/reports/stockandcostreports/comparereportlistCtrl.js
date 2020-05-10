@@ -111,7 +111,16 @@ function comparereportlistCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                     $scope.TotalCalculateMunis += $scope.GroupTotalMunis;
                 }
             }, function (response) {
-                $scope.isWaiting = false;
+                    $scope.isWaiting = false;
+                    $scope.ActualCalculateRemainderListResults = [];
+                    $scope.isWaiting = false;
+                    $scope.TotalRealCostsPrice = 0;
+                    $scope.TotalCalculatedPrice = 0;
+                    $scope.TotalAmount = 0;
+                    $scope.TotalWasteUsage = 0;
+                    $scope.TotalWaste = 0;
+                    $scope.TotalCalculatePlus = 0;
+                    $scope.TotalCalculateMunis = 0;
                 toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
             });
     };

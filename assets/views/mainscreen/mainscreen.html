@@ -532,7 +532,7 @@
                 </button>
             </div>
             
-            <div ng-if="user.UserRole.ShiftControl" class="col-lg-3 col-md-4 center visible-lg visible-md" >
+            <div ng-if="user.UserRole.ShiftControl || user.restrictions.clockinout=='Enable'" class="col-lg-3 col-md-4 center visible-lg visible-md" >
                 <button ng-click="GoToClockIn()" class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
                     <img src="assets/images/fingerprint.png" style="width:12vw; height:16vh;" /><br />
                     <span ng-if="ShowingObje==true" style="width:12vw; height:15vh;"><span class="fa fa-spin fa-spinner"></span></span><br />

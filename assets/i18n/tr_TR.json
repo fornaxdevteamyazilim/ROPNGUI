@@ -358,7 +358,8 @@
     "DIFFBYHOURREQ": "{{appName}} - Saatlere Göre İhtiyaç Raporu",
     "ACCOUNTTOOLS": "{{appName}} - Muhasebe Aktarımları",
     "USERTRANSFERS": "{{appName}} - Kullanıcı Tansferi",
-    "CLOCKINOUTSTATS": "{{appName}} - Vardiya giriş-çıkış istatistikleri"
+    "CLOCKINOUTSTATS": "{{appName}} - Vardiya giriş-çıkış istatistikleri",
+    "PROMOTIONANALISYS": "{{appName}} - Promosyon Analizi"
   },
   "main": {
     "RETURNREASON": "İptal Sebebi",
@@ -2274,7 +2275,8 @@
     "WAITING": "Hazır/Bekleme",
     "CALLCENTERORDERS": "CallCenter Siparişleri",
     "THEORICTOACTUAL": "Teorik to Actual",
-    "ACTUALTOTHEORIC": "Actual to Theoric"
+    "ACTUALTOTHEORIC": "Actual to Theoric",
+    "PROMOTIONANALISYS": "Promosyon Analizi"
   },
   "topbar": {
     "messages": {
@@ -2618,7 +2620,8 @@
         "CALLCENTERORDERS": "CallCenter Orders",
         "VOIDORDERSREPORT": "İptal Sipariş Raporu",
         "PRODUCTSALESSCOREBOARD": "Product Sales ScoreBoard",
-        "ACTUALVSTHEORITICAL": "Actual vs Theoric"
+        "ACTUALVSTHEORITICAL": "Actual vs Theoric",
+        "PROMOTIONANALISYS": "Promosyon Analizi"
       },
       "addresses": {
         "MAIN": "Adresler",

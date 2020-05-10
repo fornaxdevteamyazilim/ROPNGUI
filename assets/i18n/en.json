@@ -355,7 +355,8 @@
     "DIFFBYHOURREQ": "{{appName}} - Requirement By Hour",
     "ACCOUNTTOOLS": "{{appName}} - Accounting Transfers",
     "USERTRANSFERS": "{{appName}} - User Transferr",
-    "CLOCKINOUTSTATS": "{{appName}} - Clock in Clock Out Stats"
+    "CLOCKINOUTSTATS": "{{appName}} - Clock in Clock Out Stats",
+    "PROMOTIONANALISYS": "{{appName}} - Promotion Analisys Report"
   },
   "main": {
     "RETURNREASON": "Return Reason",
@@ -2261,7 +2262,8 @@
     "CALLCENTERORDERS": "CallCenter Orders",
     "ACTUALVSTHEORITICAL": "Actual vs Theoric",
     "THEORICTOACTUAL": "Theoric to Actual",
-    "ACTUALTOTHEORIC": "Actual to Theoric"
+    "ACTUALTOTHEORIC": "Actual to Theoric",
+    "PROMOTIONANALISYS": "Promotion Analisys"
   },
   "topbar": {
     "messages": {
@@ -2603,8 +2605,8 @@
         "VOIDORDERSREPORT": "Void Orders Report",
         "CALLCENTERORDERS": "CallCenter Orders",
         "PRODUCTSALESSCOREBOARD": "Product Sales ScoreBoard",
-        "DIFFBYHOURREQ": "Requirement By Hour"
-
+        "DIFFBYHOURREQ": "Requirement By Hour",
+        "PROMOTIONANALISYS": "Promotion Analisys Report"
 
 
       },

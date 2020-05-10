@@ -86,7 +86,7 @@
                         ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
                         <td data-title="trInventoryUnit" data-sortable="'InventoryUnitID'" width="22%">
                             <span class="text-uppercase" editable-select="data.InventoryUnitID" e-name="InventoryUnitID" e-ng-model="data.InventoryUnitID" e-form="rowform"
-                                  bindonce="'q'" e-ng-options="q.id as q.Inventory + ' ['+ q.Unit+']' for q in :: inventoryunits | orderBy:'+name' " e-style="width: 15vw;" ng-click="rowform.$show()" e-ng-blur="GetInventoryUnitPrice(rowform,data)">
+                                  bindonce="'q'" e-ng-options="q.id as q.name for q in :: inventoryunits | orderBy:'+name' " e-style="width: 15vw;" ng-click="rowform.$show()" e-ng-blur="GetInventoryUnitPrice(rowform,data)">
                                 {{ data.InventoryUnit  }} 
                             </span>
                         </td>
