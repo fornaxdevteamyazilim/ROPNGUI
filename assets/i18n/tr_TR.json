@@ -36,6 +36,10 @@
     "SUBCITY": "{{appName}} - İlçeler",
     "TOWN": "{{appName}} - Şehirler",
     "BRANDS": "{{appName}} - Marka Tanımlama",
+    "BONUS": "{{appName}} - Sadakat Sistemi",
+    "BONUSSETTING": "{{appName}} - Sadakat Ayarı",
+    "BONUSEARNINGRULE": "{{appName}} - Sadakat Kazanç Kuralı",
+    "BONUSSPENDINGRULE": "{{appName}} - Sadakat Harcama Kuralı",
     "INVENTORYDELIVERYITEMS": "{{appName}} - Malzeme Giriş Detayları",
     "INVENTORYDELIVERIES": "{{appName}} - Malzeme Girişi",
     "INVENTORYCOUNT": "{{appName}} - Sayım",
@@ -2388,6 +2392,12 @@
         "MAIN": "Zamanlama",
         "SCHEDULE": "Zamanlama",
         "SCHEDULEDEFINITION": "Zamanlama Tipleri"
+      },
+      "bonus": {
+        "MAIN": "Sadakat Sistemi",
+        "BONUSSETTING": "Sadakat Sistemi Ayarı",
+        "BONUSSPENDINGRULE": "Sadakat Harcama Kuralı",
+        "BONUSEARNINGRULE": "Sadakat Kazanç Kuralı"
       },
       "inventory": {
         "MAIN": "Stok",

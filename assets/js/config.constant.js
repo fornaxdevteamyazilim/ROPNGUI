@@ -21,7 +21,7 @@ app.constant('NG_SETTING', {
     //apiServiceBaseUri: 'http://10.101.252.150:9077',//Little Caesars 9077
     //apiServiceBaseUri: 'http://10.101.252.150:9067',//Little Caesars 9067
     //apiServiceBaseUri: 'http://pizzahut.ropng.site:9075',//PH - Test
-    apiServiceBaseUri: 'http://192.168.9.40:9065',//PH
+    apiServiceBaseUri: 'http://192.168.9.40:9067',//PH
     //apiServiceBaseUri: 'http://localhost:9065',//localhost
 
 });
@@ -36,7 +36,7 @@ app.constant('ngAuthSettings', {
     //apiServiceBaseUri: 'http://10.101.252.150:9077/', //Little Caesars 9077
     //apiServiceBaseUri: 'http://10.101.252.150:9067/', //Little Caesars 9067
     //apiServiceBaseUri: 'http://pizzahut.ropng.site:9075/', //PH - Test
-    apiServiceBaseUri: 'http://192.168.9.40:9065/',//PH
+    apiServiceBaseUri: 'http://192.168.9.40:9067/',//PH
     //apiServiceBaseUri: 'http://localhost:9065/',//localhost
     
     clientId: 'ropNGui',
@@ -205,8 +205,8 @@ app.constant('JS_REQUIRES', {
         "kds2Ctrl": "assets/js/controllers/kitchenDisplay/kds2Ctrl.js?v=0581",
         "kdslastordersCtrl": "assets/js/controllers/kitchenDisplay/kdslastordersCtrl.js?v=0581",
         "bonussettingCtrl": "assets/js/controllers/bonus/bonussettingCtrl.js?v=0581",
-        "bonusearningCtrl": "assets/js/controllers/bonus/bonusearningruleCtrl.js?v=0581",
-        "bonusspendingCtrl": "assets/js/controllers/bonus/bonusspendingruleCtrl.js?v=0581",
+        "bonusearningruleCtrl": "assets/js/controllers/bonus/bonusearningruleCtrl.js?v=0581",
+        "bonusspendingruleCtrl": "assets/js/controllers/bonus/bonusspendingruleCtrl.js?v=0581",
         "hnrproductCtrl": "assets/js/controllers/hnr/hnrproductCtrl.js?v=0581",
         "hnrdataCtrl": "assets/js/controllers/hnr/hnrdataCtrl.js?v=0581",
         "hnrgroupCtrl": "assets/js/controllers/hnr/hnrgroupCtrl.js?v=0581",
