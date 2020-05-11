@@ -1,5 +1,5 @@
 app.controller('bonusearningruleCtrl', bonusearningruleCtrl);
-function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $element,localStorageService) {
+function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService,$http) {
     $rootScope.uService.EnterController("bonusearningruleCtrl");
     var ngurr = this;
     $scope.NGUserRoleID = '';
@@ -26,12 +26,12 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                 //}
                 var authData = localStorageService.get('authorizationData');
                 if (authData) {
-                    
+
                     ajaxOptions.headers = {
                         Authorization: 'Bearer ' + authData.token//,
                         //'Content-type': 'application/json'
-                    };  
-                }                
+                    };
+                }
             }
         }),
         //filterValue: getFilter(),
@@ -60,8 +60,8 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            { dataField: "name", caption: "Name", allowEditing: true  },
-            { dataField: "description", caption: "Description", allowEditing: true  },
+            { dataField: "name", caption: "Name", allowEditing: true },
+            { dataField: "description", caption: "Description", allowEditing: true },
             {
                 dataField: "BonusSettingID", caption: "BonusSetting",
                 lookup: {
@@ -76,7 +76,7 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                                 if (authData) {
                                     ajaxOptions.headers = {
                                         Authorization: 'Bearer ' + authData.token,
-                                        'Content-type': 'application/json'
+                                        
                                     };
                                 }
                             }
@@ -103,8 +103,7 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                                 var authData = localStorageService.get('authorizationData');
                                 if (authData) {
                                     ajaxOptions.headers = {
-                                        Authorization: 'Bearer ' + authData.token,
-                                        'Content-type': 'application/json'
+                                        Authorization: 'Bearer ' + authData.token,                                        
                                     };
                                 }
                             }
@@ -117,9 +116,42 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                         return this.lookup.calculateCellValue(value);
                     }
                 },
+            },
+             {
+                dataField: "OrderSourceID", caption: "OrderSource",
+                lookup: {
+                    valueExpr: "id",
+                    displayExpr: "name",
+                    dataSource: {
+                        store: new DevExpress.data.CustomStore({
+                            key: "id",
+                            //loadMode: "raw",
+                            load: function () {
+                                var params = {
+                                    PageSize: 1000,
+                                    PageNo: 1
+                                };
+
+                                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/ordersource", { params: params })
+                                    .then(function (response) {
+                                        return {
+                                            data: response.data.Items,
+                                            totalCount: 10
+                                        };
+                                    }, function (response) {
+                                        return $q.reject("Data Loading Error");
+                                    });
+                            }
+                        }),
+                        sort: "name",
+                        headerFilter: { allowSearch: true }
+                    },
+                    
+                },
+
             } 
 
-                       
+
         ],
         export: { enabled: true, fileName: "bonusearningrulelist", },
         scrolling: { mode: "virtual" },

@@ -50,20 +50,20 @@ function bonussettingCtrl($rootScope, $scope, NG_SETTING, $translate, $element,l
         searchPanel: { visible: true },
         //groupPanel: { visible: true },
         editing: {
-            //allowAdding: true,
+            allowAdding: true,
             allowUpdating: true,
-            //allowDeleting: true,
-            //allowInserting: true
+            allowDeleting: true,
+            allowInserting: true,
             useIcons: true
         },
         columnChooser: { enabled: false },
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            { dataField: "name", caption: "Name", allowEditing: false  },
-            { dataField: "isActive", caption: "isActive", allowEditing: false  },
+            { dataField: "name", caption: "Name"  },
+            { dataField: "isActive", caption: "isActive"  },
            
-            { dataField: "StartDate", caption: "StartDate", allowEditing: false  },
+            { dataField: "StartDate", caption: "StartDate" , dataType: "datetime", format: 'dd.MM.yyyy HH:mm' },
                        
         ],
         export: { enabled: true, fileName: "bonussettinglist", },

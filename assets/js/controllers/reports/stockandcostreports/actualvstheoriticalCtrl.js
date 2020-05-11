@@ -65,7 +65,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
             seconds.toString().padStart(2, '0');
         return (cellInfo.value) ? timeString : "-";
     };
-    var store = new DevExpress.data.CustomStore({
+    var store = new DevExpress.data.CustomStore({ 
         key: "StoreID",
         load: function (loadOptions) {
             var params = {
