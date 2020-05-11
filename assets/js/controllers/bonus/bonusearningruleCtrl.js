@@ -117,6 +117,11 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                     }
                 },
             },
+            { dataField: "fk_ObjectUpdate_id", caption: "fk_ObjectUpdate_id"  },
+            { dataField: "isActiveValue", caption: "isActiveValue"  },
+            { dataField: "ConfirmImmediately", caption: "ConfirmImmediately"  },
+            { dataField: "Multiplier", caption: "Multiplier"  },
+            { dataField: "BonusTransactionEventID", caption: "BonusTransactionEventID"  },
              {
                 dataField: "OrderSourceID", caption: "OrderSource",
                 lookup: {
