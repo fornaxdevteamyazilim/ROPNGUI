@@ -505,7 +505,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.inventory.inventoryunits', {
             url: '/inventoryunits',
             templateUrl: "assets/views/inventories/inventoryunit.html",
-            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'inventoryunitCtrl'),
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'TagModalCtrl','inventoryunitCtrl'),
             title: 'Inventoryunitunits',
             authenticate: true,
             ncyBreadcrumb: {

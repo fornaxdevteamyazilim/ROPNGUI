@@ -13,6 +13,39 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
         $scope.translate();
     });
+    var OrderSourceDataSource = {
+        store: new DevExpress.data.CustomStore({
+            key: "id",
+            //loadMode: "raw",
+            load: function() {
+                // Returns an array of objects that have the following structure:
+                // { id: 1, name: "John Doe" }
+                //return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/ordersource")
+                                    .then(function (response) {
+                                        return {
+                                            data: response.data,
+                                            totalCount: 10
+                                        };
+                                    }, function (response) {
+                                        return $q.reject("Data Loading Error");
+                                    });
+            }
+        }),
+        sort: "name"
+    }
+    var lookupDataSource2 = {
+        store: new DevExpress.data.CustomStore({
+            key: "id",
+            loadMode: "raw",
+            load: function() {
+                // Returns an array of objects that have the following structure:
+                // { id: 1, name: "John Doe" }
+                return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
+            }
+        }),
+        sort: "name"
+    }
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
@@ -54,7 +87,19 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
             allowUpdating: true,
             allowDeleting: true,
             allowInserting: true,
-            useIcons: true
+            useIcons: true,
+            mode: "popup",
+            popup: {
+                title: "Edit Details",
+                showTitle: true,
+                // width: 700,
+                // height: 525,
+                // position: {
+                //     my: "top",
+                //     at: "top",
+                //     of: window
+                // }
+            }
         },
         columnChooser: { enabled: false },
         columnFixing: { enabled: true },
@@ -91,7 +136,7 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                 },
             },
             {
-                dataField: "BonusFilterID", caption: "Filter",
+                dataField: "isActiveFilter", caption: "Filter",
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "Name",
@@ -122,34 +167,11 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
-                    dataSource: {
-                        store: new DevExpress.data.CustomStore({
-                            key: "id",
-                            //loadMode: "raw",
-                            load: function () {
-                                var params = {
-                                    PageSize: 1000,
-                                    PageNo: 1
-                                };
-
-                                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/ordersource", { params: params })
-                                    .then(function (response) {
-                                        return {
-                                            data: response.data.Items,
-                                            totalCount: 10
-                                        };
-                                    }, function (response) {
-                                        return $q.reject("Data Loading Error");
-                                    });
-                            }
-                        }),
-                        sort: "name",
-                        headerFilter: { allowSearch: true }
-                    },
-                    
+                    dataSource: OrderSourceDataSource,
                 },
 
-            } 
+            } ,
+            
 
 
         ],
