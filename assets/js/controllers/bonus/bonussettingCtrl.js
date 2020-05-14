@@ -61,7 +61,7 @@ function bonussettingCtrl($rootScope, $scope, NG_SETTING, $translate, $element,l
         remoteOperations: true,
         columns: [
             { dataField: "name", caption: "Name"  },
-            { dataField: "isActive", caption: "isActive"  },
+            { dataField: "isActive", caption: "Active"  },
            
             { dataField: "StartDate", caption: "StartDate" , dataType: "datetime", format: 'dd.MM.yyyy HH:mm' },
                        

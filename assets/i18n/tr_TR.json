@@ -39,7 +39,7 @@
     "BONUS": "{{appName}} - Sadakat Sistemi",
     "BONUSSETTING": "{{appName}} - Puan Ayarları",
     "BONUSEARNINGRULE": "{{appName}} - Puan Kazanç Ayarları",
-    "BONUSSPENDINGRULE": "{{appName}} - Sadakat Harcama Ayarları",
+    "BONUSSPENDINGRULE": "{{appName}} - Puan Harcama Ayarları",
     "INVENTORYDELIVERYITEMS": "{{appName}} - Malzeme Giriş Detayları",
     "INVENTORYDELIVERIES": "{{appName}} - Malzeme Girişi",
     "INVENTORYCOUNT": "{{appName}} - Sayım",
@@ -2396,8 +2396,8 @@
       "bonus": {
         "MAIN": "Sadakat Sistemi",
         "BONUSSETTING": "Puan Ayarları",
-        "BONUSSPENDINGRULE": "Puan Kazanç Ayarları",
-        "BONUSEARNINGRULE": "Puan Harcama Ayarları"
+        "BONUSSPENDINGRULE": "Puan Harcama Ayarları",
+        "BONUSEARNINGRULE": "Puan Kazanç Ayarları"
       },
       "inventory": {
         "MAIN": "Stok",

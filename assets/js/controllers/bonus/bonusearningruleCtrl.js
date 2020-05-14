@@ -108,7 +108,7 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
             { dataField: "name", caption: "Name", allowEditing: true },
             { dataField: "description", caption: "Description", allowEditing: true },
             {
-                dataField: "BonusSettingID", caption: "BonusSetting",
+                dataField: "BonusSettingID", caption: "Bonus Setting",
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -162,8 +162,13 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                     }
                 },
             },
+            { dataField: "fk_ObjectUpdate_id", caption: "DokumanNummer"  },
+            { dataField: "isActiveValue", caption: "ActiveValue"  },
+            { dataField: "ConfirmImmediately", caption: "ConfirmImmediately"  },
+            { dataField: "Multiplier", caption: "Multiplier"  },
+            { dataField: "BonusTransactionEventID", caption: "BonusTransaction"  },
              {
-                dataField: "OrderSourceID", caption: "OrderSource",
+                dataField: "OrderSourceID", caption: "Order Source",
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
