@@ -48,6 +48,10 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
         $scope.item = {};
         $scope.item.InventoryCountTypeID = "0";
     }
+    var searchText='';
+    var inventoryUnit= function(item){
+        return item.InventoryUnit;
+    }
     var InventoryGroup = function (item) {
         return item.InventoryGroup;
     };

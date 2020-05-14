@@ -134,7 +134,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
             { caption: "AutoWaste", dataField: "AutoWasteUsageCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "ItemWaste", dataField: "WasteUsageCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "End.Inv.", dataField: "LasCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "TheoricAvailible", dataField: "TheoricAvailible", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: "Availible(Theoric)", dataField: "TheoricAvailible", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "Unit Cost", dataField: "Price", dataType: "number", format: "#,##0.00₺" },
             { caption: "Cost", dataField: "Amount", dataType: "number", format: "#,##0.00₺" },
             {
