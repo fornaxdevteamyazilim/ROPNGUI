@@ -2738,7 +2738,34 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Bonus Spending Rule'
             }
-        }).state('app.hnr', {
+        }).state('app.bonus.punchcardsetting', {
+            url: '/punchcardsetting',
+            templateUrl: "assets/views/bonus/punchcardsetting.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'punchcardsettingCtrl'),
+            title: 'Punchcard Setting',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'Punchcard Setting'
+            }
+        }).state('app.bonus.punchcardearningrule', {
+            url: '/punchcardearningrule',
+            templateUrl: "assets/views/bonus/punchcardearningrule.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'punchcardearningruleCtrl','dashboardCtrl'),
+            title: 'Punchcard Earning Rule',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'Punchcard Earning Rule'
+            }
+        }).state('app.bonus.punchcardspendingrule', {
+            url: '/punchcardspendingrule',
+            templateUrl: "assets/views/bonus/punchcardspendingrule.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'punchcardspendingruleCtrl','dashboardCtrl'),
+            title: 'Punchcard Spending Rule',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'Punchcard Spending Rule'
+            }
+        }) .state('app.hnr', {
             url: '/hnr',
             template: '<div ui-view class="fade-in-up"></div>',
             title: 'HNR',

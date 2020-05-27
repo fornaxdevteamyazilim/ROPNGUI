@@ -11260,6 +11260,23 @@ td.small-width {
         background-image: -o-linear-gradient(top, #9E9E9E, #FFFFFF);
         background-image: linear-gradient(to bottom, #9E9E9E, #FFFFFF);
     }
+    #form-container {
+      margin: 10px 10px 30px;
+  }
+  
+  #button {
+      float: right;
+      margin-top: 20px;
+  }
+  
+  .long-title h3 {
+      font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+      font-weight: 200;
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 20px;
+  }
+
 /*.MainScreenButton {
     background: #F6F6F6;
     background-image: -webkit-linear-gradient(top, #F6F6F6, #9E9E9E);

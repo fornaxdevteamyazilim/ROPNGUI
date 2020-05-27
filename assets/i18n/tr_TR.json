@@ -40,6 +40,9 @@
     "BONUSSETTING": "{{appName}} - Puan Ayarları",
     "BONUSEARNINGRULE": "{{appName}} - Puan Kazanç Ayarları",
     "BONUSSPENDINGRULE": "{{appName}} - Puan Harcama Ayarları",
+    "PUNCHCARDSETTING": "{{appName}} - Punchcard Ayarları",
+    "PUNCHCARDEARNINGRULE": "{{appName}} - Punchcard Kazanç Ayarları",
+    "PUNCHCARDSPENDINGRULE": "{{appName}} - Punchcard Harcama Ayarları",
     "INVENTORYDELIVERYITEMS": "{{appName}} - Malzeme Giriş Detayları",
     "INVENTORYDELIVERIES": "{{appName}} - Malzeme Girişi",
     "INVENTORYCOUNT": "{{appName}} - Sayım",
@@ -2397,7 +2400,10 @@
         "MAIN": "Sadakat Sistemi",
         "BONUSSETTING": "Puan Ayarları",
         "BONUSSPENDINGRULE": "Puan Harcama Ayarları",
-        "BONUSEARNINGRULE": "Puan Kazanç Ayarları"
+        "BONUSEARNINGRULE": "Puan Kazanç Ayarları",
+        "PUNCHCARDSETTING": "PunchCard Ayarları",
+        "PUNCHCARDSPENDINGRULE": "PunchCard Harcama Ayarları",
+        "PUNCHCARDEARNINGRULE": "PunchCard Kazanç Ayarları"
       },
       "inventory": {
         "MAIN": "Stok",

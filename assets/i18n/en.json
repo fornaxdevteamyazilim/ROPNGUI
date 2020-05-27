@@ -16,6 +16,9 @@
     "BONUSSETTING": "{{appName}} - Bonus Setting",
     "BONUSEARNINGRULE": "{{appName}} - Bonus Earning Rule",
     "BONUSSPENDINGRULE": "{{appName}} - Bonus Spending Rule",
+    "PUNCHCARDSETTING": "{{appName}} - Punchcard Setting",
+    "PUNCHCARDEARNINGRULE": "{{appName}} - Punchcard Earning Rule",
+    "PUNCHCARDSPENDINGRULE": "{{appName}} - Punchcard Spending Rule",
     "COMPLAINTREPORTLIST": "{{appName}} - Complaint List Report",
     "CALLROUTING": "{{appName}} - Call Routing",
     "ADDRESSES": "{{appName}} - Street Adresses",
@@ -2382,7 +2385,10 @@
         "MAIN": "Bonus",
         "BONUSSETTING": "Bonus Setting",
         "BONUSSPENDINGRULE": "Bonus Spending Rule",
-        "BONUSEARNINGRULE": "Bonus Earning Rule"
+        "BONUSEARNINGRULE": "Bonus Earning Rule",
+        "PUNCHCARDSETTING": "PunchCard Setting",
+        "PUNCHCARDSPENDINGRULE": "PunchCard Spending Rule",
+        "PUNCHCARDEARNINGRULE": "PunchCard Earning Rule"
       },
       "inventory": {
         "MAIN": "Inventories",
