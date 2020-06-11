@@ -13,7 +13,7 @@ function realpaymentspivotCtrl($scope, $filter, $modal, $log, Restangular, ngTab
     $scope.Time = ngnotifyService.ServerTime();
     if (!$rootScope.user || !$rootScope.user.UserRole || !$rootScope.user.UserRole.Name) {
         $location.path('/login/signin');
-    }
+    };
     $scope.StoreTypeID = -1;
     
     $scope.FromDate = function (item) {
@@ -150,7 +150,7 @@ function realpaymentspivotCtrl($scope, $filter, $modal, $log, Restangular, ngTab
         else
             return null;
         return result;
-    }
+    };
     function getFilter() { //"and",["!",["OrderType","=",""]]
         if ($scope.StoreID) {
             return [[["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.EndDate]], "and", ["StoreID", "=", $scope.StoreID]];
@@ -162,7 +162,7 @@ function realpaymentspivotCtrl($scope, $filter, $modal, $log, Restangular, ngTab
             else
                 return [["OperationDate", ">=", $rootScope.ReportParameters.StartDate], "and", ["OperationDate", "<=", $rootScope.ReportParameters.EndDate]];
         }
-    }
+    };
 
     $scope.StoreTypeID = -1;
     $scope.LoadData = function () {
@@ -176,8 +176,7 @@ function realpaymentspivotCtrl($scope, $filter, $modal, $log, Restangular, ngTab
         }
         pivotDS.reload();
         //$('#sales').dxPivotGrid('instance').getDataSource().reload();
-    };
-    $scope.LoadData();
+    };  
     $scope.$on('$destroy', function () {
         $element.remove();
         $rootScope.uService.ExitController("realpaymentspivotCtrl");

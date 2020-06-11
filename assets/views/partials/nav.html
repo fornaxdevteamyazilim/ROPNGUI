@@ -1595,8 +1595,24 @@
                     <i class="ti-cup"></i><span class="title" translate="sidebar.nav.bonus.BONUSSPENDINGRULE">Bonus Spending Rule</span>
                 </a>
             </li>
+            <li ui-sref-active="active" >
+                <a ui-sref="app.bonus.punchcardsetting" ng-if="user.restrictions.PUNCHCARDSETTING=='Enable'">
+                    <i class="ti-cup"></i><span class="title" translate="sidebar.nav.bonus.PUNCHCARDSETTING">PunchCard Setting</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" >
+                <a ui-sref="app.bonus.punchcardearningrule" ng-if="user.restrictions.PUNCHCARDEARNINGRULE=='Enable'">
+                    <i class="ti-cup"></i><span class="title" translate="sidebar.nav.bonus.PUNCHCARDEARNINGRULE">PunchCard Earning Rule</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" >
+                <a ui-sref="app.bonus.punchcardspendingrule" ng-if="user.restrictions.PUNCHCARDSPENDINGRULE=='Enable'">
+                    <i class="ti-cup"></i><span class="title" translate="sidebar.nav.bonus.PUNCHCARDSPENDINGRULE">PunchCard Spending Rule</span>
+                </a>
+            </li>
         </ul>
     </li>
+    
     <li ng-class="{'active open':$state.includes('app.hnr')}" ng-if="user.restrictions.hnr=='Enable'">
         <a href="javascript:void(0)">
             <div class="item-content">
@@ -2179,14 +2195,14 @@
                     <i class="ti-notepad"></i>  <span class="title" translate="sidebar.nav.definitions.YEMEKSEPETIREJECTREASON">yemeksepetirejectreason</span>
                 </a>
             </li>
-            <li ui-sref-active="active" ng-if="user.restrictions.ngsettingitem=='Enable'">
+            <li ui-sref-active="active" >
                 <a ui-sref="app.definitions.ngsettingitem">
                     <i class="ti-settings"></i>  <span class="title" translate="sidebar.nav.definitions.NGSETTINGITEM">Ng Setting Item</span>
                 </a>
             </li>
-            <li ui-sref-active="active" ng-if="user.restrictions.ngsettingitem=='Enable'">
+            <li ui-sref-active="active" >
                 <a ui-sref="app.definitions.settingitem">
-                    <i class="ti-settings"></i>  <span class="title" translate="sidebar.nav.definitions.SETTINGITEM">Setting Item</span>
+                    <i class="ti-settings"></i>  <span class="title" translate="sidebar.nav.definitions.SETTINGITEM">Editing Tools</span>
                 </a>
             </li>
             <!--<li ui-sref-active="active" ng-if="user.restrictions.stafftype=='Enable'">

@@ -1,0 +1,16 @@
+<div ng-controller="punchcardearningruleCtrl as urtan">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <span class="mainTitle text-dark" style="font-size:25px;" translate="tittle.PUNCHCARDEARNINGRULE" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+            </div>
+        </div>
+    </div>
+    <div id="report" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive" ng-hide="isWaiting==true">
+        <!--<div id="sales-chart" dx-chart="chartOptions"></div>-->
+        <!--<div dx-button="resetButtonOptions"></div>-->
+        <div id="gridContainer" dx-data-grid="dataGridOptions">
+
+        </div>
+    </div>
+</div>

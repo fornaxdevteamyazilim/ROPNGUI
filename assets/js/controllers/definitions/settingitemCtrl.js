@@ -1,5 +1,5 @@
 ﻿app.controller('settingitemCtrl', settingitemCtrl);
-function settingitemCtrl($rootScope, $scope, Restangular, $location, $window, toaster, userService, $filter, $modal, $element) {
+function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $location, $window, toaster, userService, $filter, $modal, $element) {
     $rootScope.uService.EnterController("settingitemCtrl");
     //userService.userAuthorizated();
     var sti = this;
@@ -13,7 +13,7 @@ function settingitemCtrl($rootScope, $scope, Restangular, $location, $window, to
             toaster.pop('success', "Yeni Dönem Aktif!");
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
             });
     };
     $scope.CopyRecipes= function (FromPeriodID, ToPeriodID) {
@@ -26,7 +26,7 @@ function settingitemCtrl($rootScope, $scope, Restangular, $location, $window, to
             toaster.pop('success', "Reçeteler Kopyalandı!");
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
         });
     };
     $scope.UpdateInventoryPrice = function (PeriodID) {
@@ -38,7 +38,7 @@ function settingitemCtrl($rootScope, $scope, Restangular, $location, $window, to
             toaster.pop('success', "Fiyatlar Güncellendi!");
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
         });
     };
     $scope.SaveConsuption = function (StoreID) {
@@ -53,9 +53,83 @@ function settingitemCtrl($rootScope, $scope, Restangular, $location, $window, to
             toaster.pop('success', "Tüketim Fişleri Güncellendi!");
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
         });
     };
+    
+    
+    $scope.correctopdates = function () {
+        $scope.isWaiting = true;
+             //var data = new Date();
+             var fromDate = $filter('date')($scope.DateRange.fromDate.value, 'yyyy-MM-dd');
+             var toDate = $filter('date')($scope.DateRange.toDate.value, 'yyyy-MM-dd');
+        Restangular.one('tools/correctopdates').get({
+            fromDate:fromDate,
+            toDate:toDate, 
+        }).then(function (result) {
+            $scope.isWaiting = false;
+            toaster.pop('success', "Sipariş Tarihleri Güncellendi!");
+        }, function (response) {
+            $scope.isWaiting = false;
+            toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
+        });        
+    };
+    
+    
+    $scope.DateRange = {
+        fromDate: {
+            max: new Date(),
+            min: new Date(2019, 0, 1),
+            displayFormat: 'dd.MM.yyyy',
+            bindingOptions: {
+                value: "DateRange.fromDate.value"
+            },
+            value: new Date()
+        },
+        toDate: {
+            max: new Date(),
+            min: new Date(2019, 0, 1),
+            displayFormat: 'dd.MM.yyyy',
+            bindingOptions: {
+                value: "DateRange.toDate.value"
+            },
+            value: new Date()
+        }
+    };
+    /* $scope.createprices = function () {
+        $scope.isWaiting = true;
+        Restangular.one('inventory/createprices').get({
+            fromDate:$scope.DateRange.fromDate,
+            toDate: $scope.DateRange.toDate          
+        }).then(function (result) {
+            $scope.isWaiting = false;
+            toaster.pop('success', "Sipariş Tarihleri Güncellendi!");
+        }, function (response) {
+            $scope.isWaiting = false;
+            toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
+        });        
+    };
+    $scope.DateRange = {
+        fromDate: {         
+            max: new Date(),
+            min: new Date(2020, 0, 1),
+            displayFormat: 'yyyy.MM.dd',
+            bindingOptions: {
+                value:new Date(),
+            },          
+        },
+        toDate: {           
+            max: new Date(),
+            min: new Date(2020, 0, 1),
+            displayFormat: 'yyyy.MM.dd',
+            bindingOptions: {
+                value:new Date(),
+            },        
+        }
+    };
+ */
+    
+
 
     $scope.SetStoreTypeID = function (FromValue) {
         $scope.StoreTypeID = FromValue;

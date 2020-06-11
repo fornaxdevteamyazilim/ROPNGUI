@@ -175,6 +175,109 @@
                                     </div>
                                 </div>
                             </li>
+                            <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">05</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-uppercase">Sipariş Taşıma</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content">
+                                        <b>Sipariş tarihilerini değiştirmek </b> için kullanılır.Başlangıç, Bitiş tarihi seçirler. Ve "Başlat" butonuna tıklanır.
+                                    </div>
+                                    <div class="readmore">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                          
+                                            
+                                            <div class="dx-viewport demo-container" >
+                                                <div class="dx-fieldset">
+                                                    <div class="dx-field pull-left" >
+                                                        <div class="dx-field-label">FormDate</div>
+                                                        <div class="dx-field-value" >
+                                                            <div dx-date-box="DateRange.fromDate"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dx-field pull-left">
+                                                        <div class="dx-field-label">ToDate</div>
+                                                        <div class="dx-field-value" >
+                                                            <div dx-date-box="DateRange.toDate"></div>
+                                                        </div>
+                                                    </div>
+                                                  
+                                                </div>
+                                              
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="readmore">
+                                                <button class="btn btn-primary btn-o btn-wide" ng-click="correctopdates()" >
+                                                   
+                                                    <span ng-if="isWaiting != true">{{'main.START' | translate}}  <i class="fa fa-arrow-circle-right"></i></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                           <!-- <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">06</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-uppercase">Malzeme Fiyat Kopyalama</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content">
+                                        <b>Gün sonu almayanlar </b> için kullanılır.Sipariş tarihilerini değiştirmek için kullanılır.Başlangıç, Bitiş tarihi seçirler. Ve "Başlat" butonuna tıklanır.
+                                    </div>
+                                    <div class="readmore">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                          
+                                            
+                                            <div class="dx-viewport demo-container" >
+                                                <div class="dx-fieldset">
+                                                    <div class="dx-field pull-left" >
+                                                        <div class="dx-field-label">FormDate</div>
+                                                        <div class="dx-field-value" >
+                                                            <div dx-date-box="fromDate"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dx-field pull-left">
+                                                        <div class="dx-field-label">ToDate</div>
+                                                        <div class="dx-field-value" >
+                                                            <div dx-date-box="toDate"></div>
+                                                        </div>
+                                                    </div>
+                                                  
+                                                </div>
+                                              
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="readmore">
+                                                <button class="btn btn-primary btn-o btn-wide" ng-click="correctopdates()">
+                                                   
+                                                    <span ng-if="isWaiting != true">{{'main.START' | translate}}  <i class="fa fa-arrow-circle-right"></i></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>-->
+
+
+                            
                         </ul>
                     </div>
                 </div>
