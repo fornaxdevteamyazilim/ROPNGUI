@@ -11,7 +11,7 @@ function storeroutingCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
         $scope.trStart = $translate.instant('main.STARTHOUR');
         $scope.trRoutedOrderType = $translate.instant('main.ROUTEDORDERTYPE');
         $scope.trEnd = $translate.instant('main.ENDHOUR');
-
+        $scope.trStoreRoutingType=$translate.instant('main.STOREROUTINGTYPE');
     }
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
@@ -135,6 +135,8 @@ function storeroutingCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
     $scope.loadEntitiesCache('cache/store', 'stores');
     $scope.ordertypes = [];
     $scope.loadEntities('enums/ordertype', 'ordertypes');
+    $scope.storeroutingtypes = [];
+    $scope.loadEntities('enums/storeroutingtype', 'storeroutingtypes');
     $scope.DatePopupStoreRoutingStart = function (item) {
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/stores/storeroutedate.html',

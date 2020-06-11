@@ -84,7 +84,7 @@ app.controller('VisitsCtrl', function ($scope, $rootScope, Restangular, $locatio
             $scope.RealDeliveryTime = angular.copy(result.RealDeliveryTime);
             $scope.TransferredDuration = angular.copy(result.TransferredDuration);
             $scope.WaitingPeriod = angular.copy(result.WaitingPeriod);
-
+            $scope.isFinalizeRequired=angular.copy(result.isFinalizeRequired);
             angular.copy(result.statsByOrderType, $scope.OrdersOrderType);
             $scope.OrderTotalCount = 0;
             $scope.OrderTotalAmount = 0;
@@ -110,7 +110,7 @@ app.controller('VisitsCtrl', function ($scope, $rootScope, Restangular, $locatio
            function (restresult) {
                $rootScope.ShowSpinnerObject = false;
            })
-    };
+        };
     $scope.GetData();
     $scope.saless = [600, 923, 482, 1211, 490, 1125, 1487];
     $scope.earnings = [400, 650, 886, 443, 502, 412, 353];

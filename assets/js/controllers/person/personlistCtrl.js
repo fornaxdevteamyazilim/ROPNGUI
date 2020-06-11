@@ -155,7 +155,7 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
                 var orderperson = { PersonID: personID }
                 var pesons = [orderperson];
                 order.persons = pesons; //.push(orderperson);
-                order.OrderTypeID = $rootScope.OrderType ? $rootScope.OrderType : OrderType;
+                order.OrderTypeID = OrderType==1?OrderType:($rootScope.OrderType ? $rootScope.OrderType : OrderType);
                 // order.PaymentTypeID = 0;
                 order.StoreID = $rootScope.user.StoreID;
                 order.DepartmentID = $rootScope.user.UserRole.OrderSource.Department.id;

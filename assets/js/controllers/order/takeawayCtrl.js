@@ -67,7 +67,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
         }).then(function (result) {
             var modalInstance = $modal.open({
                 templateUrl: 'assets/views/order/orderpayments.html',
-                controller: 'orderpaymentCtrl',
+                controller: 'orderpaymentCtrl', 
                 size: 'lg',
                 backdrop: '',
                 resolve: {

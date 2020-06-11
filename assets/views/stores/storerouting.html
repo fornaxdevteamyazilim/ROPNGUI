@@ -43,13 +43,19 @@
                 <td data-title="trStart" data-sortable="'Start'" style="width:15%">
                     <input id="Date" type="text" class="form-control" ng-model="item.Start" readonly ng-click="DatePopupStoreRoutingStart(item)" required ng-show="rowform.$visible">
                     <span ng-show="!rowform.$visible" e-name="Start" e-form="rowform" e-ng-model="item.Start" class="ng" e-style="width:10vw;">
-                        {{ item.Start| date:'yyyy-MM-dd HH:mm:ss' }}
+                        {{ item.Start| date:'HH:mm' }}
                     </span>
                 </td>
                 <td data-title="trEnd" data-sortable="'End'" style="width:15%">
                     <input id="Date" type="text" class="form-control" ng-model="item.End" readonly ng-click="DatePopupStoreRoutingEnd(item)" required ng-show="rowform.$visible">
                     <span ng-show="!rowform.$visible" e-name="End" e-form="rowform" e-ng-model="item.End" class="ng" e-style="width:10vw;">
-                        {{ item.End| date:'yyyy-MM-dd HH:mm:ss' }}
+                        {{ item.End| date:'HH:mm' }}
+                    </span>
+                </td>
+                <td data-title="trStoreRoutingType" data-sortable="'StoreRoutingTypeID'" style="width:15%" ng-click="rowform.$show()">
+                    <span class="text-capitalize" editable-select="item.StoreRoutingTypeID" e-name="StoreRoutingType" e-ng-model="item.StoreRoutingTypeID" e-form="rowform"
+                          e-ng-options="q.Value as q.Name  for q in storeroutingtypes | orderBy:'+Name' " e-style="width: 10vw;">
+                        {{ShowObject('storeroutingtypes','Value',item.StoreRoutingTypeID,'Name')}}
                     </span>
                 </td>
                 <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="5%">

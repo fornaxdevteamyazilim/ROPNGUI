@@ -45,7 +45,7 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
         })
     };
     $scope.ChangeStore = function (item) {
-        if (item.OrderStateID == 14) {
+        //if (item.OrderStateID == 14) {
             var modalInstance = $modal.open({
                 templateUrl: 'assets/views/callcenterdashboard/changeorderstore.html',
                 controller: 'changeorderstoreCtrl',
@@ -59,9 +59,9 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
             });
             modalInstance.result.then(function () {
             })
-        } else {
-            toaster.pop('warning', "SİPARİŞ DEĞİŞTİRİLEMEZ !");
-        }
+        //} else {
+          //  toaster.pop('warning', "SİPARİŞ DEĞİŞTİRİLEMEZ !");
+    //    }
     };
 
     $scope.SelectItem = function (data, Store) {
@@ -119,9 +119,11 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
         $scope.ShowSendAgenButton = false;
         if (data == 131920) {
             $scope.isChangeButtonShow(true);
+            $scope.isProsesingButtonShow(true);
         }
         if (data == 14) {
             $scope.isProsesingButtonShow(true);
+            $scope.isChangeButtonShow(true);
         }
         if (data == 4) {
             $scope.isSendAgenButtonShow(true);

@@ -87,7 +87,31 @@ function PodsReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                 caption: "MinAmount",
             },
             { dataField: "StartTime", alignment: "right", dataType: "datetime", format: 'HH:mm' },
-            { dataField: "EndTime", alignment: "right", dataType: "datetime", format: 'HH:mm' }]        
+            { dataField: "EndTime", alignment: "right", dataType: "datetime", format: 'HH:mm' },
+            {
+                dataField: "StoreRoutingTypeID",
+                caption: "RoutingType",
+                lookup: {
+                    valueExpr: "Value",
+                    displayExpr: "Name",
+                    dataSource: {
+                        store: DevExpress.data.AspNet.createStore({
+                            key: "Value",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/enums/StoreRoutingType",
+                            onBeforeSend: function (method, ajaxOptions) {
+                                var authData = localStorageService.get('authorizationData');
+                                if (authData) {
+
+                                    ajaxOptions.headers = {
+                                        Authorization: 'Bearer ' + authData.token
+                                    };
+                                }
+                            }
+                        })
+                    }
+                }
+            }
+        ]        
     };
 
     $scope.getMasterDetailGridSettings = function (order) {

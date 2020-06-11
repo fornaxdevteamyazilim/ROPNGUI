@@ -159,14 +159,14 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
     }  
     function getFilter() {
         if ($scope.StoreID) {
-            return [[["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.EndDate]], "and",["StoreID", "=", $scope.StoreID]];
+            return [[["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.DateToDate]], "and",["StoreID", "=", $scope.StoreID]];
         }
         else {
             var s = BuildUserStoresArray($rootScope.user.userstores);
             if (s)
-                return [["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.EndDate], [s]];
+                return [["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.DateToDate], [s]];
             else 
-                return [["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.EndDate]];
+                return [["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.DateToDate]];
         }
     }
     

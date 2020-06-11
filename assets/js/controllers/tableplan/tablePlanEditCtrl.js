@@ -91,7 +91,7 @@ function tablePlanEditCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
             });
             modalInstance.result.then(function (password) {
                 if (password != "cancel") {
-                    userService.cardLogin(password,false).then(function (response) {
+                    userService.cardLogin(password,true).then(function (response) {
                         if (root == 'edittableplan') {
                         $scope.ShowEditButton = true;
                         userService.stopTimeout();

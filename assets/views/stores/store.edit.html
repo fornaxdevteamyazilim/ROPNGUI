@@ -414,43 +414,49 @@
                                     <tr ng-repeat="item in $data"
                                         ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
                                         <td data-title="trPod" data-sortable="'name'" ng-click="rowform.$show()" class="ng" width="18%">
-                                            <span class="text-capitalize" editable-text="item.name" e-name="name" e-form="rowform" e-ng-model="item.name" e-style="width:10vw;">
+                                            <span class="text-capitalize" editable-text="item.name" e-name="name" e-form="rowform" e-ng-model="item.name" >
                                                 {{ item.name}}
                                             </span>
                                         </td>
 
                                         <td data-title="trRoutedToStore" data-sortable="'RoutedToStoreID'" width="25%">
                                             <span class="text-capitalize ng" editable-select="item.RoutedToStoreID" e-name="RoutedToStoreID" e-ng-model="item.RoutedToStoreID" e-form="rowform"
-                                                  e-ng-options="q.id as q.name for q in stores | orderBy:'+name'" e-style="width:20vw;">
+                                                  e-ng-options="q.id as q.name for q in stores | orderBy:'+name'" >
                                                 {{ ShowObject('stores','id',item.RoutedToStoreID,'name') }}
                                             </span>
                                         </td>
                                         <td data-title="trActive" width="8%">
-                                            <span class="text-capitalize" editable-checkbox="item.isActive" e-name="isActive" e-form="rowform" e-ng-model="item.isActive" e-required e-ng-true-value="true" e-ng-false-value="false" e-style="width:5vw;">
+                                            <span class="text-capitalize" editable-checkbox="item.isActive" e-name="isActive" e-form="rowform" e-ng-model="item.isActive" e-required e-ng-true-value="true" e-ng-false-value="false" >
                                                 {{ item.isActive && "True" || "False"}}
                                             </span>
                                         </td>
                                         <td data-title="trDeliveryTime" data-sortable="'DeliveryTime'" width="18%">
-                                            <span editable-number="item.DeliveryTime" e-min="0" e-name="DeliveryTime" e-form="rowform" e-ng-model="item.DeliveryTime" e-style="width:10vw;">
+                                            <span editable-number="item.DeliveryTime" e-min="0" e-name="DeliveryTime" e-form="rowform" e-ng-model="item.DeliveryTime" >
                                                 {{ item.DeliveryTime }}
                                             </span>
                                         </td>
                                         <td data-title="trMinAmount" data-sortable="'MinAmount'" width="18%">
-                                            <span editable-number="item.MinAmount" e-min="0" e-name="MinAmount" e-form="rowform" e-ng-model="item.MinAmount" e-style="width:10vw;">
+                                            <span editable-number="item.MinAmount" e-min="0" e-name="MinAmount" e-form="rowform" e-ng-model="item.MinAmount">
                                                 {{ item.MinAmount }}
                                             </span>
                                         </td>
                                         <td data-title="trStartTime" data-sortable="'StartTime'">
                                             <span editable-text="item.StartTime" e-name="StartTime" e-ng-model="item.StartTime" e-form="rowform"
-                                                  e-required e-show-meridian="false" e-style="width: 20vw;">
-                                                {{(item.StartTime |date:'HH:mm:ss') || 'empty'}}
+                                                  e-required e-show-meridian="false" >
+                                                {{(item.StartTime |date:'HH:mm') || 'empty'}}
                                             </span>
                                         </td>
                                         <td data-title="trEndTime" data-sortable="'EndTime'">
                                             <span editable-text="item.EndTime" e-name="EndTime" e-ng-model="item.EndTime" e-form="rowform"
-                                                  e-required e-show-meridian="false" e-style="width: 20vw;">
-                                                {{item.EndTime |date:'HH:mm:ss'}}
+                                                  e-required e-show-meridian="false" >
+                                                {{item.EndTime |date:'HH:mm'}}
                                             </span>   <!--editable-bstime-->
+                                        </td>
+                                        <td data-title="trStoreRoutingType" data-sortable="'StoreRoutingTypeID'" width="15%">
+                                            <span class="text-capitalize ng" editable-select="item.StoreRoutingTypeID" e-name="StoreRoutingTypeID" e-ng-model="item.StoreRoutingTypeID" e-form="rowform"
+                                                  e-ng-options="q.Value as q.Name  for q in storeroutingtypes | orderBy:'+Name'">
+                                                  {{ShowObject('storeroutingtypes','Value',item.StoreRoutingTypeID,'Name')}}
+                                            </span>
                                         </td>
                                         <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                                             <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"

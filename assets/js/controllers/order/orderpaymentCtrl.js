@@ -34,7 +34,7 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
     $scope.currentPayment = {};
     $scope.key = false;
     $scope.storepaymenttypes = [];
-    $scope.currentPayment.OrderPersonID = $scope.order.persons[0].id;
+    $scope.currentPayment.OrderPersonID = $scope.order.persons[0].id; 
     if (userService.getUseOKC($rootScope.user.StoreID)) {
         $scope.ShowObject = false;
     } else {

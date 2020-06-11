@@ -163,10 +163,14 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                 { column: "AvgDeliveryTime", summaryType: "avg", customizeText: formatTime },
                 { column: "AvgDriveTime", summaryType: "avg", customizeText: formatTime },
                 { column: "OrderOvelap", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}"},
-                { column: "SingleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-                { column: "DoubleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-                { column: "TripleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-                { column: "MoreDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+                //{ column: "SingleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+                { name: "SingleDispatchSummary", showInColumn: "SingleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+                //{ column: "DoubleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+                { name: "DoubleDispatchSummary", showInColumn: "DoubleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+                //{ column: "TripleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+                { name: "TripleDispatchSummary", showInColumn: "TripleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+                //{ column: "MoreDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+                { name: "MoreDispatchSummary", showInColumn: "MoreDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
                 { name: "Delivery0_30Summary", showInColumn: "Delivery0_30", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
                 //{ column: "Delivery0_30", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
                 { column: "AvgDeliveryTime0_30", summaryType: "avg", customizeText: formatTime },
@@ -203,10 +207,14 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                 { column: "AvgDeliveryTime", summaryType: "avg", customizeText: formatTime, alignByColumn: true},
                 { column: "AvgDriveTime", summaryType: "avg", customizeText: formatTime, alignByColumn: true},
                 { column: "OrderOvelap", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
-                { column: "SingleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
-                { column: "DoubleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
-                { column: "TripleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
-                { column: "MoreDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                //{ column: "SingleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
+                { name: "SingleDispatchSummary", showInColumn: "SingleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                //{ column: "DoubleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
+                { name: "DoubleDispatchSummary", showInColumn: "DoubleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                //{ column: "TripleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
+                { name: "TripleDispatchSummary", showInColumn: "TripleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                //{ column: "MoreDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "MoreDispatchSummary", showInColumn: "MoreDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { name: "Delivery0_30Summary", showInColumn: "Delivery0_30", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 //{ column: "Delivery0_30", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "Delivery0_30GC", summaryType: "sum", displayFormat: "{0}", alignByColumn: true  },
@@ -287,6 +295,70 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                         case "calculate":
                             if (options.value.Delivery60_GC) 
                                 options.totalValue = options.totalValue + options.value.Delivery60_GC;
+                            options.dg = options.dg + options.value.DeliveryGC;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "SingleDispatchSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.SingleDispatchCount) 
+                                options.totalValue = options.totalValue + options.value.SingleDispatchCount;
+                            options.dg = options.dg + options.value.DeliveryGC;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "DoubleDispatchSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.DoubleDispatchCount) 
+                                options.totalValue = options.totalValue + options.value.DoubleDispatchCount;
+                            options.dg = options.dg + options.value.DeliveryGC;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "TripleDispatchSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.TripleDispatchCount) 
+                                options.totalValue = options.totalValue + options.value.TripleDispatchCount;
+                            options.dg = options.dg + options.value.DeliveryGC;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "MoreDispatchSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.MoreDispatchCount) 
+                                options.totalValue = options.totalValue + options.value.MoreDispatchCount;
                             options.dg = options.dg + options.value.DeliveryGC;
                             break;
                         case "finalize":

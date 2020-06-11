@@ -327,7 +327,7 @@ function inventorydeliveryinvoiceitemCtrl($scope, $modal, $filter, SweetAlert, R
     $scope.ShowObjectUnit = function (Container, idName, idvalue, resName) {
         for (var i = 0; i < $scope[Container].length; i++) {
             if ($scope[Container][i][idName] == idvalue)
-                return $scope[Container][i][resName] + ' ' + $scope[Container][i]['Unit'];
+                return $scope[Container][i][resName];
         }
         return idvalue || 'Not set';
     };

@@ -60,6 +60,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
             StoreID: ($scope.selectedStoreID) ? $scope.selectedStoreID : $rootScope.user.StoreID,
         }).then(function (result) {
             $scope.RefreshStoreStats(result);
+            $scope.AuditFinalizeOpDay();
         },
             function (restresult) {
                 $rootScope.ShowSpinnerObject = false;
@@ -95,6 +96,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
         $scope.RealDeliveryTime = angular.copy(stats.RealDeliveryTime);
         $scope.TransferredDuration = angular.copy(stats.TransferredDuration);
         $scope.WaitingPeriod = angular.copy(stats.WaitingPeriod);
+        $scope.isFinalizeRequired=angular.copy(stats.isFinalizeRequired);
     };
     $scope.GetStoreStats();
     if ($rootScope.user && $rootScope.user.UserRole) {
@@ -354,13 +356,15 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
         })
     };
     $scope.isFinalizeOpDayRequired = function () { //Gün sonu almaya gerek var mı?
+        return $scope.isFinalizeRequired;
+        //changed to be server based 
         if (userService && $rootScope.user && $rootScope.user.Store) {
             if ($rootScope.user.Store.OperationDate) {
                 var date = new Date($rootScope.user.Store.OperationDate);
                 var today = new Date();
                 //eğer saat 0 ile 5 arasında ise, bir gün öncesi ile kıyaslanmalı.
                 if (today.getHours() < 5)
-                    today = today.addDays(-1);
+                    today.setDate(today.getDate()-1);
                 return $filter('date')(date, 'dd-MM-yyyy') != $filter('date')(today, 'dd-MM-yyyy');
             }
             return false;
@@ -390,7 +394,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
                 title: "GÜN SONU ALMALISINIZ",
                 text: "Lütfen Gün sonu alınız !",
                 type: "warning",
-                showCancelButton: true,
+                //showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: $scope.OK,
               
@@ -399,7 +403,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
             });
         }
     };
-    
+    $scope.AuditFinalizeOpDay();
 
     $scope.selectcurrent = function (item) {
         var modalInstance = $modal.open({

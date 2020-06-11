@@ -46,6 +46,7 @@ function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, 
         $scope.trStartTime = $translate.instant('main.STARTTIME');
         $scope.trEndTime = $translate.instant('main.ENDTIME');
         $scope.trCommands = $translate.instant('main.COMMANDS');
+        $scope.trStoreRoutingType=$translate.instant('main.STOREROUTINGTYPE');
     }
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
@@ -165,6 +166,8 @@ function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, 
     $scope.loadEntities('enums/storestate', 'storestates');
     $scope.storeregions = [];
     $scope.loadEntities('storeregion', 'storeregions');
+    $scope.storeroutingtypes = [];
+    $scope.loadEntities('enums/storeroutingtype', 'storeroutingtypes');
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
             title: "EMİN MİSİNİZ ?",

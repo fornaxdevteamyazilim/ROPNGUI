@@ -2267,7 +2267,9 @@
     "ACTUALVSTHEORITICAL": "Actual vs Theoric",
     "THEORICTOACTUAL": "Theoric to Actual",
     "ACTUALTOTHEORIC": "Actual to Theoric",
-    "PROMOTIONANALISYS": "Promotion Analisys"
+    "PROMOTIONANALISYS": "Promotion Analisys",
+    "PAYMENTORDERSOURCESTATS": "Payment States by Order Source",
+    "STOREROUTINGTYPE":"Routing Type"
   },
   "topbar": {
     "messages": {

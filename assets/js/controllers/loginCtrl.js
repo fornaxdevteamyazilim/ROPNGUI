@@ -65,7 +65,7 @@ app.controller('loginCtrl', ['$scope', '$location', 'authService', 'ngAuthSettin
                              $scope.translate();
                          });
                      } else {
-                         $scope.message = "Unknown Server Error";
+                         $scope.message = err.error;
                      }
                  });            
         };

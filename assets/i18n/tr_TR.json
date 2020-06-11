@@ -2280,7 +2280,9 @@
     "CALLCENTERORDERS": "CallCenter Siparişleri",
     "THEORICTOACTUAL": "Teorik to Actual",
     "ACTUALTOTHEORIC": "Actual to Theoric",
-    "PROMOTIONANALISYS": "Promosyon Analizi"
+    "PROMOTIONANALISYS": "Promosyon Analizi",
+    "PAYMENTORDERSOURCESTATS": "Sipariş Kaynağına Göre Dağılım",
+    "STOREROUTINGTYPE":"Yönlendirme Tipi"
   },
   "topbar": {
     "messages": {

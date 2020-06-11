@@ -97,7 +97,7 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
         name: 'ROP NG',
         author: 'Fornax A.Ş.',
         description: 'Retail Operation Platform NG',
-        version: '1.0.581',
+        version: '1.0.585',
         year: ((new Date()).getFullYear()),
         isMobile: (function () {// true if the browser is a mobile device
             var check = false;
@@ -134,7 +134,7 @@ app.config(function ($httpProvider) {
                 if (request.url.endsWith(".html") && !request.url.includes("tabset.html")) {
                     if ($templateCache.get(request.url) === undefined) { // cache miss
                         // Item is not in $templateCache so add our query string
-                        request.url = request.url + '?v=0581';
+                        request.url = request.url + '?v=0585';
                     }
                 }
                 return request;
@@ -155,8 +155,8 @@ app.run(['userService', function (userService) { }]);
 //app.value('signalRServer', 'http://10.101.252.150:9077');//Little Caesars 9077
 //app.value('signalRServer', 'http://10.101.252.150:9067');//Little Caesars 9067
 //app.value('signalRServer', 'http://pizzahut.ropng.site:9075');//PH - Test
-app.value('signalRServer', 'http://192.168.9.40:9067');//PH
-//app.value('signalRServer', 'http://localhost:9065');//localhost
+//app.value('signalRServer', 'http://192.168.9.40:9065');//PH
+app.value('signalRServer', 'http://localhost:9065');//localhost
 
 app.run(['callsService', function (callsService) { }]);
 app.run(['ngnotifyService', function (ngnotifyService) { }]);
