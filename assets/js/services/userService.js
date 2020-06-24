@@ -228,7 +228,13 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             }
         };
         var _userIsInRole = function (role) {
+            
             _userAuthorizated();
+            if (role=="CALLCENTER") 
+                {
+                    if (userServiceFactory.currentUser && userServiceFactory.currentUser.UserRole && userServiceFactory.currentUser.UserRole.Name == "CCBACKOFFICE")
+                        return true;
+                }
             if (userServiceFactory.currentUser && userServiceFactory.currentUser.UserRole && userServiceFactory.currentUser.UserRole.Name == role)
                 return true;
             if (userServiceFactory.currentUser && userServiceFactory.currentUser.UserRole && userServiceFactory.currentUser.UserRole.Name != role);
