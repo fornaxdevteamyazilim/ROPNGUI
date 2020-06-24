@@ -2348,6 +2348,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'ordertotals'
             }
+        }).state('app.reports.ordersreports.orderpaymentscheck', {
+            url: '/orderpaymentscheck',
+            templateUrl: "assets/views/reports/ordersreports/orderpaymentscheck.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'orderpaymentscheckCtrl', 'dateCtrl', 'pivottable', 'jqueryui', 'jquery-nestable-plugin', 'ng-nestable'),
+            title: 'Siparis Ödeme Tipleri Raporu',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'orderpaymentscheck'
+            }
         }).state('app.reports.ordersreports.performance', {
             url: '/performance',
             templateUrl: "assets/views/reports/ordersreports/performance.html",

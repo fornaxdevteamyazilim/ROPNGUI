@@ -176,7 +176,7 @@ function realpaymentspivotCtrl($scope, $filter, $modal, $log, Restangular, ngTab
         }
         pivotDS.reload();
         //$('#sales').dxPivotGrid('instance').getDataSource().reload();
-    };  
+    }; 
     $scope.$on('$destroy', function () {
         $element.remove();
         $rootScope.uService.ExitController("realpaymentspivotCtrl");

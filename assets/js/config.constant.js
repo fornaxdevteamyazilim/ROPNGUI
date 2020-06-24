@@ -21,7 +21,11 @@ app.constant('NG_SETTING', {
     //apiServiceBaseUri: 'http://10.101.252.150:9077',//Little Caesars 9077
     //apiServiceBaseUri: 'http://10.101.252.150:9067',//Little Caesars 9067
     //apiServiceBaseUri: 'http://pizzahut.ropng.site:9075',//PH - Test
+<<<<<<< HEAD
     apiServiceBaseUri: 'http://192.168.9.40:9067',//PH
+=======
+    apiServiceBaseUri: 'http://192.168.9.40:9065',//PH
+>>>>>>> 38d6ab1319fec35a1a05c7582a3d14c68480944f
     //apiServiceBaseUri: 'http://localhost:9065',//localhost
 
 });
@@ -36,7 +40,11 @@ app.constant('ngAuthSettings', {
     //apiServiceBaseUri: 'http://10.101.252.150:9077/', //Little Caesars 9077
     //apiServiceBaseUri: 'http://10.101.252.150:9067/', //Little Caesars 9067
     //apiServiceBaseUri: 'http://pizzahut.ropng.site:9075/', //PH - Test
+<<<<<<< HEAD
     apiServiceBaseUri: 'http://192.168.9.40:9067/',//PH
+=======
+    apiServiceBaseUri: 'http://192.168.9.40:9065/',//PH
+>>>>>>> 38d6ab1319fec35a1a05c7582a3d14c68480944f
     //apiServiceBaseUri: 'http://localhost:9065/',//localhost
     
     clientId: 'ropNGui',
@@ -466,6 +474,7 @@ app.constant('JS_REQUIRES', {
         'shiftplaneditCtrl': 'assets/js/controllers/specialoperations/shiftplaneditCtrl.js?v=0585',
         'pickupCtrl': 'assets/js/controllers/order/pickupCtrl.js?v=0585',
         'changeorderpaymentsCtrl': 'assets/js/controllers/reports/ordersreports/changeorderpaymentsCtrl.js?v=0585',
+        'orderpaymentscheckCtrl': 'assets/js/controllers/reports/ordersreports/orderpaymentscheckCtrl.js?v=0585',
         'ysstoreeditCtrl': 'assets/js/controllers/yemeksepeti/ysstoreeditCtrl.js?v=0585',
         'mallCtrl': 'assets/js/controllers/order/mallCtrl.js?v=0585',
         'tablePlantwoCtrl': 'assets/js/controllers/order/tablePlantwoCtrl.js?v=0585',

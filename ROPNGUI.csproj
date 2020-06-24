@@ -358,6 +358,7 @@
     <Content Include="assets\js\controllers\order\changeorderstateCtrl.js" />
     <Content Include="assets\js\controllers\order\deleteorderpromotionCtrl.js" />
     <Content Include="assets\js\controllers\order\orderpaymenttypesCtrl.js" />
+    <Content Include="assets\js\controllers\order\ordersreports\OrderPaymentCompareCtrl.js" />
     <Content Include="assets\js\controllers\order\orderpersonaddresseditCtrl.js" />
     <Content Include="assets\js\controllers\order\previousorderCtrl.js" />
     <Content Include="assets\js\controllers\order\orderlisttwoCtrl.js" />
@@ -932,6 +933,7 @@
     <Content Include="assets\views\tableplan\addstoretable.html" />
     <Content Include="assets\views\tableplan\tablePlanEdit.html" />
     <Content Include="assets\views\order\updateorderpaymenttype.html" />
+     <Content Include="assets\views\order\ordersreports\orderpaymentcompare.html" />
     <Content Include="assets\views\person\person2.html" />
     <Content Include="assets\views\person\personinvoiceinfo.html" />
     <Content Include="assets\views\person\personorderitems.html" />

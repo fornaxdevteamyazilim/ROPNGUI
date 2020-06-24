@@ -10,6 +10,7 @@
     "CALLREASONREPORTPIVOT": "{{appName}} - Call Reason Report - Pivot",
     "ORDERTOTALS": "{{appName}} - Order Totals",
     "ORDERPAYMENTS": "{{appName}} - Order Payments",
+    "ORDERPAYMENTSCHECK": "{{appName}} - Order Payments Compare",
     "INGREDIENTS": "{{appName}} - Ingredients",
     "BASEUNITS": "{{appName}} - Base Units",
     "BONUS": "{{appName}} - Bonus",
@@ -2271,6 +2272,7 @@
     "THEORICTOACTUAL": "Theoric to Actual",
     "ACTUALTOTHEORIC": "Actual to Theoric",
     "PROMOTIONANALISYS": "Promotion Analisys",
+    "ORDERPAYMENTSCHECK": "Order Payment Compare Reports",
     "PAYMENTORDERSOURCESTATS": "Payment States by Order Source",
     "STOREROUTINGTYPE":"Routing Type"
   },
