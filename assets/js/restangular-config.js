@@ -12,11 +12,7 @@ function restangularConfig(RestangularProvider) {
     //RestangularProvider.setBaseUrl('http://10.101.252.150:9077/api/'); //Little Caesars 9077
     //RestangularProvider.setBaseUrl('http://10.101.252.150:9067/api/'); //Little Caesars 9067
     //RestangularProvider.setBaseUrl('http://pizzahut.ropng.site:9075/api/'); //PH - Test
-<<<<<<< HEAD
-    RestangularProvider.setBaseUrl('http://192.168.9.40:9067/api/'); //PH
-=======
     RestangularProvider.setBaseUrl('http://192.168.9.40:9065/api/'); //PH
->>>>>>> 38d6ab1319fec35a1a05c7582a3d14c68480944f
     //RestangularProvider.setBaseUrl('http://localhost:9065/api/'); //localhost
 
     

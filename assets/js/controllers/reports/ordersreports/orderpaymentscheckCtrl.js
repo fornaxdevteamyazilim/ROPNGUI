@@ -5,7 +5,7 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
     //var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
     //    $scope.translate();
     //});
-    
+
     DevExpress.localization.locale("tr");
     //Globalize.locale('tr');
     $scope.DateRange = {
@@ -36,7 +36,7 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
             dataGrid.refresh();
         }
     };
-  
+
     var store = new DevExpress.data.CustomStore({
         key: "StoreID",
         load: function () {
@@ -66,55 +66,50 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
         rowAlternationEnabled: true,
         showBorders: true,
         allowColumnReordering: true,
-        filterRow: {
-            visible: true
-        },
-        headerFilter: {
-            visible: true
-        },
-        searchPanel: {
-            visible: true
-        },
-        groupPanel: {
-            visible: true
-        },
-        columnChooser: {
-            enabled: false
-        },
-        columnFixing: {
-            enabled: true
+        filterRow: { visible: true },
+        headerFilter: { visible: true },
+        searchPanel: { visible: true },
+        groupPanel: { visible: true },
+        columnChooser: { enabled: true },
+        columnFixing: { enabled: true },
+        stateStoring: {
+            enabled: true,
+            type: "localStorage",
+            storageKey: "dx-orderpaymentscheck-storing"
         },
         columns: [
             // { dataField: "StoreID", dataType: "string", fixed: true },//, groupIndex: 0 },
-            // { dataField: "OrderID", dataType: "string",  fixed: true },//, groupIndex: 0 },
-            {  caption:"Restorant",dataField: "Store", dataType: "string", width: 230, fixed: true },//, groupIndex: 0 },
-            {  caption:"Bölge Müdürü",dataField: "RegionManager", dataType: "string", width: 230, fixed: true, visible: true },
-            {  caption:"Sipariş Türü",dataField: "StoreFilterType", dataType: "string", visible: true   },//, groupIndex: 0 },
-            { caption:"Mağza Türü",dataField: "StoreType", dataType: "string" , visible: true },
-            { caption:"Sipariş Tarihi",dataField: "OrderDate", dataType: "date", format: 'dd.MM.yyyy HH:mm'},
-            { caption:"Sipariş No",dataField: "OrderNumber", dataType: "string" },
-            { caption:"Kullanıcı Adı" ,dataField: "User", dataType: "string"  },
+            { dataField: "OrderID", dataType: "string",  fixed: true ,visible: false },//, groupIndex: 0 },
+            { caption: "Restorant", dataField: "Store", dataType: "string", width: 230, fixed: true },//, groupIndex: 0 },
+            { caption: "Bölge Müdürü", dataField: "RegionManager", dataType: "string", width: 230, fixed: true, visible: false },
+            { caption: "Sipariş Türü", dataField: "StoreFilterType", dataType: "string", visible: false },//, groupIndex: 0 },
+            { caption: "Mağza Türü", dataField: "StoreType", dataType: "string", visible: false },
+            { caption: "Sipariş Tarihi", dataField: "OrderDate", dataType: "date", format: 'dd.MM.yyyy HH:mm' },
+            { caption: "Sipariş No", dataField: "OrderNumber", dataType: "string" },
+            { caption: "Kullanıcı Adı", dataField: "User", dataType: "string" },
             { caption: "Sipariş Tutarı", dataField: "OrderAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "Gerçekleşen Ödeme Tutarı", dataField: "PaymentAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption:"Sipariş Ödeme Tipi ",dataField: "DeclaredPaymntType", dataType: "string" },
-            { caption:"Kaynak",dataField: "ActualPaymentType", dataType: "string" },
-            { caption:"Otomatik Ödeme",dataField: "isAutomaticPayment", displayFormat: "bool", },
+            { caption: "Sipariş Ödeme Tipi ", dataField: "DeclaredPaymntType", dataType: "string" },
+            { caption: "Gerçekleşen Ödeme", dataField: "ActualPaymentType", dataType: "string" },
+            { caption: "Otomatik Ödeme", dataField: "isAutomaticPayment", displayFormat: "bool", },
         ],
         summary: {
-            totalItems: [{ column: "OrderAmount", summaryType: "count", displayFormat: "{0}" },
-                { column: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },       
+            totalItems: [{ column: "OrderNumber", summaryType: "count", displayFormat: "{0}" },
+            { column: "PaymentAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             ],
-            groupItems: [{ column: "PaymentAmount", summaryType: "count", displayFormat: "{0}" },
-                    { column: "PaymentAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            groupItems: [{ column: "OrderNumber", summaryType: "count", displayFormat: "{0}",alignByColumn: true },
+            { column: "PaymentAmount", summaryType: "sum", displayFormat: "{0}",alignByColumn: true },
+            { column: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}",alignByColumn: true },
             ]
-         
+
         },
-     
+
         onRowPrepared: function (e) {
             if (e.rowType === 'data') {
                 if (e.data.OrderState === 'Cancel') {
                     //e.rowElement.addClass('place');
-                    e.rowElement.css({  'color': 'red' });
+                    e.rowElement.css({ 'color': 'red' });
                 }
                 //else {
                 //    e.data.place = "";
