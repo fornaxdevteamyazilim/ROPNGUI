@@ -72,6 +72,7 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
         groupPanel: { visible: true },
         columnChooser: { enabled: true },
         columnFixing: { enabled: true },
+        grouping: { autoExpandAll: false },
         stateStoring: {
             enabled: true,
             type: "localStorage",
@@ -79,7 +80,7 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
         },
         columns: [
             // { dataField: "StoreID", dataType: "string", fixed: true },//, groupIndex: 0 },
-            { dataField: "OrderID", dataType: "string",  fixed: true ,visible: false },//, groupIndex: 0 },
+            { dataField: "OrderID", dataType: "string", fixed: true, visible: false },//, groupIndex: 0 },
             { caption: "Restorant", dataField: "Store", dataType: "string", width: 230, fixed: true },//, groupIndex: 0 },
             { caption: "Bölge Müdürü", dataField: "RegionManager", dataType: "string", width: 230, fixed: true, visible: false },
             { caption: "Sipariş Türü", dataField: "StoreFilterType", dataType: "string", visible: false },//, groupIndex: 0 },
@@ -92,22 +93,41 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
             { caption: "Sipariş Ödeme Tipi ", dataField: "DeclaredPaymntType", dataType: "string" },
             { caption: "Gerçekleşen Ödeme", dataField: "ActualPaymentType", dataType: "string" },
             { caption: "Otomatik Ödeme", dataField: "isAutomaticPayment", displayFormat: "bool", },
+            { caption: "Faklı Ödeme", dataField: "isDfferent", displayFormat: "bool",visible: false },
         ],
         summary: {
-            totalItems: [{ column: "OrderNumber", summaryType: "count", displayFormat: "{0}" },
+            totalItems: [{ column: "OrderID", summaryType: "count", displayFormat: "{0}" },
             { column: "PaymentAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
-            { column: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { name: "OrderAmountSummary", showInColumn: "OrderAmount", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             ],
-            groupItems: [{ column: "OrderNumber", summaryType: "count", displayFormat: "{0}",alignByColumn: true },
-            { column: "PaymentAmount", summaryType: "sum", displayFormat: "{0}",alignByColumn: true },
-            { column: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}",alignByColumn: true },
-            ]
-
+            groupItems: [{ column: "OrderID", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
+            { column: "PaymentAmount", summaryType: "sum", displayFormat: "{0}", alignByColumn: true },
+            { name: "OrderAmountSummary", showInColumn: "OrderAmount", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            ],
+            calculateCustomSummary: function (options) {
+                if (options.name === "OrderAmountSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.ids = [];
+                            break;
+                        case "calculate":
+                            if (options.ids.indexOf(options.value.OrderID) == -1) {
+                                options.totalValue = options.totalValue + options.value.OrderAmount;
+                                options.ids.push(options.value.OrderID);
+                            }
+                            break;
+                        case "finalize":
+                            //options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+            },
         },
 
         onRowPrepared: function (e) {
             if (e.rowType === 'data') {
-                if (e.data.OrderState === 'Cancel') {
+                if (e.data.isDfferent) {
                     //e.rowElement.addClass('place');
                     e.rowElement.css({ 'color': 'red' });
                 }
@@ -125,8 +145,8 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
                     return;
                 }
                 if (gridCell.rowType === 'data') {
-                    if (gridCell.data.Delta === true) {
-                        options.font.bold = true;
+                    if (gridCell.data.isDfferent === true) {
+                        //options.font.bold = true;
                         options.backgroundColor = '#FFBB00';
                     }
                 }
