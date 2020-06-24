@@ -95,12 +95,21 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
             { caption:"Sipariş No",dataField: "OrderNumber", dataType: "string" },
             { caption:"Kullanıcı Adı" ,dataField: "User", dataType: "string"  },
             { caption: "Sipariş Tutarı", dataField: "OrderAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "Gerçekleştiren Ödeme Tutarı", dataField: "PaymentAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption:"Beyan Edilen Ödeme Tutarı ",dataField: "DeclaredPaymntType", dataType: "string" },
+            { caption: "Gerçekleşen Ödeme Tutarı", dataField: "PaymentAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption:"Sipariş Ödeme Tipi ",dataField: "DeclaredPaymntType", dataType: "string" },
             { caption:"Kaynak",dataField: "ActualPaymentType", dataType: "string" },
-            { caption:"Otomatik Ödeme",dataField: "isAutomaticPayment", dataType: "string" },
+            { caption:"Otomatik Ödeme",dataField: "isAutomaticPayment", displayFormat: "bool", },
         ],
-      
+        summary: {
+            totalItems: [{ column: "OrderAmount", summaryType: "count", displayFormat: "{0}" },
+                { column: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },       
+            ],
+            groupItems: [{ column: "PaymentAmount", summaryType: "count", displayFormat: "{0}" },
+                    { column: "PaymentAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            ]
+         
+        },
+     
         onRowPrepared: function (e) {
             if (e.rowType === 'data') {
                 if (e.data.OrderState === 'Cancel') {
