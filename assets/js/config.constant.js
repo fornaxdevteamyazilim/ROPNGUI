@@ -21,11 +21,7 @@ app.constant('NG_SETTING', {
     //apiServiceBaseUri: 'http://10.101.252.150:9077',//Little Caesars 9077
     //apiServiceBaseUri: 'http://10.101.252.150:9067',//Little Caesars 9067
     //apiServiceBaseUri: 'http://pizzahut.ropng.site:9075',//PH - Test
-<<<<<<< HEAD
     apiServiceBaseUri: 'http://192.168.9.40:9067',//PH
-=======
-    apiServiceBaseUri: 'http://192.168.9.40:9065',//PH
->>>>>>> 38d6ab1319fec35a1a05c7582a3d14c68480944f
     //apiServiceBaseUri: 'http://localhost:9065',//localhost
 
 });
@@ -40,11 +36,7 @@ app.constant('ngAuthSettings', {
     //apiServiceBaseUri: 'http://10.101.252.150:9077/', //Little Caesars 9077
     //apiServiceBaseUri: 'http://10.101.252.150:9067/', //Little Caesars 9067
     //apiServiceBaseUri: 'http://pizzahut.ropng.site:9075/', //PH - Test
-<<<<<<< HEAD
     apiServiceBaseUri: 'http://192.168.9.40:9067/',//PH
-=======
-    apiServiceBaseUri: 'http://192.168.9.40:9065/',//PH
->>>>>>> 38d6ab1319fec35a1a05c7582a3d14c68480944f
     //apiServiceBaseUri: 'http://localhost:9065/',//localhost
     
     clientId: 'ropNGui',
