@@ -171,13 +171,13 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
     $scope.GetNewOrderCount();
     $scope.getNewYSOrder = function () {
         if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
-            if (!userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("MemberAdmin") && !userService.userIsInRole("PHAdmin")) {
+            if ($rootScope.user.restrictions.ysorder=='Enable') {
                 Restangular.all('yemeksepeti/unmapedorders').getList({
                     StoreID: $rootScope.user.StoreID?$rootScope.user.StoreID:''
                 }).then(function (result) {
                     $scope.audio.muting = !(result.length > 0);
                     if (result.length > 0) {
-                        if (!(userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CALLCENTER")))
+                        if (!(user.restrictions.ysnosound=='Enable'))
                             $scope.audio.play();
                         $rootScope.YSOrderCount = angular.copy(result.length);
                     } else

@@ -311,13 +311,13 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
         });
         $scope.getNewYSOrder = function () {
             if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
-                if (!userService.userIsInRole("MemberAdmin")) {
+                if ($rootScope.user.restrictions.ysorder=='Enable') {
                     Restangular.all('yemeksepeti/unmapedorders').getList({
                         StoreID: $rootScope.user.StoreID ? $rootScope.user.StoreID : ''
                     }).then(function (result) {
                         $scope.audio.muting = !(result.length > 0);
                         if (result.length > 0) {
-                            if (!(userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CALLCENTER")))
+                            if (!($rootScope.user.restrictions.ysnosound=='Enable'))
                                 $scope.audio.play();
                             $rootScope.YSOrderCount = angular.copy(result.length);
                         } else
@@ -332,7 +332,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
         var OrderRefresh = $scope.$on('ServerTime', function (event, data) {
             if ($rootScope.OrderCount > 0)
                 $scope.GetNewOrderCount();
-            if ($rootScope.YSOrderCount > 0 || userService.userIsInRole("CCMANAGER"))
+            if ($rootScope.YSOrderCount > 0 || $rootScope.user.restrictions.ysorder=='Enable')
                 $scope.getNewYSOrder();
         });
         $scope.getNewYSOrder();
