@@ -2958,5 +2958,20 @@
     "FIXEDSIDEBAR": "Fixed sidebar",
     "CLOSEDSIDEBAR": "Closed sidebar",
     "FIXEDFOOTER": "Fixed footer"
+  },
+  "reportfields": {
+    "OrderID": "Order ID",
+    "Store": "Store",
+    "RegionManager": "Region Manager",
+    "StoreType": "StoreType",
+    "StoreFilterType": "Store Filter Type"
+  },
+  "reportcommands":{
+    "GetData": "Get Data",
+    "ClearTemplate":"Clear Template"
+  },
+  "reportparameters":{
+    "FromDate": "From Date",
+    "ToDate":"To Date"
   }
 }

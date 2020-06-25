@@ -30,7 +30,7 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
     };
     $scope.VeiwHeader = {};
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.refresh();
@@ -80,11 +80,11 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
         },
         columns: [
             // { dataField: "StoreID", dataType: "string", fixed: true },//, groupIndex: 0 },
-            { dataField: "OrderID", dataType: "string", fixed: true, visible: false },//, groupIndex: 0 },
-            { caption: "Restorant", dataField: "Store", dataType: "string", width: 230, fixed: true },//, groupIndex: 0 },
-            { caption: "Bölge Müdürü", dataField: "RegionManager", dataType: "string", width: 230, fixed: true, visible: false },
-            { caption: "Sipariş Türü", dataField: "StoreFilterType", dataType: "string", visible: false },//, groupIndex: 0 },
-            { caption: "Mağza Türü", dataField: "StoreType", dataType: "string", visible: false },
+            { caption:$translate.instant('reportfields.OrderID'), dataField: "OrderID", dataType: "string", fixed: true, visible: false },//, groupIndex: 0 },
+            { caption: $translate.instant('reportfields.Store'), dataField: "Store", dataType: "string", width: 230, fixed: true },//, groupIndex: 0 },
+            { caption: $translate.instant('reportfields.RegionManager'), dataField: "RegionManager", dataType: "string", width: 230, fixed: true, visible: false },
+            { caption: $translate.instant('reportfields.StoreFilterType'), dataField: "StoreFilterType", dataType: "string", visible: false },//, groupIndex: 0 },
+            { caption: $translate.instant('reportfields.StoreType'), dataField: "StoreType", dataType: "string", visible: false },
             { caption: "Sipariş Tarihi", dataField: "OrderDate", dataType: "date", format: 'dd.MM.yyyy HH:mm' },
             { caption: "Sipariş No", dataField: "OrderNumber", dataType: "string" },
             { caption: "Kullanıcı Adı", dataField: "User", dataType: "string" },

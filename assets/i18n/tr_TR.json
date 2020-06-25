@@ -2973,5 +2973,20 @@
     "FIXEDSIDEBAR": "Sabit Menü",
     "CLOSEDSIDEBAR": "Kapalı Menü",
     "FIXEDFOOTER": "Sabit AltBar"
+  },
+  "reportfields": {
+    "OrderID": "Sipariş kodu",
+    "Store": "Restoran",
+    "RegionManager": "Bölge müdürü",
+    "StoreType": "Restoran türü",
+    "StoreFilterType": "Restoran Filtresi"
+  },
+  "reportcommands":{
+    "GetData": "Bilgileri Getir",
+    "ClearTemplate":"Şablonu Temizle"
+  },
+  "reportparameters":{
+    "FromDate": "Başlangıç",
+    "ToDate":"Bitiş"
   }
 }
