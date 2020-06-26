@@ -10,7 +10,7 @@
     "CALLREASONREPORTPIVOT": "{{appName}} - Call Reason Report - Pivot",
     "ORDERTOTALS": "{{appName}} - Order Totals",
     "ORDERPAYMENTS": "{{appName}} - Order Payments",
-    "ORDERPAYMENTSCHECK": "{{appName}} - Order Payments Compare",
+    "ORDERPAYMENTSCHECK": "{{appName}} - Payment Scheck Reports",
     "INGREDIENTS": "{{appName}} - Ingredients",
     "BASEUNITS": "{{appName}} - Base Units",
     "BONUS": "{{appName}} - Bonus",
@@ -2272,9 +2272,10 @@
     "THEORICTOACTUAL": "Theoric to Actual",
     "ACTUALTOTHEORIC": "Actual to Theoric",
     "PROMOTIONANALISYS": "Promotion Analisys",
-    "ORDERPAYMENTSCHECK": "Order Payment Compare Reports",
     "PAYMENTORDERSOURCESTATS": "Payment States by Order Source",
-    "STOREROUTINGTYPE":"Routing Type"
+    "STOREROUTINGTYPE":"Routing Type",
+    "ORDERPAYMENTSCHECK": "Payments Check Report"
+
   },
   "topbar": {
     "messages": {
@@ -2550,6 +2551,7 @@
         "ORDERSEBYORDERTYPE": "Orders By Order Type (Amount)",
         "ORDERDRIVERLIST": "Order Driver List",
         "ORDERPAYMENTCOMPAREPIVOT": "Order Payment Compare Pivot",
+        "ORDERPAYMENTSCHECK": "Order Payments Check",
         "PRODUCTSALES": "Product Sales",
         "PAYMENTORDER": "Order Payments (Amount)",
         "INVENTORYUSAGES": "Inventory Consumption Analysis Report",
@@ -2758,9 +2760,7 @@
         "AUTOMATICREPORTDEFINITION": "Automatic Report Definition",
         "ACCOUNTTOOLS": "Accounting Transfers",
         "USERTRANSFERS": "Kullanıcı Tansferi"
-
-
-      },
+      },      
       "matching": {
         "MAIN": "Matching",
         "INVENTORYUNITMATCHING": "Inventory Unit Matching",
@@ -2963,8 +2963,18 @@
     "OrderID": "Order ID",
     "Store": "Store",
     "RegionManager": "Region Manager",
-    "StoreType": "StoreType",
-    "StoreFilterType": "Store Filter Type"
+    "StoreType": "Store Type",
+    "StoreFilterType": "Store Filter",
+    "OrderDate": "Order Date",
+    "OrderNumber": "Order Number",
+    "User": "User",
+    "Users": "Users",
+    "OrderAmount": "Order Amount",
+    "PaymentAmount": "Payment Amount",
+    "ActualPayment": "Actual Payment",
+    "DeclaredPayment": "Declared Payment",
+    "isAutomatic": "isAutomatic",
+    "isDfferent": "isDfferent"
   },
   "reportcommands":{
     "GetData": "Get Data",

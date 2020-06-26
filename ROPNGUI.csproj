@@ -664,6 +664,7 @@
     <Content Include="assets\views\reports\stockandcostreports\actualvstheoritical.html" />
     <Content Include="assets\views\reports\stockandcostreports\storefoodcost.html" />
     <Content Include="assets\views\reports\storereports\storeanalisys.html" />
+    <Content Include="assets\views\reports\storereports\orderpaymentscheck.html" />
     <Content Include="assets\views\stores\fingerprintenroll.html" />
     <Content Include="assets\views\help\billboarditem.html" />
     <Content Include="assets\views\help\CCDocuments\docCmAnaSayfa.html" />

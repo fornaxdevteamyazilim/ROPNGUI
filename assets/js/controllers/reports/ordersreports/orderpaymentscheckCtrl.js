@@ -36,6 +36,13 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
             dataGrid.refresh();
         }
     };
+    $scope.resetlayout = $translate.instant('main.RESETLAYOUT');
+    $scope.resetButtonOptions = {
+        text: $scope.resetlayout,
+        onClick: function () {
+            $('#gridContainer').dxDataGrid('instance').getDataSource().state({});
+        }
+    };
 
     var store = new DevExpress.data.CustomStore({
         key: "StoreID",
@@ -85,15 +92,15 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
             { caption: $translate.instant('reportfields.RegionManager'), dataField: "RegionManager", dataType: "string", width: 230, fixed: true, visible: false },
             { caption: $translate.instant('reportfields.StoreFilterType'), dataField: "StoreFilterType", dataType: "string", visible: false },//, groupIndex: 0 },
             { caption: $translate.instant('reportfields.StoreType'), dataField: "StoreType", dataType: "string", visible: false },
-            { caption: "Sipariş Tarihi", dataField: "OrderDate", dataType: "date", format: 'dd.MM.yyyy HH:mm' },
-            { caption: "Sipariş No", dataField: "OrderNumber", dataType: "string" },
-            { caption: "Kullanıcı Adı", dataField: "User", dataType: "string" },
-            { caption: "Sipariş Tutarı", dataField: "OrderAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "Gerçekleşen Ödeme Tutarı", dataField: "PaymentAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "Sipariş Ödeme Tipi ", dataField: "DeclaredPaymntType", dataType: "string" },
-            { caption: "Gerçekleşen Ödeme", dataField: "ActualPaymentType", dataType: "string" },
-            { caption: "Otomatik Ödeme", dataField: "isAutomaticPayment", displayFormat: "bool", },
-            { caption: "Faklı Ödeme", dataField: "isDfferent", displayFormat: "bool",visible: false },
+            { caption: $translate.instant('reportfields.OrderDate'), dataField: "OrderDate", dataType: "date", format: 'dd.MM.yyyy HH:mm' },
+            { caption: $translate.instant('reportfields.OrderNumber'),  dataField: "OrderNumber", dataType: "string" },
+            { caption: $translate.instant('reportfields.User'),dataField: "User", dataType: "string" },
+            { caption: $translate.instant('reportfields.OrderAmount'), dataField: "OrderAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('reportfields.PaymentAmount'), dataField: "PaymentAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('reportfields.DeclaredPayment'), dataField: "DeclaredPaymntType", dataType: "string" },
+            { caption: $translate.instant('reportfields.ActualPayment'), dataField: "ActualPaymentType", dataType: "string" },
+            { caption: $translate.instant('reportfields.isAutomatic'),dataField: "isAutomaticPayment", displayFormat: "bool", },
+            { caption: $translate.instant('reportfields.isDfferent'), dataField: "isDfferent", displayFormat: "bool",visible: false },
         ],
         summary: {
             totalItems: [{ column: "OrderID", summaryType: "count", displayFormat: "{0}" },

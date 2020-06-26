@@ -9,7 +9,7 @@
     "CALLREASONREPORT": "{{appName}} - Çağrı Sebebi Raporu",
     "CALLREASONREPORTPIVOT": "{{appName}} - Çağrı Sebebi Raporu - Pivot",
     "ORDERPROMOTIONSREPORT": "{{appName}} - Sipariş İndirim Raporu",
-    "ORDERPAYMENTSCHECK": "{{appName}} - Sipariş Ödeme Tipleri Raporu",
+    "ORDERPAYMENTSCHECK": "{{appName}} - Ödeme Karşılaştırma Raporu",
     "RETURNEDPRODUCTSDETAILED": "{{appName}} - İptal Adisyon Ürün Listesi",
     "ACCOUNTTRANSACTIONS": "{{appName}} - Hesap İşlemleri",
     "ORDERPAYMENTS": "{{appName}} - Gerçekleşen Ödemeler",
@@ -2286,7 +2286,7 @@
     "ACTUALTOTHEORIC": "Actual to Theoric",
     "PROMOTIONANALISYS": "Promosyon Analizi",
     "PAYMENTORDERSOURCESTATS": "Sipariş Kaynağına Göre Dağılım",
-    "STOREROUTINGTYPE":"Yönlendirme Tipi"
+    "STOREROUTINGTYPE": "Yönlendirme Tipi"
   },
   "topbar": {
     "messages": {
@@ -2338,7 +2338,6 @@
     "search": {
       "PLACEHOLDER": "Arama..."
     },
-
     "nav": {
       "dashboard": {
         "MAIN": "Kokpit",
@@ -2392,7 +2391,6 @@
         "PRODUCTDISABLE": "Ürün Açma-Kapama",
         "PRODUCTRECOMENDEDPROMOTION": "Ürün/Promosyon İlişkilendirme",
         "PRODUCTPRICELIST": "Ürün Fiyatı Düzenleme"
-
       },
       "schedule": {
         "MAIN": "Zamanlama",
@@ -2432,7 +2430,6 @@
         "INVENTORYORDER": "Envanter Siparişi",
         "INVENTORYDEMANDRULE": "Talep Kuralları",
         "INVENTORYDELIVERYINVOCE": "Envanter Faturaları"
-
       },
       "accountingintegration": {
         "MAIN": "Muhasebe Entegrasyonu",
@@ -2471,7 +2468,6 @@
         "USERSTOREGROUP": "Kullanıcı - Restoran Grup Tanımları",
         "USERAUTOMATICREPORT": "Kullanıcı Otomatik Rapor Tanımı",
         "OPERATIONMANAGER": "Operasyon Müdürleri Tanımı"
-
       },
       "dispatch": {
         "MAIN": "Sipariş Yönetimi",
@@ -2562,7 +2558,7 @@
         "ORDERDRIVERLIST": "Sipariş - Sürücü Listesi",
         "ORDERPAYMENTCOMPAREPIVOT": "Sipariş Ödemeleri Karşılaştırma",
         "PRODUCTSALES": "Ürün Satış Listesi",
-        "ORDERPAYMENTSCHECK": "Sipariş Ödeme Tipleri Raporu",
+        "ORDERPAYMENTSCHECK": " Ödeme Karşılaştırma Raporu",
         "PAYMENTORDER": "Ödeme Tiplerine Göre Siparişler (Tutar)",
         "INVENTORYUSAGES": "Malzeme Tüketim Analiz (Adet)",
         "ORDERTOTALSSTOREBYORDERTYPE": "Sipariş Tipine Göre Siparişler",
@@ -2786,7 +2782,6 @@
         "DECLAREDREVENUE": "Beyan Edilen Kasa Girişi",
         "STORESALESTARGET": "Restoran Satış Hedefleri",
         "STORESTAFFSHIFT": "Personel Bilgi Girişi"
-
       },
       "staffshiftplan": {
         "MAIN": "Personel Vardiya Planı",
@@ -2953,7 +2948,6 @@
         }
       },
       "maps": {
-
         "MAIN": "Haritalar"
       },
       "charts": {
@@ -2979,14 +2973,24 @@
     "Store": "Restoran",
     "RegionManager": "Bölge müdürü",
     "StoreType": "Restoran türü",
-    "StoreFilterType": "Restoran Filtresi"
+    "StoreFilterType": "Restoran Filtresi",
+    "OrderDate": "Sipariş Tarihi",
+    "OrderNumber": "Sipariş No",
+    "User": "Kullanıcı",
+    "Users": "Kullanıcılar",
+    "OrderAmount": "Sipariş Tutarı",
+    "PaymentAmount": "Ödeme Tutarı",
+    "ActualPayment": "Gerçekleşen Ödeme",
+    "DeclaredPayment": "Beyan Edilen Ödeme",
+    "isAutomatic": "Otomatik?",
+    "isDfferent": "Farklı?"
   },
-  "reportcommands":{
+  "reportcommands": {
     "GetData": "Bilgileri Getir",
-    "ClearTemplate":"Şablonu Temizle"
+    "ClearTemplate": "Şablonu Temizle"
   },
-  "reportparameters":{
+  "reportparameters": {
     "FromDate": "Başlangıç",
-    "ToDate":"Bitiş"
+    "ToDate": "Bitiş"
   }
 }
