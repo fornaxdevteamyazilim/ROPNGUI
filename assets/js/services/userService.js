@@ -188,6 +188,10 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         var _TimedOut = function () {                
             return isTimedOut;
         }
+        var _RestartTimeout = function (timeout) {                
+            _stopTimeout();
+            _startTimeout(timeout);
+        }
         var _isPreference = function () {
             return PreferenceValue;
         };
@@ -367,5 +371,6 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         userServiceFactory.landingPage = _landingPage;
         userServiceFactory.isAdmin = _isAdmin;
         userServiceFactory.getParameter = _GetParameter;
+        userServiceFactory.RestartTimeout=_RestartTimeout;
         return userServiceFactory;
     }]);

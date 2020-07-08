@@ -2275,7 +2275,6 @@
     "PAYMENTORDERSOURCESTATS": "Payment States by Order Source",
     "STOREROUTINGTYPE":"Routing Type",
     "ORDERPAYMENTSCHECK": "Payments Check Report"
-
   },
   "topbar": {
     "messages": {
@@ -2974,7 +2973,8 @@
     "ActualPayment": "Actual Payment",
     "DeclaredPayment": "Declared Payment",
     "isAutomatic": "isAutomatic",
-    "isDfferent": "isDfferent"
+    "isDfferent": "isDfferent",
+    "Driver": "Driver"
   },
   "reportcommands":{
     "GetData": "Get Data",

@@ -113,6 +113,10 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
             order['calculatedTime'] = date.asMinutes();
         }
     };
+    $scope.StartTimeOut = function () {
+        userService.startTimeout(60000);
+    };
+    $scope.StartTimeOut();
     $scope.NowDateTime = function () {
         $scope.Time = $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss');
     };
@@ -310,6 +314,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         OrderRefresh();
         OrderRefresh1();
         OrderRefresh2();
+        userService.stopTimeout();
         stop();
         deregistration1();
         deregistration2();

@@ -101,6 +101,7 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
             { caption: $translate.instant('reportfields.ActualPayment'), dataField: "ActualPaymentType", dataType: "string" },
             { caption: $translate.instant('reportfields.isAutomatic'),dataField: "isAutomaticPayment", displayFormat: "bool", },
             { caption: $translate.instant('reportfields.isDfferent'), dataField: "isDfferent", displayFormat: "bool",visible: false },
+            { caption: $translate.instant('reportfields.Driver'),dataField: "Driver", dataType: "string" },
         ],
         summary: {
             totalItems: [{ column: "OrderID", summaryType: "count", displayFormat: "{0}" },

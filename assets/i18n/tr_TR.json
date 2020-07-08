@@ -2286,7 +2286,8 @@
     "ACTUALTOTHEORIC": "Actual to Theoric",
     "PROMOTIONANALISYS": "Promosyon Analizi",
     "PAYMENTORDERSOURCESTATS": "Sipariş Kaynağına Göre Dağılım",
-    "STOREROUTINGTYPE": "Yönlendirme Tipi"
+    "STOREROUTINGTYPE": "Yönlendirme Tipi",
+    "ORDERPAYMENTSCHECK":"Ödeme Karşılaştırma Raporu"
   },
   "topbar": {
     "messages": {
@@ -2983,7 +2984,8 @@
     "ActualPayment": "Gerçekleşen Ödeme",
     "DeclaredPayment": "Beyan Edilen Ödeme",
     "isAutomatic": "Otomatik?",
-    "isDfferent": "Farklı?"
+    "isDfferent": "Farklı?",
+    "Driver": "Sürücü"
   },
   "reportcommands": {
     "GetData": "Bilgileri Getir",
