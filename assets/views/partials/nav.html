@@ -782,6 +782,21 @@
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.SOSREPORT">Transactions</span>
                         </a>
                     </li>
+                    <li ui-sref-active="active" >
+                        <a ui-sref="app.reports.fsr.fsrspeedofservice">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.FSRSPEEDOFSERVICE">Transactions</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.fsr.fsrcomparisonbudget">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.FSRCOMPARISONBUDGET">Transactions</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active" >
+                        <a ui-sref="app.reports.fsr.fsractualtheoretical">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.FSRACTUALTHEORETICAL">Transactions</span>
+                        </a>
+                    </li>
                     
 
                 </ul>
@@ -1688,7 +1703,7 @@
             </li>-->
         </ul>
     </li>
-    <li ng-class="{'active open':$state.includes('app.specialoperations')}" ng-if="user.restrictions.specialoperations=='Enable'">
+    <li ng-class="{'active open':$state.includes('app.specialoperations')}" >
         <a href="javascript:void(0)">
             <div class="item-content">
                 <div class="item-media">
@@ -1710,12 +1725,17 @@
                     <i class="ti-money"></i> <span class="title" translate="sidebar.nav.specialoperations.DECLAREDREVENUE">Declared Revenue</span>
                 </a>
             </li>
-            <li ui-sref-active="active" ng-if="user.restrictions.storesalestarget=='Enable'">
+            <li ui-sref-active="active">
                 <a ui-sref="app.specialoperations.storesalestarget">
                     <i class="ti-money"></i> <span class="title" translate="sidebar.nav.specialoperations.STORESALESTARGET">Store Sales Traget</span>
                 </a>
             </li>
-            <!--<li ui-sref-active="active" ng-if="user.restrictions.storestaffshift=='Enable'">
+            <li ui-sref-active="active">
+                <a ui-sref="app.specialoperations.storebudget">
+                    <i class="ti-money"></i> <span class="title" translate="sidebar.nav.specialoperations.STORESALESBUDGET">Store Sales Budget</span>
+                </a>
+            </li>
+             <!--<li ui-sref-active="active" ng-if="user.restrictions.storestaffshift=='Enable'">
                 <a ui-sref="app.specialoperations.storestaffshift">
                     <i class="ti-back-right"></i> <span class="title" translate="sidebar.nav.specialoperations.STORESTAFFSHIFT">Store Staff Shift</span>
                 </a>

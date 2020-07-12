@@ -9,9 +9,10 @@
     };
 });
 app.controller('login_lockCtrl', login_lockCtrl);
-function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $location, $translate, userService, $element) {
+function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $location, $translate, userService, $element,authService) {
     $rootScope.uService.EnterController("login_lockCtrl");
     $scope.message = '';
+    authService.logOut();
     //userService.userAuthorizated();
     var idListener = $rootScope.$on('Identification', function (event,data) {
         //var uiFMD = encodeURIComponent(data.FMD);
