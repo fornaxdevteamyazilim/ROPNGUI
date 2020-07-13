@@ -1,5 +1,5 @@
 ﻿app.controller('dispatcherCtrl', dispatcherCtrl);
-function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $modal, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, $translate, userService, ngnotifyService, $element, Idle, Keepalive) {
+function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $modal, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, $translate, userService, ngnotifyService, $element) {
     $rootScope.uService.EnterController("dispatcherCtrl");
     var dis = this;
     //$scope.oneAtATime = true;
@@ -7,30 +7,6 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
     //    isFirstOpen: false,
     //    isFirstDisabled: false
     //};
-    Idle.watch();
-    $scope.$on('IdleStart', function () {
-        // the user appears to have gone idle
-        toaster.pop("success", "Idle", "Start.");
-    });
-    $scope.$on('IdleTimeout', function () {
-        // the user has timed out (meaning idleDuration + timeout has passed without any activity)
-        // this is where you'd log them
-        toaster.pop('error', "Idle", "Timeout");
-        $location.path("/login/lock");
-    });
-    $scope.$on('IdleEnd', function () {
-        // the user has come back from AFK and is doing stuff. if you are warning them, you can use this to hide the dialog
-        toaster.pop("success", "Idle", "Idle end.");
-    });
-    $scope.$on('IdleWarn', function (e, countdown) {
-        if (countdown < 3)
-            toaster.pop("warn", "Idle", ("Idle end in: " + countdown));
-        // follows after the IdleStart event, but includes a countdown until the user is considered timed out
-        // the countdown arg is the number of seconds remaining until then.
-        // you can change the title or display a warning dialog from here.
-        // you can let them resume their session by calling Idle.watch()
-    });
-
     $scope.getOrder = true;
     userService.userAuthorizated();
     $scope.preparingOrders = [];
@@ -137,7 +113,6 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
             order['calculatedTime'] = date.asMinutes();
         }
     };
-
     $scope.NowDateTime = function () {
         $scope.Time = $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss');
     };
@@ -146,15 +121,15 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
             if ($scope.orders[i].id == Order.id) {
                 $scope.orders[i].OrderStateID = 6;
                 $scope.orders[i].put().then(
-                    function (res) {
-                        toaster.pop("success", "Hazır.", "Sipariş Çıktı.");
-                        $scope.orders.splice(i, 1);
-                    },
-                    function (response) {
-                        toaster.pop('error', "Güncelleme başarısız !", response.data.ExceptionMessage);
-                        $scope.LoadOrders();
-                    }
-                );
+                function (res) {
+                    toaster.pop("success", "Hazır.", "Sipariş Çıktı.");
+                    $scope.orders.splice(i, 1);
+                },
+                 function (response) {
+                     toaster.pop('error', "Güncelleme başarısız !", response.data.ExceptionMessage);
+                     $scope.LoadOrders();
+                 }
+                 );
                 break;
             }
         }
@@ -255,28 +230,28 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         page: 1,
         count: 100,
     },
-        {
-            counts: [],
-            getData: function ($defer, params) {
-                Restangular.all('drivervehicle').getList({
-                    pageNo: params.page(),
-                    pageSize: params.count(),
-                    sort: params.orderBy(),
-                    search: "Drivers.StoreID='" + $rootScope.user.StoreID + "'"
-                }).then(function (items) {
-                    for (var i = 0; i < items.length; i++) {
-                        items[i].OrderStates.lengthTXT = $filter('number')(items[i].OrderStates.length / 2, 0);
-                        items[i].StateTimeTXT = $filter('number')(items[i].StateTime / 60, 0);
-                    }
-                    params.total(items.paging.totalRecordCount);
-                    $defer.resolve(items);
-                    //$scope.DriverVehicle = items; 
-                    $scope.$broadcast('$$rebind::refresh');
-                }, function (response) {
-                    toaster.pop('warning', "Sunucu Hatası", response.data);
-                });
-            }
-        });
+  {
+      counts: [],
+      getData: function ($defer, params) {
+          Restangular.all('drivervehicle').getList({
+              pageNo: params.page(),
+              pageSize: params.count(),
+              sort: params.orderBy(),
+              search: "Drivers.StoreID='" + $rootScope.user.StoreID + "'"
+          }).then(function (items) {
+              for (var i = 0; i < items.length; i++) {
+                  items[i].OrderStates.lengthTXT = $filter('number')(items[i].OrderStates.length / 2, 0);
+                  items[i].StateTimeTXT = $filter('number')(items[i].StateTime / 60, 0);
+              }
+              params.total(items.paging.totalRecordCount);
+              $defer.resolve(items);
+              //$scope.DriverVehicle = items; 
+              $scope.$broadcast('$$rebind::refresh');
+          }, function (response) {
+              toaster.pop('warning', "Sunucu Hatası", response.data);
+          });
+      }
+  });
     $scope.DriverVehicle = function () {
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/dispatch/drivervehicle.html',
@@ -296,7 +271,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
     var OrderRefresh1 = $rootScope.$on('PreparedOrderRefresh', function (event, OrdeID) {
         for (var i = 0; i < $scope.preparedOrders.length; i++) {
             if ($scope.preparedOrders[i].id == OrdeID.id) {
-                $scope.preparedOrders.splice(i, 1);
+                $scope.preparedOrders.splice(i, 1);                
                 return;
             }
         }
@@ -312,7 +287,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
     var refreshTime = null;
     $scope.calculateOrderTime = function () {
         $scope.stop();
-        angular.forEach($scope.preparingOrders, function (ord) {
+        angular.forEach($scope.preparingOrders,function(ord) {
             $scope.UpdateOrderTimer(ord);
         });
         angular.forEach($scope.preparedOrders, function (ord) {
@@ -321,16 +296,16 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         angular.forEach($scope.outOrders, function (ord) {
             $scope.UpdateOrderTimer(ord);
         });
-        $scope.$broadcast('$$rebind::refresh');
+        $scope.$broadcast('$$rebind::refresh');        
         $scope.refreshTime = setTimeout(function () { $scope.calculateOrderTime() }, 60000);
-    };
+    };    
     var deregistration1 = $scope.$on('$translateChangeSuccess', function (event, data) {
         $scope.translate();
     });
     var deregistration2 = $scope.$on('stopAskingDispatcher', function (event, data) {
         $scope.stop();
         $timeout.cancel(refreshTime);
-    });
+    });    
     $scope.$on('$destroy', function () {
         OrderRefresh();
         OrderRefresh1();
@@ -368,22 +343,22 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
         page: 1,
         count: 20,
     },
-        {
-            counts: [],
-            getData: function ($defer, params) {
-                Restangular.all('drivervehicle').getList({
-                    pageNo: params.page(),
-                    pageSize: params.count(),
-                    sort: params.orderBy(),
-                    search: "Drivers.StoreID='" + $rootScope.user.StoreID + "'"
-                }).then(function (items) {
-                    params.total(items.paging.totalRecordCount);
-                    $defer.resolve(items);
-                }, function (response) {
-                    toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
-                });
-            }
-        });
+    {
+        counts: [],
+        getData: function ($defer, params) {
+            Restangular.all('drivervehicle').getList({
+                pageNo: params.page(),
+                pageSize: params.count(),
+                sort: params.orderBy(),
+                search: "Drivers.StoreID='" + $rootScope.user.StoreID + "'"
+            }).then(function (items) {
+                params.total(items.paging.totalRecordCount);
+                $defer.resolve(items);
+            }, function (response) {
+                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+            });
+        }
+    });
     $scope.saveDriver = function (data) {
         var state = { DriverID: data, OrderID: $scope.order.id, Duration: -1, OrderStateID: 6 }
         state.OrderStateDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd HH:mm:ss');
@@ -393,13 +368,13 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
                 $rootScope.$emit('PreparedOrderRefresh', { id: $scope.order.id });
                 toaster.pop("success", "Sipariş Çıktı !", "Order marked as Out!");
                 $scope.ok();
-            }, function (response) {
+            },function (response) {
                 toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
                 $scope.LoadOrders();
             });
     };
     $scope.$on('$destroy', function () {
-        deregistration();
+    deregistration();
         $rootScope.uService.ExitController("preparedOrderCtrl");
     });
 };
@@ -443,8 +418,8 @@ function backDriverCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParam
             $rootScope.$emit('BackDriverRefresh', { id: $scope.order.id });
             $scope.ok();
         }, function (resp) {
-            toaster.pop('error', "Dönüş işlenemedi", resp.data.ExceptionMessage);
-            $scope.LoadOrders();
+                toaster.pop('error', "Dönüş işlenemedi", resp.data.ExceptionMessage);
+                $scope.LoadOrders();
         });
     };
     $scope.ok = function () {

@@ -188,10 +188,6 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         var _TimedOut = function () {                
             return isTimedOut;
         }
-        var _RestartTimeout = function (timeout) {                
-            _stopTimeout();
-            _startTimeout(timeout);
-        }
         var _isPreference = function () {
             return PreferenceValue;
         };

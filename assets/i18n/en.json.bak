@@ -2974,8 +2974,7 @@
     "ActualPayment": "Actual Payment",
     "DeclaredPayment": "Declared Payment",
     "isAutomatic": "isAutomatic",
-    "isDfferent": "isDfferent",
-    "Driver": "Driver"
+    "isDfferent": "isDfferent"
   },
   "reportcommands":{
     "GetData": "Get Data",
