@@ -7,24 +7,28 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
     //    isFirstOpen: false,
     //    isFirstDisabled: false
     //};
-    Idle.watch();
+    if ($rootScope.user.restrictions.idletimeout == 'Enable')
+        {
+            Idle.watch();
+            toaster.pop("success", "IdleTimeout", "Active.");
+        }
     $scope.$on('IdleStart', function () {
         // the user appears to have gone idle
-        toaster.pop("success", "Idle", "Start.");
+        toaster.pop("success", "IdleTimeout", "Start.");
     });
     $scope.$on('IdleTimeout', function () {
         // the user has timed out (meaning idleDuration + timeout has passed without any activity)
         // this is where you'd log them
-        toaster.pop('error', "Idle", "Timeout");
+        toaster.pop('error', "IdleTimeout", "Bye!");
         $location.path("/login/lock");
     });
     $scope.$on('IdleEnd', function () {
         // the user has come back from AFK and is doing stuff. if you are warning them, you can use this to hide the dialog
-        toaster.pop("success", "Idle", "Idle end.");
+        toaster.pop("success", "IdleTimeout", "Idle end.");
     });
     $scope.$on('IdleWarn', function (e, countdown) {
         if (countdown < 3)
-            toaster.pop("warn", "Idle", ("Idle end in: " + countdown));
+            toaster.pop("warn", "IdleTimeout", ("IdleTimeout end in: " + countdown));
         // follows after the IdleStart event, but includes a countdown until the user is considered timed out
         // the countdown arg is the number of seconds remaining until then.
         // you can change the title or display a warning dialog from here.

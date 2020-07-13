@@ -60,9 +60,7 @@ function storebudgetCtrl($rootScope, $scope, NG_SETTING, $translate, $element,lo
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            { dataField: "id", caption: "ID", allowEditing: false  },
-
-          
+            { dataField: "id", caption: "ID", allowEditing: false ,visible:false },          
             {
                 dataField: "StoreID", caption: "Store",
                 lookup: {
@@ -95,13 +93,12 @@ function storebudgetCtrl($rootScope, $scope, NG_SETTING, $translate, $element,lo
             { dataField: "Week",caption: "Week", allowEditing: true },  
             { dataField: "Sales",caption: "Sales", allowEditing: true },  
             { dataField: "TC",caption: "TC", allowEditing: true },  
-            { dataField: "NewCustomers",caption: "NewCustomers", allowEditing: true },  
-            // { dataField: "Sales InStore",caption: "SalesInStore", allowEditing: true },  
-            // { dataField: "TC InStore",caption: "TCInStore", allowEditing: true },  
-            // { dataField: "Sales TakeAway",caption: "SalesTakeAway", allowEditing: true },
-            // { dataField: "TC TakeAway",caption: "TCTakeAway", allowEditing: true },  
-            // { dataField: "Sales Delivery",caption: "SalesDelivery", allowEditing: true },  
-            // { dataField: "TC Delivery",caption: "TCDelivery", allowEditing: true },    
+             { dataField: "Sales InStore",caption: "SalesInStore", allowEditing: true },  
+             { dataField: "TC InStore",caption: "TCInStore", allowEditing: true },  
+             { dataField: "Sales TakeAway",caption: "SalesTakeAway", allowEditing: true },
+             { dataField: "TC TakeAway",caption: "TCTakeAway", allowEditing: true },  
+             { dataField: "Sales Delivery",caption: "SalesDelivery", allowEditing: true },  
+             { dataField: "TC Delivery",caption: "TCDelivery", allowEditing: true },    
 
                        
         ],
