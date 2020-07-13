@@ -371,5 +371,6 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         userServiceFactory.landingPage = _landingPage;
         userServiceFactory.isAdmin = _isAdmin;
         userServiceFactory.getParameter = _GetParameter;
+        userServiceFactory.RestartTimeout=_RestartTimeout;
         return userServiceFactory;
     }]);

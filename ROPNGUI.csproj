@@ -204,6 +204,9 @@
     <Content Include="assets\js\controllers\reports\callcenterreports\callcenterordersCtrl.js" />
     <Content Include="assets\js\controllers\reports\callcenterreports\poductsalesccoreboardCtrl.js" />
     <Content Include="assets\js\controllers\reports\fsr\transactionsCtrl.js" />
+    <Content Include="assets\js\controllers\reports\fsr\fsrspeedofserviceCtrl.js" />
+    <Content Include="assets\js\controllers\reports\fsr\fsractualtheoreticalCtrl.js" />
+    <Content Include="assets\js\controllers\reports\fsr\fsrcomparisonbudgetCtrl.js" />
     <Content Include="assets\js\controllers\reports\giroreports\cumulativesalesCtrl.js" />
     <Content Include="assets\js\controllers\reports\giroreports\salesbysourceCtrl.js" />
     <Content Include="assets\js\controllers\reports\giroreports\scoreCardCtrl.js" />
@@ -313,6 +316,7 @@
     <Content Include="assets\js\controllers\specialoperations\shiftplanCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\shiftplaneditCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\storesalestargetCtrl.js" />
+    <Content Include="assets\js\controllers\specialoperations\storebudgetCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\storestaffshiftCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\storestaffshifteditCtrl.js" />
     <Content Include="assets\js\controllers\stores\storeregionCtrl.js" />
@@ -642,6 +646,9 @@
     <Content Include="assets\views\promotions\giftpromotionCode.html" />
     <Content Include="assets\views\promotions\giftpromotionOrderSource.html" />
     <Content Include="assets\views\reports\fsr\transactionsreport.html" />
+    <Content Include="assets\views\reports\fsr\fsrSpeedOfService.html" />
+    <Content Include="assets\views\reports\fsr\fsrcomparisonbudget.html" />
+    <Content Include="assets\views\reports\fsr\fsractualtheoretical.html" />
     <Content Include="assets\views\reports\giroreports\cumulativesales.html" />
     <Content Include="assets\views\reports\giroreports\salesbysource.html" />
     <Content Include="assets\views\reports\giroreports\scorecard.html" />
@@ -890,6 +897,7 @@
     <Content Include="assets\views\specialoperations\shiftplanactualitem.html" />
     <Content Include="assets\views\specialoperations\shiftplanitem.html" />
     <Content Include="assets\views\specialoperations\storesalestarget.html" />
+    <Content Include="assets\views\specialoperations\storebudget.html" />
     <Content Include="assets\views\specialoperations\storestaffshift.html" />
     <Content Include="assets\views\specialoperations\storestaffshiftedit.html" />
     <Content Include="assets\views\stores\storeregion.html" />

@@ -273,6 +273,8 @@
     "YEMEKSEPETIREJECTREASON": "{{appName}} - Yemek Sepeti Reject Reason",
     "BILLBOARDITEM": "{{appName}} - Announcements",
     "STORESALESTARGET": "{{appName}} - Store Sales Target",
+    "STORESALESBUDGET": "{{appName}} - Store Sales Budget",
+    "STORESALESBUDGETLIST": "{{appName}} - Store Sales Budget List",
     "NGSETTINGITEM": "{{appName}} - RopNG Settings",
     "INVENTORYPERIDICCOST": "{{appName}} - Inventory Periodic Costs",
     "USERPRODUCTSALES": "{{appName}} - User - Product Sale List",
@@ -351,6 +353,9 @@
     "RETURNEDPRODUCTSDETAILED": "{{appName}} - Returned Products Detailed",
     "FSRTRANSACTIONS": "{{appName}} - Transactions",
     "SOSREPORT": "{{appName}} - Speed of Service Report",
+    "FSRACTUALTHEORETICAL": "Actual & Theoretical COS & COL",
+    "FSRCOMPARISONBUDGET": "Comparison Budget Report",
+    "FSRSPEEDOFSERVICE": "FSR Speed of Service Report",
     "VOIDORDERS": "{{appName}} - Void Orders Report",
     "PODSREPORT": "{{appName}} - PODs Report",
     "PRODUCTGROUPSTRIKERATE": "{{appName}} - Product Group Strike Rate",
@@ -2231,6 +2236,9 @@
     "MANAGEMENTREPORTS": "Management Reports",
     "FSRSEGMANTATIONSTRANSACTIONS": "FSR Segmantations & Transactions",
     "SOSREPORT": "Speed of Service Report",
+    "FSRACTUALTHEORETICAL": "Actual & Theoretical COS & COL",
+    "FSRCOMPARISONBUDGET": "Comparison Budget Report",
+    "FSRSPEEDOFSERVICE": "FSR Speed of Service Report",
     "VOIDORDERS": "Void Orders Report",
     "PODSREPORT": "PODs Report",
     "PRODUCTWASTES": "Waste Report",
@@ -2275,7 +2283,6 @@
     "PAYMENTORDERSOURCESTATS": "Payment States by Order Source",
     "STOREROUTINGTYPE":"Routing Type",
     "ORDERPAYMENTSCHECK": "Payments Check Report"
-
   },
   "topbar": {
     "messages": {
@@ -2612,6 +2619,9 @@
         "FSR": "FSR",
         "FSRSEGMANTATIONSTRANSACTIONS": "FSR Segmantations & Transactions",
         "SOSREPORT": "Speed of Service Report",
+        "FSRACTUALTHEORETICAL": "Actual & Theoretical COS & COL",
+        "FSRCOMPARISONBUDGET": "Comparison Budget Report",
+        "FSRSPEEDOFSERVICE": "FSR Speed of Service Report",
         "VOIDORDERS": "Void Orders Report",
         "PROMOTIONCODEDETAILS": "Promotion Code Details",
         "PRODUCTGROUPSTRIKERATE": "Product Group Strike Rate",
@@ -2775,6 +2785,8 @@
         "ACCOUNTTRANSACTIONS": "Account Transactions",
         "DECLAREDREVENUE": "Declared Revenue",
         "STORESALESTARGET": "Store Sales Target",
+        "STORESALESBUDGET": "Store Sales Budget",
+        "STORESALESBUDGETLIST": "Store Sales Budget List",
         "STORESATAFFSHIFT": "Staff Shift Detail"
 
       },

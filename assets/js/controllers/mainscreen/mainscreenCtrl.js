@@ -189,7 +189,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
             }
         }
     };
-    $scope.getNewYSOrder();
+    $scope.getNewYSOrder(); 
     $scope.Preference = function () {
         var data = $rootScope.user;
     };

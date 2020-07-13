@@ -1302,6 +1302,33 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'sos'
             }
+        }).state('app.reports.fsr.fsrspeedofservice', {
+            url: '/fsrspeedofservice',
+            templateUrl: "assets/views/reports/fsr/fsrspeedofservice.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'fsrspeedofserviceCtrl', 'dateCtrl'),
+            title: 'FSR Speed Of Service',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'fsrspeedofservice'
+            }
+        }).state('app.reports.fsr.fsractualtheoretical', {
+            url: '/fsractualtheoretical',
+            templateUrl: "assets/views/reports/fsr/fsractualtheoretical.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'fsractualtheoreticalCtrl', 'dateCtrl'),
+            title: 'FSR Actual Theoretical',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'fsractualtheoretical'
+            }
+        }).state('app.reports.fsr.fsrcomparisonbudget', {
+            url: '/fsrcomparisonbudget',
+            templateUrl: "assets/views/reports/fsr/fsrcomparisonbudget.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'fsrcomparisonbudgetCtrl', 'dateCtrl'),
+            title: 'FSR Comparison Budget',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'fsrcomparisonbudget'
+            }
         }).state('app.reports.storereports', {
             url: '/storereports',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -3009,6 +3036,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'storesalestarget'
+            }
+        }).state('app.specialoperations.storebudget', {
+            url: '/storebudget',
+            templateUrl: "assets/views/specialoperations/storebudget.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'storebudgetCtrl'),
+            title: 'storebudget',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'storebudget'
             }
         }).state('app.specialoperations.storestaffshift', {
             url: '/storestaffshift',
