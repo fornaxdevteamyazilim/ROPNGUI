@@ -12,13 +12,15 @@ app.controller('login_lockCtrl', login_lockCtrl);
 function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $location, $translate, userService, $element,authService) {
     $rootScope.uService.EnterController("login_lockCtrl");
     $scope.message = '';
-    authService.logOut();
+    //authService.logOut(); 
+    //$rootScope.preventNavigation();
     //userService.userAuthorizated();
     var idListener = $rootScope.$on('Identification', function (event,data) {
         //var uiFMD = encodeURIComponent(data.FMD);
         userService.fmdLogin(data.FMD).then(function (response) {
             userService.stopTimeout();
             if (response) {
+                //$rootScope.allowNavigation();
                 $location.path('/app/mainscreen');
             }
         }, function (err) {
@@ -44,6 +46,7 @@ function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $loca
             userService.cardLogin(password).then(function (response) {
                 userService.stopTimeout();
                 if (response) {
+                    //$rootScope.allowNavigation();
                     $location.path('/app/mainscreen');                    
                 }
             }, function (err) {

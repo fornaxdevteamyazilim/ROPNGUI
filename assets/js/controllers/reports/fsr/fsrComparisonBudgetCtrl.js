@@ -27,12 +27,12 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
     var minYear = parseInt(cYeaar - 4);
     var maxYear = parseInt(cYeaar);
     var vNumber = ISO8601_week_no((new Date()));
-    $scope.startWeek = parseInt(vNumber-1);
+    $scope.startWeek = parseInt(vNumber - 1);
     $scope.endWeek = parseInt(vNumber);
     $scope.VeiwHeader = {};
     $scope.startYearButton = {
         bindingOptions: {
-            value: "startYear"            
+            value: "startYear"
         },
         min: minYear,
         max: maxYear,
@@ -46,14 +46,7 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
         max: 52,
         showSpinButtons: true
     };
-    $scope.endYearButton = {
-        bindingOptions: {
-            value: "endYear"
-        },
-        min: minYear,
-        max: maxYear,
-        showSpinButtons: true
-    };
+
     $scope.endWeekButton = {
         bindingOptions: {
             value: "endWeek"
@@ -89,7 +82,7 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 secondWeek: $scope.endWeek
             };
 
-            return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/fsrComparisonBudget", { params: params })
+            return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/comparisonbudget", { params: params })
                 .then(function (response) {
                     return {
                         data: response.data,
@@ -106,61 +99,112 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
         allowColumnResizing: true,
         columnAutoWidth: true,
         showBorders: true,
-        columnChooser: {
-            enabled: true
-        },
-        columnFixing: {
-            enabled: true
-        },
+        columnChooser: {            enabled: true        },
+        columnFixing: {            enabled: true        },
+        groupPanel: {            visible: true        },
         columns: [{
             dataField: "Area",
             dataType: "string",
             width: 230,
             fixed: true,
-        }, {
-            dataField: "Year",
-            dataType: "number",
-            fixed: true,
-        }, {
+            groupIndex: 0
+        },
+        {
             dataField: "Week",
             dataType: "number",
             fixed: true,
         }, {
-            caption: "Total Trx",
-            dataField: "Trx",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            dataField: "Sales",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            dataField: "HDSSales",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            caption: "HDS Trx",
-            dataField: "HDSTrx",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            dataField: "DINSales",
-            dataType: "number",
-            format: "fixedPoint"
-        },{
-            caption: "DIN Trx",
-            dataField: "DINTrx",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            dataField: "TAKEAWAY Sales",
-            dataType: "number",
-            format: "fixedPoint"
-        },{
-            caption: "TAKEAWAY Trx",
-            dataField: "TAKEAWAYTrx",
-            dataType: "number",
-            format: "fixedPoint"
+            caption: "Total",
+            columns: [
+                { 
+                    caption: "Sales",
+                    columns: [
+                        { caption: $scope.startYear, dataField: "Sales", dataType: "number", format: "fixedPoint", },
+                        { caption: $scope.startYear - 1, dataField: "SalesPrev", dataType: "number", format: "fixedPoint" },
+                        { caption: "Chg%", dataField: "ChgPercent", dataType: "number", format: { type: "percent", precision: 2 }, },
+                        { caption: "Budget", dataField: "SalesBudget", dataType: "number", format: "fixedPoint", },
+                        { caption: "Chg%", dataField: "ChgBudgetPercent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    ]                    
+                }, {
+                    caption: "TRX",
+                    columns: [
+                        { caption: $scope.startYear, dataField: "Trx", dataType: "number", format: "fixedPoint", },
+                        { caption: $scope.startYear - 1, dataField: "TrxPrev", dataType: "number", format: "fixedPoint" },
+                        { caption: "Chg%", dataField: "ChgPercentTrx", dataType: "number", format: { type: "percent", precision: 2 }, },
+                        { caption: "Budget", dataField: "TCBudget", dataType: "number", format: "fixedPoint", },
+                        { caption: "Chg%", dataField: "ChgBudgetPercentTrx", dataType: "number", format: { type: "percent", precision: 2 } }
+                    ]
+                }],
+                fixed: true
+        },
+        {
+            caption: "HDS",
+            columns: [
+                {
+                    caption: "Sales",
+                    columns: [
+                        { caption: $scope.startYear, dataField: "HDSSales", dataType: "number", format: "fixedPoint", },
+                        { caption: $scope.startYear - 1, dataField: "HDSSalesPrev", dataType: "number", format: "fixedPoint" },
+                        { caption: "Chg%", dataField: "HDSChgPercent", dataType: "number", format: { type: "percent", precision: 2 }, },
+                        { caption: "Budget", dataField: "SalesDeliveryBudget", dataType: "number", format: "fixedPoint", },
+                        { caption: "Chg%", dataField: "HDSChgBudgetPercent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    ]
+                }, {
+                    caption: "TRX",
+                    columns: [
+                        { caption: $scope.startYear, dataField: "HDSTrx", dataType: "number", format: "fixedPoint", },
+                        { caption: $scope.startYear - 1, dataField: "HDSTrxPrev", dataType: "number", format: "fixedPoint" },
+                        { caption: "Chg%", dataField: "HDSChgPercentTrx", dataType: "number", format: { type: "percent", precision: 2 }, },
+                        { caption: "Budget", dataField: "TCDeliveryBudget", dataType: "number", format: "fixedPoint", },
+                        { caption: "Chg%", dataField: "HDSChgBudgetPercentTrx", dataType: "number", format: { type: "percent", precision: 2 } }
+                    ]
+                }]
+        },
+        {
+            caption: "DIN",
+            columns: [
+                {
+                    caption: "Sales",
+                    columns: [
+                        { caption: $scope.startYear, dataField: "DINSales", dataType: "number", format: "fixedPoint", },
+                        { caption: $scope.startYear - 1, dataField: "DINSalesPrev", dataType: "number", format: "fixedPoint" },
+                        { caption: "Chg%", dataField: "DINChgPercent", dataType: "number", format: { type: "percent", precision: 2 }, },
+                        { caption: "Budget", dataField: "SalesInStoreBudget", dataType: "number", format: "fixedPoint", },
+                        { caption: "Chg%", dataField: "DINChgBudgetPercent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    ]
+                }, {  
+                    caption: "TRX",
+                    columns: [
+                        { caption: $scope.startYear, dataField: "DINTrx", dataType: "number", format: "fixedPoint", },
+                        { caption: $scope.startYear - 1, dataField: "DINTrxPrev", dataType: "number", format: "fixedPoint" },
+                        { caption: "Chg%", dataField: "DINChgPercentTrx", dataType: "number", format: { type: "percent", precision: 2 }, },
+                        { caption: "Budget", dataField: "TCInStoreBudget", dataType: "number", format: "fixedPoint", },
+                        { caption: "Chg%", dataField: "DINChgBudgetPercentTrx", dataType: "number", format: { type: "percent", precision: 2 } }
+                    ]
+                }]
+        },
+        {
+            caption: "CO",
+            columns: [
+                {
+                    caption: "Sales",
+                    columns: [
+                        { caption: $scope.startYear, dataField: "COSales", dataType: "number", format: "fixedPoint", },
+                        { caption: $scope.startYear - 1, dataField: "COSalesPrev", dataType: "number", format: "fixedPoint" },
+                        { caption: "Chg%", dataField: "COChgPercent", dataType: "number", format: { type: "percent", precision: 2 }, },
+                        { caption: "Budget", dataField: "SalesTakeAwayBudget", dataType: "number", format: "fixedPoint", },
+                        { caption: "Chg%", dataField: "COChgBudgetPercent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    ]
+                }, {
+                    caption: "TRX",
+                    columns: [
+                        { caption: $scope.startYear, dataField: "COTrx", dataType: "number", format: "fixedPoint", },
+                        { caption: $scope.startYear - 1, dataField: "COTrxPrev", dataType: "number", format: "fixedPoint" },
+                        { caption: "Chg%", dataField: "COChgPercentTrx", dataType: "number", format: { type: "percent", precision: 2 }, },
+                        { caption: "Budget", dataField: "TCTakeAwayBudget", dataType: "number", format: "fixedPoint", },
+                        { caption: "Chg%", dataField: "COChgBudgetPercentTrx", dataType: "number", format: { type: "percent", precision: 2 } }
+                    ]
+                }]
         }
         ],
         onRowPrepared: function (e) {
@@ -176,7 +220,7 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
         },
         export: {
             enabled: true,
-            fileName: "FSR Transactions",
+            fileName: "FSR Comparison Budget",
             customizeExcelCell: (options) => {
                 var gridCell = options.gridCell;
                 if (!gridCell) {
@@ -200,10 +244,10 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
         //    enabled: false
         //}
     };
-    
+
     $scope.LoadData = function () {
         var dataGrid = $('#gridContainer').dxDataGrid('instance');
-        dataGrid.refresh();        
+        dataGrid.refresh();
     };
-    
+
 }

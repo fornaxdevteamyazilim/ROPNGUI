@@ -1,9 +1,79 @@
+app.directive('ngFiles', ['$parse', function ($parse) {
+
+    function fn_link(scope, element, attrs) {
+        var onChange = $parse(attrs.ngFiles);
+        element.on('change', function (event) {
+            onChange(scope, { $files: event.target.files });
+        });
+    };
+
+    return {
+        link: fn_link
+    }
+} ]);
 app.controller('storebudgetCtrl', storebudgetCtrl);
-function storebudgetCtrl($rootScope, $scope, NG_SETTING, $translate, $element,localStorageService) {
+function storebudgetCtrl($rootScope, $scope, NG_SETTING, $translate, $element,localStorageService,$http) {
     $rootScope.uService.EnterController("storebudgetCtrl");
     var ngurr = this;
     $scope.NGUserRoleID = '';
-
+    
+      
+    
+    $scope.selectedFile = null;  
+    $scope.msg = "";  
+    
+    $scope.getTheFiles = function ($files) {
+        $scope.selectedFile = $files[0];   
+        // angular.forEach($files, function (value, key) {
+        //     formdata.append(key, value);
+        // });
+    };
+    $scope.handleFile = function () {  
+  
+        var file = $scope.selectedFile;    
+        if (file) {    
+            var reader = new FileReader();    
+            reader.onload = function (e) {    
+                var data = e.target.result;    
+                var workbook = XLSX.read(data, { type: 'binary' });    
+                var first_sheet_name = workbook.SheetNames[0];    
+                var dataObjects = XLSX.utils.sheet_to_json(workbook.Sheets[first_sheet_name]);    
+                //console.log(excelData);    
+                if (dataObjects.length > 0) {  
+                    $scope.save(dataObjects);   
+                } else {  
+                    $scope.msg = "Error : Something Wrong !";  
+                }    
+            }    
+            reader.onerror = function (ex) {    
+            }    
+            reader.readAsBinaryString(file);  
+        }  
+    }  
+    $scope.save = function (data) {    
+        $http({  
+            method: "POST",  
+            url: NG_SETTING.apiServiceBaseUri + "/api/tools/UploadStoreBudgets",  
+            data: JSON.stringify(data),  
+            headers: {  
+                'Content-Type': 'application/json'  
+            }    
+        }).then(function (data) {  
+            if (data.status) {  
+                $scope.msg = "Data has been inserted ! ";  
+                $scope.LoadData();
+            }  
+            else {  
+                $scope.msg = "Error : Something Wrong";  
+            }  
+        }, function (error) {  
+            $scope.msg = "Error : Something Wrong";  
+        })  
+      }  
+$scope.LoadData = function () {
+            var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            dataGrid.refresh();
+        };
     $scope.translate = function () {
         $scope.trUserRole = $translate.instant('main.USERROLE');
         $scope.trUserRestriction = $translate.instant('main.USERRESTRICTIONS');
@@ -91,14 +161,14 @@ function storebudgetCtrl($rootScope, $scope, NG_SETTING, $translate, $element,lo
             }  ,
             { dataField: "Year",caption: "Year", allowEditing: true },  
             { dataField: "Week",caption: "Week", allowEditing: true },  
-            { dataField: "Sales",caption: "Sales", allowEditing: true },  
-            { dataField: "TC",caption: "TC", allowEditing: true },  
-             { dataField: "Sales InStore",caption: "SalesInStore", allowEditing: true },  
-             { dataField: "TC InStore",caption: "TCInStore", allowEditing: true },  
-             { dataField: "Sales TakeAway",caption: "SalesTakeAway", allowEditing: true },
-             { dataField: "TC TakeAway",caption: "TCTakeAway", allowEditing: true },  
-             { dataField: "Sales Delivery",caption: "SalesDelivery", allowEditing: true },  
-             { dataField: "TC Delivery",caption: "TCDelivery", allowEditing: true },    
+            // { dataField: "Sales",caption: "Sales", allowEditing: true },  
+            // { dataField: "TC",caption: "TC", allowEditing: true },  
+             { dataField: "SalesInStore",caption: "SalesInStore", allowEditing: true },  
+             { dataField: "TCInStore",caption: "TCInStore", allowEditing: true },  
+             { dataField: "SalesTakeAway",caption: "SalesTakeAway", allowEditing: true },
+             { dataField: "TCTakeAway",caption: "TCTakeAway", allowEditing: true },  
+             { dataField: "SalesDelivery",caption: "SalesDelivery", allowEditing: true },  
+             { dataField: "TCDelivery",caption: "TCDelivery", allowEditing: true },    
 
                        
         ],

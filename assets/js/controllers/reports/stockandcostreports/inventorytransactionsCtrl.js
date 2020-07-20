@@ -146,34 +146,7 @@ function inventorytransactionsCtrl($scope, $log, $modal, $filter, SweetAlert, Re
                     }
                 },
             },
-            {
-                dataField: "StoreID", caption: "StoreType",
-                lookup: {
-                    valueExpr: "id",
-                    displayExpr: "StoreType",
-                    dataSource: {
-                        store: DevExpress.data.AspNet.createStore({
-                            key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStoreWithRegions",
-                            onBeforeSend: function (method, ajaxOptions) {
-                                var authData = localStorageService.get('authorizationData');
-                                if (authData) {
-                                    ajaxOptions.headers = {
-                                        Authorization: 'Bearer ' + authData.token,
-                                        'Content-type': 'application/json'
-                                    };
-                                }
-                            }
-                        }),
-                        sort: "StoreType",
-                        headerFilter: { allowSearch: true }
-                    },
-                    calculateSortValue: function (data) {
-                        var value = this.calculateCellValue(data);
-                        return this.lookup.calculateCellValue(value);
-                    }
-                },
-            },
+            { dataField: "StoreType", caption: "StoreType" },
             { dataField: "TransactionType", dataType: "string" },
             { dataField: "TransactionDetail", dataType: "string" },
             { dataField: "InventoryGroup", dataType: "string" },

@@ -294,7 +294,9 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
         });
         $scope.GetNewOrderCount = function () {
             if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
-                if (!userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("MemberAdmin") && !userService.userIsInRole("PHAdmin")) {
+                if (!userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("MemberAdmin") && !userService.userIsInRole("PHAdmin")
+                && $rootScope.user.restrictions.NewOrdersCount!='Disable'
+                ) {
                     Restangular.one('ordertools/NewOrdersCount').get().then(function (result) {
                         $scope.audio.muting = !(result.Total > 0);
                         if ((result.Total > 0))

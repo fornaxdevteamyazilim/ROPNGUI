@@ -1703,7 +1703,7 @@
             </li>-->
         </ul>
     </li>
-    <li ng-class="{'active open':$state.includes('app.specialoperations')}" >
+    <li ng-class="{'active open':$state.includes('app.specialoperations')}" ng-if="user.restrictions.specialoperations=='Enable'">
         <a href="javascript:void(0)">
             <div class="item-content">
                 <div class="item-media">

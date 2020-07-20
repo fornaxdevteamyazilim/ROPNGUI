@@ -130,6 +130,7 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
             { caption: "TotalQuantity", dataField: "TotalQuantity", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
             { caption: "TotalCost", dataField: "TotalCost", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "Ratio", dataField: "Ratio", dataType: "number", format: { type: "percent", precision: 2 } },
+            { caption: "OrdersCount", dataField: "OrdersCount", dataType: "number", format: { type: "fixedPoint", precision: 0 } },            
         ],
         summary: {
             totalItems: [{ column: "StoreID", summaryType: "count", displayFormat: "{0}" },
@@ -138,7 +139,7 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
             { column: "TotalQuantity", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "TotalCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
             { name: "Ratio", showInColumn: "Ratio", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-
+            { column: "OrdersCount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             ],
             groupItems: [
                 { column: "StoreID", summaryType: "count", displayFormat: "{0}" },
@@ -147,6 +148,7 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
                 { column: "TotalQuantity", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TotalCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺", alignByColumn: true },
                 { name: "Ratio", showInColumn: "Ratio", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "OrdersCount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },                
             ],
             calculateCustomSummary: function (options) {
                 if (options.name === "Ratio") {
