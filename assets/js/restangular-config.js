@@ -17,7 +17,7 @@ function restangularConfig(RestangularProvider) {
 
     
     //RestangularProvider.setDefaultHeaders({ "Content-Type": "application/json;charset=utf-8" });
-    RestangularProvider.setDefaultHeaders({ "Accept-Language": "tr-TR" });
+    RestangularProvider.setDefaultHeaders({ "Accept-Language": "en-US" }); //"tr-TR"
     //RestangularProvider.setPlainByDefault(true);
     RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
         var extractedData;

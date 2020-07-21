@@ -60,35 +60,29 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
             _preventNavigationUrl = $location.absUrl();
         }
         $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
-            // Allow navigation if our old url wasn't where we prevented navigation from
-            if (_preventNavigationUrl != oldUrl || _preventNavigationUrl == null || preventcounter > 10) {
-                if (preventcounter > 0)
-                    preventcounter = 0;
+            if (_preventNavigationUrl != oldUrl || _preventNavigationUrl == null) {                
                 $rootScope.allowNavigation();
                 return;
             }
             if (_preventNavigation) {//&& !confirm("Kaydedilmeyen Değişiklikler Bulunuyor, Çıkmak İstediğinize Emin Misiniz? ")) {
-                //preventcounter++;
                 event.preventDefault();
-                toaster.pop('error', "Kaydedilmeyen Değişiklikler", "Değişiklikeri kadetmeden çıkamazsınız!");
-                //
+                toaster.pop('error', "Browse disabled", "Browse is disabled on this screen!");                
             }
             else {
                 $rootScope.allowNavigation();
             }
         });
+        
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (_preventNavigation) {
-                toaster.pop('error', "Kaydedilmeyen Değişiklikler", "Değişiklikeri kadetmeden çıkamazsınız!");
+                toaster.pop('error', "Browse disabled", "Browse is disabled on this screen!");
                 event.preventDefault();
-                //$state.go('login');
             }
         });
-        // Take care of preventing navigation out of our angular app
+
         window.onbeforeunload = function () {
-            // Use the same data that we've set in our angular app
             if (_preventNavigation && $location.absUrl() == _preventNavigationUrl) {
-                return "Kaydedilmeyen Değişiklikler Bulunuyor, Çıkmak İstediğinize Emin Misiniz?";
+                return "Do you want to leave ROPNG Application?";
             }
         }
         // GLOBAL APP SCOPE
@@ -171,7 +165,7 @@ app.config(['$translateProvider',
         });
         // Since you've now registered more then one translation table, angular-translate has to know which one to use.
         // This is where preferredLanguage(langKey) comes in.
-        $translateProvider.preferredLanguage('tr_TR');
+        $translateProvider.preferredLanguage('en');//tr_TR
         // Store the language in the local storage
         $translateProvider.useLocalStorage();
     }]);
