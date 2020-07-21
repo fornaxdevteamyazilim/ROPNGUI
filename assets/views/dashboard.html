@@ -231,7 +231,7 @@
                     </div>
                     <div class="panel-body">
                         <div>
-                            <h3 class="inline-block no-margin">Toplam : {{OrderTotalCount}}</h3> <br />
+                            <h3 class="inline-block no-margin">Total : {{OrderTotalCount}}</h3> <br />
                             <progressbar value="OrderTotalCount" class="progress-xs no-radius" type="success"></progressbar>
                         </div>
                         <br />
@@ -296,7 +296,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="VisitsCtrl">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 panel panel-white no-radius">
             <div class="panel-heading border-bottom">
-                <h4 class="panel-title text-bold">İdeal Maliyet Tablosu ({{InventoryCost.FromDateTXT}} / {{InventoryCost.ToDateTXT}})</h4>
+                <h4 class="panel-title text-bold">{{'main.THEORIC' | translate}} ({{InventoryCost.FromDateTXT}} / {{InventoryCost.ToDateTXT}})</h4>
             </div>
             <div class="panel-body">
                 <div class="text-center">
@@ -307,23 +307,23 @@
                 <div class="clearfix padding-5 space5">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center no-padding">
                         <div class="border-right border-dark">
-                            <label class="text-bold block text-extra-larget tooltips" tooltip="Ideal Maliyet" tooltip-placement="top"> {{InventoryCost.Ideal *100 |number:2 }} %</label>
+                            <label class="text-bold block text-extra-larget tooltips" tooltip="{{'main.IDEALCOSTS' | translate}}"  tooltip-placement="top"> {{InventoryCost.Ideal *100 |number:2 }} %</label>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center no-padding">
                         <div class="border-right border-dark">
-                            <label class="text-bold block text-extra-large tooltips" tooltip="Ideal Maliyet Malzeme Toplamı" tooltip-placement="top">{{InventoryCost.FoodCost | number: 2 }} TL</label>
+                            <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.THEORICINVANTORIES' | translate}}" tooltip-placement="top">{{InventoryCost.FoodCost | number: 2 }} TL</label>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center no-padding">
-                        <label class="text-bold block text-extra-large tooltips" tooltip="Toplam Satışlar" tooltip-placement="top">{{InventoryCost.SalesTotal | number: 2 }} TL</label>
+                        <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.GRANDTOTALS' | translate}}"  tooltip-placement="top">{{InventoryCost.SalesTotal | number: 2 }} TL</label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 panel panel-white no-radius">
             <div class="panel-heading border-bottom">
-                <h4 class="panel-title text-bold">Gerçekleşen Maliyet Tablosu ({{InventoryCost.FromDateTXT}} / {{InventoryCost.ToDateTXT}})</h4>
+                <h4 class="panel-title text-bold">{{'main.ACTUALCOST' | translate}}  ({{InventoryCost.FromDateTXT}} / {{InventoryCost.ToDateTXT}})</h4>
             </div>
             <div class="panel-body">
                 <div class="text-center">
@@ -334,16 +334,16 @@
                 <div class="clearfix padding-5 space5">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center no-padding">
                         <div class="border-right border-dark">
-                            <label class="text-bold block text-extra-large tooltips" tooltip="Gerçekleşen Maliyet" tooltip-placement="top"> {{InventoryCost.Real *100 |number:2 }} %</label>
+                            <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.ACTUALCALCULATEREMAINDERLIST' | translate}}" tooltip-placement="top"> {{InventoryCost.Real *100 |number:2 }} %</label>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center no-padding">
                         <div class="border-right border-dark">
-                            <label class="text-bold block text-extra-large tooltips" tooltip="Gerçekleşen Maliyet Malzeme Toplamı" tooltip-placement="top"> {{InventoryCost.RealFoodCost | number: 2 }} TL</label>
+                            <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.ACTUALINVANTORIES' | translate}}" tooltip-placement="top"> {{InventoryCost.RealFoodCost | number: 2 }} TL</label>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center no-padding">
-                        <label class="text-bold block text-extra-large tooltips" tooltip="Toplam Satışlar" tooltip-placement="top">{{InventoryCost.SalesTotal | number: 2 }} TL</label>
+                        <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.GRANDTOTALS' | translate}}" tooltip-placement="top">{{InventoryCost.SalesTotal | number: 2 }} TL</label>
                     </div>
                 </div>
             </div>

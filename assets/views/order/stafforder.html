@@ -20,7 +20,7 @@
                 <select id="store" ng-options="s.id as s.FullName for s in storeUsers | filter: {ShiftActive:true} | orderBy:'+FullName'" class="form-control text-capitalize ng" ng-model="userID"></select>
             </form>
             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6 pull-left">
-                <button class="btn btn-scroll btn-success btn-scroll-top ti-new-window margin-top-20" ng-click="takeawayOrder(userID)" ng-disabled="!userID"><span class="text-extra-large text-bold">Yeni Sipariş</span></button>
+                <button class="btn btn-scroll btn-success btn-scroll-top ti-new-window margin-top-20" ng-click="takeawayOrder(userID)" ng-disabled="!userID"><span class="text-extra-large text-bold">{{'main.NEWORDERR' | translate}} </span></button>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 visible-lg visible-md margin-top-10">

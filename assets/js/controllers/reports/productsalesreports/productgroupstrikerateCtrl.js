@@ -30,13 +30,13 @@ function productgroupstrikerateCtrl($scope, $filter, $modal, $log, Restangular, 
     if (!$scope.EndDate) {
         $scope.EndDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
     }
-    $scope.resetlayout = $translate.instant('main.RESETLAYOUT');
-    $scope.resetButtonOptions = {
-        text: $scope.resetlayout,
-        onClick: function () {
-            $("#sales").dxPivotGrid("instance").getDataSource().state({});
-        }
-    };
+    // $scope.resetlayout = $translate.instant('main.RESETLAYOUT');
+    // $scope.resetButtonOptions = {
+    //     text: $scope.resetlayout,
+    //     onClick: function () {
+    //         $("#sales").dxPivotGrid("instance").getDataSource().state({});
+    //     }
+    // };
     $scope.chartOptions = {
         commonSeriesSettings: {
             type: "bar"

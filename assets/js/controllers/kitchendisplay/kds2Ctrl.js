@@ -41,6 +41,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restang
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
         $scope.translate();
     });
+    
     var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
         $scope.LoadOrderItemStates();        
     });

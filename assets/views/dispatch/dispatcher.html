@@ -37,7 +37,7 @@
                 <button class="btn btn-scroll btn-success btn-scroll-top ti-new-window" ng-click="homedeliveryOrder()"><span class="text-extra-large text-bold">{{::neworder}} </span></button>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center text-bold" ng-if="::user.restrictions.dispatchhomedelivery=='Enable'">
-                <h2>{{::homedelivery}} <span ng-if="ShowObject==true" class="center"><span class="fa fa-spin fa-spinner center"></span></span><br /></h2>
+                <h2>{{'main.DISPATCHER' | translate}} <span ng-if="ShowObject==true" class="center"><span class="fa fa-spin fa-spinner center"></span></span><br /></h2>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <button type="button" class="btn btn-o btn-primary btn-scroll btn-scroll-top fa-lock pull-right" ng-click="DriverVehicle()" ng-if="::user.restrictions.zimmet=='Enable'">
