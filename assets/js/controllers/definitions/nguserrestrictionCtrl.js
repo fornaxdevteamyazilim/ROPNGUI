@@ -17,7 +17,7 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
             this.item.put().then(function (res) {
                 ngur.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
@@ -25,7 +25,7 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
             this.item.post().then(function (res) {
                 ngur.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -43,9 +43,9 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
         rowform.$cancel();
         if (!ngur.tableParams.data[ngur.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ngur.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     ngur.tableParams = new ngTableParams({
@@ -66,19 +66,19 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -87,7 +87,7 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
                     ngur.tableParams.data[index].remove();
                 }
                 ngur.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -120,7 +120,7 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

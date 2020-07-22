@@ -45,8 +45,8 @@ function userlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAle
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response);
-                SweetAlert.swal("Sunucu Hatası!", angular.toJson(response, false), "error");
+                toaster.pop('error', "Server Error", response);
+                SweetAlert.swal("Server Error!", angular.toJson(response, false), "error");
             });
         }
     });
@@ -62,7 +62,7 @@ function userlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAle
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

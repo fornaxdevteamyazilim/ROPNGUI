@@ -66,7 +66,7 @@ function hourlyorderslistCtrl($scope, $log, $modal, $timeout, $filter, SweetAler
         });
         var downloadLink = angular.element('<a></a>');
         downloadLink.attr('href', window.URL.createObjectURL(blob));
-        downloadLink.attr('download', 'CM Saatlik Sipariş Listesi.xls');
+        downloadLink.attr('download', 'CM Hourly Order List.xls');
         downloadLink[0].click();
     };
     $scope.SelectEndDate = function (item) {

@@ -26,7 +26,7 @@ function deletedorderitemsdetailsCtrl($scope, OrderID, $modalInstance, Restangul
         }).then(function (_orderItems) {
             $scope.orderItems = angular.copy(_orderItems);
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
         });
     };
     $scope.GetStore = function (StoreID) {

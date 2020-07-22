@@ -8,7 +8,7 @@ function inventorycostsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangul
        }).then(function (result) {
            $scope.VeiwHeader = result[0];
        }, function (response) {
-           toaster.pop('error', "Error", response.data.ExceptionMessage);
+           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
        });
     }
     $scope.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
@@ -28,7 +28,7 @@ function inventorycostsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangul
                 $scope.resresult = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
             });
     };
     $scope.LoadResults();

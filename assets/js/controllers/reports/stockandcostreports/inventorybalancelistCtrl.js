@@ -71,7 +71,7 @@ function inventorybalancelistCtrl($scope, $filter, $modal, $log, Restangular, ng
         Restangular.all('report').getList().then(function (result) {
             $scope.VeiwHeader = result[0];
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
         });
     }
     if (!$rootScope.ReportParameters.ForDate) {
@@ -104,7 +104,7 @@ function inventorybalancelistCtrl($scope, $filter, $modal, $log, Restangular, ng
                     $scope.ShowReport();
                 }, function (response) {
                     $scope.isWaiting = false;
-                    toaster.pop('error', "Error", response.data.ExceptionMessage);
+                    toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
                 });
     };
     ctrl.table = {

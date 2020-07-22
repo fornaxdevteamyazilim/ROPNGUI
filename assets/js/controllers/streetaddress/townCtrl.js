@@ -22,10 +22,10 @@ function townCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams, 
             data.put().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', "Güncellendi.", 'Updated.');
+                    toaster.pop('success', "Updated.", 'Updated.');
                 },
                 function (response) {
-                    toaster.pop('error', "Güncellenemedi !", response.data.ExceptionMessage);
+                    toaster.pop('error', "Failed to Update !", response.data.ExceptionMessage);
                 }
                  );
         }
@@ -34,10 +34,10 @@ function townCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams, 
             data.post().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', "Kaydedildi.", 'Saved.');
+                    toaster.pop('success', "Saved.", 'Saved.');
                 },
                     function (response) {
-                        toaster.pop('error', "Kaydedilmedi !", response.data.ExceptionMessage);
+                        toaster.pop('error', "Not Saved !", response.data.ExceptionMessage);
                     }
             );
             data.get();
@@ -56,9 +56,9 @@ function townCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams, 
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     vm.tableParams = new ngTableParams({
@@ -79,19 +79,19 @@ function townCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams, 
                 $scope.SelectedItem = (items && items.length > 0) ? items[0].id : null;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -100,7 +100,7 @@ function townCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams, 
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

@@ -125,7 +125,7 @@ function shiftplanactualCtrl($rootScope, $scope, Restangular, ngTableParams, toa
                     $scope.isWaiting = false;
                 }, function (response) {
                     $scope.isWaiting = false;
-                    toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -143,42 +143,42 @@ function shiftplanactualCtrl($rootScope, $scope, Restangular, ngTableParams, toa
         item.post().then(function (resp) {
             location.href = '#/app/specialoperations/shiftplanactualedit/' + resp.id;
         }, function (response) {
-            toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
         });
     };
 
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
                     //$location.path('app/inventory/inventoryadjust/list');
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled !", "Deletion canceled  !", "error");
             }
         });
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -187,7 +187,7 @@ function shiftplanactualCtrl($rootScope, $scope, Restangular, ngTableParams, toa
                     shap.tableParams.data[index].remove();
                 }
                 shap.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -207,7 +207,7 @@ function shiftplanactualCtrl($rootScope, $scope, Restangular, ngTableParams, toa
     //        }).then(function (result) {
     //            $scope[Container] = result;
     //        }, function (response) {
-    //            toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+    //            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
     //        });
     //    }
     //};
@@ -216,7 +216,7 @@ function shiftplanactualCtrl($rootScope, $scope, Restangular, ngTableParams, toa
     //        Restangular.all(EntityType).getList({}).then(function (result) {
     //            $scope[Container] = result;
     //        }, function (response) {
-    //            toaster.pop('Warning', "Sunucu Hatası", response);
+    //            toaster.pop('Warning', "Server Error", response);
     //        });
     //    }
     //};

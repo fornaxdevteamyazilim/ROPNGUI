@@ -23,7 +23,7 @@
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', "Sunucu hatası", response);
+                    toaster.pop('warning', "Server Error", response);
                     SweetAlert.swal("Server error!", angular.toJson(response, false), "error");
                 });
             }
@@ -46,7 +46,7 @@
         //        }).then(function (result) {
         //            $scope[Container] = result;
         //        }, function (response) {
-        //            toaster.pop('Warning', "Sunucu hatası", response);
+        //            toaster.pop('Warning', "Server Error", response);
         //        });
         //    }
         //};
@@ -55,7 +55,7 @@
         //        Restangular.all(EntityType).getList().then(function (result) {
         //            $scope[Container] = result;
         //        }, function (response) {
-        //            toaster.pop('Warning', "Sunucu hatası", response);
+        //            toaster.pop('Warning', "Server Error", response);
         //        });
         //    }
         //};

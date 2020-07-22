@@ -93,7 +93,7 @@ function paymentbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, ngT
            $scope.VeiwHeader = result[0];
            $scope.GetLayout(result[0].id)
        }, function (response) {
-           toaster.pop('error', "Error", response.data.ExceptionMessage);
+           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
        });
     }
     $scope.GetLayout = function (ReportID) {
@@ -112,7 +112,7 @@ function paymentbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, ngT
                 $scope.LoadPivotData();
             }
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
 
@@ -128,7 +128,7 @@ function paymentbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, ngT
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success', "Kaydedildi.", 'Saved.');
+            toaster.pop('success', "Saved.", 'Saved.');
         });
     };
     $scope.EditLayoutData = function (configdata) {
@@ -142,7 +142,7 @@ function paymentbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, ngT
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success', "Güncellendi.", 'Updated.');
+            toaster.pop('success', "Updated.", 'Updated.');
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {
@@ -172,12 +172,12 @@ function paymentbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, ngT
                 $scope.ShowReport();
                 $scope.isWaiting = false;
             }, function (response) {
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 $scope.isWaiting = false;
             });
     };
     $scope.exportToExcel = function (tableId) {
-        $scope.exportHref = Excel.tableToExcel(tableId, 'Sipariş Tipine Göre Ödeme (Tutar)');
+        $scope.exportHref = Excel.tableToExcel(tableId, 'Payment By Order Type (Amount)');
         $timeout(function () { location.href = $scope.exportHref }, 1);
     };
 

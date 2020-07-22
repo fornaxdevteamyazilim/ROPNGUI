@@ -38,7 +38,7 @@ function storesaletypesCtrl($scope, $modal, $filter, SweetAlert, Restangular, ng
              params.total(items.paging.totalRecordCount);
              $defer.resolve(items);
          }, function (response) {
-             toaster.pop('warning', "Sunucu Hatası", response);
+             toaster.pop('warning', "Server Error", response);
          });
      }
  });
@@ -49,14 +49,14 @@ function storesaletypesCtrl($scope, $modal, $filter, SweetAlert, Restangular, ng
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 sst.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'StoreSaleType')
             data.post().then(function (res) {
                 sst.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             data.get();
         }
@@ -74,20 +74,20 @@ function storesaletypesCtrl($scope, $modal, $filter, SweetAlert, Restangular, ng
         rowform.$cancel();
         if (!sst.tableParams.data[sst.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sst.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-             text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -96,7 +96,7 @@ function storesaletypesCtrl($scope, $modal, $filter, SweetAlert, Restangular, ng
                     sst.tableParams.data[index].remove();
                 }
                 sst.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -124,7 +124,7 @@ function storesaletypesCtrl($scope, $modal, $filter, SweetAlert, Restangular, ng
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };
@@ -133,7 +133,7 @@ function storesaletypesCtrl($scope, $modal, $filter, SweetAlert, Restangular, ng
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

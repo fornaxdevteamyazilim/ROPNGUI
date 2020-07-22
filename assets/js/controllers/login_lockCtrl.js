@@ -9,15 +9,18 @@
     };
 });
 app.controller('login_lockCtrl', login_lockCtrl);
-function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $location, $translate, userService, $element,authService,$timeout) {
+function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $location, $translate, userService, $element,authService) {
     $rootScope.uService.EnterController("login_lockCtrl");
     $scope.message = '';
-    var stopTime;  
+    //authService.logOut(); 
+    //$rootScope.preventNavigation();
+    //userService.userAuthorizated();
     var idListener = $rootScope.$on('Identification', function (event,data) {
+        //var uiFMD = encodeURIComponent(data.FMD);
         userService.fmdLogin(data.FMD).then(function (response) {
             userService.stopTimeout();
             if (response) {
-                $rootScope.allowNavigation();
+                //$rootScope.allowNavigation();
                 $location.path('/app/mainscreen');
             }
         }, function (err) {
@@ -26,30 +29,36 @@ function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $loca
                     $scope.message = $translate.instant('main.PASSWORDERROR');
                     return 'No'
                 };
+                $scope.translate();
+                var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
+                    $scope.translate();
+                });
             }
             else {
+                //toaster
                 $scope.message = "Unknown error";
                 return 'No'
             }
         });
     });
-    stopTime = $timeout(function ()
-            {
-                $rootScope.preventNavigation();                
-            }, 2000);
     $scope.InpuntKey = function (password) {
         if (password) {
             userService.cardLogin(password).then(function (response) {
                 userService.stopTimeout();
                 if (response) {
-                    $rootScope.allowNavigation();
+                    //$rootScope.allowNavigation();
                     $location.path('/app/mainscreen');                    
                 }
             }, function (err) {
                 if (err && err.error == 'invalid_grant') {
-                    $scope.message = $translate.instant('main.PASSWORDERROR');
+                    $scope.translate = function () {
+                        $scope.message = $translate.instant('main.PASSWORDERROR');
                         return 'No'
-                    
+                    };
+                    $scope.translate();
+                    var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
+                        $scope.translate();
+                    });
                 }
                 else {
                     //toaster
@@ -68,7 +77,6 @@ function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $loca
     $scope.$on('$destroy', function () {
         $element.remove();
         idListener();
-        $timeout.cancel(stopTime);
         $rootScope.uService.ExitController("login_lockCtrl");
     });
 };

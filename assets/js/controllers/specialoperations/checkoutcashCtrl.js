@@ -19,7 +19,7 @@ function checkoutcashCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster
            $scope.ok();
            return $scope.CheckOutCash = result;
        }, function (response) {
-           toaster.pop('error', "Error", response.data.ExceptionMessage);
+           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
        });
         }
                if (data.Value == 1) {
@@ -35,7 +35,7 @@ function checkoutcashCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster
            $scope.ok();
            return $scope.CheckOutCash = result;
        }, function (response) {
-           toaster.pop('error', "Error", response.data.ExceptionMessage);
+           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
        });
         }
     };

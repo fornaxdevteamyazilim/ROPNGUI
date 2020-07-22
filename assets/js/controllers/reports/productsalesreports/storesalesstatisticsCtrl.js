@@ -62,7 +62,7 @@ function storesalesstatisticsCtrl($scope, $log, $modal, $timeout, $filter, Sweet
                 $scope.start();
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     $scope.GetSoreID = function (data) {
@@ -70,7 +70,7 @@ function storesalesstatisticsCtrl($scope, $log, $modal, $timeout, $filter, Sweet
         $scope.selectedStore = $filter('filter')($scope.user.userstores, { id: data });
     };
     $scope.exportToExcel = function (tableId) {
-        $scope.exportHref = Excel.tableToExcel(tableId, 'Restoran Satış İstatistikleri');
+        $scope.exportHref = Excel.tableToExcel(tableId, 'Restaurant Sales Statistics');
         $timeout(function () { location.href = $scope.exportHref }, 1);
     };
     $scope.LoadStoreSalesStatistics();

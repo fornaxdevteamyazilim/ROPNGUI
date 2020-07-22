@@ -38,20 +38,20 @@ function newregisterpersonCtrl($rootScope, $scope, $modalInstance, $filter, item
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
                 $scope.item.personID = resp.id;
-                toaster.pop("success", "Veri Güncellendi.", "Updated!");
+                toaster.pop("success", "Data Updated.", "Updated!");
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'person')
             if (data.GenderTypeID != "1" && data.GenderTypeID != "0" && data.GenderTypeID != "2") {
-                toaster.pop('warning', "Cinsiyet Seçiniz !");
+                toaster.pop('warning', "Select Gender !");
             } else if (!data.PersonPhone) {
-                toaster.pop('warning', "Telefon Numarası Giriniz !");
+                toaster.pop('warning', "Enter Phone Number !");
             } else if (!$scope.item.streetAddress || !$scope.item.streetAddress.StreetAddressID) {
-                toaster.pop('warning', "Adres seçiniz!");
+                toaster.pop('warning', "Select address!");
             } else {
                 data.post().then(function (resp) {
-                    toaster.pop("success", "Veri Kaydedildi.", "Saved!");
+                    toaster.pop("success", "Data Saved.", "Saved!");
                     $scope.item.personID = resp.id;
                     var phone = ({ PersonID: resp.id, Number: data.PersonPhone })
                     $scope.SavePhoneNumber(phone);
@@ -92,13 +92,13 @@ function newregisterpersonCtrl($rootScope, $scope, $modalInstance, $filter, item
         Restangular.restangularizeElement('', personAddress, 'person_deliveryaddress');
         if (personAddress.restangularized && personAddress.id) {
             personAddress.put().then(function (resp) {
-                toaster.pop('success', "Güncellendi.", 'Updated!');
+                toaster.pop('success', "Updated.", 'Updated!');
                 $scope.ok();
             });
         }
         else {
             personAddress.post().then(function (resp) {
-                toaster.pop('success', "Kaydedildi !", 'Saved!');
+                toaster.pop('success', "Saved !", 'Saved!');
                 $scope.ok();
             });
         }

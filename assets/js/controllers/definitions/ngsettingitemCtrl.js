@@ -18,14 +18,14 @@ function ngsettingitemCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 ngs.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'NGSettingItem')
             this.item.post().then(function (res) {
                 ngs.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -43,9 +43,9 @@ function ngsettingitemCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         rowform.$cancel();
         if (!ngs.tableParams.data[ngs.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ngs.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     ngs.tableParams = new ngTableParams({
@@ -65,19 +65,19 @@ function ngsettingitemCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -86,7 +86,7 @@ function ngsettingitemCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
                     ngs.tableParams.data[index].remove();
                 }
                 ngs.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -119,7 +119,7 @@ function ngsettingitemCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -129,7 +129,7 @@ function ngsettingitemCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

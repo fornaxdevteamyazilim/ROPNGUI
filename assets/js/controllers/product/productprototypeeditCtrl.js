@@ -135,7 +135,7 @@ function productprototypeeditCtrl($scope, $log, $filter, SweetAlert, Restangular
             ProductPrototypeID: $scope.ProductPrototypeID,
             NewPrototypeName: $scope.NewPrototypeName,
         }).then(function (result) {
-            toaster.pop('success', "Yeni Prototip Oluşturuldu.", '');
+            toaster.pop('success', "New Prototype Created.", '');
         }, function (response) {
             toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });

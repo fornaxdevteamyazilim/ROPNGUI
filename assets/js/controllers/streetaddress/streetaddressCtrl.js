@@ -40,10 +40,10 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
             data.put().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', "Güncellendi", 'Updated.');
+                    toaster.pop('success', "Updated", 'Updated.');
                 },
                  function (response) {
-                     toaster.pop('error', "Güncellenemedi !", response.data.ExceptionMessage);
+                     toaster.pop('error', "Failed to Update !", response.data.ExceptionMessage);
                  }
                  );
         }
@@ -52,10 +52,10 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
             data.post().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', "Eklendi.", 'Saved.');
+                    toaster.pop('success', "Added.", 'Saved.');
                 },
                  function (response) {
-                     toaster.pop('error', "Kaydedilmedi !", response.data.ExceptionMessage);
+                     toaster.pop('error', "Not Saved !", response.data.ExceptionMessage);
                  }
                 );
             data.get();
@@ -74,9 +74,9 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.LoadSubcities = function (TownID) {
@@ -87,7 +87,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         }).then(function (result) {
             angular.copy(result, $scope.subcities);
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadQuarters = function (QuarterID) {
@@ -98,7 +98,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         }).then(function (result) {
             angular.copy(result, $scope.quarters);
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.SelcetQuarter = function (QuarterID) {
@@ -132,7 +132,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
                 $scope.SelectedItem = (items[0]) ? items[0].id : null;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -149,7 +149,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
                 $scope.addresstype = result;
             },
             function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -171,7 +171,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
             }).then(function (result) {
                 $scope.quarters = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -184,7 +184,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -207,13 +207,13 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
     }
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -222,7 +222,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

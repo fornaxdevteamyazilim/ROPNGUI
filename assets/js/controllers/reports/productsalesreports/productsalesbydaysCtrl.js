@@ -107,11 +107,11 @@ function productsalesbydaysCtrl($scope, $filter, $modal, $log, Restangular, ngTa
            $scope.VeiwHeader = result[0];
            $scope.GetLayout(result[0].id)
        }, function (response) {
-           toaster.pop('error', "Error", response.data.ExceptionMessage);
+           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
        });
     }
     $scope.exportToExcel = function (tableId) {
-        $scope.exportHref = Excel.tableToExcel(tableId, 'Günlere Göre Ürün Satış Adetleri');
+        $scope.exportHref = Excel.tableToExcel(tableId, 'Sales Quantities By Day');
         $timeout(function () { location.href = $scope.exportHref }, 1);
     };
 
@@ -130,7 +130,7 @@ function productsalesbydaysCtrl($scope, $filter, $modal, $log, Restangular, ngTa
                $scope.LoadPivotData();
            }
        }, function (response) {
-           toaster.pop('error', "Error", response.data.ExceptionMessage);
+           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
        });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -190,7 +190,7 @@ function productsalesbydaysCtrl($scope, $filter, $modal, $log, Restangular, ngTa
                     $scope.isWaiting = false;
                 }, function (response) {
                     $scope.isWaiting = false;
-                    toaster.pop('error', "Error", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
     };
     $scope.LoadPivotData = function () {
@@ -261,7 +261,7 @@ function productsalesbydaysCtrl($scope, $filter, $modal, $log, Restangular, ngTa
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -270,7 +270,7 @@ function productsalesbydaysCtrl($scope, $filter, $modal, $log, Restangular, ngTa
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

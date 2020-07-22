@@ -23,7 +23,7 @@ function driverordersCtrl($scope, $log, $interval, $timeout, amMoment, $filter, 
             $scope.UpdateOrderArray(result);
             $scope.StartTimmer();
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
             OrderRefreshTimeOut = $timeout(function () { $scope.LoadOrders(); }, 3000);
         });
     };
@@ -107,7 +107,7 @@ function driverorderlistCtrl($scope, $log, $interval, $timeout, amMoment, $filte
             $scope.LoadOrders(result);
             $scope.OrderIDs(result);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
             $scope.StartTimmer();
         });
     };
@@ -141,7 +141,7 @@ function driverorderlistCtrl($scope, $log, $interval, $timeout, amMoment, $filte
             $scope.UpdateOrderArray(ResResult);
             $scope.StartTimmer();
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
             $scope.StartTimmer();
         });
     };
@@ -247,7 +247,7 @@ function driverbackCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParam
         state.post().then(function (resp) {
             $scope.ok();
         }, function (resp) {
-            toaster.pop('error', "YENİ ÖDEME KAYDEDİLMEDİ !", resp.data.ExceptionMessage);
+            toaster.pop('error', "NO NEW PAYMENT RECORDED!", resp.data.ExceptionMessage);
         });
     };
     $scope.ok = function () {

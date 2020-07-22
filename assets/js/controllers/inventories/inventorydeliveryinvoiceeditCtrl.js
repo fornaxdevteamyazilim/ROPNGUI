@@ -60,7 +60,7 @@ function inventorydeliveryinvoiceeditCtrl($scope, $filter, SweetAlert, Restangul
             //$location.path('app/inventory/inventorydeliveryinvoice/edit/' + $stateParams.id);
         }, function (response) {
             $scope.isSpinner = false;
-            toaster.pop('Warning', "Sorun Oluştu!", response.data.ExceptionMessage);
+            toaster.pop('Warning', "Problem Occurred!", response.data.ExceptionMessage);
         });
     };
     $scope.InventoryDeliveryInvoiceID = $stateParams.id;

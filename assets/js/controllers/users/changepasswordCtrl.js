@@ -10,14 +10,14 @@ function changepasswordCtrl($rootScope, $scope, $log, $modal, Restangular, ngTab
                 NewPassword: item.NewPassword
             }).then(function (result) {
                 if (result == true) {
-                    swal("Güncellendi.", "Şifreniz Değişti. Lütfen Yeniden giriş Yapınız!", "success");
+                    swal("Updated.", "Your Password Has Changed. Please log in again!", "success");
                     $location.path('/login/signin');
                 }
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response);
+                toaster.pop('warning', "Server Error", response);
             });
         } else {
-            $scope.message = 'Girilen Değerleri Uyuşmuyor! Lütfen Tekrar Giriniz!';
+            $scope.message = 'The Values Entered Do Not Match! Please Enter Again!';
         }
     };
       $scope.$on('$destroy', function () {

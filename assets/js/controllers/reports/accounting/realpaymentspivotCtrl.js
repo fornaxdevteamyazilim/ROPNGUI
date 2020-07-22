@@ -132,7 +132,7 @@ function realpaymentspivotCtrl($scope, $filter, $modal, $log, Restangular, ngTab
             //        d.resolve(orders.plain());                    
             //    }, function (response) {
             //        d.reject;
-            //        toaster.pop('error', "Error", response.data.ExceptionMessage);
+            //        toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
             //    });
             //    return d.promise();
             //}

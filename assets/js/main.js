@@ -60,29 +60,35 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
             _preventNavigationUrl = $location.absUrl();
         }
         $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
-            if (_preventNavigationUrl != oldUrl || _preventNavigationUrl == null) {                
+            // Allow navigation if our old url wasn't where we prevented navigation from
+            if (_preventNavigationUrl != oldUrl || _preventNavigationUrl == null || preventcounter > 10) {
+                if (preventcounter > 0)
+                    preventcounter = 0;
                 $rootScope.allowNavigation();
                 return;
             }
-            if (_preventNavigation) {//&& !confirm("Kaydedilmeyen Değişiklikler Bulunuyor, Çıkmak İstediğinize Emin Misiniz? ")) {
+            if (_preventNavigation) {//&& !confirm("Unsaved Changes Bulunuyor, Çıkmak İstediğinize Emin Misiniz? ")) {
+                //preventcounter++;
                 event.preventDefault();
-                toaster.pop('error', "Browse disabled", "Browse is disabled on this screen!");                
+                toaster.pop('error', "Unsaved Changes", "You can't leave the changereferences!");
+                //
             }
             else {
                 $rootScope.allowNavigation();
             }
         });
-        
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (_preventNavigation) {
-                toaster.pop('error', "Browse disabled", "Browse is disabled on this screen!");
+                toaster.pop('error', "Unsaved Changes", "You can't leave the changereferences!");
                 event.preventDefault();
+                //$state.go('login');
             }
         });
-
+        // Take care of preventing navigation out of our angular app
         window.onbeforeunload = function () {
+            // Use the same data that we've set in our angular app
             if (_preventNavigation && $location.absUrl() == _preventNavigationUrl) {
-                return "Do you want to leave ROPNG Application?";
+                return "Unsaved Changes Bulunuyor, Çıkmak İstediğinize Emin Misiniz?";
             }
         }
         // GLOBAL APP SCOPE
@@ -91,7 +97,7 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
             name: 'ROP NG',
             author: 'Fornax A.Ş.',
             description: 'Retail Operation Platform NG',
-            version: '1.0.591',
+            version: '1.0.589',
             year: ((new Date()).getFullYear()),
             isMobile: (function () {// true if the browser is a mobile device
                 var check = false;
@@ -128,7 +134,7 @@ app.config(function ($httpProvider) {
                 if (request.url.endsWith(".html") && !request.url.includes("tabset.html")) {
                     if ($templateCache.get(request.url) === undefined) { // cache miss
                         // Item is not in $templateCache so add our query string
-                        request.url = request.url + '?v=0591';
+                        request.url = request.url + '?v=0589';
                     }
                 }
                 return request;
@@ -149,7 +155,7 @@ app.run(['userService', function (userService) { }]);
 //app.value('signalRServer', 'http://10.101.252.150:9077');//Little Caesars 9077
 //app.value('signalRServer', 'http://10.101.252.150:9067');//Little Caesars 9067
 //app.value('signalRServer', 'http://pizzahut.ropng.site:9075');//PH - Test
-app.value('signalRServer', 'http://192.168.15.10:9065');//PH
+app.value('signalRServer', 'http://192.168.9.40:9067');//PH
 //app.value('signalRServer', 'http://localhost:9065');//localhost
 
 app.run(['callsService', function (callsService) { }]);
@@ -165,7 +171,7 @@ app.config(['$translateProvider',
         });
         // Since you've now registered more then one translation table, angular-translate has to know which one to use.
         // This is where preferredLanguage(langKey) comes in.
-        $translateProvider.preferredLanguage('en');//tr_TR
+        $translateProvider.preferredLanguage('tr_TR');
         // Store the language in the local storage
         $translateProvider.useLocalStorage();
     }]);

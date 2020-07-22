@@ -83,7 +83,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                 $scope.getOrder = true;
                 $scope.$broadcast('$$rebind::refresh');
             }, function (response) {
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
                 $scope.ShowObject = false;
                 $scope.getOrder = true;
             });
@@ -154,7 +154,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         }).then(function (_orderItems) {
             toaster.pop('success', "Etiket Tekrar Yazdırılıyor.");
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
         });
     };
     $scope.homedeliveryOrder = function () {
@@ -369,7 +369,7 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
                 toaster.pop("success", "Sipariş Çıktı !", "Order marked as Out!");
                 $scope.ok();
             },function (response) {
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
                 $scope.LoadOrders();
             });
     };

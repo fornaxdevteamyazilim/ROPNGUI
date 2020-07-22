@@ -574,7 +574,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
         Restangular.one('yemekSepetiCustomerMap/deletemap').get({
             OrderID: OrderID,
         }).then(function (result) {
-            toaster.pop("success", "YS Siparişi Müşteri Eşleştirilmesi Silindi!");
+            toaster.pop("success", "YS Order Customer Mapping Deleted!");
             $scope.isSpinner = false;
         }, function (response) {
             toaster.pop('error', "Hata!", response.data.Message);

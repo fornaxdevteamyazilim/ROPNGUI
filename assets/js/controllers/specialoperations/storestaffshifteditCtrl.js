@@ -29,7 +29,7 @@ function storestaffshifteditCtrl($scope, $log, $filter, SweetAlert, Restangular,
                 ssse.tableParams.reload();
             }
         }, function (restresult) {
-            toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             swal("Hata!", "Warning");
         })
     }
@@ -49,7 +49,7 @@ function storestaffshifteditCtrl($scope, $log, $filter, SweetAlert, Restangular,
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -64,36 +64,36 @@ function storestaffshifteditCtrl($scope, $log, $filter, SweetAlert, Restangular,
     };    
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
                     $location.path('/app/inventory/inventorycount/list');
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
             }
         });
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -102,7 +102,7 @@ function storestaffshifteditCtrl($scope, $log, $filter, SweetAlert, Restangular,
                     ssse.tableParams.data[index].remove();
                 }
                 ssse.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -114,7 +114,7 @@ function storestaffshifteditCtrl($scope, $log, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };
@@ -136,7 +136,7 @@ function storestaffshifteditCtrl($scope, $log, $filter, SweetAlert, Restangular,
     }).then(function (result) {
         $scope.storeUsers = result;
     }, function (response) {
-        toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+        toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
     });
     $scope.isClean = function () {
         return angular.equals($scope.original, $scope.item);

@@ -34,11 +34,11 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
     };
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { ssc.tableParams.reload(); toaster.pop('success', "Güncellendi.", 'Updated.'); });
+            data.put().then(function (res) { ssc.tableParams.reload(); toaster.pop('success', "Updated.", 'Updated.'); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { ssc.tableParams.reload(); toaster.pop('success', "Kaydedildi.", 'Saved.'); });
+            data.post().then(function (res) { ssc.tableParams.reload(); toaster.pop('success', "Saved.", 'Saved.'); });
         }
         data.get();
     }
@@ -61,9 +61,9 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
         rowform.$cancel();
         if (!ssc.tableParams.data[ssc.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ssc.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     ssc.tableParams = new ngTableParams({
@@ -81,7 +81,7 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
                 $scope.SelectedItem = (items && items.length > 0) ? items[0].id : null;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
         });
@@ -107,40 +107,40 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
 
     $scope.months = [{
         Id: 1,
-        Name: 'OCAK'
+        Name: 'JANUARY'
     }, {
         Id: 2,
-        Name: 'ŞUBAT'
+        Name: 'FEBRUARY'
     }, {
         Id: 3,
-        Name: 'MART'
+        Name: 'MARCH'
     }, {
         Id: 4,
-        Name: 'NİSAN'
+        Name: 'APRIL'
     }, {
         Id: 5,
-        Name: 'MAYIS'
+        Name: 'MAY'
     }, {
         Id: 6,
-        Name: 'HAZİRAN'
+        Name: 'JUNE'
     }, {
         Id: 7,
-        Name: 'TEMMUZ'
+        Name: 'JULY'
     }, {
         Id: 8,
-        Name: 'AĞUSTOS'
+        Name: 'AUGUST'
     }, {
         Id: 9,
-        Name: 'EYLÜL'
+        Name: 'SEPTEMBER'
     }, {
         Id: 10,
-        Name: 'EKİM'
+        Name: 'OCTOBER'
     }, {
         Id: 11,
-        Name: 'KASIM'
+        Name: 'NOVEMBER'
     }, {
         Id: 12,
-        Name: 'ARALIK'
+        Name: 'DECEMBER'
     }];
 
     $scope.years = [{
@@ -174,7 +174,7 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -183,7 +183,7 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -217,13 +217,13 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
     }
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -232,7 +232,7 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
                     ssc.tableParams.data[index].remove();
                 }
                 ssc.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

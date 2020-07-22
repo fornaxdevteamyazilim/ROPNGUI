@@ -55,7 +55,7 @@
                     $scope.SelectedItem = items[0].id;
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error', "Sunucu hatası", response);
+                    toaster.pop('error', "Server Error", response);
                     SweetAlert.swal("Server error!", angular.toJson(response, false), "error");
                 });
             }
@@ -76,7 +76,7 @@
                 }).then(function (result) {
                     $scope[Container] = result;
                 }, function (response) {
-                    toaster.pop('Warning', "Sunucu hatası", response);
+                    toaster.pop('Warning', "Server Error", response);
                 });
             }
         };

@@ -11,7 +11,7 @@ function ReturnedProductsDetailedCtrl($scope, $log, $modal, $filter, SweetAlert,
    ).then(function (result) {
        $scope.VeiwHeader = result[0];
    }, function (response) {
-       toaster.pop('error', "Sunucu hatası", response);
+       toaster.pop('error', "Server Error", response);
    });
     }
     if (!$scope.StartDate) {
@@ -52,7 +52,7 @@ function ReturnedProductsDetailedCtrl($scope, $log, $modal, $filter, SweetAlert,
                 $scope.ReportList = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {
@@ -140,7 +140,7 @@ function ReturnedProductsDetailedCtrl($scope, $log, $modal, $filter, SweetAlert,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -149,7 +149,7 @@ function ReturnedProductsDetailedCtrl($scope, $log, $modal, $filter, SweetAlert,
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

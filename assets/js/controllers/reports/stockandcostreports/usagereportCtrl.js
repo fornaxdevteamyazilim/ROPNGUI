@@ -9,7 +9,7 @@ function usagereportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
        }).then(function (result) {
        $scope.VeiwHeader = result[0];
    }, function (response) {
-       toaster.pop('error', "Error", response.data.ExceptionMessage);
+       toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
    });
     }
     $scope.periods = [];
@@ -59,7 +59,7 @@ function usagereportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
                 $scope.TotalUnit += result[i].UnitCount;
             }}, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
         });
     };
     $scope.GetSoreID = function (data) {

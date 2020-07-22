@@ -55,7 +55,7 @@ function orderpromotionCtrl($scope, $log, $modal, $filter, SweetAlert, Restangul
             $scope.OrderPromotions = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
         });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {

@@ -34,7 +34,7 @@ function ordertotalsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
             $scope.GetOrderTypeList();
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
         });
     };
     $scope.GetDataList = function () {

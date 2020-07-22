@@ -42,7 +42,7 @@ function storephonesCtrl($rootScope, $scope, $modalInstance, $log, $filter, Swee
                 params.total(items);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     });

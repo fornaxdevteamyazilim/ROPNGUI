@@ -28,7 +28,7 @@ function fingerprintenrollCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
             $scope.UserList=items;
             //$defer.resolve(items);
         }, function (response) {
-            toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
         });
     }
     $scope.FillStoreUsers();
@@ -48,7 +48,7 @@ function fingerprintenrollCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
             toaster.pop('success', "Started", 'FingerPrint enroll process started...');
             //deferred.resolve(response);
         }).error(function (err, status) {
-            toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             //deferred.reject(err);
         });
         //return deferred.promise;

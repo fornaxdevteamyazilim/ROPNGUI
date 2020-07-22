@@ -53,8 +53,8 @@ function storenotelistCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response);
-                SweetAlert.swal("Sunucu Hatası!", angular.toJson(response, false), "error");
+                toaster.pop('error', "Server Error", response);
+                SweetAlert.swal("Server Error!", angular.toJson(response, false), "error");
             });
         }
     });

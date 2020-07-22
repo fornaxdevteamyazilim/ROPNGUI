@@ -15,12 +15,12 @@ function ysstoreeditCtrl($scope, $modalInstance, $log, $rootScope, toaster, Rest
             }
         ).then(function (result) {
             $scope.isSpinner = false;
-            toaster.pop('success', "YS Restoran Durumu Değiştirildi !", '');
+            toaster.pop('success', "YS Restaurant Status Changed !", '');
             $scope.ok();
             //location.href = '#/app/mainscreen'
             }, function (response) {
                 $scope.isSpinner = false;
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     }
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -39,7 +39,7 @@ function ysstoreeditCtrl($scope, $modalInstance, $log, $rootScope, toaster, Rest
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -48,7 +48,7 @@ function ysstoreeditCtrl($scope, $modalInstance, $log, $rootScope, toaster, Rest
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

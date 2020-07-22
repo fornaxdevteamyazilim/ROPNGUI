@@ -57,7 +57,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
     //}).then(function (result) {
     //    $scope.storeUsers = result;
     //}, function (response) {
-    //    toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+    //    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
     //});
     $scope.changestart = function (item, field,value) {
             item[field] = $scope.addTime(value, 8, 30);  
@@ -88,10 +88,10 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
             }).then(function (result) {
                 $scope.storeUsers = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }, function (restresult) {
-            toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             swal("Hata!", "Warning");
         })
     }
@@ -137,9 +137,9 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
         rowform.$cancel();
         if (!spi.tableParams.data[spi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(spi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.cancelremove = function (index) {
@@ -162,7 +162,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
         });
@@ -199,24 +199,24 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
                     $location.path('/app/specialoperations/shiftplan');
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
             }
         });
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -225,7 +225,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
                     spi.tableParams.data[index].remove();
                 }
                 spi.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -237,7 +237,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };
@@ -246,7 +246,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -267,7 +267,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
                 $rootScope.ShiftPlanID = resp.id;
                 $scope.$broadcast('ShiftPlan', resp);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
         else {
@@ -278,7 +278,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
                 $rootScope.ShiftPlanID = resp.id;
                 $scope.$broadcast('ShiftPlan', resp);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
 
         }

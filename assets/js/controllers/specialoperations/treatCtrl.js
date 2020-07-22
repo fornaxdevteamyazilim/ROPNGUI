@@ -9,18 +9,18 @@ function treatCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParams,
                    OrderItemID: data.items[0].id,
                }
            ).then(function (result) {
-               toaster.pop('success', "Kaydedildi !", 'SAVED');
-               SweetAlert.swal("Success", "Siparişiniz Ödenmez Olarak İşaretlendi", "success");
+               toaster.pop('success', "SAVED !", 'SAVED');
+               SweetAlert.swal("Success", "Your Order Is Marked As Non-Payment", "success");
                $scope.ok();
            }, function (response) {
-               toaster.pop('error', "Error", response.data.ExceptionMessage);
+               toaster.pop('error', "Server Error", response.data.ExceptionMessage);
            });
     };
     $scope.SaveOrder = function (data) {
         data.PaymentStatusID = 3
         Restangular.restangularizeElement('', data, 'order')
         data.post().then(function (res) {
-            toaster.pop('success', "Kaydedildi.", 'Saved.');
+            toaster.pop('success', "SAVED.", 'Saved.');
         });
         data.get();
     };
@@ -33,7 +33,7 @@ function treatCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParams,
         }).then(function (result) {
             $scope.orders = result;
         }, function (response) {
-            toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();

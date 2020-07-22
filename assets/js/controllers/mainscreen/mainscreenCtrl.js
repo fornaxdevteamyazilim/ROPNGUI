@@ -146,8 +146,8 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
                         if ($scope.ShowAlert != true) {
                             $scope.ShowAlert = true;
                             SweetAlert.swal({
-                                title: "YENİ SİPARİŞİNİZ VAR !",
-                                text: "Lütfen Siparişinizi Kontrol Edin !",
+                                title: "YOU HAVE A NEW ORDER !",
+                                text: "Please Check Your Order !",
                                 type: "warning",
                                 showCancelButton: true,
                                 confirmButtonColor: "#DD6B55",
@@ -164,7 +164,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
                         }
                     }
                 }, function (response) {
-                    toaster.pop('error', "Error", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
         }
@@ -185,7 +185,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
                         $scope.audio.pause();
                     $rootScope.YSOrderCount = angular.copy(result.length);
                 }, function (response) {
-                    toaster.pop('error', "Error", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
         }
@@ -229,7 +229,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
                     location.href = '#/app/orders/orderStoreTable/' + resp.id;
                 },
                     function (resp) {
-                        toaster.pop('error', "Yeni sipariş oluşturulamadı !", "error");
+                        toaster.pop('error', "Could not create new order !", "error");
                     });
             }
         }
@@ -276,14 +276,14 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
             }
         }, function (err) {
             if (err && err.error == 'invalid_grant') {
-                toaster.pop('warrning', "Parmak izi tanımlanamadı!", err.error_description);                
+                toaster.pop('warrning', "No fingerprints detected!", err.error_description);                
             }
             else {
                 if (err) {
                     toaster.pop('warrning', err.error, err.error_description);
                 }
                 else {
-                    toaster.pop('warrning', "Hata", "Bilinmeyen hata!");
+                    toaster.pop('warrning', "Error", "Unknown Error!");
                 }
             }
         });
@@ -294,7 +294,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
             location.href = $scope.GoPage;
         }, function (err) {
             if (err) {
-                toaster.pop('warrning', "Şifre Yanlış !", err.error_description);
+                toaster.pop('warrning', "Wrong Password !", err.error_description);
             }
             else {
                 $scope.message = "Unknown error";
@@ -392,8 +392,8 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
     $scope.AuditFinalizeOpDay = function () {
         if ($scope.isFinalizeOpDayRequired()) {
             SweetAlert.swal({
-                title: "GÜN SONU ALMALISINIZ",
-                text: "Lütfen Gün sonu alınız !",
+                title: "TAKE THE END OF THE DAY",
+                text: "Please Take The End Of The Day !",
                 type: "warning",
                 //showCancelButton: true,
                 confirmButtonColor: "#DD6B55",

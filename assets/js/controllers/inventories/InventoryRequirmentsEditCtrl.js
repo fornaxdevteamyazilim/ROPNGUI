@@ -40,9 +40,9 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
         Restangular.one('InventoryRequirment', $stateParams.id).get().then(function (restresult) {
             $scope.original = restresult;
             if (restresult.isProcesseed == true)
-                restresult.isProcesseed = 'İşlendi';
+                restresult.isProcesseed = 'Processed';
             if (restresult.isProcesseed == false)
-                restresult.isProcesseed = 'İşle';
+                restresult.isProcesseed = 'Process';
             $scope.item = Restangular.copy(restresult);
             $location.path('app/inventory/inventoryrequirments/edit/' + restresult.id);
             $scope.$broadcast('newRequirmentData', restresult);

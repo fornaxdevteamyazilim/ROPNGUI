@@ -10,10 +10,10 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
         $scope.isWaiting = true;
         Restangular.one('inventory/startnewperiod').get({}).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', "Yeni Dönem Aktif!");
+            toaster.pop('success', "New Era Active!");
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
+                toaster.pop('error', "Your Operation Could Not Be Performed!", response.data.ExceptionMessage);
             });
     };
     $scope.CopyRecipes= function (FromPeriodID, ToPeriodID) {
@@ -23,10 +23,10 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
             ToPeriodID: ToPeriodID,
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', "Reçeteler Kopyalandı!");
+            toaster.pop('success', "Prescriptions Copied!");
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
+            toaster.pop('error', "Your Operation Could Not Be Performed!", response.data.ExceptionMessage);
         });
     };
     $scope.UpdateInventoryPrice = function (PeriodID) {
@@ -35,10 +35,10 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
             PeriodID: PeriodID,
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', "Fiyatlar Güncellendi!");
+            toaster.pop('success', "Prices Updated!");
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
+            toaster.pop('error', "Your Operation Could Not Be Performed!", response.data.ExceptionMessage);
         });
     };
     $scope.SaveConsuption = function (StoreID) {
@@ -50,10 +50,10 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
             StoreType: $scope.StoreTypeID
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', "Tüketim Fişleri Güncellendi!");
+            toaster.pop('success', "Consumption Prescription Updated!");
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
+            toaster.pop('error', "Your Operation Could Not Be Performed!", response.data.ExceptionMessage);
         });
     };
     
@@ -68,10 +68,10 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
             toDate:toDate, 
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', "Sipariş Tarihleri Güncellendi!");
+            toaster.pop('success', "Order Dates Updated!");
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
+            toaster.pop('error', "Your Operation Could Not Be Performed!", response.data.ExceptionMessage);
         });        
     };
     
@@ -151,7 +151,7 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -160,7 +160,7 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

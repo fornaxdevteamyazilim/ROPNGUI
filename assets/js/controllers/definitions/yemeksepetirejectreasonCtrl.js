@@ -15,7 +15,7 @@ function yemeksepetirejectreasonCtrl($rootScope, $scope, $log, $modal, $filter, 
             this.item.put().then(function (res) {
                 yrr.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
@@ -23,7 +23,7 @@ function yemeksepetirejectreasonCtrl($rootScope, $scope, $log, $modal, $filter, 
             this.item.post().then(function (res) {
                 yrr.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -41,9 +41,9 @@ function yemeksepetirejectreasonCtrl($rootScope, $scope, $log, $modal, $filter, 
         rowform.$cancel();
         if (!yrr.tableParams.data[yrr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(yrr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled!", 'Edit cancelled !');
         }
     };
     yrr.tableParams = new ngTableParams({
@@ -62,19 +62,19 @@ function yemeksepetirejectreasonCtrl($rootScope, $scope, $log, $modal, $filter, 
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
             });
         }
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -83,7 +83,7 @@ function yemeksepetirejectreasonCtrl($rootScope, $scope, $log, $modal, $filter, 
                     yrr.tableParams.data[index].remove();
                 }
                 yrr.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

@@ -6,7 +6,7 @@ function productwithrelationsCtrl($scope, $log, $modal, $filter, SweetAlert, Res
         Restangular.all('report').getList().then(function (result) {
             $scope.VeiwHeader = result[0];
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
         });
     }
     if (!$scope.StartDate) {
@@ -81,7 +81,7 @@ function productwithrelationsCtrl($scope, $log, $modal, $filter, SweetAlert, Res
                 $scope.ReportData = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
             });
     };
     $scope.exportToExcel = function (tableId) {

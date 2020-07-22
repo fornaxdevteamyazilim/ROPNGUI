@@ -17,7 +17,7 @@ function preferencesCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, 
         Restangular.one('preferences', data).get().then(function (result) {
             $scope.GetPreferencesList = result;
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.saveData = function (data) {
@@ -43,7 +43,7 @@ function preferencesCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, 
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -52,7 +52,7 @@ function preferencesCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, 
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };    

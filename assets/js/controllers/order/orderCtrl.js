@@ -291,14 +291,14 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
     };
     $scope.RemoveItem = function (OrderItemID) {
         Restangular.one("OrderableItem", OrderItemID).remove().then(function () {
-            toaster.pop("error", "Silindi.", "Sipariş İçeriği Silindi.");
+            toaster.pop("error", "Deleted.", "Order Contents Deleted.");
             $scope.LoadOrderItems();
         }, function (response) {
             toaster.pop('error', "Deletion error", response.data.ExceptionMessage);
         });
     };
     $scope.DisplayStreetAddress = function (address) {
-        return address ? address.StreetAddress + 'Kapı : ' + address.Floor + ', Apartman No : ' + address.AppartmentNo + ', Adres No : ' + address.AddressNo : '';
+        return address ? address.StreetAddress + 'Door : ' + address.Floor + ', Apartment No : ' + address.AppartmentNo + ', Address No : ' + address.AddressNo : '';
     };
     $scope.ProductSerchOpen = function (item) {
         $scope.open(item.id, $scope._order.id, item.OrderItemID, $scope.CurrentPersonID, $scope.CurrentSplitID);
@@ -545,7 +545,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     $rootScope.searchName = '';
                     if ($scope._order.OrderTypeID == 2 || $scope._order.OrderTypeID == 7) {
                         swal({
-                            title: "Sipariş ID :'" + result.id + "' Restoran :'" + result.Store + "' Saat:'" + $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss') + "'" + $scope.WDT,
+                            title: "Order ID :'" + result.id + "' Store :'" + result.Store + "' Date:'" + $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss') + "'" + $scope.WDT,
                             text: "Save Order",
                             type: "success",
                         });
@@ -612,8 +612,8 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     }
                     if ($scope._order.OrderTypeID == 2) {
                         swal({
-                            title: "Sipariş ID :'" + result.id + "' Restoran :'" + result.Store + "' Saat :'" + $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss') + "'" + $scope.WDT,
-                            text: "Sipariş Kaydedildi",
+                            title: "Order ID :'" + result.id + "' Store :'" + result.Store + "' Date :'" + $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss') + "'" + $scope.WDT,
+                            text: "Order Saved",
                             type: "success",
                         });
                         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER"))
@@ -648,8 +648,8 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     }
                     if ($scope._order.OrderTypeID == 7) {
                         swal({
-                            title: "Sipariş ID :'" + result.id + "' Restoran :'" + result.Store + "' Saat :'" + $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss') + "'" + $scope.WDT,
-                            text: "Sipariş Kaydedildi",
+                            title: "Order ID :'" + result.id + "' Store :'" + result.Store + "' Date :'" + $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss') + "'" + $scope.WDT,
+                            text: "Order Saved",
                             type: "success",
                         });
                         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER"))
@@ -868,7 +868,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             angular.copy(item, orderperson.Person);
             Restangular.restangularizeElement('', orderperson, 'orderperson');
             orderperson.put().then(function (resp) {
-                toaster.pop("success", "Kişi Atandı.");
+                toaster.pop("success", "Person Assigned.");
                 angular.copy(resp, orderperson);
             },
                 function (resp) {

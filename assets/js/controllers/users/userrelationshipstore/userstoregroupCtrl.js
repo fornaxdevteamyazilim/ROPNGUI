@@ -28,7 +28,7 @@ function userstoregroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     });
@@ -82,20 +82,20 @@ function userstoregroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
         rowform.$cancel();
         if (!usg.tableParams.data[usg.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(usg.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+          title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -104,7 +104,7 @@ function userstoregroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
                     usg.tableParams.data[index].remove();
                 }
                 usg.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+               toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -132,7 +132,7 @@ function userstoregroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
             }).then(function (result) {
                 angular.copy(result, $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', "Connection error", "Warning!");
+                toaster.pop('Warning', "Sunucu bağlantı hatası", "Uyarı!");
             });
         }
     };

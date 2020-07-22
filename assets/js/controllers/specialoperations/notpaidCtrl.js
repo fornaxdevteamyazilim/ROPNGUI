@@ -11,11 +11,11 @@ function notpaidCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParam
                    PersonID: data.persons[0].PersonID,                      
                }
            ).then(function (result) {
-               toaster.pop('success', "Kaydedildi!!", 'SAVED');
-               SweetAlert.swal("Success", "Siparişiniz Ödenmez Olarak İşaretlendi", "success");
+               toaster.pop('success', "SAVED!!", 'SAVED');
+               SweetAlert.swal("Success", "Your Order Is Marked As Non-Payment", "success");
                $scope.ok();
            }, function (response) {
-               toaster.pop('error', "Yetersiz Limit!", "error");
+               toaster.pop('error', "Insufficient Limit!", "error");
            });
     };
     $scope.orders = [];
@@ -27,7 +27,7 @@ function notpaidCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParam
         }).then(function (result) {
             $scope.orders = result;
         }, function (response) {
-            toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();

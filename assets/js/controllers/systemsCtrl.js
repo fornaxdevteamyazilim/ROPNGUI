@@ -34,9 +34,9 @@
             rowform.$cancel();
             if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
                 $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-                toaster.pop('warning', "İptal edildi !", 'Insert cancelled !' );
+                toaster.pop('warning', "It is cancelled !", 'Insert cancelled !' );
             } else {
-                toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+                toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
             }
         };
         //$scope.cancelForm = function (rowform) {
@@ -103,25 +103,25 @@
         }
         $scope.removeItem = function (index) {
             SweetAlert.swal({
-                title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+                title: "ARE YOU SURE ?",
+                text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
                 closeOnConfirm: false,
                 closeOnCancel: false
             }, function (isConfirm) {
                 if (isConfirm) {
                     if (vm.tableParams.data[index].fromServer) {
                         vm.tableParams.data[index].remove();
-                        toaster.pop("error", "Dikkat!!", "Kayıt silindi!");
+                        toaster.pop("error", "Attention !", "Record Deleted !");
                     }
                     vm.tableParams.data.splice(index, 1);
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
                 } else {
-                    SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                    SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
                 }
             });            
         };
@@ -153,13 +153,13 @@
         }
         $scope.destroy = function () {
             SweetAlert.swal({
-                title: "EMİN MİSİNİZ ?",
-                 text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+                title: "ARE YOU SURE ?",
+                text: "Are you sure you want to delete the record ?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Evet, Sil !",
-                cancelButtonText: "Hayır, Silme !",
+                confirmButtonText: "Yes, Delete !",
+                cancelButtonText: "No, Deletion !",
                 closeOnConfirm: false,
                 closeOnCancel: false
             }, function (isConfirm) {
@@ -167,9 +167,9 @@
                     $scope.original.remove().then(function () {
                         $location.path('/app/settings/systems/list');
                     });
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
                 } else {
-                    SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                    SweetAlert.swal("It is cancelled !", " Deletion canceled!", "error");
                 }
             });
         };

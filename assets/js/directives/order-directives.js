@@ -63,7 +63,7 @@ function orderable($compile, $modal) {
                             }
                     }
                 }, function (response) {
-                    toaster.pop('Warning', "Connection error", "Warning!");
+                    toaster.pop('Warning', "Sunucu bağlantı hatası", "Uyarı!");
                 });
             };
             $scope.LoadOptionItem = function (Option) {
@@ -89,7 +89,7 @@ function orderable($compile, $modal) {
                             }
                     }
                 }, function (response) {
-                    toaster.pop('Warning', "Connection error", "Warning!");
+                    toaster.pop('Warning', "Sunucu bağlantı hatası", "Uyarı!");
                 });
             };
             $scope.DisableWatch = $scope.$watch(watchItem, function () {
@@ -310,7 +310,7 @@ function orderable($compile, $modal) {
                         data.put().then(
                             function (res) {
                                 $scope.$emit('LoadOrderItems', "Update");
-                                toaster.pop('success', "OrderItem Updated.");
+                                toaster.pop('success', "Updated Order Item.");
                                 //if (res.id) {
                                 //    $scope.ok();
                                 //}
@@ -323,7 +323,7 @@ function orderable($compile, $modal) {
                         Restangular.restangularizeElement('', data, 'orderableitem');
                         data.post().then(
                             function (res) {
-                                toaster.pop("success", "OrderItem Added.");
+                                toaster.pop("success", "Order Item Added.");
                                 $scope.$emit('LoadOrderItems', "Update");
                                 //if (res.id) {
                                 //    $scope.ok();
@@ -333,7 +333,7 @@ function orderable($compile, $modal) {
                                 if (res.data.ExceptionMessage)
                                     toaster.pop("error", res.data.ExceptionMessage);
                                 else
-                                    toaster.pop("error", "OrderItem Add filed!");
+                                    toaster.pop("error", "Unable To Add Order Item !");
                             });
                     }
                 }
@@ -349,7 +349,7 @@ function orderable($compile, $modal) {
                     data.put().then(
                         function (res) {
                             $scope.$emit('LoadOrderItems', "Update");
-                            toaster.pop('success', "OrderItem Updated.");
+                            toaster.pop('success', "Updated Order Item.");
                             if (res.id) {
                                 $scope.ok();
                             }
@@ -359,7 +359,7 @@ function orderable($compile, $modal) {
                             if (res.data.ExceptionMessage)
                                 toaster.pop("error", res.data.ExceptionMessage);
                             else
-                                toaster.pop("error", "OrderItem Update failed!");
+                                toaster.pop("error", "Unable To Add Order Item !");
                         });
                 }
                 else {
@@ -369,7 +369,7 @@ function orderable($compile, $modal) {
                     Restangular.restangularizeElement('', data, 'orderableitem');
                     data.post().then(
                         function (res) {
-                            toaster.pop("success", "OrderItem Added.");
+                            toaster.pop("success", "Order Item Added.");
                             $scope.$emit('LoadOrderItems', "Update");
                             if (res.id) {
                                 $scope.ok();
@@ -380,7 +380,7 @@ function orderable($compile, $modal) {
                             if (res.data.ExceptionMessage)
                                 toaster.pop("error", res.data.ExceptionMessage);
                             else
-                                toaster.pop("error", "OrderItem Add failed.");
+                                toaster.pop("error", "Unable To Add Order Item !");
                         });
                 }
             };
@@ -1176,11 +1176,11 @@ function addsplitbutton(Restangular, toaster) {
                 var ordersplit = { OrderID: scope._order.id, SplitIndex: scope._order.splits.length + 1 };
                 Restangular.restangularizeElement('', ordersplit, 'ordersplit');
                 ordersplit.post().then(function (resp) {
-                    toaster.pop("success", "Split Eklendi.");
+                    toaster.pop("success", "Split Added.");
                     scope._order.splits.push(resp);
                 },
                     function (resp) {
-                        toaster.pop('error', "Yeni split oluşturulamadı !", "error");
+                        toaster.pop('error', "Could not create new split !", "error");
                     });
             });
         }
@@ -1195,11 +1195,11 @@ function addpersonbutton(Restangular, toaster) {
                 var orderperson = { OrderID: scope._order.id, PersonIndex: scope._order.persons.length + 1 };
                 Restangular.restangularizeElement('', orderperson, 'orderperson');
                 orderperson.post().then(function (resp) {
-                    toaster.pop("success", "Kişi Eklendi.");
+                    toaster.pop("success", "People Added.");
                     scope._order.persons.push(resp);
                 },
                     function (resp) {
-                        toaster.pop('error', "Yeni kişi oluşturulamadı !", "error");
+                        toaster.pop('error', "Could not create new contact !", "error");
                     });
             });
         }

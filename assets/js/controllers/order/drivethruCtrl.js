@@ -107,12 +107,12 @@ function drivethruCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
     };
     $scope.SaveOpenOrders = function (data) {
         swal({
-            title: "Sipariş Teslim Edildi mi ?",
+            title: "Have we delivered the order ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet",
-            cancelButtonText: "Hayır",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
             closeOnConfirm: true
         }, function () {
             Restangular.all('ordertools/updateorderstatus').getList(

@@ -30,7 +30,7 @@ function activestoresCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restang
                 params.total(items.paging);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     });

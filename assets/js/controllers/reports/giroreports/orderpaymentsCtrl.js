@@ -33,7 +33,7 @@ function orderpaymentsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             $scope.OrderPayments = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
         });
     };
     $scope.LoadOrderPayments();

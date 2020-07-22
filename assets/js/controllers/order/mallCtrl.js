@@ -207,7 +207,7 @@ function mallCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTabl
                 location.href = '#/app/orders/orderStoreTable/' + resp.id;
             },
                 function (resp) {
-                    toaster.pop('error', resp.data.ExceptionMessage, "Yeni Sipariş Oluşturulamadı !");
+                    toaster.pop('error', resp.data.ExceptionMessage, "Could not create new order !");
                 });
         } else {
         }

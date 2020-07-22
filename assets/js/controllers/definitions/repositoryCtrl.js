@@ -20,11 +20,11 @@ function repositoryCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
     };
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Güncellendi.", 'Updated.'); });
+            data.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Updated.", 'Updated.'); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Kaydedildi.", 'Saved.'); });
+            data.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Saved.", 'Saved.'); });
             data.get();
         }
     }
@@ -43,9 +43,9 @@ function repositoryCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', " It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', " It is cancelled !", 'Edit cancelled !');
         }
     };
     vm.tableParams = new ngTableParams({
@@ -68,7 +68,7 @@ function repositoryCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
                 if (items.length > 0)
                     $scope.SelectedItem = items[0].id;
             }, function (response) {
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -87,7 +87,7 @@ function repositoryCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -96,7 +96,7 @@ function repositoryCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -122,13 +122,13 @@ function repositoryCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
     }
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -137,7 +137,7 @@ function repositoryCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

@@ -9,19 +9,19 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
         if (data.Password || (!data.Password && userService.isAdmin())) {
             if (data.restangularized && data.id) {
                 data.put().then(function (res) {
-                    toaster.pop('success', "Güncellendi.", 'Updated.');
+                    toaster.pop('success', "Updated.", 'Updated.');
                 });
             }
             else {
                 Restangular.restangularizeElement('', data, 'user')
                 data.post().then(function (res) {
-                    toaster.pop('success', "Kaydedildi.", 'Saved.');
+                    toaster.pop('success', "Saved.", 'Saved.');
                 }, function (response) {
-                    toaster.pop('error', "Error", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
         } else {
-            toaster.pop('warning', "Sorry", 'Şifreyi Giriniz !');
+            toaster.pop('warning', "Sorry", 'Enter Password !');
         }
     };
     if ($stateParams.id != 'new') {
@@ -31,7 +31,7 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
                 $scope.item = Restangular.copy(restresult);
             },
            function (restresult) {
-               toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+               toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
                swal("Error!", "Data Error!", "Warning");
            }
            )
@@ -42,16 +42,16 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
         }).then(function (result) {
             $scope.fingerPrintExists = result.length;
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     }
     $scope.deleteFingerPrint = function () {
         Restangular.all('user/deletefingerprints').getList({
             UserID: $stateParams.id
         }).then(function (result) {
-            toaster.pop('success', "Silindi.", 'Deleted.');
+            toaster.pop('success', "Deleted.", 'Deleted.');
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     }
     $scope.CheckFingerPrint();
@@ -70,7 +70,7 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };
@@ -79,7 +79,7 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -125,26 +125,26 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
     });
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-             text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
                     $location.path('app/users/userlist');
                 }, function (response) {
-                    toaster.pop('error', "Error", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
             }
         });
     };

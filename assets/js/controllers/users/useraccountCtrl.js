@@ -12,14 +12,14 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
         }).then(function (result) {
             $scope.PersonAccount = result;
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.GetPersonAccount();
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
@@ -27,7 +27,7 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
                 data.NguserID = $stateParams.id;
                 Restangular.restangularizeElement('', data, 'useraccount')
                 data.post().then(function (res) {
-                    toaster.pop('success', "Kaydedildi.", 'Saved.');
+                    toaster.pop('success', "Saved.", 'Saved.');
                 });
 
             } else
@@ -49,7 +49,7 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -57,13 +57,13 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
     $scope.loadEntities('enums/accountlimittype', 'accountlimittypes');
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+          title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -72,7 +72,7 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
                     pa.tableParams.data[index].remove();
                 }
                 psd.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+               toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

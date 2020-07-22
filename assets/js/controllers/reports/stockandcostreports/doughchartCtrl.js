@@ -93,7 +93,7 @@ function doughchartCtrl($scope, $filter, $modal, $log, Restangular, ngTableParam
            $scope.VeiwHeader = result[0];
            $scope.GetLayout(result[0].id)
        }, function (response) {
-           toaster.pop('error', "Error", response.data.ExceptionMessage);
+           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
        });
     }
 
@@ -124,7 +124,7 @@ $scope.SetStoreID = function (FromValue) {
             $scope.LoadPivotData();
         }
     }, function (response) {
-        toaster.pop('error', "Error", response.data.ExceptionMessage);
+        toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
     });
     };
     $scope.exportToExcel = function (tableId) {
@@ -185,7 +185,7 @@ $scope.SetStoreID = function (FromValue) {
                 $scope.ShowReport();
                 $scope.isWaiting = false;
             }, function (response) {
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
                 $scope.isWaiting = false;
             });
     };
@@ -216,7 +216,7 @@ $scope.SetStoreID = function (FromValue) {
                         //    return sortAs(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
                         //}
                         if (attr == "WeekDay") {
-                            return sortAs(["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"]);
+                            return sortAs(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
                         }
                         //if (attr == "Hours") {
                         //    return sortAs(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]);

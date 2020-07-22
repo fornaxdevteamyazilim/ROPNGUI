@@ -100,7 +100,7 @@ function transactionaccountsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         });
         var downloadLink = angular.element('<a></a>');
         downloadLink.attr('href', window.URL.createObjectURL(blob));
-        downloadLink.attr('download', 'Hesap İşlemleri.xls');
+        downloadLink.attr('download', 'Account Operations.xls');
         downloadLink[0].click();
     };
 
@@ -117,9 +117,9 @@ function transactionaccountsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         rowform.$cancel();
         if (!trna.tableParams.data[trna.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(trna.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.ChangeAccountTransactionType = function (TransactionType) {

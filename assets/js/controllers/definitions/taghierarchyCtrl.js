@@ -39,7 +39,7 @@ function taghierarchyCtrl($rootScope, $scope, $modal, Restangular, toaster, $win
     $scope.saveData = function (data) {
         Restangular.restangularizeElement('', data, 'tag/array')
         data.post().then(function (res) {
-            toaster.pop('success', "Kaydedildi.", 'Saved.');
+            toaster.pop('success', "Saved.", 'Saved.');
         });
     }
     $scope.$on('$destroy', function () {

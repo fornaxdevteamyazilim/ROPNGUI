@@ -29,7 +29,7 @@ function storestreetaddressesCtrl($rootScope, $scope, $modalInstance, addressID,
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -37,17 +37,17 @@ function storestreetaddressesCtrl($rootScope, $scope, $modalInstance, addressID,
         if (data.restangularized) {
             data.put().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', "Güncellendi", 'Updated.');
+                toaster.pop('success', "Updated", 'Updated.');
             }, function (response) {
-                toaster.pop('error', "Güncellenemedi !", response.data.ExceptionMessage);
+                toaster.pop('error', "Failed to Update !", response.data.ExceptionMessage);
             });
         } else {
             Restangular.restangularizeElement('', data, 'storestreetaddress')
             data.post().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', "Eklendi.", 'Saved.');
+                toaster.pop('success', "Added.", 'Saved.');
             }, function (response) {
-                toaster.pop('error', "Kaydedilmedi !", response.data.ExceptionMessage);
+                toaster.pop('error', "Not Saved !", response.data.ExceptionMessage);
             });
             data.get();
         }
@@ -59,9 +59,9 @@ function storestreetaddressesCtrl($rootScope, $scope, $modalInstance, addressID,
         rowform.$cancel();
         if (!$scope.tableParams.data[$scope.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove($scope.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.cancelremove = function (index) {
@@ -73,7 +73,7 @@ function storestreetaddressesCtrl($rootScope, $scope, $modalInstance, addressID,
     $scope.removeItem = function (index) {
         if ($scope.tableParams.data[index].fromServer) {
             $scope.tableParams.data[index].remove();
-            toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+            toaster.pop("error", "Attention !", "Record Deleted !");
         }
         $scope.tableParams.data.splice(index, 1);
     };
@@ -89,7 +89,7 @@ function storestreetaddressesCtrl($rootScope, $scope, $modalInstance, addressID,
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -105,7 +105,7 @@ function storestreetaddressesCtrl($rootScope, $scope, $modalInstance, addressID,
         }).then(function (result) {
             angular.copy(result, $scope.storePods);
         }, function (response) {
-            toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     var deregistration1 = $scope.$watch(angular.bind($scope, function () {

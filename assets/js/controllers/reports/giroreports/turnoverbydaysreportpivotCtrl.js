@@ -93,7 +93,7 @@ function turnoverbydaysreportpivotCtrl($scope, $filter, $modal, $log, Restangula
                 $scope.VeiwHeader = result[0];
                 $scope.GetLayout(result[0].id)
             }, function (response) {
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
             });
     }
     $scope.GetLayout = function (ReportID) {
@@ -112,7 +112,7 @@ function turnoverbydaysreportpivotCtrl($scope, $filter, $modal, $log, Restangula
                 $scope.LoadPivotData();
             }
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
         });
     };
     $scope.SetStoreTypeID = function (FromValue) {
@@ -184,7 +184,7 @@ function turnoverbydaysreportpivotCtrl($scope, $filter, $modal, $log, Restangula
             $scope.ShowReport();
             $scope.isWaiting = false;
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
             $scope.isWaiting = false;
         });
     };

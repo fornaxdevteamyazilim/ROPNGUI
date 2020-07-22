@@ -93,7 +93,7 @@ function ordersbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, ngTa
                 ctrl.table.data = orders;
                 $scope.ShowReport();
             }, function (response) {
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
             });
     };
     ctrl.table = {

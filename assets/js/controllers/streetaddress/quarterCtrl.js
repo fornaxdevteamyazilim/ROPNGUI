@@ -82,7 +82,7 @@ function quarteryCtrl($rootScope, $scope, $log, $modal, Restangular, SweetAlert,
         }).then(function (result) {
             angular.copy(result, $scope.subcities);
         }, function (response) {
-            toaster.pop('error', "Error", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.SelectSubcity = function (SubcityID) {
@@ -118,7 +118,7 @@ function quarteryCtrl($rootScope, $scope, $log, $modal, Restangular, SweetAlert,
                 if (items.length > 0)
                     $scope.SelectedItem = items[0].id;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -133,7 +133,7 @@ function quarteryCtrl($rootScope, $scope, $log, $modal, Restangular, SweetAlert,
             }).then(function (result) {
                 $scope.subcity = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -146,7 +146,7 @@ function quarteryCtrl($rootScope, $scope, $log, $modal, Restangular, SweetAlert,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -164,22 +164,22 @@ function quarteryCtrl($rootScope, $scope, $log, $modal, Restangular, SweetAlert,
     }
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-           title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+          title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
-        }, function (isConfirm) {
+              }, function (isConfirm) {
             if (isConfirm) {
                 if (vm.tableParams.data[index].fromServer) {
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                 toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

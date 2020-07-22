@@ -125,7 +125,7 @@ function yemeksepetimergeCtrl($rootScope , $scope, $filter, $modal, SweetAlert, 
                 $scope.filterAddress(result);
                 //$scope.personAddresses = angular.copy(result);
             }, function (response) {
-                toaster.pop('error', "Error", response.data.ExceptionMessage);
+                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
             });
         } else {
             $scope.personAddresses = null;
@@ -133,7 +133,7 @@ function yemeksepetimergeCtrl($rootScope , $scope, $filter, $modal, SweetAlert, 
     };
     $scope.setPersonAndAddress = function (address) {
         $scope.slectedAddress = angular.copy(address);
-        $scope.selectedPersonAndAddress.address = angular.copy(address.Address.StreetAddress + ' No:' + address.Address.AddressNo + ' Apartman:' + address.Address.AppartmentNo + ' Kapı:' + address.Address.Floor);
+        $scope.selectedPersonAndAddress.address = angular.copy(address.Address.StreetAddress + ' No:' + address.Address.AddressNo + ' Apartment:' + address.Address.AppartmentNo + ' Door:' + address.Address.Floor);
         $scope.selectedPersonAndAddress.Person = angular.copy($scope.slectedPerson.name);
         $scope.selectedPersonAndAddress.Phone = angular.copy($scope.slectedPerson.PersonPhones);
     };
@@ -167,8 +167,8 @@ function yemeksepetimergeCtrl($rootScope , $scope, $filter, $modal, SweetAlert, 
                 $scope.selectedPersonAndAddress.Person = angular.copy(result.name);
                 $scope.selectedPersonAndAddress.Phone = angular.copy(result.PersonPhones);
             });
-            $scope.selectedPersonAndAddress.address = angular.copy(value.streetAddress.StreetAddress + ' No:' + value.AddressNo + ' Apartman:' + value.AppartmentNo + ' Kapı:' + value.Floor);
-            $scope.ysitem.Adress = angular.copy(value.streetAddress.StreetAddress + ' No:' + value.AddressNo + ' Apartman:' + value.AppartmentNo + ' Kapı:' + value.Floor);
+            $scope.selectedPersonAndAddress.address = angular.copy(value.streetAddress.StreetAddress + ' No:' + value.AddressNo + ' Apartment:' + value.AppartmentNo + ' Door:' + value.Floor);
+            $scope.ysitem.Adress = angular.copy(value.streetAddress.StreetAddress + ' No:' + value.AddressNo + ' Apartment:' + value.AppartmentNo + ' Door:' + value.Floor);
         })
     };
     $scope.addNewAddress = function () {
@@ -199,18 +199,18 @@ function yemeksepetimergeCtrl($rootScope , $scope, $filter, $modal, SweetAlert, 
                 $scope.selectedPersonAndAddress.Person = angular.copy(result.name);
                 $scope.selectedPersonAndAddress.Phone = angular.copy(result.PersonPhones);
             });
-            $scope.selectedPersonAndAddress.address = angular.copy(value.streetAddress.StreetAddress + ' No:' + value.AddressNo + ' Apartman:' + value.AppartmentNo + ' Kapı:' + value.Floor);
-            $scope.ysitem.Adress = angular.copy(value.streetAddress.StreetAddress + ' No:' + value.AddressNo + ' Apartman:' + value.AppartmentNo + ' Kapı:' + value.Floor);
+            $scope.selectedPersonAndAddress.address = angular.copy(value.streetAddress.StreetAddress + ' No:' + value.AddressNo + ' Apartment:' + value.AppartmentNo + ' Door:' + value.Floor);
+            $scope.ysitem.Adress = angular.copy(value.streetAddress.StreetAddress + ' No:' + value.AddressNo + ' Apartment:' + value.AppartmentNo + ' Door:' + value.Floor);
         })
     };
     $scope.mergePerson = function () {
         var data = { YemekSepetiCustomerID: $scope.yemeksepetiItem.CustomerId, YemekSepetiAddressID: $scope.yemeksepetiItem.AddressId, Person_DeliveryAddressID: $scope.slectedAddress.id }
         Restangular.restangularizeElement('', data, 'yemeksepeticustomermap');
         data.post().then(function (resp) {
-            toaster.pop('success', "Eşleştirme Kaydedildi!");
+            toaster.pop('success', "Twinning Saved!");
               $location.path('/app/mainscreen');
         }, function (resp) {
-            toaster.pop('error', "Eşleştirme Kaydedilmedi!", resp.data.ExceptionMessage);
+            toaster.pop('error', "Twinning Saved!", resp.data.ExceptionMessage);
         });
     };
     $scope.$on('$destroy', function () {

@@ -60,13 +60,13 @@ function addnewaddressCtrl($rootScope, $scope, $modalInstance, $filter, item, $m
         Restangular.restangularizeElement('', personAddress, 'person_deliveryaddress');
         if (personAddress.restangularized && personAddress.id) {
             personAddress.put().then(function (resp) {
-                toaster.pop('success', "Güncellendi.", 'Updated!');
+                toaster.pop('success', "Updated.", 'Updated!');
                 $scope.ok();
             });
         }
         else {
             personAddress.post().then(function (resp) {
-                toaster.pop('success', "Kaydedildi !", 'Saved!');
+                toaster.pop('success', "Saved !", 'Saved!');
                 $scope.ok();
             });
         }

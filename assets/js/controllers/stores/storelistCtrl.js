@@ -32,9 +32,9 @@ function storelistCtrl($scope, $log, $filter, $modal, Restangular, ngTableParams
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.BuildSearchString = function () {
@@ -67,8 +67,8 @@ function storelistCtrl($scope, $log, $filter, $modal, Restangular, ngTableParams
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response);
-                SweetAlert.swal("Sunucu Hatası!", angular.toJson(response, false), "error");
+                toaster.pop('error', "Server Error", response);
+                SweetAlert.swal("Server Error!", angular.toJson(response, false), "error");
             });
         }
     });
@@ -87,7 +87,7 @@ function storelistCtrl($scope, $log, $filter, $modal, Restangular, ngTableParams
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };
