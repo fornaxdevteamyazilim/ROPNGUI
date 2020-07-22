@@ -87,7 +87,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         }).then(function (result) {
             angular.copy(result, $scope.subcities);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadQuarters = function (QuarterID) {
@@ -98,7 +98,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         }).then(function (result) {
             angular.copy(result, $scope.quarters);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     };
     $scope.SelcetQuarter = function (QuarterID) {

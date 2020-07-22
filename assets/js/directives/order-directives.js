@@ -63,7 +63,7 @@ function orderable($compile, $modal) {
                             }
                     }
                 }, function (response) {
-                    toaster.pop('Warning', "Sunucu bağlantı hatası", "Uyarı!");
+                    toaster.pop('Warning', "Connection error", "Warning!");
                 });
             };
             $scope.LoadOptionItem = function (Option) {
@@ -89,7 +89,7 @@ function orderable($compile, $modal) {
                             }
                     }
                 }, function (response) {
-                    toaster.pop('Warning', "Sunucu bağlantı hatası", "Uyarı!");
+                    toaster.pop('Warning', "Connection error", "Warning!");
                 });
             };
             $scope.DisableWatch = $scope.$watch(watchItem, function () {
@@ -310,7 +310,7 @@ function orderable($compile, $modal) {
                         data.put().then(
                             function (res) {
                                 $scope.$emit('LoadOrderItems', "Update");
-                                toaster.pop('success', "Sipariş Kalemi Güncellendi.");
+                                toaster.pop('success', "OrderItem Updated.");
                                 //if (res.id) {
                                 //    $scope.ok();
                                 //}
@@ -323,7 +323,7 @@ function orderable($compile, $modal) {
                         Restangular.restangularizeElement('', data, 'orderableitem');
                         data.post().then(
                             function (res) {
-                                toaster.pop("success", "Sipariş Kalemi Eklendi.");
+                                toaster.pop("success", "OrderItem Added.");
                                 $scope.$emit('LoadOrderItems', "Update");
                                 //if (res.id) {
                                 //    $scope.ok();
@@ -333,7 +333,7 @@ function orderable($compile, $modal) {
                                 if (res.data.ExceptionMessage)
                                     toaster.pop("error", res.data.ExceptionMessage);
                                 else
-                                    toaster.pop("error", "Sipariş Kalemi Eklenemedi !");
+                                    toaster.pop("error", "OrderItem Add filed!");
                             });
                     }
                 }
@@ -349,7 +349,7 @@ function orderable($compile, $modal) {
                     data.put().then(
                         function (res) {
                             $scope.$emit('LoadOrderItems', "Update");
-                            toaster.pop('success', "Sipariş Kalemi Güncellendi.");
+                            toaster.pop('success', "OrderItem Updated.");
                             if (res.id) {
                                 $scope.ok();
                             }
@@ -359,7 +359,7 @@ function orderable($compile, $modal) {
                             if (res.data.ExceptionMessage)
                                 toaster.pop("error", res.data.ExceptionMessage);
                             else
-                                toaster.pop("error", "Sipariş Kalemi Eklenemedi !");
+                                toaster.pop("error", "OrderItem Update failed!");
                         });
                 }
                 else {
@@ -369,7 +369,7 @@ function orderable($compile, $modal) {
                     Restangular.restangularizeElement('', data, 'orderableitem');
                     data.post().then(
                         function (res) {
-                            toaster.pop("success", "Sipariş Kalemi Eklendi.");
+                            toaster.pop("success", "OrderItem Added.");
                             $scope.$emit('LoadOrderItems', "Update");
                             if (res.id) {
                                 $scope.ok();
@@ -380,7 +380,7 @@ function orderable($compile, $modal) {
                             if (res.data.ExceptionMessage)
                                 toaster.pop("error", res.data.ExceptionMessage);
                             else
-                                toaster.pop("error", "Sipariş Kalemi Eklenemedi !");
+                                toaster.pop("error", "OrderItem Add failed.");
                         });
                 }
             };

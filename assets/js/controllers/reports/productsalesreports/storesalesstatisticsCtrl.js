@@ -62,7 +62,7 @@ function storesalesstatisticsCtrl($scope, $log, $modal, $timeout, $filter, Sweet
                 $scope.start();
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
     };
     $scope.GetSoreID = function (data) {

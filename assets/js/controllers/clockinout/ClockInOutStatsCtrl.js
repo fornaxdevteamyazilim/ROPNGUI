@@ -132,7 +132,7 @@ function ClockInOutStatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAl
             //        d.resolve(orders.plain());                    
             //    }, function (response) {
             //        d.reject;
-            //        toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            //        toaster.pop('error', "Error", response.data.ExceptionMessage);
             //    });
             //    return d.promise();
             //}

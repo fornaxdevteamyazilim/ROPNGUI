@@ -92,7 +92,7 @@ function turnoverbydaysCtrl($scope, $filter, $modal, $log, Restangular, ngTableP
                 ctrl.table.data = orders;
                 $scope.ShowReport();
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
     };
     ctrl.table = {

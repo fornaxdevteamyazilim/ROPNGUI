@@ -45,7 +45,7 @@ function cashreportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
         }, function (response) {
             $scope.Tittle = "";
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {

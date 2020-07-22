@@ -248,7 +248,7 @@ app.controller('OnotherCtrl', function ($scope, $rootScope, Restangular, $transl
         labels: $scope.HourlyName,
         datasets: [
           {
-              label: 'Sipariş Sayısı',
+              label: $translate.instant('main.TOTALORDERS'),
               fillColor: 'rgba(220,220,220,0.2)',
               strokeColor: 'rgba(220,220,220,1)',
               pointColor: 'rgba(220,220,220,1)',
@@ -258,7 +258,7 @@ app.controller('OnotherCtrl', function ($scope, $rootScope, Restangular, $transl
               data: $scope.HourlyOrdersCount
           },
           {
-              label: 'Sipariş Tutarı',
+              label: $translate.instant('main.SALES'),
               fillColor: 'rgba(151,187,205,0.2)',
               strokeColor: 'rgba(151,187,205,1)',
               pointColor: 'rgba(151,187,205,1)',

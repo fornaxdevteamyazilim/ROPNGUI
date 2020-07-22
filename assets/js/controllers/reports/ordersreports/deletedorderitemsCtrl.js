@@ -42,7 +42,7 @@ function deletedorderitemsCtrl($scope, $modal, $filter, SweetAlert, Restangular,
             $scope.ReportList = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     };
         $scope.GetSoreID = function (data) {

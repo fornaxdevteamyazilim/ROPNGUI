@@ -105,7 +105,7 @@ function ReturnedProductCtrl($scope, $filter, $modal, $log, Restangular, ngTable
            $scope.VeiwHeader = result[0];
            $scope.GetLayout(result[0].id)
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Error", response.data.ExceptionMessage);
        });
     }
     $scope.GetLayout = function (ReportID) {
@@ -124,7 +124,7 @@ function ReturnedProductCtrl($scope, $filter, $modal, $log, Restangular, ngTable
             $scope.LoadPivotData();
         }
     }, function (response) {
-        toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+        toaster.pop('error', "Error", response.data.ExceptionMessage);
     });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -184,7 +184,7 @@ function ReturnedProductCtrl($scope, $filter, $modal, $log, Restangular, ngTable
                     $scope.ShowReport();
                     $scope.isWaiting = false;
                 }, function (response) {
-                    toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Error", response.data.ExceptionMessage);
                     $scope.isWaiting = false;
                 });
     };

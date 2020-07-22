@@ -6,7 +6,7 @@ function inventoryrecipesCtrl($scope, $modal, $filter, SweetAlert, Restangular, 
         Restangular.all('report').getList().then(function (result) {
             $scope.VeiwHeader = result[0];
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     }
     $scope.ReportData = [];
@@ -22,7 +22,7 @@ function inventoryrecipesCtrl($scope, $modal, $filter, SweetAlert, Restangular, 
                 $scope.ReportData = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
     };
     $scope.GetPeriods = function (data) {

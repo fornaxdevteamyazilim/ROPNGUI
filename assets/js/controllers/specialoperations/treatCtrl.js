@@ -13,7 +13,7 @@ function treatCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParams,
                SweetAlert.swal("Success", "Siparişiniz Ödenmez Olarak İşaretlendi", "success");
                $scope.ok();
            }, function (response) {
-               toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+               toaster.pop('error', "Error", response.data.ExceptionMessage);
            });
     };
     $scope.SaveOrder = function (data) {

@@ -17,7 +17,7 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
                 data.post().then(function (res) {
                     toaster.pop('success', "Kaydedildi.", 'Saved.');
                 }, function (response) {
-                    toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Error", response.data.ExceptionMessage);
                 });
             }
         } else {
@@ -42,7 +42,7 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
         }).then(function (result) {
             $scope.fingerPrintExists = result.length;
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     }
     $scope.deleteFingerPrint = function () {
@@ -51,7 +51,7 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
         }).then(function (result) {
             toaster.pop('success', "Silindi.", 'Deleted.');
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     }
     $scope.CheckFingerPrint();
@@ -140,7 +140,7 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
                     SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
                     $location.path('app/users/userlist');
                 }, function (response) {
-                    toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Error", response.data.ExceptionMessage);
                 });
             }
             else {

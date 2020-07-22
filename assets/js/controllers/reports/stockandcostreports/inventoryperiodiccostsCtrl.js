@@ -9,7 +9,7 @@ function inventoryperiodiccostsCtrl($scope, $log, $modal, $filter, SweetAlert, R
        }).then(function (result) {
            $scope.VeiwHeader = result[0];
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Error", response.data.ExceptionMessage);
        });
     }
 
@@ -53,7 +53,7 @@ function inventoryperiodiccostsCtrl($scope, $log, $modal, $filter, SweetAlert, R
                 $scope.resresult = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
     };
     $scope.exportToExcel = function (tableId) {

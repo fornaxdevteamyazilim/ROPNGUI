@@ -98,7 +98,7 @@ $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
                 $scope.ShowReport();
                 $scope.isWaiting = false;
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
                 $scope.isWaiting = false;
             });
     };

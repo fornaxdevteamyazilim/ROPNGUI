@@ -80,7 +80,7 @@ function vehicleCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParam
                 }
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
         }
     });

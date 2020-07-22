@@ -112,7 +112,7 @@ function userstoreCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangu
             }).then(function (result) {
                 angular.copy(result, $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', "Sunucu bağlantı hatası", "Uyarı!");
+                toaster.pop('Warning', "Connection error", "Warning!");
             });
         }
     };

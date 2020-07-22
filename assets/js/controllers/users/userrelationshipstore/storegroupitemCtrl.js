@@ -117,7 +117,7 @@ function storegroupitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
             }).then(function (result) {
                 angular.copy(result, $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', "Sunucu bağlantı hatası", "Uyarı!");
+                toaster.pop('Warning', "Connection error", "Warning!");
             });
         }
     };

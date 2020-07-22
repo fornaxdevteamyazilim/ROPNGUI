@@ -99,7 +99,7 @@ function productsalesbyhoursCtrl($scope, $filter, $modal, $log, Restangular, ngT
                     $scope.ShowReport();
                 }, function (response) {
                     $scope.isWaiting = false;
-                    toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Error", response.data.ExceptionMessage);
                 });
     };
     ctrl.table = {

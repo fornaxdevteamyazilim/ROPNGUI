@@ -91,7 +91,7 @@ function productsalesquantityCtrl($scope, $filter, $modal, $log, Restangular, ng
                 ctrl.table.data = orders;
                 $scope.ShowReport();
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
     };
     ctrl.table = {

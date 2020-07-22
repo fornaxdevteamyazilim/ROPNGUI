@@ -65,7 +65,7 @@ function inventoryconsuptionsCtrl($scope, $modal, $filter, SweetAlert, Restangul
                 $scope.ProductUsageCounts = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
     };
     $scope.GetSoreID = function (data) {

@@ -17,7 +17,7 @@ function preferencesCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, 
         Restangular.one('preferences', data).get().then(function (result) {
             $scope.GetPreferencesList = result;
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     };
     $scope.saveData = function (data) {

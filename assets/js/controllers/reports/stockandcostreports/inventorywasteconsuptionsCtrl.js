@@ -9,7 +9,7 @@ function inventorywasteconsuptionsCtrl($scope, $modal, $filter, SweetAlert, Rest
        }).then(function (result) {
            $scope.VeiwHeader = result[0];
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Error", response.data.ExceptionMessage);
        });
     }
     $scope.periods = [];
@@ -54,7 +54,7 @@ function inventorywasteconsuptionsCtrl($scope, $modal, $filter, SweetAlert, Rest
                 $scope.ProductUsageCounts = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
     };
     $scope.GetSoreID = function (data) {

@@ -125,7 +125,7 @@ function yemeksepetimergeCtrl($rootScope , $scope, $filter, $modal, SweetAlert, 
                 $scope.filterAddress(result);
                 //$scope.personAddresses = angular.copy(result);
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
         } else {
             $scope.personAddresses = null;

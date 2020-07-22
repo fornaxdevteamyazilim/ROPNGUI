@@ -32,7 +32,7 @@ function orderdriverlistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangu
         ).then(function (result) {
             $scope.Drivers = result;
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     };
     $scope.getDriverName = function (DriverID) {
@@ -75,7 +75,7 @@ function orderdriverlistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangu
             $scope.DriverList = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {

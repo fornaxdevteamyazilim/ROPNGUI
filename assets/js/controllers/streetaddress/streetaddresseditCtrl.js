@@ -34,7 +34,7 @@
             }).then(function (result) {
                 angular.copy(result, $scope.subcities);
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
         };
         $scope.LoadQuarters = function (QuarterID) {
@@ -45,7 +45,7 @@
             }).then(function (result) {
                 angular.copy(result, $scope.quarters);
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
         };
         $scope.ShowObject = function (Container, idName, idvalue, resName) {

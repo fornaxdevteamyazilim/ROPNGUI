@@ -93,7 +93,7 @@ function paymentbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, ngT
            $scope.VeiwHeader = result[0];
            $scope.GetLayout(result[0].id)
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Error", response.data.ExceptionMessage);
        });
     }
     $scope.GetLayout = function (ReportID) {
@@ -112,7 +112,7 @@ function paymentbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, ngT
                 $scope.LoadPivotData();
             }
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     };
 
@@ -172,7 +172,7 @@ function paymentbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, ngT
                 $scope.ShowReport();
                 $scope.isWaiting = false;
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
                 $scope.isWaiting = false;
             });
     };

@@ -19,7 +19,7 @@ function currentendCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTablePa
             $scope.ok();
             location.href = '#/app/mainscreen'
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     }
     $scope.selectPerson = function (item) {
@@ -124,7 +124,7 @@ function selectPersonCtrl($rootScope, $scope, $modalInstance, Restangular, ngTab
                     $defer.resolve(items);
                     $scope.isSearching(false);
                 }, function (response) {
-                    toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Error", response.data.ExceptionMessage);
                 });
             }
 

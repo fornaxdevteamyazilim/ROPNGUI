@@ -20,7 +20,7 @@ function ysstoreeditCtrl($scope, $modalInstance, $log, $rootScope, toaster, Rest
             //location.href = '#/app/mainscreen'
             }, function (response) {
                 $scope.isSpinner = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     }
     $scope.ShowObject = function (Container, idName, idvalue, resName) {

@@ -28,7 +28,7 @@ function accountbalancereportCtrl($scope, $modal, $filter, SweetAlert, Restangul
             angular.copy(result, $scope.AccountBalance);
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {

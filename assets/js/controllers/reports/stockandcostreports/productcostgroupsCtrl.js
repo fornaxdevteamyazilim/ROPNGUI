@@ -36,7 +36,7 @@ function productcostgroupsCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                 $scope.ProductCostGroups = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
     };
 

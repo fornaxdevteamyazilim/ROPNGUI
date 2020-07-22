@@ -26,7 +26,7 @@ function ordertotalsbypaymenttypepivotCtrl($scope, $log, $modal, $filter, SweetA
             $scope.OrderTotalsByPaymentTypePivot = result.plain();
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     };
     $scope.GetOrderSourceID = function (data) {

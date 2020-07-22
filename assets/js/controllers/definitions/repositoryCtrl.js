@@ -68,7 +68,7 @@ function repositoryCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
                 if (items.length > 0)
                     $scope.SelectedItem = items[0].id;
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
         }
     });

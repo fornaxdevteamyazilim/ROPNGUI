@@ -164,7 +164,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
                         }
                     }
                 }, function (response) {
-                    toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Error", response.data.ExceptionMessage);
                 });
             }
         }
@@ -185,7 +185,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
                         $scope.audio.pause();
                     $rootScope.YSOrderCount = angular.copy(result.length);
                 }, function (response) {
-                    toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Error", response.data.ExceptionMessage);
                 });
             }
         }

@@ -33,7 +33,7 @@ function scoreCardCtrl($scope, $rootScope, $modal, $filter, SweetAlert, Restangu
                 angular.copy(result, $scope.data);
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
     };
    

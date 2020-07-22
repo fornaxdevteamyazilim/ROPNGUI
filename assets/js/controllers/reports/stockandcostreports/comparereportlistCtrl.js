@@ -9,7 +9,7 @@ function comparereportlistCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
        }).then(function (result) {
            $scope.VeiwHeader = result[0];
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Error", response.data.ExceptionMessage);
        });
     }
     $scope.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
@@ -121,7 +121,7 @@ function comparereportlistCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                     $scope.TotalWaste = 0;
                     $scope.TotalCalculatePlus = 0;
                     $scope.TotalCalculateMunis = 0;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
     };
 

@@ -175,7 +175,7 @@ function storeanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular, toa
                 angular.copy(result, $scope.StoreAnalisys);
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Error", response.data.ExceptionMessage);
             });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {

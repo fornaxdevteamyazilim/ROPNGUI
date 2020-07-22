@@ -113,7 +113,7 @@ function orderlaststatesCtrl($scope, $filter, $modal, $log, Restangular, ngTable
                $scope.LoadPivotData();
            }
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Error", response.data.ExceptionMessage);
        });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -169,7 +169,7 @@ function orderlaststatesCtrl($scope, $filter, $modal, $log, Restangular, ngTable
             $scope.LoadPivotData();
         }
     }, function (response) {
-        toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+        toaster.pop('error', "Error", response.data.ExceptionMessage);
     });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -223,7 +223,7 @@ function orderlaststatesCtrl($scope, $filter, $modal, $log, Restangular, ngTable
             $scope.isWaiting = false;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Error", response.data.ExceptionMessage);
         });
     };
     $scope.exportToExcel = function (tableId) { // ex: '#my-table'

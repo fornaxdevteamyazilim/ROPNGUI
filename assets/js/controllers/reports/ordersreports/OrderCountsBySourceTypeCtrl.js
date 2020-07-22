@@ -25,7 +25,7 @@ function OrderCountsBySourceTypeCtrl($scope, $log, $modal, $filter, Restangular,
         $scope.grid = true;
     }, function (response) {
         $scope.isWaiting = false;
-        toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+        toaster.pop('error', "Error", response.data.ExceptionMessage);
     });
     };
     $scope.GetOrderSourceID = function (data) {
