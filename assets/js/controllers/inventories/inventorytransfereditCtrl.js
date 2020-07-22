@@ -56,7 +56,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         }).then(function (result) {
             $scope.item.FromRepositoryID = result[0].id;
         }, function (response) {
-            toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
         $scope.item = {};
     }
@@ -68,7 +68,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         }).then(function (result) {
             $scope.item.ApproveState = result[0].ApproveState
         }, function (response) {
-            toaster.pop('warning', "Uyarı...", response.data.ExceptionMessage);
+            toaster.pop('warning', "warning...", response.data.ExceptionMessage);
         });
     };
     $scope.checkInventoryTransferApproval = function (itemID) {
@@ -80,10 +80,10 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         ).then(function (restresult) {
             $scope.isWaiting = false;
             $location.path('app/inventory/inventorytransfer/list');
-            toaster.pop('success', "Kaydedildi.");
+            toaster.pop('success', "Saved.");
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('warning', "Uyarı...", response.data.ExceptionMessage);
+            toaster.pop('warning', "warning...", response.data.ExceptionMessage);
         });
     };
     $scope.DeliverTransfer = function () {
@@ -95,7 +95,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         $scope.item.items = vm.tableParams.data;
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal("Güncellendi.", "Updated.", "success");
+                swal("Updated.", "Updated.", "success");
                 $location.path('app/inventory/inventorytransfer/list');
                 $scope.SaveButtonActive = true;
             }, function (response) {
@@ -107,12 +107,12 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             Restangular.restangularizeElement('', $scope.item, 'inventorytransfer')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal("Kaydedildi.", "Saved.", "success");
+                swal("Saved.", "Saved.", "success");
                 $location.path('app/inventory/inventorytransfer/list');
                 $scope.SaveButtonActive = true;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('warning', "Uyarı...", response.data.ExceptionMessage);
+                toaster.pop('warning', "warning...", response.data.ExceptionMessage);
             });
         }
     }
@@ -142,9 +142,9 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     vm.tableParams = new ngTableParams({
@@ -170,7 +170,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
                         }
                     }
                 }, function (response) {
-                    toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
 
@@ -184,7 +184,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             }).then(function (result) {
                 $scope.repositories = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -215,7 +215,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -228,7 +228,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -237,7 +237,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Errorı", response);
             });
         }
     };
@@ -251,36 +251,36 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
     $scope.loadEntities('enums/InventoryApproveState', 'InventoryApproveState');
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Delete.", "Record Deleted.", "success");
                     $location.path('app/inventory/inventorytransfer/list');
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
             }
         });
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -289,7 +289,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

@@ -43,7 +43,7 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -52,9 +52,9 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
             data.put().then(function (res) {
                 $scope.CallReason(4);
                 ca.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
         else {
@@ -62,9 +62,9 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
             data.post().then(function (res) {
                 $scope.CallReason(4);
                 ca.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
             data.get();
         }
@@ -82,15 +82,15 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
         rowform.$cancel();
         if (!ca.tableParams.data[ca.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ca.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -104,7 +104,7 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
                     ca.tableParams.data[index].remove();
                 }
                 ca.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi!");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -132,7 +132,7 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Hata!", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Error!", response.data.ExceptionMessage);
             });
         }
     };

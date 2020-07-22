@@ -50,7 +50,7 @@ function inventorydealsCtrl($scope, $modal, $filter, SweetAlert, Restangular, ng
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Hata!", response.data.ExceptionMessage);
+                toaster.pop('warning', " Error!", response.data.ExceptionMessage);
             });
         }
     });
@@ -84,7 +84,7 @@ function inventorydealsCtrl($scope, $modal, $filter, SweetAlert, Restangular, ng
             id.tableParams.reload();
         }, function (response) {
             $scope.Showspinner = false;
-            toaster.pop('warning', "Hata!", response.data.Message);
+            toaster.pop('warning', " Error!", response.data.Message);
         });
     };
     $scope.SelectItem = function (id) {
@@ -103,7 +103,7 @@ function inventorydealsCtrl($scope, $modal, $filter, SweetAlert, Restangular, ng
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

@@ -29,36 +29,36 @@ function mergesubcitiesCtrl($rootScope, $scope, $log, $modal, Restangular, ngTab
             angular.copy(result, $scope.toSubcities);
             $scope.ShowObject = false;
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             $scope.ShowObject = false;
         });
     };
     //$scope.LoadSubcities();
     $scope.FromSelectItem = function (Item) {
         $scope.FromSelectSubcity = Item;
-        toaster.pop('warning', "Birleştirilecek İlçe...");
+        toaster.pop('warning', "Be Merged District...");
     };
     $scope.ToSelectItem = function (Item) {
         $scope.ToSelectSubcity = Item;
-        toaster.pop('warning', "Birleşecek İlçe...");
+        toaster.pop('warning', "District To Merge...");
     };
     $scope.MergeSubcity = function () {
         swal({
-            title: "'" + $scope.FromSelectSubcity.name + "' İlçesi '" + $scope.ToSelectSubcity.name + "' İlçesi ile birleşecek",
-            text: "Bu İşlemi Onaylıyormusunuz!",
+            title: "'" + $scope.FromSelectSubcity.name + "' District '" + $scope.ToSelectSubcity.name + "' Will merge with the district",
+            text: "Do you approve of this operation !",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet",
-            cancelButtonText: "Hayır",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
             closeOnConfirm: true
         }, function () {
             Restangular.one('addresshelper/merge/subcity?FromSubcityID=' + $scope.FromSelectSubcity.id + '&ToSubcityID=' + $scope.ToSelectSubcity.id).get().then
          (function (restresult) {
              $scope.LoadSubcities();
-             toaster.pop('success', "İlçe Birleştirildi.");
+             toaster.pop('success', "District Merged.");
          }, function (response) {
-             toaster.pop('error', "Sunucu hatası", response.ExceptionMessage);
+             toaster.pop('error', "Server Error", response.ExceptionMessage);
          });
         });
     };
@@ -77,7 +77,7 @@ function mergesubcitiesCtrl($rootScope, $scope, $log, $modal, Restangular, ngTab
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

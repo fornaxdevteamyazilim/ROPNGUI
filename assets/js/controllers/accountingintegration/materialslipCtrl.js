@@ -41,11 +41,11 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 }).then(function (result) {
                     $scope.isSpinner = false;
                     ms.tableParams.reload();
-                    toaster.pop('success', "Fiş Aktarıldı", '');
+                    toaster.pop('success', "Receipt Transferred", '');
                 }, function (response) {
                     $scope.isSpinner = false;
                     ms.tableParams.reload();
-                    toaster.pop('Warning', "Sorun Oluştu!", response.data.ExceptionMessage);
+                    toaster.pop('Warning', "There was a problem !", response.data.ExceptionMessage);
                 });
             }
             //if (i = ms.tableParams.data.length)
@@ -61,14 +61,14 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 ToDate: item.EndDate
             }).then(function (result) {
                 ms.tableParams.reload();
-                toaster.pop('success', "Fişler Aktarıldı", '');
+                toaster.pop('success', "Receipt Transferred", '');
                 $scope.isSpinner = false
             }, function (response) {
-                toaster.pop('Warning', "Sorun Oluştu!", response.data.ExceptionMessage);
+                toaster.pop('Warning', "There was a problem !", response.data.ExceptionMessage);
                 $scope.isSpinner = false
             });
         } else {
-            toaster.pop('Warning', "GEREKLİ ALANLARI DOLDURUNUZ !!!");
+            toaster.pop('Warning', "FILL OUT THE REQUIRED FIELDS !!!");
             $scope.isSpinner = false
         }
     };
@@ -81,14 +81,14 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 ToDate: item.EndDate
             }).then(function (result) {
                 ms.tableParams.reload();
-                toaster.pop('success', "Fişler Oluşturuldu!", '');
+                toaster.pop('success', "Plugs Created!", '');
                 $scope.isSpinner = false
             }, function (response) {
-                toaster.pop('Warning', "Sorun Oluştu!", response.data.ExceptionMessage);
+                toaster.pop('Warning', "There was a problem !", response.data.ExceptionMessage);
                 $scope.isSpinner = false
             });
         } else {
-            toaster.pop('Warning', "GEREKLİ ALANLARI DOLDURUNUZ !!!");
+            toaster.pop('Warning', "FILL OUT THE REQUIRED FIELDS !!!");
             $scope.isSpinner = false
         }
     };
@@ -102,21 +102,21 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 SendAfterCreate: true
             }).then(function (result) {
                 ms.tableParams.reload();
-                toaster.pop('success', "Fişler Oluşturuldu ve Aktarıldı!", '');
+                toaster.pop('success', "Plugs Created and Transferred !", '');
                 $scope.isSpinner = false
             }, function (response) {
-                toaster.pop('Warning', "Sorun Oluştu!", response.data.ExceptionMessage);
+                toaster.pop('Warning', "There was a problem !", response.data.ExceptionMessage);
                 $scope.isSpinner = false
             });
         } else {
-            toaster.pop('Warning', "GEREKLİ ALANLARI DOLDURUNUZ !!!");
+            toaster.pop('Warning', "FILL OUT THE REQUIRED FIELDS !!!");
             $scope.isSpinner = false
         }
     };
     $scope.DeleteMaterialSlips = function () {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -135,7 +135,7 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 if (deletedata && deletedata.length) {
                     for (var j = 0; j < deletedata.length; j++) {
                         deletedata[j].remove().then(function () {
-                            toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                            toaster.pop("error", "Attention !", "Record Deleted !");
                             $scope.isSpinner = false;
                             ms.tableParams.reload();
                         });
@@ -144,7 +144,7 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
             } else {
                 $scope.isSpinner = false;
                 ms.tableParams.reload();
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled !", "Deletion Canceled !", "error");
             }
         });
         $scope.isSpinner = true;
@@ -180,7 +180,7 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -201,7 +201,7 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -215,7 +215,7 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };

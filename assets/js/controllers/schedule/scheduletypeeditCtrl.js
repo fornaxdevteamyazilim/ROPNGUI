@@ -29,7 +29,7 @@ function scheduletypeeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
                 $rootScope.ScheduleTypeID = restresult.id;
             },
            function (restresult) {
-               toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+               toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
                swal("Error!", "Data Error!", "Warning");
            }
            )
@@ -39,7 +39,7 @@ function scheduletypeeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             $scope.item.put().
                 then(function (resp) {
                     $rootScope.ScheduleTypeID = resp.id;
-                    swal("Güncellendi.", "Updated.", "success");
+                    swal("Updated.", "Updated.", "success");
                 });
         }
         else {
@@ -47,7 +47,7 @@ function scheduletypeeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
                 $rootScope.ScheduleTypeID = resp.id;
-                swal("Kaydedildi.", "Saved.", "success");
+                swal("Saved.", "Saved.", "success");
             });
         }
     }
@@ -57,24 +57,24 @@ function scheduletypeeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
     st.search = '';
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Delete.", "Record Deleted.", "success");
                     $location.path('app/schedule/scheduletypes/list');
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled!", "Deletion canceled !", "error");
             }
         });
     };
@@ -113,7 +113,7 @@ function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangul
                 resp.StartTime = $filter('date')(resp.StartTime, 'HH:mm');
                 resp.EndTime = $filter('date')(resp.EndTime, 'HH:mm');
                 sttr.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
@@ -122,7 +122,7 @@ function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangul
                 resp.StartTime = $filter('date')(resp.StartTime, 'HH:mm');
                 resp.EndTime = $filter('date')(resp.EndTime, 'HH:mm');
                 sttr.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -143,9 +143,9 @@ function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangul
         rowform.$cancel();
         if (!sttr.tableParams.data[sttr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sttr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     sttr.tableParams = new ngTableParams({
@@ -166,19 +166,19 @@ function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangul
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -187,7 +187,7 @@ function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangul
                     sttr.tableParams.data[index].remove();
                 }
                 sttr.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -220,14 +220,14 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 stw.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'scheduletypeweekday')
             this.item.post().then(function (res) {
                 stw.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -248,9 +248,9 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
         rowform.$cancel();
         if (!stw.tableParams.data[stw.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(stw.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     stw.tableParams = new ngTableParams({
@@ -270,7 +270,7 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Erro", response.data.ExceptionMessage);
             });
         }
     });
@@ -289,7 +289,7 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Erro", response.data.ExceptionMessage);
             });
         }
     }
@@ -297,13 +297,13 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
     $scope.loadEntities('enums/weekdays', 'weekdays');
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -312,7 +312,7 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
                     stw.tableParams.data[index].remove();
                 }
                 stw.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -345,14 +345,14 @@ function scheduletypedaterangeCtrl($scope, $modal, $log, $filter, SweetAlert, Re
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 stdr.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'scheduletypedaterange')
             this.item.post().then(function (res) {
                 stdr.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -373,9 +373,9 @@ function scheduletypedaterangeCtrl($scope, $modal, $log, $filter, SweetAlert, Re
         rowform.$cancel();
         if (!stdr.tableParams.data[stdr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(stdr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     stdr.tableParams = new ngTableParams({
@@ -395,19 +395,19 @@ function scheduletypedaterangeCtrl($scope, $modal, $log, $filter, SweetAlert, Re
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -416,7 +416,7 @@ function scheduletypedaterangeCtrl($scope, $modal, $log, $filter, SweetAlert, Re
                     stdr.tableParams.data[index].remove();
                 }
                 stdr.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

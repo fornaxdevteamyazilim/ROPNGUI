@@ -36,7 +36,7 @@ function scheduletypelistCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
                     $scope.SelectedItem = items[0].id;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });

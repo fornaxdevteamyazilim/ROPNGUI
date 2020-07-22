@@ -27,7 +27,7 @@ function mergestreetaddressCtrl($rootScope, $scope, $log, $modal, Restangular, n
         }).then(function (result) {
             angular.copy(result, $scope.subcities);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadQuarters = function (SubcityID) {
@@ -38,7 +38,7 @@ function mergestreetaddressCtrl($rootScope, $scope, $log, $modal, Restangular, n
         }).then(function (result) {
             angular.copy(result, $scope.quarters);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.SelectQuarter = function (QuarterID) {
@@ -66,22 +66,22 @@ function mergestreetaddressCtrl($rootScope, $scope, $log, $modal, Restangular, n
             angular.copy(result, $scope.toStreetAddress);
             $scope.ShowObject = false;
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             $scope.ShowObject = false;
         });
     };
     $scope.FromSelectItem = function (Item) {
         $scope.FromSelectStreetAddress = Item;
-        toaster.pop('warning', "Birleştirilecek Adres...");
+        toaster.pop('warning', "Address to be merged...");
     };
     $scope.ToSelectItem = function (Item) {
         $scope.ToSelectStreetAddress = Item;
-        toaster.pop('warning', "Birleşecek Adres...");
+        toaster.pop('warning', "Address to merge...");
     };
     $scope.MergeStreetAddress = function () {
         swal({
-            title: "'" + $scope.FromSelectStreetAddress.name + "' Adresi '" + $scope.ToSelectStreetAddress.name + "' Adresi ile birleşecek",
-            text: "Bu İşlemi Onaylıyormusunuz!",
+            title: "'" + $scope.FromSelectStreetAddress.name + "' address '" + $scope.ToSelectStreetAddress.name + "' Will be combined with the address",
+            text: "Do You Confirm This Transaction !",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -92,9 +92,9 @@ function mergestreetaddressCtrl($rootScope, $scope, $log, $modal, Restangular, n
             Restangular.one('addresshelper/merge/streetaddress?FromStreetAddressID=' + $scope.FromSelectStreetAddress.id + '&ToStreetAddressID=' + $scope.ToSelectStreetAddress.id).get().then
                  (function (restresult) {
                      $scope.LoadStreetAddress();
-                     toaster.pop('success', "Mahalle Birleştirildi.");
+                     toaster.pop('success', "Neighborhood Combined.");
                  }, function (response) {
-                     toaster.pop('error', "Sunucu hatası", response.ExceptionMessage);
+                     toaster.pop('error', "Server Error", response.ExceptionMessage);
                  });
         });
     };
@@ -113,7 +113,7 @@ function mergestreetaddressCtrl($rootScope, $scope, $log, $modal, Restangular, n
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

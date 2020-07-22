@@ -13,11 +13,11 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
     }
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { inp.tableParams.reload(); toaster.pop('success', "Güncellendi.", 'Updated.'); });
+            data.put().then(function (res) { inp.tableParams.reload(); toaster.pop('success', "Updated.", 'Updated.'); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { inp.tableParams.reload(); toaster.pop('success', "Kaydedildi.", 'Saved.'); });
+            data.post().then(function (res) { inp.tableParams.reload(); toaster.pop('success', "Saved.", 'Saved.'); });
             data.get();
         }
     };
@@ -47,9 +47,9 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
         rowform.$cancel();
         if (!inp.tableParams.data[inp.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(inp.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     inp.tableParams = new ngTableParams({
@@ -69,7 +69,7 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -88,7 +88,7 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
                     $scope[Container].push({ id: '', name: "" })
                 }
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -113,13 +113,13 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -128,7 +128,7 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
                     inp.tableParams.data[index].remove();
                 }
                 inp.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

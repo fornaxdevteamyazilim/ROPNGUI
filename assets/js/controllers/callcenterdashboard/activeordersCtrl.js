@@ -74,7 +74,7 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
         }).then(function (result) {
             angular.copy(result, $scope.orders);
         }, function (response) {
-            toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
         // location.href = '#/app/callcenterdashboard/activeorders/orderdetails/' + Store.id;
     };
@@ -108,8 +108,8 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
                  else
                      $scope.audio.pause();
              }, function (response) {
-                 toaster.pop('error', "Sunucu Hatası", response);
-                 SweetAlert.swal("Sunucu Hatası", angular.toJson(response, false), "error");
+                 toaster.pop('error', "Server Error", response);
+                 SweetAlert.swal("Server Error", angular.toJson(response, false), "error");
              });
          }
      });
@@ -167,7 +167,7 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
         }).then(function (result) {
             angular.copy(result, $scope.orders);
         }, function (response) {
-            toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.RefreshData = function () {
@@ -219,11 +219,11 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
     $scope.ChangeOrderState = function (OrderID, data) {
         if (userService.isAdmin() || userService.userIsInRole("CCMANAGER") ) {
             swal({
-                title: "Siparişin Durumu 'Hazırlanıyor' Olarak Değiştiriliyor Emin misiniz?",
+                title: "Order Status 'Preparing' Changing to ! Are you sure ?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Evet,Değiştir!",
+                confirmButtonText: "Yes,Change!",
                 closeOnConfirm: false
             }, function () {
                 Restangular.one('order', OrderID).get().then
@@ -238,15 +238,15 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
                    Restangular.restangularizeElement('', ordertosave, 'order');
                    if (ordertosave.restangularized && ordertosave.id) {
                        ordertosave.put().then(function (resp) {
-                           swal("Güncellendi.", " Siparişin Durumu 'Hazırlanıyor' Olarak Kaydedildi.", "success");
+                           swal("Updated.", " Order Status 'Preparing' Saved as.", "success");
                            // toaster.pop('success', "Güncellendi");
                        }, function (response) {
-                           toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                        });
                    }
                })
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
             //$scope.isButtonShow(false);
         }

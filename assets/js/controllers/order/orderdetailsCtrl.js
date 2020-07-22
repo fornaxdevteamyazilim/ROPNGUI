@@ -118,12 +118,12 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
             $scope.DeletePromotion(result[0].id);
         },
       function (response) {
-          toaster.pop('error', "Sunucu Bağlantı hatası", response.data.ExceptionMessage);
+          toaster.pop('error', "Server Connection Error", response.data.ExceptionMessage);
       });
     };
     $scope.DeletePromotion = function (ID) {
         Restangular.one("orderpromotion", ID).remove().then(function () {
-            toaster.pop("error", "Silindi.", "Promosyon Silindi !");
+            toaster.pop("error", "Deleted.", "Promotion Deleted !");
             $scope.getOrder();
             $scope.RefreshOrder($stateParams.id)
         });
@@ -144,7 +144,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                     }
                 },
                function (restresult) {
-                   toaster.pop('warning', "İptal edildi !", restresult.data.ExceptionMessage);
+                   toaster.pop('warning', "It is cancelled !", restresult.data.ExceptionMessage);
                }
                )
         }
@@ -164,7 +164,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
         }).then(function (_orderItems) {
             $scope.orderItems = angular.copy(_orderItems);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);;
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);;
         });
     };
     $scope.CopyOrder = function (order) {
@@ -191,11 +191,11 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
     $scope.AwaitingCCAutorization = function (item) {
         if (item.OrderStateID == 20) {
             swal({
-                title: "Siparişi Onaylamak İstediğinizden Emin misiniz ?",
+                title: "Are you sure you want to confirm the order ?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Evet !",
+                confirmButtonText: "Yes !",
                 closeOnConfirm: false
             }, function () {
                 Restangular.one('order', item.id).get().then
@@ -206,33 +206,33 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                    if (ordertosave.restangularized && ordertosave.id) {
                        ordertosave.put().then(function (resp) {
                            $scope.getOrder();
-                           swal("Güncellendi.", " Sipariş Onaylandı.", "success");
+                           swal("Updated.", " Order Confirmed.", "success");
                        }, function (response) {
-                           toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                        });
                    }
                })
             });
         } else {
-            toaster.pop('warning', "Sipariş Değiştirilemez !", "");
+            toaster.pop('warning', "Order Cannot Be Changed !", "");
         }
     };
     $scope.RePrintOrder = function (OrderID) {
         Restangular.all('ordertools/PrintLabels').getList({
             OrderID: OrderID
         }).then(function (_orderItems) {
-            toaster.pop('success', "Tekrar Yazdırılıyor.");
+            toaster.pop('success', "Printed Again.");
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.SendToFiyuu = function (OrderID) {
         Restangular.all('ordertools/sendToFiyuu').getList({
             OrderID: OrderID
         }).then(function (_orderItems) {
-            toaster.pop('success', "Siaprş Fiyuu iletimi başlatıldı.");
+            toaster.pop('success', "Order Fiyuu transmission initiated.");
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.Date = $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss dd-MM-yyyy')
@@ -241,10 +241,10 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
         Restangular.one('ordertools/sendToFiyuu').get({
             OrderID: OrderID,
         }).then(function (result) {
-            toaster.pop("success", "Fiyuu ya iletildi!");
+            toaster.pop("success", "Transmitted to Fiyuu!");
             $scope.isSpinner = false;
         }, function (response) {
-            toaster.pop('error', "Hata!", response.data.Message);
+            toaster.pop('error', "Error!", response.data.Message);
             $scope.isSpinner = false;
         });
     }
@@ -253,10 +253,10 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
         Restangular.one('ordertools/sendgiftpromotioncodes').get({
             OrderID: OrderID,
         }).then(function (result) {
-            toaster.pop("success", "Hediye kodları iletildi!");
+            toaster.pop("success", "Gift codes forwarded!");
             $scope.isSpinner = false;
         }, function (response) {
-            toaster.pop('error', "Hata!", response.data.Message);
+            toaster.pop('error', "Error!", response.data.Message);
             $scope.isSpinner = false;
         });
     }
@@ -279,7 +279,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + item.id;
                 } else {
-                    toaster.pop('warning', "Sipariş Durumu Değiştiriliyor !", "");
+                    toaster.pop('warning', "Change Order Status !", "");
                 }
             } else {
                 if (item.OrderStateID == 5 && $rootScope.user.restrictions.changeorder == 'Enable') {
@@ -300,7 +300,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                 }
                 if (item.OrderStateID == 5 || item.OrderStateID == 6 || item.OrderStateID == 7 || item.OrderStateID == 10 || item.OrderStateID == 9 || item.OrderStateID == 8) {
                     if ($rootScope.user.restrictions.changeorder != 'Enable')
-                        toaster.pop('warning', "Sipariş Değiştirilemez!", "");
+                        toaster.pop('warning', "Order Cannot Be Changed!", "");
                 } else {
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage == 'Enable') {
                         if (item.OrderTypeID == 0)
@@ -319,18 +319,18 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                 }
             }
         } else {
-            toaster.pop('warning', "Sipariş Değiştirilemez!", "");
+            toaster.pop('warning', "Order Cannot Be Changed!", "");
         }
     };
     $scope.UpdateOrderStatusAdmin = function (itemID) {
         SweetAlert.swal({
-            title: "SİPARİŞİ İPTAL ET !",
-            text: "Siparişİ İptal Etmek İstediğinize Emin misiniz ? ",
+            title: "CANCEL ORDER !",
+            text: "Are you sure you want to cancel the order ? ",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet , İptal Et !",
-            cancelButtonText: "Hayır, İptal Etme !",
+            confirmButtonText: "Yes , İptal Et !",
+            cancelButtonText: "No, İptal Etme !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -340,24 +340,24 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                 OrderID: itemID,
                 newSatus: 7,
                 OrderReasonID: '100592257695',
-                OrderNote: "Yetkili Kullanıcı İptal Etti !"
+                OrderNote: "Authorized User Canceled !"
             }
             ).then(function (result) {
                 $scope.getOrder();
-                toaster.pop('success', "Sipariş Durumu Güncellendi.", "");
+                toaster.pop('success', "Order Status Updated.", "");
             });
             }
         });
     };
     $scope.UpdateOrderStatus = function (item) {
         SweetAlert.swal({
-            title: "SİPARİŞİ İPTAL ET !",
-            text: "Siparişİ İptal Etmek İstediğinize Emin misiniz ? ",
+            title: "CANCEL ORDER !",
+            text: "Are you sure you want to cancel the order ? ",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet , İptal Et !",
-            cancelButtonText: "Hayır, İptal Etme !",
+            confirmButtonText: "Yes , İptal Et !",
+            cancelButtonText: "No, İptal Etme !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -387,7 +387,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
             OrderID: OrderID,
             newSatus: 1
         }).then(function () {
-            toaster.pop('success', "Siparişin Ödemesi Kapatıldı.", "");
+            toaster.pop('success', "Payment Of Order Closed.", "");
             $scope.getOrder();
         }, function (response) {
             toaster.pop('error', "Response", response.data.ExceptionMessage);
@@ -397,7 +397,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
         Restangular.one("ordertools/reverttoprevstate").get({
             OrderID: OrderID
         }).then(function () {
-            toaster.pop('success', "Sipariş Önceki Durumuna Getirildi.", "");
+            toaster.pop('success', "Order Restored To Previous State.", "");
             $scope.getOrder();
         }, function (response) {
             toaster.pop('error', "Response", response.data.ExceptionMessage);
@@ -407,7 +407,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
         Restangular.one("ordertools/RefreshOrder").get({
             OrderID: OrderID,
         }).then(function () {
-            toaster.pop('success', "Sipariş Tutarı Güncellendi.", "");
+            toaster.pop('success', "Order Amount Updated.", "");
             $scope.getOrder();
         }, function (response) {
             toaster.pop('error', "Response", response.data.ExceptionMessage);
@@ -469,7 +469,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                                 $scope.UpdateOrderStatus(item)
                         }, function (err) {
                             if (err) {
-                                toaster.pop('warrning', "Şifre Yanlış!", err.error_description);
+                                toaster.pop('warrning', "Password Erroneous!", err.error_description);
                                 return 'No'
                             }
                             else {
@@ -482,7 +482,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                     }
                 })
             } else {
-                toaster.pop("warning", "BU İŞLEM İÇİN GEREKLİ YETKİNİZ BULUNMAMAKTADIR !");
+                toaster.pop("warning", "YOU ARE NOT AUTHORIZED FOR THIS PROCEDURE. !");
                 return 'No';
             }
         }
@@ -562,7 +562,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                 location.href = '#/app/orders/orderStore/' + result.id;
             if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                 location.href = '#/app/orders/order/' + result.id;
-            toaster.pop("success", "Sipariş Oluşturuldu.");
+            toaster.pop("success", "Order Created.");
             $scope.isSpinner = false;
         }, function (response) {
             toaster.pop('error', "Hata!", response.data.ExceptionMessage);

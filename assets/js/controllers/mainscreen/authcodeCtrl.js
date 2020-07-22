@@ -17,14 +17,14 @@ function authcodeCtrl($rootScope, $scope, $modalInstance, $log, toaster, Restang
         }).then(function (result) {
             if (result == true) {
                 $scope.ok();
-                toaster.pop('success', "Giriş Başarılı.");
+                toaster.pop('success', "Login successful.");
             } else {
                 $scope.cancel();
-                toaster.pop('error', "Giriş  Başarısız !", 'Özel Şifrenizin Doğru Olduğundan Emin Olup Tekrar Deneyiniz !');
+                toaster.pop('error', "Login Failed !", 'Make sure your private password is correct and try again !');
             }
         }, function (response) {
             $scope.cancel();
-            toaster.pop('error', "Giriş  Başarısız !", 'Özel Şifrenizin Doğru Olduğundan Emin Olup Tekrar Deneyiniz !');
+            toaster.pop('error', "Login Failed !", 'Make sure your private password is correct and try again !');
         });
     };
     $scope.ok = function () {

@@ -14,7 +14,7 @@ function taghierarchyCtrl($rootScope, $scope, $modal, Restangular, toaster, $win
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -33,7 +33,7 @@ function taghierarchyCtrl($rootScope, $scope, $modal, Restangular, toaster, $win
             $scope.tags = result;
             $scope.RefreshNestables();
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.saveData = function (data) {

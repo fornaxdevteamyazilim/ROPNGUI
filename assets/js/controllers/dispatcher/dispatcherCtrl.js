@@ -111,7 +111,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                 $scope.getOrder = true;
                 $scope.$broadcast('$$rebind::refresh');
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
                 $scope.ShowObject = false;
                 $scope.getOrder = true;
             });
@@ -150,11 +150,11 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                 $scope.orders[i].OrderStateID = 6;
                 $scope.orders[i].put().then(
                     function (res) {
-                        toaster.pop("success", "Hazır.", "Sipariş Çıktı.");
+                        toaster.pop("success", "Prepared.", "Order Output.");
                         $scope.orders.splice(i, 1);
                     },
                     function (response) {
-                        toaster.pop('error', "Güncelleme başarısız !", response.data.ExceptionMessage);
+                        toaster.pop('error', "Update failed !", response.data.ExceptionMessage);
                         $scope.LoadOrders();
                     }
                 );
@@ -169,7 +169,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
             Restangular.restangularizeElement('', state, 'orderstate')
             state.post().then(
                 function (res) {
-                    toaster.pop("success", "Hazır.", "Teslim edildi.");
+                    toaster.pop("success", "Prepared.", "Was delivered.");
                 });
         }
         else {
@@ -180,9 +180,9 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         Restangular.all('ordertools/PrintLabels').getList({
             OrderID: OrderID
         }).then(function (_orderItems) {
-            toaster.pop('success', "Etiket Tekrar Yazdırılıyor.");
+            toaster.pop('success', "Label Printing Again.");
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server error", response.data.ExceptionMessage);
         });
     };
     $scope.homedeliveryOrder = function () {
@@ -276,7 +276,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                     //$scope.DriverVehicle = items; 
                     $scope.$broadcast('$$rebind::refresh');
                 }, function (response) {
-                    toaster.pop('warning', "Sunucu Hatası", response.data);
+                    toaster.pop('warning', "Server error", response.data);
                 });
             }
         });
@@ -384,7 +384,7 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -395,10 +395,10 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
         state.post().then(
             function (res) {
                 $rootScope.$emit('PreparedOrderRefresh', { id: $scope.order.id });
-                toaster.pop("success", "Sipariş Çıktı !", "Order marked as Out!");
+                toaster.pop("success", "Order Output !", "Order marked as Out!");
                 $scope.ok();
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
                 $scope.LoadOrders();
             });
     };
@@ -447,7 +447,7 @@ function backDriverCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParam
             $rootScope.$emit('BackDriverRefresh', { id: $scope.order.id });
             $scope.ok();
         }, function (resp) {
-            toaster.pop('error', "Dönüş işlenemedi", resp.data.ExceptionMessage);
+            toaster.pop('error', "Return failed", resp.data.ExceptionMessage);
             $scope.LoadOrders();
         });
     };

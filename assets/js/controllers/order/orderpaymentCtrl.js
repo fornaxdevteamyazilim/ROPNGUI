@@ -149,7 +149,7 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
     $scope.SavePayment = function (type) {
         $scope.currentPayment.PaymentTypeID = type.id;
         if ($scope.currentPayment.Amount == 0) {
-            toaster.pop('error', "Ödenecek Tutar: 0 !", "error");
+            toaster.pop('error', "Amount Payable: 0 !", "error");
         } else {
             $scope.ShowButton = true;
             $scope.currentPayment.PaymentTypeID = type.id;
@@ -158,23 +158,23 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
             if ($scope.isNewPayment) {
                 $scope.currentPayment.post().then(function (resp) {
                     //$scope.setBekoECRPayment(type.PaymentType);
-                    toaster.pop("success", "ÖDEME KAYDEDİLDİ.");
+                    toaster.pop("success", "PAYMENT SAVED.");
                     $scope.order.payments.push(resp);
                     $scope.Recalc();
                     if ($scope.currentPayment.Amount == 0)
                         $scope.ok();
                 }, function (resp) {
-                    toaster.pop('error', "YENİ ÖDEME KAYDEDİLMEDİ !", resp.data.ExceptionMessage);
+                    toaster.pop('error', "NO NEW PAYMENT RECORDED !", resp.data.ExceptionMessage);
                 });
             } else {
                 $scope.currentPayment.put().then(function (resp) {
                     //$scope.setBekoECRPayment(type.PaymentType);
-                    toaster.pop("success", "ÖDEME GÜNCELLENDİ.");
+                    toaster.pop("success", "PAYMENT UPDATED.");
                     $scope.Recalc();
                     if ($scope.currentPayment.Amount == 0)
                         $scope.ok();
                 }, function (resp) {
-                    toaster.pop('error', "YENİ ÖDEME GÜNCELLENEMEDİ !", resp.data.ExceptionMessage);
+                    toaster.pop('error', "THE NEW PAYMENT COULD NOT BE UPDATED !", resp.data.ExceptionMessage);
                 });
             }
         }
@@ -203,12 +203,12 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
                     }
                 });
             } else {
-                $scope.message = "İşlem Gerçekleştirilemedi.";
+                $scope.message = "Operation Could Not Be Performed.";
                 $scope.Showspinner = false;
             }
         }, function (response) {
-            $scope.message = "İşlem Gerçekleştirilemedi.";
-            toaster.pop('error', "ÖDEME YAPILAMADI !", response.data.ExceptionMessage);
+            $scope.message = "Operation Could Not Be Performed.";
+            toaster.pop('error', "PAYMENT NOT MADE !", response.data.ExceptionMessage);
             $scope.Showspinner = false;
         });
     };
@@ -239,7 +239,7 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
                 $scope.currentPayment.PaymentTypeID = result[0].PaymentTypeID;
             }
         }, function (response) {
-            toaster.pop('Warning', "Sunucu hatası", response);
+            toaster.pop('Warning', "Server Error", response);
         });
     };
     $scope.GetPaymentTypes();
@@ -289,18 +289,18 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
                     OrderID: $scope.order.id
                 }
             ).then(function (result) {
-                toaster.pop('success', "Kaydedildi!!", 'SAVED');
+                toaster.pop('success', "SAVED!!", 'SAVED');
                 $scope.OrderInvoice = result;
                 //$scope.ok();
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     }
     $scope.SaveOrderInvoice = function () {
         if ($scope.OrderInvoice.restangularized && $scope.OrderInvoice.id) {
             $scope.OrderInvoice.put().then(function (resp) {
-                toaster.pop('success', "Kaydedildi!!", 'SAVED');
+                toaster.pop('success', "SAVED!!", 'SAVED');
             });
         }
         else {
@@ -309,11 +309,11 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
                     OrderID: $scope.order.id
                 }
             ).then(function (result) {
-                toaster.pop('success', "Kaydedildi!!", 'SAVED');
+                toaster.pop('success', "SAVED!!", 'SAVED');
                 $scope.OrderInvoice = result;
                 //$scope.ok();
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
         if (!$scope.OrderInvoice) {
@@ -403,14 +403,14 @@ function orderinvoiceCtrl($rootScope, $scope, $modalInstance, $log, $filter, Swe
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 oin.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'OrderInvoice')
             this.item.post().then(function (res) {
                 oin.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -442,9 +442,9 @@ function orderinvoiceCtrl($rootScope, $scope, $modalInstance, $log, $filter, Swe
         rowform.$cancel();
         if (!oin.tableParams.data[oin.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(oin.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
 
@@ -465,20 +465,20 @@ function orderinvoiceCtrl($rootScope, $scope, $modalInstance, $log, $filter, Swe
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
 
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -487,7 +487,7 @@ function orderinvoiceCtrl($rootScope, $scope, $modalInstance, $log, $filter, Swe
                     oin.tableParams.data[index].remove();
                 }
                 oin.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

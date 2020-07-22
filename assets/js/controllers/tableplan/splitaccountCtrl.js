@@ -39,7 +39,7 @@ function splitaccountCtrl($rootScope, $scope, $log, $modal, $filter, $modalInsta
                 $scope.currentPayment.PaymentTypeID = result[0].PaymentTypeID;
             }
         }, function (response) {
-            toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.GetPaymentTypes();
@@ -50,7 +50,7 @@ function splitaccountCtrl($rootScope, $scope, $log, $modal, $filter, $modalInsta
                 for (var l = 0; l < $scope.order.payments.length; l++) {
                     if ($scope.order.persons[i].id == $scope.order.payments[l].OrderPersonID) {
                         $scope.selectedPersonID = null;
-                        toaster.pop('warning', "Seçilen Kişi Ödeme Gerçekleştiremez!", "warning");
+                        toaster.pop('warning', "Selected Person Payment Unrealizable!", "warning");
                         return;
                     }
                 }
@@ -102,20 +102,20 @@ function splitaccountCtrl($rootScope, $scope, $log, $modal, $filter, $modalInsta
         if ($scope.selectedPersonID) {
             var person = $filter('filter')($scope.order.persons, { id: $scope.selectedPersonID });
         } else {
-            toaster.pop('warning', "Lütfen Kişi Seçin!", "warning");
+            toaster.pop('warning', "Please Select Person!", "warning");
         }
         if (person[0].TotalAmount == 0) {
-            toaster.pop('error', "Ödenecek Tutar: 0 !", "error");
+            toaster.pop('error', "Payable Amount: 0 !", "error");
         } else {
             var data = { PaymentTypeID: paymentype.id, OrderID: $scope.order.id, Amount: person[0].TotalAmount, OrderPersonID: person[0].id, PaymentDate: $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd HH:mm:ss'), }
             Restangular.restangularizeElement('', data, 'orderpayment');
             data.post().then(function (resp) {
                 $scope.order.payments.push(resp);
                 $scope.controlPersonAccount();
-                toaster.pop("success", "ÖDEME KAYDEDİLDİ.");
+                toaster.pop("success", "PAYMENT SAVED.");
                 $scope.Recalc('OK');
             }, function (resp) {
-                toaster.pop('error', "YENİ ÖDEME KAYDEDİLMEDİ !", resp.data.ExceptionMessage);
+                toaster.pop('error', "NEW PAYMENT NOT SAVED !", resp.data.ExceptionMessage);
             });
         }
     };

@@ -40,7 +40,7 @@ function selectPersonCtrl($rootScope, $scope, $modalInstance, Restangular, ngTab
                   $defer.resolve(items);
                   $scope.isSearching(false);
               }, function (response) {
-                  toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                  toaster.pop('error', "Server Error ", response.data.ExceptionMessage);
               });
           }
 

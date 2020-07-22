@@ -28,14 +28,14 @@ function marketingpermissionCtrl($rootScope, $scope, $modalInstance, order, Rest
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
                 $scope.succesMarPer = true;
-                toaster.pop('success', "Güncellendi", 'Updated!');
+                toaster.pop('success', "Updated", 'Updated!');
             });
         }
         else {
             data.PersonID = order.persons[0].PersonID;
             data.post().then(function (resp) {
                 $scope.succesMarPer = true;
-                toaster.pop('success', "Kaydedildi!", 'Saved!');
+                toaster.pop('success', "Saved!", 'Saved!');
             });
         }
     };

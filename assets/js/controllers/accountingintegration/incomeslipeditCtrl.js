@@ -83,20 +83,20 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
         rowform.$cancel();
         if (!ise.tableParams.data[ise.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ise.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -107,14 +107,14 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled !", "Deletion Canceled !", "error");
             }
         });
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -128,7 +128,7 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
                     ise.tableParams.data[index].remove();
                 }
                 ise.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -172,7 +172,7 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -196,10 +196,10 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
             AccountingIncomeSlipID: $stateParams.id,
         }).then(function (result) {
             $scope.isSpinner = false;
-            toaster.pop('success', "Aktarıldı", '');
+            toaster.pop('success', "Transferred", '');
         }, function (response) {
             $scope.isSpinner = false;
-            toaster.pop('Warning', "Sorun Oluştu!", response.data.ExceptionMessage);
+            toaster.pop('Warning', "There was a problem !", response.data.ExceptionMessage);
         });
     };
     $scope.$on('$destroy', function () {

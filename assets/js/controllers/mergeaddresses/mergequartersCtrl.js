@@ -25,7 +25,7 @@ function mergequartersCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
         }).then(function (result) {
             angular.copy(result, $scope.subcities);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.SelectSubcity = function (SubcityID) {
@@ -51,35 +51,35 @@ function mergequartersCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
             angular.copy(result, $scope.toQuarters);
             $scope.ShowObject = false;
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             $scope.ShowObject = false;
         });
     };
     $scope.FromSelectItem = function (Item) {
         $scope.FromSelectQuarter = Item;
-        toaster.pop('warning', "Birleştirilecek Mahalle...");
+        toaster.pop('warning', "Be merged Neighborhood...");
     };
     $scope.ToSelectItem = function (Item) {
         $scope.ToSelectQuarter = Item;
-        toaster.pop('warning', "Birleşecek Mahalle...");
+        toaster.pop('warning', "Will unite Neighborhood...");
     };
     $scope.MergeQuarter = function () {
         swal({
-            title: "'" + $scope.FromSelectQuarter.name + "' Mahallesi '" + $scope.ToSelectQuarter.name + "' Mahallesi ile birleşecek",
-            text: "Bu İşlemi Onaylıyormusunuz!",
+            title: "'" + $scope.FromSelectQuarter.name + "' Neighborhood '" + $scope.ToSelectQuarter.name + "' Neighborhood will merge with",
+            text: "Do You Confirm This Transaction !",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet",
-            cancelButtonText: "Hayır",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
             closeOnConfirm: true
         }, function () {
             Restangular.one('addresshelper/merge/quarter?FromQuarterID=' + $scope.FromSelectQuarter.id + '&ToQuarterID=' + $scope.ToSelectQuarter.id).get().then
                  (function (restresult) {
                      $scope.LoadQuarters();
-                     toaster.pop('success', "Mahalle Birleştirildi.");
+                     toaster.pop('success', "Neighborhood Combined.");
                  }, function (response) {
-                     toaster.pop('error', "Sunucu hatası", response.ExceptionMessage);
+                     toaster.pop('error', "Server Error", response.ExceptionMessage);
                  });
         });
     };
@@ -98,7 +98,7 @@ function mergequartersCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

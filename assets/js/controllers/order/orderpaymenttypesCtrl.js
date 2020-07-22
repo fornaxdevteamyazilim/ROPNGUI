@@ -7,10 +7,10 @@ function orderpaymenttypesCtrl($scope, $rootScope, $modalInstance, item, Restang
         Restangular.restangularizeElement('', item, 'order');
         if (item.restangularized && item.id) 
             item.put().then(function (resp) {
-            toaster.pop("success", "ÖDEME TİPİ DEĞİŞTİRİLDİ.");
+            toaster.pop("success", "PAYMENT TYPE CHANGED.");
             $scope.ok();
         }, function (response) {
-            toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "SServer Error", response.data.ExceptionMessage);
         });
     };
     $scope.paymenttypes = [];
@@ -26,7 +26,7 @@ function orderpaymenttypesCtrl($scope, $rootScope, $modalInstance, item, Restang
                     }
                 }
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

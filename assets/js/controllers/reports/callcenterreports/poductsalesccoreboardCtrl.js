@@ -225,7 +225,7 @@ function poductsalesccoreboardCtrl($scope, $filter, $modal, $log, Restangular, S
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

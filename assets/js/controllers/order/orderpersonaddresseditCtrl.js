@@ -8,7 +8,7 @@ function orderpersonaddresseditCtrl($scope, $modalInstance, $filter, $log, $wind
             $scope.item = restresult.StreetAddress;
         },
            function (restresult) {
-               toaster.pop('error', "Error", 'Sunucu Hatası!');
+               toaster.pop('error', "Error", 'Server Error!');
                swal("Error!", "Data Error!", "Warning");
            }
            );
@@ -16,12 +16,12 @@ function orderpersonaddresseditCtrl($scope, $modalInstance, $filter, $log, $wind
     $scope.SaveData = function (data) {
             Restangular.restangularizeElement('', data, 'address_streetaddress');
             data.put().then(function (resp) {
-                toaster.pop('success', "Adres Değiştirildi.", "Kayıt Gerçekleşti.");
-                var adderssdata =  $scope.item + 'Kapı : ' + resp.Floor + ', Apartman No : ' + resp.AppartmentNo + ', Adres No : ' + resp.AddressNo; 
+                toaster.pop('success', "Address Changed.", "Recording Took Place.");
+                var adderssdata =  $scope.item + 'Door : ' + resp.Floor + ', Apartment No. : ' + resp.AppartmentNo + ', Address No. : ' + resp.AddressNo; 
                 $scope.ok(adderssdata);
             },
             function (resp) {
-                toaster.pop('error', "Adres Değiştirilemez !", "error");
+                toaster.pop('error', "Address Cannot Changed !", "error");
             });
     };
     $scope.loadEntities = function (EntityType, Container) {
@@ -29,7 +29,7 @@ function orderpersonaddresseditCtrl($scope, $modalInstance, $filter, $log, $wind
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -41,7 +41,7 @@ function orderpersonaddresseditCtrl($scope, $modalInstance, $filter, $log, $wind
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     }

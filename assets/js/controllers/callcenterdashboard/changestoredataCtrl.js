@@ -18,7 +18,7 @@ function changestoredataCtrl($rootScope, $scope, $modalInstance, item, $log, $fi
         Restangular.restangularizeElement('', item.Store, 'store');
         if (item.Store.restangularized && item.Store.id) {
             item.Store.put().then(function (resp) {
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
                 $scope.ok();
             },function (restresult) {
                 swal("Error!", "Data Error!", restresult.data.ExceptionMessage);

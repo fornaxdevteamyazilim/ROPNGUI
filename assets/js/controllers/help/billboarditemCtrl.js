@@ -17,14 +17,14 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 bbi.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'billboarditem')
             this.item.post().then(function (res) {
                 bbi.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -42,9 +42,9 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
         rowform.$cancel();
         if (!bbi.tableParams.data[bbi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(bbi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     bbi.tableParams = new ngTableParams({
@@ -63,19 +63,19 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -84,7 +84,7 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
                     bbi.tableParams.data[index].remove();
                 }
                 bbi.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -110,7 +110,7 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

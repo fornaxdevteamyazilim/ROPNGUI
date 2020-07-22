@@ -62,7 +62,7 @@ function kdsCtrl($scope, $log, $modal, $interval, $timeout, Restangular, ngTable
             $scope.start();
         }, function (response) {
             $scope.inProgress = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             $scope.start();
         });
     };
@@ -102,12 +102,12 @@ function kdsCtrl($scope, $log, $modal, $interval, $timeout, Restangular, ngTable
                 $scope.orderitemstates[i].Completed = true;
                 $scope.orderitemstates[i].put().then(
                 function (res) {
-                    toaster.pop("success", "Hazır.", "Item prepared!");
+                    toaster.pop("success", "Prepared.", "Item prepared!");
                     $scope.WaitForResult = false;
                 },
                  function (response) {
                      $scope.WaitForResult = false;
-                     toaster.pop('error', "Güncelleme başarısız !", response.data.ExceptionMessage);
+                     toaster.pop('error', "Update failed !", response.data.ExceptionMessage);
                  });
                 break;
             }
@@ -117,7 +117,7 @@ function kdsCtrl($scope, $log, $modal, $interval, $timeout, Restangular, ngTable
     $scope.RemoveItem = function (item) {
         $scope.stop();
         if ($scope.WaitForResult == true) {
-            toaster.pop("warning", "Lütfen Bekleyin !", "Please Click Again!");
+            toaster.pop("warning", "Please Wait !", "Please Click Again!");
         } else {
             $scope.RemoveItemDispalay(item);
         }

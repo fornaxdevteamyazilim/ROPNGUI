@@ -8,14 +8,14 @@ function personinvoiceinfoCtrl($scope, $log, Restangular, ngTableParams, SweetAl
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 pii.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'personinvoiceinfo')
             this.item.post().then(function (res) {
                 pii.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -45,9 +45,9 @@ function personinvoiceinfoCtrl($scope, $log, Restangular, ngTableParams, SweetAl
         rowform.$cancel();
         if (!pii.tableParams.data[pii.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pii.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
         }
     };
     pii.tableParams = new ngTableParams({
@@ -67,19 +67,19 @@ function personinvoiceinfoCtrl($scope, $log, Restangular, ngTableParams, SweetAl
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -88,7 +88,7 @@ function personinvoiceinfoCtrl($scope, $log, Restangular, ngTableParams, SweetAl
                     pii.tableParams.data[index].remove();
                 }
                 pii.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

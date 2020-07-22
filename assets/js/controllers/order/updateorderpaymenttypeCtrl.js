@@ -48,9 +48,9 @@ function updateorderpaymenttypeCtrl($scope, $rootScope, $modalInstance, Orderid,
      }).then(function (result) {
      $scope.UpdateOrderPaymentType = result;
      $scope.ok();
-     toaster.pop('success', "Siparişin Ödeme Tipi Değiştirildi!!", 'Success');
+     toaster.pop('success', "Payment Type Order Changed!!", 'Success');
  }, function (response) {
-             toaster.pop('error', "Sunucu hatası", restresult.data.ExceptionMessage);
+             toaster.pop('error', "Server Error", restresult.data.ExceptionMessage);
  });
     };
     $scope.storepaymenttypes = [];
@@ -63,7 +63,7 @@ function updateorderpaymenttypeCtrl($scope, $rootScope, $modalInstance, Orderid,
             }).then(function (result) {
                 $scope.storepaymenttypes = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

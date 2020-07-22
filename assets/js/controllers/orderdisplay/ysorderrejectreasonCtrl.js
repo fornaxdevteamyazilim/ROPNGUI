@@ -21,9 +21,9 @@ function ysorderrejectreasonCtrl($rootScope, $scope, $modalInstance, order, Rest
             Restangular.restangularizeElement('', order, 'yemeksepetiordermap');
             order.put().then(function (resp) {
                 $scope.ok();
-                toaster.pop('success', "Eşleştirme Kaydedildi!");
+                toaster.pop('success', "Pairing Saved!");
             }, function (resp) {
-                toaster.pop('error', "Eşleştirme Kaydedilmedi!", resp.data.ExceptionMessage);
+                toaster.pop('error', "Pairing Not Saved!", resp.data.ExceptionMessage);
             });
         }
     };
@@ -35,7 +35,7 @@ function ysorderrejectreasonCtrl($rootScope, $scope, $modalInstance, order, Rest
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

@@ -92,7 +92,7 @@ function yemeksepetiorderlistCtrl($scope, $log, $modal, Restangular, ngTablePara
             $scope.total = items.length;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
         });
     }
 });
@@ -168,7 +168,7 @@ function yemeksepetiorderlistCtrl($scope, $log, $modal, Restangular, ngTablePara
               Restangular.all(EntityType).getList({}).then(function (result) {
                   $scope[Container] = result;
               }, function (response) {
-                  toaster.pop('Warning', "Sunucu Hatası", response);
+                  toaster.pop('Warning', "Server Error", response);
               });
           }
       };

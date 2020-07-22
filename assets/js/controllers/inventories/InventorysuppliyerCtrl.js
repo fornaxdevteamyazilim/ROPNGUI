@@ -34,7 +34,7 @@ function InventorysuppliyerCtrl($rootScope, $scope, $log, $modal, $filter, Sweet
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         }
@@ -43,14 +43,14 @@ function InventorysuppliyerCtrl($rootScope, $scope, $log, $modal, $filter, Sweet
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 isy.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'Inventorysuppliyer')
             data.post().then(function (res) {
                 isy.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             data.get();
         }
@@ -75,13 +75,13 @@ function InventorysuppliyerCtrl($rootScope, $scope, $log, $modal, $filter, Sweet
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -90,7 +90,7 @@ function InventorysuppliyerCtrl($rootScope, $scope, $log, $modal, $filter, Sweet
                     isy.tableParams.data[index].remove();
                 }
                 isy.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -123,7 +123,7 @@ function InventorysuppliyerCtrl($rootScope, $scope, $log, $modal, $filter, Sweet
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

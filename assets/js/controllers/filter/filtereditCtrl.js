@@ -44,7 +44,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
             Restangular.restangularizeElement('', $scope.item, 'filter')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal("Kaydedildi.", "Saved.", "success");
+                swal("Saved.", "Saved.", "success");
                 $location.path('app/filter/filter/list');
             });
         }
@@ -53,7 +53,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
         $scope.savetoaster();
     }
     $scope.savetoaster = function () {
-        toaster.pop('success', "Kaydedildi.", 'Saved.');
+        toaster.pop('success', "Saved.", 'Saved.');
     }
     $scope.isClean = function () {
         return angular.equals($scope.original, $scope.item);
@@ -72,9 +72,9 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
         rowform.$cancel();
         if (!ici.tableParams.data[ici.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ici.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     ici.tableParams = new ngTableParams({
@@ -95,7 +95,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -111,7 +111,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -123,7 +123,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -142,13 +142,13 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
     $scope.filtercommands = [];
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-             text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -161,13 +161,13 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-           title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -176,7 +176,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
                     ici.tableParams.data[index].remove();
                 }
                 ici.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

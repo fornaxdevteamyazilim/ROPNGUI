@@ -556,12 +556,12 @@ function endofdayCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $w
     $scope.endofdays = [];
     $scope.SaveEndOfDays = function (data) {
         swal({
-            title: "Gün Sonu Almak İstediğinize Emin misiniz ?",
+            title: "Are you sure you want to get the end of the day ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet",
-            cancelButtonText: "Hayır",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
             closeOnConfirm: true
         }, function () {
             $scope.ShowingObje = true;
@@ -570,7 +570,7 @@ function endofdayCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $w
                     $scope.orders = restresult;
                     if (restresult == true) {
                         $scope.ShowingObje = false;
-                        toaster.pop('success', "Gün Sonu Alındı.", 'OK');
+                        toaster.pop('success', "End of Day Received.", 'OK');
                     }
                 },
                 function (restresult) {
@@ -580,14 +580,14 @@ function endofdayCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $w
                     var orderID = restresult.data.ExceptionMessage.substring(start + 1, end);
                     SweetAlert.swal("Hata!", restresult.data.ExceptionMessage);
                     SweetAlert.swal({
-                        title: "GÜN SONU ALINAMADI !",
+                        title: "END OF DAY FAILED !",
                         text: restresult.data.ExceptionMessage,
                         type: "info",
                         showCancelButton: true,
                         closeOnConfirm: true,
                         showLoaderOnConfirm: true,
-                        confirmButtonText: "Siparişe Git",
-                        cancelButtonText: "İptal",
+                        confirmButtonText: "Go to Order",
+                        cancelButtonText: "Cancel",
                         closeOnCancel: true
                     }, function (isConfirm) {
                         if (isConfirm) {

@@ -7,7 +7,7 @@ function billboardCtrl($rootScope, $scope, Restangular, toaster, $element) {
     ).then(function (result) {
         $scope.items = result;
     }, function (response) {
-        toaster.pop('error', "Sunucu hatası", response);
+        toaster.pop('error', "Server Error", response);
     });
     };
     $scope.GetLayout();

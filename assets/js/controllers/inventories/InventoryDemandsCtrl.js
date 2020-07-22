@@ -63,7 +63,7 @@ function InventoryDemandsCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
                     $defer.resolve(items);
                 }                
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -99,7 +99,7 @@ function InventoryDemandsCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -108,7 +108,7 @@ function InventoryDemandsCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

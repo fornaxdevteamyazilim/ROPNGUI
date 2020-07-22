@@ -17,7 +17,7 @@ function currentcallreasonCtrl($rootScope, $scope, $modalInstance, $log, $filter
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -26,7 +26,7 @@ function currentcallreasonCtrl($rootScope, $scope, $modalInstance, $log, $filter
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

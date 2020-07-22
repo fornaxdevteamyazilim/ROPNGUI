@@ -36,9 +36,9 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
         rowform.$cancel();
         if (!ip.tableParams.data[ip.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ip.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.BuildSearchString = function (src) {
@@ -81,7 +81,7 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
                 $scope.SelectedItem = (items[0]) ? items[0].id : null;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response);
+                toaster.pop('error', "Server Error", response);
             });
         }
     });
@@ -129,7 +129,7 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -138,7 +138,7 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -169,13 +169,13 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
                         InventoryPurchaseApprovalID: items[0].id,
                         toState: 1
                     }).then(function (restresult) {
-                        toaster.pop('success', "Kaydedildi.");
+                        toaster.pop('success', "Saved.");
                         ip.tableParams.reload();
                     }, function (response) {
                         toaster.pop('warning', response.data.ExceptionMessage);
                     });
                 }, function (response) {
-                    toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         }

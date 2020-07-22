@@ -75,7 +75,7 @@ function personaddresseslistCtrl($scope, $log, $filter, SweetAlert, Restangular,
                     location.href = '#/app/orders/orderStore/' + resp.id;
                 if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                     location.href = '#/app/orders/order/' + resp.id;
-                toaster.pop("success", "Sipariş Oluşturuldu !");
+                toaster.pop("success", "Order Created!");
             },
             function (resp) {
                 toaster.pop('error', response.data.ExceptionMessage, "error");
@@ -89,10 +89,10 @@ function personaddresseslistCtrl($scope, $log, $filter, SweetAlert, Restangular,
             data.put().then(
                 function (res) {
                     ad.tableParams.reload();
-                    toaster.pop('success', "Güncellendi.", 'Data Update applyed to server.');
+                    toaster.pop('success', "Failed to update.", 'Data Update applyed to server.');
                 },
                  function (response) {
-                     toaster.pop('error', "Güncellenemedi !", response.data.ExceptionMessage);
+                     toaster.pop('error', "Failed to update !", response.data.ExceptionMessage);
                  }
                  );
         }
@@ -101,10 +101,10 @@ function personaddresseslistCtrl($scope, $log, $filter, SweetAlert, Restangular,
             data.post().then(
                 function (res) {
                     ad.tableParams.reload();
-                    toaster.pop('success', "Kaydedildi.", 'Data Saved to server.');
+                    toaster.pop('success', "Saved.", 'Data Saved to server.');
                 },
                  function (response) {
-                     toaster.pop('error', "Kaydedilmedi !", response.data.ExceptionMessage);
+                     toaster.pop('error', "Not saved !", response.data.ExceptionMessage);
                  }
                 );
             data.get();
@@ -130,7 +130,7 @@ function personaddresseslistCtrl($scope, $log, $filter, SweetAlert, Restangular,
                 $scope.itemscount = items.length;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
 
         }
@@ -147,7 +147,7 @@ function personaddresseslistCtrl($scope, $log, $filter, SweetAlert, Restangular,
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

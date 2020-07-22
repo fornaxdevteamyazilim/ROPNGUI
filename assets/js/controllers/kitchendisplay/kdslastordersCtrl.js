@@ -32,7 +32,7 @@ function kdslastordersCtrl($rootScope, $scope, $modalInstance, $log, $filter, Sw
             $scope.inProgress = false;
             angular.copy(result.plain(), $scope.orderitemstates);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.getLastOrders();

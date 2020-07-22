@@ -61,7 +61,7 @@ function inventorysalelistCtrl($scope, $log, $modal, Restangular, ngTableParams,
             }).then(function (result) {
                 $scope.inventorysale = result;
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -73,9 +73,9 @@ function inventorysalelistCtrl($scope, $log, $modal, Restangular, ngTableParams,
         rowform.$cancel();
         if (!isl.tableParams.data[isl.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(isl.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     isl.tableParams = new ngTableParams({
@@ -92,7 +92,7 @@ function inventorysalelistCtrl($scope, $log, $modal, Restangular, ngTableParams,
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error ", response.data.ExceptionMessage);
                 });
             }
         }
@@ -132,7 +132,7 @@ function inventorysalelistCtrl($scope, $log, $modal, Restangular, ngTableParams,
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error ", response);
             });
         }
     };

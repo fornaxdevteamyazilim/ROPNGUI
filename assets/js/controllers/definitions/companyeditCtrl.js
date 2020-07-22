@@ -26,17 +26,17 @@ function companyeditCtrl($rootScope, $scope, $log, $modal, $location, Restangula
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             }, function (response) {
-                toaster.pop('warning', "İşlem Başarısız!", response.data.ExceptionMessage);
+                toaster.pop('warning', "Operation Failed !", response.data.ExceptionMessage);
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'company')
             data.post().then(function (res) {
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             }, function (response) {
-                toaster.pop('warning', "İşlem Başarısız!", response.data.ExceptionMessage);
+                toaster.pop('warning', "Operation Failed !", response.data.ExceptionMessage);
             });
         }
     };
@@ -47,33 +47,33 @@ function companyeditCtrl($rootScope, $scope, $log, $modal, $location, Restangula
                 $scope.item = Restangular.copy(restresult);
             },
            function (restresult) {
-               toaster.pop('warning', "İptal edildi !", 'Edit Cancelled.');
+               toaster.pop('warning', "It is cancelled !", 'Edit Cancelled.');
                swal("Error!", "Data Error!", "Warning");
            }
            )
     }
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi !", "Kayıt Silindi !", "success");
+                    SweetAlert.swal("Deleted !", "Record Deleted !", "success");
                     $location.path('app/definitions/companies');
                 }, function (response) {
-                    toaster.pop('warning', "İşlem Başarısız!", response.data.ExceptionMessage);
+                    toaster.pop('warning', "Operation Failed!", response.data.ExceptionMessage);
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi ! ", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled ! ", "Deletion canceled !", "error");
             }
         });
     };
@@ -93,7 +93,7 @@ function companyeditCtrl($rootScope, $scope, $log, $modal, $location, Restangula
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -118,14 +118,14 @@ function companyaccountCtrl($rootScope, $scope, $modal, $log, Restangular, $stat
         }).then(function (result) {
             $scope.CompanyAccount = result;
         }, function (response) {
-            toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.GetCompanyAccount();
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
@@ -133,11 +133,11 @@ function companyaccountCtrl($rootScope, $scope, $modal, $log, Restangular, $stat
                 data.CompanyID = $stateParams.id;
                 Restangular.restangularizeElement('', data, 'companyaccount')
                 data.post().then(function (res) {
-                    toaster.pop('success', "Kaydedildi.", 'Saved.');
+                    toaster.pop('success', "Saved.", 'Saved.');
                 });
 
             } else
-                toaster.pop('warning', "Yetkiniz Bulunmamaktadır !", 'You do not have permittion !');
+                toaster.pop('warning', "You Have No Authority. !", 'You do not have permittion !');
         }
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -155,7 +155,7 @@ function companyaccountCtrl($rootScope, $scope, $modal, $log, Restangular, $stat
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

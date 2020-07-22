@@ -27,7 +27,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                     }, function (rresult) { toaster.pop('error', "Error", rresult.data.ExceptionMessage); });
             },
            function (restresult) {
-               toaster.pop('error', "Error", 'Sunucu Hatası');
+               toaster.pop('error', "Error", 'Server Error');
                swal("Error!", "Data Error!", "Warning");
            }
            );
@@ -43,11 +43,11 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
 
     $scope.isActives = [
         {
-            name : 'Aktif',
+            name : 'Active',
             Value : true
         },
         {
-            name : 'Pasif',
+            name : 'Passive',
             Value : false
         }
     ];
@@ -69,7 +69,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
           }
       },
       function (restresult) {
-          toaster.pop('warning', "Sunucu hatası", response.data.ExceptionMessage);
+          toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
       })
     };
     $scope.GetPerson();
@@ -115,7 +115,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
     };
     $scope.HomeOrder = function (person, OrderType) {
         if ($scope.CheckPersonPhone == false) {
-            toaster.pop('warning', "Telefon Numarası Boş Geçilmemeli !", "error");
+            toaster.pop('warning', "Phone Number Should Not Be Blank !", "error");
             return;
         }
         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
@@ -135,7 +135,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Sipariş Oluşturuldu.");
+                    toaster.pop("success", "Order Created.");
                 },
                 function (resp) {
                     toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -167,7 +167,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                                           location.href = '#/app/orders/orderStore/' + resp.id;
                                       if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                                           location.href = '#/app/orders/order/' + resp.id;
-                                      toaster.pop("success", "Sipariş Oluşturuldu.");
+                                      toaster.pop("success", "Order Created.");
                                   },
                                   function (resp) {
                                       toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -177,11 +177,11 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                                   //TODO Swet Alert
                               }
                           } else {
-                              toaster.pop('warning', "Bu adrese sipariş girişi yapamazsınız !");
+                              toaster.pop('warning', "You cannot enter an order at the address !");
                           }
                       }
                   }, function (response) {
-                      toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                      toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                   });
         }
     };
@@ -196,7 +196,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
            }
        },
       function (restresult) {
-          toaster.pop('warning', "İptal edildi !");
+          toaster.pop('warning', "It is cancelled!");
       }
       )
     };
@@ -209,7 +209,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
         Restangular.restangularizeElement('', $scope.item, 'person_deliveryaddress');
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                toaster.pop('success', "Güncellendi.", 'Updated!');
+                toaster.pop('success', "Updated.", 'Updated!');
                 if (path == 'Order' && resp.id) {
                     $scope.HomeOrder(data, 2)
                 }
@@ -218,7 +218,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
         else {
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                toaster.pop('success', "Kaydedildi !", 'Saved!');
+                toaster.pop('success', "Saved !", 'Saved!');
                 if (path == 'Order' && resp.id) {
                     $scope.HomeOrder(data, 2)
                 }
@@ -257,7 +257,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
             Restangular.all(EntityType).getList().then(function (result) {
                 angular.copy(result.plain(), $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -269,7 +269,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
             }).then(function (result) {
                 angular.copy(result.plain(), $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

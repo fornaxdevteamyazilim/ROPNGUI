@@ -16,10 +16,10 @@ function TagModalCtrl($rootScope, $scope, $modalInstance, ObjectID, $log, $filte
         Object.post().then(
             function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             },
                 function (response) {
-                    toaster.pop('error', "Kaydedilmedi !", response.data.ExceptionMessage);
+                    toaster.pop('error', "Not Saved !", response.data.ExceptionMessage);
                 }
         );
     };
@@ -38,7 +38,7 @@ function TagModalCtrl($rootScope, $scope, $modalInstance, ObjectID, $log, $filte
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -73,7 +73,7 @@ function TagModalCtrl($rootScope, $scope, $modalInstance, ObjectID, $log, $filte
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -88,7 +88,7 @@ function TagModalCtrl($rootScope, $scope, $modalInstance, ObjectID, $log, $filte
     $scope.removeItem = function (index) {
         if ($scope.tableParams.data[index].fromServer) {
             $scope.tableParams.data[index].remove();
-            toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+            toaster.pop("error", "Attention !", "Record Deleted !");
         }
         $scope.tableParams.data.splice(index, 1);
     };

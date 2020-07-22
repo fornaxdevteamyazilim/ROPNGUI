@@ -58,17 +58,17 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
                 data.PersonID = angular.copy($rootScope.PersonID);
             }
             else {
-                toaster.pop('error', "Geçersiz Kayıt !");
+                toaster.pop('error', "Invalid Registration !");
             }
         }
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 $scope.CallReason(4);
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
                 $scope.isActiveButton(true);
             }, function (response) {
                 $scope.isActiveButton(true);
-                toaster.pop('error', "Kayıt Gerçekleşmedi !", response.data.ExceptionMessage);
+                toaster.pop('error', "Registration Realized !", response.data.ExceptionMessage);
             });
         }
         else {
@@ -76,12 +76,12 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
             Restangular.restangularizeElement('', data, 'complaint')
             data.post().then(function (res) {
                 $scope.CallReason(4);
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
                 $scope.isActiveButton(true);
                 $location.path('app/complaints/complaints/list');
             }, function (response) {
                 $scope.isActiveButton(true);
-                toaster.pop('error', "Kayıt Gerçekleşmedi !", response.data.ExceptionMessage);
+                toaster.pop('error', "Registration Realized !", response.data.ExceptionMessage);
             });
             data.get();
         }
@@ -93,7 +93,7 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
         data.ComplaintStatusID = 1;
         Restangular.restangularizeElement('', data, 'complaint')
         data.put().then(function (res) {
-            toaster.pop('success', "Güncellendi.", 'Updated.');
+            toaster.pop('success', "Updated.", 'Updated.');
             $location.path('app/complaints/complaints/list');
         });
     }
@@ -117,9 +117,9 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert Cancelled.');
+            toaster.pop('warning', "It is cancelled !", 'Insert Cancelled.');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit Cancelled.');
+            toaster.pop('warning', "It is cancelled !", 'Edit Cancelled.');
         }
     };
     $scope.loadEntities = function (EntityType, Container) {
@@ -130,7 +130,7 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -139,7 +139,7 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -161,24 +161,24 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
     $scope.loadEntities('complaintrelation', 'complaintrelations');
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi !", "Kayıt Silindi !", "success");
+                    SweetAlert.swal("Deleted !", "Record Deleted !", "success");
                     $location.path('app/complaints/complaints/list');
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled !", "Deletion Canceled !", "error");
             }
         });
     };
@@ -273,7 +273,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
                             $scope.$emit('ComplaintAction', false);
                         }
                     }, function (response) {
-                        toaster.pop('warning', "Sunucu Hatası", response);
+                        toaster.pop('warning', "Server Error", response);
                     });
             }
         });
@@ -283,7 +283,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
             data.put().then(function (res) {
                 $scope.CallReason(4);
                 car.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
@@ -292,7 +292,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
             data.post().then(function (res) {
                 $scope.CallReason(4);
                 car.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             data.get();
         }
@@ -310,20 +310,20 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
         rowform.$cancel();
         if (!car.tableParams.data[car.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(car.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled.');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled.');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled.');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled.');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -332,7 +332,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
                     car.tableParams.data[index].remove();
                 }
                 car.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -360,7 +360,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

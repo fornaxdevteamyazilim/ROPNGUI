@@ -23,7 +23,7 @@ function orderpromotionsCtrl($rootScope, $scope, $log, $filter, $modalInstance, 
                     $scope.AktiveCode = true;
             }
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası");
+            toaster.pop('error', "Server Error");
         });
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -42,7 +42,7 @@ function orderpromotionsCtrl($rootScope, $scope, $log, $filter, $modalInstance, 
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -54,12 +54,12 @@ function orderpromotionsCtrl($rootScope, $scope, $log, $filter, $modalInstance, 
         Restangular.restangularizeElement('', result, 'orderpromotion');
         result.post().then(
             function (res) {
-                toaster.pop("success", "Promosyon Eklendi.");
+                toaster.pop("success", "Promotion Added.");
                 $scope.OrderPromotion = res;
                 $scope.ok();
             },
             function (res) {
-                toaster.pop("error", "Promosyon Eklenemiyor !", res.data.ExceptionMessage);
+                toaster.pop("error", "Cannot Add Promotion !", res.data.ExceptionMessage);
             });
     };
     $scope.ok = function () {

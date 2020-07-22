@@ -14,11 +14,11 @@ function addcashCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $wi
 
             }
         ).then(function (result) {
-            toaster.pop('success', "Kaydedildi!!", 'SAVED');
+            toaster.pop('success', "SAVED!!", 'SAVED');
             $scope.ok();
             return $scope.AddCash = result;
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.ok = function () {

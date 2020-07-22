@@ -23,7 +23,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
             data
         ).then(function (result) {
             $scope.data = result;
-            toaster.pop('success', "Kaydedildi!", 'Bilgiler kaydedildi.');
+            toaster.pop('success', "Was recorded !", 'Information saved.');
             //$location.path('/app/mainscreen');
             //SweetAlert.swal("Success", "Siparişiniz Ödenmez Olarak İşaretlendi", "success");
             //userService.refreshUserData();
@@ -36,7 +36,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
             }
             
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.Back = function () {
@@ -69,7 +69,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
             toaster.pop('success', "Started", 'FingerPrint enroll process started...');
             //deferred.resolve(response);
         }).error(function (err, status) {
-            toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             //deferred.reject(err);
         });
         //return deferred.promise;

@@ -66,7 +66,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
                 $scope.ShowObject = false;
                 $scope.$broadcast('newRequirmentData', resp);
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 $scope.ShowObject = false;
             });
         }
@@ -84,30 +84,30 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
                 $scope.item = Restangular.copy(restresult);
             })
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             $scope.isSpinner = false;
         });
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Delete.", "Record Deleted.", "success");
                     $location.path('app/inventory/inventoryrequirments/list');
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
             }
         });
     };
@@ -143,7 +143,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -152,7 +152,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -187,11 +187,11 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
             $scope.isSpinner = false;
             $scope.$emit('isSipnner', $scope.isSpinner);
             iri.tableParams.reload();
-            toaster.pop('success', "Kaydedildi.", 'Saved data to server.');
+            toaster.pop('success', "Saved.", 'Saved data to server.');
         }, function (response) {
             $scope.isSpinner = false;
             $scope.$emit('isSipnner', $scope.isSpinner);
-            toaster.pop('warning', "Kaydedilmedi!", response.data.ExceptionMessage);
+            toaster.pop('warning', "Not Saved!", response.data.ExceptionMessage);
         });
     };
     iri.tableParams = new ngTableParams({
@@ -209,7 +209,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
                 $scope.ShowSpinnerObject = false;
             }, function (response) {
              $scope.ShowSpinnerObject = false;
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -229,7 +229,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -242,7 +242,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -295,7 +295,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
                 }
             }
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.LoadTags(20);

@@ -11,7 +11,7 @@ function changeorderdriverCtrl($scope, $modal, $filter, OrderStates, $modalInsta
                angular.copy(restresult, $scope.state);
            },
           function (restresult) {
-              toaster.pop('warning', "İptal edildi !", restresult.data.ExceptionMessage);
+              toaster.pop('warning', "It is cancelled !", restresult.data.ExceptionMessage);
           })
         Restangular.all('drivervehicle').getList({
             pageNo: 1,
@@ -20,7 +20,7 @@ function changeorderdriverCtrl($scope, $modal, $filter, OrderStates, $modalInsta
         }).then(function (result) {
             angular.copy(result, $scope.Drivers);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     }
     $scope.SaveNewDriver = function (driverId) {
@@ -30,14 +30,14 @@ function changeorderdriverCtrl($scope, $modal, $filter, OrderStates, $modalInsta
                 state.DriverID = driverId;
                 Restangular.restangularizeElement('', state, 'orderstate');
                 state.put().then(function (resp) {
-                    toaster.pop('success', "Sürücü değiştirildi !");
+                    toaster.pop('success', "Drive changed !");
                 },
                     function (err) {
                         if (err) {
-                            toaster.pop('error', "Sürücü güncellenmedi !", err.error_description);
+                            toaster.pop('error', "Driver updated !", err.error_description);
                         }
                         else {
-                            toaster.pop('error', "Sürücü güncellenmedi!", "Bilinmeyen Hata!");
+                            toaster.pop('error', "Driver updated !", "Unknown Error !");
                         }
                     });
             }

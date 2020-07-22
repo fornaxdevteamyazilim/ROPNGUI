@@ -13,7 +13,7 @@ function hotandreadyCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restan
                 $scope.item = Restangular.copy(restresult);
             },
            function (restresult) {
-               toaster.pop('warning', "İptal edildi !", 'Edit Cancelled !');
+               toaster.pop('warning', "It is cancelled !", 'Edit Cancelled !');
            }
            )
     }

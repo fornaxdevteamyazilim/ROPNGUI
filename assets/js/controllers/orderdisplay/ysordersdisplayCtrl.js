@@ -11,14 +11,14 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
         }).then(function (result) {
             $scope.orders = angular.copy(result);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.getYSorder();
     $scope.checkOrder = function (data) {
         Restangular.one('YemekSepetiOrderMap', data.id).get().then(function (restresult) {
             if (restresult.Reservation && restresult.Reservation.UserID != $rootScope.user.id) {
-                toaster.pop('error', "Kayıt kilitli", restresult.Reservation.NGUser.FullName);
+                toaster.pop('error', "Record locked", restresult.Reservation.NGUser.FullName);
             } else {
                 if (data.YemekSepetiOrderStateID == 1) {
                     location.href = '#/app/yemeksepeti/yemeksepetimerge/' + restresult.YemekSepetiOrderID;
@@ -26,7 +26,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
             }
             },
                 function (restresult) {
-                    toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+                    toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
                     swal("Error!", "Data Error!", "Warning");
                 });
         
@@ -128,7 +128,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
                     location.href = '#/app/orders/orderStore/' + resp.id;
                 if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                     location.href = '#/app/orders/order/' + resp.id;
-                toaster.pop("success", "Sipariş Oluşturuldu.");
+                toaster.pop("success", "Order Created.");
                 $rootScope.$emit('YSOrderDetailListener', ysOrder);
             },function (resp) {
                     toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -143,16 +143,16 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
         }).then(function (result) {
             $scope.HandledYSOrder(order, result[0]);
         }, function (response) {
-            toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.ProcessOrder = function (ysom) {
         Restangular.all('YemekSepetiTools/TransferOrder').getList({
             YemekSepetiOrderMapID: ysom.id
         }).then(function (_orderItems) {
-            toaster.pop('success', "Sipariş aktarım işlemi başlatıldı.");
+            toaster.pop('success', "Order transfer process initiated.");
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.$on('$destroy', function () {        

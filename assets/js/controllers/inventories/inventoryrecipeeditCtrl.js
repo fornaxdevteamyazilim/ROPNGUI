@@ -28,8 +28,8 @@ function inventoryrecipeeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
                $rootScope.InventoryRecipeID = restresult.id;
            },
            function (restresult) {
-               toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
-               swal("Hata!", "Sunucu Hatası!", "Warning");
+               toaster.pop('warning', "Server Errorı", response.data.ExceptionMessage);
+               swal("Hata!", "Server Error!", "Warning");
            })
     }
     else {
@@ -68,9 +68,9 @@ function inventoryrecipeeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
         rowform.$cancel();
         if (!ire.tableParams.data[ire.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ire.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled!", 'Edit cancelled !');
         }
     };
     //$scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -95,24 +95,24 @@ function inventoryrecipeeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
     //$scope.loadEntitiesCache('cache/inventoryunit', 'inventoryunits');
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
                     $location.path('app/inventory/inventoryrecipe/list');
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
             }
         });
     };
@@ -146,14 +146,14 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 iri.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'inventoryrecipeitem')
             this.item.post().then(function (res) {
                 iri.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -171,9 +171,9 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         rowform.$cancel();
         if (!iri.tableParams.data[iri.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(iri.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     iri.tableParams = new ngTableParams({
@@ -192,7 +192,7 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -208,7 +208,7 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -221,7 +221,7 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -231,13 +231,13 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
     $scope.loadEntities2('inventoryunit', 'inventoryunits');
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -246,7 +246,7 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                     iri.tableParams.data[index].remove();
                 }
                 iri.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };
@@ -311,14 +311,14 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 iro.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'inventoryrecipeoutputitem')
             this.item.post().then(function (res) {
                 iro.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -336,9 +336,9 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
         rowform.$cancel();
         if (!iro.tableParams.data[iro.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(iro.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     iro.tableParams = new ngTableParams({
@@ -357,7 +357,7 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -377,7 +377,7 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -386,7 +386,7 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -396,13 +396,13 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
     $scope.loadEntities2('inventoryunit', 'inventoryunits');
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -411,7 +411,7 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
                     iro.tableParams.data[index].remove();
                 }
                 iro.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

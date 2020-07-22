@@ -30,7 +30,7 @@ function storeordersCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
             $scope.AgentOrders = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadAgentOrders();

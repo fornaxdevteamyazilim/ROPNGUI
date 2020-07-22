@@ -47,9 +47,9 @@ function deleteorderpromotionCtrl($scope, $rootScope, $modalInstance, Order, Res
      }).then(function (result) {
          $scope.UpdateOrderPaymentType = result;
          $scope.ok();
-         toaster.pop('success', "Siparişin Durumu Değiştirildi!!", 'Success');
+         toaster.pop('success', "Status Of Order Changed!!", 'Success');
      }, function (response) {
-         toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+         toaster.pop('error', "Server Error", response.data.ExceptionMessage);
      });
     };
     $scope.storepaymenttypes = [];
@@ -62,7 +62,7 @@ function deleteorderpromotionCtrl($scope, $rootScope, $modalInstance, Order, Res
             }).then(function (result) {
                 $scope.storepaymenttypes = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

@@ -23,36 +23,36 @@ function mergetownsCtrl($rootScope, $scope, $log, $modal, Restangular, ngTablePa
             angular.copy(result, $scope.toTowns);
             $scope.ShowObject = false;
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             $scope.ShowObject = false;
         });
     };
     $scope.LoadTowns();
     $scope.FromSelectItem = function (Item) {
         $scope.FromSelectTown = Item;
-        toaster.pop('warning', "Birleştirilecek Şehir");
+        toaster.pop('warning', "City To Be Merged");
     };
     $scope.ToSelectItem = function (Item) {
         $scope.ToSelectTown = Item;
-        toaster.pop('warning', "Birleşecek Şehir");
+        toaster.pop('warning', "United City");
     };
     $scope.MergeTown = function () {
         swal({
-            title: "'" + $scope.FromSelectTown.name + "' Şehri '" + $scope.ToSelectTown.name + "' Şehri ile birleşecek",
-            text: "Bu İşlemi Onaylıyormusunuz!",
+            title: "'" + $scope.FromSelectTown.name + "' City '" + $scope.ToSelectTown.name + "' Will merge with the city",
+            text: "Do you approve of this operation!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet",
-            cancelButtonText: "Hayır",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
             closeOnConfirm: true
         }, function () {
             Restangular.one('addresshelper/merge/town?FromTownID=' + $scope.FromSelectTown.id + '&ToTownID=' + $scope.ToSelectTown.id).get().then
         (function (restresult) {
             $scope.LoadTowns();
-            toaster.pop('success', "Mahalle Birleştirildi.");
+            toaster.pop('success', "Merged with the city.");
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.ExceptionMessage);
         });
         });
     };

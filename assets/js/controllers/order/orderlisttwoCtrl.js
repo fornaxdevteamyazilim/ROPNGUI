@@ -87,7 +87,7 @@ function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 $defer.resolve(items);
                 $scope.ShowObject = false;
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 $scope.ShowObject = false;
             });
         //}
@@ -163,7 +163,7 @@ function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -172,7 +172,7 @@ function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

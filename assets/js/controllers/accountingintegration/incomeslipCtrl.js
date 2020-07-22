@@ -41,7 +41,7 @@ function incomeslipCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -62,7 +62,7 @@ function incomeslipCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

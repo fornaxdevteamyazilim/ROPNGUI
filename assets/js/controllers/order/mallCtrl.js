@@ -70,7 +70,7 @@ function mallCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTabl
                 $scope.loadOrders();
             })
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.CopyOrder = function (order) {
@@ -97,7 +97,7 @@ function mallCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTabl
     };
     $scope.SaveOpenOrders = function (data) {
         swal({
-            title: "Sipariş Teslim Edildi mi ?",
+            title: "Have we delivered the order ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -111,10 +111,10 @@ function mallCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTabl
                     newSatus: 10,
                 }
             ).then(function (result) {
-                toaster.pop('success', "Güncellendi", 'Updated!');
+                toaster.pop('success', "Updated", 'Updated!');
                 $scope.loadOrders();
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         });
     };
@@ -148,7 +148,7 @@ function mallCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTabl
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {
             $scope.ShowObject = false;
-            toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();

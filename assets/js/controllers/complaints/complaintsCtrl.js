@@ -79,7 +79,7 @@ function complaintsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, R
              $defer.resolve(items);
              $scope.ShowObject = false;
          }, function (response) {
-             toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
              $scope.ShowObject = false;
          });
      }
@@ -107,7 +107,7 @@ function complaintsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, R
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

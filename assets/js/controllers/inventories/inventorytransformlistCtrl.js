@@ -69,7 +69,7 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
                 $defer.resolve(items);
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
             }
 
@@ -91,7 +91,7 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
                     $scope.RepositoryID = result[0].id;
                 }
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -111,7 +111,7 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -120,7 +120,7 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -138,11 +138,11 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
     };
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { itr.tableParams.reload(); toaster.pop('success', "Güncellendi.", 'Updated.'); });
+            data.put().then(function (res) { itr.tableParams.reload(); toaster.pop('success', "Updated.", 'Updated.'); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { itr.tableParams.reload(); toaster.pop('success', "Kaydedildi.", 'Saved.'); });
+            data.post().then(function (res) { itr.tableParams.reload(); toaster.pop('success', "Saved.", 'Saved.'); });
             data.get();
         }
 
@@ -160,20 +160,20 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
         rowform.$cancel();
         if (!itr.tableParams.data[itr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(itr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -182,7 +182,7 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
                     itr.tableParams.data[index].remove();
                 }
                 itr.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
         itr.tableParams.reload();

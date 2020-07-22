@@ -11,7 +11,7 @@ function changeorderstoreCtrl($rootScope, $scope, $modalInstance, item, $log, $f
             angular.copy(items,$scope.Stores);
             $scope.LoadOrder();
         }, function (response) {
-            toaster.pop('error', "Sunucu Hatası", responsedata.ExceptionMessage);
+            toaster.pop('error', "Server Error", responsedata.ExceptionMessage);
         });
 
     }
@@ -52,10 +52,10 @@ function changeorderstoreCtrl($rootScope, $scope, $modalInstance, item, $log, $f
         Restangular.restangularizeElement('', ordertosave, 'order');
         if (ordertosave.restangularized && ordertosave.id) {
             ordertosave.put().then(function (resp) {
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
                 $scope.ok();
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

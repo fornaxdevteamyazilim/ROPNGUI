@@ -35,13 +35,13 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                 angular.copy(items, $scope.orderreasons);
                 $scope.LoadOrder();
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
             Restangular.all('YemekSepetiRejectReason').getList({                
             }).then(function (items) {
                 angular.copy(items, $scope.YemekSepetiRejectReasons);                
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         } else {
             Restangular.all('orderreason').getList({
@@ -49,7 +49,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                 angular.copy(items, $scope.orderreasons);
                 $scope.LoadOrder();
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     }
@@ -59,7 +59,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                  angular.copy(restresult, $scope.order);
              },
             function (restresult) {
-                toaster.pop('error', "Sunucu Hatası", restresult.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", restresult.data.ExceptionMessage);
             })
     };
 
@@ -86,7 +86,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
     };
     $scope.SaveData = function (data) {
         if (!data.OrderReasonID) {
-            toaster.pop('error', "Sebep seçiniz", "İptal sebebi seçiniz");
+            toaster.pop('error', "Choose a Reason", "Select cause of cancellation");
         }else if (item.root == 'orderdetail') {
             if (data.value == true) {
                 Restangular.all('ordertools/updateorderstatus').getList({
@@ -97,10 +97,10 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     YemekSepetiRejectReasonID:data.YemekSepetiRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
-                    toaster.pop('success', "Sipariş Durumu Güncellendi.");
+                    toaster.pop('success', "Order Status Updated.");
                     $scope.ok();
                 }, function (response) {
-                    toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
             if (data.value == false) {
@@ -112,10 +112,10 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                      YemekSepetiRejectReasonID:data.YemekSepetiRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
-                    toaster.pop('success', "Sipariş Durumu Güncellendi.");
+                    toaster.pop('success', "Order Status Updated.");
                     $scope.ok();
                 }, function (response) {
-                    toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
         } else {
@@ -134,19 +134,19 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     YemekSepetiRejectReasonID: data.YemekSepetiRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
-                    toaster.pop('success', "Sipariş reddedildi.");
+                    toaster.pop('success', "Order Denied.");
                     $scope.ok();
                 }, function (response) {
-                    toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
             Restangular.restangularizeElement('', ordertosave, 'order');
             if (ordertosave.restangularized && ordertosave.id) {
                 ordertosave.put().then(function (resp) {
-                    toaster.pop('success', "Güncellendi", 'Updated!');
+                    toaster.pop('success', "Updated", 'Updated!');
                     $scope.ok();
                 }, function (response) {
-                    toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
         }
@@ -167,7 +167,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     }).then(function (result) {
                         $scope[Container] = result;
                     }, function (response) {
-                        toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                        toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                     });
                 }
             };

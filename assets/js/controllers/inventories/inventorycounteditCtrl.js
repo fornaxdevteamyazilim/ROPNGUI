@@ -68,19 +68,19 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.ShowObject = true;
             $scope.item.put().then(function (resp) {
-                toaster.pop('success', "Güncellendi.", 'Saved data to server.');
+                toaster.pop('success', "Updated.", 'Saved data to server.');
                 $location.path('/app/inventory/inventorycount/list');
                 $scope.ShowObject = false;
             }, function (response) {
                 $scope.ShowObject = false;
-                toaster.pop('Warning', "Hata!", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Error!", response.data.ExceptionMessage);
             });
         }
         else {
             $scope.ShowObject = true;
             Restangular.restangularizeElement('', $scope.item, 'inventorycount')
             $scope.item.post().then(function (resp) {
-                toaster.pop('success', "Kaydedildi.", 'Saved data to server.');
+                toaster.pop('success', "Saved.", 'Saved data to server.');
                 $scope.Showtable = true;
                 $scope.item = {};
                 $scope.item = Restangular.copy(resp);
@@ -88,12 +88,12 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $scope.ShowObject = false;
             }, function (response) {
                 $scope.ShowObject = false;
-                toaster.pop('error', "Hata!", response.data.ExceptionMessage);
+                toaster.pop('error', "Error!", response.data.ExceptionMessage);
             });
         }
     };
     $scope.exportToExcel = function (tableId) { // ex: '#my-table'
-        $scope.exportHref = Excel.tableToExcel(tableId, 'Sayimlar');
+        $scope.exportHref = Excel.tableToExcel(tableId, 'Census');
         $timeout(function () { location.href = $scope.exportHref }, 1); // trigger download
     };
     $scope.InventoryCountExcel = function () {
@@ -125,24 +125,24 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Delete.", "Record Deleted.", "success");
                     $location.path('/app/inventory/inventorycount/list');
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled!", "Deletion canceled !", "error");
             }
         });
     };
@@ -160,7 +160,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                     $scope.item.RepositoryID = result[0].id;
                 }
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -181,7 +181,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -190,7 +190,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -247,7 +247,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 }
             }
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.LoadTags(20);

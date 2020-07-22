@@ -31,9 +31,9 @@ function productprototypelistCtrl($scope, $log, $modal, Restangular, ngTablePara
         rowform.$cancel();
         if (!pr.tableParams.data[pr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     pr.tableParams = new ngTableParams({
@@ -56,7 +56,7 @@ function productprototypelistCtrl($scope, $log, $modal, Restangular, ngTablePara
                     $scope.SelectedItem = items[0].id;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error ", response.data.ExceptionMessage);
             });
         }
     });
@@ -75,7 +75,7 @@ function productprototypelistCtrl($scope, $log, $modal, Restangular, ngTablePara
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
             });
         }
     };

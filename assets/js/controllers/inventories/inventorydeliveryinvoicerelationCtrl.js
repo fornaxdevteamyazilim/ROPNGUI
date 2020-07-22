@@ -21,7 +21,7 @@
                 Restangular.all(EntityType).getList({}).then(function (result) {
                     $scope[Container] = result;
                 }, function (response) {
-                    toaster.pop('Warning', "Sunucu Hatası", response);
+                    toaster.pop('Warning', "Server Error", response);
                 });
             }
         };

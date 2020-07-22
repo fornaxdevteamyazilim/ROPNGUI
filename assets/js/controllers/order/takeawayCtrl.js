@@ -80,7 +80,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
                 $scope.loadOrders();
             })
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.CopyOrder = function (order) {
@@ -107,12 +107,12 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
     };
     $scope.SaveOpenOrders = function (data) {
         swal({
-            title: "Sipariş Teslim Edildi mi ?",
+            title: "Have we delivered the order ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet",
-            cancelButtonText: "Hayır",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
             closeOnConfirm: true
         }, function () {
             Restangular.all('ordertools/updateorderstatus').getList(
@@ -121,10 +121,10 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
               newSatus: 10,
           }
       ).then(function (result) {
-          toaster.pop('success', "Güncellendi", 'Updated!');
+          toaster.pop('success', "Updated", 'Updated!');
           $scope.loadOrders();
       }, function (response) {
-          toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+          toaster.pop('error', "Server Error", response.data.ExceptionMessage);
       });
         });
     };
@@ -159,7 +159,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {
             $scope.ShowObject = false;
-            toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();
@@ -218,7 +218,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
                 location.href = '#/app/orders/orderStoreTable/' + resp.id;
             },
             function (resp) {
-                toaster.pop('error', resp.data.ExceptionMessage, "Yeni Sipariş Oluşturulamadı !");
+                toaster.pop('error', resp.data.ExceptionMessage, "Could Not Create New Order !");
             });
         } else {
         }

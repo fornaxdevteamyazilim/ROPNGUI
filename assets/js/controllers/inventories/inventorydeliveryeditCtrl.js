@@ -61,11 +61,11 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
             InventoryDeliveryID: $stateParams.id,
         }).then(function (result) {
             $scope.isSpinner = false;
-            toaster.pop('success', "Fatura Aktarıldı", '');
+            toaster.pop('success', "Bill Transferred", '');
             $location.path('app/accountingintegration/inventorydeliveryinvoice/list');
         }, function (response) {
             $scope.isSpinner = false;
-            toaster.pop('Warning', "Sorun Oluştu!", response.data.ExceptionMessage);
+            toaster.pop('Warning', "Problem Occurred!", response.data.ExceptionMessage);
         });
     };
     $scope.InventoryDeliveryID = $stateParams.id;
@@ -83,22 +83,22 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
         $scope.SaveButtonActive = false;
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal("Güncellendi.", "Updated.", "success");
+                swal("Updated.", "Updated.", "success");
                 $location.path('app/inventory/inventorydeliveries/list');
                 $scope.SaveButtonActive = true;
             }, function (response) {
-                toaster.pop('warning', "Hata!!!", response.data.ExceptionMessage);
+                toaster.pop('warning', "Error!!!", response.data.ExceptionMessage);
             });
         }
         else {
             Restangular.restangularizeElement('', $scope.item, 'inventorydelivery')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal("Kaydedildi!", "Data Successfully Saved!", "success");
+                swal("Saved!", "Data Successfully Saved!", "success");
                 $location.path('app/inventory/inventorydeliveries/edit/' + resp.id);
                 $scope.SaveButtonActive = true;
             }, function (response) {
-                toaster.pop('error', "Hata!!!", response.data.ExceptionMessage);
+                toaster.pop('error', "Error!!!", response.data.ExceptionMessage);
             });
         }
     };
@@ -158,31 +158,31 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
                     $scope.item.RepositoryID = result[0].id;
                 }
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
     $scope.loadrepository();
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
                     $location.path('/app/inventory/inventorydeliveries/list');
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("It is cancelled!", "Deletion canceled !", "error");
             }
         });
     };
@@ -214,7 +214,7 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
         }).then(function (result) {
             $location.path('app/inventory/inventorydeliveryinvoice/edit/' + result.id);
         }, function (response) {
-            toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.ShowGrantTotal = function () {
@@ -273,7 +273,7 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
                     $scope.item.Discount += items[i].Discount;
                 }
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -320,7 +320,7 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -333,7 +333,7 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -351,7 +351,7 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
                 }
                 //$scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -382,13 +382,13 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
         if (data.restangularized) {
             data.put().then(function (res) {
                 $scope.$emit('UpdateInventoryDelivery', $scope.item);
-                toaster.pop('success', "Güncellendi.", 'Data update applied to server.');
+                toaster.pop('success', "Update.", 'Data update applied to server.');
             });
         } else {
             Restangular.restangularizeElement('', data, 'inventorydeliveryitem')
             data.post().then(function (res) {
                 $scope.$emit('UpdateInventoryDelivery', $scope.item);
-                toaster.pop('success', "Kaydedildi.", 'Saved data to server.');
+                toaster.pop('success', "Saved.", 'Saved data to server.');
             });
         }
     };
@@ -405,20 +405,20 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
         rowform.$cancel();
         if (!idi.tableParams.data[idi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(idi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -429,7 +429,7 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
                 $scope.item.Amount = -1 * (idi.tableParams.data[index].Amount)
                 $scope.$emit('UpdateInventoryDelivery', $scope.item);
                 idi.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
         idi.tableParams.reload();

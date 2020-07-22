@@ -54,7 +54,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             $scope.isWaiting = false;
             $scope.tool = { icon: 'assets/images/InStore.png' };
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server error", response.data.ExceptionMessage);
             $scope.isWaiting = false;
         });
     };
@@ -136,10 +136,10 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
                 order.put().then(function (resp) {
                     $scope.LoadStoreTablePlans();
                     $scope.ShowObject = true;
-                    toaster.pop('success', "Sipariş Kapatıldı !");
+                    toaster.pop('success', "Order Closed !");
                 }, function (response) {
                     $scope.ShowObject = true;
-                    toaster.pop('error', "Sipariş Kapatılamaz !", response.data.ExceptionMessage);
+                    toaster.pop('error', "Order Cannot Close !", response.data.ExceptionMessage);
                 });
             }
         } else {
@@ -169,7 +169,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
            })
        }, function (response) {
            $scope.ShowObject = true;
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Server error", response.data.ExceptionMessage);
        });
         }
     };
@@ -282,7 +282,7 @@ function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, 
             },
             function (resp) {
                 $scope.isWaiting = true;
-                toaster.pop('error', resp.data.ExceptionMessage, "Yeni Sipariş Oluşturulamadı !");
+                toaster.pop('error', resp.data.ExceptionMessage, "Failed to Create New Order !");
             });
         } else {
             //TODO Swet Alert

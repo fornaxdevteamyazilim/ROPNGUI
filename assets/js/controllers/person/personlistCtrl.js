@@ -141,7 +141,7 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
     };
     $scope.TakeOrder = function (personID, OrderType, PersonPhones) {
         if (PersonPhones && PersonPhones.length < 1) {
-            toaster.pop('warning', "Telefon Numarası Boş Geçilemez !", "error");
+            toaster.pop('warning', "Phone Number Should Not Be Blank !", "error");
             return;
         }
         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
@@ -165,7 +165,7 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Sipariş Oluşturuldu.");
+                    toaster.pop("success", "Order Created.");
                 },
                 function (resp) {
                     toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -246,10 +246,10 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Sipariş Oluşturuldu.");
+                    toaster.pop("success", "Order Created.");
                 },
                 function (resp) {
-                    toaster.pop('error',  resp.data.ExceptionMessage, "Yeni Sipariş Oluşturulamaz !");
+                    toaster.pop('error',  resp.data.ExceptionMessage, "Cannot Create New Order !");
                 });
             } else {
                 //TODO Swet Alert
@@ -272,7 +272,7 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
     };
     $scope.PhoneLenght = function (data) {
         if (vm.searchPhone && vm.searchPhone.length < 10) {
-            toaster.pop('warning', "Telefon Numarası 11 Karekter Olmalı !", 'Uyarı !');
+            toaster.pop('warning', "Phone Number Must Be 11 Characters !", 'Warning !');
         } else {
             location.href = data;
         }
@@ -306,8 +306,8 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
                   $scope.isSearching(false);
                   $scope.isPhoneLength(false);
               }, function (response) {
-                  toaster.pop('error', "Sunucu hatası", response);
-                  SweetAlert.swal("Sunucu Hatası!", angular.toJson(response, false), "error");
+                  toaster.pop('error', "Server Error", response);
+                  SweetAlert.swal("Server Error!", angular.toJson(response, false), "error");
               });
           }
       });
@@ -562,7 +562,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                     }
                 ).then(function (result) {
                     if (result.length < 1) {
-                        toaster.pop('warning', "BU ADRES RESTORAN ADRESLERİ İÇERİSİNDE DEĞİLDİR !");
+                        toaster.pop('warning', "THIS ADDRESS IS NOT IN THE RESTAURANT ADDRESSES !");
                     }
                     else {
                         for (var i = 0; i < result.length; i++) {
@@ -570,19 +570,19 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                                 return $scope.HomeOrder(item, OrderTyprID);
                                 break;
                             } else {
-                                toaster.pop('warning', "BU ADRES RESTORAN ADRESLERİ İÇERİSİNDE DEĞİLDİR !");
+                                toaster.pop('warning', "THIS ADDRESS IS NOT IN THE RESTAURANT ADDRESSES !");
                             }
                         }
                     }
 
                 }, function (response) {
-                    toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
         }
     };
     $scope.HomeOrder = function (person, OrderType) {
         if ($scope.CheckPersonPhone == false) {
-            toaster.pop('warning', "Telefon Numarası Boş Geçilemez !", "error");
+            toaster.pop('warning', "Phone Number Should Not Be Blank !", "error");
             return;
         }
         var data = $scope.GetDepartment();
@@ -601,7 +601,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                     location.href = '#/app/orders/orderStore/' + resp.id;
                 if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                     location.href = '#/app/orders/order/' + resp.id;
-                toaster.pop("success", "Sipariş Oluşturuldu.");
+                toaster.pop("success", "Order Created.");
             },
             function (resp) {
                 toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -633,7 +633,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                 }
                 $scope.isWait(false);
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         } else {
             $scope.PersonAddresses = null;
@@ -652,7 +652,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                 $scope.PersonOrders = angular.copy(result);
                 $scope.isPersonOrderButton(false);
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         } else {
             $scope.PersonOrders = null;
@@ -708,13 +708,13 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
         Restangular.restangularizeElement('', data, 'MarketingPermission');
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
-                toaster.pop('success', "Güncellendi", 'Updated!');
+                toaster.pop('success', "Updated", 'Updated!');
             });
         }
         else {
             data.PersonID = $scope.Person.id;
             data.post().then(function (resp) {
-                toaster.pop('success', "Kaydedildi!", 'Saved!');
+                toaster.pop('success', "Saved!", 'Saved!');
             });
         }
     };
@@ -745,7 +745,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                    }
                },
                function (restresult) {
-                   toaster.pop('warning', "Sunucu hatası", response.data.ExceptionMessage);
+                   toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                })
         } else {
             $scope.Person = null;
@@ -804,7 +804,7 @@ function personorderitemsCtrl($rootScope, $scope, $modalInstance, Order, $log, $
             if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                 location.href = '#/app/orders/order/' + result.id;
             $scope.ok();
-            toaster.pop("success", "Sipariş Oluşturuldu.");
+            toaster.pop("success", "Order Created.");
             $scope.isSpinner = false;
         }, function (response) {
             toaster.pop('error', "Hata!", response.data.ExceptionMessage);

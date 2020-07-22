@@ -7,7 +7,7 @@ function orderdisplayCtrl($scope, $log, $modal, $interval, Restangular, ngTableP
         Restangular.all('ordertools/NewOrders').getList().then(function (result) {
             $scope.UpdateOrderArray(result);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadOrders();
@@ -96,11 +96,11 @@ function orderdisplayCtrl($scope, $log, $modal, $interval, Restangular, ngTableP
             ordertosave.OrderStateID = 1;
             Restangular.restangularizeElement('', ordertosave, 'order');
             ordertosave.put().then(function (result) {
-                toaster.pop('success', "Sipariş Onaylandı.");
+                toaster.pop('success', "Order Confirmed.");
                 $scope.LoadOrders();
                 $rootScope.$broadcast('AskingOrder');
             }, function () {
-                toaster.pop('error', "Kaydedilmedi !");
+                toaster.pop('error', "Not Saved !");
                 $scope.LoadOrders();
                 $rootScope.$broadcast('AskingOrder');
             });
@@ -151,7 +151,7 @@ function orderdisplayCtrl($scope, $log, $modal, $interval, Restangular, ngTableP
         Restangular.one('yemekSepetiCustomerMap/deletemap').get({
             OrderID: OrderID,
         }).then(function (result) {
-            toaster.pop("success", "YS Siparişi Müşteri Eşleştirilmesi Silindi!");
+            toaster.pop("success", "YS Order Customer Matching Deleted!");
             $scope.isSpinner = false;
             location.href = '#/app/mainscreen';
         }, function (response) {

@@ -78,7 +78,7 @@ app.controller('loginCtrl', ['$scope', '$location', 'authService', 'ngAuthSettin
                 //userService.landingPage(false);
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response);
+                toaster.pop('error', "Server Error", response);
             });
         }
         if ($stateParams.command && $stateParams.command == 'logout') {

@@ -33,7 +33,7 @@ function SMSProviderCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restan
              params.total(items.paging.totalRecordCount);
              $defer.resolve(items);
          }, function (response) {
-             toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
          });
      }
  });
@@ -41,14 +41,14 @@ function SMSProviderCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restan
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 smsp.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'SMSProvider')
             data.post().then(function (res) {
                 smsp.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             data.get();
         }
@@ -66,20 +66,20 @@ function SMSProviderCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restan
         rowform.$cancel();
         if (!smsp.tableParams.data[smsp.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(smsp.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -88,7 +88,7 @@ function SMSProviderCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restan
                     smsp.tableParams.data[index].remove();
                 }
                 smsp.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

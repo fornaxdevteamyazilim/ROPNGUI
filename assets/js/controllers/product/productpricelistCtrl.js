@@ -29,9 +29,9 @@ function productpricelistCtrl($scope, $log, $modal, Restangular, ngTableParams, 
         rowform.$cancel();
         if (!ppl.tableParams.data[ppl.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ppl.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled!", 'Edit cancelled !' );
         }
     };
     //$scope.BuildSearchString = function (src) {
@@ -73,8 +73,8 @@ function productpricelistCtrl($scope, $log, $modal, Restangular, ngTableParams, 
                     $scope.SelectedItem = items[0].id;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response);
-                SweetAlert.swal("Sunucu Hatası!", angular.toJson(response.data.ExceptionMessage, false), "error");
+                toaster.pop('error', "Server Error", response);
+                SweetAlert.swal("Server Error!", angular.toJson(response.data.ExceptionMessage, false), "error");
             });
             //}
         }
@@ -101,7 +101,7 @@ function productpricelistCtrl($scope, $log, $modal, Restangular, ngTableParams, 
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -110,7 +110,7 @@ function productpricelistCtrl($scope, $log, $modal, Restangular, ngTableParams, 
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

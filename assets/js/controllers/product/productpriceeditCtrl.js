@@ -59,7 +59,7 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.ShowObject = true;
             $scope.item.put().then(function (resp) {
-                toaster.pop('success', "Güncellendi.", 'Saved data to server.');
+                toaster.pop('success', "Updated.", 'Saved data to server.');
                 $location.path('/app/product/product/productprice/list');
                 $scope.ShowObject = false;
             }, function (response) {
@@ -71,7 +71,7 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             $scope.ShowObject = true;
             Restangular.restangularizeElement('', $scope.item, 'ProductPriceList')
             $scope.item.post().then(function (resp) {
-                toaster.pop('success', "Kaydedildi.", 'Saved data to server.');
+                toaster.pop('success', "Saved.", 'Saved data to server.');
                 $scope.Showtable = true;
                 $scope.item = {};
                 $scope.item = Restangular.copy(resp);
@@ -79,7 +79,7 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
                 $scope.ShowObject = false;
             }, function (response) {
                 $scope.ShowObject = false;
-                toaster.pop('error', "Hata!", response.data.ExceptionMessage);
+                toaster.pop('error', "Error!", response.data.ExceptionMessage);
             });
         }
     };
@@ -105,31 +105,31 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         rowform.$cancel();
         if (!idi.tableParams.data[idi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(idi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled!", 'Edit cancelled !' );
         }
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
                     $location.path('/app/product/product/productprice/list');
                 });
             }
             else {
-                SweetAlert.swal("İptal edildi !", "Silme İşlemi İptal edildi !", "error");
+                SweetAlert.swal("Canceled !", "Deletion Canceled !", "error");
             }
         });
     };
@@ -150,7 +150,7 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -159,7 +159,7 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

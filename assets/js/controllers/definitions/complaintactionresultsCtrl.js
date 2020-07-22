@@ -43,7 +43,7 @@ function complaintactionresultsCtrl($rootScope, $scope, $log, $modal, $filter, S
              params.total(items.paging.totalRecordCount);
              $defer.resolve(items);
          }, function (response) {
-             toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
          });
      }
  });
@@ -52,7 +52,7 @@ function complaintactionresultsCtrl($rootScope, $scope, $log, $modal, $filter, S
             data.put().then(function (res) {
                 $scope.CallReason(4);
                 car.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
@@ -60,7 +60,7 @@ function complaintactionresultsCtrl($rootScope, $scope, $log, $modal, $filter, S
             data.post().then(function (res) {
                 $scope.CallReason(4);
                 car.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             data.get();
         }
@@ -78,20 +78,20 @@ function complaintactionresultsCtrl($rootScope, $scope, $log, $modal, $filter, S
         rowform.$cancel();
         if (!car.tableParams.data[car.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(car.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-           title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title: "ARE YOU SURE ?",
+            text: "Are you sure you want to delete the record ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText: "Yes, Delete !",
+            cancelButtonText: "No, Deletion !",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -100,7 +100,7 @@ function complaintactionresultsCtrl($rootScope, $scope, $log, $modal, $filter, S
                     car.tableParams.data[index].remove();
                 }
                 car.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", "Attention !", "Record Deleted !");
             }
         });
     };

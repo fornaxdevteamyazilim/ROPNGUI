@@ -37,7 +37,7 @@ function unpaiddeliveriesCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             $scope.UnPaidDeliveries = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {
@@ -48,7 +48,7 @@ function unpaiddeliveriesCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         return sum;
     };
     $scope.exportToExcel = function (tableId) { // ex: '#my-table'
-        $scope.exportHref = Excel.tableToExcel(tableId, 'Odemesi Yapılmamis Faturalar');
+        $scope.exportHref = Excel.tableToExcel(tableId, 'Non-Paid Invoices');
         $timeout(function () { location.href = $scope.exportHref }, 1); // trigger download
     };
     $scope.GetStore = function (data) {
@@ -80,7 +80,7 @@ function unpaiddeliveriesCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

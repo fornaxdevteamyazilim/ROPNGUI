@@ -90,7 +90,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restang
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {
             $scope.inProgress = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadOrderItemStates();
@@ -151,7 +151,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restang
         $scope.orderitemstates.splice(index, 1);
         $scope.$broadcast('$$rebind::refresh');
         if ($scope.WaitForResult == true) {
-            toaster.pop("warning", "Lütfen Bekleyin !", "Please Click Again!");
+            toaster.pop("warning", "Please Wait !", "Please Click Again!");
         }
         else {
             var data = $scope.updateOrder(OrderID);
@@ -163,11 +163,11 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restang
             AutoPrint:false,
             KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0
         }).then(function (restresult) {
-            toaster.pop("success", "Hazır.", "Item prepared!");
+            toaster.pop("success", "Prepared.", "Item prepared!");
             $scope.LoadOrderItemStates();
         }, function (restresult) {
             $scope.WaitForResult = false;
-                toaster.pop('error', "Güncelleme başarısız !", restresult.data.ExceptionMessage);
+                toaster.pop('error', "Update failed !", restresult.data.ExceptionMessage);
                 $scope.LoadOrderItemStates();
         })
     };

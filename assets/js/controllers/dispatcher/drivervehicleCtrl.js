@@ -22,7 +22,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             this.item.EndDate = $scope.EndDate;
             this.item.put().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
@@ -31,7 +31,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             this.item.EndDate = $scope.EndDate;
             this.item.post().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -49,9 +49,9 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         rowform.$cancel();
         if (!$scope.tableParams.data[$scope.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove($scope.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
 
@@ -73,7 +73,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
                     $defer.resolve(items);
                     $scope.DriverVehicle = items;
                 }, function (response) {
-                    toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -95,7 +95,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             $scope.tableParams.data[index].remove();
         }
         $scope.tableParams.data.splice(index, 1);
-        toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+        toaster.pop("error", "Attention !", "Record Deleted !");
     };
     $scope.cancelremove = function (index) {
         if ($scope.tableParams.data[index].fromServer) {
@@ -122,7 +122,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -139,7 +139,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

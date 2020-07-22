@@ -35,7 +35,7 @@ function inventorydemandruleCtrl($scope, $modal, $filter, SweetAlert, Restangula
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Hata!", response.data.ExceptionMessage);
+                toaster.pop('warning', "Error!", response.data.ExceptionMessage);
             });
         }
     });
@@ -46,7 +46,7 @@ function inventorydemandruleCtrl($scope, $modal, $filter, SweetAlert, Restangula
             idr.tableParams.reload();
         }, function (response) {
             $scope.Showspinner = false;
-            toaster.pop('warning', "Hata!", response.data.Message);
+            toaster.pop('warning', "Error!", response.data.Message);
         });
     };
     $scope.storegroups = [];
