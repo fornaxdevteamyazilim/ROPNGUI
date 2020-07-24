@@ -29,13 +29,13 @@ function complaintsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, R
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
         $scope.translate();
     });
-    if (userService.userIsInRole("Admin") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("LC") || userService.userIsInRole("AREAMANAGER") || userService.userIsInRole("ACCOUNTING") || userService.userIsInRole("PH") || userService.userIsInRole("MarketingDepartment") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("FinanceDepartment") || userService.userIsInRole("PHAdmin")) {
+    if (userService.userIsInRole("Admin") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CCBACKOFFICE") || userService.userIsInRole("LC") || userService.userIsInRole("AREAMANAGER") || userService.userIsInRole("ACCOUNTING") || userService.userIsInRole("PH") || userService.userIsInRole("MarketingDepartment") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("FinanceDepartment") || userService.userIsInRole("PHAdmin")) {
         $scope.StoreID = '';
         $scope.ShowStores = true;
     } else {
         $scope.StoreID = $rootScope.user.StoreID;
     }
-    if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
+    if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")|| userService.userIsInRole("CCBACKOFFICE")) {
         Restangular.all('callreason').getList({
             pageNo: 1,
             pageSize: 1000,

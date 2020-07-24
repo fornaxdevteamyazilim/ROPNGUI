@@ -3,7 +3,7 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
     $rootScope.uService.EnterController("complaintauditsCtrl");
     var ca = this;
     $scope.CallReason = function (type) {
-            if (userService.userIsInRole("CALLCENTER")) {
+            if (userService.userIsInRole("CALLCENTER" || userService.userIsInRole("CCBACKOFFICE"))) {
                 Restangular.all('callreason').getList({
                     pageNo: 1,
                     pageSize: 1000,

@@ -4,7 +4,7 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
     var vm = this;
     $scope.item = {};
     $scope.CallReason = function (type) {
-        if (userService.userIsInRole("CALLCENTER")) {
+        if (userService.userIsInRole("CALLCENTER")|| userService.userIsInRole("CCBACKOFFICE")) {
             Restangular.all('callreason').getList({
                 pageNo: 1,
                 pageSize: 1000,

@@ -118,7 +118,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
             toaster.pop('warning', "Phone Number Should Not Be Blank !", "error");
             return;
         }
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")|| userService.userIsInRole("CCBACKOFFICE")) {
             var data = $scope.GetDepartment();
             if (data != null) {
                 var order = {}

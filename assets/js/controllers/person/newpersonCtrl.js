@@ -87,7 +87,7 @@ function newpersonCtrl($scope, Restangular, item, $modal, ngTableParams, toaster
             toaster.pop('warning', "Phone Number Should Not Be Blank !", "error");
             return;
         }
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")|| userService.userIsInRole("CCBACKOFFICE")) {
             $scope.SelcetStore(personID, OrderType);
         } else {
             var data = $scope.GetDepartment();
@@ -243,7 +243,7 @@ function newpersonCtrl($scope, Restangular, item, $modal, ngTableParams, toaster
             toaster.pop('warning', "Phone Number Should Not Be Blank !", "error");
             return;
         }
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CCBACKOFFICE")) {
             var data = $scope.GetDepartment();
             if (data != null) {
                 var order = {}

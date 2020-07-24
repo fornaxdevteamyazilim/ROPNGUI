@@ -181,17 +181,17 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
         //stopTime = $interval($scope.RefreshData, 10000);
     };
     $scope.isChangeButtonShow = function (value) {
-        if (userService.isAdmin() || userService.userIsInRole("CCMANAGER")) {
+        if (userService.isAdmin() || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCBACKOFFICE")) {
             $scope.ShowChangeButton = value;
         }
     };
     $scope.isProsesingButtonShow = function (value) {
-        if (userService.isAdmin() || userService.userIsInRole("CCMANAGER")) {
+        if (userService.isAdmin() || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCBACKOFFICE")) {
             $scope.ShowProsesingButton = value;
         }
     };
     $scope.isSendAgenButtonShow = function (value) {
-        if (userService.isAdmin() || userService.userIsInRole("CCMANAGER") ) {
+        if (userService.isAdmin() || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CALLCENTER")  || userService.userIsInRole("CCBACKOFFICE"))  {
             $scope.ShowSendAgenButton = value;
         }
     };
@@ -217,7 +217,7 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
         }
     };
     $scope.ChangeOrderState = function (OrderID, data) {
-        if (userService.isAdmin() || userService.userIsInRole("CCMANAGER") ) {
+        if (userService.isAdmin() || userService.userIsInRole("CCMANAGER")  || userService.userIsInRole("CALLCENTER")  || userService.userIsInRole("CCBACKOFFICE") ) {
             swal({
                 title: $translate.instant('accounting.PreparingChanging'),
                 type: "warning",

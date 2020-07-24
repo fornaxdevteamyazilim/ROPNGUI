@@ -3,7 +3,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
     $rootScope.uService.EnterController("ysordersdisplayCtrl");
     userService.userAuthorizated()
     $scope.orders = [];
-    var NewYSOrderfresh = (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) ?
+    var NewYSOrderfresh = (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CCBACKOFFICE")) ?
         $scope.$on('YSOrderUpdate', function (event, data) { $scope.getYSorder(); }) : $scope.$on('YSOrder', function (event, data) { $scope.getYSorder(); });
     $scope.getYSorder = function () {
         Restangular.all('YemekSepetiOrderMap').getList({
