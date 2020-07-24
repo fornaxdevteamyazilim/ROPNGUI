@@ -77,7 +77,7 @@ function transactionaccountsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             }
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+            toaster.pop('warning', "Server error", response.data.ExceptionMessage);
             $scope.ShowObject = false;
         });
     }
@@ -85,11 +85,11 @@ function transactionaccountsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
     $scope.item = {};
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { trna.tableParams.reload(); toaster.pop('success', "Güncellendi.", 'Updated.'); });
+            data.put().then(function (res) { trna.tableParams.reload(); toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated.'); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { trna.tableParams.reload(); toaster.pop('success', "Kaydedildi.", 'Saved.'); });
+            data.post().then(function (res) { trna.tableParams.reload(); toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.'); });
             data.get();
         }
     }
@@ -117,9 +117,9 @@ function transactionaccountsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         rowform.$cancel();
         if (!trna.tableParams.data[trna.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(trna.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.ChangeAccountTransactionType = function (TransactionType) {
@@ -130,13 +130,13 @@ function transactionaccountsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -145,7 +145,7 @@ function transactionaccountsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                     trna.tableParams.data[index].remove();
                 }
                 trna.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -166,7 +166,7 @@ function transactionaccountsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server error", response);
             });
         }
     };

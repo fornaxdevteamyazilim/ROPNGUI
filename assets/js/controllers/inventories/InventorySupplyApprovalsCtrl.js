@@ -10,14 +10,14 @@ function InventorySupplyApprovalsCtrl($scope, $log, $modal, $filter, SweetAlert,
     $scope.saveItemData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
-                toaster.pop('success', "Update.", 'Data update applied to server.');
+                toaster.pop('success',$translate.instant('invantories.Updated'),$translate.instant('invantories.Updatedapplied'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'InventorySupplyApproval')
             data.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                toaster.pop('success', "Saved.", 'Saved data to server.');
+                toaster.pop('success', $translate.instant('invantories.Saved'), $translate.instant('invantories.Savedserver'));
             });
         }
     };
@@ -37,9 +37,9 @@ function InventorySupplyApprovalsCtrl($scope, $log, $modal, $filter, SweetAlert,
         rowform.$cancel();
         if (!isa.tableParams.data[isa.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(isa.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     isa.tableParams = new ngTableParams({
@@ -90,13 +90,13 @@ function InventorySupplyApprovalsCtrl($scope, $log, $modal, $filter, SweetAlert,
     $scope.loadEntities('enums/inventorysupplymethod', 'inventorySupplyMethod');
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title: translate="invantories.Sure" ,
+            text:  translate="invantories.SureRecord",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:   translate="invantories.confirmButtonText",
+            cancelButtonText:  translate="invantories.cancelButtonText",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -105,7 +105,7 @@ function InventorySupplyApprovalsCtrl($scope, $log, $modal, $filter, SweetAlert,
                     isa.tableParams.data[index].remove();
                 }
                 isa.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error",translate="invantories.Attention",translate="invantories.RecordDeleted");
             }
         });
     };

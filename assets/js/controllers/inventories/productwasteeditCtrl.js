@@ -39,7 +39,7 @@ function productwasteeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableP
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal("Güncellendi.", "Updated.", "success");
+                swal(translate="invantories.Updated", "Updated.", "success");
                 $location.path('app/inventory/productwaste/list');
                 if ($stateParams.id == 'new') {
                     $scope.ProductWasteID = $stateParams.id = resp.id;
@@ -57,7 +57,7 @@ function productwasteeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableP
                 if ($stateParams.id == 'new') {
                     $scope.ProductWasteID = $stateParams.id = resp.id;
                 }
-                swal("Kaydedildi!", "Data Successfully Saved!", "success");
+                swal( translate="invantories.Saved",translate="invantories.SuccessfullySaved" , "success");
             },
             function (response) {
                 $scope.isWaiting = false;
@@ -67,23 +67,23 @@ function productwasteeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableP
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Delete.", "Record Deleted.", "success");
+                    SweetAlert.swal($translate.instant('invantories.Deleted'),  $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('/app/inventory/productwaste/list');
                 });
             } else {
-                SweetAlert.swal("It is cancelled !", "Deletion canceledi !", "error");
+                SweetAlert.swal($translate.instant('invantories.Cancelled'),  translate="invantories.DeletionCanceled", "error");
             }
         });
     };
@@ -229,7 +229,7 @@ function productwasteitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, R
             data.put().then(function (res) {
                 rowform.$data.Product = $scope.ShowObject('products', 'id', data.ProductID, 'name');
                 data.Product = rowform.$data.Product;
-                toaster.pop('success', "Update.", 'Data update applied to server.');
+                toaster.pop('success',$translate.instant('invantories.Updated') ,$translate.instant('invantories.Updatedapplied') );
             });
         }
         else {
@@ -237,7 +237,7 @@ function productwasteitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, R
             data.post().then(function (res) {
                 rowform.$data.Product = $scope.ShowObject('products', 'id', data.ProductID, 'name');
                 data.Product = rowform.$data.Product;
-                toaster.pop('success', "Saved.", 'Saved data to server.');
+                toaster.pop('success', $translate.instant('invantories.Saved') ,$translate.instant('invantories.Savedserver') );
             });
         }
     };
@@ -254,20 +254,20 @@ function productwasteitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, R
         rowform.$cancel();
         if (!pwi.tableParams.data[pwi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pwi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:  $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -276,7 +276,7 @@ function productwasteitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, R
                     pwi.tableParams.data[index].remove();
                 }
                 pwi.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('invantories.Attention'),$translate.instant('invantories.RecordDeleted'));
             }
         });
        // pwi.tableParams.reload();

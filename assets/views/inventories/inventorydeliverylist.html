@@ -38,8 +38,11 @@
     <div id="report" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive" ng-hide="isWaiting==true">
         <!--<div id="sales-chart" dx-chart="chartOptions"></div>-->
         <!--<div dx-button="resetButtonOptions"></div>-->
-        <div id="gridContainer" dx-data-grid="dataGridOptions">
-
+        <div id="gridContainer" dx-data-grid="dataGridOptions" dx-item-alias="delivery">
+            <div data-options="dxTemplate: {name: 'detail'}">
+                <!-- <div class="master-detail-caption">{{employee.data.FirstName + " " + employee.data.LastName + "'s Tasks:"}}</div> -->
+                <div dx-data-grid="getDetailGridSettings(delivery.key)"></div>
+        	</div>
         </div>
     </div>
     

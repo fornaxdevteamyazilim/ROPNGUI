@@ -26,14 +26,14 @@ function logosettingsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 lgs.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'nguserrole')
             data.post().then(function (res) {
                 lgs.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -51,9 +51,9 @@ function logosettingsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
         rowform.$cancel();
         if (!lgs.tableParams.data[lgs.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(lgs.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     lgs.tableParams = new ngTableParams({
@@ -80,13 +80,13 @@ function logosettingsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
         });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:   $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -96,7 +96,7 @@ function logosettingsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
                     $scope.$emit('DeleteUserRoles', "ReloadUserRoles");
                 }
                 lgs.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
             }
         });
     };

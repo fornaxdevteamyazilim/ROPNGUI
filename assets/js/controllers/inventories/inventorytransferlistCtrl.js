@@ -30,9 +30,9 @@ function inventorytransferlistCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         rowform.$cancel();
         if (!its.tableParams.data[its.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(its.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.translate = function () {

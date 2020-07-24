@@ -146,7 +146,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     $scope.LoadOrderItems();
                 },
                     function (resp) {
-                        toaster.pop('error', "Order section update failed!", resp.data.ExceptionMessage);
+                        toaster.pop('error', $translate.instant('orderfile.Ordersectionupdatefailed') , resp.data.ExceptionMessage);
                     });
             }
         }
@@ -224,7 +224,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
 
             $scope.UpdateCustomerDisplayData();
         }, function (response) {
-            toaster.pop('error', "Ingredient update failed", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('orderfile.Ingredientupdatefailed') , response.data.ExceptionMessage);
         });
     };
     $scope.UpdateCustomerDisplayData = function () {
@@ -238,7 +238,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             OrderItemID: data
         }).then(function (res) {
             $scope.LoadOrderItems();
-            toaster.pop('success', "İkram ürün.", '');
+            toaster.pop('success',$translate.instant('orderfile.Cateringproduct'), '');
         }, function (response) {
             toaster.pop('error', "Upload error", response.data.ExceptionMessage);
         });
@@ -291,10 +291,10 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
     };
     $scope.RemoveItem = function (OrderItemID) {
         Restangular.one("OrderableItem", OrderItemID).remove().then(function () {
-            toaster.pop("error", "Deleted.", "Order Contents Deleted.");
+            toaster.pop("error", $translate.instant('orderfile.OrderContentsDeleted'),$translate.instant('orderfile.OrderContentsDeleted'));
             $scope.LoadOrderItems();
         }, function (response) {
-            toaster.pop('error', "Deletion error", response.data.ExceptionMessage);
+            toaster.pop('error',  $translate.instant('orderfile.Deletionerror'), response.data.ExceptionMessage);
         });
     };
     $scope.DisplayStreetAddress = function (address) {
@@ -313,7 +313,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         params.total(items.paging);
                         $defer.resolve($filter('orderBy')(items, params.orderBy()));
                     }, function (response) {
-                        toaster.pop('error', "Loading product list failed", response.data.ExceptionMessage);
+                        toaster.pop('error',$translate.instant('orderfile.Loadingproductlistfailed'), response.data.ExceptionMessage);
                     });
                 }
             });
@@ -372,7 +372,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 $scope.WDT = "";
             }
         }, function (response) {
-            toaster.pop('Warning', "Failed to upload address", response.data.ExceptionMessage);
+            toaster.pop('Warning',$translate.instant('orderfile.Faileduploadaddress'), response.data.ExceptionMessage);
         });
     };
     $scope.ShowCategories = function (OrderID) {
@@ -387,7 +387,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             }
 
         }, function (response) {
-            toaster.pop('Warning', "Ingredient Could not load", response.data.ExceptionMessage);
+            toaster.pop('Warning', $translate.instant('orderfile.IngredientCouldload'), response.data.ExceptionMessage);
         });
     };
     $scope.CategoryClick = function (catID) {
@@ -420,13 +420,13 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                             newSatus: 10,
                         }).then(function (result) {
                         }, function (response) {
-                            toaster.pop('error', "PAYMENT NOT AVAILABLE!", response.data.ExceptionMessage);
+                            toaster.pop('error', $translate.instant('orderfile.PAYMENTNOTAVAILABLE'), response.data.ExceptionMessage);
                         });
                 }, function (restresult) {
-                    toaster.pop('warning', "PAYMENT NOT ACCEPTED!", restresult.data.ExceptionMessage);
+                    toaster.pop('warning',$translate.instant('orderfile.PAYMENTACCEPTED'), restresult.data.ExceptionMessage);
                 })
         }, function (resp) {
-            toaster.pop('error', "NEW PAYMENT NOT SAVED!", resp.data.ExceptionMessage);
+            toaster.pop('error',$translate.instant('orderfile.NEWPAYMENTSAVED'), resp.data.ExceptionMessage);
         });
     };
     $scope.SaveECRPaymentType = function (PaymentType) {
@@ -451,7 +451,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 var res = result;
             }
         }, function (response) {
-            toaster.pop('error', "PAYMENT APPROVED!", response.data);
+            toaster.pop('error',$translate.instant('orderfile.PAYMENTAPPROVED'), response.data);
         });
     };
     $scope.CopyOrder = function (order) {
@@ -534,7 +534,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             $scope._order.PaymentTypeID = PaymentType.id;
         }
         if ($scope._order.PaymentTypeID == null && $scope._order.OrderTypeID != 0 && $scope._order.OrderTypeID != 1 && $scope._order.OrderTypeID != 4) {
-            toaster.pop('Warning', "Payment Type", "SELECT PAYMENT TYPE!");
+            toaster.pop('Warning',$translate.instant('orderfile.PaymentType') , $translate.instant('orderfile.SELECTPAYMENTTYPE'));
         } else {
             if ($scope._order.OrderStateID == 2) { //Sipariş Değişikliği
                 $scope._order.OrderStateID = 3;
@@ -680,9 +680,9 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             var ordertosave = $scope.CopyOrder($scope._order);
             Restangular.restangularizeElement('', ordertosave, 'order');
             ordertosave.put().then(function (result) {
-                toaster.pop('success', "Order Change","Order State Set to Changing.");
+                toaster.pop('success',$translate.instant('orderfile.OrderChange') ,$translate.instant('orderfile.OrderStateSetChanging'));
             }, function (response) {
-                    toaster.pop('error', "Unable to change Order!", response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('orderfile.UnablechangeOrder'), response.data.ExceptionMessage);
                     $rootScope.allowNavigation();
                     $window.history.back();
                     //userService.landingPage(false);
@@ -698,18 +698,18 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     OrderID: $scope._order.id
                 }
             ).then(function (result) {
-                toaster.pop('success', "E-Invoice", 'E-Invoice information uploaded.');
+                toaster.pop('success',$translate.instant('orderfile.EInvoice') ,$translate.instant('orderfile.EInvoiceinformationuploaded') );
                 $scope.OrderInvoice = result;
                 //$scope.ok();
             }, function (response) {
-                    toaster.pop('error', "E-Invoice failed to load", response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('orderfile.EInvoicefailedload'), response.data.ExceptionMessage);
             });
         }
     }
     $scope.SaveOrderInvoice = function () {
         if ($scope.OrderInvoice.restangularized && $scope.OrderInvoice.id) {
             $scope.OrderInvoice.put().then(function (resp) {
-                toaster.pop('success', "E-Invoice", 'E-Invoice information updated.');
+                toaster.pop('success', $translate.instant('orderfile.EInvoice'),$translate.instant('orderfile.EInvoiceinformationupdated') );
             });
         }
         else {
@@ -718,11 +718,11 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     OrderID: $scope._order.id
                 }
             ).then(function (result) {
-                toaster.pop('success', "E-Invoice information", 'E-Invoice information saved.');
+                toaster.pop('success', $translate.instant('orderfile.EInvoiceinformation'), $translate.instant('orderfile.EInvoiceinformationsaved'));
                 $scope.OrderInvoice = result;
                 //$scope.ok();
             }, function (response) {
-                    toaster.pop('error', "E-Invoice information is not saved", response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('orderfile.EInvoiceinformationnotsaved') , response.data.ExceptionMessage);
             });
         }
         if (!$scope.OrderInvoice) {
@@ -747,7 +747,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             }).then(function (result) {
                 angular.copy(result, $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', "Options could not loaded", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('orderfile.Optionscouldloaded') , response.data.ExceptionMessage);
             });
         }
     };
@@ -756,7 +756,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Options could not loaded", response);
+                toaster.pop('Warning', $translate.instant('orderfile.Optionscouldloaded'), response);
             });
         }
     };
@@ -872,7 +872,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 angular.copy(resp, orderperson);
             },
                 function (resp) {
-                    toaster.pop('error', "Cannot assign person !", resp.data.ExceptionMessage);
+                    toaster.pop('error',$translate.instant('orderfile.Cannotassignperson'), resp.data.ExceptionMessage);
                 });
         });
     };
@@ -973,7 +973,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             $scope.Promotion = result;
             $scope.LoadOrderItems();
         }, function (response) {
-            toaster.pop('error', "Order Promotions Failed To Load", response.data.ExceptionMessage);
+            toaster.pop('error',$translate.instant('orderfile.OrderPromotionsFailedLoad'), response.data.ExceptionMessage);
         });
     };
     $scope.GetPromotion();
@@ -998,12 +998,12 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             $scope.DeletePromotion(result[0].id);
         },
             function (response) {
-                toaster.pop('error', "Promotions not loaded", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('orderfile.Promotionsloaded'), response.data.ExceptionMessage);
             });
     };
     $scope.DeletePromotion = function (ID) {
         Restangular.one("orderpromotion", ID).remove().then(function () {
-            toaster.pop("error", "Deleted.", "Promotion Deleted!");
+            toaster.pop("error", $translate.instant('orderfile.Deleted'),$translate.instant('orderfile.PromotionDeleted'));
             $scope.GetPromotion();
         });
     };

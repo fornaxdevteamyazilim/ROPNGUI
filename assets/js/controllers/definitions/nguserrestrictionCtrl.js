@@ -17,7 +17,7 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
             this.item.put().then(function (res) {
                 ngur.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
@@ -25,7 +25,7 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
             this.item.post().then(function (res) {
                 ngur.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
             });
             this.item.get();
         }
@@ -43,9 +43,9 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
         rowform.$cancel();
         if (!ngur.tableParams.data[ngur.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ngur.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     ngur.tableParams = new ngTableParams({
@@ -72,13 +72,13 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:   $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -87,7 +87,7 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
                     ngur.tableParams.data[index].remove();
                 }
                 ngur.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
             }
         });
     };

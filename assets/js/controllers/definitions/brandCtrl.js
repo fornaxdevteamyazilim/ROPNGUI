@@ -49,9 +49,9 @@ function brandCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams,
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     vm.tableParams = new ngTableParams({
@@ -95,13 +95,13 @@ function brandCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams,
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:  $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -110,7 +110,7 @@ function brandCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams,
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
             }
         });
     };

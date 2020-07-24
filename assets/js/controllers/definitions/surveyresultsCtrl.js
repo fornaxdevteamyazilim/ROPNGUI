@@ -21,14 +21,14 @@ function surveyresultsCtrl($rootScope, $scope, Restangular, ngTableParams, toast
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 sr.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success', $translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'surveyresult')
             this.item.post().then(function (res) {
                 sr.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
             });
             this.item.get();
         }
@@ -46,9 +46,9 @@ function surveyresultsCtrl($rootScope, $scope, Restangular, ngTableParams, toast
         rowform.$cancel();
         if (!sr.tableParams.data[sr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     sr.tableParams = new ngTableParams({
@@ -74,13 +74,13 @@ function surveyresultsCtrl($rootScope, $scope, Restangular, ngTableParams, toast
         });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:   $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -89,7 +89,7 @@ function surveyresultsCtrl($rootScope, $scope, Restangular, ngTableParams, toast
                     sr.tableParams.data[index].remove();
                 }
                 sr.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
             }
         });
     };

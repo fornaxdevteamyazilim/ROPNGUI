@@ -60,7 +60,7 @@ function inventorydemandruleitemCtrl($scope, $log, $modal, $filter, SweetAlert, 
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.ShowSpinnerObject = true;
             $scope.item.put().then(function (resp) {
-                toaster.pop('success', "Updated.", 'Saved data to server.');
+                toaster.pop('success', $translate.instant('invantories.Updated') ,$translate.instant('invantories.Savedserver'));
                 $location.path('/app/inventory/inventorydemandrule/list');
                 $scope.ShowSpinnerObject = false;
             }, function (response) {
@@ -71,7 +71,7 @@ function inventorydemandruleitemCtrl($scope, $log, $modal, $filter, SweetAlert, 
             $scope.ShowSpinnerObject = true;
             Restangular.restangularizeElement('', $scope.item, 'inventorydemandrule')
             $scope.item.post().then(function (resp) {
-                toaster.pop('success', "Saved.", 'Saved data to server.');
+                toaster.pop('success', $translate.instant('invantories.Saved') ,$translate.instant('invantories.Savedserver'));
                 $location.path('/app/inventory/inventorydemandrule/list');
                 $scope.item = Restangular.copy(resp);
                 idri.tableParams.reload();
@@ -96,20 +96,20 @@ function inventorydemandruleitemCtrl($scope, $log, $modal, $filter, SweetAlert, 
         rowform.$cancel();
         if (!idri.tableParams.data[idri.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(idri.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -118,7 +118,7 @@ function inventorydemandruleitemCtrl($scope, $log, $modal, $filter, SweetAlert, 
                     idri.tableParams.data[index].remove();
                 }
                 idri.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('invantories.Attention'),$translate.instant('invantories.RecordDeleted'));
             }
         });
     };

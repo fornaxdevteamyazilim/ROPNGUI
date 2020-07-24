@@ -55,12 +55,12 @@ function inventorydeliveryinvoiceeditCtrl($scope, $filter, SweetAlert, Restangul
             InventoryDeliveryInvoiceID: $stateParams.id,
         }).then(function (result) {
             $scope.isSpinner = false;
-            toaster.pop('success', "Fatura Aktarıldı", '');
+            toaster.pop('success', translate="invantories.BillTransferred", '');
             $location.path('app/accountingintegration/inventorydeliveries/list');
             //$location.path('app/inventory/inventorydeliveryinvoice/edit/' + $stateParams.id);
         }, function (response) {
             $scope.isSpinner = false;
-            toaster.pop('Warning', "Problem Occurred!", response.data.ExceptionMessage);
+            toaster.pop('Warning',$translate.instant('invantories.ProblemOccurred'), response.data.ExceptionMessage);
         });
     };
     $scope.InventoryDeliveryInvoiceID = $stateParams.id;
@@ -78,14 +78,14 @@ function inventorydeliveryinvoiceeditCtrl($scope, $filter, SweetAlert, Restangul
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
                 //$location.path('app/inventory/inventorydeliveryinvoice/list');
-                toaster.pop('success', "Saved !", "Data Successfully Saved!");
+                toaster.pop('success',$translate.instant('invantories.Saved') ,$translate.instant('invantories.SuccessfullySaved'));
             });
         }
         else {
             Restangular.restangularizeElement('', $scope.item, 'inventorydeliveryinvoice')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal("Saved!", "Data Successfully Saved!", "success");
+                swal("Saved!",$translate.instant('invantories.SuccessfullySaved'), "success");
                 $location.path('app/inventory/inventorydeliveryinvoice/edit/' + resp.id);
             });
         }
@@ -130,24 +130,24 @@ function inventorydeliveryinvoiceeditCtrl($scope, $filter, SweetAlert, Restangul
     $scope.loadCompany();
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+           confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Delete.", "Record Deleted.", "success");
+                    SweetAlert.swal( $translate.instant('invantories.Deleted'),  $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('/app/inventory/inventorydeliveryinvoice/list');
                 });
             }
             else {
-                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
+                SweetAlert.swal( $translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled'), "error");
             }
         });
     };
@@ -367,13 +367,13 @@ function inventorydeliveryinvoiceitemCtrl($scope, $modal, $filter, SweetAlert, R
         if (data.restangularized) {
             data.put().then(function (res) {
                 $scope.$emit('UpdateInventoryDelivery', $scope.item);
-                toaster.pop('success', "Update.", 'Data update applied to server.');
+                toaster.pop('success',$translate.instant('invantories.Updated') ,$translate.instant('invantories.Updatedapplied') );
             });
         } else {
             Restangular.restangularizeElement('', data, 'inventorydeliveryinvoiceItem')
             data.post().then(function (res) {
                 $scope.$emit('UpdateInventoryDelivery', $scope.item);
-                toaster.pop('success', "Saved.", 'Saved data to server.');
+                toaster.pop('success',$translate.instant('invantories.Saved') ,$translate.instant('invantories.Savedserver'));
             });
         }
     };
@@ -390,20 +390,20 @@ function inventorydeliveryinvoiceitemCtrl($scope, $modal, $filter, SweetAlert, R
         rowform.$cancel();
         if (!idii.tableParams.data[idii.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(idii.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+           confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -412,7 +412,7 @@ function inventorydeliveryinvoiceitemCtrl($scope, $modal, $filter, SweetAlert, R
                     idii.tableParams.data[index].remove();
                 }
                 idii.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('invantories.Attention'),$translate.instant('invantories.RecordDeleted'));
             }
         });
         idii.tableParams.reload();

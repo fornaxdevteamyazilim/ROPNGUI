@@ -86,7 +86,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
     };
     $scope.SaveData = function (data) {
         if (!data.OrderReasonID) {
-            toaster.pop('error', "Choose a Reason", "Select cause of cancellation");
+            toaster.pop('error', $translate.instant('orderfile.ChoosReason'), $translate.instant('orderfile.Seleccancellation'));
         }else if (item.root == 'orderdetail') {
             if (data.value == true) {
                 Restangular.all('ordertools/updateorderstatus').getList({
@@ -97,7 +97,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     YemekSepetiRejectReasonID:data.YemekSepetiRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
-                    toaster.pop('success', "Order Status Updated.");
+                    toaster.pop('success', $translate.instant('orderfile.OrderStatusUpdated'));
                     $scope.ok();
                 }, function (response) {
                     toaster.pop('error', "Server Error", response.data.ExceptionMessage);
@@ -112,7 +112,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                      YemekSepetiRejectReasonID:data.YemekSepetiRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
-                    toaster.pop('success', "Order Status Updated.");
+                    toaster.pop('success', $translate.instant('orderfile.OrderStatusUpdated'));
                     $scope.ok();
                 }, function (response) {
                     toaster.pop('error', "Server Error", response.data.ExceptionMessage);
@@ -134,7 +134,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     YemekSepetiRejectReasonID: data.YemekSepetiRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
-                    toaster.pop('success', "Order Denied.");
+                    toaster.pop('success', $translate.instant('orderfile.OrderDenied'));
                     $scope.ok();
                 }, function (response) {
                     toaster.pop('error', "Server Error", response.data.ExceptionMessage);

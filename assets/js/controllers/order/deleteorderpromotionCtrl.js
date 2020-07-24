@@ -47,7 +47,7 @@ function deleteorderpromotionCtrl($scope, $rootScope, $modalInstance, Order, Res
      }).then(function (result) {
          $scope.UpdateOrderPaymentType = result;
          $scope.ok();
-         toaster.pop('success', "Status Of Order Changed!!", 'Success');
+         toaster.pop('success', $translate.instant('orderfile.StatusOrderChanged'), 'Success');
      }, function (response) {
          toaster.pop('error', "Server Error", response.data.ExceptionMessage);
      });

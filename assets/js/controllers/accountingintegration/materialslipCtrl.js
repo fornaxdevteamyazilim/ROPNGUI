@@ -41,11 +41,11 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 }).then(function (result) {
                     $scope.isSpinner = false;
                     ms.tableParams.reload();
-                    toaster.pop('success', "Receipt Transferred", '');
+                    toaster.pop('success',translate.instant('accounting.ReceiptTransferred') , '');
                 }, function (response) {
                     $scope.isSpinner = false;
                     ms.tableParams.reload();
-                    toaster.pop('Warning', "There was a problem !", response.data.ExceptionMessage);
+                    toaster.pop('Warning', $translate.instant('accounting.ThereProblem'), response.data.ExceptionMessage);
                 });
             }
             //if (i = ms.tableParams.data.length)
@@ -61,14 +61,14 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 ToDate: item.EndDate
             }).then(function (result) {
                 ms.tableParams.reload();
-                toaster.pop('success', "Receipt Transferred", '');
+                toaster.pop('success',translate.instant('accounting.ReceiptTransferred'), '');
                 $scope.isSpinner = false
             }, function (response) {
-                toaster.pop('Warning', "There was a problem !", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('accounting.ThereProblem'), response.data.ExceptionMessage);
                 $scope.isSpinner = false
             });
         } else {
-            toaster.pop('Warning', "FILL OUT THE REQUIRED FIELDS !!!");
+            toaster.pop('Warning', translate="$translate.instant('accounting.REQUIREDFIELDS')");
             $scope.isSpinner = false
         }
     };
@@ -81,14 +81,14 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 ToDate: item.EndDate
             }).then(function (result) {
                 ms.tableParams.reload();
-                toaster.pop('success', "Plugs Created!", '');
+                toaster.pop('success', $translate.instant('accounting.PlugsCreated'), '');
                 $scope.isSpinner = false
             }, function (response) {
-                toaster.pop('Warning', "There was a problem !", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('accounting.ThereProblem'), response.data.ExceptionMessage);
                 $scope.isSpinner = false
             });
         } else {
-            toaster.pop('Warning', "FILL OUT THE REQUIRED FIELDS !!!");
+            toaster.pop('Warning',translate="$translate.instant('accounting.REQUIREDFIELDS')");
             $scope.isSpinner = false
         }
     };
@@ -102,26 +102,26 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 SendAfterCreate: true
             }).then(function (result) {
                 ms.tableParams.reload();
-                toaster.pop('success', "Plugs Created and Transferred !", '');
+                toaster.pop('success', translate="accounting.CreatedTransferred", '');
                 $scope.isSpinner = false
             }, function (response) {
-                toaster.pop('Warning', "There was a problem !", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('accounting.ThereProblem'), response.data.ExceptionMessage);
                 $scope.isSpinner = false
             });
         } else {
-            toaster.pop('Warning', "FILL OUT THE REQUIRED FIELDS !!!");
+            toaster.pop('Warning', translate="$translate.instant('accounting.REQUIREDFIELDS')");
             $scope.isSpinner = false
         }
     };
     $scope.DeleteMaterialSlips = function () {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -135,7 +135,7 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 if (deletedata && deletedata.length) {
                     for (var j = 0; j < deletedata.length; j++) {
                         deletedata[j].remove().then(function () {
-                            toaster.pop("error", "Attention !", "Record Deleted !");
+                            toaster.pop("error",$translate.instant('invantories.Deleted'),  $translate.instant('invantories.RecordDeleted'));
                             $scope.isSpinner = false;
                             ms.tableParams.reload();
                         });
@@ -144,7 +144,7 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
             } else {
                 $scope.isSpinner = false;
                 ms.tableParams.reload();
-                SweetAlert.swal("It is cancelled !", "Deletion Canceled !", "error");
+                SweetAlert.swal( $translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled'), "error");
             }
         });
         $scope.isSpinner = true;

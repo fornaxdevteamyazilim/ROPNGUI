@@ -95,12 +95,12 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         $scope.item.items = vm.tableParams.data;
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal("Updated.", "Updated.", "success");
+                swal("Updated.", translate="invantories.Updated", "success");
                 $location.path('app/inventory/inventorytransfer/list');
                 $scope.SaveButtonActive = true;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('warning', "Uyarı...", response.data.ExceptionMessage);
+                toaster.pop('warning', "warning...", response.data.ExceptionMessage);
             });
         }
         else {
@@ -118,12 +118,12 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
     }
     $scope.showtoaster = function () {
         if ($scope.addoredit == 'add')
-            toaster.pop('success', "Data Added", 'Saved data.');
+            toaster.pop('success',$translate.instant('invantories.DataAdded '), $translate.instant('invantories.DataSaved '));
         else
-            toaster.pop('success', "Data Saved", 'Saved data.');
+            toaster.pop('success', $translate.instant('invantories.DataAdded '), $translate.instant('invantories.DataSaved '));
     }
     $scope.savetoaster = function () {
-        toaster.pop('success', "Data Added", 'Saved data');
+        toaster.pop('success',$translate.instant('invantories.DataAdded ') ,$translate.instant('invantories.DataSaved ') );
     }
     $scope.isClean = function () {
         return angular.equals($scope.original, $scope.item);
@@ -142,9 +142,9 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     vm.tableParams = new ngTableParams({
@@ -251,36 +251,36 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
     $scope.loadEntities('enums/InventoryApproveState', 'InventoryApproveState');
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Delete.", "Record Deleted.", "success");
+                    SweetAlert.swal(  $translate.instant('invantories.Deleted'),  $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('app/inventory/inventorytransfer/list');
                 });
             }
             else {
-                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
+                SweetAlert.swal( $translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled') , "error");
             }
         });
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -289,7 +289,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('invantories.Attention'),$translate.instant('invantories.RecordDeleted'));
             }
         });
     };

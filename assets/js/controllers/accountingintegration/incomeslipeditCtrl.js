@@ -52,14 +52,14 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
                 $location.path('app/accountingintegration/incomeslip/list');
-                swal("Güncellendi.", "Updated.", "success");
+                swal( $translate.instant('accounting.Updated'),$translate.instant('accounting.Updated'), "success");
             });
         }
         else {
             Restangular.restangularizeElement('', $scope.item, 'AccountingIncomeSlip')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal("Kaydedildi.", "Saved.", "success");
+                swal($translate.instant('accounting.Saved'),$translate.instant('accounting.Saved'), "success");
                 $location.path('app/accountingintegration/incomeslip/edit/' + resp.id);
                 $scope.item = {};
                 $scope.item = Restangular.copy(resp);
@@ -83,43 +83,43 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
         rowform.$cancel();
         if (!ise.tableParams.data[ise.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ise.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('accounting.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('accounting.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('accounting.Sure') ,
+            text:  $translate.instant('accounting.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('accounting.confirmButtonText'),
+            cancelButtonText:   $translate.instant('accounting.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Silindi.", "Kayıt Silindi.", "success");
+                    SweetAlert.swal(  $translate.instant('accounting.Deleted'),  $translate.instant('accounting.RecordDeleted'), "success");
                     $location.path('app/accountingintegration/incomeslip/list');
                 });
             }
             else {
-                SweetAlert.swal("It is cancelled !", "Deletion Canceled !", "error");
+                SweetAlert.swal(  $translate.instant('accounting.Cancelled'), $translate.instant('accounting.DeletionCanceled'), "error");
             }
         });
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('accounting.Sure') ,
+            text:  $translate.instant('accounting.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText:    $translate.instant('accounting.confirmButtonText'),
+            cancelButtonText:   $translate.instant('accounting.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -128,7 +128,7 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
                     ise.tableParams.data[index].remove();
                 }
                 ise.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('accounting.Attention'),$translate.instant('accounting.RecordDeleted'));
             }
         });
     };
@@ -196,10 +196,10 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
             AccountingIncomeSlipID: $stateParams.id,
         }).then(function (result) {
             $scope.isSpinner = false;
-            toaster.pop('success', "Transferred", '');
+            toaster.pop('success', translate="accounting.Transferred", '');
         }, function (response) {
             $scope.isSpinner = false;
-            toaster.pop('Warning', "There was a problem !", response.data.ExceptionMessage);
+            toaster.pop('Warning', translate="accounting.ThereProblem" , response.data.ExceptionMessage);
         });
     };
     $scope.$on('$destroy', function () {

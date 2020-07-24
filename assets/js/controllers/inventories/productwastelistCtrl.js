@@ -63,9 +63,9 @@ function productwastelistCtrl($scope, $log, $modal, Restangular, ngTableParams, 
         rowform.$cancel();
         if (!pw.tableParams.data[pw.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pw.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     pw.tableParams = new ngTableParams({

@@ -26,17 +26,17 @@ function companyeditCtrl($rootScope, $scope, $log, $modal, $location, Restangula
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
             }, function (response) {
-                toaster.pop('warning', "Operation Failed !", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('difinitions.OperationFailed'), response.data.ExceptionMessage);
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'company')
             data.post().then(function (res) {
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success',  $translate.instant('difinitions.Saved') , 'Saved.');
             }, function (response) {
-                toaster.pop('warning', "Operation Failed !", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('difinitions.OperationFailed'), response.data.ExceptionMessage);
             });
         }
     };
@@ -47,33 +47,33 @@ function companyeditCtrl($rootScope, $scope, $log, $modal, $location, Restangula
                 $scope.item = Restangular.copy(restresult);
             },
            function (restresult) {
-               toaster.pop('warning', "It is cancelled !", 'Edit Cancelled.');
+               toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit Cancelled.');
                swal("Error!", "Data Error!", "Warning");
            }
            )
     }
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:   $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Deleted !", "Record Deleted !", "success");
+                    SweetAlert.swal( $translate.instant('difinitions.Deleted'),  $translate.instant('difinitions.RecordDeleted'), "success");
                     $location.path('app/definitions/companies');
                 }, function (response) {
-                    toaster.pop('warning', "Operation Failed!", response.data.ExceptionMessage);
+                    toaster.pop('warning',  translate="difinitions.OperationFailed", response.data.ExceptionMessage);
                 });
             }
             else {
-                SweetAlert.swal("It is cancelled ! ", "Deletion canceled !", "error");
+                SweetAlert.swal($translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.DeletionCanceled') , "error");
             }
         });
     };
@@ -125,7 +125,7 @@ function companyaccountCtrl($rootScope, $scope, $modal, $log, Restangular, $stat
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
@@ -133,11 +133,11 @@ function companyaccountCtrl($rootScope, $scope, $modal, $log, Restangular, $stat
                 data.CompanyID = $stateParams.id;
                 Restangular.restangularizeElement('', data, 'companyaccount')
                 data.post().then(function (res) {
-                    toaster.pop('success', "Saved.", 'Saved.');
+                    toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
                 });
 
             } else
-                toaster.pop('warning', "You Have No Authority. !", 'You do not have permittion !');
+                toaster.pop('warning', $translate.instant('difinitions.Authority'), );
         }
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {

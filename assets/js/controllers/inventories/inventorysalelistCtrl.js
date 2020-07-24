@@ -73,9 +73,9 @@ function inventorysalelistCtrl($scope, $log, $modal, Restangular, ngTableParams,
         rowform.$cancel();
         if (!isl.tableParams.data[isl.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(isl.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     isl.tableParams = new ngTableParams({

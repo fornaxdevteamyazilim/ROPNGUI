@@ -30,10 +30,10 @@ function tagCtrl($rootScope, $scope, $log, Restangular, $modal, ngTableParams, S
             data.put().then(
                 function (res) {
                     tag.tableParams.reload();
-                    toaster.pop('success', "Updated.", 'Updated.');
+                    toaster.pop('success', $translate.instant('difinitions.Updated'), 'Updated.');
                 },
                 function (response) {
-                    toaster.pop('error', "Update Failed!", response.data.ExceptionMessage);
+                    toaster.pop('error',$translate.instant('difinitions.Updatedapplied'), response.data.ExceptionMessage);
                 }
                  );
         }
@@ -42,10 +42,10 @@ function tagCtrl($rootScope, $scope, $log, Restangular, $modal, ngTableParams, S
             data.post().then(
                 function (res) {
                     tag.tableParams.reload();
-                    toaster.pop('success', "Saved.", 'Saved.');
+                    toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
                 },
                     function (response) {
-                        toaster.pop('error', "Data Insert Failed!", response.data.ExceptionMessage);
+                        toaster.pop('error', $translate.instant('difinitions.InsertFailed '), response.data.ExceptionMessage);
                     }
             );
             data.get();
@@ -65,9 +65,9 @@ function tagCtrl($rootScope, $scope, $log, Restangular, $modal, ngTableParams, S
         rowform.$cancel();
         if (!tag.tableParams.data[tag.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(tag.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     tag.tableParams = new ngTableParams({
@@ -115,13 +115,13 @@ function tagCtrl($rootScope, $scope, $log, Restangular, $modal, ngTableParams, S
     $scope.loadEntities('enums/tagtype', 'tagtypes');
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:   $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -130,7 +130,7 @@ function tagCtrl($rootScope, $scope, $log, Restangular, $modal, ngTableParams, S
                     tag.tableParams.data[index].remove();
                 }
                 tag.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
             }
         });
     };

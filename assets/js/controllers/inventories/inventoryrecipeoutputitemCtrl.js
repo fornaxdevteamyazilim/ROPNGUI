@@ -37,9 +37,9 @@ function inventoryrecipeoutputitemCtrl($rootScope, $scope, $log, $modal, Restang
         rowform.$cancel();
         if (!iro.tableParams.data[iro.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(iro.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled!", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     iro.tableParams = new ngTableParams({
@@ -78,13 +78,13 @@ function inventoryrecipeoutputitemCtrl($rootScope, $scope, $log, $modal, Restang
     }
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:  $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -93,7 +93,7 @@ function inventoryrecipeoutputitemCtrl($rootScope, $scope, $log, $modal, Restang
                     iro.tableParams.data[index].remove();
                 }
                 iro.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('invantories.Attention'),$translate.instant('invantories.RecordDeleted'));
             }
         });
     };

@@ -36,9 +36,9 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
         rowform.$cancel();
         if (!ip.tableParams.data[ip.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ip.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.BuildSearchString = function (src) {

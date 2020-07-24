@@ -2,9 +2,9 @@
 function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $location, $translate, userService, localStorageService, NG_SETTING, $element, $http) {
     if (!userService.getCurrentUser())
         $location.path('/login/signin');
-    $scope.statusmessage = userService.getCurrentUser().ShiftActive ? 'Vardiya çıkışı için parmak okutunuz' : 'Vardiya girişi için parmak okutunuz';
+    $scope.statusmessage = userService.getCurrentUser().ShiftActive ? $translate.instant('clockiout.Fingerreading') : $translate.instant('clockiout.Fingerentry');
     var fp = userService.getCurrentUser().isFingerPrintExist;
-    $scope.statusmessage = $scope.statusmessage + (!fp ? ' !!!ÖNCE PARMAK İZİ TANITINIZ!!! ' : '');
+    $scope.statusmessage = $scope.statusmessage + (!fp ?  $translate.instant('clockiout.FINGERPRINTSFIRST') : '');
     var ac = userService.getCurrentUser().ShiftActive ? 'ClockOut' : 'ClockIn';
     $scope.data = { Action: ac, Client: localStorageService.get('ClientName') };
     $scope.ClientMessages = [];
@@ -66,7 +66,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
         $http.post(NG_SETTING.apiServiceBaseUri + '/api/FingerPrint/startEnroll', data, {
             'Content-Type': 'application/json'
         }).success(function (response) {
-            toaster.pop('success', "Started", 'FingerPrint enroll process started...');
+            toaster.pop('success', $translate.instant('clockiout.Started'),$translate.instant('clockiout.FingerPrint') );
             //deferred.resolve(response);
         }).error(function (err, status) {
             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);

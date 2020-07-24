@@ -1376,7 +1376,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/staffshiftdiff',
             templateUrl: "assets/views/reports/staffshiftreports/staffshiftdiff.html",
             resolve: loadSequence('xeditable', 'config-xeditable', 'ngTable', 'staffshiftdiffCtrl', 'jquery-nestable-plugin', 'ng-nestable', 'selecttagCtrl', 'ui.select', 'dateCtrl', 'angularBootstrapNavTree', 'selectanyCtrl'),
-            title: 'Iscilik Verimlilik Farklari',
+            title: 'staff shift diff',
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'staffshiftdiff'
@@ -1385,7 +1385,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/diffbyhour',
             templateUrl: "assets/views/reports/staffshiftreports/diffbyhour.html",
             resolve: loadSequence('xeditable', 'config-xeditable', 'ngTable', 'diffbyhourCtrl', 'jquery-nestable-plugin', 'ng-nestable', 'selecttagCtrl', 'ui.select', 'dateCtrl', 'angularBootstrapNavTree', 'selectanyCtrl'),
-            title: 'Saatlere Gore Verimlilik Raporu',
+            title: ' diffby hour',
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'diffbyhour'
@@ -1394,7 +1394,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 url: '/diffbyhourreq',
                 templateUrl: "assets/views/reports/staffshiftreports/diffbyhour_req.html",
                 resolve: loadSequence('xeditable', 'config-xeditable', 'ngTable', 'diffbyhourCtrl', 'jquery-nestable-plugin', 'ng-nestable', 'selecttagCtrl', 'ui.select', 'dateCtrl', 'angularBootstrapNavTree', 'selectanyCtrl'),
-                title: 'Saatlere Gore İhtiyac Raporu',
+                title: 'diffby hour req',
                 authenticate: true,
                 ncyBreadcrumb: {
                     label: 'diffbyhourreq'
@@ -1404,7 +1404,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/shiftpersontotals',
             templateUrl: "assets/views/reports/staffshiftreports/shiftpersontotals.html",
             resolve: loadSequence('xeditable', 'config-xeditable', 'ngTable', 'shiftpersontotalsCtrl', 'jquery-nestable-plugin', 'ng-nestable', 'selecttagCtrl', 'ui.select', 'dateCtrl', 'angularBootstrapNavTree', 'selectanyCtrl'),
-            title: 'Personel Vardiya Toplamlari',
+            title: 'shift person totals',
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'clockinout'
@@ -1413,7 +1413,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/shiftactualtotals',
             templateUrl: "assets/views/reports/staffshiftreports/shiftactualtotals.html",
             resolve: loadSequence('xeditable', 'config-xeditable', 'ngTable', 'shiftactualtotalsCtrl', 'jquery-nestable-plugin', 'ng-nestable', 'selecttagCtrl', 'ui.select', 'dateCtrl', 'angularBootstrapNavTree', 'selectanyCtrl'),
-            title: 'Gerçekleşen Vardiya Toplamlari',
+            title: 'shift actual totals',
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'shiftactualtotals'
@@ -1422,7 +1422,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/weeklyanalysis',
             templateUrl: "assets/views/reports/staffshiftreports/weeklyanalysis.html",
             resolve: loadSequence('xeditable', 'config-xeditable', 'ngTable', 'weeklyanalysisCtrl', 'jquery-nestable-plugin', 'ng-nestable', 'selecttagCtrl', 'ui.select', 'dateCtrl', 'angularBootstrapNavTree', 'selectanyCtrl'),
-            title: 'Haftalık Analiz',
+            title: 'weekly analysis',
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'weeklyanalysis'
@@ -1431,7 +1431,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/clockinoutreport',
             templateUrl: "assets/views/reports/staffshiftreports/clockinoutreport.html",
             resolve: loadSequence('clockinoutreportCtrl'),
-            title: 'Gerçekleşen Vardiya Bilgileri',
+            title: 'clock in out report',
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'clockinout'
@@ -1440,7 +1440,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/cloclinoutstats',
             templateUrl: "assets/views/reports/staffshiftreports/ClockInOutStats.html",
             resolve: loadSequence('ClockInOutStatsCtrl'),
-            title: 'Vardiya İsttistikleri',
+            title: 'Clock In Out Stats',
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'clockinoutstats'
@@ -1925,7 +1925,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/salesbysource',
             templateUrl: "assets/views/reports/giroreports/salesbysource.html",
             resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'salesbysourceCtrl'),
-            title: 'Kanal Bazlı Satış',
+            title: 'sales by source',
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'salesbysource'
@@ -1960,7 +1960,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/productgroupstrikerate',
             templateUrl: "assets/views/reports/productsalesreports/productgroupstrikerate.html",
             resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'productgroupstrikerateCtrl', 'dateCtrl', 'pivottable', 'jqueryui', 'selecttagCtrl', 'jquery-nestable-plugin', 'ng-nestable', 'angularBootstrapNavTree'),
-            title: 'Ürün Grup Satış Analizi',
+            title: 'product group strikerate',
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'productgroupstrikerate'

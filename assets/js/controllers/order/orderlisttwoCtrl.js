@@ -62,7 +62,7 @@ function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 result.push("OrderSourceID='" + $scope.OrderSourceID + "'");
             return result;
         } else {
-            toaster.pop('warning', " Lütfen Tarih Seçiniz");
+            toaster.pop('warning',$translate.instant('orderfile.PleaseSelectDatePlease'));
         }
     };
     aot.tableParams = new ngTableParams({

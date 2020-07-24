@@ -23,9 +23,9 @@ function preferencesCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, 
     $scope.saveData = function (data) {
         Restangular.restangularizeElement('', data, 'preferences')
         data.post().then(function (res) {
-            toaster.pop('success', "Data Saved Successfully!");
+            toaster.pop('success', $translate.instant('difinitions.SuccessfullySaved'));
         }, function (response) {
-            toaster.pop('error', "Cannot Save Data", response);
+            toaster.pop('error',$translate.instant('difinitions.CannotSave '), response);
         });
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {

@@ -39,9 +39,9 @@ function orderinvoicelistCtrl($scope, $log, $filter, $modal, Restangular, ngTabl
         rowform.$cancel();
         if (!oil.tableParams.data[oil.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(oil.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     //$scope.BuildSearchString = function () {

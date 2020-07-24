@@ -93,7 +93,7 @@ function dailyorganizationchartCtrl($scope, $filter, $modal, $log, Restangular, 
            $scope.VeiwHeader = result[0];
            $scope.GetLayout(result[0].id)
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Server error", response.data.ExceptionMessage);
        });
     }
 
@@ -124,7 +124,7 @@ function dailyorganizationchartCtrl($scope, $filter, $modal, $log, Restangular, 
             $scope.LoadPivotData();
         }
     }, function (response) {
-        toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+        toaster.pop('error', "Server error", response.data.ExceptionMessage);
     });
     };
     $scope.exportToExcel = function (tableId) {
@@ -143,7 +143,7 @@ function dailyorganizationchartCtrl($scope, $filter, $modal, $log, Restangular, 
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success', "Kaydedildi.", 'Saved.');
+            toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
         });
     };
     $scope.EditLayoutData = function (configdata) {
@@ -157,7 +157,7 @@ function dailyorganizationchartCtrl($scope, $filter, $modal, $log, Restangular, 
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success', "Güncellendi.", 'Updated.');
+            toaster.pop('success',  $translate.instant('orderfile.Updated'), 'Updated.');
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {
@@ -183,7 +183,7 @@ function dailyorganizationchartCtrl($scope, $filter, $modal, $log, Restangular, 
                 $scope.ShowReport();
                 $scope.isWaiting = false;
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
                 $scope.isWaiting = false;
             });
     };

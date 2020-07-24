@@ -107,7 +107,7 @@ function drivethruCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
     };
     $scope.SaveOpenOrders = function (data) {
         swal({
-            title: "Have we delivered the order ?",
+            title: $translate.instant('orderfile.Havewedeliveredorder'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",

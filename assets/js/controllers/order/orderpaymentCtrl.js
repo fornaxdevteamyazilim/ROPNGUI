@@ -149,7 +149,7 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
     $scope.SavePayment = function (type) {
         $scope.currentPayment.PaymentTypeID = type.id;
         if ($scope.currentPayment.Amount == 0) {
-            toaster.pop('error', "Amount Payable: 0 !", "error");
+            toaster.pop('error', $translate.instant('orderfile.AmountPayable'), "error");
         } else {
             $scope.ShowButton = true;
             $scope.currentPayment.PaymentTypeID = type.id;
@@ -158,23 +158,23 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
             if ($scope.isNewPayment) {
                 $scope.currentPayment.post().then(function (resp) {
                     //$scope.setBekoECRPayment(type.PaymentType);
-                    toaster.pop("success", "PAYMENT SAVED.");
+                    toaster.pop("success",$translate.instant('orderfile.PAYMENTSAVED') );
                     $scope.order.payments.push(resp);
                     $scope.Recalc();
                     if ($scope.currentPayment.Amount == 0)
                         $scope.ok();
                 }, function (resp) {
-                    toaster.pop('error', "NO NEW PAYMENT RECORDED !", resp.data.ExceptionMessage);
+                    toaster.pop('error',$translate.instant('orderfile.NONEWPAYMENTRECORDED') , resp.data.ExceptionMessage);
                 });
             } else {
                 $scope.currentPayment.put().then(function (resp) {
                     //$scope.setBekoECRPayment(type.PaymentType);
-                    toaster.pop("success", "PAYMENT UPDATED.");
+                    toaster.pop("success", $translate.instant('orderfile.PAYMENTUPDATED'));
                     $scope.Recalc();
                     if ($scope.currentPayment.Amount == 0)
                         $scope.ok();
                 }, function (resp) {
-                    toaster.pop('error', "THE NEW PAYMENT COULD NOT BE UPDATED !", resp.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('orderfile.NEWPAYMENTCOULDNOTUPDATED'), resp.data.ExceptionMessage);
                 });
             }
         }
@@ -203,12 +203,12 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
                     }
                 });
             } else {
-                $scope.message = "Operation Could Not Be Performed.";
+                $scope.message =  $translate.instant('orderfile.OperationCouldPerformed');
                 $scope.Showspinner = false;
             }
         }, function (response) {
-            $scope.message = "Operation Could Not Be Performed.";
-            toaster.pop('error', "PAYMENT NOT MADE !", response.data.ExceptionMessage);
+            $scope.message =  $translate.instant('orderfile.OperationCouldPerformed');
+            toaster.pop('error', $translate.instant('orderfile.PAYMENTNOTMADE') , response.data.ExceptionMessage);
             $scope.Showspinner = false;
         });
     };
@@ -442,9 +442,9 @@ function orderinvoiceCtrl($rootScope, $scope, $modalInstance, $log, $filter, Swe
         rowform.$cancel();
         if (!oin.tableParams.data[oin.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(oin.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
 
@@ -472,13 +472,13 @@ function orderinvoiceCtrl($rootScope, $scope, $modalInstance, $log, $filter, Swe
 
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -487,7 +487,7 @@ function orderinvoiceCtrl($rootScope, $scope, $modalInstance, $log, $filter, Swe
                     oin.tableParams.data[index].remove();
                 }
                 oin.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

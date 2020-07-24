@@ -41,9 +41,9 @@ function inventorydeliveryinvoiceCtrl($scope, $log, $modal, Restangular, ngTable
         rowform.$cancel();
         if (!idi.tableParams.data[idi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(idi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     idi.tableParams = new ngTableParams({

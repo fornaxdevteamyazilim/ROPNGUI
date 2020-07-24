@@ -45,7 +45,7 @@ function callrouteCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Re
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 sr.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success',  translate="callmonitor.Updated", 'Updated.');
             }, function (response) {
                 toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
@@ -54,7 +54,7 @@ function callrouteCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Re
             Restangular.restangularizeElement('', data, 'callroute')
             data.post().then(function (res) {
                 sr.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', translate="callmonitor.Saved", 'Saved.');
             }, function (response) {
                 toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
@@ -74,20 +74,20 @@ function callrouteCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Re
         rowform.$cancel();
         if (!sr.tableParams.data[sr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('callmonitor.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('callmonitor.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('callmonitor.Sure') ,
+            text:  $translate.instant('callmonitor.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('callmonitor.confirmButtonText'),
+            cancelButtonText:  $translate.instant('callmonitor.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -96,7 +96,7 @@ function callrouteCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Re
                     sr.tableParams.data[index].remove();
                 }
                 sr.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('callmonitor.Attention'),$translate.instant('callmonitor.RecordDeleted'));
             }
         });
     };

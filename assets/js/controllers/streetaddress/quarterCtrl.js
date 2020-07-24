@@ -35,10 +35,10 @@ function quarteryCtrl($rootScope, $scope, $log, $modal, Restangular, SweetAlert,
             data.put().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', "Güncellendi.", 'Updated.');
+                    toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
                 },
                  function (response) {
-                     toaster.pop('error', "Güncellenemedi !", response.data.ExceptionMessage);
+                     toaster.pop('error',  $translate.instant('orderfile.Couldnotupdated'), response.data.ExceptionMessage);
                  }
                  );
         }
@@ -47,10 +47,10 @@ function quarteryCtrl($rootScope, $scope, $log, $modal, Restangular, SweetAlert,
             data.post().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', "Eklendi.", 'Saved.');
+                    toaster.pop('success', $translate.instant('orderfile.Added'), 'Saved.');
                 },
                  function (response) {
-                     toaster.pop('error', "Kaydedilmedi !", response.data.ExceptionMessage);
+                     toaster.pop('error', $translate.instant('orderfile.Notrecorded'), response.data.ExceptionMessage);
                  }
                 );
             data.get();
@@ -69,9 +69,9 @@ function quarteryCtrl($rootScope, $scope, $log, $modal, Restangular, SweetAlert,
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
       $scope.LoadSubcities = function (TownID) {
@@ -164,13 +164,13 @@ function quarteryCtrl($rootScope, $scope, $log, $modal, Restangular, SweetAlert,
     }
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-          title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
               }, function (isConfirm) {
@@ -179,7 +179,7 @@ function quarteryCtrl($rootScope, $scope, $log, $modal, Restangular, SweetAlert,
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                 toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

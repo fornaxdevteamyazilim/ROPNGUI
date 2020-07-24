@@ -5,11 +5,11 @@ function podCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangu
     $scope.item = {};
     $scope.saveData = function () {
         if (this.item.restangularized) {
-            this.item.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Güncellendi.", 'Updated.'); });
+            this.item.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.'); });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'pod')
-            this.item.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Kaydedildi.", 'Saved.'); });
+            this.item.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.'); });
             this.item.get();
         }
     }
@@ -28,9 +28,9 @@ function podCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangu
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     vm.tableParams = new ngTableParams({
@@ -50,7 +50,7 @@ function podCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangu
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -70,7 +70,7 @@ function podCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangu
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -79,7 +79,7 @@ function podCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangu
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -99,13 +99,13 @@ function podCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangu
     }
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:   $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -114,7 +114,7 @@ function podCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangu
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
             }
         });
     };

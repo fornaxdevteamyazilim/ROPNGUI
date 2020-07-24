@@ -18,7 +18,7 @@ function inventorytransformeditCtrl($scope, $log, $modal, $filter, SweetAlert, R
            },
            function (restresult) {
                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
-               swal("Hata!", "Server Error!", "Warning");
+               swal("Error!", "Server Error!", "Warning");
            }
            )
     } else {
@@ -27,7 +27,7 @@ function inventorytransformeditCtrl($scope, $log, $modal, $filter, SweetAlert, R
     $scope.saveData = function (data) {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal("Updated.", "Updated.", "success");
+                swal("Updated.", translate="invantories.Updated", "success");
                 $rootScope.InventoryTransformID = resp.id;
                 $scope.$broadcast('ChangeData');
             });
@@ -36,7 +36,7 @@ function inventorytransformeditCtrl($scope, $log, $modal, $filter, SweetAlert, R
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
                 $rootScope.InventoryTransformID = resp.id;
-                swal("Saved.", "Saved.", "success");
+                swal("Saved.", translate="invantories.Saved", "success");
                 $scope.$broadcast('ChangeData');
             });
         }
@@ -58,9 +58,9 @@ function inventorytransformeditCtrl($scope, $log, $modal, $filter, SweetAlert, R
         rowform.$cancel();
         if (!ite.tableParams.data[ite.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ite.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.repositories = [];
@@ -116,24 +116,24 @@ function inventorytransformeditCtrl($scope, $log, $modal, $filter, SweetAlert, R
     $scope.loadEntities('inventoryrecipe', 'inventoryrecipes');
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title: translate="invantories.Sure" ,
+            text:  translate="invantories.SureRecord",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:   translate="invantories.confirmButtonText",
+            cancelButtonText:  translate="invantories.cancelButtonText",
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
+                    SweetAlert.swal(translate="invantories.Deleted",  translate="invantories.RecordDeleted", "success");
                     $location.path('app/inventory/inventorytransform/list');
                 });
             }
             else {
-                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
+                SweetAlert.swal($translate.instant('invantories.Cancelled'),  translate="invantories.DeletionCanceled", "error");
             }
         });
     };
@@ -173,14 +173,14 @@ function inventorytransformitemCtrl($scope, $log, $modal, $filter, SweetAlert, R
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 iti.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success', translate="invantories.Updated", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'inventorytransformitem')
             this.item.post().then(function (res) {
                 iti.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success',translate="invantories.Saved", 'Saved.');
             });
             this.item.get();
         }
@@ -220,9 +220,9 @@ function inventorytransformitemCtrl($scope, $log, $modal, $filter, SweetAlert, R
         rowform.$cancel();
         if (!iti.tableParams.data[iti.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(iti.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     iti.tableParams = new ngTableParams({
@@ -328,11 +328,11 @@ function inventoryrecipeoutputitemsCtrl($scope, $log, $modal, Restangular, ngTab
     });
     $scope.saveData = function () {
         if (this.item.restangularized) {
-            this.item.put().then(function (res) { ito.tableParams.reload(); toaster.pop('success', "Güncellendi.", 'Updated.'); });
+            this.item.put().then(function (res) { ito.tableParams.reload(); toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.'); });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'inventorytransformoutputitem')
-            this.item.post().then(function (res) { ito.tableParams.reload(); toaster.pop('success', "Kaydedildi.", 'Saved.'); });
+            this.item.post().then(function (res) { ito.tableParams.reload(); toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.'); });
             this.item.get();
         }
     };
@@ -368,9 +368,9 @@ function inventoryrecipeoutputitemsCtrl($scope, $log, $modal, Restangular, ngTab
         rowform.$cancel();
         if (!ito.tableParams.data[ito.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ito.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     ito.tableParams = new ngTableParams({

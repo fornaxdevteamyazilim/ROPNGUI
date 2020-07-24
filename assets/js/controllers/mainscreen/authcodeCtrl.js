@@ -17,14 +17,14 @@ function authcodeCtrl($rootScope, $scope, $modalInstance, $log, toaster, Restang
         }).then(function (result) {
             if (result == true) {
                 $scope.ok();
-                toaster.pop('success', "Login successful.");
+                toaster.pop('success',$translate.instant('mainscreen.LoginSuccessful '));
             } else {
                 $scope.cancel();
-                toaster.pop('error', "Login Failed !", 'Make sure your private password is correct and try again !');
+                toaster.pop('error', $translate.instant('mainscreen.LoginFailed '),$translate.instant('mainscreen.TryAgain '));
             }
         }, function (response) {
             $scope.cancel();
-            toaster.pop('error', "Login Failed !", 'Make sure your private password is correct and try again !');
+            toaster.pop('error',$translate.instant('mainscreen.LoginFailed '), $translate.instant('mainscreen.TryAgain '));
         });
     };
     $scope.ok = function () {

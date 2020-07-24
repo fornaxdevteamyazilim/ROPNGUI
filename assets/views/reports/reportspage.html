@@ -41,7 +41,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.transactionreports=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/transactionreport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçili restoranın iki tarih arasında ki hareketlerinin tiplere göre listelendiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.transactionreports' |translate}}" popover-title="{{'reportspage.METERIALMOVEMENTREPORT' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.METERIALMOVEMENTREPORT' |translate}}</span>
@@ -49,7 +49,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.consuptionsreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/consuptionreport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçili restoranın iki tarih arasında kullanılan envanter ve miktarları yer almaktadır." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.METERIALMOVEMENTREPORT' |translate}}." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.METERIALUSAGEREPORT' |translate}}</span>
@@ -57,7 +57,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.InventoryUsages=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/InventoryUsages')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Raporda seçtiğiniz restoranın iki tarih arasında ki kullanılan ürünlerin adetini ve envanter-ürün bağlarını görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INVENTORYUSAGES' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.INVENTORYUSAGES' |translate}}</span>
@@ -65,7 +65,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.comparereport=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/comparereport/list')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Raporda seçtiğiniz restoranın iki tarih arasında etiket tipine göre envanter hareketlerinin (sayım,giren,çıkan,kullanılan,fark vs.) hepsinin tek bir listede gösterildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i> <br />
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.ACTUALCALCULATEREMAINDERLIST' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i> <br />
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ACTUALCALCULATEREMAINDERLIST' |translate}}</span>
@@ -73,7 +73,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.comparereport=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/actualcalculated')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Bu raporda seçilen tarihler arası depodaki toplam malzemenin dönem başı değeri, varsa yarı mamul stoğu, toplam giren malzeme, toplam kullanılan malzeme, toplam çıkan malzeme sonucunda hesaplanan miktar, depoda bulunan gerçek malzeme miktarı görülür." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i><br />
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.ACTUALCALCULATED' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i><br />
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ACTUALCALCULATED' |translate}}</span>
@@ -81,7 +81,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md " ng-if="user.restrictions.balancelist=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/balancelist')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Gerçek hesaplanan bakiye listesi gibi depolarımızda bulunan malzeme miktarlarını görüntüleyeceğimiz rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i><br />
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.BALANCELIST' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i><br />
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.BALANCELIST' |translate}}</span>
@@ -89,7 +89,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.usagereport=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/usagereport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Bu raporda seçilen tarih aralıklarında hangi malzemenin hangi ürünün içinde kullanıldığı, reçete sayısı ve ürün sayısı bilgileri yer almaktadır. Etiket seçimi alanından istediğiniz bir grubu veya malzeme alanından bir envanter seçerek filtreleme ile sadece o grup veya envanterin listelenmesini sağlayabilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.USAGEREPORT' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.USAGEREPORT' |translate}}</span>
@@ -97,7 +97,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.inventorywaste=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/inventorywasteconsuptions')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçtiğiniz tarihler arasında ki envanter atık miktarlarını görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INVENTORYWASTECONSUPTIONS' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.INVENTORYWASTECONSUPTIONS' |translate}}</span>
@@ -105,7 +105,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.productwastereport=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/wasteproduct')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçtiğiniz tarihler arasında ki atık yapılmış ürünleri ve miktarlarını görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INVENTORYWASTECONSUPTIONS' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTWASTEREPORT' |translate}}</span>
@@ -113,7 +113,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.inventorycosts=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/inventorycosts')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Aktif dönemde tüm şubelerin ideal ve gerçekleşen maliyet değerlerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INVENTORYCOST' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.INVENTORYCOST' |translate}}</span>
@@ -121,7 +121,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.inventoryperiodiccosts=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/inventoryperiodiccosts')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçili tarihler arasında ideal ve gerçekleşen maliyet değerlerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INVENTORYPERIODICCOST' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.INVENTORYPERIODICCOST' |translate}}</span>
@@ -129,7 +129,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.inventoryrecipesreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/inventoryrecipes')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçili dönemde herhangi bir envanter seçimi yapmadıysanız tüm ürünlerin reçeteleri listelenir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INVENTORYRECIPES' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.INVENTORYRECIPES' |translate}}</span>
@@ -137,7 +137,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.inventoryrecipesreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/productcostgroups')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçili dönemde herhangi bir ürün seçimi yapmadıysanız tüm ürünlerin reçeteleri listelenir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INVENTORYRECIPES' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTCOSTGROUPS' |translate}}</span>
@@ -145,7 +145,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.inventoryrecipesreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/inventoryusagedetail')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçtiğiniz tarih aralığı ve restoranın o tarih aralığında yaptığı satışların envanter kullanım detaylarını verir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INVENTORYUSAGEDETAIL' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.INVENTORYUSAGEDETAIL' |translate}}</span>
@@ -153,7 +153,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.doughchart=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/doughchart')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Son dört haftanın satış adetlerini alarak ortalamaya göre tahmini hamur adetlerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.DOUGHCHART' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.DOUGHCHART' |translate}}</span>
@@ -161,7 +161,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.doughchartdata=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/doughchartdata')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihteki haftada kullanım adetlerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INFORMATION' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.DOUGHCHARTDATA' |translate}}</span>
@@ -169,7 +169,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.dailyorganizationchart=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/dailyorganizationchart')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Son dört haftada şubede kullanılan malzemelerin gün bazlı ortalamasını veren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.DAILYORGANIZATIONCHART' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.DAILYORGANIZATIONCHART' |translate}}</span>
@@ -177,7 +177,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.inventorycostsummary=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/inventorycostsummary')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen dönemde ki ideal ve gerçekleşen maliyet değerlerinin verildiği özet rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INVENTORYCOSTSUMMARY' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.INVENTORYCOSTSUMMARY' |translate}}</span>
@@ -185,7 +185,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.actualvstheoriticalreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/actualvstheoritical')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen dönemde ki ideal ve gerçekleşen maliyet değerlerinin verildiği özet rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INVENTORYCOSTSUMMARY' |translate}}." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ACTUALVSTHEORITICAL' |translate}}</span>
@@ -193,7 +193,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.storefoodcost=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/storefoodcost')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Sipariş tipleri ve sipariş kaynaklarına göre gıda maliyetlerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.FOODCOSTBYTORDERSOURCE' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.FOODCOSTBYTORDERSOURCE' |translate}}</span>
@@ -206,7 +206,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.customerlistreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/otherreports/customerlist')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası sipariş veren müşterileri görebileceğiniz rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.CUSTOMERLIST' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.CUSTOMERLIST' |translate}}</span>
@@ -214,7 +214,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.orderlistreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/otherreports/orderlistreport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Raporda seçtiğiniz restoranın iki tarih arasında ki tüm siparişlerinin listelendiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.ORDERLISTREPORT' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERLISTREPORT' |translate}}</span>
@@ -222,7 +222,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.newpersonrecord=='Enable'">
             <button ng-click="goReportsPage('app/reports/otherreports/recorddatareport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Rapor seçtiğiniz restoranın iki tarih arasında yeni kayıt olmuş müşteri datasını verir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.INFORMATION' |translate}}Rapor seçtiğiniz restoranın iki tarih arasında yeni kayıt olmuş müşteri datasını verir." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.NEWPERSONRECORD' |translate}}</span>
@@ -230,7 +230,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.newpersonrecord=='Enable'">
             <button ng-click="goReportsPage('app/reports/otherreports/newcustomers')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Rapor seçtiğiniz restoranın iki tarih arasında ilk siparişlerini vermiş müşteri datasını verir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.NEWCUSTOMERS' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.NEWCUSTOMERS' |translate}}</span>
@@ -238,7 +238,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.regionanalisysreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/otherreports/regionanalisys')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Gruplama alanından rapor gruplamasını mahalle veya grid olarak seçebilirsiniz. Rapor seçtiğiniz restoranın iki tarih arasında ki ve sistemde ki genel toplam bölge analizi verilerini verir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.REGIONANALISYS' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.REGIONANALISYS' |translate}}</span>
@@ -246,7 +246,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.regionanalisysreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/otherreports/servicesareareport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen restorana tanımlı tüm index datasını veren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.SERVICESAREAREPORT' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.SERVICESAREAREPORT' |translate}}</span>
@@ -254,7 +254,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.customerconsuptionreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/otherreports/customerconsuptionreport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası müşteri tüketimlerini (adisyon sayısı, toplam tutar, son sipariş tarihi, aktif olmadığı gün sayısını, müşteri oluşturma tarihlerini) verir. Seçilebilen alanlardan filtreleme yapabilir, raporu o özelliklere göre alabilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.CUSTOMERCONSUPTIONREPORT' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.CUSTOMERCONSUPTIONREPORT' |translate}}</span>
@@ -262,7 +262,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.customerconsuptionreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/otherreports/segmentationreport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Rapor seçilen yıl ve ayın son 3 aylık aktif müşteri sipariş adedi gibi bilgileri verir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.CUSTOMERSEGMENTATIONREPORT' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.CUSTOMERSEGMENTATIONREPORT' |translate}}</span>
@@ -275,7 +275,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.cashreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/cashreport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihte restoran için ödemesi kapanmış tüm siparişler adet ve tutar olarak görünür." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.CASHREPORT' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.CASHREPORT' |translate}}</span>
@@ -283,7 +283,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.storecashcontrol=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/storecashcontrol')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihte restoran için icmaller bu rapordan kontrol edilebilir. Fark alanında 0 haricinde (-) veya (+) tutar yazarsa bu kasanın farklı olduğu anlamına gelmektedir. (-) kasa açığı, (+) kasa fazlası olarak değerlendirilebilir. " popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.STORECASHREPORT' |translate}} " popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.STORECASHREPORT' |translate}}</span>
@@ -291,7 +291,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.orderpayments=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/orderpayments')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası restoran için gerçekleşen ödeme tiplerine göre siparişler toplamının görülebileceği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.ORDERPAYMENTS' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERPAYMENTS' |translate}}</span>
@@ -299,7 +299,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.giroanalysis=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/giroanalysis')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.GIROANAALYSISREPORT' |translate}}</span>
@@ -307,7 +307,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.turnoverbydaysreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/turnoverbydaysreport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası yetkili olduğunuz tüm restoranların toplam ciro tc vs. bilgilerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.TURNOVERBYDAYSREPORT' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.TURNOVERBYDAYSREPORT' |translate}}</span>
@@ -315,7 +315,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.turnoverbydaysreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/turnoverbydaysreportpivot')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası yetkili olduğunuz tüm restoranların toplam ciro tc vs. bilgilerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.TURNOVERBYDAYSREPORT' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.TURNOVERBYDAYSPIVOTREPORT' |translate}}</span>
@@ -323,7 +323,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.paymentbydaysreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/paymentbydaysreport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PAYMENTBYORDERSOURCESREPORT' |translate}}</span>
@@ -331,7 +331,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.turnoverbyhoursreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/turnoverbyhoursreport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.TURNOVERBYHOURSREPORT' |translate}}</span>
@@ -339,7 +339,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.orderbyhoursreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/orderbyhoursreport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERBYHOURSREPORT' |translate}}</span>
@@ -347,7 +347,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.orderpaymentcomparepivot=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/orderpaymentcomparepivot')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERPAYMENTCOMPAREPIVOT' |translate}}</span>
@@ -355,7 +355,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.trends=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/trends')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Yetkili olduğunuz restoranların bugün, geçen hafta, önceki gün, aylık ciro, ac, tc değerleri ve hesaplanan trend değerlerinin listelendiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.TRENDSREPORT' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.TRENDSREPORT' |translate}}</span>
@@ -363,7 +363,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.cashreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/accountbalancereport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçili restoran için cari borcu olan müşteriler listelenir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.ACCOUNTBALANCEREPORT' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ACCOUNTBALANCEREPORT' |translate}}</span>
@@ -371,7 +371,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.cumulativesales=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/cumulativesales')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçili tarihe göre kümülatif toplamları veren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.CUMULATIVESALES' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.CUMULATIVESALES' |translate}}</span>
@@ -379,7 +379,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.storeranking=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/storeranking')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Aylık şube sıralamalarını veren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.STORERANKING' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.STORERANKING' |translate}}</span>
@@ -387,7 +387,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.salesbysource=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/salesbysource')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Sipariş tipleri ve sipariş kaynaklarına göre satış yüzdelerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.SALESBYSOURCE' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.SALESBYSOURCE' |translate}}</span>
@@ -395,7 +395,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.scorecard=='Enable'">
             <button ng-click="goReportsPage('app/reports/giroreports/scorecard')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.SCORECARD' |translate}}</span>
@@ -408,7 +408,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.productusagecounts=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productusagecounts')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında satılan ürünlerin listelendiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.PRODUCTUSAGECOUNTS' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTUSAGECOUNTS' |translate}}</span>
@@ -416,7 +416,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.storesalesstatistics=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/storesalesstatistics')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında ki sipariş toplamı, sayısı ve belli ürün gruplarının sipariş adetleri ve yüzdelerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.STORESALESSTATISTICS' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.STORESALESSTATISTICS' |translate}}</span>
@@ -424,7 +424,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.productsalesstatistics=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productsalesstatistics')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında farklı şablonlar ile ürün satış istatistiklerini görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.PRODUCTSALESSTATISTICS' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTSALESSTATISTICS' |translate}}</span>
@@ -432,7 +432,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.productsalesstatistics=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productsalesstatisticspivot')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında farklı şablonlar ile ürün satış istatistiklerini görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.PRODUCTSALESSTATISTICS' |translate}}Seçilen tarihler arasında farklı şablonlar ile ürün satış istatistiklerini görebilirsiniz." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTSALESSTATISTICSPIVOT' |translate}}</span>
@@ -440,7 +440,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.productsalesstatisticsamount=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productsalesstatisticsamount')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında farklı şablonlar ile ürün satış istatistiklerini görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.PRODUCTSALESSTATISTICS' |translate}}Seçilen tarihler arasında farklı şablonlar ile ürün satış istatistiklerini görebilirsiniz." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTSALESSTATISTICSAMOUNT' |translate}}</span>
@@ -448,7 +448,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.productsalesbydays=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productsalesbydays')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında farklı şablonlar ile ürün satış adetlerini görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.PRODUCTSALESSTATISTICS' |translate}}Seçilen tarihler arasında farklı şablonlar ile ürün satış adetlerini görebilirsiniz." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTSALESBYDAYS' |translate}}</span>
@@ -456,7 +456,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.productsalesbyhours=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productsalesbyhours')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>-->
+                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>-->
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTSALESBYHOURS' |translate}}</span>
@@ -464,7 +464,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.productwithrelations=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productwithrelations')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında menü alt detaylarını bu rapordan görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.PRODUCTWITHRELATIONS' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTWITHRELATIONS' |translate}}</span>
@@ -472,7 +472,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.promotionanaisys=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/promotionanaisys')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında menü alt detaylarını bu rapordan görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.PRODUCTWITHRELATIONS' |translate}}Seçilen tarihler arasında menü alt detaylarını bu rapordan görebilirsiniz." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PROMOTIONANALISYS' |translate}}</span>
@@ -480,7 +480,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.menuincom=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/menuincom')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında hangi kampanyanın içerisinde hangi üründen kaç adet ne kadardan satılmış, ürünün fiyatı maliyeti gibi bilgileri görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.MENUINCOME' |translate}}." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.MENUINCOME' |translate}}</span>
@@ -488,7 +488,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.productcostdetails=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productcostdetails')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Ürün alanında seçilen ürünün içerisine tanımlı malzemelerin miktar, fiyat ve maliyet bilgilerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.PRODUCTCOSTDETAILS' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTCOSTDETAILS' |translate}}</span>
@@ -496,7 +496,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.ProductSales=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/ProductSales')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Satılan ürünlerin adet ve toplamlarının verildiği rapordur. Ürün ve ürün gruplarına göre filtrelenebilir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.PRODUCTSALESPIVOT' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTSALESPIVOT' |translate}}</span>
@@ -504,7 +504,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.ProductSales=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/userproductsales')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Şablonlara göre kullanıcı bazlı satılan ürünlerin adet ve toplamlarının verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.USERPRODUCTSALES' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.USERPRODUCTSALES' |translate}}</span>
@@ -512,7 +512,7 @@
         </div>
         <!--<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.productsalesbyproto=='Enable'">
         <button ng-click="goReportsPage('app/reports/productsalesreports/productsalesbyproto')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-            <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen prototipin hangi boyundan satıldığının adet ve tutar toplamları raporudur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+            <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen prototipin hangi boyundan satıldığının adet ve tutar toplamları raporudur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
             <br />
             <br />
             <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTSALESBYPROTO' |translate}}</span>
@@ -520,7 +520,7 @@
     </div>-->
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.productsalespochette=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productsalespochette')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Satılan taşıma poşetlerinin adet ve tutar toplamları raporudur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="{{'reportspage.PRODUCTSALESPOCHETTE' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTSALESPOCHETTE' |translate}}</span>
@@ -528,7 +528,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.productgroupstrikerate=='Enable'">
             <button ng-click="goReportsPage('app/reports/productsalesreports/productgroupstrikerate')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Satılan taşıma poşetlerinin adet ve tutar toplamları raporudur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>-->
+                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Satılan taşıma poşetlerinin adet ve tutar toplamları raporudur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>-->
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTGROUPSTRIKERATE' |translate}}</span>
@@ -569,7 +569,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.orderdriverlist=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/orderdriverlist')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında, motorcuların üzerindeki siparişlerin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında, motorcuların üzerindeki siparişlerin verildiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERDRIVERLIST' |translate}}</span>
@@ -577,7 +577,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.OrderTotalsStoreByOrderType=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/OrderTotalsStoreByOrderType')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>-->
+                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>-->
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERSEBYORDERTYPE' |translate}}</span>
@@ -585,7 +585,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.OrderPayments=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/OrderPayments')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>-->
+                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>-->
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PAYMENTORDER' |translate}}</span>
@@ -594,7 +594,7 @@
 
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.performance=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/performance')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında, paket sipariş sürelerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında, paket sipariş sürelerinin verildiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERPERFORMANCE' |translate}}</span>
@@ -602,7 +602,7 @@
         </div>
         <!--<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.OrderCountsByPamentType=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/OrderCountsByPamentType')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover=" Seçilen tarihler arasında tüm restoranların ödeme tiplerine göre sipariş adetleri dağılımlarının verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover=" Seçilen tarihler arasında tüm restoranların ödeme tiplerine göre sipariş adetleri dağılımlarının verildiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERCOUNTSBYPAYMENTTYPE' |translate}}</span>
@@ -624,7 +624,7 @@
         </div>
         <!--<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.ordertotalsbypaymenttypepivot=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/ordertotalsbypaymenttypepivot')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında tüm restoranların ödeme tiplerine göre sipariş toplamları dağılımlarının verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında tüm restoranların ödeme tiplerine göre sipariş toplamları dağılımlarının verildiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERTOTALSBYPAYMENTTYPEPIVOT' |translate}}</span>
@@ -632,7 +632,7 @@
         </div>-->
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.orderlog=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/orderlog')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında ki tüm siparişlerin adımları ve güncellemelerin listelendiği log raporudur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında ki tüm siparişlerin adımları ve güncellemelerin listelendiği log raporudur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERLOGS' |translate}}</span>
@@ -640,7 +640,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.ReturnedProducts=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/ReturnedProducts')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="İptal edilmiş siparişlerin içerisinde ki ürün adetlerinin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="İptal edilmiş siparişlerin içerisinde ki ürün adetlerinin verildiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.RETURNLIST' |translate}}</span>
@@ -648,7 +648,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.ReturnedProductsDetailed=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/ReturnedProductsDetailed')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="İptal edilmiş siparişlerin içerisinde ki ürün adetleri, tutarları, sipariş kaynağı, iptal eden kullanıcı bilgisi ve iptal notunun detay olarak verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="İptal edilmiş siparişlerin içerisinde ki ürün adetleri, tutarları, sipariş kaynağı, iptal eden kullanıcı bilgisi ve iptal notunun detay olarak verildiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.RETURNLISTDETAIL' |translate}}</span>
@@ -656,7 +656,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.deletedorderitems=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/deletedorderitems')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında siparişe girilmiş daha sonra sipariş kalemlerinden silinmiş ürünlerin listelendiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında siparişe girilmiş daha sonra sipariş kalemlerinden silinmiş ürünlerin listelendiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.DELETEDORDERITEMS' |translate}}</span>
@@ -664,7 +664,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.orderpromotionreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/orderpromotion')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında hangi siparişe ne kadarlık hangi indirimden ve hangi kodla indirim eklendiği bilgilerini bu rapordan görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında hangi siparişe ne kadarlık hangi indirimden ve hangi kodla indirim eklendiği bilgilerini bu rapordan görebilirsiniz." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERPROMOTIONREPORT' |translate}}</span>
@@ -672,7 +672,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.ordertotals=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/ordertotals')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında sipariş tiplerinin toplam ve adet dağılımlarını görebilirsiniz." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında sipariş tiplerinin toplam ve adet dağılımlarını görebilirsiniz." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERTOTALS' |translate}}</span>
@@ -680,7 +680,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.performance=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/kitchenperformance')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında tüm siparişlerin hazırlama,pişme,bekleme,çıkış sürelerinin hesaplandığı rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arasında tüm siparişlerin hazırlama,pişme,bekleme,çıkış sürelerinin hesaplandığı rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.KITCHENPERFORMANCE' |translate}}</span>
@@ -688,7 +688,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.orderlaststates=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/orderlaststates')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover=" Seçilen tarihler arasında yetkili tüm restoranların sipariş durumlarının adet ve tutar dağılımlarının verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover=" Seçilen tarihler arasında yetkili tüm restoranların sipariş durumlarının adet ve tutar dağılımlarının verildiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERLASTATES' |translate}}</span>
@@ -710,7 +710,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.orderpromotionreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/ordersreports/promotioncodedetails')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen promosyonun hangi tarihte, hangi sipariş ve müşteride kullanıldığını veren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen promosyonun hangi tarihte, hangi sipariş ve müşteride kullanıldığını veren rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PROMOTIONCODEDETAILS' |translate}}</span>
@@ -718,7 +718,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" >
             <button ng-click="goReportsPage('app/reports/ordersreports/orderpaymentscheck')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen Ödöme tipinin hangi tarihte, hangi sipariş ve müşteride kullanıldığını veren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen Ödöme tipinin hangi tarihte, hangi sipariş ve müşteride kullanıldığını veren rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.ORDERPAYMENTSCHECK' |translate}}</span>
@@ -827,7 +827,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.complaintlistreports=='Enable'">
             <button ng-click="goReportsPage('app/reports/complaintreports/complaintlistreports')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası girilen şikayetlerin listesidir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası girilen şikayetlerin listesidir." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.COMPLAINTLISTREPORTS' |translate}}</span>
@@ -840,7 +840,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.smslist=='Enable'">
             <button ng-click="goReportsPage('app/reports/smsreports/smslist')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen restoranın sms onayı vermiş tüm müşterilerinin listelendiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen restoranın sms onayı vermiş tüm müşterilerinin listelendiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.SMSLIST' |translate}}</span>
@@ -848,7 +848,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.generalsmslist=='Enable'">
             <button ng-click="goReportsPage('app/reports/smsreports/generalsmslist')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası sms onayı vermiş müşterilerin listesidir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="bottom"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası sms onayı vermiş müşterilerin listesidir." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.GENERALSMSLIST' |translate}}</span>
@@ -896,7 +896,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.storelogs=='Enable'">
             <button ng-click="goReportsPage('app/reports/storereports/storelogs')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası şubelerin ayarlarında yapılan değişiklikleri ve kim tarafından yapıldığını gösteren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası şubelerin ayarlarında yapılan değişiklikleri ve kim tarafından yapıldığını gösteren rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.STORELOGS' |translate}}</span>
@@ -911,7 +911,7 @@
         </div>-->
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.storeperformance=='Enable'">
             <button ng-click="goReportsPage('app/reports/storereports/storeanalisys')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası yetkili olunan tüm restoranların ciro, tc, ac, sipariş durum süreleri vb. bilgilerin verildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası yetkili olunan tüm restoranların ciro, tc, ac, sipariş durum süreleri vb. bilgilerin verildiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.STOREANALISYSDETAIL' |translate}}</span>
@@ -924,7 +924,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.inventorybalancelist=='Enable'">
             <button ng-click="goReportsPage('app/reports/stockandcostreports/inventorybalancelist')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Dönem sonunda şubeye göre hangi envanterden ne kadar kullanıldığını gösteren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Dönem sonunda şubeye göre hangi envanterden ne kadar kullanıldığını gösteren rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.INVENTORYBALANCELIST' |translate}}</span>
@@ -932,7 +932,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.accounting=='Enable'">
             <button ng-click="goReportsPage('app/reports/accounting/realpaymentspivot')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası yetkili olunan tüm restoranların gerçekleşen ödemelere göre toplam cirolarının gösterildiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen tarihler arası yetkili olunan tüm restoranların gerçekleşen ödemelere göre toplam cirolarının gösterildiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.REALPAYMENTSPIVOT' |translate}}</span>
@@ -940,7 +940,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center visible-lg visible-md" ng-if="user.restrictions.accounting=='Enable'">
             <button ng-click="goReportsPage('app/reports/accounting/unpaiddeliveries')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen restorana ait ödemesi yapılmamış faturaların listelendiği rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen restorana ait ödemesi yapılmamış faturaların listelendiği rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.UNPAIDDELIVERIES' |translate}}</span>
@@ -953,7 +953,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.staffshiftdiff=='Enable'">
             <button ng-click="goReportsPage('app/reports/staffshiftreports/staffshiftdiff')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.STAFFSHIFTDIFF' |translate}}</span>
@@ -961,7 +961,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.staffshiftdiff=='Enable'">
             <button ng-click="goReportsPage('app/reports/staffshiftreports/diffbyhour')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Rapor seçilen haftanın bulunduğu günler için 13 haftanın ortalamasını vererek toplam ihtiyaç gösterilir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Rapor seçilen haftanın bulunduğu günler için 13 haftanın ortalamasını vererek toplam ihtiyaç gösterilir." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.DIFFBYHOUR' |translate}}</span>
@@ -969,7 +969,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.staffshiftdiff=='Enable'">
             <button ng-click="goReportsPage('app/reports/staffshiftreports/diffbyhourreq')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Rapor seçilen haftanın bulunduğu günler için 13 haftanın ortalamasını vererek toplam ihtiyaç gösterilir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Rapor seçilen haftanın bulunduğu günler için 13 haftanın ortalamasını vererek toplam ihtiyaç gösterilir." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.DIFFBYHOURREQ' |translate}}</span>
@@ -977,7 +977,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.shiftpersontotals=='Enable'">
             <button ng-click="goReportsPage('app/reports/staffshiftreports/shiftpersontotals')" class="btn btn-warning btn-o center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Verilen tarih aralığına göre hangi kullanıcının kaç gün ve saat gerçekleşen vardiyasının olduğunu veren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Verilen tarih aralığına göre hangi kullanıcının kaç gün ve saat gerçekleşen vardiyasının olduğunu veren rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.SHIFTPERSONTOTALS' |translate}}</span>
@@ -985,7 +985,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.shiftactualtotals=='Enable'">
             <button ng-click="goReportsPage('app/reports/staffshiftreports/shiftactualtotals')" class="btn btn-warning btn-o center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftaya göre hangi kullanıcının kaç gün ve saat gerçekleşen vardiyasının olduğunu ve şubenin gün bazlı toplamını veren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftaya göre hangi kullanıcının kaç gün ve saat gerçekleşen vardiyasının olduğunu ve şubenin gün bazlı toplamını veren rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.SHIFTACTUALTOTALS' |translate}}</span>
@@ -993,7 +993,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.weeklyanalysis=='Enable'">
             <button ng-click="goReportsPage('app/reports/staffshiftreports/weeklyanalysis')" class="btn btn-warning btn-o center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen hafta ve restoranın günlük ve saatlik olarak farkı ve ihtiyacı veren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen hafta ve restoranın günlük ve saatlik olarak farkı ve ihtiyacı veren rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.WEEKLYANALYSIS' |translate}}</span>
@@ -1001,7 +1001,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.clockinoutreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/staffshiftreports/clockinoutreport')" class="btn btn-warning btn-o center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen hafta ve restoranın günlük ve saatlik olarak farkı ve ihtiyacı veren rapordur." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen hafta ve restoranın günlük ve saatlik olarak farkı ve ihtiyacı veren rapordur." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.CLOCKINOUTREPORT' |translate}}</span>
@@ -1009,7 +1009,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.clockinoutstats=='Enable'">
             <button ng-click="goReportsPage('app/reports/staffshiftreports/cloclinoutstats')" class="btn btn-warning btn-o center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Vardiya istatistikleri" popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>
+                <i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Vardiya istatistikleri" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.CLOCKINOUTSTATS' |translate}}</span>
@@ -1022,7 +1022,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.fsrtransactions=='Enable'">
             <button ng-click="goReportsPage('app/reports/fsr/fsrtransactions')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>-->
+                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>-->
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.FSRSEGMANTATIONSTRANSACTIONS' |translate}}</span>
@@ -1030,7 +1030,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.sosreport=='Enable'">
             <button ng-click="goReportsPage('app/reports/fsr/sosreport')" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>-->
+                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>-->
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.SOSREPORT' |translate}}</span>
@@ -1043,7 +1043,7 @@
         <br />
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.fsrtransactions=='Enable'">
             <button ui-sref="app.reports.management.podsreport" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>-->
+                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>-->
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PODSREPORT' |translate}}</span>
@@ -1051,7 +1051,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.sosreport=='Enable'">
             <button ui-sref="app.reports.management.productwastes" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>-->
+                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>-->
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.PRODUCTWASTES' |translate}}</span>
@@ -1059,7 +1059,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 center  visible-lg visible-md" ng-if="user.restrictions.sosreport=='Enable'">
             <button ui-sref="app.reports.management.voidorders" class="btn btn-warning btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ti-pencil-alt center" style="width:12vw; height:18vh;">
-                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="BILGILENDIRME" popover-trigger="mouseenter" popover-placement="top"></i>-->
+                <!--<i class="fa fa-info-circle pull-right" style="font-size:25px;" popover="Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir." popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="top"></i>-->
                 <br />
                 <br />
                 <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{'main.VOIDORDERSREPORT' |translate}}</span>

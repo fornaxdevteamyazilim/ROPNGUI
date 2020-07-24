@@ -97,12 +97,12 @@ function mallCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTabl
     };
     $scope.SaveOpenOrders = function (data) {
         swal({
-            title: "Have we delivered the order ?",
+            title: $translate.instant('orderfile.Havewedeliveredorder'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet",
-            cancelButtonText: "Hayır",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
             closeOnConfirm: true
         }, function () {
             Restangular.all('ordertools/updateorderstatus').getList(
@@ -187,7 +187,7 @@ function mallCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTabl
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }

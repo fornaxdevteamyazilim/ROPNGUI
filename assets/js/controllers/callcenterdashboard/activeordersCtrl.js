@@ -219,11 +219,11 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
     $scope.ChangeOrderState = function (OrderID, data) {
         if (userService.isAdmin() || userService.userIsInRole("CCMANAGER") ) {
             swal({
-                title: "Order Status 'Preparing' Changing to ! Are you sure ?",
+                title: $translate.instant('accounting.PreparingChanging'),
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes,Change!",
+                confirmButtonText: $translate.instant('accounting.confirmButtonText'),
                 closeOnConfirm: false
             }, function () {
                 Restangular.one('order', OrderID).get().then
@@ -238,7 +238,7 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
                    Restangular.restangularizeElement('', ordertosave, 'order');
                    if (ordertosave.restangularized && ordertosave.id) {
                        ordertosave.put().then(function (resp) {
-                           swal("Updated.", " Order Status 'Preparing' Saved as.", "success");
+                           swal("Updated.", $translate.instant('accounting.OrderStatus'), "success");
                            // toaster.pop('success', "Güncellendi");
                        }, function (response) {
                            toaster.pop('error', "Server Error", response.data.ExceptionMessage);

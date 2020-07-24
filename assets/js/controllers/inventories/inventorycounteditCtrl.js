@@ -68,7 +68,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.ShowObject = true;
             $scope.item.put().then(function (resp) {
-                toaster.pop('success', "Updated.", 'Saved data to server.');
+                toaster.pop('success',  $translate.instant('invantories.Updated'), $translate.instant('invantories.Savedserver'));
                 $location.path('/app/inventory/inventorycount/list');
                 $scope.ShowObject = false;
             }, function (response) {
@@ -80,7 +80,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
             $scope.ShowObject = true;
             Restangular.restangularizeElement('', $scope.item, 'inventorycount')
             $scope.item.post().then(function (resp) {
-                toaster.pop('success', "Saved.", 'Saved data to server.');
+                toaster.pop('success', $translate.instant('invantories.Saved'), $translate.instant('invantories.Savedserver'));
                 $scope.Showtable = true;
                 $scope.item = {};
                 $scope.item = Restangular.copy(resp);
@@ -125,24 +125,24 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Delete.", "Record Deleted.", "success");
+                    SweetAlert.swal($translate.instant('invantories.Deleted'),  $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('/app/inventory/inventorycount/list');
                 });
             }
             else {
-                SweetAlert.swal("It is cancelled!", "Deletion canceled !", "error");
+                SweetAlert.swal(  $translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled'), "error");
             }
         });
     };

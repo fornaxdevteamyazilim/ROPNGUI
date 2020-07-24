@@ -24,9 +24,9 @@ function inventoryrecipelistCtrl($rootScope, $scope, $log, $modal, SweetAlert, R
         rowform.$cancel();
         if (!ir.tableParams.data[ir.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ir.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     ir.tableParams = new ngTableParams({

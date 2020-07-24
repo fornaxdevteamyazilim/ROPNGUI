@@ -97,7 +97,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, Restangular, 
                 $scope.VeiwHeader = result[0];
                 $scope.GetLayout(result[0].id)
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
             });
     }
     if (userService.userIsInRole("Admin") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("LC") || userService.userIsInRole("AREAMANAGER") || userService.userIsInRole("ACCOUNTING") || userService.userIsInRole("PH") || userService.userIsInRole("MarketingDepartment") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("FinanceDepartment")) {
@@ -131,7 +131,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, Restangular, 
                     $scope.LoadPivotData();
                 }
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
             });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -146,7 +146,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, Restangular, 
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success', "Kaydedildi.", 'Saved.');
+            toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved.');
         });
     };
     $scope.EditLayoutData = function (configdata) {
@@ -160,7 +160,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, Restangular, 
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success', "Güncellendi.", 'Updated.');
+            toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated.');
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {
@@ -194,7 +194,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, Restangular, 
             $scope.isWaiting = false;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadPivotData = function () {//5
@@ -274,7 +274,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, Restangular, 
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server error", response.data.ExceptionMessage);
             });
         }
     };
@@ -283,7 +283,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, Restangular, 
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server error", response);
             });
         }
     };

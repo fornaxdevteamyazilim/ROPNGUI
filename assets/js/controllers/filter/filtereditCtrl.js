@@ -36,7 +36,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
         $scope.item.items = ici.tableParams.data;
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal("Güncellendi.", "Updated.", "success");
+                swal($translate.instant('orderfile.Updated'), "Updated.", "success");
                 $location.path('app/filter/filter/list');
             });
         }
@@ -44,7 +44,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
             Restangular.restangularizeElement('', $scope.item, 'filter')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal("Saved.", "Saved.", "success");
+                swal("Saved.", $translate.instant('difinitions.Updated'), "success");
                 $location.path('app/filter/filter/list');
             });
         }
@@ -53,7 +53,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
         $scope.savetoaster();
     }
     $scope.savetoaster = function () {
-        toaster.pop('success', "Saved.", 'Saved.');
+        toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
     }
     $scope.isClean = function () {
         return angular.equals($scope.original, $scope.item);
@@ -72,9 +72,9 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
         rowform.$cancel();
         if (!ici.tableParams.data[ici.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ici.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     ici.tableParams = new ngTableParams({
@@ -142,13 +142,13 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
     $scope.filtercommands = [];
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:   $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -161,13 +161,13 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:   $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -176,7 +176,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
                     ici.tableParams.data[index].remove();
                 }
                 ici.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
             }
         });
     };

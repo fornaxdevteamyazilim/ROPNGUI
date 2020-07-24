@@ -10,10 +10,10 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
         $scope.isWaiting = true;
         Restangular.one('inventory/startnewperiod').get({}).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', "New Era Active!");
+            toaster.pop('success', $translate.instant('difinitions.NewActive '));
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Your Operation Could Not Be Performed!", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
             });
     };
     $scope.CopyRecipes= function (FromPeriodID, ToPeriodID) {
@@ -23,10 +23,10 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
             ToPeriodID: ToPeriodID,
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', "Prescriptions Copied!");
+            toaster.pop('success',$translate.instant('difinitions.PrescriptionsCopied '));
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Your Operation Could Not Be Performed!", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
         });
     };
     $scope.UpdateInventoryPrice = function (PeriodID) {
@@ -35,10 +35,10 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
             PeriodID: PeriodID,
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', "Prices Updated!");
+            toaster.pop('success', $translate.instant('difinitions.PricesUpdated '));
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Your Operation Could Not Be Performed!", response.data.ExceptionMessage);
+            toaster.pop('error',$translate.instant('difinitions.OperationPerformed ') , response.data.ExceptionMessage);
         });
     };
     $scope.SaveConsuption = function (StoreID) {
@@ -50,10 +50,10 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
             StoreType: $scope.StoreTypeID
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', "Consumption Prescription Updated!");
+            toaster.pop('success',$translate.instant('difinitions.PrescriptionUpdated '));
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Your Operation Could Not Be Performed!", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
         });
     };
     
@@ -68,10 +68,10 @@ function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $locat
             toDate:toDate, 
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', "Order Dates Updated!");
+            toaster.pop('success', $translate.instant('difinitions.OrderDatesUpdated '));
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Your Operation Could Not Be Performed!", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
         });        
     };
     

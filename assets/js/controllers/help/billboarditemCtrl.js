@@ -42,9 +42,9 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
         rowform.$cancel();
         if (!bbi.tableParams.data[bbi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(bbi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     bbi.tableParams = new ngTableParams({
@@ -69,13 +69,13 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:   $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -84,7 +84,7 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
                     bbi.tableParams.data[index].remove();
                 }
                 bbi.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
             }
         });
     };

@@ -93,7 +93,7 @@ function giroanalysisCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
            $scope.VeiwHeader = result[0];
            $scope.GetLayout(result[0].id)
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Server error", response.data.ExceptionMessage);
        });
     }
     $scope.GetLayout = function (ReportID) {
@@ -111,7 +111,7 @@ function giroanalysisCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
                $scope.LoadPivotData();
            }
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Server error", response.data.ExceptionMessage);
        });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -126,7 +126,7 @@ function giroanalysisCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success', "Kaydedildi.", 'Saved.');
+            toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
         });
     };
     $scope.EditLayoutData = function (configdata) {
@@ -140,7 +140,7 @@ function giroanalysisCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success', "Güncellendi.", 'Updated.');
+            toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {
@@ -172,7 +172,7 @@ function giroanalysisCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
                 $scope.isWaiting = false;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
                 $scope.isWaiting = false;
             });
     };

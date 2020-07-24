@@ -146,8 +146,8 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
                         if ($scope.ShowAlert != true) {
                             $scope.ShowAlert = true;
                             SweetAlert.swal({
-                                title: "YOU HAVE A NEW ORDER !",
-                                text: "Please Check Your Order !",
+                                title:$translate.instant('mainscreen.NEWORDER ') ,
+                                text: $translate.instant('mainscreen.CheckOrder '),
                                 type: "warning",
                                 showCancelButton: true,
                                 confirmButtonColor: "#DD6B55",
@@ -164,7 +164,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
                         }
                     }
                 }, function (response) {
-                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('error',$translate.instant('mainscreen.ServerError '), response.data.ExceptionMessage);
                 });
             }
         }
@@ -185,7 +185,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
                         $scope.audio.pause();
                     $rootScope.YSOrderCount = angular.copy(result.length);
                 }, function (response) {
-                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('mainscreen.ServerError '), response.data.ExceptionMessage);
                 });
             }
         }
@@ -229,7 +229,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
                     location.href = '#/app/orders/orderStoreTable/' + resp.id;
                 },
                     function (resp) {
-                        toaster.pop('error', "Could not create new order !", "error");
+                        toaster.pop('error',$translate.instant('mainscreen.createneworder '), "error");
                     });
             }
         }
@@ -276,7 +276,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
             }
         }, function (err) {
             if (err && err.error == 'invalid_grant') {
-                toaster.pop('warrning', "No fingerprints detected!", err.error_description);                
+                toaster.pop('warrning', $translate.instant('mainscreen.fingerprints '), err.error_description);                
             }
             else {
                 if (err) {
@@ -294,7 +294,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
             location.href = $scope.GoPage;
         }, function (err) {
             if (err) {
-                toaster.pop('warrning', "Wrong Password !", err.error_description);
+                toaster.pop('warrning', $translate.instant('mainscreen.WrongPassword '), err.error_description);
             }
             else {
                 $scope.message = "Unknown error";
@@ -392,8 +392,8 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
     $scope.AuditFinalizeOpDay = function () {
         if ($scope.isFinalizeOpDayRequired()) {
             SweetAlert.swal({
-                title: "TAKE THE END OF THE DAY",
-                text: "Please Take The End Of The Day !",
+                title: $translate.instant('mainscreen.EndOfDay ') ,
+                text: $translate.instant('mainscreen.PleaseEndOfDay '),
                 type: "warning",
                 //showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -556,7 +556,7 @@ function endofdayCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $w
     $scope.endofdays = [];
     $scope.SaveEndOfDays = function (data) {
         swal({
-            title: "Are you sure you want to get the end of the day ?",
+            title:$translate.instant('mainscreen.EndOfDayWant '),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -570,7 +570,7 @@ function endofdayCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $w
                     $scope.orders = restresult;
                     if (restresult == true) {
                         $scope.ShowingObje = false;
-                        toaster.pop('success', "End of Day Received.", 'OK');
+                        toaster.pop('success', $translate.instant('mainscreen.EndOfDayReceived '), 'OK');
                     }
                 },
                 function (restresult) {
@@ -580,7 +580,7 @@ function endofdayCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $w
                     var orderID = restresult.data.ExceptionMessage.substring(start + 1, end);
                     SweetAlert.swal("Hata!", restresult.data.ExceptionMessage);
                     SweetAlert.swal({
-                        title: "END OF DAY FAILED !",
+                        title:$translate.instant('mainscreen.EndOfDayFailed ') ,
                         text: restresult.data.ExceptionMessage,
                         type: "info",
                         showCancelButton: true,

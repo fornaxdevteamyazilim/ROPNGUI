@@ -70,24 +70,24 @@ function InventorySuppliesEditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Delete.", "Record Deleted.", "success");
+                    SweetAlert.swal(  $translate.instant('invantories.Deleted'),  $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('app/inventory/inventorysupplies/list');
                 });
             }
             else {
-                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
+                SweetAlert.swal(  $translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled'), "error");
             }
         });
     };
@@ -139,14 +139,14 @@ function InventorySuppliesItemsCtrl($scope, $log, $modal, $filter, SweetAlert, R
     $scope.saveItemData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
-                toaster.pop('success', "Update.", 'Data update applied to server.');
+                toaster.pop('success',$translate.instant('invantories.Updated'),$translate.instant('invantories.Updatedapplied') );
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'InventorySupplyItem')
             data.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                toaster.pop('success', "Saved.", 'Saved data to server.');
+                toaster.pop('success',$translate.instant('invantories.Saved'),$translate.instant('invantories.Updated'));
             });
         }
     };
@@ -167,9 +167,9 @@ function InventorySuppliesItemsCtrl($scope, $log, $modal, $filter, SweetAlert, R
         rowform.$cancel();
         if (!isi.tableParams.data[isi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(isi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     isi.tableParams = new ngTableParams({
@@ -231,13 +231,13 @@ function InventorySuppliesItemsCtrl($scope, $log, $modal, $filter, SweetAlert, R
     $scope.loadEntities('enums/InventoryCalcultionMethod', 'inventorycalculationmethods');
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:  $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -246,7 +246,7 @@ function InventorySuppliesItemsCtrl($scope, $log, $modal, $filter, SweetAlert, R
                     isi.tableParams.data[index].remove();
                 }
                 isi.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('invantories.Attention'),$translate.instant('invantories.RecordDeleted'));
             }
         });
     };

@@ -18,28 +18,28 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
-                toaster.pop('success', "Update.", 'Data update applied to server.');
+                toaster.pop('success', translate="invantories.Updated",translate="invantories.Updatedapplied");
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'inventorypurchase')
             data.post().then(function (resp) {
                 location.href = '#/app/inventory/inventorypurchase/edit/' + resp.id;
-                toaster.pop('success', "Saved.", 'Saved data to server.');
+                toaster.pop('success', translate="invantories.Saved",  translate="invantories.Savedserver");
             });
         }
     };
     $scope.saveItem = function (data) {
         if (data.restangularized) {
             data.put().then(function (resp) {
-                toaster.pop('success', "Update.", 'Data update applied to server.');
+                toaster.pop('success',  translate="invantories.Updated",translate="invantories.Updatedapplied");
             });
         }
         else {
             data.InventoryPurchaseID= $scope.InventoryPurchaseID
             Restangular.restangularizeElement('', data, 'inventorypurchaseitem')
             data.post().then(function (resp) {
-                toaster.pop('success', "Saved.", 'Saved data to server.');
+                toaster.pop('success', translate="invantories.Saved",  translate="invantories.Savedserver");
             });
         }
     };
@@ -65,10 +65,10 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
         Restangular.one('InventorySupply/createdelivery').get({
             InventoryPurchaseID: $stateParams.id
         }).then(function (restresult) {
-            toaster.pop('success', "Saved.");
+            toaster.pop('success', translate="invantories.Saved");
             location.href = '#/app/inventory/inventorydeliveries/edit/' + restresult.id;
         }, function (response) {
-            toaster.pop('warning', "Uyarı...", response.data.ExceptionMessage);
+            toaster.pop('warning', "warning...", response.data.ExceptionMessage);
         });
     };
     $scope.checkInventoryDemandApproval = function (itemID, State) {
@@ -76,11 +76,11 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
             InventoryPurchaseApprovalID: itemID,
             toState: State
         }).then(function (restresult) {
-            toaster.pop('success', "Saved.");
+            toaster.pop('success', translate="invantories.Saved");
             $scope.tableParams.reload();
             $location.path('app/inventory/inventorypurchase/list');
         }, function (response) {
-            toaster.pop('warning', "Uyarı...", response.data.ExceptionMessage);
+            toaster.pop('warning', "warning...", response.data.ExceptionMessage);
         });
     };
     $scope.getInventoryPurchaseApprovals = function () {
@@ -130,9 +130,9 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
         rowform.$cancel();
         if (!ipi.tableParams.data[ipi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ipi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     ipi.tableParams = new ngTableParams({
@@ -213,36 +213,36 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
     $scope.loadEntities('enums/InventoryApproveState', 'InventoryApproveStates');
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Delete.", "Record Deleted.", "success");
+                    SweetAlert.swal( $translate.instant('invantories.Deleted'),  $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('app/inventory/inventorypurchase/list');
                 });
             }
             else {
-                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
+                SweetAlert.swal($translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled') , "error");
             }
         });
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:  $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -251,7 +251,7 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
                     ipi.tableParams.data[index].remove();
                 }
                 ipi.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('invantories.Attention'),$translate.instant('invantories.RecordDeleted'));
             }
         });
     };

@@ -89,13 +89,13 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('accounting.Sure') ,
+            text:  $translate.instant('accounting.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText:    $translate.instant('accounting.confirmButtonText'),
+            cancelButtonText:   $translate.instant('accounting.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -104,7 +104,7 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
                     ca.tableParams.data[index].remove();
                 }
                 ca.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('accounting.Attention'),$translate.instant('accounting.RecordDeleted'));
             }
         });
     };

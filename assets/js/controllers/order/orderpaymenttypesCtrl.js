@@ -7,7 +7,7 @@ function orderpaymenttypesCtrl($scope, $rootScope, $modalInstance, item, Restang
         Restangular.restangularizeElement('', item, 'order');
         if (item.restangularized && item.id) 
             item.put().then(function (resp) {
-            toaster.pop("success", "PAYMENT TYPE CHANGED.");
+            toaster.pop("success", $translate.instant('orderfile.PAYMENTTYPECHANGED'));
             $scope.ok();
         }, function (response) {
             toaster.pop('error', "SServer Error", response.data.ExceptionMessage);

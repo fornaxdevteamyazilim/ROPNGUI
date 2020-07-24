@@ -130,7 +130,7 @@ userService.userAuthorizated();
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success', "Kaydedildi.", 'Saved.');
+            toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved.');
         });
     };
     $scope.EditLayoutData = function (configdata) {
@@ -144,7 +144,7 @@ userService.userAuthorizated();
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success', "Güncellendi.", 'Updated.');
+            toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {

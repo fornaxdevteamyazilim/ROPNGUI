@@ -11,11 +11,11 @@
         };
         $scope.saveData = function (data) {
             if (data.restangularized) {
-                data.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Güncellendi.", 'Updated.'); });
+                data.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated.'); });
             }
             else {
                 Restangular.restangularizeElement('', data, $scope.objectType)
-                data.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Kaydedildi.", 'Saved.'); });
+                data.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.'); });
                 data.get();
             }
         }
@@ -34,9 +34,9 @@
             rowform.$cancel();
             if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
                 $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-                toaster.pop('warning', "It is cancelled !", 'Insert cancelled !' );
+                toaster.pop('warning',$translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
             } else {
-                toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+                toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
             }
         };
         //$scope.cancelForm = function (rowform) {
@@ -63,8 +63,8 @@
                     $scope.SelectedItem = items[0].id;
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error', "Sunucu hatası", response);
-                    SweetAlert.swal("Sunucu Hatası!", angular.toJson(response, false), "error");
+                    toaster.pop('error', "Server error", response);
+                    SweetAlert.swal("Server error!", angular.toJson(response, false), "error");
                 });
             }
         });
@@ -103,25 +103,25 @@
         }
         $scope.removeItem = function (index) {
             SweetAlert.swal({
-                title: "ARE YOU SURE ?",
-                text: "Are you sure you want to delete the record ?",
+                title:  $translate.instant('orderfile.Sure') ,
+                text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
                 closeOnConfirm: false,
                 closeOnCancel: false
             }, function (isConfirm) {
                 if (isConfirm) {
                     if (vm.tableParams.data[index].fromServer) {
                         vm.tableParams.data[index].remove();
-                        toaster.pop("error", "Attention !", "Record Deleted !");
+                        toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
                     }
                     vm.tableParams.data.splice(index, 1);
-                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
+                    SweetAlert.swal( $translate.instant('orderfile.Deleted'),  $translate.instant('orderfile.RecordDeleted'), "success");
                 } else {
-                    SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
+                    SweetAlert.swal($translate.instant('orderfile.Cancelled'), $translate.instant('orderfile.DeletionCanceled'), "error");
                 }
             });            
         };
@@ -153,13 +153,13 @@
         }
         $scope.destroy = function () {
             SweetAlert.swal({
-                title: "ARE YOU SURE ?",
-                text: "Are you sure you want to delete the record ?",
+                title:  $translate.instant('orderfile.Sure') ,
+                text:  $translate.instant('orderfile.SureRecord'),
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, Delete !",
-                cancelButtonText: "No, Deletion !",
+                confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
                 closeOnConfirm: false,
                 closeOnCancel: false
             }, function (isConfirm) {
@@ -167,9 +167,9 @@
                     $scope.original.remove().then(function () {
                         $location.path('/app/settings/systems/list');
                     });
-                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
+                    SweetAlert.swal($translate.instant('orderfile.Deleted'),  $translate.instant('orderfile.RecordDeleted'), "success");
                 } else {
-                    SweetAlert.swal("It is cancelled !", " Deletion canceled!", "error");
+                    SweetAlert.swal($translate.instant('orderfile.Cancelled'), $translate.instant('orderfile.DeletionCanceled'), "error");
                 }
             });
         };

@@ -9,11 +9,11 @@ function inventorydeliverylistCtrl($scope, $log, $modal, Restangular, ngTablePar
     }
     $scope.params = userService.getParameter('inventorydeliverylist',
         {
-        fromDate: $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd'),
-        toDate: moment().add(1, 'days').format('YYYY-MM-DD')
+            fromDate: $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd'),
+            toDate: moment().add(1, 'days').format('YYYY-MM-DD')
         }
     ).Parameters;
-    
+
     $scope.translate = function () {
         $scope.trDateTime = $translate.instant('main.DATETIME');
         $scope.trDocumentNumber = $translate.instant('main.DOCUMENTNUMBER');
@@ -36,7 +36,7 @@ function inventorydeliverylistCtrl($scope, $log, $modal, Restangular, ngTablePar
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
         $scope.translate();
     });
-        
+
     $scope.CreatInvoice = function (data) {
         var item = {};
         item.InventoryDeliveryIDs = [];
@@ -46,11 +46,11 @@ function inventorydeliverylistCtrl($scope, $log, $modal, Restangular, ngTablePar
             if (id.tableParams.data[i].isSelected == true) {
                 item.InventoryDeliveryIDs.push(id.tableParams.data[i].id)
             }
-        }        
+        }
         Restangular.restangularizeElement('', item, 'inventorydelivery/assigntoinvoice')
         item.post().then(function (resp) {
             swal("Saved!", "Data Successfully Saved!", "success");
-            $location.path('app/inventory/inventorydeliveryinvoice/edit/'+ resp.id);
+            $location.path('app/inventory/inventorydeliveryinvoice/edit/' + resp.id);
         });
     };
     var store = new DevExpress.data.CustomStore({
@@ -83,7 +83,7 @@ function inventorydeliverylistCtrl($scope, $log, $modal, Restangular, ngTablePar
         showRowLines: true,
         rowAlternationEnabled: true,
         //keyExpr: "id",
-        showBorders: true,        
+        showBorders: true,
         hoverStateEnabled: true,
         allowColumnReordering: true,
         filterRow: { visible: true },
@@ -96,7 +96,7 @@ function inventorydeliverylistCtrl($scope, $log, $modal, Restangular, ngTablePar
                 return $scope.params.gridState;
             },
             customSave: function (state) {
-                $scope.params.gridState= state;
+                $scope.params.gridState = state;
             }
         },
         //stateStoring: {
@@ -138,8 +138,62 @@ function inventorydeliverylistCtrl($scope, $log, $modal, Restangular, ngTablePar
         height: 600,
         paging: {
             enabled: true
+        },
+        masterDetail: {
+            enabled: true,
+            template: "detail"
         }
     };
+    $scope.getDetailGridSettings = function (key) {
+        return {
+            dataSource: new DevExpress.data.DataSource({
+                store: new DevExpress.data.CustomStore({
+                    key: "id",
+                    load: function (loadOptions) {
+                        var params = {
+                            pageSize: 100000,
+                            pageNo: 1,
+                            search: "InventoryDeliveryID= '" + key + "'"
+                        };
+                        return $http.get(NG_SETTING.apiServiceBaseUri + "/api/inventorydeliveryitem", { params: params })
+                            .then(function (response) {
+                                return {
+                                    data: response.data.Items,
+                                    totalCount: 10
+                                };
+                            }, function (response) {
+                                return $q.reject("Data Loading Error");
+                            });
+                    }
+                })
+            }),
+            columnAutoWidth: true,
+            showBorders: true,
+            columns: ['InventoryUnit',
+                { dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
+                { dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+                { dataField: "Discount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+                { dataField: "VAT", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+                { dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            ],
+            export: {
+                enabled: true,
+                fileName: "InventoryDeliveryItems",
+                customizeExcelCell: (options) => {
+                    var gridCell = options.gridCell;
+                    if (!gridCell) {
+                        return;
+                    }
+                    if (gridCell.rowType === 'data') {
+                        if (gridCell.data.Delta === true) {
+                            options.font.bold = true;
+                            options.backgroundColor = '#FFBB00';
+                        }
+                    }
+                }
+            },
+        };
+    }
     $scope.LoadData = function () {
         var dataGrid = $('#gridContainer').dxDataGrid('instance');
         dataGrid.refresh();

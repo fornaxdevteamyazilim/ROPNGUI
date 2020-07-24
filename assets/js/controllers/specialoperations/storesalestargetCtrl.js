@@ -20,14 +20,14 @@ function storesalestargetCtrl($rootScope, $scope, Restangular, ngTableParams, to
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 sst.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success',$translate.instant('orderfile.Updated') , 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'storesalestarget')
             this.item.post().then(function (res) {
                 sst.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success',$translate.instant('orderfile.Saved') , 'Saved.');
             });
             this.item.get();
         }
@@ -45,9 +45,9 @@ function storesalestargetCtrl($rootScope, $scope, Restangular, ngTableParams, to
         rowform.$cancel();
         if (!sst.tableParams.data[sst.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sst.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     sst.tableParams = new ngTableParams({
@@ -65,19 +65,19 @@ function storesalestargetCtrl($rootScope, $scope, Restangular, ngTableParams, to
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server error", response.data.ExceptionMessage);
             });
         }
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -86,7 +86,7 @@ function storesalestargetCtrl($rootScope, $scope, Restangular, ngTableParams, to
                     sst.tableParams.data[index].remove();
                 }
                 sst.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Dikkat !", "Kayıt Silindi !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -111,7 +111,7 @@ function storesalestargetCtrl($rootScope, $scope, Restangular, ngTableParams, to
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server error", response);
             });
         }
     };

@@ -181,42 +181,42 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
         Restangular.restangularizeElement('', item, 'ShiftPlanItem')
         item.post().then(function (resp) {
             spi.tableParams.reload();
-            toaster.pop("success", "Updated.", "Güncellendi");
+            toaster.pop("success", "Updated.", $translate.instant('orderfile.Updated') );
             spi.tableParams.reload();
         });
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "EMİN MİSİNİZ ?",
-            text: "Kaydı Silmek İstediğinize Emin misiniz ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet, Sil !",
-            cancelButtonText: "Hayır, Silme !",
+            confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
+                    SweetAlert.swal($translate.instant('orderfile.Deleted'),  $translate.instant('orderfile.RecordDeleted'), "success");
                     $location.path('/app/specialoperations/shiftplan');
                 });
             }
             else {
-                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
+                SweetAlert.swal( $translate.instant('orderfile.Cancelled'), $translate.instant('orderfile.DeletionCanceled'), "error");
             }
         });
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -225,7 +225,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
                     spi.tableParams.data[index].remove();
                 }
                 spi.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -263,7 +263,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
     $scope.saveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal("Güncellendi.", "Updated.", "success");
+                swal($translate.instant('orderfile.Updated') , "Updated.", "success");
                 $rootScope.ShiftPlanID = resp.id;
                 $scope.$broadcast('ShiftPlan', resp);
             }, function (response) {
@@ -274,7 +274,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
             Restangular.restangularizeElement('', $scope.item, 'ShiftPlan')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal("Kaydedildi.", "Saved.", "success");
+                swal($translate.instant('orderfile.Saved') , "Saved.", "success");
                 $rootScope.ShiftPlanID = resp.id;
                 $scope.$broadcast('ShiftPlan', resp);
             }, function (response) {
@@ -288,14 +288,14 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 spi.tableParams.reload();
-                toaster.pop('success', "Güncellendi.", 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'ShiftPlanItem')
             this.item.post().then(function (res) {
                 spi.tableParams.reload();
-                toaster.pop('success', "Kaydedildi.", 'Saved.');
+                toaster.pop('success',$translate.instant('orderfile.Saved') , 'Saved.');
             });
             this.item.get();
         }
