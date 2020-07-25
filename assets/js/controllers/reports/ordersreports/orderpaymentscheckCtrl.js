@@ -42,8 +42,7 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
         onClick: function () {
             $('#gridContainer').dxDataGrid('instance').getDataSource().state({});
         }
-    };
-
+    };    
     var store = new DevExpress.data.CustomStore({
         key: "StoreID",
         load: function () {
@@ -102,6 +101,9 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
             { caption: $translate.instant('reportfields.isAutomatic'),dataField: "isAutomaticPayment", displayFormat: "bool", },
             { caption: $translate.instant('reportfields.isDfferent'), dataField: "isDfferent", displayFormat: "bool",visible: false },
             { caption: $translate.instant('reportfields.Driver'),dataField: "Driver", dataType: "string" },
+            { caption: $translate.instant('reportfields.OutDate'), dataField: "OutDate", dataType: "date", format: 'HH:mm:ss' },
+            { caption: $translate.instant('reportfields.PaymentDate'), dataField: "PaymentDate", dataType: "date", format: 'HH:mm:ss' },
+            
         ],
         summary: {
             totalItems: [{ column: "OrderID", summaryType: "count", displayFormat: "{0}" },

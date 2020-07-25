@@ -61,17 +61,13 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
         }
         $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
             // Allow navigation if our old url wasn't where we prevented navigation from
-            if (_preventNavigationUrl != oldUrl || _preventNavigationUrl == null || preventcounter > 10) {
-                if (preventcounter > 0)
-                    preventcounter = 0;
+            if (_preventNavigationUrl != oldUrl || _preventNavigationUrl == null) {                
                 $rootScope.allowNavigation();
                 return;
             }
             if (_preventNavigation) {//&& !confirm("Unsaved Changes Bulunuyor, Çıkmak İstediğinize Emin Misiniz? ")) {
-                //preventcounter++;
                 event.preventDefault();
-                toaster.pop('error', "Unsaved Changes", "You can't leave the changereferences!");
-                //
+                toaster.pop('error', "Browse disabled", "Browse is disabled on this screen!"); 
             }
             else {
                 $rootScope.allowNavigation();
@@ -79,16 +75,15 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
         });
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (_preventNavigation) {
-                toaster.pop('error', "Unsaved Changes", "You can't leave the changereferences!");
+                toaster.pop('error', "Browse disabled", "Browse is disabled on this screen!");
                 event.preventDefault();
-                //$state.go('login');
             }
         });
         // Take care of preventing navigation out of our angular app
         window.onbeforeunload = function () {
             // Use the same data that we've set in our angular app
             if (_preventNavigation && $location.absUrl() == _preventNavigationUrl) {
-                return "Unsaved Changes Bulunuyor, Çıkmak İstediğinize Emin Misiniz?";
+                return "Do you want to leave ROPNG Application?";
             }
         }
         // GLOBAL APP SCOPE
@@ -97,7 +92,7 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
             name: 'ROP NG',
             author: 'Fornax A.Ş.',
             description: 'Retail Operation Platform NG',
-            version: '1.0.589',
+            version: '1.0.592',
             year: ((new Date()).getFullYear()),
             isMobile: (function () {// true if the browser is a mobile device
                 var check = false;
@@ -134,7 +129,7 @@ app.config(function ($httpProvider) {
                 if (request.url.endsWith(".html") && !request.url.includes("tabset.html")) {
                     if ($templateCache.get(request.url) === undefined) { // cache miss
                         // Item is not in $templateCache so add our query string
-                        request.url = request.url + '?v=0589';
+                        request.url = request.url + '?v=0592';
                     }
                 }
                 return request;
@@ -155,7 +150,7 @@ app.run(['userService', function (userService) { }]);
 //app.value('signalRServer', 'http://10.101.252.150:9077');//Little Caesars 9077
 //app.value('signalRServer', 'http://10.101.252.150:9067');//Little Caesars 9067
 //app.value('signalRServer', 'http://pizzahut.ropng.site:9075');//PH - Test
-app.value('signalRServer', 'http://192.168.9.40:9067');//PH
+app.value('signalRServer', 'http://192.168.9.40:9065');//PH
 //app.value('signalRServer', 'http://localhost:9065');//localhost
 
 app.run(['callsService', function (callsService) { }]);

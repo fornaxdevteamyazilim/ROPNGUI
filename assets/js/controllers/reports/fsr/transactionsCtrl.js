@@ -27,12 +27,12 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
     var minYear = parseInt(cYeaar - 4);
     var maxYear = parseInt(cYeaar);
     var vNumber = ISO8601_week_no((new Date()));
-    $scope.startWeek = parseInt(vNumber-1);
+    $scope.startWeek = parseInt(vNumber - 1);
     $scope.endWeek = parseInt(vNumber);
     $scope.VeiwHeader = {};
     $scope.startYearButton = {
         bindingOptions: {
-            value: "startYear"            
+            value: "startYear"
         },
         min: minYear,
         max: maxYear,
@@ -112,145 +112,34 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
         columnFixing: {
             enabled: true
         },
-        columns: [{
-            dataField: "Area",
-            dataType: "string",
-            width: 230,
-            fixed: true,
-        }, {
-            dataField: "Year",
-            dataType: "number",
-            fixed: true,
-        }, {
-            dataField: "Week",
-            dataType: "number",
-            fixed: true,
-        }, {
-            dataField: "Sales",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            dataField: "HDSSales",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            caption: "HDS %",
-            dataField: "HDSSalesPercent",
-            dataType: "number",
-            format: {
-                type: "percent",
-                precision: 2
-            }
-        }, {
-            dataField: "DINSales",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            caption: "DIN %",
-            dataField: "DINSalesPercent",
-            dataType: "number",
-            format: {
-                type: "percent",
-                precision: 2
-            }
-        }, {
-            dataField: "COSales",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            caption: "CO %",
-            dataField: "COSalesPercent",
-            dataType: "number",
-            format: {
-                type: "percent",
-                precision: 2
-            }
-        }, {
-            caption: "Total Trx",
-            dataField: "Trx",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            caption: "HDS Trx",
-            dataField: "HDSTrx",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            caption: "HDS Tx %",
-            dataField: "HDSTrxPercent",
-            dataType: "number",
-            format: {
-                type: "percent",
-                precision: 2
-            }
-        }, {
-            caption: "DIN Trx",
-            dataField: "DINTrx",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            caption: "DIN Tx %",
-            dataField: "DINTrxPercent",
-            dataType: "number",
-            format: {
-                type: "percent",
-                precision: 2
-            }
-        }, {
-            caption: "CO Trx",
-            dataField: "COTrx",
-            dataType: "number",
-            format: "fixedPoint"
-        }, {
-            caption: "CO Tx %",
-            dataField: "COTrxPercent",
-            dataType: "number",
-            format: {
-                type: "percent",
-                precision: 2
-            }
-        }, {
-            caption: "Avg GC",
-            dataField: "AvgGC",
-            dataType: "number",
-            format: {
-                type: "fixedPoint",
-                precision: 2
-            }
-        }, {
-            caption: "HDS Avg GC",
-            dataField: "HDSAvgGC",
-            dataType: "number",
-            format: {
-                type: "fixedPoint",
-                precision: 2
-            }
-        }, {
-            caption: "DIN Avg GC",
-            dataField: "DINAvgGC",
-            dataType: "number",
-            format: {
-                type: "fixedPoint",
-                precision: 2
-            }
-        }, {
-            caption: "CO Avg GC",
-            dataField: "COAvgGC",
-            dataType: "number",
-            format: {
-                type: "fixedPoint",
-                precision: 2
-            }
-        }],
+        columns: [
+            { dataField: "Area", dataType: "string", width: 230, fixed: true, },
+            { dataField: "Year", dataType: "number", fixed: true, },
+            { dataField: "Week", dataType: "number", fixed: true, },
+            { dataField: "Sales", dataType: "number", format: "fixedPoint" },
+            { dataField: "HDSSales", dataType: "number", format: "fixedPoint" },
+            { caption: "HDS %", dataField: "HDSSalesPercent", dataType: "number", format: { type: "percent", precision: 2 } },
+            { dataField: "DINSales", dataType: "number", format: "fixedPoint" },
+            { caption: "DIN %", dataField: "DINSalesPercent", dataType: "number", format: { type: "percent", precision: 2 } },
+            { dataField: "COSales", dataType: "number", format: "fixedPoint" },
+            { caption: "CO %", dataField: "COSalesPercent", dataType: "number", format: { type: "percent", precision: 2 } },
+            { caption: "Total Trx", dataField: "Trx", dataType: "number", format: "fixedPoint" },
+            { caption: "HDS Trx", dataField: "HDSTrx", dataType: "number", format: "fixedPoint" },
+            { caption: "HDS Tx %", dataField: "HDSTrxPercent", dataType: "number", format: { type: "percent", precision: 2 } },
+            { caption: "DIN Trx", dataField: "DINTrx", dataType: "number", format: "fixedPoint" },
+            { caption: "DIN Tx %", dataField: "DINTrxPercent", dataType: "number", format: { type: "percent", precision: 2 } },
+            { caption: "CO Trx", dataField: "COTrx", dataType: "number", format: "fixedPoint" },
+            { caption: "CO Tx %", dataField: "COTrxPercent", dataType: "number", format: { type: "percent", precision: 2 } },
+            { caption: "Avg GC", dataField: "AvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: "HDS Avg GC", dataField: "HDSAvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: "DIN Avg GC", dataField: "DINAvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: "CO Avg GC", dataField: "COAvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } }
+        ],
         onRowPrepared: function (e) {
             if (e.rowType === 'data') {
                 if (e.data.Delta === true) {
-                    //e.rowElement.addClass('place');
                     e.rowElement.css({ 'font-weight': 'bold', 'background': '#ebb3af' });
                 }
-                //else {
-                //    e.data.place = "";
-                //}
             }
         },
         export: {
@@ -272,17 +161,12 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
         scrolling: {
             mode: "virtual"
         },
-        //scrolling: {
-        //    columnRenderingMode: "virtual"
-        //},
-        //paging: {
-        //    enabled: false
-        //}
+
     };
-    
+
     $scope.LoadData = function () {
         var dataGrid = $('#gridContainer').dxDataGrid('instance');
-        dataGrid.refresh();        
+        dataGrid.refresh();
     };
-    
+
 }

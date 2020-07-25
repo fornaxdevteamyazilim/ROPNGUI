@@ -125,7 +125,7 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
             { caption: "ChildName", dataField: "ChildName", dataType: "string" },
             { caption: "Category", dataField: "ProductCategory", dataType: "string" },
             { caption: "Count", dataField: "ItemCount", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
-            { caption: "TotalAmount", dataField: "TotalAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: "TotalNetAmount", dataField: "TotalAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "Cost", dataField: "Cost", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "TotalQuantity", dataField: "TotalQuantity", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
             { caption: "TotalCost", dataField: "TotalCost", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
@@ -136,15 +136,20 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
             totalItems: [{ column: "StoreID", summaryType: "count", displayFormat: "{0}" },
             { column: "Count", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "TotalAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
+            //{ column: "TotalSalesNoDiscount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
+            //{ column: "TotalNetSales", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
             { column: "TotalQuantity", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "TotalCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
             { name: "Ratio", showInColumn: "Ratio", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+            { name: "RatioNet", showInColumn: "Ratio", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "Net:{0}" },
             { column: "OrdersCount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             ],
             groupItems: [
                 { column: "StoreID", summaryType: "count", displayFormat: "{0}" },
                 { column: "Count", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TotalAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺", alignByColumn: true },
+                // { column: "TotalSalesNoDiscount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺", alignByColumn: true },
+                // { column: "TotalNetSales", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺", alignByColumn: true },
                 { column: "TotalQuantity", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TotalCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺", alignByColumn: true },
                 { name: "Ratio", showInColumn: "Ratio", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
@@ -166,12 +171,27 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
                             break;
                     }
                 }
+                if (options.name === "RatioNet") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.Cost = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.value.TotalNetSales;
+                            options.Cost = options.Cost + options.value.TotalCost;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.Cost / options.totalValue;
+                            break;
+                    }
+                }
             },
         },
         
         export: {
             enabled: true,
-            fileName: "promotionanaisys",
+            fileName: "promotionanalisys",
         },
         scrolling: { mode: "virtual" },
         height: 600

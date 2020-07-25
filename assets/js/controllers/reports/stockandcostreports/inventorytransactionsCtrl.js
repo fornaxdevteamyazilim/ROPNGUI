@@ -80,7 +80,7 @@ function inventorytransactionsCtrl($scope, $log, $modal, $filter, SweetAlert, Re
                         totalCount: 10
                     };
                 }, function (response) {
-                    return $q.reject("Data Loading Error");
+                    return (response.data.ExceptionMessage) ? $q.reject(response.data.ExceptionMessage) : $q.reject("Data Loading Error");
                 });
         }
     });
@@ -117,8 +117,8 @@ function inventorytransactionsCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             { caption: "Price", dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "Amount", dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { dataField: "Repository", dataType: "string" },
-            //{ dataField: "Store", dataType: "string" },
-            {
+            { dataField: "Store", dataType: "string" },
+            /* {
                 dataField: "StoreID", caption: "Store",
                 lookup: {
                     valueExpr: "id",
@@ -145,17 +145,23 @@ function inventorytransactionsCtrl($scope, $log, $modal, $filter, SweetAlert, Re
                         return this.lookup.calculateCellValue(value);
                     }
                 },
-            },
+            }, */
             { dataField: "StoreType", caption: "StoreType" },
             { dataField: "TransactionType", dataType: "string" },
             { dataField: "TransactionDetail", dataType: "string" },
             { dataField: "InventoryGroup", dataType: "string" },
         ],
         summary: {
-            totalItems: [{ column: "Inventory.name", summaryType: "count", displayFormat: "{0}" },
-            { column: "Units", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
-            { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
+            totalItems: [
+                { column: "Inventory.name", summaryType: "count", displayFormat: "{0}" },
+                { column: "Units", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
             ],
+            groupItems: [
+                { column: "Inventory.name", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
+                { column: "Units", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺", alignByColumn: true },
+            ]
         },
         export: {
             enabled: true,
