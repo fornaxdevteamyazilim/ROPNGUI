@@ -52,14 +52,14 @@ function storegroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restang
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 sg.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'storegroup')
             data.post().then(function (res) {
                 sg.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -77,20 +77,20 @@ function storegroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restang
         rowform.$cancel();
         if (!sg.tableParams.data[sg.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sg.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-          title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -99,7 +99,7 @@ function storegroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restang
                     sg.tableParams.data[index].remove();
                 }
                 sg.tableParams.data.splice(index, 1);
-               toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

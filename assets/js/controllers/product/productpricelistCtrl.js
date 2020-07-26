@@ -29,9 +29,9 @@ function productpricelistCtrl($scope, $log, $modal, Restangular, ngTableParams, 
         rowform.$cancel();
         if (!ppl.tableParams.data[ppl.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ppl.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "It is cancelled!", 'Edit cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !' );
         }
     };
     //$scope.BuildSearchString = function (src) {

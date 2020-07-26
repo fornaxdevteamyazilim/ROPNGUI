@@ -560,8 +560,8 @@ function endofdayCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $w
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes",
-            cancelButtonText: "No",
+            confirmButtonText: $translate.instant('mainscreen.yes '),
+            cancelButtonText: $translate.instant('mainscreen.no '),
             closeOnConfirm: true
         }, function () {
             $scope.ShowingObje = true;
@@ -578,7 +578,7 @@ function endofdayCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $w
                     var start = restresult.data.ExceptionMessage.indexOf("[");
                     var end = restresult.data.ExceptionMessage.indexOf("]");
                     var orderID = restresult.data.ExceptionMessage.substring(start + 1, end);
-                    SweetAlert.swal("Hata!", restresult.data.ExceptionMessage);
+                    SweetAlert.swal("Error!", restresult.data.ExceptionMessage);
                     SweetAlert.swal({
                         title:$translate.instant('mainscreen.EndOfDayFailed ') ,
                         text: restresult.data.ExceptionMessage,
@@ -586,8 +586,8 @@ function endofdayCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $w
                         showCancelButton: true,
                         closeOnConfirm: true,
                         showLoaderOnConfirm: true,
-                        confirmButtonText: "Go to Order",
-                        cancelButtonText: "Cancel",
+                        confirmButtonText: $translate.instant('mainscreen.GotoOrder '),
+                        cancelButtonText:$translate.instant('mainscreen.Cancel ') ,
                         closeOnCancel: true
                     }, function (isConfirm) {
                         if (isConfirm) {

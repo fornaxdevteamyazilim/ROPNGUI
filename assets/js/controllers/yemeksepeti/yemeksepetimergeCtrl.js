@@ -125,7 +125,7 @@ function yemeksepetimergeCtrl($rootScope , $scope, $filter, $modal, SweetAlert, 
                 $scope.filterAddress(result);
                 //$scope.personAddresses = angular.copy(result);
             }, function (response) {
-                toaster.pop('error', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         } else {
             $scope.personAddresses = null;
@@ -207,10 +207,10 @@ function yemeksepetimergeCtrl($rootScope , $scope, $filter, $modal, SweetAlert, 
         var data = { YemekSepetiCustomerID: $scope.yemeksepetiItem.CustomerId, YemekSepetiAddressID: $scope.yemeksepetiItem.AddressId, Person_DeliveryAddressID: $scope.slectedAddress.id }
         Restangular.restangularizeElement('', data, 'yemeksepeticustomermap');
         data.post().then(function (resp) {
-            toaster.pop('success', "Twinning Saved!");
+            toaster.pop('success',  $translate.instant('yemeksepetifile.TwinningSaved '));
               $location.path('/app/mainscreen');
         }, function (resp) {
-            toaster.pop('error', "Twinning Saved!", resp.data.ExceptionMessage);
+            toaster.pop('error',  $translate.instant('yemeksepetifile.TwinningSaved '), resp.data.ExceptionMessage);
         });
     };
     $scope.$on('$destroy', function () {

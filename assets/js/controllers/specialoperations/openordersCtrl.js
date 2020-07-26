@@ -26,9 +26,9 @@ function openordersCtrl($rootScope, $scope, $log, $modal, Restangular, $filter, 
         Restangular.restangularizeElement('', $scope.payment, 'orderpayment');
         $scope.payment.post().then(function (resp) {
             $scope.loadOrders();
-            toaster.pop('success', "Adisyon Kapatıldı!", 'success!');
+            toaster.pop('success', $translate.instant('orderfile.BillOff'), 'success!');
         }, function (response) {
-            toaster.pop('error', "Hata! Adisyon Kapatılamadı!", "error");
+            toaster.pop('error',$translate.instant('orderfile.MistakeFailedCloseBill'), "error");
         });
     };
     $scope.BuildSearchString = function (src) {
@@ -50,7 +50,7 @@ function openordersCtrl($rootScope, $scope, $log, $modal, Restangular, $filter, 
             angular.copy(result, $scope.orders);
         }, function (response) {
             $scope.ShowObject = false;
-            toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.selectStore = function (StoreID) {
@@ -81,7 +81,7 @@ function openordersCtrl($rootScope, $scope, $log, $modal, Restangular, $filter, 
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

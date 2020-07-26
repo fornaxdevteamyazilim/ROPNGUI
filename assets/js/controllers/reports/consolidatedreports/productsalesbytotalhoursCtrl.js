@@ -91,7 +91,7 @@ function productsalesbytotalhoursCtrl($scope, $filter, $modal, $log, Restangular
                 ctrl.table.data = orders;
                 $scope.ShowReport();
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     ctrl.table = {
@@ -139,7 +139,7 @@ function productsalesbytotalhoursCtrl($scope, $filter, $modal, $log, Restangular
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

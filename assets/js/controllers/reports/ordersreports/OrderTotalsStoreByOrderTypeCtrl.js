@@ -96,7 +96,7 @@ userService.userAuthorizated();
            $scope.VeiwHeader = result[0];
            $scope.GetLayout(result[0].id)
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
        });
     }
     $scope.GetLayout = function (ReportID) {
@@ -115,7 +115,7 @@ userService.userAuthorizated();
             $scope.LoadPivotData();
         }
     }, function (response) {
-        toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+        toaster.pop('error', "Server Error", response.data.ExceptionMessage);
     });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -172,7 +172,7 @@ userService.userAuthorizated();
                 $scope.isWaiting = false;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     $scope.GetSoreID = function (data) {
@@ -293,7 +293,7 @@ userService.userAuthorizated();
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -302,7 +302,7 @@ userService.userAuthorizated();
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

@@ -13,7 +13,7 @@ function selectanyCtrl($scope, $log, $modal, $filter, Restangular, Value, SweetA
             }).then(function (result) {
                 $scope.inventorycounts = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

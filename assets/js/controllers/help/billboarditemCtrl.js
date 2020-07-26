@@ -17,14 +17,14 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 bbi.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'billboarditem')
             this.item.post().then(function (res) {
                 bbi.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
             });
             this.item.get();
         }

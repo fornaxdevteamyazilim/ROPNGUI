@@ -42,14 +42,14 @@ function storegroupitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 sgi.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'storegroupitem')
             data.post().then(function (res) {
                 sgi.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -67,20 +67,20 @@ function storegroupitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
         rowform.$cancel();
         if (!sgi.tableParams.data[sgi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sgi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-          title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -89,7 +89,7 @@ function storegroupitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
                     sgi.tableParams.data[index].remove();
                 }
                 sgi.tableParams.data.splice(index, 1);
-               toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -117,7 +117,7 @@ function storegroupitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
             }).then(function (result) {
                 angular.copy(result, $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', "Server Connection Error", "Error!");
+                toaster.pop('Warning', $translate.instant('orderfile.ServerConnectionError'), "Error!");
             });
         }
     };

@@ -56,14 +56,14 @@ function promotionsCtrl($rootScope, $scope, $log, $modal, Restangular, ngTablePa
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 pro.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success', $translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'promotion')
             data.post().then(function (res) {
                 pro.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
             });
 
         }
@@ -82,20 +82,20 @@ function promotionsCtrl($rootScope, $scope, $log, $modal, Restangular, ngTablePa
         rowform.$cancel();
         if (!pro.tableParams.data[pro.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pro.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:  $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -104,7 +104,7 @@ function promotionsCtrl($rootScope, $scope, $log, $modal, Restangular, ngTablePa
                     pro.tableParams.data[index].remove();
                 }
                 pro.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
             }
         });
     };

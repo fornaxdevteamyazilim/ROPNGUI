@@ -55,7 +55,7 @@ function performanceCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, Re
                 }
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     $scope.GetSoreID = function (data) {

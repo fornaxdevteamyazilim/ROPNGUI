@@ -36,27 +36,27 @@ function mergesubcitiesCtrl($rootScope, $scope, $log, $modal, Restangular, ngTab
     //$scope.LoadSubcities();
     $scope.FromSelectItem = function (Item) {
         $scope.FromSelectSubcity = Item;
-        toaster.pop('warning', "Be Merged District...");
+        toaster.pop('warning',  $translate.instant('margeaddress.BeMergedDistrict '));
     };
     $scope.ToSelectItem = function (Item) {
         $scope.ToSelectSubcity = Item;
-        toaster.pop('warning', "District To Merge...");
+        toaster.pop('warning',$translate.instant('margeaddress.DistrictMerged ') );
     };
     $scope.MergeSubcity = function () {
         swal({
-            title: "'" + $scope.FromSelectSubcity.name + "' District '" + $scope.ToSelectSubcity.name + "' Will merge with the district",
-            text: "Do you approve of this operation !",
+            title: "'" + $scope.FromSelectSubcity.name + $translate.instant('margeaddress.District ') + $scope.ToSelectSubcity.name + $translate.instant('margeaddress.Willmergewiththedistrict '),
+            text: $translate.instant('margeaddress.Doyouapproveofthisoperation '),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes",
-            cancelButtonText: "No",
+            confirmButtonText: $translate.instant('margeaddress.confirmButtonText'),
+            cancelButtonText:$translate.instant('margeaddress.cancelButtonText'),
             closeOnConfirm: true
         }, function () {
             Restangular.one('addresshelper/merge/subcity?FromSubcityID=' + $scope.FromSelectSubcity.id + '&ToSubcityID=' + $scope.ToSelectSubcity.id).get().then
          (function (restresult) {
              $scope.LoadSubcities();
-             toaster.pop('success', "District Merged.");
+             toaster.pop('success',$translate.instant('margeaddress.DistrictMerged ') );
          }, function (response) {
              toaster.pop('error', "Server Error", response.ExceptionMessage);
          });

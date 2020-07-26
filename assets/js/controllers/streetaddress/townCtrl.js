@@ -22,10 +22,10 @@ function townCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams, 
             data.put().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', "Updated.", 'Updated.');
+                    toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
                 },
                 function (response) {
-                    toaster.pop('error', "Failed to Update !", response.data.ExceptionMessage);
+                    toaster.pop('error',$translate.instant('personfile.Failedupdate') ,response.data.ExceptionMessage);
                 }
                  );
         }
@@ -34,10 +34,10 @@ function townCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams, 
             data.post().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', "Saved.", 'Saved.');
+                    toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
                 },
                     function (response) {
-                        toaster.pop('error', "Not Saved !", response.data.ExceptionMessage);
+                        toaster.pop('error',$translate.instant('orderfile.NotSaved'), response.data.ExceptionMessage);
                     }
             );
             data.get();
@@ -56,9 +56,9 @@ function townCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams, 
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     vm.tableParams = new ngTableParams({
@@ -85,13 +85,13 @@ function townCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams, 
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -100,7 +100,7 @@ function townCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParams, 
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

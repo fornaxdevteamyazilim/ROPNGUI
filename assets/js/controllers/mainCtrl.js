@@ -68,7 +68,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                 }
             }, function (response) {
                 $scope.isWaiting = false;
-                //toaster.pop('error', "Sunucu hatası", response);
+                //toaster.pop('error',Server Error, response);
             });
         }
         var deregistration5 = $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -326,7 +326,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                             $scope.audio.pause();
                         $rootScope.YSOrderCount = angular.copy(result.length);
                     }, function (response) {
-                        toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                        toaster.pop('error',"Server Error", response.data.ExceptionMessage);
                     });
                 }
             }

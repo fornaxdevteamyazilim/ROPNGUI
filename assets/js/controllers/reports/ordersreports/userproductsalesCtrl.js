@@ -94,7 +94,7 @@ function userproductsalesCtrl($scope, $filter, $modal, $log, Restangular, ngTabl
                 $scope.VeiwHeader = result[0];
                 $scope.GetLayout(result[0].id)
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     }
     $scope.GetLayout = function (ReportID) {
@@ -112,7 +112,7 @@ function userproductsalesCtrl($scope, $filter, $modal, $log, Restangular, ngTabl
                     $scope.LoadPivotData();
                 }
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -171,7 +171,7 @@ function userproductsalesCtrl($scope, $filter, $modal, $log, Restangular, ngTabl
             $scope.isWaiting = false;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.exportToExcel = function (tableId) {
@@ -302,7 +302,7 @@ function userproductsalesCtrl($scope, $filter, $modal, $log, Restangular, ngTabl
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -311,7 +311,7 @@ function userproductsalesCtrl($scope, $filter, $modal, $log, Restangular, ngTabl
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

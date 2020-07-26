@@ -134,14 +134,14 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }
     };
     $scope.TakeOrder = function (personID, OrderType, PersonPhones) {
         if (PersonPhones && PersonPhones.length < 1) {
-            toaster.pop('warning', "Phone Number Should Not Be Blank !", "error");
+            toaster.pop('warning', $translate.instant('personfile.PhoneNumberShouldNotBeBlank'), "error");
             return;
         }
         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
@@ -165,7 +165,7 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Order Created.");
+                    toaster.pop("success", $translate.instant('personfile.OrderCreated'));
                 },
                 function (resp) {
                     toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -246,10 +246,10 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Order Created.");
+                    toaster.pop("success", $translate.instant('personfile.OrderCreated'));
                 },
                 function (resp) {
-                    toaster.pop('error',  resp.data.ExceptionMessage, "Cannot Create New Order !");
+                    toaster.pop('error',  resp.data.ExceptionMessage, $translate.instant('personfile.CannotCreateNewOrder'));
                 });
             } else {
                 //TODO Swet Alert
@@ -272,7 +272,7 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
     };
     $scope.PhoneLenght = function (data) {
         if (vm.searchPhone && vm.searchPhone.length < 10) {
-            toaster.pop('warning', "Phone Number Must Be 11 Characters !", 'Warning !');
+            toaster.pop('warning',  $translate.instant('personfile.PhoneNumberMustBe11Characters '), 'Warning !');
         } else {
             location.href = data;
         }
@@ -533,7 +533,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }
@@ -562,7 +562,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                     }
                 ).then(function (result) {
                     if (result.length < 1) {
-                        toaster.pop('warning', "THIS ADDRESS IS NOT IN THE RESTAURANT ADDRESSES !");
+                        toaster.pop('warning',  $translate.instant('personfile.THISADDRESSNOTTHERESTAURANTADDRESSES '));
                     }
                     else {
                         for (var i = 0; i < result.length; i++) {
@@ -570,7 +570,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                                 return $scope.HomeOrder(item, OrderTyprID);
                                 break;
                             } else {
-                                toaster.pop('warning', "THIS ADDRESS IS NOT IN THE RESTAURANT ADDRESSES !");
+                                toaster.pop('warning', $translate.instant('personfile.THISADDRESSNOTTHERESTAURANTADDRESSES '));
                             }
                         }
                     }
@@ -582,7 +582,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
     };
     $scope.HomeOrder = function (person, OrderType) {
         if ($scope.CheckPersonPhone == false) {
-            toaster.pop('warning', "Phone Number Should Not Be Blank !", "error");
+            toaster.pop('warning', $translate.instant('personfile.PhoneNumberShouldNotBeBlank'), "error");
             return;
         }
         var data = $scope.GetDepartment();
@@ -601,7 +601,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                     location.href = '#/app/orders/orderStore/' + resp.id;
                 if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                     location.href = '#/app/orders/order/' + resp.id;
-                toaster.pop("success", "Order Created.");
+                toaster.pop("success", $translate.instant('personfile.OrderCreated'));
             },
             function (resp) {
                 toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -708,13 +708,13 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
         Restangular.restangularizeElement('', data, 'MarketingPermission');
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
-                toaster.pop('success', "Updated", 'Updated!');
+                toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated!');
             });
         }
         else {
             data.PersonID = $scope.Person.id;
             data.post().then(function (resp) {
-                toaster.pop('success', "Saved!", 'Saved!');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved!');
             });
         }
     };
@@ -804,10 +804,10 @@ function personorderitemsCtrl($rootScope, $scope, $modalInstance, Order, $log, $
             if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                 location.href = '#/app/orders/order/' + result.id;
             $scope.ok();
-            toaster.pop("success", "Order Created.");
+            toaster.pop("success", $translate.instant('personfile.OrderCreated'));
             $scope.isSpinner = false;
         }, function (response) {
-            toaster.pop('error', "Hata!", response.data.ExceptionMessage);
+            toaster.pop('error', "Error!", response.data.ExceptionMessage);
             $scope.isSpinner = false;
         });
     };

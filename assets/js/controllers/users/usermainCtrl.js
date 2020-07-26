@@ -9,19 +9,19 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
         if (data.Password || (!data.Password && userService.isAdmin())) {
             if (data.restangularized && data.id) {
                 data.put().then(function (res) {
-                    toaster.pop('success', "Updated.", 'Updated.');
+                    toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
                 });
             }
             else {
                 Restangular.restangularizeElement('', data, 'user')
                 data.post().then(function (res) {
-                    toaster.pop('success', "Saved.", 'Saved.');
+                    toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
                 }, function (response) {
                     toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
         } else {
-            toaster.pop('warning', "Sorry", 'Enter Password !');
+            toaster.pop('warning',$translate.instant('userfile.Sorry'), $translate.instant('userfile.EnterPassword'));
         }
     };
     if ($stateParams.id != 'new') {
@@ -31,7 +31,7 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
                 $scope.item = Restangular.copy(restresult);
             },
            function (restresult) {
-               toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+               toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
                swal("Error!", "Data Error!", "Warning");
            }
            )
@@ -49,7 +49,7 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
         Restangular.all('user/deletefingerprints').getList({
             UserID: $stateParams.id
         }).then(function (result) {
-            toaster.pop('success', "Deleted.", 'Deleted.');
+            toaster.pop('success', $translate.instant('orderfile.Deleted'), 'Deleted.');
         }, function (response) {
             toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
@@ -125,26 +125,26 @@ function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, Sw
     });
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
+                    SweetAlert.swal($translate.instant('orderfile.Deleted'),  $translate.instant('orderfile.RecordDeleted'), "success");
                     $location.path('app/users/userlist');
                 }, function (response) {
                     toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
             else {
-                SweetAlert.swal("It is cancelled !", "Deletion canceled !", "error");
+                SweetAlert.swal($translate.instant('orderfile.Cancelled'),  $translate.instant('orderfile.DeletionCanceled'), "error");
             }
         });
     };

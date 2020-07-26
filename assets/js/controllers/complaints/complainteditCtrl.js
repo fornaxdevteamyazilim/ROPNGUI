@@ -64,11 +64,11 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 $scope.CallReason(4);
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success',  $translate.instant('accounting.Updated'), 'Updated.');
                 $scope.isActiveButton(true);
             }, function (response) {
                 $scope.isActiveButton(true);
-                toaster.pop('error', "Registration Realized !", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('accounting.RegistrationRealized'), response.data.ExceptionMessage);
             });
         }
         else {
@@ -76,12 +76,12 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
             Restangular.restangularizeElement('', data, 'complaint')
             data.post().then(function (res) {
                 $scope.CallReason(4);
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', $translate.instant('accounting.Saved') , 'Saved.');
                 $scope.isActiveButton(true);
                 $location.path('app/complaints/complaints/list');
             }, function (response) {
                 $scope.isActiveButton(true);
-                toaster.pop('error', "Registration Realized !", response.data.ExceptionMessage);
+                toaster.pop('error',$translate.instant('accounting.RegistrationRealized'), response.data.ExceptionMessage);
             });
             data.get();
         }
@@ -117,9 +117,9 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert Cancelled.');
+            toaster.pop('warning',  $translate.instant('accounting.Cancelled'), 'Insert Cancelled.');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit Cancelled.');
+            toaster.pop('warning', $translate.instant('accounting.Cancelled'), 'Edit Cancelled.');
         }
     };
     $scope.loadEntities = function (EntityType, Container) {
@@ -161,24 +161,24 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
     $scope.loadEntities('complaintrelation', 'complaintrelations');
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('accounting.Sure') ,
+            text:  $translate.instant('accounting.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('accounting.confirmButtonText'),
+            cancelButtonText:   $translate.instant('accounting.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Deleted !", "Record Deleted !", "success");
+                    SweetAlert.swal( $translate.instant('accounting.Deleted'),  $translate.instant('accounting.RecordDeleted'), "success");
                     $location.path('app/complaints/complaints/list');
                 });
             }
             else {
-                SweetAlert.swal("It is cancelled !", "Deletion Canceled !", "error");
+                SweetAlert.swal( $translate.instant('accounting.Cancelled'), $translate.instant('accounting.DeletionCanceled'), "error");
             }
         });
     };
@@ -283,7 +283,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
             data.put().then(function (res) {
                 $scope.CallReason(4);
                 car.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success',$translate.instant('accounting.Updated'), 'Updated.');
             });
         }
         else {
@@ -292,7 +292,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
             data.post().then(function (res) {
                 $scope.CallReason(4);
                 car.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', $translate.instant('accounting.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -310,20 +310,20 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
         rowform.$cancel();
         if (!car.tableParams.data[car.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(car.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled.');
+            toaster.pop('warning', $translate.instant('accounting.Cancelled'), 'Insert cancelled.');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled.');
+            toaster.pop('warning', $translate.instant('accounting.Cancelled'), 'Edit cancelled.');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('accounting.Sure') ,
+            text:  $translate.instant('accounting.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('accounting.confirmButtonText'),
+            cancelButtonText:   $translate.instant('accounting.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -332,7 +332,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
                     car.tableParams.data[index].remove();
                 }
                 car.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('accounting.Attention'),$translate.instant('accounting.RecordDeleted'));
             }
         });
     };

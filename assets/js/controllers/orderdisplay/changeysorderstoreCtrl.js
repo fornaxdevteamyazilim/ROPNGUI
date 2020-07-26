@@ -19,9 +19,9 @@ function changeysorderstoreCtrl($rootScope, $scope, $modalInstance, order, Resta
                 Restangular.restangularizeElement('', order, 'yemeksepetiordermap');
                 order.put().then(function (resp) {
                     $scope.ok();
-                    toaster.pop('success', "Saved!");
+                    toaster.pop('success', $translate.instant('orderfile.Saved') );
                 }, function (resp) {
-                    toaster.pop('error', "Not Saved!", resp.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('orderfile.NotSaved '), resp.data.ExceptionMessage);
                 });
             }
         }
@@ -32,9 +32,9 @@ function changeysorderstoreCtrl($rootScope, $scope, $modalInstance, order, Resta
                 Restangular.restangularizeElement('', order, 'order');
                 order.put().then(function (resp) {
                     $scope.ok();
-                    toaster.pop('success', "Saved!");
+                    toaster.pop('success', $translate.instant('orderfile.Saved') );
                 }, function (resp) {
-                    toaster.pop('error', "Not Saved!", resp.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('orderfile.NotSaved '), resp.data.ExceptionMessage);
                 });
             }
         }

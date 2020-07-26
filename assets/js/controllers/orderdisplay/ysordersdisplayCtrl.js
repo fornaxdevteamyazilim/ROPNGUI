@@ -26,7 +26,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
             }
             },
                 function (restresult) {
-                    toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+                    toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
                     swal("Error!", "Data Error!", "Warning");
                 });
         
@@ -86,7 +86,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
         else {
             $scope.GetDepartments();
             if (!$scope.Departments || $scope.Departments.length == 0) {
-                toaster.pop('warning', "Departments Null", "error");
+                toaster.pop('warning',$translate.instant('orderfile.DepartmentsNull '), "error");
             }
             if ($scope.Departments.length == 1) {
                 $rootScope.user.UserRole.OrderSource.Department = $scope.Departments[0];
@@ -104,7 +104,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('warning', "No Department", "error");
+                        toaster.pop('warning',$translate.instant('orderfile.NoDepartment ') , "error");
                     });
             }
         }
@@ -134,7 +134,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
                     toaster.pop('error', resp.data.ExceptionMessage, "error");
                 });
         } else {
-            toaster.pop('warning', "Please Try Again!", "error");
+            toaster.pop('warning',$translate.instant('orderfile.PleaseTryAgain'), "error");
         }
     };
     $scope.SelectPerson = function (order) {
@@ -150,7 +150,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
         Restangular.all('YemekSepetiTools/TransferOrder').getList({
             YemekSepetiOrderMapID: ysom.id
         }).then(function (_orderItems) {
-            toaster.pop('success', "Order transfer process initiated.");
+            toaster.pop('success', $translate.instant('orderfile.Ordertransferprocessinitiated '));
         }, function (response) {
             toaster.pop('error', "Server Error", response);
         });

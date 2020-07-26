@@ -64,11 +64,11 @@ function surveypopupCtrl($scope, Restangular, item, $modal, ngTableParams, toast
         $scope.item.UserID = $rootScope.user.id;
         Restangular.restangularizeElement('', $scope.item, 'personsurvey')
         $scope.item.post().then(function (resp) {
-            toaster.pop("success", "Data Saved.", "Saved!");
+            toaster.pop("success",$translate.instant('personfile.DataSaved'), "Saved!");
             $scope.tableParams.reload();
             $scope.ok();
         }, function (response) {
-            toaster.pop('Warning', "A problem has occurred. Try Again!", response);
+            toaster.pop('Warning',  $translate.instant('personfile.AproblemhasoccurredTryAgain '), response);
         });
     };
     $scope.tableParams = new ngTableParams({

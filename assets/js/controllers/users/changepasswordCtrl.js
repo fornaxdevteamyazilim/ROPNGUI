@@ -10,14 +10,14 @@ function changepasswordCtrl($rootScope, $scope, $log, $modal, Restangular, ngTab
                 NewPassword: item.NewPassword
             }).then(function (result) {
                 if (result == true) {
-                    swal("Updated.", "Your Password Has Changed. Please log in again!", "success");
+                    swal("Updated.",  $translate.instant('userfile.YourPasswordHasChangedPleaseloginagain '), "success");
                     $location.path('/login/signin');
                 }
             }, function (response) {
                 toaster.pop('warning', "Server Error", response);
             });
         } else {
-            $scope.message = 'The Values Entered Do Not Match! Please Enter Again!';
+            $scope.message =   $translate.instant('userfile.TheValuesEnteredNotMatchPleaseEnterAgain ');
         }
     };
       $scope.$on('$destroy', function () {

@@ -187,7 +187,7 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
     //    }).then(function (result) {
     //        $scope.storepaymenttypes = result;
     //    }, function (response) {
-    //        toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+    //        toaster.pop('Warning',Server Error, response.data.ExceptionMessage);
     //    });
     //};
     $scope.SendNetsisIncomeSlipt = function () {

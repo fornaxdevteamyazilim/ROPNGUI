@@ -48,7 +48,7 @@ function regionanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular, to
 
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {
@@ -117,7 +117,7 @@ function regionanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular, to
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -126,7 +126,7 @@ function regionanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular, to
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

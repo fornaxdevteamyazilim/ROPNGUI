@@ -96,11 +96,11 @@ function orderdisplayCtrl($scope, $log, $modal, $interval, Restangular, ngTableP
             ordertosave.OrderStateID = 1;
             Restangular.restangularizeElement('', ordertosave, 'order');
             ordertosave.put().then(function (result) {
-                toaster.pop('success', "Order Confirmed.");
+                toaster.pop('success', $translate.instant('orderfile.OrderConfirmed '));
                 $scope.LoadOrders();
                 $rootScope.$broadcast('AskingOrder');
             }, function () {
-                toaster.pop('error', "Not Saved !");
+                toaster.pop('error', $translate.instant('orderfile.NotSaved '));
                 $scope.LoadOrders();
                 $rootScope.$broadcast('AskingOrder');
             });
@@ -155,7 +155,7 @@ function orderdisplayCtrl($scope, $log, $modal, $interval, Restangular, ngTableP
             $scope.isSpinner = false;
             location.href = '#/app/mainscreen';
         }, function (response) {
-            toaster.pop('error', "Hata!", response.data.Message);
+            toaster.pop('error', "error!", response.data.Message);
             $scope.isSpinner = false;
         });
     };

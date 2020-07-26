@@ -2489,6 +2489,7 @@
         "USERSTOREGROUP": "Kullanıcı - Restoran Grup Tanımları",
         "USERAUTOMATICREPORT": "Kullanıcı Otomatik Rapor Tanımı",
         "OPERATIONMANAGER": "Operasyon Müdürleri Tanımı"
+        
       },
       "dispatch": {
         "MAIN": "Sipariş Yönetimi",
@@ -3034,7 +3035,11 @@
     "fingerprints":"Parmak izi tespit edilmedi!",
     "LoginFailed":"Giriş Başarısız Oldu !",
     "TryAgain": "Şifreniz Doğru Olduğundan Emin Olup Tekrar Deneyin !",
-    "LoginSuccessful":"Başarılı Giriş"
+    "LoginSuccessful":"Başarılı Giriş",
+    "yes":"Evet",
+    "no":"Hayır",
+    "GotoOrder":"Siparişe git",
+    "Cancel":" İptal Et"
   },
   "accounting":{
     "Updated":"Güncellendi.",
@@ -3053,7 +3058,8 @@
     "ReceiptTransferred": "Makbuz Transfer Edildi",
     "REQUİREDFİELDS": "GEREKLİ ALANLARI DOLDURUN !",
     "Plugs Created": "Fişler Oluşturuldu!",
-    "CreatedTransferred": "Fişler Oluşturuldu ve Aktarıldı !"
+    "CreatedTransferred": "Fişler Oluşturuldu ve Aktarıldı !",
+    "RegistrationRealized":"Kayıt Gerçekleşti !"
 
   },
   "callcenterdash":{
@@ -3106,6 +3112,17 @@
     "UpdatedFailed" : "Güncelleme Başarısız Oldu!",
     "Insertfailed": "Veri Ekleme Başarısız Oldu!"
   },
+  "dispatcherfile":{
+    "Drivechanged":"Sürücü değişti !",
+    "Driverupdated":"Sürücü güncellendi !",
+    "Prepared":"Hazır",
+    "orderstate":"sipariş durumu",
+    "OrderOutput":"Sipariş Çıktı.",
+    "Wasdelivered":"Teslim edildi.",
+    "LabelPrintingAgain":"Yine Etiket Baskısı.",
+    "OrdermarkedOut":"Sipariş dışarı olarak işaretlenmiş!"
+
+  },
   "invantories":{
     "Updated":"Güncellendi.",
     "Saved":"Kaydedildi.",
@@ -3126,6 +3143,12 @@
     "DataAdded": "Veri Eklendi",
     "DataSaved": "Veriler Kaydedildi"
 
+  },
+  "kitchendisplayf":{
+    "PleaseWait":"Lütfen Bekleyin !",
+    "Prepared":"Hazır",
+    "Itemprepared":"Ürün hazır!",
+    "Updatefailed":"Güncelleme başarısız oldu !"
   },
   "orderfile":{
     "ChoosReason":"Bir sebep seç",
@@ -3186,7 +3209,111 @@
     "Confirmed":"Onaylandı.",
     "Added":"Eklendi.",
     "Notrecorded":"Kaydedilmedi !",
-    "Couldnotupdated":"Güncellenemedi !"
+    "Couldnotupdated":"Güncellenemedi !",
+    "YourOrderMarkedNonPayment":"Siparişiniz Ödeme Yapılmamış Olarak İşaretlenmiştir",
+    "InsufficientLimit":"Yetersiz Limit!",
+    "BillOff":"Adisyon Kapatıldı!",
+    "MistakeFailedCloseBill":"Hata! Adisyon Kapatılamadı!",
+    "NewPrototypeCreated":"Yeni Prototip Oluşturuldu.",
+    "OperationFailed":"İşleminiz Başarısız Oldu!",
+    "PleaseTryAgain":"Lütfen Tekrar Deneyin!",
+    "Ordertransferprocessinitiated":"Sipariş transfer süreci başlatıldı.",
+    "DepartmentsNull":"Bölümler Null",
+    "PairingSaved":"Eşleştirme Kaydedildi!",
+    "PairingNotSaved":"Eşleştirme Kaydedilmedi!",
+    "OrderConfirmed":"Sipariş Onaylandı",
+    "NotSaved":"Kaydedilmedi",
+    "ServerConnectionError":"Sunucu Bağlantı Hatası",
+    "Youwillnotbeablerecoverthisrecord":"Bu kaydı kurtarmak mümkün olmayacaktır!"
+  },
+  "yemeksepetifile":{
+    "Updatefailed":"Güncelleme başarısız oldu !",
+    "UnabletoloadYemekSepetistatisticsi":"Yemeksepeti statisticsi yüklenemiyor",
+    "TwinningSaved":"Eşleştirme Kaydedildi",
+    "Selectaddress":"Adresi seçin!",
+    "Areyousureyouwanttoconfirmtheorder":"Siparişi onaylamak istediğinizden emin misiniz ?",
+    "Yes":"Evet",
+    "OrderConfirmed":"Sipariş Onaylandı.",
+    "OrderCannotBeChanged":"Sipariş Değiştirilemez !",
+    "PrintedAgain":"Tekrar Basıldı.",
+    "OrderFiyuutransmissioninitiated":"Sipariş Fiyuu iletim başlatıldı.",
+    "TransmittedtoFiyuu":"Fiyuu'ya iletildi!",
+    "Giftcodesforwarded":"Hediye kodları iletildi!",
+    "CANCELORDER": "SİPARİŞİ İPTAL ET !",
+    "Areyousureyouwantcanceltheorder":"Siparişi iptal etmek istediğinizden emin misiniz ? ",
+    "YesCanceled":"Evet, İptal Et !",
+    "NoDontCancel":"Hayır, İptal Etme !",
+    "AuthorizedUserCanceled":"Yetkili Kullanıcı İptal Edildi !",
+    "OrderStatusUpdated":"Sipariş Durumu Güncellendi." ,
+    "PaymentOfOrderClosed":"Siparişin Ödemesi Kapalı.",
+    "OrderRestoredToPreviousState":"Sipariş Önceki Durumuna Geri Yüklendi.",
+    "OrderAmountUpdated":"Sipariş Miktarı Güncellendi.",
+    "PasswordErroneous":"Şifre Hatalı!",
+    "Unknownerror":"Bilinmeyen hata",
+    "YOUARENOTAUTHORIZEDFORTHISPROCEDURE":"BU PROSEDÜR İÇİN YETKİLİ DEĞİLSİNİZ. !"
+
+  },
+  "storefile":{
+    "SelectPod":"Pod Seçiniz !",
+    "PodAdded":"Pod Eklendi.",
+    "Saveddatatoserver":"Veriler Sunucuya Kaydedildi "
+
+  },
+  "personfile":{
+    "EnterPhoneNumber":"Telefon Numarasını Girin !",
+    "SelectGender":"Cinsiyet Seçin !",
+    "DataUpdated":"Veri Güncelleme",
+    "DataSaved":"Veri Kaydedildi.",
+    "PhoneNumberShouldNotBeBlank":"Telefon Numarası Boş Olmamalıdır !",
+    "OrderCreated": "Sipariş Oluşturuldu.",
+    "Youcannotenterorderheaddress":"Adrese bir sipariş giremezsiniz !",
+    "Failedupdate":"Güncelleme başarısız oldu.",
+    "DataUpdateapplyedserver":"Veri güncellemesi sunucuya uygulandı",
+    "DataSavedserver":"Veriler Sunucuya kaydedildi ",
+    "CouldCreateNewOrder":"Yeni Sipariş Oluşturabilir !",
+    "YouCannotSeeTheDetailOfTheOrderInItsNewStatus":"Siparişin Detayını Yeni Statüsünde Göremezsiniz!",
+    "CannotCreateNewOrder":"Yeni Sipariş Oluşturulamıyor !",
+    "PhoneNumberMustBe11Characters":"Telefon Numarası 11 Karakter Olmalı !",
+    "THISADDRESSNOTTHERESTAURANTADDRESSES":"BU ADRES RESTORAN ADRESLERİNDE DEĞİL !",
+    "AproblemhasoccurredTryAgain":"Bir sorun oluştu. Bir daha dene!"
+  },
+  "margeaddress":{
+    "BemergedNeighborhood":"Birleştirilecek Mahalle",
+    "WilluniteNeighborhood":"Birleşecek Mahalle",
+    "DoYouConfirmThisTransaction":"Bu İşlemi Onaylıyor Musunuz?",
+    "confirmButtonText": "Evet",
+    "cancelButtonText": "Hayır",
+    "Neighborhood":"' Mahalle '",
+    "Neighborhoodwillmergewith":"'Mahalle ile birleşecek",
+    "NeighborhoodCombined":"Mahalle Birleşik",
+    "Address" :"Adres",
+    "Willcombinedwiththeaddress":"Adres ile birleştirilecek",
+    "Addresstobemerged":"Birleştirilecek Adres...",
+    "Addresstomerge":"Birleşecek  Adres...",
+    "BeMergedDistrict":"Bölge Birleştirilecek...",
+    "DistrictToMerge":"Bölge Birleştirmek İçin...",
+    "Doyouapproveofthisoperation":"Bu operasyonu onaylıyor musunuz ?",
+    "Willmergewiththedistrict":"İlçe ile birleşecek",
+    "District":"' Merkez '",
+    "DistrictMerged":"Bölge Birleşti.",
+    "City":"' Şehir '",
+    "Willmergewiththecity":"'Şehirle birleşecek",
+    "Mergedwiththecity":"Şehirle birleşti.",
+    "CityToBeMerged":"Birleştirilecek Şehir",
+    "UnitedCity":"Birleşik Şehir"
+  }, 
+  "userfile":{
+    "YourPasswordHasChangedPleaseloginagain":"Parolanız Değiştirildi. Lütfen tekrar giriş yapın!",
+    "TheValuesEnteredNotMatchPleaseEnterAgain":"Girilen Değerler Eşleşmiyor! Lütfen Tekrar Girin!",
+    "OrderOut":"Sipariş iptali!",
+    "OrdermarkedasOut":"Sipariş dışarı olarak işaretlenmiş!",
+    "NONEWPAYMENTRECORDED":"YENİ ÖDEME KAYDEDİLMEDİ!",
+    "Youdonothavepermittion": "Bu işlem için yetkiniz yoktur",
+    "Sorry":"Üzgünüm",
+    "UnauthorizedAccessRequest":"Yetkisiz Erişim İsteği.",
+    "EnterPassword":"Şifreyi Girin !"
+
+
   },
   "reportspage":{
     "INFORMATION":"BILGILENDIRME",
@@ -3229,9 +3356,38 @@
     "PRODUCTWITHRELATIONS":"Seçilen tarihler arasında menü alt detaylarını bu rapordan görebilirsiniz.",
     "MENUINCOME":"Seçilen tarihler arasında hangi kampanyanın içerisinde hangi üründen kaç adet ne kadardan satılmış, ürünün fiyatı maliyeti gibi bilgileri görebilirsiniz",
     "PRODUCTCOSTDETAILS":"Ürün alanında seçilen ürünün içerisine tanımlı malzemelerin miktar, fiyat ve maliyet bilgilerinin verildiği rapordur.",
-    "PRODUCTSALESPIVOT":"It is the report that the units and totals of the products sold are given. It can be filtered by product and product groups.",
+    "PRODUCTSALESPIVOT":"Satılan Ürünlerin birimlerinin ve toplamlarının verildiği rapordur. Ürün ve ürün gruplarına göre filtrelenebilir.",
     "USERPRODUCTSALES":"Şablonlara göre kullanıcı bazlı satılan ürünlerin adet ve toplamlarının verildiği rapordur.",
-    "PRODUCTSALESPOCHETTE":"Satılan taşıma poşetlerinin adet ve tutar toplamları raporudur."
+    "PRODUCTSALESPOCHETTE":"Satılan taşıma poşetlerinin adet ve tutar toplamları raporudur.",
+    "ORDERDRIVERLIST":"Seçilen tarihler arasında, motorcuların üzerindeki siparişlerin verildiği rapordur.",
+    "ORDERPERFORMANCE":"Seçilen tarihler arasında, paket sipariş sürelerinin verildiği rapordur.",
+    "ORDERLOGS":"Seçilen tarihler arasında ki tüm siparişlerin adımları ve güncellemelerin listelendiği log raporudur.",
+    "RETURNLIST":"İptal edilmiş siparişlerin içerisinde ki ürün adetlerinin verildiği rapordur.",
+    "RETURNLISTDETAIL":"İptal edilmiş siparişlerin içerisinde ki ürün adetleri, tutarları, sipariş kaynağı, iptal eden kullanıcı bilgisi ve iptal notunun detay olarak verildiği rapordur.",
+    "DELETEDORDERITEMS":"Seçilen tarihler arasında siparişe girilmiş daha sonra sipariş kalemlerinden silinmiş ürünlerin listelendiği rapordur.",
+    "ORDERPROMOTIONREPORT":"Seçilen tarihler arasında hangi siparişe ne kadarlık hangi indirimden ve hangi kodla indirim eklendiği bilgilerini bu rapordan görebilirsiniz.",
+    "ORDERTOTALS":"Seçilen tarihler arasında sipariş tiplerinin toplam ve adet dağılımlarını görebilirsiniz.",
+    "KITCHENPERFORMANCE":"Seçilen tarihler arasında tüm siparişlerin hazırlama,pişme,bekleme,çıkış sürelerinin hesaplandığı rapordur.",
+    "ORDERLASTATES":"Seçilen tarihler arasında yetkili tüm restoranların sipariş durumlarının adet ve tutar dağılımlarının verildiği rapordur.",
+    "PROMOTIONCODEDETAILS":"Seçilen promosyonun hangi tarihte, hangi sipariş ve müşteride kullanıldığını veren rapordur.",
+    "ORDERPAYMENTSCHECK":"Seçilen Ödöme tipinin hangi tarihte, hangi sipariş ve müşteride kullanıldığını veren rapordur.",
+    "COMPLAINTLISTREPORTS":"Seçilen tarihler arası girilen şikayetlerin listesidir.",
+    "SMSLIST":"Seçilen restoranın sms onayı vermiş tüm müşterilerinin listelendiği rapordur.",
+    "GENERALSMSLIST":"Seçilen tarihler arası sms onayı vermiş müşterilerin listesidir",
+    "STORELOGS":"Seçilen tarihler arası şubelerin ayarlarında yapılan değişiklikleri ve kim tarafından yapıldığını gösteren rapordur.",
+    "STOREANALISYSDETAIL":"Seçilen tarihler arası yetkili olunan tüm restoranların ciro, tc, ac, sipariş durum süreleri vb. bilgilerin verildiği rapordur.",
+    "INVENTORYBALANCELIST":"Dönem sonunda şubeye göre hangi envanterden ne kadar kullanıldığını gösteren rapordur.",
+    "REALPAYMENTSPIVOT":"Seçilen tarihler arası yetkili olunan tüm restoranların gerçekleşen ödemelere göre toplam cirolarının gösterildiği rapordur.",
+    "UNPAIDDELIVERIES":"Seçilen restorana ait ödemesi yapılmamış faturaların listelendiği rapordur.",
+    "STAFFSHIFTDIFF":"Seçilen haftanın kullanıcı rollerine göre planlanan, gerçekleşen vardiya saatlerini ve farkı verir.",
+    "DIFFBYHOUR":"Rapor seçilen haftanın bulunduğu günler için 13 haftanın ortalamasını vererek toplam ihtiyaç gösterilir.",
+    "SHIFTPERSONTOTALS":"Verilen tarih aralığına göre hangi kullanıcının kaç gün ve saat gerçekleşen vardiyasının olduğunu veren rapordur.",
+    "SHIFTACTUALTOTALS":"Seçilen haftaya göre hangi kullanıcının kaç gün ve saat gerçekleşen vardiyasının olduğunu ve şubenin gün bazlı toplamını veren rapordur.",
+    "WEEKLYANALYSIS":"Seçilen hafta ve restoranın günlük ve saatlik olarak farkı ve ihtiyacı veren rapordur.",
+    "CLOCKINOUTSTATS":"Vardiya istatistikleri"
 
+  },
+  "reportsınformation":{
+    "FSRSPEEDOFSERVICE":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! FSR transaction karşılaştırma."
   }
 }

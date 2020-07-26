@@ -19,7 +19,7 @@ function awaitingsuppliesCtrl($scope, $modal, $filter, SweetAlert, Restangular, 
                 angular.copy(result, $scope.data);
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExpectMassage);
+                toaster.pop('error', "Server Error", response.data.ExpectMassage);
             });
     };
     $scope.exportToExcel = function (tableId) { // ex: '#my-table'

@@ -27,7 +27,7 @@
                 //}
                 $scope.DeliveryTimes = result;
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response);
+                toaster.pop('error', "Server Error", response);
             });
         };
         $scope.LoadDeliveryTimes();

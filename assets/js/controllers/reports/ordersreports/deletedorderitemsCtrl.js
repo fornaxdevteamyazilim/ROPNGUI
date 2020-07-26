@@ -10,7 +10,7 @@ function deletedorderitemsCtrl($scope, $modal, $filter, SweetAlert, Restangular,
    ).then(function (result) {
        $scope.VeiwHeader = result[0];
    }, function (response) {
-       toaster.pop('error', "Sunucu hatası", response);
+       toaster.pop('error', "Server Error", response);
    });
     }
     if (!$scope.StartDate) {
@@ -42,7 +42,7 @@ function deletedorderitemsCtrl($scope, $modal, $filter, SweetAlert, Restangular,
             $scope.ReportList = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
         $scope.GetSoreID = function (data) {
@@ -113,7 +113,7 @@ function deletedorderitemsCtrl($scope, $modal, $filter, SweetAlert, Restangular,
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

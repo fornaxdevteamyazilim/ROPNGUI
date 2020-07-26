@@ -25,7 +25,7 @@ function OrderCountsBySourceTypeCtrl($scope, $log, $modal, $filter, Restangular,
         $scope.grid = true;
     }, function (response) {
         $scope.isWaiting = false;
-        toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+        toaster.pop('error', "Server Error", response.data.ExceptionMessage);
     });
     };
     $scope.GetOrderSourceID = function (data) {
@@ -83,7 +83,7 @@ function OrderCountsBySourceTypeCtrl($scope, $log, $modal, $filter, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

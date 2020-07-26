@@ -30,27 +30,27 @@ function mergetownsCtrl($rootScope, $scope, $log, $modal, Restangular, ngTablePa
     $scope.LoadTowns();
     $scope.FromSelectItem = function (Item) {
         $scope.FromSelectTown = Item;
-        toaster.pop('warning', "City To Be Merged");
+        toaster.pop('warning',$translate.instant('margeaddress.CityToBeMerged '));
     };
     $scope.ToSelectItem = function (Item) {
         $scope.ToSelectTown = Item;
-        toaster.pop('warning', "United City");
+        toaster.pop('warning',$translate.instant('margeaddress.UnitedCity ') );
     };
     $scope.MergeTown = function () {
         swal({
-            title: "'" + $scope.FromSelectTown.name + "' City '" + $scope.ToSelectTown.name + "' Will merge with the city",
-            text: "Do you approve of this operation!",
+            title: "'" + $scope.FromSelectTown.name + $translate.instant('margeaddress.City ') + $scope.ToSelectTown.name +  $translate.instant('margeaddress.Willmergewiththecity ') ,
+            text: $translate.instant('margeaddress.Doyouapproveofthisoperation '),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes",
-            cancelButtonText: "No",
+            confirmButtonText: $translate.instant('margeaddress.confirmButtonText'),
+            cancelButtonText:$translate.instant('margeaddress.cancelButtonText'),
             closeOnConfirm: true
         }, function () {
             Restangular.one('addresshelper/merge/town?FromTownID=' + $scope.FromSelectTown.id + '&ToTownID=' + $scope.ToSelectTown.id).get().then
         (function (restresult) {
             $scope.LoadTowns();
-            toaster.pop('success', "Merged with the city.");
+            toaster.pop('success',$translate.instant('margeaddress.Mergedwiththecity') );
         }, function (response) {
             toaster.pop('error', "Server Error", response.ExceptionMessage);
         });

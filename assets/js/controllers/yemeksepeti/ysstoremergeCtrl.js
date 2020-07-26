@@ -62,14 +62,14 @@ function ysstoremergeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 ysst.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'yemeksepetistore')
             data.post().then(function (res) {
                 ysst.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -120,20 +120,20 @@ function ysstoremergeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
         rowform.$cancel();
         if (!ysst.tableParams.data[ysst.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ysst.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -142,7 +142,7 @@ function ysstoremergeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
                     ysst.tableParams.data[index].remove();
                 }
                 ysst.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

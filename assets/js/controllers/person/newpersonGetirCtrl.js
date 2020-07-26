@@ -43,7 +43,7 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
-                toaster.pop("success", "Data Updated.", "Updated!");
+                toaster.pop("success", $translate.instant('personfile.DataUpdated '), "Updated!");
                 $scope.newPersonID = resp.id;
                 if (data.PersonPhone != $scope.original.PersonPhones[0].Number) {
                     var phone = ({ PersonID: resp.id, Number: data.PersonPhone })
@@ -58,15 +58,15 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
         else {
             Restangular.restangularizeElement('', data, 'person')
             if (data.GenderTypeID != "1" && data.GenderTypeID != "0" && data.GenderTypeID != "2") {
-                toaster.pop('warning', "Select Gender !");
+                toaster.pop('warning',  $translate.instant('personfile.SelectGender '));
             } else if (!data.PersonPhone) {
-                toaster.pop('warning', "Enter Phone Number !");
+                toaster.pop('warning', $translate.instant('personfile.EnterPhoneNumber '));
             } else {
                 data.post().then(function (resp) {
                     $scope.item.id = resp.id;
                     $scope.newPersonID = resp.id;
                     $scope.GetMarketingPermission(resp.id);
-                    toaster.pop("success", "Data Saved.", "Saved!");
+                    toaster.pop("success", $translate.instant('personfile.DataSaved'), "Saved!");
                     var phone = ({ PersonID: resp.id, Number: data.PersonPhone })
                     $scope.SavePhoneNumber(phone);
                 });
@@ -84,7 +84,7 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
 
     $scope.TakeOrder = function (personID, OrderType, PersonPhones) {
         if (PersonPhones && PersonPhones.length < 1) {
-            toaster.pop('warning', "Phone Number Should Not Be Blank !", "error");
+            toaster.pop('warning', $translate.instant('personfile.PhoneNumberShouldNotBeBlank'), "error");
             return;
         }
         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
@@ -108,7 +108,7 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Order Created.");
+                    toaster.pop("success", $translate.instant('personfile.OrderCreated'));
                 },
                     function (resp) {
                         toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -139,13 +139,13 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
             Restangular.restangularizeElement('', $scope.MerketingData, 'MarketingPermission');
             if ($scope.MerketingData.restangularized && $scope.MerketingData.id) {
                 $scope.MerketingData.put().then(function (resp) {
-                    toaster.pop('success', "Updated.", 'Updated!');
+                    toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated!');
                 });
             }
             else {
                 $scope.MerketingData.PersonID = newPersonID;
                 $scope.MerketingData.post().then(function (resp) {
-                    toaster.pop('success', "Saved.", 'Saved!');
+                    toaster.pop('success', $translate.instant('orderfile.Saved') , 'Saved!');
                 });
             }
         }
@@ -232,14 +232,14 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }
     };
     $scope.HomeOrder = function (person, OrderType) {
         if ($scope.CheckPersonPhone == false) {
-            toaster.pop('warning', "Phone Number Should Not Be Blank !", "error");
+            toaster.pop('warning', $translate.instant('personfile.PhoneNumberShouldNotBeBlank'), "error");
             return;
         }
         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
@@ -259,7 +259,7 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Order Created.");
+                    toaster.pop("success",$translate.instant('personfile.OrderCreated'));
                 },
                     function (resp) {
                         toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -292,7 +292,7 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
                                         location.href = '#/app/orders/orderStore/' + resp.id;
                                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                                         location.href = '#/app/orders/order/' + resp.id;
-                                    toaster.pop("success", "Order Created.");
+                                    toaster.pop("success", $translate.instant('personfile.OrderCreated'));
                                 },
                                     function (resp) {
                                         toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -302,7 +302,7 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
                                 //TODO Swet Alert
                             }
                         } else {
-                            toaster.pop('warning', "You cannot enter an order at the address !");
+                            toaster.pop('warning',$translate.instant('personfile.Youcannotenterorderheaddress'));
                         }
                     }
                 }, function (response) {
@@ -319,7 +319,7 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
         Restangular.restangularizeElement('', $scope.personitem, 'person_deliveryaddress');
         if ($scope.personitem.restangularized && $scope.personitem.id) {
             $scope.personitem.put().then(function (resp) {
-                toaster.pop('success', "Updated.", 'Updated!');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated!');
                 if (path == 'Order' && resp.id) {
                     $scope.HomeOrder(data, 7)
                 }
@@ -329,7 +329,7 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
             $scope.personitem.post().then(function (resp) {
                 $scope.personitem.id = resp.id;
                 $scope.personitem.isActive = resp.isActive;
-                toaster.pop('success', "Saved !", 'Saved!');
+                toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved!');
                 if (path == 'Order' && resp.id) {
                     $scope.HomeOrder(data, 7)
                 }

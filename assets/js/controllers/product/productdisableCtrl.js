@@ -43,14 +43,14 @@ function productdisableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 pd.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'productdisable')
             data.post().then(function (res) {
                 pd.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -68,20 +68,20 @@ function productdisableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
         rowform.$cancel();
         if (!pd.tableParams.data[pd.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pd.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            itle:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -90,7 +90,7 @@ function productdisableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
                     pd.tableParams.data[index].remove();
                 }
                 pd.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

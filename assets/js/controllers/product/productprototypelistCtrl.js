@@ -31,9 +31,9 @@ function productprototypelistCtrl($scope, $log, $modal, Restangular, ngTablePara
         rowform.$cancel();
         if (!pr.tableParams.data[pr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     pr.tableParams = new ngTableParams({

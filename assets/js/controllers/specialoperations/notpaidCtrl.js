@@ -11,11 +11,11 @@ function notpaidCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParam
                    PersonID: data.persons[0].PersonID,                      
                }
            ).then(function (result) {
-               toaster.pop('success', "SAVED!!", 'SAVED');
-               SweetAlert.swal("Success", "Your Order Is Marked As Non-Payment", "success");
+               toaster.pop('success', $translate.instant('orderfile.Saved'), 'SAVED');
+               SweetAlert.swal("Success", $translate.instant('orderfile.YourOrderMarkedNonPayment') , "success");
                $scope.ok();
            }, function (response) {
-               toaster.pop('error', "Insufficient Limit!", "error");
+               toaster.pop('error',$translate.instant('orderfile.InsufficientLimit') , "error");
            });
     };
     $scope.orders = [];

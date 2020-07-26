@@ -36,7 +36,7 @@ function smslistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $in
                 });
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     $scope.SmsListExcel = function (data) {
@@ -58,7 +58,7 @@ function smslistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $in
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

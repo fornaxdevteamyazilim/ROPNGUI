@@ -38,20 +38,20 @@ function newregisterpersonCtrl($rootScope, $scope, $modalInstance, $filter, item
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
                 $scope.item.personID = resp.id;
-                toaster.pop("success", "Data Updated.", "Updated!");
+                toaster.pop("success",$translate.instant('personfile.DataUpdated '), "Updated!");
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'person')
             if (data.GenderTypeID != "1" && data.GenderTypeID != "0" && data.GenderTypeID != "2") {
-                toaster.pop('warning', "Select Gender !");
+                toaster.pop('warning',  $translate.instant('personfile.SelectGender '));
             } else if (!data.PersonPhone) {
-                toaster.pop('warning', "Enter Phone Number !");
+                toaster.pop('warning',  $translate.instant('personfile.EnterPhoneNumber '));
             } else if (!$scope.item.streetAddress || !$scope.item.streetAddress.StreetAddressID) {
-                toaster.pop('warning', "Select address!");
+                toaster.pop('warning',  $translate.instant('yemeksepetifile.Selectaddress '));
             } else {
                 data.post().then(function (resp) {
-                    toaster.pop("success", "Data Saved.", "Saved!");
+                    toaster.pop("success", $translate.instant('personfile.DataSaved'), "Saved!");
                     $scope.item.personID = resp.id;
                     var phone = ({ PersonID: resp.id, Number: data.PersonPhone })
                     $scope.SavePhoneNumber(phone);
@@ -92,13 +92,13 @@ function newregisterpersonCtrl($rootScope, $scope, $modalInstance, $filter, item
         Restangular.restangularizeElement('', personAddress, 'person_deliveryaddress');
         if (personAddress.restangularized && personAddress.id) {
             personAddress.put().then(function (resp) {
-                toaster.pop('success', "Updated.", 'Updated!');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated!');
                 $scope.ok();
             });
         }
         else {
             personAddress.post().then(function (resp) {
-                toaster.pop('success', "Saved !", 'Saved!');
+                toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved!');
                 $scope.ok();
             });
         }
@@ -115,7 +115,7 @@ function newregisterpersonCtrl($rootScope, $scope, $modalInstance, $filter, item
             Restangular.all(EntityType).getList().then(function (result) {
                 angular.copy(result.plain(), $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

@@ -150,11 +150,11 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                 $scope.orders[i].OrderStateID = 6;
                 $scope.orders[i].put().then(
                     function (res) {
-                        toaster.pop("success", "Prepared.", "Order Output.");
+                        toaster.pop("success", $translate.instant('invantories.Prepared'), $translate.instant('invantories.OrderOutput') );
                         $scope.orders.splice(i, 1);
                     },
                     function (response) {
-                        toaster.pop('error', "Update failed !", response.data.ExceptionMessage);
+                        toaster.pop('error',  $translate.instant('difinitions.UpdatedFailed'), response.data.ExceptionMessage);
                         $scope.LoadOrders();
                     }
                 );
@@ -169,7 +169,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
             Restangular.restangularizeElement('', state, 'orderstate')
             state.post().then(
                 function (res) {
-                    toaster.pop("success", "Prepared.", "Was delivered.");
+                    toaster.pop("success", $translate.instant('invantories.Prepared'),$translate.instant('invantories.Wasdelivered') );
                 });
         }
         else {
@@ -180,7 +180,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         Restangular.all('ordertools/PrintLabels').getList({
             OrderID: OrderID
         }).then(function (_orderItems) {
-            toaster.pop('success', "Label Printing Again.");
+            toaster.pop('success', $translate.instant('invantories.LabelPrintingAgain'));
         }, function (response) {
             toaster.pop('error', "Server error", response.data.ExceptionMessage);
         });
@@ -395,7 +395,7 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
         state.post().then(
             function (res) {
                 $rootScope.$emit('PreparedOrderRefresh', { id: $scope.order.id });
-                toaster.pop("success", "Order Output !", "Order marked as Out!");
+                toaster.pop("success", $translate.instant('dispatcherfile.OrderOutput'),$translate.instant('dispatcherfile.OrdermarkedOut'));
                 $scope.ok();
             }, function (response) {
                 toaster.pop('error', "Server error", response.data.ExceptionMessage);

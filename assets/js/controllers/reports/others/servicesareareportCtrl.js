@@ -44,7 +44,7 @@ function servicesareareportCtrl($scope, $modal, $filter, SweetAlert, Restangular
             angular.copy(result, $scope.ServicesArea);
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     //$scope.exportToExcel = function (tableId) {
@@ -75,7 +75,7 @@ function servicesareareportCtrl($scope, $modal, $filter, SweetAlert, Restangular
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -94,7 +94,7 @@ function servicesareareportCtrl($scope, $modal, $filter, SweetAlert, Restangular
                 $scope.addresstype = result;
             },
             function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

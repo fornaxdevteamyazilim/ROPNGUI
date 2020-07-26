@@ -33,7 +33,7 @@ function complaintlistreportsCtrl($scope, $log, $modal, $filter, SweetAlert, Res
             $scope.ComplaintListReports = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.ComplaintListReportsExcel = function () {

@@ -15,11 +15,11 @@ function checkoutcashCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster
                AccountTransactionGroupID: data.AccountTransactionGroupID
            }
        ).then(function (result) {
-           toaster.pop('success', "Kaydedildi!!", 'SAVED');
+           toaster.pop('success', $translate.instant('orderfile.Saved'), 'SAVED');
            $scope.ok();
            return $scope.CheckOutCash = result;
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
        });
         }
                if (data.Value == 1) {
@@ -31,11 +31,11 @@ function checkoutcashCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster
                AccountTransactionGroupID: data.AccountTransactionGroupID
            }
        ).then(function (result) {
-           toaster.pop('success', "Kaydedildi!!", 'SAVED');
+           toaster.pop('success', $translate.instant('orderfile.Saved'), 'SAVED');
            $scope.ok();
            return $scope.CheckOutCash = result;
        }, function (response) {
-           toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
        });
         }
     };
@@ -47,7 +47,7 @@ function checkoutcashCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

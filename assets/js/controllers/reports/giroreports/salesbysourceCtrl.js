@@ -41,7 +41,7 @@ function salesbysourceCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
                 $scope.SalesBySource = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
 
@@ -114,7 +114,7 @@ function salesbysourceCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -123,7 +123,7 @@ function salesbysourceCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

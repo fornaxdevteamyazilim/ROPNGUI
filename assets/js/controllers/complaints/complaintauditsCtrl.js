@@ -82,9 +82,9 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
         rowform.$cancel();
         if (!ca.tableParams.data[ca.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ca.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning',  $translate.instant('accounting.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning',  $translate.instant('accounting.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {

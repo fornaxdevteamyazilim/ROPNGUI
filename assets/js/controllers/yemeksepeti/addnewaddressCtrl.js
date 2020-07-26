@@ -50,7 +50,7 @@ function addnewaddressCtrl($rootScope, $scope, $modalInstance, $filter, item, $m
             }
         }
         else {
-            toaster.pop('warning', "Adres seçiniz!");
+            toaster.pop('warning',  $translate.instant('yemeksepetifile.Selectaddress '));
         }
     };
     $scope.SaveDeliveryAddress = function (AID, personID) {
@@ -60,13 +60,13 @@ function addnewaddressCtrl($rootScope, $scope, $modalInstance, $filter, item, $m
         Restangular.restangularizeElement('', personAddress, 'person_deliveryaddress');
         if (personAddress.restangularized && personAddress.id) {
             personAddress.put().then(function (resp) {
-                toaster.pop('success', "Updated.", 'Updated!');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated!');
                 $scope.ok();
             });
         }
         else {
             personAddress.post().then(function (resp) {
-                toaster.pop('success', "Saved !", 'Saved!');
+                toaster.pop('success', $translate.instant('orderfile.Saved') , 'Saved!');
                 $scope.ok();
             });
         }
@@ -83,7 +83,7 @@ function addnewaddressCtrl($rootScope, $scope, $modalInstance, $filter, item, $m
             Restangular.all(EntityType).getList().then(function (result) {
                 angular.copy(result.plain(), $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

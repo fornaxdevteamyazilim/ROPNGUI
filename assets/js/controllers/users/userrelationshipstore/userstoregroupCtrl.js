@@ -132,7 +132,7 @@ function userstoregroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
             }).then(function (result) {
                 angular.copy(result, $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning',"Server connection error", "Warning!");
+                toaster.pop('Warning',$translate.instant('orderfile.ServerConnectionError'), "Warning!");
             });
         }
     };

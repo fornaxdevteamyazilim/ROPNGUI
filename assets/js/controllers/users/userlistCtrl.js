@@ -24,7 +24,7 @@ function userlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAle
             if ($rootScope.user.isAdmin) {
                 location.href = '#/app/users/useredit/' + $scope.SelectedItem;
             } else {
-                toaster.pop('warning', "Unauthorized Access Request.");
+                toaster.pop('warning',  $translate.instant('userfile.UnauthorizedAccessRequest '));
             }
         }
     };

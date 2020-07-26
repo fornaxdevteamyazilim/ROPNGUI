@@ -96,7 +96,7 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }
@@ -115,7 +115,7 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
                     }
                 ).then(function (result) {
                     if (result == Array[0]) {
-                        toaster.pop('warning', "You cannot enter an order at the address!");
+                        toaster.pop('warning', $translate.instant('personfile.Youcannotenterorderheaddress'));
                     }
                     else {
                         for (var i = 0; i < result.length; i++) {
@@ -123,7 +123,7 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
                                 return $scope.HomeOrder(item, OrderTyprID);
                                 break;
                             } else {
-                                toaster.pop('warning', "You cannot enter an order at the address !");
+                                toaster.pop('warning', $translate.instant('personfile.Youcannotenterorderheaddress'));
                             }
                         }
                     }
@@ -150,7 +150,7 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
                     location.href = '#/app/orders/orderStore/' + resp.id;
                 if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                     location.href = '#/app/orders/order/' + resp.id;
-                toaster.pop("success", "Order Created.");
+                toaster.pop("success",$translate.instant('personfile.OrderCreated'));
             },
             function (resp) {
                 toaster.pop('error', response.data.ExceptionMessage, "error");
@@ -178,10 +178,10 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Order Created.");
+                    toaster.pop("success", $translate.instant('personfile.OrderCreated'));
                 },
                 function (resp) {
-                    toaster.pop('error', "Could Create New Order !", "error");
+                    toaster.pop('error',$translate.instant('personfile.CouldCreateNewOrder'), "error");
                 });
             } else {
                 //TODO Swet Alert
@@ -213,7 +213,7 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Order Created.");
+                    toaster.pop("success", $translate.instant('personfile.OrderCreated'));
                 },
                 function (resp) {
                     toaster.pop('error', response.data.ExceptionMessage, "error");
@@ -243,22 +243,22 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
-                toaster.pop("success", "Data Updated.", "Updated!");
+                toaster.pop("success", $translate.instant('personfile.DataUpdated '), "Updated!");
                 $rootScope.PersonID = resp.id;
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'person')
             if (data.GenderTypeID != "1" && data.GenderTypeID != "0" && data.GenderTypeID != "2") {
-                toaster.pop('warning', "Select Gender !");
+                toaster.pop('warning',  $translate.instant('personfile.SelectGender '));
             } else if (!data.PersonPhone) {
-                toaster.pop('warning', "Telefon Numarası Giriniz !");
+                toaster.pop('warning',  $translate.instant('personfile.EnterPhoneNumber '));
             } else {
                 data.post().then(function (resp) {
                     $scope.ShowButton = true;
                     $scope.item.id = resp.id;
                     $rootScope.PersonID = resp.id;
-                    toaster.pop("success", "Data Saved.", "Saved!");
+                    toaster.pop("success", $translate.instant('personfile.DataSaved'), "Saved!");
                     var phone = ({ PersonID: resp.id, Number: data.PersonPhone })
                     $scope.SavePhoneNumber(phone);
                 });
@@ -304,7 +304,7 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
             $location.path('app/orders/orderDetail/' + item.id);
         }
         else {
-            toaster.pop('error', "You Cannot See The Detail Of The Order In Its New Status!", "error");
+            toaster.pop('error', $translate.instant('personfile.YouCannotSeeTheDetailOfTheOrderInItsNewStatus'), "error");
         }
     }
     $scope.ComplaintOrder = function (item) {
@@ -338,7 +338,7 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
     });
     $scope.removeItem = function (index) {
         pe.orderitemtableParams.data[index].remove();
-        toaster.pop("error", "Attention !", "Record deleted !");
+        toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
         pe.orderitemtableParams.data.splice(index, 1);
 
     };
@@ -398,13 +398,13 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
         Restangular.restangularizeElement('', $scope.MerketingData, 'MarketingPermission');
         if ($scope.MerketingData.restangularized && $scope.MerketingData.id) {
             $scope.MerketingData.put().then(function (resp) {
-                toaster.pop('success', "Updated.", 'Updated!');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated!');
             });
         }
         else {
             $scope.MerketingData.PersonID = PersonID;
             $scope.MerketingData.post().then(function (resp) {
-                toaster.pop('success', "Saved.", 'Saved!');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved!');
             });
         }
     }
@@ -425,20 +425,20 @@ function personphoneCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTable
     });
     $scope.saveData = function (data, index) {
         if (!this.item.Number) {
-            toaster.pop('warning', "Attention !", 'Enter Phone Number !');
+            toaster.pop('warning', $translate.instant('orderfile.Attention'),  $translate.instant('personfile.EnterPhoneNumber '));
             $scope.cancelremove(index);
         } else {
             if (this.item.restangularized) {
                 this.item.put().then(function (res) {
                     pp.tableParams.reload();
-                    toaster.pop('success', "Updated.", 'Data Updated.');
+                    toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('personfile.DataUpdated '));
                 });
             }
             else {
                 Restangular.restangularizeElement('', this.item, 'personphone')
                 this.item.post().then(function (res) {
                     pp.tableParams.reload();
-                    toaster.pop('success', "Saved.", 'Data Saved.');
+                    toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('personfile.DataSaved'));
                 });
                 this.item.get();
             }
@@ -466,9 +466,9 @@ function personphoneCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTable
         rowform.$cancel();
         if (!pp.tableParams.data[pp.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pp.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled.", 'Add canceled.');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Add canceled.');
         } else {
-            toaster.pop('warning', "It is cancelled.", 'Edit cancelled.');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled.');
         }
     };
     pp.tableParams = new ngTableParams({
@@ -497,13 +497,13 @@ function personphoneCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTable
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-           title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -512,7 +512,7 @@ function personphoneCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTable
                     pp.tableParams.data[index].remove();
                 }
                 pp.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -547,14 +547,14 @@ function personemailCtrl($scope, $log, Restangular, ngTableParams, SweetAlert, t
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 pel.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Data Updated.');
+                toaster.pop('success',$translate.instant('orderfile.Updated'), $translate.instant('personfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'personemail')
             this.item.post().then(function (res) {
                 pel.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Data Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('personfile.DataSaved'));
             });
             this.item.get();
         }
@@ -581,9 +581,9 @@ function personemailCtrl($scope, $log, Restangular, ngTableParams, SweetAlert, t
         rowform.$cancel();
         if (!pel.tableParams.data[pel.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pel.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "It is cancelled!", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     pel.tableParams = new ngTableParams({
@@ -612,13 +612,13 @@ function personemailCtrl($scope, $log, Restangular, ngTableParams, SweetAlert, t
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -627,7 +627,7 @@ function personemailCtrl($scope, $log, Restangular, ngTableParams, SweetAlert, t
                     pel.tableParams.data[index].remove();
                 }
                 pel.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -676,13 +676,13 @@ function personaccountCtrl($scope, $modal, $log, Restangular, ngTableParams, Swe
         data.PersonID = $rootScope.PersonID;
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
-                toaster.pop('success', "Updated.", 'Data Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('personfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'personaccount')
             data.post().then(function (res) {
-                toaster.pop('success', "Saved.", 'Data Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved') , $translate.instant('personfile.DataSaved'));
             });
         }
     };
@@ -716,13 +716,13 @@ function personaccountCtrl($scope, $modal, $log, Restangular, ngTableParams, Swe
     $scope.loadEntities('enums/accountlimittype', 'accountlimittypes');
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+             confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -731,7 +731,7 @@ function personaccountCtrl($scope, $modal, $log, Restangular, ngTableParams, Swe
                     pa.tableParams.data[index].remove();
                 }
                 psd.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -753,14 +753,14 @@ function PersonSpecialDatesCtrl($scope, $modal, $log, Restangular, ngTableParams
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 psd.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Data Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('personfile.DataUpdated '));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'personspecialdate')
             this.item.post().then(function (res) {
                 psd.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Data Saved.');
+                toaster.pop('success',$translate.instant('orderfile.Saved'),$translate.instant('personfile.DataSaved'));
             });
             this.item.get();
         }
@@ -788,9 +788,9 @@ function PersonSpecialDatesCtrl($scope, $modal, $log, Restangular, ngTableParams
         rowform.$cancel();
         if (!psd.tableParams.data[psd.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(psd.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         }
     };
     psd.tableParams = new ngTableParams({
@@ -841,13 +841,13 @@ function PersonSpecialDatesCtrl($scope, $modal, $log, Restangular, ngTableParams
     $scope.loadEntities('enums/specialdatetype', 'specialdatetypes');
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+             confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -856,7 +856,7 @@ function PersonSpecialDatesCtrl($scope, $modal, $log, Restangular, ngTableParams
                     psd.tableParams.data[index].remove();
                 }
                 psd.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -906,14 +906,14 @@ function PersonInvoiceInfoCtrl($scope, $modal, $log, Restangular, ngTableParams,
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 pii.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Data Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('personfile.DataUpdated '));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'PersonInvoiceInfo')
             this.item.post().then(function (res) {
                 pii.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Data Saved.');
+                toaster.pop('success',$translate.instant('orderfile.Saved'),$translate.instant('personfile.DataSaved'));
             });
             this.item.get();
         }
@@ -942,9 +942,9 @@ function PersonInvoiceInfoCtrl($scope, $modal, $log, Restangular, ngTableParams,
         rowform.$cancel();
         if (!pii.tableParams.data[pii.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pii.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         }
     };
     pii.tableParams = new ngTableParams({
@@ -973,13 +973,13 @@ function PersonInvoiceInfoCtrl($scope, $modal, $log, Restangular, ngTableParams,
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+             confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -988,7 +988,7 @@ function PersonInvoiceInfoCtrl($scope, $modal, $log, Restangular, ngTableParams,
                     pii.tableParams.data[index].remove();
                 }
                 pii.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -1022,14 +1022,14 @@ function personinvoiceinfoCtrl($scope, $log, Restangular, ngTableParams, SweetAl
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 pii.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Data Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('personfile.DataUpdated '));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'personinvoiceinfo')
             this.item.post().then(function (res) {
                 pii.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Data Saved.');
+                toaster.pop('success',$translate.instant('orderfile.Saved'),$translate.instant('personfile.DataSaved'));
             });
             this.item.get();
         }
@@ -1059,9 +1059,9 @@ function personinvoiceinfoCtrl($scope, $log, Restangular, ngTableParams, SweetAl
         rowform.$cancel();
         if (!pii.tableParams.data[pii.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pii.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         }
     };
     pii.tableParams = new ngTableParams({
@@ -1090,13 +1090,13 @@ function personinvoiceinfoCtrl($scope, $log, Restangular, ngTableParams, SweetAl
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+             confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -1105,7 +1105,7 @@ function personinvoiceinfoCtrl($scope, $log, Restangular, ngTableParams, SweetAl
                     pii.tableParams.data[index].remove();
                 }
                 pii.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -1195,14 +1195,14 @@ function unsupportedaddressessCtrl($scope, $log, Restangular, ngTableParams, Swe
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 usa.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Data Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('personfile.DataUpdated '));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'unsupportedaddress')
             this.item.post().then(function (res) {
                 usa.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Data Saved.');
+                toaster.pop('success',$translate.instant('orderfile.Saved'),$translate.instant('personfile.DataSaved'));
             });
             this.item.get();
         }
@@ -1232,9 +1232,9 @@ function unsupportedaddressessCtrl($scope, $log, Restangular, ngTableParams, Swe
         rowform.$cancel();
         if (!usa.tableParams.data[usa.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(usa.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         }
     };
     usa.tableParams = new ngTableParams({
@@ -1263,13 +1263,13 @@ function unsupportedaddressessCtrl($scope, $log, Restangular, ngTableParams, Swe
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+             confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -1278,7 +1278,7 @@ function unsupportedaddressessCtrl($scope, $log, Restangular, ngTableParams, Swe
                     usa.tableParams.data[index].remove();
                 }
                 usa.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -1312,14 +1312,14 @@ function personaccounttransactionsCtrl($scope, $log, Restangular, ngTableParams,
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 pat.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Data Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('personfile.DataUpdated '));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'accounttransaction')
             this.item.post().then(function (res) {
                 pat.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Data Saved.');
+                toaster.pop('success',$translate.instant('orderfile.Saved'),$translate.instant('personfile.DataSaved'));
             });
             this.item.get();
         }
@@ -1350,9 +1350,9 @@ function personaccounttransactionsCtrl($scope, $log, Restangular, ngTableParams,
         rowform.$cancel();
         if (!pat.tableParams.data[pat.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pat.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         }
     };
     pat.tableParams = new ngTableParams({
@@ -1381,13 +1381,13 @@ function personaccounttransactionsCtrl($scope, $log, Restangular, ngTableParams,
     });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+             confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -1396,7 +1396,7 @@ function personaccounttransactionsCtrl($scope, $log, Restangular, ngTableParams,
                     pat.tableParams.data[index].remove();
                 }
                 pat.tableParams.data.splice(index, 1);
-                toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

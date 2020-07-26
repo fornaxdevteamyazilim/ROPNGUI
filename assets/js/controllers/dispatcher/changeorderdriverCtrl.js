@@ -11,7 +11,7 @@ function changeorderdriverCtrl($scope, $modal, $filter, OrderStates, $modalInsta
                angular.copy(restresult, $scope.state);
            },
           function (restresult) {
-              toaster.pop('warning', "It is cancelled !", restresult.data.ExceptionMessage);
+              toaster.pop('warning', $translate.instant('invantories.Cancelled'), restresult.data.ExceptionMessage);
           })
         Restangular.all('drivervehicle').getList({
             pageNo: 1,
@@ -28,16 +28,16 @@ function changeorderdriverCtrl($scope, $modal, $filter, OrderStates, $modalInsta
             if (OrderStates[i].OrderStateID == 10 || OrderStates[i].OrderStateID == 6) {
                 var state = OrderStates[i];
                 state.DriverID = driverId;
-                Restangular.restangularizeElement('', state, 'orderstate');
+                Restangular.restangularizeElement('', state, $translate.instant('dispatcherfile.orderstate'));
                 state.put().then(function (resp) {
-                    toaster.pop('success', "Drive changed !");
+                    toaster.pop('success',$translate.instant('dispatcherfile.Drivechanged') );
                 },
                     function (err) {
                         if (err) {
-                            toaster.pop('error', "Driver updated !", err.error_description);
+                            toaster.pop('error', $translate.instant('dispatcherfile.Driverupdated'), err.error_description);
                         }
                         else {
-                            toaster.pop('error', "Driver updated !", "Unknown Error !");
+                            toaster.pop('error',  $translate.instant('dispatcherfile.Driverupdated'), "Unknown Error !");
                         }
                     });
             }

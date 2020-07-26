@@ -58,7 +58,7 @@ function kitchenperformanceCtrl($scope, $log, $modal, $timeout, $filter, SweetAl
                 }
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     $scope.GetSoreID = function (data) {
@@ -116,7 +116,7 @@ function kitchenperformanceCtrl($scope, $log, $modal, $timeout, $filter, SweetAl
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

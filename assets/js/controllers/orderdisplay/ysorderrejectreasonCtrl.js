@@ -21,9 +21,9 @@ function ysorderrejectreasonCtrl($rootScope, $scope, $modalInstance, order, Rest
             Restangular.restangularizeElement('', order, 'yemeksepetiordermap');
             order.put().then(function (resp) {
                 $scope.ok();
-                toaster.pop('success', "Pairing Saved!");
+                toaster.pop('success', $translate.instant('orderfile.PairingSaved '));
             }, function (resp) {
-                toaster.pop('error', "Pairing Not Saved!", resp.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('orderfile.PairingNotSaved '), resp.data.ExceptionMessage);
             });
         }
     };

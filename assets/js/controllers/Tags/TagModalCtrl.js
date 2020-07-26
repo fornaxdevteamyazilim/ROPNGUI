@@ -16,7 +16,7 @@ function TagModalCtrl($rootScope, $scope, $modalInstance, ObjectID, $log, $filte
         Object.post().then(
             function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
             },
                 function (response) {
                     toaster.pop('error', "Not Saved !", response.data.ExceptionMessage);

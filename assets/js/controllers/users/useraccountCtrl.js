@@ -19,7 +19,7 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
@@ -27,11 +27,11 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
                 data.NguserID = $stateParams.id;
                 Restangular.restangularizeElement('', data, 'useraccount')
                 data.post().then(function (res) {
-                    toaster.pop('success', "Saved.", 'Saved.');
+                    toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
                 });
 
             } else
-                toaster.pop('warning', "Sorry", 'You do not have permittion  !!!');
+                toaster.pop('warning',$translate.instant('userfile.Sorry'), $translate.instant('userfile.Youdonothavepermittion '));
         }
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -57,13 +57,13 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
     $scope.loadEntities('enums/accountlimittype', 'accountlimittypes');
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-          title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -72,7 +72,7 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
                     pa.tableParams.data[index].remove();
                 }
                 psd.tableParams.data.splice(index, 1);
-               toaster.pop("error", "Attention !", "Record Deleted !");
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

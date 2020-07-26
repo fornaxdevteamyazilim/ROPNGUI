@@ -102,12 +102,12 @@ function kdsCtrl($scope, $log, $modal, $interval, $timeout, Restangular, ngTable
                 $scope.orderitemstates[i].Completed = true;
                 $scope.orderitemstates[i].put().then(
                 function (res) {
-                    toaster.pop("success", "Prepared.", "Item prepared!");
+                    toaster.pop("success",  $translate.instant('kitchendisplayf.Prepared'),$translate.instant('kitchendisplayf.Itemprepared'));
                     $scope.WaitForResult = false;
                 },
                  function (response) {
                      $scope.WaitForResult = false;
-                     toaster.pop('error', "Update failed !", response.data.ExceptionMessage);
+                     toaster.pop('error',$translate.instant('kitchendisplayf.Updatefailed'), response.data.ExceptionMessage);
                  });
                 break;
             }
@@ -117,7 +117,7 @@ function kdsCtrl($scope, $log, $modal, $interval, $timeout, Restangular, ngTable
     $scope.RemoveItem = function (item) {
         $scope.stop();
         if ($scope.WaitForResult == true) {
-            toaster.pop("warning", "Please Wait !", "Please Click Again!");
+            toaster.pop("warning",$translate.instant('kitchendisplayf.PleaseWait'),$translate.instant('kitchendisplayf.PleaseClickAgain'));
         } else {
             $scope.RemoveItemDispalay(item);
         }

@@ -9,8 +9,8 @@ function treatCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParams,
                    OrderItemID: data.items[0].id,
                }
            ).then(function (result) {
-               toaster.pop('success', "SAVED !", 'SAVED');
-               SweetAlert.swal("Success", "Your Order Is Marked As Non-Payment", "success");
+               toaster.pop('success', $translate.instant('orderfile.Saved'), 'SAVED');
+               SweetAlert.swal("Success", $translate.instant('orderfile.YourOrderMarkedNonPayment'), "success");
                $scope.ok();
            }, function (response) {
                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
@@ -20,7 +20,7 @@ function treatCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParams,
         data.PaymentStatusID = 3
         Restangular.restangularizeElement('', data, 'order')
         data.post().then(function (res) {
-            toaster.pop('success', "SAVED.", 'Saved.');
+            toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
         });
         data.get();
     };

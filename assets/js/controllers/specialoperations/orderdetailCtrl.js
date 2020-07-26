@@ -25,8 +25,8 @@ function orderdetailCtrl($rootScope, $scope, RelatedID, $modalInstance, Restangu
         }).then(function (_orderItems) {
             $scope.orderItems = angular.copy(_orderItems);
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
-            SweetAlert.swal("Sunucu Hatası!", angular.toJson(response, false), "error");
+            toaster.pop('error', "Server Error", response);
+            SweetAlert.swal("Server Error!", angular.toJson(response, false), "error");
         });
     };
     $scope.GetStore = function (StoreID) {

@@ -90,7 +90,7 @@ function turnoverbyhoursCtrl($scope, $filter, $modal, $log, Restangular, ngTable
                 ctrl.table.data = orders;
                 $scope.ShowReport();
             }, function (response) {
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     ctrl.table = {
@@ -138,7 +138,7 @@ function turnoverbyhoursCtrl($scope, $filter, $modal, $log, Restangular, ngTable
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

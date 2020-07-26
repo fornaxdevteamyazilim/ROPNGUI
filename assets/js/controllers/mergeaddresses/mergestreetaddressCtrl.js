@@ -72,27 +72,27 @@ function mergestreetaddressCtrl($rootScope, $scope, $log, $modal, Restangular, n
     };
     $scope.FromSelectItem = function (Item) {
         $scope.FromSelectStreetAddress = Item;
-        toaster.pop('warning', "Address to be merged...");
+        toaster.pop('warning',   $translate.instant('margeaddress.Addresstobemerged '));
     };
     $scope.ToSelectItem = function (Item) {
         $scope.ToSelectStreetAddress = Item;
-        toaster.pop('warning', "Address to merge...");
+        toaster.pop('warning', $translate.instant('margeaddress.Addresstomerge ') );
     };
     $scope.MergeStreetAddress = function () {
         swal({
-            title: "'" + $scope.FromSelectStreetAddress.name + "' address '" + $scope.ToSelectStreetAddress.name + "' Will be combined with the address",
-            text: "Do You Confirm This Transaction !",
+            title: "'" + $scope.FromSelectStreetAddress.name +$translate.instant('margeaddress.Address ') + $scope.ToSelectStreetAddress.name +  $translate.instant('margeaddress.Willcombinedwiththeaddress '),
+            text:  $translate.instant('margeaddress.DoYouConfirmThisTransaction '),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet",
-            cancelButtonText: "Hayır",
+            confirmButtonText: $translate.instant('margeaddress.confirmButtonText'),
+            cancelButtonText:$translate.instant('margeaddress.cancelButtonText'),
             closeOnConfirm: true
         }, function () {
             Restangular.one('addresshelper/merge/streetaddress?FromStreetAddressID=' + $scope.FromSelectStreetAddress.id + '&ToStreetAddressID=' + $scope.ToSelectStreetAddress.id).get().then
                  (function (restresult) {
                      $scope.LoadStreetAddress();
-                     toaster.pop('success', "Neighborhood Combined.");
+                     toaster.pop('success',  $translate.instant('margeaddress.NeighborhoodCombined'));
                  }, function (response) {
                      toaster.pop('error', "Server Error", response.ExceptionMessage);
                  });

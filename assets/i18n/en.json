@@ -2287,7 +2287,7 @@
     "AVGDISPATCHTIME": "Dispatch Time",
     "THISYEARSALES": "Sales",
     "CLOCKINOUTREPORT": "ClockInOut Report",
-    "CLOCKINOUTSTATS": "Giriş-Çıkış İstatistikleri",
+    "CLOCKINOUTSTATS": " Clock in Clock Out Stats",
     "VOIDORDERSREPORT": "Void Orders Report",
     "DIFFBYHOURREQ": "Requirement By Hour",
     "CASHDATA": "Cash Transfer",
@@ -2490,6 +2490,7 @@
         "USERSTOREGROUP": "User - Store Group Definitions",
         "USERAUTOMATICREPORT": "User Automatic Report",
         "OPERATIONMANAGER": "Operation Managers Definitions"
+       
 
       },
       "dispatch": {
@@ -3034,7 +3035,11 @@
     "fingerprints":"No fingerprints detected!",
     "LoginFailed":"Login Failed !",
     "TryAgain": "Make sure your private password is correct and try again !",
-    "LoginSuccessful":"Login Successful"
+    "LoginSuccessful":"Login Successful",
+    "yes":"Yes",
+    "no":"No",
+    "GotoOrder":"Go to Order",
+    "Cancel":"Cancel"
   },
   "accounting":{
     "Updated":"Updated.",
@@ -3053,7 +3058,8 @@
     "ReceiptTransferred": "Receipt Transferred",
     "REQUIREDFIELDS":"FILL OUT THE REQUIRED FIELDS !",
     "PlugsCreated": "Plugs Created!",
-    "CreatedTransferred":"Plugs Created and Transferred !"
+    "CreatedTransferred":"Plugs Created and Transferred !",
+    "RegistrationRealized":"Registration Realized !"
   },
   "callcenterdash":{
     "PreparingChanging " :"Order Status 'Preparing' Changing to ! Are you sure ?",
@@ -3106,6 +3112,17 @@
     "UpdatedFailed" :"Update Failed!",
     "InsertFailed":"Data Insert Failed!"
     },
+    "dispatcherfile":{
+      "Drivechanged":"Drive changed !",
+      "Driverupdated":"Driver updated !",
+      "Prepared":"Prepared.",
+      "orderstate":"order state",
+      "OrderOutput":"Order Output.",
+      "Wasdelivered":"Was delivered.",
+      "LabelPrintingAgain":"Label Printing Again.",
+      "OrdermarkedOut": "Order marked as Out!"
+  
+    },
     "invantories":{
     "Updated":"Updated.",
     "Saved":"Saved.",
@@ -3126,6 +3143,14 @@
     "SuccessfullySaved":"Data Successfully Saved!",
     "DataAdded": "Data Added",
     "DataSaved": "Data Saved"
+    },
+    "kitchendisplayf":{
+      "PleaseWait":"Please Wait !",
+      "PleaseClickAgain":"Please Click Again!",
+      "Prepared": "Prepared.",
+      "Itemprepared": "Item prepared!",
+      "Updatefailed":"Update failed !"
+  
     },
     "orderfile":{
       "ChoosReason":"Choose a Reason",
@@ -3186,8 +3211,108 @@
       "Confirmed":"Confirmed.",
       "Added":"Added.",
       "Notrecorded":"Not recorded !",
-      "Couldnotupdated":"Could not be updated !"
+      "Couldnotupdated":"Could not be updated !",
+      "YourOrderMarkedNonPayment":"Your Order Is Marked As Non-Payment",
+      "Insufficient Limit":"Insufficient Limit!",
+      "BillOff":"Bill's Off!",
+      "MistakeFailedCloseBill":"Mistake! Failed To Close The Bill!",
+      "NewPrototypeCreated":"New Prototype Created.",
+      "OperationFailed":"Operation Failed!",
+      "PleaseTryAgain":"Please Try Again!",
+      "Ordertransferprocessinitiated":"Order transfer process initiated.",
+      "DepartmentsNull": "Departments Null",
+      "PairingSaved":"Pairing Saved!",
+      "PairingNotSaved":"Pairing Not Saved!",
+      "OrderConfirmed.":"Order Confirmed.",
+      "NotSaved":"Not Saved !",
+      "ServerConnectionError":"Server Connection Error",
+      "Youwillnotbeablerecoverthisrecord":"You will not be able to recover this record!"
+    },
+    "yemeksepetifile":{
+      "Updatefailed":"Update failed !",
+      "UnabletoloadYemekSepetistatisticsi":"Unable to load YemekSepeti statisticsi",
+      "TwinningSaved":"Twinning Saved!",
+      "Selectaddress":"Select address!",
+      "Areyousureyouwanttoconfirmtheorder":"Are you sure you want to confirm the order ?",
+      "Yes":"Yes",
+      "OrderConfirmed":" Order Confirmed.",
+      "OrderCannotBeChanged": "Order Cannot Be Changed !",
+      "PrintedAgain":"Printed Again.",
+      "OrderFiyuutransmissioninitiated":"Order Fiyuu transmission initiated.",
+      "TransmittedtoFiyuu":"Transmitted to Fiyuu!",
+      "Giftcodesforwarded":"Gift codes forwarded!",
+      "CANCELORDER": "CANCEL ORDER !",
+      "Areyousureyouwantcanceltheorder":"Are you sure you want to cancel the order ? ",
+      "YesCanceled":"Yes, Canceled !",
+      "NoDontCancel":"No, Don't Cancel !",
+      "AuthorizedUserCanceled":"Authorized User Canceled !",
+      "OrderStatusUpdated": "Order Status Updated.",
+      "PaymentOfOrderClosed": "Payment Of Order Closed.",
+      "OrderRestoredToPreviousState": "Order Restored To Previous State.",
+      "OrderAmountUpdated":"Order Amount Updated.",
+      "PasswordErroneous":"Password Erroneous!",
+      "Unknownerror":"Unknown error",
+      "YOUARENOTAUTHORIZEDFORTHISPROCEDURE":"YOU ARE NOT AUTHORIZED FOR THIS PROCEDURE. !"
+    },
+    "storefile":{
+      "SelectPod":"Select Pod !",
+      "PodAdded":"Pod Added.",
+      "Saveddatatoserver":"Saved data to server."
 
+    },
+    "personfile":{
+      "EnterPhoneNumber":"Enter Phone Number !",
+      "SelectGender":"Select Gender !",
+      "DataUpdated":"Data Updated.",
+      "DataSaved":"Data Saved.",
+      "PhoneNumberShouldNotBeBlank":"Phone Number Should Not Be Blank !",
+      "OrderCreated": "Order Created.",
+      "Youcannotenterorderheaddress":"You cannot enter an order at the address !",
+      "Failedupdate":"Update failed.",
+      "DataUpdateapplyedserver":"Data Update applyed to server",
+      "DataSavedserver":"Data Saved to server",
+      "CouldCreateNewOrder": "Could Create New Order !",
+      "YouCannotSeeTheDetailOfTheOrderInItsNewStatus":"You Cannot See The Detail Of The Order In Its New Status!",
+      "CannotCreateNewOrder":"Cannot Create New Order !",
+      "PhoneNumberMustBe11Characters":"Phone Number Must Be 11 Characters !",
+      "THISADDRESSNOTTHERESTAURANTADDRESSES":"THIS ADDRESS IS NOT IN THE RESTAURANT ADDRESSES !",
+      "AproblemhasoccurredTryAgain":"A problem has occurred. Try Again!"
+    },
+    "margeaddress":{
+      "BemergedNeighborhood":"Be merged Neighborhood...",
+      "WilluniteNeighborhood":"Will unite Neighborhood...",
+      "DoYouConfirmThisTransaction":"Do You Confirm This Transaction !",
+      "confirmButtonText": "Yes",
+      "cancelButtonText": "No",
+      "Neighborhood":"' Neighborhood '",
+      "Neighborhoodwillmergewith": "Neighborhood will merge with",
+      "NeighborhoodCombined":"Neighborhood Combined.",
+      "Address" :"' address '" ,
+      "Willcombinedwiththeaddress": " Will be combined with the address",
+      "Addresstobemerged":"Address to be merged...",
+      "Addresstomerge":"Address to merge...",
+      "BeMergedDistrict":"Be Merged District...",
+      "DistrictToMerge":"District To Merge...",
+      "Doyouapproveofthisoperation":"Do you approve of this operation !",
+      "Willmergewiththedistrict":"Will merge with the district",
+      "District": "' District '",
+      "DistrictMerged":"District Merged.",
+      "City":"' City '",
+      "Willmergewiththecity":"' Will merge with the city",
+      "Mergedwiththecity":"Merged with the city.",
+      "CityToBeMerged": "City To Be Merged",
+      "UnitedCity":"United City"
+    }, 
+    "userfile":{
+      "YourPasswordHasChangedPleaseloginagain":"Your Password Has Changed. Please log in again!",
+      "TheValuesEnteredNotMatchPleaseEnterAgain":"The Values Entered Do Not Match! Please Enter Again!",
+      "OrderOut":"Order Out!",
+      "OrdermarkedasOut":"Order marked as Out!",
+      "NONEWPAYMENTRECORDED":"NO NEW PAYMENT RECORDED!",
+      "Youdonothavepermittion": "You do not have permittion  !!!",
+      "Sorry": "Sorry",
+      "UnauthorizedAccessRequest":"Unauthorized Access Request.",
+      "EnterPassword":"Enter Password !"
     },
     "reportspage":{
       "INFORMATION":"INFORMATION",
@@ -3232,10 +3357,35 @@
       "PRODUCTCOSTDETAILS":"This is the report in which the quantity, price and cost information of the defined materials are given in the product field.",
       "PRODUCTSALESPIVOT":"It is the report that the units and totals of the products sold are given. It can be filtered by product and product groups.",
       "USERPRODUCTSALES":"It is the report that the units and totals of the products sold based on the user according to the templates are given.",
-      "PRODUCTSALESPOCHETTE":"It is the report of the quantity and quantity totals of the carry bags sold."
-      
-      
-
-
+      "PRODUCTSALESPOCHETTE":"It is the report of the quantity and quantity totals of the carry bags sold.",
+      "ORDERDRIVERLIST":"Among the dates selected is the report that orders on the bikers were placed.",
+      "ORDERPERFORMANCE":"It is the report that package order times are given between the selected dates.",
+      "ORDERLOGS":"A log report listing all orders steps and updates between selected dates.",
+      "RETURNLIST":"It is the report that the product quantities in the cancelled orders are given.",
+      "RETURNLISTDETAIL":"It is the report in which the product quantities, amounts, order source, canceling user information and cancellation note are given in detail in the cancelled orders.",
+      "DELETEDORDERITEMS":"It is the report that lists the products entered into the order between the selected dates and then deleted from the order items.",
+      "ORDERPROMOTIONREPORT":"In this report you can see how much discount is added to which order between the selected dates and with which code..",
+      "ORDERTOTALS":"You can see the total and quantity distributions of order types between the selected dates.",
+      "KITCHENPERFORMANCE":"It is the report in which the preparation,firing,waiting,exit times of all orders are calculated between the selected dates.",
+      "ORDERLASTATES":"It is the report that the order status of all authorized restaurants between the selected dates is given in units and amount distributions.",
+      "PROMOTIONCODEDETAILS":"It is the report that gives the date, order and customer use of the selected promotion.",
+      "ORDERPAYMENTSCHECK":"It is the report that gives the date, order and customer use of the selected payment type.",
+      "COMPLAINTLISTREPORTS":"List of complaints entered between selected dates.",
+      "SMSLIST":"It is the report that lists all customers of the selected restaurant who have given sms approval.",
+      "GENERALSMSLIST":"List of customers who have given sms approval between selected dates",
+      "STORELOGS":"It is the report that shows changes made to the settings of the branches between selected dates and by whom.",
+      "STOREANALISYSDETAIL":"Turnover, tc, ac, order status times, etc.of all authorized restaurants between selected dates. it is the report in which the information is given.",
+      "INVENTORYBALANCELIST":"It is the report that shows how much is used from which inventory according to the branch at the end of the period.",
+      "REALPAYMENTSPIVOT":"The report shows the total turnover of all authorized restaurants according to the actual payments between the selected dates.",
+      "UNPAIDDELIVERIES":"It is the report that lists the unpaid invoices for the selected restaurant.",
+      "STAFFSHIFTDIFF":"Returns the scheduled, realized shift hours and difference based on the user roles of the selected week.",
+      "DIFFBYHOUR":"The report gives an average of 13 weeks for the days of the selected week, indicating the total need.",
+      "SHIFTPERSONTOTALS":"It is the report that gives you the number of days and hours of the user's shift based on the given date range.",
+      "SHIFTACTUALTOTALS":"It is the report that gives the day-based sum of the branch and the number of days and hours of the user's shifts according to the selected week.",
+      "WEEKLYANALYSIS":"It is the report that gives the difference and need on a daily and hourly basis of the selected week and restaurant.",
+      "CLOCKINOUTSTATS":"Shift statistics"
+    },
+    "reportsınformation":{
+      "FSRSPEEDOFSERVICE":"Fields written in dark and with * next to them are mandatory! FSR transaction comparison."
     }
 }

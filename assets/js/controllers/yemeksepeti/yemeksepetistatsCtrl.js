@@ -11,7 +11,7 @@ function yemeksepetistatsCtrl($rootScope, $scope, $log, $modal, $interval, Resta
             $scope.YemekSepetiStats = restresult;
         },
             function (restresult) {
-                toaster.pop('warning', "Update failed", 'Unable to load YemekSepeti statisticsi');
+                toaster.pop('warning', $translate.instant('yemeksepetifile.Updatefailed'), $translate.instant('yemeksepetifile.UnabletoloadYemekSepetistatisticsi'));
                 //swal("Error!", "Data Error!", "Warning");
             });
     };

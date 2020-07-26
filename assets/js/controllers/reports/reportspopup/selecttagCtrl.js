@@ -16,7 +16,7 @@ function selecttagCtrl($scope, $modal, Restangular, $modalInstance, toaster, $wi
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -34,7 +34,7 @@ function selecttagCtrl($scope, $modal, Restangular, $modalInstance, toaster, $wi
             $scope.tags = $scope.AddLabels(result);
             tree.expand_all();
         }, function (response) {
-            toaster.pop('error', "Sunucu hatası", response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.LoadTags(20);

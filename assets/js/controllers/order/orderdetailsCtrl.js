@@ -144,7 +144,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                     }
                 },
                function (restresult) {
-                   toaster.pop('warning', "It is cancelled !", restresult.data.ExceptionMessage);
+                   toaster.pop('warning', $translate.instant('orderfile.Cancelled'), restresult.data.ExceptionMessage);
                }
                )
         }
@@ -191,11 +191,11 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
     $scope.AwaitingCCAutorization = function (item) {
         if (item.OrderStateID == 20) {
             swal({
-                title: "Are you sure you want to confirm the order ?",
+                title: $translate.instant('yemeksepetifile.Areyousureyouwanttoconfirmtheorder'),
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes !",
+                confirmButtonText: $translate.instant('yemeksepetifile.Yes'),
                 closeOnConfirm: false
             }, function () {
                 Restangular.one('order', item.id).get().then
@@ -206,7 +206,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                    if (ordertosave.restangularized && ordertosave.id) {
                        ordertosave.put().then(function (resp) {
                            $scope.getOrder();
-                           swal("Updated.", " Order Confirmed.", "success");
+                           swal("Updated.", $translate.instant('yemeksepetifile.OrderConfirmed'), "success");
                        }, function (response) {
                            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                        });
@@ -214,14 +214,14 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                })
             });
         } else {
-            toaster.pop('warning', "Order Cannot Be Changed !", "");
+            toaster.pop('warning',$translate.instant('yemeksepetifile.OrderCannotBeChanged'), "");
         }
     };
     $scope.RePrintOrder = function (OrderID) {
         Restangular.all('ordertools/PrintLabels').getList({
             OrderID: OrderID
         }).then(function (_orderItems) {
-            toaster.pop('success', "Printed Again.");
+            toaster.pop('success', $translate.instant('yemeksepetifile.PrintedAgain'));
         }, function (response) {
             toaster.pop('error', "Server Error", response);
         });
@@ -230,7 +230,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
         Restangular.all('ordertools/sendToFiyuu').getList({
             OrderID: OrderID
         }).then(function (_orderItems) {
-            toaster.pop('success', "Order Fiyuu transmission initiated.");
+            toaster.pop('success', $translate.instant('yemeksepetifile.OrderFiyuutransmissioninitiated'));
         }, function (response) {
             toaster.pop('error', "Server Error", response);
         });
@@ -241,7 +241,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
         Restangular.one('ordertools/sendToFiyuu').get({
             OrderID: OrderID,
         }).then(function (result) {
-            toaster.pop("success", "Transmitted to Fiyuu!");
+            toaster.pop("success", $translate.instant('yemeksepetifile.TransmittedtoFiyuu'));
             $scope.isSpinner = false;
         }, function (response) {
             toaster.pop('error', "Error!", response.data.Message);
@@ -253,7 +253,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
         Restangular.one('ordertools/sendgiftpromotioncodes').get({
             OrderID: OrderID,
         }).then(function (result) {
-            toaster.pop("success", "Gift codes forwarded!");
+            toaster.pop("success", $translate.instant('yemeksepetifile.Giftcodesforwarded'));
             $scope.isSpinner = false;
         }, function (response) {
             toaster.pop('error', "Error!", response.data.Message);
@@ -324,13 +324,13 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
     };
     $scope.UpdateOrderStatusAdmin = function (itemID) {
         SweetAlert.swal({
-            title: "CANCEL ORDER !",
-            text: "Are you sure you want to cancel the order ? ",
+            title:$translate.instant('yemeksepetifile.CANCELORDER'),
+            text: $translate.instant('yemeksepetifile.Areyousureyouwantcanceltheorder'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes , İptal Et !",
-            cancelButtonText: "No, İptal Etme !",
+            confirmButtonText: $translate.instant('yemeksepetifile.YesCanceled'),
+            cancelButtonText: $translate.instant('yemeksepetifile.NoDontCancel'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -340,24 +340,24 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                 OrderID: itemID,
                 newSatus: 7,
                 OrderReasonID: '100592257695',
-                OrderNote: "Authorized User Canceled !"
+                OrderNote: $translate.instant('yemeksepetifile.AuthorizedUserCanceled')
             }
             ).then(function (result) {
                 $scope.getOrder();
-                toaster.pop('success', "Order Status Updated.", "");
+                toaster.pop('success',$translate.instant('yemeksepetifile.OrderStatusUpdated'), "");
             });
             }
         });
     };
     $scope.UpdateOrderStatus = function (item) {
         SweetAlert.swal({
-            title: "CANCEL ORDER !",
-            text: "Are you sure you want to cancel the order ? ",
+            title:$translate.instant('yemeksepetifile.CANCELORDER'),
+            text: $translate.instant('yemeksepetifile.Areyousureyouwantcanceltheorder'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes , İptal Et !",
-            cancelButtonText: "No, İptal Etme !",
+            confirmButtonText: $translate.instant('yemeksepetifile.YesCanceled'),
+            cancelButtonText: $translate.instant('yemeksepetifile.NoDontCancel'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -387,7 +387,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
             OrderID: OrderID,
             newSatus: 1
         }).then(function () {
-            toaster.pop('success', "Payment Of Order Closed.", "");
+            toaster.pop('success',$translate.instant('yemeksepetifile.PaymentOfOrderClosed'), "");
             $scope.getOrder();
         }, function (response) {
             toaster.pop('error', "Response", response.data.ExceptionMessage);
@@ -397,7 +397,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
         Restangular.one("ordertools/reverttoprevstate").get({
             OrderID: OrderID
         }).then(function () {
-            toaster.pop('success', "Order Restored To Previous State.", "");
+            toaster.pop('success',$translate.instant('yemeksepetifile.OrderRestoredToPreviousState'), "");
             $scope.getOrder();
         }, function (response) {
             toaster.pop('error', "Response", response.data.ExceptionMessage);
@@ -407,7 +407,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
         Restangular.one("ordertools/RefreshOrder").get({
             OrderID: OrderID,
         }).then(function () {
-            toaster.pop('success', "Order Amount Updated.", "");
+            toaster.pop('success', $translate.instant('yemeksepetifile.OrderAmountUpdated'), "");
             $scope.getOrder();
         }, function (response) {
             toaster.pop('error', "Response", response.data.ExceptionMessage);
@@ -469,12 +469,12 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                                 $scope.UpdateOrderStatus(item)
                         }, function (err) {
                             if (err) {
-                                toaster.pop('warrning', "Password Erroneous!", err.error_description);
+                                toaster.pop('warrning', $translate.instant('yemeksepetifile.PasswordErroneous'), err.error_description);
                                 return 'No'
                             }
                             else {
                                 //toaster
-                                $scope.message = "Unknown error";
+                                $scope.message = $translate.instant('yemeksepetifile.Unknownerror');
                                 return 'No'
                             }
                         });
@@ -482,7 +482,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                     }
                 })
             } else {
-                toaster.pop("warning", "YOU ARE NOT AUTHORIZED FOR THIS PROCEDURE. !");
+                toaster.pop("warning", $translate.instant('yemeksepetifile.YOUARENOTAUTHORIZEDFORTHISPROCEDURE'));
                 return 'No';
             }
         }
@@ -526,7 +526,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
                             $scope.getOrder();
                         },
                        function (restresult) {
-                           toaster.pop('warning', "Cancelled", restresult.data.ExceptionMessage);
+                           toaster.pop('warning', $translate.instant('orderfile.Cancelled'), restresult.data.ExceptionMessage);
                        }
                        )
                 }
@@ -565,7 +565,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
             toaster.pop("success", "Order Created.");
             $scope.isSpinner = false;
         }, function (response) {
-            toaster.pop('error', "Hata!", response.data.ExceptionMessage);
+            toaster.pop('error', "error!", response.data.ExceptionMessage);
             $scope.isSpinner = false;
         });
     };
@@ -577,7 +577,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, 
             toaster.pop("success", "YS Order Customer Mapping Deleted!");
             $scope.isSpinner = false;
         }, function (response) {
-            toaster.pop('error', "Hata!", response.data.Message);
+            toaster.pop('error', "error!", response.data.Message);
             $scope.isSpinner = false;
         });
     };

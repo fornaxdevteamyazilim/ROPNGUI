@@ -108,14 +108,14 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }
     };
     $scope.HomeOrder = function (person, OrderType) {
         if ($scope.CheckPersonPhone == false) {
-            toaster.pop('warning', "Phone Number Should Not Be Blank !", "error");
+            toaster.pop('warning', $translate.instant('personfile.PhoneNumberShouldNotBeBlank'), "error");
             return;
         }
         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")|| userService.userIsInRole("CCBACKOFFICE")) {
@@ -135,7 +135,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Order Created.");
+                    toaster.pop("success", $translate.instant('personfile.OrderCreated'));
                 },
                 function (resp) {
                     toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -167,7 +167,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                                           location.href = '#/app/orders/orderStore/' + resp.id;
                                       if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                                           location.href = '#/app/orders/order/' + resp.id;
-                                      toaster.pop("success", "Order Created.");
+                                      toaster.pop("success", $translate.instant('personfile.OrderCreated'));
                                   },
                                   function (resp) {
                                       toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -177,7 +177,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                                   //TODO Swet Alert
                               }
                           } else {
-                              toaster.pop('warning', "You cannot enter an order at the address !");
+                              toaster.pop('warning', $translate.instant('personfile.Youcannotenterorderheaddress'));
                           }
                       }
                   }, function (response) {
@@ -196,7 +196,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
            }
        },
       function (restresult) {
-          toaster.pop('warning', "It is cancelled!");
+          toaster.pop('warning', $translate.instant('orderfile.Cancelled'));
       }
       )
     };
@@ -209,7 +209,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
         Restangular.restangularizeElement('', $scope.item, 'person_deliveryaddress');
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                toaster.pop('success', "Updated.", 'Updated!');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated!');
                 if (path == 'Order' && resp.id) {
                     $scope.HomeOrder(data, 2)
                 }
@@ -218,7 +218,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
         else {
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                toaster.pop('success', "Saved !", 'Saved!');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved!');
                 if (path == 'Order' && resp.id) {
                     $scope.HomeOrder(data, 2)
                 }

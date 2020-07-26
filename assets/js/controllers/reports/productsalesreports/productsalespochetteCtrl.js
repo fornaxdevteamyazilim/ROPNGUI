@@ -44,7 +44,7 @@ function productsalespochetteCtrl($scope, $log, $modal, $filter, SweetAlert, Res
                 $scope.totalAmount = $scope.sumColumnJS(result, "TotalAmount");
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     //$scope.GetSoreID = function (data) {
@@ -131,7 +131,7 @@ function productsalespochetteCtrl($scope, $log, $modal, $filter, SweetAlert, Res
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

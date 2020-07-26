@@ -52,7 +52,7 @@ function personaddresseslistCtrl($scope, $log, $filter, SweetAlert, Restangular,
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }
@@ -75,7 +75,7 @@ function personaddresseslistCtrl($scope, $log, $filter, SweetAlert, Restangular,
                     location.href = '#/app/orders/orderStore/' + resp.id;
                 if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                     location.href = '#/app/orders/order/' + resp.id;
-                toaster.pop("success", "Order Created!");
+                toaster.pop("success", $translate.instant('personfile.OrderCreated'));
             },
             function (resp) {
                 toaster.pop('error', response.data.ExceptionMessage, "error");
@@ -89,10 +89,10 @@ function personaddresseslistCtrl($scope, $log, $filter, SweetAlert, Restangular,
             data.put().then(
                 function (res) {
                     ad.tableParams.reload();
-                    toaster.pop('success', "Failed to update.", 'Data Update applyed to server.');
+                    toaster.pop('success', $translate.instant('personfile.Failedupdate'), $translate.instant('personfile.DataUpdateapplyedserver'));
                 },
                  function (response) {
-                     toaster.pop('error', "Failed to update !", response.data.ExceptionMessage);
+                     toaster.pop('error',$translate.instant('personfile.Failedupdate'), response.data.ExceptionMessage);
                  }
                  );
         }
@@ -101,10 +101,10 @@ function personaddresseslistCtrl($scope, $log, $filter, SweetAlert, Restangular,
             data.post().then(
                 function (res) {
                     ad.tableParams.reload();
-                    toaster.pop('success', "Saved.", 'Data Saved to server.');
+                    toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('personfile.DataSavedserver'));
                 },
                  function (response) {
-                     toaster.pop('error', "Not saved !", response.data.ExceptionMessage);
+                     toaster.pop('error', $translate.instant('orderfile.NotSaved'), response.data.ExceptionMessage);
                  }
                 );
             data.get();

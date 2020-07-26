@@ -64,7 +64,7 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
                 $scope.ShowObject = false;
             }, function (response) {
                 $scope.ShowObject = false;
-                toaster.pop('Warning', "Hata!", response.data.ExceptionMessage);
+                toaster.pop('Warning', "Error!", response.data.ExceptionMessage);
             });
         }
         else {
@@ -105,31 +105,31 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         rowform.$cancel();
         if (!idi.tableParams.data[idi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(idi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled!", 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', "It is cancelled!", 'Edit cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !' );
         }
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: "ARE YOU SURE ?",
-            text: "Are you sure you want to delete the record ?",
+            title:  $translate.instant('orderfile.Sure') ,
+            text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete !",
-            cancelButtonText: "No, Deletion !",
+            confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal("Deleted.", "Record Deleted.", "success");
+                    SweetAlert.swal( $translate.instant('orderfile.Deleted'),  $translate.instant('orderfile.RecordDeleted'), "success");
                     $location.path('/app/product/product/productprice/list');
                 });
             }
             else {
-                SweetAlert.swal("Canceled !", "Deletion Canceled !", "error");
+                SweetAlert.swal( $translate.instant('orderfile.Cancelled'), $translate.instant('orderfile.DeletionCanceled'), "error");
             }
         });
     };

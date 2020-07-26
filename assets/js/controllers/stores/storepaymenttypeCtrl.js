@@ -103,25 +103,25 @@
         }
         $scope.removeItem = function (index) {
             SweetAlert.swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this record!",
+                title:  $translate.instant('orderfile.Sure') ,
+                text: $translate.instant('orderfile.Youwillnotbeablerecoverthisrecord'),
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel please!",
+                confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
+                cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
                 closeOnConfirm: false,
                 closeOnCancel: false
             }, function (isConfirm) {
                 if (isConfirm) {
                     if (vm.tableParams.data[index].fromServer) {
                         vm.tableParams.data[index].remove();
-                        toaster.pop("error", "Dikkat!!", "Kayıt silindi!");
+                        toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
                     }
                     vm.tableParams.data.splice(index, 1);
-                    SweetAlert.swal("Deleted!", "Record deleted.", "success");
+                    SweetAlert.swal($translate.instant('orderfile.Deleted'),  $translate.instant('orderfile.RecordDeleted'), "success");
                 } else {
-                    SweetAlert.swal("Cancelled", "Delete operation cancellled", "error");
+                    SweetAlert.swal($translate.instant('orderfile.Cancelled'), $translate.instant('orderfile.DeletionCanceled'), "error");
                 }
             });
 

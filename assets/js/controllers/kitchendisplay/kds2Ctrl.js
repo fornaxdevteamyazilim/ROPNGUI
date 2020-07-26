@@ -151,7 +151,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restang
         $scope.orderitemstates.splice(index, 1);
         $scope.$broadcast('$$rebind::refresh');
         if ($scope.WaitForResult == true) {
-            toaster.pop("warning", "Please Wait !", "Please Click Again!");
+            toaster.pop("warning", $translate.instant('kitchendisplayf.PleaseWait'),$translate.instant('kitchendisplayf.PleaseClickAgain') );
         }
         else {
             var data = $scope.updateOrder(OrderID);
@@ -163,11 +163,11 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restang
             AutoPrint:false,
             KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0
         }).then(function (restresult) {
-            toaster.pop("success", "Prepared.", "Item prepared!");
+            toaster.pop("success", $translate.instant('kitchendisplayf.Prepared'),$translate.instant('kitchendisplayf.Itemprepared'));
             $scope.LoadOrderItemStates();
         }, function (restresult) {
             $scope.WaitForResult = false;
-                toaster.pop('error', "Update failed !", restresult.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('kitchendisplayf.Updatefailed'), restresult.data.ExceptionMessage);
                 $scope.LoadOrderItemStates();
         })
     };

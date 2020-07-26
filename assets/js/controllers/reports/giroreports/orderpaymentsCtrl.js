@@ -33,7 +33,7 @@ function orderpaymentsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             $scope.OrderPayments = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadOrderPayments();
@@ -48,7 +48,7 @@ function orderpaymentsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             }).then(function (result) {
                 $scope.storepaymenttypes = result;
             }, function (response) {
-                toaster.pop('Warning', "Sunucu hatası", response.data.Message);
+                toaster.pop('Warning', "Server Error", response.data.Message);
             });
     };
     $scope.loadStorePaymentTypes();
@@ -135,7 +135,7 @@ function orderpaymentsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Sunucu Hatası", response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };

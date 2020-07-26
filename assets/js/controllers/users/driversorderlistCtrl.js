@@ -81,7 +81,7 @@ function driverordersCtrl($scope, $log, $interval, $timeout, amMoment, $filter, 
         Restangular.restangularizeElement('', state, 'orderstate')
         state.post().then(
             function (res) {
-                toaster.pop("success", "Order Out!", "Order marked as Out!");
+                toaster.pop("success",  $translate.instant('userfile.OrderOut '),  $translate.instant('userfile.OrdermarkedasOut '));
             });
     };
     $scope.$on('$destroy', function () {
@@ -247,7 +247,7 @@ function driverbackCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParam
         state.post().then(function (resp) {
             $scope.ok();
         }, function (resp) {
-            toaster.pop('error', "NO NEW PAYMENT RECORDED!", resp.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('userfile.NONEWPAYMENTRECORDED '), resp.data.ExceptionMessage);
         });
     };
     $scope.ok = function () {

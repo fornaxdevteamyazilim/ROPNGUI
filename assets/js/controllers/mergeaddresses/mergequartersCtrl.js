@@ -57,27 +57,27 @@ function mergequartersCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
     };
     $scope.FromSelectItem = function (Item) {
         $scope.FromSelectQuarter = Item;
-        toaster.pop('warning', "Be merged Neighborhood...");
+        toaster.pop('warning', $translate.instant('margeaddress.BemergedNeighborhood '));
     };
     $scope.ToSelectItem = function (Item) {
         $scope.ToSelectQuarter = Item;
-        toaster.pop('warning', "Will unite Neighborhood...");
+        toaster.pop('warning',  $translate.instant('margeaddress.WilluniteNeighborhood '));
     };
     $scope.MergeQuarter = function () {
         swal({
-            title: "'" + $scope.FromSelectQuarter.name + "' Neighborhood '" + $scope.ToSelectQuarter.name + "' Neighborhood will merge with",
-            text: "Do You Confirm This Transaction !",
+            title: "'" + $scope.FromSelectQuarter.name + $translate.instant('margeaddress.Neighborhood ')  + $scope.ToSelectQuarter.name +  $translate.instant('margeaddress.Neighborhoodwillmergewith '),
+            text: $translate.instant('margeaddress.DoYouConfirmThisTransaction '),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes",
-            cancelButtonText: "No",
+            confirmButtonText: $translate.instant('margeaddress.confirmButtonText'),
+            cancelButtonText:$translate.instant('margeaddress.cancelButtonText'),
             closeOnConfirm: true
         }, function () {
             Restangular.one('addresshelper/merge/quarter?FromQuarterID=' + $scope.FromSelectQuarter.id + '&ToQuarterID=' + $scope.ToSelectQuarter.id).get().then
                  (function (restresult) {
                      $scope.LoadQuarters();
-                     toaster.pop('success', "Neighborhood Combined.");
+                     toaster.pop('success', $translate.instant('margeaddress.NeighborhoodCombined'));
                  }, function (response) {
                      toaster.pop('error', "Server Error", response.ExceptionMessage);
                  });

@@ -22,7 +22,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             this.item.EndDate = $scope.EndDate;
             this.item.put().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success', $translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
@@ -31,7 +31,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             this.item.EndDate = $scope.EndDate;
             this.item.post().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
             });
             this.item.get();
         }
@@ -49,9 +49,9 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         rowform.$cancel();
         if (!$scope.tableParams.data[$scope.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove($scope.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
 
@@ -95,7 +95,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             $scope.tableParams.data[index].remove();
         }
         $scope.tableParams.data.splice(index, 1);
-        toaster.pop("error", "Attention !", "Record Deleted !");
+        oaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
     };
     $scope.cancelremove = function (index) {
         if ($scope.tableParams.data[index].fromServer) {
