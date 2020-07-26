@@ -309,8 +309,8 @@ function orderable($compile, $modal) {
                     if (data.restangularized && data.OrderItemID != null && data.OrderItemID != '') {
                         data.put().then(
                             function (res) {
-                                $scope.$emit('LoadOrderItems', "Update");
-                                toaster.pop('success', "Updated Order Item.");
+                                $scope.$emit('LoadOrderItems', $translate.instant('orderfile.Updated'));
+                                toaster.pop('success',  $translate.instant('yemeksepetifile.UpdatedOrderItem '));
                                 //if (res.id) {
                                 //    $scope.ok();
                                 //}
@@ -323,8 +323,8 @@ function orderable($compile, $modal) {
                         Restangular.restangularizeElement('', data, 'orderableitem');
                         data.post().then(
                             function (res) {
-                                toaster.pop("success", "Order Item Added.");
-                                $scope.$emit('LoadOrderItems', "Update");
+                                toaster.pop("success",  $translate.instant('yemeksepetifile.OrderItemAdded '));
+                                $scope.$emit('LoadOrderItems', $translate.instant('orderfile.Updated'));
                                 //if (res.id) {
                                 //    $scope.ok();
                                 //}
@@ -333,7 +333,7 @@ function orderable($compile, $modal) {
                                 if (res.data.ExceptionMessage)
                                     toaster.pop("error", res.data.ExceptionMessage);
                                 else
-                                    toaster.pop("error", "Unable To Add Order Item !");
+                                    toaster.pop("error",  $translate.instant('yemeksepetifile.UnableToAddOrderItem '));
                             });
                     }
                 }
@@ -348,8 +348,8 @@ function orderable($compile, $modal) {
                 if (data.restangularized && data.OrderItemID != null && data.OrderItemID != '') {
                     data.put().then(
                         function (res) {
-                            $scope.$emit('LoadOrderItems', "Update");
-                            toaster.pop('success', "Updated Order Item.");
+                            $scope.$emit('LoadOrderItems', $translate.instant('orderfile.Updated'));
+                            toaster.pop('success',  $translate.instant('yemeksepetifile.UpdatedOrderItem '));
                             if (res.id) {
                                 $scope.ok();
                             }
@@ -359,7 +359,7 @@ function orderable($compile, $modal) {
                             if (res.data.ExceptionMessage)
                                 toaster.pop("error", res.data.ExceptionMessage);
                             else
-                                toaster.pop("error", "Unable To Add Order Item !");
+                                toaster.pop("error", );
                         });
                 }
                 else {
@@ -369,8 +369,8 @@ function orderable($compile, $modal) {
                     Restangular.restangularizeElement('', data, 'orderableitem');
                     data.post().then(
                         function (res) {
-                            toaster.pop("success", "Order Item Added.");
-                            $scope.$emit('LoadOrderItems', "Update");
+                            toaster.pop("success",  $translate.instant('yemeksepetifile.OrderItemAdded '));
+                            $scope.$emit('LoadOrderItems', $translate.instant('orderfile.Updated'));
                             if (res.id) {
                                 $scope.ok();
                             }
@@ -380,7 +380,7 @@ function orderable($compile, $modal) {
                             if (res.data.ExceptionMessage)
                                 toaster.pop("error", res.data.ExceptionMessage);
                             else
-                                toaster.pop("error", "Unable To Add Order Item !");
+                                toaster.pop("error",  $translate.instant('yemeksepetifile.UnableToAddOrderItem '));
                         });
                 }
             };

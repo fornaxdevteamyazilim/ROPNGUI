@@ -3252,7 +3252,10 @@
       "OrderAmountUpdated":"Order Amount Updated.",
       "PasswordErroneous":"Password Erroneous!",
       "Unknownerror":"Unknown error",
-      "YOUARENOTAUTHORIZEDFORTHISPROCEDURE":"YOU ARE NOT AUTHORIZED FOR THIS PROCEDURE. !"
+      "YOUARENOTAUTHORIZEDFORTHISPROCEDURE":"YOU ARE NOT AUTHORIZED FOR THIS PROCEDURE. !",
+      "OrderItemAdded":"Order Item Added",
+      "UpdatedOrderItem":"Updated Order Item.",
+      "UnableToAddOrderItem":"Unable To Add Order Item !"
     },
     "storefile":{
       "SelectPod":"Select Pod !",

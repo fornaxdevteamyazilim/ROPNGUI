@@ -3250,7 +3250,10 @@
     "OrderAmountUpdated":"Sipariş Miktarı Güncellendi.",
     "PasswordErroneous":"Şifre Hatalı!",
     "Unknownerror":"Bilinmeyen hata",
-    "YOUARENOTAUTHORIZEDFORTHISPROCEDURE":"BU PROSEDÜR İÇİN YETKİLİ DEĞİLSİNİZ. !"
+    "YOUARENOTAUTHORIZEDFORTHISPROCEDURE":"BU PROSEDÜR İÇİN YETKİLİ DEĞİLSİNİZ. !",
+    "OrderItemAdded":"Sipariş Öğesi Eklendi",
+    "UpdatedOrderItem":"Sipariş Öğesi Güncellendi",
+    "UnableToAddOrderItem":"Sipariş Öğesi Eklenemiyor !"
 
   },
   "storefile":{
