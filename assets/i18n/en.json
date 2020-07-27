@@ -374,8 +374,7 @@
     "CLOCKINOUTSTATS": "{{appName}} - Clock in Clock Out Stats",
     "PROMOTIONANALISYS": "{{appName}} - Promotion Analisys Report"
   },
-  "main": {
-    
+  "main": {    
     "RETURNREASON": "Return Reason",
     "WASTEUSAGE": "Waste Usage",
     "APPERTMENTNAME": "Appertment",
@@ -3014,7 +3013,15 @@
     "DeclaredPayment": "Declared Payment",
     "isAutomatic": "isAutomatic",
     "isDfferent": "isDfferent",
-    "Driver": "Driver"
+    "Driver": "Driver",
+    "OutDate": "OutDate",
+    "PaymentDate": "PaymentDate",
+    "StaffName":"StaffName",
+    "ShiftActive":"ShiftActive",
+    "UserRole":"UserRole",
+    "OrderItems":"OrderItems",
+    "OrderCost":"OrderCost",
+    "OperationDate":"OperationDate"
   },
   "reportcommands":{
     "GetData": "Get Data",
@@ -3023,6 +3030,10 @@
   "reportparameters":{
     "FromDate": "From Date",
     "ToDate":"To Date"
+  },
+  "systemmessages":{
+    "BrowseDisabledShort":"Browse Disabled",
+    "BrowseDisabled":"Browse is disabled on this screen!"
   },
   "mainscreen": {
     "NEWORDER":"New Order",
@@ -3391,7 +3402,7 @@
       "WEEKLYANALYSIS":"It is the report that gives the difference and need on a daily and hourly basis of the selected week and restaurant.",
       "CLOCKINOUTSTATS":"Shift statistics"
     },
-    "reportsınformation":{
+    "reportsinformation":{
       "FSRSPEEDOFSERVICE":"Fields written in dark and with * next to them are mandatory! FSR transaction comparison.",
       "UNPAIDDELIVERIESREPORT":"Fields written in dark and with * next to them are mandatory! It is the report that lists the unpaid invoices for the selected restaurant. When you click on the invoice Id, you can switch to the Edit screen of the related invoice. If the invoice has been paid, you must mark the 'payment' Field on the invoice editing screen.",
       "CALLCENTERORDERS":"Fields written in dark and with * next to them are mandatory! FSR transaction comparison.",

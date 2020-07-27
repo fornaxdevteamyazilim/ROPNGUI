@@ -383,6 +383,7 @@
     "SHOWWASTES": "Atıkları Göster",
     "SELECTSTORE": "Restoran Seçimi",
     "SHOWVOUCHER": "Fişleri Göster",
+    "PAYABLEAMOUNT": "Ödenecek Tutar",
     "ADDNEWINVENTORYPRICE": "Yeni Fiyat Ekle",
     "CALLER": "Arayan",
     "CALLSTART": "Çağrı Başlangıcı",
@@ -3014,7 +3015,15 @@
     "DeclaredPayment": "Beyan Edilen Ödeme",
     "isAutomatic": "Otomatik?",
     "isDfferent": "Farklı?",
-    "Driver": "Sürücü"
+    "Driver": "Sürücü",
+    "OutDate": "Çıkış",
+    "PaymentDate": "Ödeme",
+    "StaffName":"Personel",
+    "ShiftActive":"Vardiya Girişi",
+    "UserRole":"Kullanıcı Rolü",
+    "OrderItems":"Siapriş içeriği",
+    "OrderCost":"Sipariş Maliyeti",
+    "OperationDate":"İşletme Tarihi"
   },
   "reportcommands": {
     "GetData": "Bilgileri Getir",
@@ -3023,6 +3032,10 @@
   "reportparameters": {
     "FromDate": "Başlangıç",
     "ToDate": "Bitiş"
+  },
+  "systemmessages":{
+    "BrowseDisabledShort":"Geçiş yapılamaz",
+    "BrowseDisabled":"Sayfalar arası gezinme kapatı!"
   },
   "mainscreen":{
     "NEWORDER":"Yeni Siparişiniz",
@@ -3393,7 +3406,7 @@
     "CLOCKINOUTSTATS":"Vardiya istatistikleri"
 
   },
-  "reportsınformation":{
+  "reportsinformation":{
     "FSRSPEEDOFSERVICE":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! FSR transaction karşılaştırma.",
     "UNPAIDDELIVERIESREPORT":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen restorana ait ödemesi yapılmamış faturaların listelendiği rapordur. Fatura Id si üzerine tıklayınca ilgili faturanın düzenleme ekranına geçebilirsiniz. Fatura ödendiyse fatura düzenleme ekranında 'Ödeme' alanını işaretlemeniz gerekmektedir.",
     "CALLCENTERORDERS":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! FSR transaction karşılaştırma.",

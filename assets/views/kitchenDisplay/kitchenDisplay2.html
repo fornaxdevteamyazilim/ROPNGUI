@@ -44,14 +44,8 @@
                 
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-controller="VisitsCtrl">
-                <div   class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
-                    <strong class="text-dark"  style="font-size:20px; color:red;">{{storePerformanceData.PeparingDuration || '00:00:00'}}</strong>
-                    <p style="font-size:15px;">
-                        {{'main.AVRDELIVERYY' | translate}}
-                    </p>
-                </div>
                 <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
-                    <strong class="text-dark"  style="font-size:20px; color:red;">{{storePerformanceData.DeliveryPeriod || '00:00:00'}}</strong>
+                    <strong class="text-dark"  style="font-size:20px; color:red;">{{$storage.KDisplayIndex==0?storePerformanceData.PeparingMakeTableDuration:storePerformanceData.PeparingCutTableDuration || '00:00:00'}}</strong>
                     <p style="font-size:15px;">
                         {{'main.AVRPREPARING' | translate}}
                     </p>
@@ -62,9 +56,9 @@
                 <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center" style="font-size:30px; color:red;" ng-if="user.Store.MemberID != 300000000000">
                     {{storePerformanceData.PeparingDuration}}
                 </span>
-                <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center" style="font-size:30px; color:red;" ng-if="user.Store.MemberID == 300000000000">
+                <!-- <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center" style="font-size:30px; color:red;" ng-if="user.Store.MemberID == 300000000000">
                     {{$storage.KDisplayIndex==0?storePerformanceData.PeparingMakeTableDuration:storePerformanceData.PeparingCutTableDuration}}
-                </span>
+                </span> -->
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
                 <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">

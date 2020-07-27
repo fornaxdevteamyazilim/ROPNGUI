@@ -1,6 +1,6 @@
 'use strict';
-app.controller('orderpaymentscheckCtrl', orderpaymentscheckCtrl);
-function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING, $http, $q) {
+app.controller('staffordersreportCtrl', staffordersreportCtrl);
+function staffordersreportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING, $http, $q) {
     var ctrl = this;
     //var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
     //    $scope.translate();
@@ -51,7 +51,7 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
                 toDate: $scope.DateRange.toDate.value
             };
 
-            return $http.get(NG_SETTING.apiServiceBaseUri + "/api/order/reports/orderpaymentscheck", { params: params })
+            return $http.get(NG_SETTING.apiServiceBaseUri + "/api/order/reports/stafforders", { params: params })
                 .then(function (response) {
                     return {
                         data: response.data,
@@ -82,57 +82,32 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
         stateStoring: {
             enabled: true,
             type: "localStorage",
-            storageKey: "dx-orderpaymentscheck-storing"
+            storageKey: "dx-staffordersr-storing"
         },
         columns: [
             // { dataField: "StoreID", dataType: "string", fixed: true },//, groupIndex: 0 },
             { caption:$translate.instant('reportfields.OrderID'), dataField: "OrderID", dataType: "string", fixed: true, visible: false },//, groupIndex: 0 },
             { caption: $translate.instant('reportfields.Store'), dataField: "Store", dataType: "string", width: 230, fixed: true },//, groupIndex: 0 },
-            { caption: $translate.instant('reportfields.RegionManager'), dataField: "RegionManager", dataType: "string", width: 230, fixed: true, visible: false },
-            { caption: $translate.instant('reportfields.StoreFilterType'), dataField: "StoreFilterType", dataType: "string", visible: false },//, groupIndex: 0 },
-            { caption: $translate.instant('reportfields.StoreType'), dataField: "StoreType", dataType: "string", visible: false },
-            { caption: $translate.instant('reportfields.OrderDate'), dataField: "OrderDate", dataType: "date", format: 'dd.MM.yyyy HH:mm' },
-            { caption: $translate.instant('reportfields.OrderNumber'),  dataField: "OrderNumber", dataType: "string" },
-            { caption: $translate.instant('reportfields.User'),dataField: "User", dataType: "string" },
+            { caption: $translate.instant('reportfields.StaffName'), dataField: "Alias", dataType: "string" },//, groupIndex: 0 },
+            { caption: $translate.instant('reportfields.ShiftActive'),dataField: "ShiftActive", displayFormat: "bool" }, 
+            { caption: $translate.instant('reportfields.UserRole'), dataField: "UserRole", dataType: "string" },//, groupIndex: 0 },
+            { caption: $translate.instant('reportfields.OrderDate'), dataField: "OrderDate", dataType: "date", format: 'dd.MM.yyyy HH:mm', visible: false},
+            { caption: $translate.instant('reportfields.OperationDate'), dataField: "OperationDate", dataType: "date", format: 'dd.MM.yyyy' },
+            { caption: $translate.instant('reportfields.OrderItems'),dataField: "ois", dataType: "string" },
+            { caption: $translate.instant('reportfields.OrderCost'), dataField: "OrderCost", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('reportfields.OrderAmount'), dataField: "OrderAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: $translate.instant('reportfields.PaymentAmount'), dataField: "PaymentAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: $translate.instant('reportfields.DeclaredPayment'), dataField: "DeclaredPaymntType", dataType: "string" },
-            { caption: $translate.instant('reportfields.ActualPayment'), dataField: "ActualPaymentType", dataType: "string" },
-            { caption: $translate.instant('reportfields.isAutomatic'),dataField: "isAutomaticPayment", displayFormat: "bool", },
-            { caption: $translate.instant('reportfields.isDfferent'), dataField: "isDfferent", displayFormat: "bool",visible: false },
-            { caption: $translate.instant('reportfields.Driver'),dataField: "Driver", dataType: "string" },
-            { caption: $translate.instant('reportfields.OutDate'), dataField: "OutDate", dataType: "date", format: 'HH:mm:ss' },
-            { caption: $translate.instant('reportfields.PaymentDate'), dataField: "PaymentDate", dataType: "date", format: 'HH:mm:ss' },
-            
+                    
         ],
         summary: {
             totalItems: [{ column: "OrderID", summaryType: "count", displayFormat: "{0}" },
-            { column: "PaymentAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
-            { name: "OrderAmountSummary", showInColumn: "OrderAmount", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "OrderCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { name: "OrderAmount", showInColumn: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             ],
-            groupItems: [{ column: "OrderID", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
-            { column: "PaymentAmount", summaryType: "sum", displayFormat: "{0}", alignByColumn: true },
-            { name: "OrderAmountSummary", showInColumn: "OrderAmount", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            groupItems: [{ column: "OrderID", summaryType: "count", displayFormat: "{0}" },
+            { column: "OrderCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 },displayFormat: "{0}", alignByColumn: true },
+            { name: "OrderAmount", showInColumn: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             ],
-            calculateCustomSummary: function (options) {
-                if (options.name === "OrderAmountSummary") {
-                    switch (options.summaryProcess) {
-                        case "start":
-                            options.totalValue = 0;
-                            options.ids = [];
-                            break;
-                        case "calculate":
-                            if (options.ids.indexOf(options.value.OrderID) == -1) {
-                                options.totalValue = options.totalValue + options.value.OrderAmount;
-                                options.ids.push(options.value.OrderID);
-                            }
-                            break;
-                        case "finalize":
-                            //options.totalValue = options.totalValue / options.dg;
-                            break;
-                    }
-                }
-            },
+            
         },
 
         onRowPrepared: function (e) {

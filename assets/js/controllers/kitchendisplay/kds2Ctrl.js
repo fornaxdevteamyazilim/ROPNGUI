@@ -215,13 +215,14 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restang
             clockStop = undefined;
         }
     };
+    $scope.StartClock();
  
 
     $scope.$on('$destroy', function () {
         //$timeout.cancel(interval);
         deregistration();
         clearInterval(interval);
-        $timeout.cancel(OrderRefreshTimeOut);
+        //$timeout.cancel(OrderRefreshTimeOut);
         OrderRefresh();
         KDSNotify();
         BumpBarData();

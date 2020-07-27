@@ -1,5 +1,5 @@
 ﻿app.directive('orderable', orderable);
-function orderable($compile, $modal) {
+function orderable($compile, $modal,$translate) {
     var directive = {
         restrict: 'E',
         template:
