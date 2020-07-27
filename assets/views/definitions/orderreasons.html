@@ -31,6 +31,12 @@
                     {{ item.Description }}
                 </span>
             </td>
+            <td data-title="trIsActive" data-sortable="'IsActive'" ng-click="rowform.$show()" class="ng">
+                <span editable-text="item.IsActive" e-name="IsActive" e-form="rowform" e-ng-model="item.IsActive" e-style="width:4vw;">
+                    {{ item.IsActive }}
+                </span>
+                <input type="checkbox" id="chkSecim" checked="checked"/>
+            </td>
             <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                 <form editable-form name="rowform" onbeforesave="saveItem($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
                       shown="inserted == item || !item.id">

@@ -30,14 +30,32 @@
         border: 1px solid rgba(86,61,124,.2);
     }*/
 </style>
+
 <div ng-controller="kds2Ctrl" ng-init="app.layout.isSidebarClosed=true">
     <div class="panel-body col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <!--<span class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-left"><button class="btn btn-o btn-info text-extra-large ti-receipt tooltips" tooltip="{{:: 'main.PREPAREDOREDER' | translate}}" tooltip-placement="left" ng-click="getLastOrders()"></button></span>-->
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
-               
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center">
+                <strong class="text-bricky" style="font-size:20px; color:red;">{{theClock}}</strong>
+                <p  style="font-size:15px;" >
+                    {{'main.ROPNGTIME' | translate}}
+        
+                </p>
+                
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-controller="VisitsCtrl">
+                <div   class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
+                    <strong class="text-dark"  style="font-size:20px; color:red;">{{storePerformanceData.PeparingDuration || '00:00:00'}}</strong>
+                    <p style="font-size:15px;">
+                        {{'main.AVRDELIVERYY' | translate}}
+                    </p>
+                </div>
+                <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
+                    <strong class="text-dark"  style="font-size:20px; color:red;">{{storePerformanceData.DeliveryPeriod || '00:00:00'}}</strong>
+                    <p style="font-size:15px;">
+                        {{'main.AVRPREPARING' | translate}}
+                    </p>
+                </div>
                 <!--<span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center text-bold">
         {{'main.AVERAGEPREPARINGDURATION' | translate}}
     </span><br />-->

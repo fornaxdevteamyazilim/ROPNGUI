@@ -2384,6 +2384,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'orderpaymentscheck'
             }
+        }).state('app.reports.ordersreports.staffordersreport', {
+            url: '/staffordersreport',
+            templateUrl: "assets/views/reports/ordersreports/staffordersreport.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'staffordersreportCtrl', 'dateCtrl', 'pivottable', 'jqueryui', 'jquery-nestable-plugin', 'ng-nestable'),
+            title: 'Staff Orders Report',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'staffordersreport'
+            }
         }).state('app.reports.ordersreports.performance', {
             url: '/performance',
             templateUrl: "assets/views/reports/ordersreports/performance.html",

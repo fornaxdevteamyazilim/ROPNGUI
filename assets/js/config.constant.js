@@ -468,6 +468,7 @@ app.constant('JS_REQUIRES', {
         'pickupCtrl': 'assets/js/controllers/order/pickupCtrl.js?v=0592',
         'changeorderpaymentsCtrl': 'assets/js/controllers/reports/ordersreports/changeorderpaymentsCtrl.js?v=0592',
         'orderpaymentscheckCtrl': 'assets/js/controllers/reports/ordersreports/orderpaymentscheckCtrl.js?v=0592',
+        'staffordersreportCtrl': 'assets/js/controllers/reports/ordersreports/staffordersreportCtrl.js?v=0592',
         'ysstoreeditCtrl': 'assets/js/controllers/yemeksepeti/ysstoreeditCtrl.js?v=0592',
         'mallCtrl': 'assets/js/controllers/order/mallCtrl.js?v=0592',
         'tablePlantwoCtrl': 'assets/js/controllers/order/tablePlantwoCtrl.js?v=0592',

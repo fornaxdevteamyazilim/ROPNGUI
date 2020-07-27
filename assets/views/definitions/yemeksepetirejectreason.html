@@ -24,9 +24,15 @@
                 <tr ng-repeat="item in $data"
                     ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)" style="width:10%">
                     <td data-title="trReason" data-sortable="'Reason'" ng-click="rowform.$show()" class="ng">
-                        <span editable-text="item.Reason" e-name="Reason" e-form="rowform" e-ng-model="item.Reason" e-style="width:30vw;">
+                        <span editable-text="item.Reason" e-name="Reason" e-form="rowform" e-ng-model="item.Reason" e-style="width:20vw;">
                             {{ item.Reason }}
                         </span>
+                    </td>
+                    <td data-title="trIsActive" data-sortable="'IsActive'" ng-click="rowform.$show()" class="ng">
+                        <span editable-text="item.IsActive" e-name="IsActive" e-form="rowform" e-ng-model="item.IsActive" e-style="width:4vw;">
+                            {{ item.IsActive }}
+                        </span>
+                        <input type="checkbox" id="chkSecim" checked="checked"/>
                     </td>
                     <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                         <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
@@ -54,6 +60,8 @@
                             </div>
                         </div>
                     </td>
+                    
+
                 </tr>
             </table>
         </div>
