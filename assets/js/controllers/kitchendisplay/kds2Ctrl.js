@@ -195,13 +195,37 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restang
         modalInstance.result.then(function () {
         })
     };
+    var clockStop;
+    $scope.FormatClock = function (val) {
+        return $filter('date')(val, 'HH:mm:ss');
+    };
+    $scope.GoToClockIn = function () {
+        $location.path('/login/clockinout');
+    }
+    $scope.theClock = $scope.FormatClock(ngnotifyService.ServerTime());
+    $scope.StartClock = function () {
+        if (angular.isDefined(clockStop)) return;
+        clockStop = $interval(function () {
+            $scope.theClock = $scope.FormatClock(ngnotifyService.ServerTime());
+        }, 1000);
+    }
+    var stopClock = function () {
+        if (angular.isDefined(clockStop)) {
+            $interval.cancel(clockStop);
+            clockStop = undefined;
+        }
+    };
+ 
+
     $scope.$on('$destroy', function () {
         //$timeout.cancel(interval);
         deregistration();
         clearInterval(interval);
+        $timeout.cancel(OrderRefreshTimeOut);
         OrderRefresh();
         KDSNotify();
         BumpBarData();
+        stopClock();
         $element.remove();
         $rootScope.uService.ExitController("kds2Ctrl");
     });

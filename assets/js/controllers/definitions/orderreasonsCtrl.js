@@ -6,6 +6,7 @@ function orderreasonsCtrl($rootScope, $scope, $log, $modal, Restangular, ngTable
         $scope.trOrderReasonType = $translate.instant('main.ORDERREASONTYPE');
         $scope.trDescription = $translate.instant('main.DESCRIPTION');
         $scope.trCommands = $translate.instant('main.COMMANDS');
+        $scope.trIsActive = $translate.instant('main.ISACTIVE');
     }
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
