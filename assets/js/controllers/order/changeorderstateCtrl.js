@@ -30,7 +30,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
     if (item && item.id) {
         if (item.root == "orderdisplay") {
             Restangular.all('orderreason').getList({
-                search: "OrderReasonTypeID=0",
+                search: "OrderReasonTypeID=0 and isActive=1",
             }).then(function (items) {
                 angular.copy(items, $scope.orderreasons);
                 $scope.LoadOrder();
@@ -45,6 +45,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
             });
         } else {
             Restangular.all('orderreason').getList({
+                search: "isActive=1",
             }).then(function (items) {
                 angular.copy(items, $scope.orderreasons);
                 $scope.LoadOrder();

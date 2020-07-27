@@ -232,7 +232,7 @@ function driverbackCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParam
         Restangular.all('orderreason').getList({
             pageNo: 1,
             pageSize: 1000,
-            search: "OrderReasonTypeID=2"
+            search: "OrderReasonTypeID=2 and isActive=1"
         }).then(function (result) {
             return $scope.reasons = result;
         });
