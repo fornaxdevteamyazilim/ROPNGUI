@@ -4,14 +4,19 @@
       $scope.$storage = $localStorage.$default({
           customerItems: []
       });
-      $scope.bgIndex = 'page-idle';
+      var pages=['page-idle','page-active','sosyal-mesafe','sosyal-mesafe2','sosyal-mesafe3'];
+      var pageIndex=0;
+      $scope.bgIndex = pages[pageIndex];
       $interval(function () {
-          $scope.bgIndex = $scope.bgIndex == 'page-idle' ? 'page-active' : 'page-idle';
+        pageIndex++;
+        if (pageIndex>pages.length-1)
+          pageIndex=0;
+        $scope.bgIndex = pages[pageIndex];      
       }, 10000);
     });
 app.controller('MainController', function ($interval) {
 
     var controller = this;
-    controller.date = new Date();
+    controller.date = new Date(); 
   
 });

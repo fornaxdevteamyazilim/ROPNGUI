@@ -39,6 +39,24 @@ body {
     background-size: cover;
     background-position: center center;
 }
+.sosyal-mesafe {
+    height: 100%;
+    background-image: url('../images/SOSYAL MESAFE.jpg');
+    background-size: cover;
+    background-position: center center;
+}
+.sosyal-mesafe2 {
+    height: 100%;
+    background-image: url('../images/SOSYAL MESAFE2.jpg');
+    background-size: cover;
+    background-position: center center;
+}
+.sosyal-mesafe3 {
+    height: 100%;
+    background-image: url('../images/SOSYAL MESAFE3.jpg');
+    background-size: cover;
+    background-position: center center;
+}
 .flex {
     display: flex;
 }

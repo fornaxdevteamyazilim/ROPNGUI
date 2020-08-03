@@ -12,6 +12,8 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
             Idle.watch();
             toaster.pop("success", "IdleTimeout", "Active.");
         }
+        else 
+        Idle.watch();
     $scope.$on('IdleStart', function () {
         // the user appears to have gone idle
         toaster.pop("success", "IdleTimeout", "Start.");

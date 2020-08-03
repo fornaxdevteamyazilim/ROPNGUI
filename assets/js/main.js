@@ -63,6 +63,7 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
             // Allow navigation if our old url wasn't where we prevented navigation from
             if (_preventNavigationUrl != oldUrl || _preventNavigationUrl == null) {                
                 $rootScope.allowNavigation();
+                _lastNavigationURL=null;
                 return;
             }
             if (_preventNavigation) {//&& !confirm("Unsaved Changes Bulunuyor, Çıkmak İstediğinize Emin Misiniz? ")) {
