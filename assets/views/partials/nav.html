@@ -2221,12 +2221,12 @@
                     <i class="ti-notepad"></i>  <span class="title" translate="sidebar.nav.definitions.YEMEKSEPETIREJECTREASON">yemeksepetirejectreason</span>
                 </a>
             </li>
-            <li ui-sref-active="active" >
+            <li ui-sref-active="active" ng-if="user.restrictions.ngsettingitem=='Enable'">
                 <a ui-sref="app.definitions.ngsettingitem">
                     <i class="ti-settings"></i>  <span class="title" translate="sidebar.nav.definitions.NGSETTINGITEM">Ng Setting Item</span>
                 </a>
             </li>
-            <li ui-sref-active="active" >
+            <li ui-sref-active="active"  ng-if="user.restrictions.settingitem=='Enable'">
                 <a ui-sref="app.definitions.settingitem">
                     <i class="ti-settings"></i>  <span class="title" translate="sidebar.nav.definitions.SETTINGITEM">Editing Tools</span>
                 </a>
