@@ -1,5 +1,5 @@
 ﻿app.controller('incomeslipCtrl', incomeslipCtrl);
-function incomeslipCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $translate, $filter, ngnotifyService, $element, $location, userService) {
+function incomeslipCtrl($scope, $log, $modal, Restangular,$translate, ngTableParams, SweetAlert, toaster, $window, $rootScope, $translate, $filter, ngnotifyService, $element, $location, userService) {
     $rootScope.uService.EnterController("incomeslipCtrl");
     var is = this;
     is.search = '';

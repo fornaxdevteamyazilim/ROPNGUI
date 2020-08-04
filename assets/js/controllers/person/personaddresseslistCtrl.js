@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('personaddresseslistCtrl', personaddresseslistCtrl);
-function personaddresseslistCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $rootScope, $location, $stateParams, userService, $element) {
+function personaddresseslistCtrl($scope, $translate, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $rootScope, $location, $stateParams, userService, $element) {
     $rootScope.uService.EnterController("personaddresseslistCtrl");
     var ad = this;
     userService.userAuthorizated();

@@ -1,5 +1,5 @@
 ﻿app.controller('accounttoolsCtrl', accounttoolsCtrl);
-function accounttoolsCtrl($rootScope, $scope, Restangular, $location, $window, toaster, userService, $filter, $modal, $element, NG_SETTING) {
+function accounttoolsCtrl($rootScope, $scope,$translate, Restangular, $location, $window, toaster, userService, $filter, $modal, $element, NG_SETTING) {
     $rootScope.uService.EnterController("accounttoolsCtrl");
     //userService.userAuthorizated();
     var sti = this;

@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('productgroupstrikerateCtrl', productgroupstrikerateCtrl);
-function productgroupstrikerateCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, toaster, $window, $rootScope, $compile, $timeout, $location, userService, ngnotifyService, $element, NG_SETTING) {
+function productgroupstrikerateCtrl($scope, $filter, $modal, $log,  Restangular, SweetAlert, toaster, $window, $rootScope, $compile, $timeout, $location, userService, ngnotifyService, $element, NG_SETTING) {
     $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;
     $scope.Time = ngnotifyService.ServerTime();

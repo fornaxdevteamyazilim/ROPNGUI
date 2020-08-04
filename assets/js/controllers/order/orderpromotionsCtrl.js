@@ -1,5 +1,5 @@
 ﻿app.controller('orderpromotionsCtrl', orderpromotionsCtrl);
-function orderpromotionsCtrl($rootScope, $scope, $log, $filter, $modalInstance, SweetAlert, Restangular, Order, ngTableParams, toaster, $window, $translate) {
+function orderpromotionsCtrl($rootScope, $translate, $scope, $log, $filter, $modalInstance, SweetAlert, Restangular, Order, ngTableParams, toaster, $window, $translate) {
     $rootScope.uService.EnterController("orderproductitemsCtrl");
     $scope.AktiveCode = false;
     $scope.translate = function () {

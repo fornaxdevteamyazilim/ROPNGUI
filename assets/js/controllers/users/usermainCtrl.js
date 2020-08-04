@@ -1,5 +1,5 @@
 ﻿app.controller('usermainCtrl', usermainCtrl);
-function usermainCtrl($rootScope, $scope, $window, $stateParams, Restangular, SweetAlert, ngTableParams, toaster, $location, $element, $modal, userService) {
+function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Restangular, SweetAlert, ngTableParams, toaster, $location, $element, $modal, userService) {
     $rootScope.uService.EnterController("usermainCtrl");
     $scope.Back = function () {
         $window.history.back();

@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('personinvoiceinfoCtrl', personinvoiceinfoCtrl);
-function personinvoiceinfoCtrl($scope, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $filter, $translate) {
+function personinvoiceinfoCtrl($scope, $log, $translate, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $filter, $translate) {
     var pii = this;
     $rootScope.uService.EnterController("personinvoiceinfoCtrl");
     $scope.item = {};

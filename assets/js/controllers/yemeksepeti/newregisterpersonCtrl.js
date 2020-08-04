@@ -1,5 +1,5 @@
 ﻿app.controller('newregisterpersonCtrl', newregisterpersonCtrl);
-function newregisterpersonCtrl($rootScope, $scope, $modalInstance, $filter, item, $modal, $log, $window, Restangular, SweetAlert, toaster) {
+function newregisterpersonCtrl($rootScope, $translate, $scope, $modalInstance, $filter, item, $modal, $log, $window, Restangular, SweetAlert, toaster) {
     $rootScope.uService.EnterController("newregisterpersonCtrl");
     $scope.item = {};
     $scope.item.name = item.name;

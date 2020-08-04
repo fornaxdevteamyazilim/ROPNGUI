@@ -1,5 +1,5 @@
 ﻿app.controller('changeorderdriverCtrl', changeorderdriverCtrl);
-function changeorderdriverCtrl($scope, $modal, $filter, OrderStates, $modalInstance, Restangular, $stateParams, ngTableParams, SweetAlert, toaster, $window, $rootScope, $location, userService ) {
+function changeorderdriverCtrl($scope, $modal, $translate, $filter, OrderStates, $modalInstance, Restangular, $stateParams, ngTableParams, SweetAlert, toaster, $window, $rootScope, $location, userService ) {
     $rootScope.uService.EnterController("changeorderdriverCtrl");
     var cod;
     $scope.state = {};

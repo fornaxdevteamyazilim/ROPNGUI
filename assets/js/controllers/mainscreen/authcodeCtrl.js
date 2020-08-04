@@ -9,7 +9,7 @@
     };
 });
 app.controller('authcodeCtrl', authcodeCtrl);
-function authcodeCtrl($rootScope, $scope, $modalInstance, $log, toaster, Restangular, $window) {
+function authcodeCtrl($rootScope, $scope, $modalInstance, $translate, $log, toaster, Restangular, $window) {
     $rootScope.uService.EnterController("authcodeCtrl");
     $scope.InpuntAuthCode = function (AuthCode) {
         Restangular.one('User/CheckAuth').get({

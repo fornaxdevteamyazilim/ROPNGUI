@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     app.controller('storepaymenttypeCtrl', storepaymenttypeCtrl);
-    function storepaymenttypeCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope) {
+    function storepaymenttypeCtrl($scope, $log, $modal, $translate, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope) {
         var vm = this;
         $scope.objectType = 'storepaymenttype';
         $scope.SelectedItem = null;

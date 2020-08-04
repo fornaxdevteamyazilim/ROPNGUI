@@ -1,5 +1,5 @@
 ﻿app.controller('changestoredataCtrl', changestoredataCtrl);
-function changestoredataCtrl($rootScope, $scope, $modalInstance, item, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
+function changestoredataCtrl($rootScope, $scope,$translate, $modalInstance, item, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
     $rootScope.uService.EnterController("changestoredataCtrl");
     angular.copy(item.Store.name, $scope.StoreName);
     if (item && item.Store && item.Store.id) {

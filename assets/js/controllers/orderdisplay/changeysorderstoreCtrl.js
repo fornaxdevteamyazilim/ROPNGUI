@@ -1,5 +1,5 @@
 ﻿app.controller('changeysorderstoreCtrl', changeysorderstoreCtrl);
-function changeysorderstoreCtrl($rootScope, $scope, $modalInstance, order, Restangular, toaster, $window, $translate) {
+function changeysorderstoreCtrl($rootScope, $translate, $scope, $modalInstance, order, Restangular, toaster, $window, $translate) {
     $rootScope.uService.EnterController("changeysorderstoreCtrl");
     $scope.translate = function () {
         $scope.trchangeysorderstore = $translate.instant('main.CHANGEYSORDERSTORE');

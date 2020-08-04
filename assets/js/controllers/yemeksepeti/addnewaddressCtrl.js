@@ -1,5 +1,5 @@
 ﻿app.controller('addnewaddressCtrl', addnewaddressCtrl);
-function addnewaddressCtrl($rootScope, $scope, $modalInstance, $filter, item, $modal, $log, $window, Restangular, SweetAlert, toaster, NG_SETTING) {
+function addnewaddressCtrl($rootScope, $translate, $scope, $modalInstance, $filter, item, $modal, $log, $window, Restangular, SweetAlert, toaster, NG_SETTING) {
     $rootScope.uService.EnterController("addnewaddressCtrl");
     $scope.item = {};
     $scope.item.ysaddress = item.ysaddress;

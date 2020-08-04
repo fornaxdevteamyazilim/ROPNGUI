@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     app.controller('inventorydeliveryinvoicerelationCtrl', inventorydeliveryinvoicerelationCtrl);
-    function inventorydeliveryinvoicerelationCtrl($rootScope, $scope, Restangular, $modalInstance, $filter, item, $log, $window, ngnotifyService, ngTableParams, toaster) {
+    function inventorydeliveryinvoicerelationCtrl($rootScope, $translate, $scope, Restangular, $modalInstance, $filter, item, $log, $window, ngnotifyService, ngTableParams, toaster) {
         $rootScope.uService.EnterController("inventorydeliveryinvoicerelationCtrl");
         var data = item;
         $scope.UnasSigned = function (item) {
