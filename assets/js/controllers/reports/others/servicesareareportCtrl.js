@@ -1,5 +1,5 @@
 ﻿app.controller('servicesareareportCtrl', servicesareareportCtrl);
-function servicesareareportCtrl($scope, $modal, $filter, SweetAlert, Restangular, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $element, $translate) {
+function servicesareareportCtrl($scope, $modal, $filter, $translate, SweetAlert, Restangular, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $element, $translate) {
     $rootScope.uService.EnterController("servicesareareportCtrl");
     userService.userAuthorizated();
     if (userService.userIsInRole("Admin") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("LC") || userService.userIsInRole("AREAMANAGER") || userService.userIsInRole("ACCOUNTING") || userService.userIsInRole("PH") || userService.userIsInRole("MarketingDepartment") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("FinanceDepartment")) {

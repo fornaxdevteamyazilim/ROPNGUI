@@ -1,5 +1,5 @@
 ﻿app.controller('podCtrl', podCtrl);
-function podCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
+function podCtrl($rootScope, $scope, $log,$translate, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("podCtrl");
     var vm = this;
     $scope.item = {};

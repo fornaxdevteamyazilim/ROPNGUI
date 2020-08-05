@@ -1,5 +1,5 @@
 ﻿app.controller('orderpersonaddresseditCtrl', orderpersonaddresseditCtrl);
-function orderpersonaddresseditCtrl($scope, $modalInstance, $filter, $log, $window, AddressID, Restangular, SweetAlert, toaster, $rootScope) {
+function orderpersonaddresseditCtrl($scope, $translate, $modalInstance, $filter, $log, $window, AddressID, Restangular, SweetAlert, toaster, $rootScope) {
     $rootScope.uService.EnterController("orderpersonaddresseditCtrl");
     $scope.item = {};
     if (AddressID) {

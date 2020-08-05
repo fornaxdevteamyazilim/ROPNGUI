@@ -1,5 +1,5 @@
 ﻿app.controller('incomeslipeditCtrl', incomeslipeditCtrl);
-function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, $modal, toaster, $window, $stateParams, $rootScope, $location, $translate, userService, ngnotifyService, $element) {
+function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular,$translate, ngTableParams, $modal, toaster, $window, $stateParams, $rootScope, $location, $translate, userService, ngnotifyService, $element) {
     $rootScope.uService.EnterController("incomeslipeditCtrl");
     userService.userAuthorizated();
     var mse = this;

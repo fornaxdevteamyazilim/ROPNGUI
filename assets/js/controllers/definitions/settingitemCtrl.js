@@ -1,5 +1,5 @@
 ﻿app.controller('settingitemCtrl', settingitemCtrl);
-function settingitemCtrl($rootScope, $scope, Restangular,ngnotifyService, $location, $window, toaster, userService, $filter, $modal, $element) {
+function settingitemCtrl($rootScope, $scope, $translate, Restangular,ngnotifyService, $location, $window, toaster, userService, $filter, $modal, $element) {
     $rootScope.uService.EnterController("settingitemCtrl");
     //userService.userAuthorizated();
     var sti = this;

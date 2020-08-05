@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('TagModalCtrl', TagModalCtrl);
-function TagModalCtrl($rootScope, $scope, $modalInstance, ObjectID, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
+function TagModalCtrl($rootScope, $scope, $translate, $modalInstance, ObjectID, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
     $rootScope.uService.EnterController("TagModalCtrl");
     $scope.search = '';
     $scope.ObjectID = ObjectID;

@@ -1,5 +1,5 @@
 ﻿app.controller('currentcallreasonCtrl', currentcallreasonCtrl);
-function currentcallreasonCtrl($rootScope, $scope, $modalInstance, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
+function currentcallreasonCtrl($rootScope, $scope,$translate, $modalInstance, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
     $rootScope.uService.EnterController("currentcallreasonCtrl");
     $scope.item = {};
     $scope.ShowObject = function (Container, idName, idvalue, resName) {

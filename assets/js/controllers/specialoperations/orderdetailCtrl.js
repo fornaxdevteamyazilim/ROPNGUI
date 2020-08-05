@@ -1,5 +1,5 @@
 ﻿app.controller('orderdetailCtrl', orderdetailCtrl);
-function orderdetailCtrl($rootScope, $scope, RelatedID, $modalInstance, Restangular, $stateParams, toaster, $window) {
+function orderdetailCtrl($rootScope, $scope, $translate, RelatedID, $modalInstance, Restangular, $stateParams, toaster, $window) {
     $rootScope.uService.EnterController("orderdetailCtrl");
     $scope.StoreData = {};
     $scope.getOrder = function () {

@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('storestreetaddressesCtrl', storestreetaddressesCtrl);
-function storestreetaddressesCtrl($rootScope, $scope, $modalInstance, addressID, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
+function storestreetaddressesCtrl($rootScope, $scope, $translate, $modalInstance, addressID, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
     $rootScope.uService.EnterController("storestreetaddressesCtrl");
     $scope.search = '';
     $scope.translate = function () {

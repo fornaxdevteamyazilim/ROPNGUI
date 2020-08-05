@@ -8,6 +8,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
     $scope.groupItem = [];
     $scope.Back = function () {
         $window.history.back();
+        $rootScope.preventNavigation(); 
     };
     $scope.translate = function () {
         $scope.trInventory = $translate.instant('main.INVENTORY');
@@ -27,6 +28,10 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
         $scope.selectinventorygroup = $translate.instant('main.SELECTINVENTORYGROUP');
         $scope.back = $translate.instant('main.BACK');
     };
+    stopTime = $timeout(function ()
+    {
+        $rootScope.preventNavigation();                
+    }, 1000);
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
         $scope.translate();
@@ -64,6 +69,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $defer.resolve($scope.item.items);
         }
     });
+  
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.ShowObject = true;
@@ -71,6 +77,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 toaster.pop('success',  $translate.instant('invantories.Updated'), $translate.instant('invantories.Savedserver'));
                 $location.path('/app/inventory/inventorycount/list');
                 $scope.ShowObject = false;
+                $rootScope.allowNavigation();
             }, function (response) {
                 $scope.ShowObject = false;
                 toaster.pop('Warning', "Error!", response.data.ExceptionMessage);
@@ -85,6 +92,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $scope.item = {};
                 $scope.item = Restangular.copy(resp);
                 ici.tableParams.reload();
+                $rootScope.allowNavigation();
                 $scope.ShowObject = false;
             }, function (response) {
                 $scope.ShowObject = false;
@@ -139,6 +147,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $scope.item.remove().then(function () {
                     SweetAlert.swal($translate.instant('invantories.Deleted'),  $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('/app/inventory/inventorycount/list');
+                    $rootScope.allowNavigation();
                 });
             }
             else {

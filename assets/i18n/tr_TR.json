@@ -2224,6 +2224,8 @@
     "SEARCHBYOPERATIONMANAGER": "Operasyon Müdürüne Göre Ara !",
     "OPERATIONMANAGER": "Operasyon Müdürü",
     "NEWPROTOTYPENAME": "Yeni Prototip İsmi",
+    "PLUNAME": "PLU İsmi",
+    "EXTNAME": "EXT İsmi",
     "PREPARINGDURATIONMAKETABLE": "Make Table Süresi",
     "PREPARINGDURATIONCUTTABLE": "Cut Table / Fırında Süresi",
     "MAXITEMCOUNT": "Max Adet",

@@ -1,5 +1,5 @@
 ﻿app.controller('orderdetailsCtrl', orderdetailsCtrl);
-function orderdetailsCtrl($scope, $rootScope, $log, $modal, $interval, $filter, Restangular, $stateParams, ngTableParams, SweetAlert, toaster, $window, $location, userService, ngnotifyService, $element, $translate) {
+function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interval, $filter, Restangular, $stateParams, ngTableParams, SweetAlert, toaster, $window, $location, userService, ngnotifyService, $element, $translate) {
     $rootScope.uService.EnterController("orderdetailsCtrl");
     userService.userAuthorizated();
     $scope.StoreData = {};

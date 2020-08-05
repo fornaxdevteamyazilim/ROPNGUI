@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('personaddresseditCtrl', personaddresseditCtrl);
-function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $rootScope, $stateParams, $location, userService, $element, ngnotifyService) {
+function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window,$translate, $rootScope, $stateParams, $location, userService, $element, ngnotifyService) {
     $("#search").focus();
     $rootScope.uService.EnterController("personaddresseditCtrl");
     var pae = this;

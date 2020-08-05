@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('acentextensionCtrl', acentextensionCtrl);
-function acentextensionCtrl($scope, $modalInstance, $log, $rootScope, toaster, Restangular, $window, $location, callsService, localStorageService, userService) {
+function acentextensionCtrl($scope, $modalInstance, $log, $translate, $rootScope, toaster, Restangular, $window, $location, callsService, localStorageService, userService) {
     $rootScope.uService.EnterController("acentextensionCtrl");
     if (!userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("Alonet"))
         $scope.ShowClientName = true;

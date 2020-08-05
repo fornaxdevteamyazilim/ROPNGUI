@@ -15,6 +15,8 @@ function productprototypelistCtrl($scope, $log, $modal, Restangular, ngTablePara
         $scope.trOrderableValue = $translate.instant('main.ORDERABLEVALUE');
         $scope.trPrice = $translate.instant('main.PRICE');
         $scope.trMember = $translate.instant('main.MEMBER');
+        $scope.trPluname = $translate.instant('main.PLUNAME');
+        $scope.trExtname = $translate.instant('main.EXTNAME');
         $scope.vat = $translate.instant('main.VAT');
 
     }

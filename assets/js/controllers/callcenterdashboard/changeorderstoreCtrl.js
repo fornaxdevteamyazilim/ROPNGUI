@@ -1,5 +1,5 @@
 ﻿app.controller('changeorderstoreCtrl', changeorderstoreCtrl);
-function changeorderstoreCtrl($rootScope, $scope, $modalInstance, item, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
+function changeorderstoreCtrl($rootScope,$translate, $scope, $modalInstance, item, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
     $rootScope.uService.EnterController("changeorderstoreCtrl");
     var ao = this;
     $scope.Stores = [];

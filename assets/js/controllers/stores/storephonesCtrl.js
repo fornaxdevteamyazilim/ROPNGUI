@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('storephonesCtrl', storephonesCtrl);
-function storephonesCtrl($rootScope, $scope, $modalInstance, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
+function storephonesCtrl($rootScope, $scope, $modalInstance, $translate, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
     $rootScope.uService.EnterController("storephonesCtrl");
     $scope.Stores = [];
     var sp = this;

@@ -1,5 +1,5 @@
 ﻿app.controller('changeorderstate2Ctrl', changeorderstate2Ctrl);
-function changeorderstate2Ctrl($rootScope, $scope, $modalInstance, item, Restangular, toaster, $window, $translate) {
+function changeorderstate2Ctrl($rootScope, $scope, $translate, $modalInstance, item, Restangular, toaster, $window, $translate) {
     $rootScope.uService.EnterController("changeorderstate2Ctrl");
     $scope.OrderNo = item.id;
     $scope.OrderNumber = item.OrderNumber;

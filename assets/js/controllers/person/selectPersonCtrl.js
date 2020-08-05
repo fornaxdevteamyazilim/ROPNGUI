@@ -1,5 +1,5 @@
 ﻿app.controller('selectPersonCtrl', selectPersonCtrl);
-function selectPersonCtrl($rootScope, $scope, $modalInstance, Restangular, ngTableParams, $filter, searchname, searchphone, $log, $window) {
+function selectPersonCtrl($rootScope, $scope, $modalInstance, $translate, Restangular, ngTableParams, $filter, searchname, searchphone, $log, $window) {
     $rootScope.uService.EnterController("selectPersonCtrl");
     $scope.SelectedItem = null;
     $scope.ShowDetail = false;

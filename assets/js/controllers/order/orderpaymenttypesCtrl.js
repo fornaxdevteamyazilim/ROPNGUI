@@ -1,5 +1,5 @@
 ﻿app.controller('orderpaymenttypesCtrl', orderpaymenttypesCtrl);
-function orderpaymenttypesCtrl($scope, $rootScope, $modalInstance, item, Restangular, toaster, $window, $translate) {
+function orderpaymenttypesCtrl($scope, $translate, $rootScope, $modalInstance, item, Restangular, toaster, $window, $translate) {
     $scope.OrderNo = item.id;
     $rootScope.uService.EnterController("orderpaymenttypesCtrl");
     $scope.OrderNumber = item.OrderNumber;

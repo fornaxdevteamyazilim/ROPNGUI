@@ -1,5 +1,5 @@
 ﻿app.controller('kdslastordersCtrl', kdslastordersCtrl);
-function kdslastordersCtrl($rootScope, $scope, $modalInstance, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
+function kdslastordersCtrl($rootScope, $scope, $modalInstance, $translate, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
     $rootScope.uService.EnterController("kdslastordersCtrl");
     $scope.translate = function () {
         $scope.trQuantity = $translate.instant('main.QUANTITY');

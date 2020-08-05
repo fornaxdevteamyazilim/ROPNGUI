@@ -9,7 +9,7 @@
     };
 });
 app.controller('loginpasswordCtrl', loginpasswordCtrl);
-function loginpasswordCtrl($rootScope, $scope, $modalInstance, $log, toaster, Restangular, $window) {
+function loginpasswordCtrl($rootScope, $scope, $modalInstance, $translate, $log, toaster, Restangular, $window) {
     $rootScope.uService.EnterController("loginpasswordCtrl");
     $scope.InpuntKey = function (data) {
         $scope.CardID = data;
