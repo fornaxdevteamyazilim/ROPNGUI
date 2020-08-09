@@ -90,7 +90,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
     });
     $scope.CallReason = function (type, root) {
         if ($rootScope.user && $rootScope.user.UserRole) {
-            if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("Driver")) {
+            if (userService.userIsInRole("CALLCENTER") ||  userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CMRESTORANHATTI") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("Driver")) {
                 Restangular.all('callreason').getList({
                     pageNo: 1,
                     pageSize: 1000,

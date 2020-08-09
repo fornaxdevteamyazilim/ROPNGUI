@@ -26,7 +26,7 @@ function storenotelistCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
 
     $scope.BuildSearchString = function () {
         var result = [];
-        if (userService.userIsInRole("MemberAdmin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("LC") || userService.userIsInRole("Admin")|| userService.userIsInRole("CALLCENTER")|| userService.userIsInRole("CCMANAGER")|| userService.userIsInRole("CMRESTORANHATTI")) {
+        if (userService.userIsInRole("MemberAdmin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("LC") || userService.userIsInRole("Admin")|| userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CMRESTORANHATTI") || userService.userIsInRole("CCMANAGER")|| userService.userIsInRole("CMRESTORANHATTI")) {
             if (vm.search) {
                 result.push("name like '%" + vm.search + "%'");
             }

@@ -3242,7 +3242,14 @@
       "OrderConfirmed.":"Order Confirmed.",
       "NotSaved":"Not Saved !",
       "ServerConnectionError":"Server Connection Error",
-      "Youwillnotbeablerecoverthisrecord":"You will not be able to recover this record!"
+      "Youwillnotbeablerecoverthisrecord":"You will not be able to recover this record!",
+      "ACCOUNTCLOSED":"ACCOUNT CLOSED",
+      "UNABLERECEIVEPAYMENT":"UNABLE RECEIVE PAYMENT !",
+      "PAYMENTRECEIVED":"PAYMENT RECEIVED.",
+      "NEWPAYMENTRECORDED":"NEW PAYMENT RECORDED !",
+      "PasswordIncorrect":"Password Incorrect!",
+      "YOURENOTAUTHORIZEDTODOTHAT":"YOU'RE NOT AUTHORIZED TO DO THAT !",
+      "ALLACCOUNTSHAVEBEENCLOSED":"ALL ACCOUNTS HAVE BEEN CLOSED."
     },
     "yemeksepetifile":{
       "Updatefailed":"Update failed !",
