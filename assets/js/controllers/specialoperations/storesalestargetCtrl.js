@@ -1,5 +1,18 @@
-﻿app.controller('storesalestargetCtrl', storesalestargetCtrl);
-function storesalestargetCtrl($rootScope, $scope, Restangular, ngTableParams, toaster, $translate, $element, $modal, $filter) {
+﻿app.directive('ngFiles', ['$parse', function ($parse) {
+
+    function fn_link(scope, element, attrs) {
+        var onChange = $parse(attrs.ngFiles);
+        element.on('change', function (event) {
+            onChange(scope, { $files: event.target.files });
+        });
+    };
+
+    return {
+        link: fn_link
+    }
+} ]);
+app.controller('storesalestargetCtrl', storesalestargetCtrl);
+function storesalestargetCtrl($rootScope, $scope, Restangular, ngTableParams, toaster, $translate, $element, $http,NG_SETTING) {
     $rootScope.uService.EnterController("storesalestargetCtrl");
     var sst = this;
     $scope.translate = function () {
@@ -16,6 +29,61 @@ function storesalestargetCtrl($rootScope, $scope, Restangular, ngTableParams, to
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
         $scope.translate();
     });
+//UploadExcel
+$scope.selectedFile = null;  
+    $scope.msg = "";  
+    
+    $scope.getTheFiles = function ($files) {
+        $scope.selectedFile = $files[0];   
+        // angular.forEach($files, function (value, key) {
+        //     formdata.append(key, value);
+        // });
+    };
+    $scope.handleFile = function () {    
+        var file = $scope.selectedFile;    
+        if (file) {    
+            var reader = new FileReader();    
+            reader.onload = function (e) {    
+                var data = e.target.result;    
+                var workbook = XLSX.read(data, { type: 'binary' });    
+                var first_sheet_name = workbook.SheetNames[0];    
+                var dataObjects = XLSX.utils.sheet_to_json(workbook.Sheets[first_sheet_name]);    
+                //console.log(excelData);    
+                if (dataObjects.length > 0) {  
+                    $scope.save(dataObjects);   
+                } else {  
+                    $scope.msg = "Error : Something Wrong !";  
+                }    
+            }    
+            reader.onerror = function (ex) {    
+            }    
+            reader.readAsBinaryString(file);  
+        }  
+    }  
+    $scope.save = function (data) {    
+        $http({  
+            method: "POST",  
+            url: NG_SETTING.apiServiceBaseUri + "/api/tools/UploadStoreSalesTargets",  
+            data: JSON.stringify(data),  
+            headers: {  
+                'Content-Type': 'application/json'  
+            }    
+        }).then(function (data) {  
+            if (data.status) {  
+                $scope.msg = "Data has been inserted !";  
+                toaster.pop('success',$translate.instant('orderfile.Saved') , 'Saved.');
+                sst.tableParams.reload();
+            }  
+            else {  
+                $scope.msg = "Error : Something Wrong";  
+                toaster.pop('error', "Error", "Upload failed!");
+            }  
+        }, function (error) {  
+            $scope.msg = "Error : Something Wrong";  
+            toaster.pop('error', "Error", "Upload failed!");
+        })  
+      }  
+//UploadExcel
     $scope.saveData = function () {
         if (this.item.restangularized) {
             this.item.put().then(function (res) {

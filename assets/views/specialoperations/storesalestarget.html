@@ -69,6 +69,19 @@
                     </td>
                 </tr>
             </table>
+            <div>
+                <div>
+                    File Upload
+                </div>
+                
+                <input type="file" name="file" class="form-control"  id="file1"
+                ng-files="getTheFiles($files)" />  
+                 
+                    <input type="button" value="Import Data" class="btn btn-default"  
+                           ng-click="handleFile()" />  
+                <br/>  
+                <p ng-bind="msg"></p>  
+            </div>
         </div>
     </div>
 </div>

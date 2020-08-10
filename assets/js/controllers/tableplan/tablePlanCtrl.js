@@ -1,5 +1,15 @@
-﻿app.controller('tablePlanCtrl', tablePlanCtrl);
-function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $filter, $window, $rootScope, $location, userService, $element) {
+﻿app.filter("getDiff", function() {
+    return function(time) {
+      var startDate = new Date(time.startDate);
+      var endDate = new Date(time.endDate);
+      var milisecondsDiff = endDate - startDate;
+      
+        return Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2}) + ":" + (Math.floor(milisecondsDiff/(1000*60))%60).toLocaleString(undefined, {minimumIntegerDigits: 2})  + ":" + (Math.floor(milisecondsDiff/1000)%60).toLocaleString(undefined, {minimumIntegerDigits: 2}) ;
+    
+    }
+  });
+app.controller('tablePlanCtrl', tablePlanCtrl);
+function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $filter, $window, $rootScope, $location, userService, $element,ngnotifyService) {
     $rootScope.uService.EnterController("tablePlanCtrl");
     $scope.tableplans = [];
     $scope.PersonCount = [];
@@ -12,17 +22,26 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
     //};
     //**************************************************//
     $scope.ShowOerderItems = function (order) {
-                var value = [];
-                for (var j = 0; j < order.items.length; j++) {
-                    value.push(order.items[j].Product)
-                    for (var k = 0; k < order.items[j].items.length; k++) {
-                        value.push(order.items[j].items[k].Product);
-                    }
-                }
-                order["OrderProducts"] = value;
+        var value = [];
+        for (var j = 0; j < order.items.length; j++) {
+            value.push(order.items[j].Product)
+            for (var k = 0; k < order.items[j].items.length; k++) {
+                value.push(order.items[j].items[k].Product);
+            }
+        }
+        order["OrderProducts"] = value;
 
-                order.OrderDateTXT = $filter('date')(order.OrderDate, 'HH:mm dd.MM.yyyy');
+        order.OrderDateTXT = $filter('date')(order.OrderDate, 'HH:mm dd.MM.yyyy');
         return order;
+    };
+
+    $scope.FormatClock = function (val) {
+        var n=new Date();
+        var milisecondsDiff = n - val;
+    
+      return Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2}) + ":" + (Math.floor(milisecondsDiff/(1000*60))%60).toLocaleString(undefined, {minimumIntegerDigits: 2})  + ":" + (Math.floor(milisecondsDiff/1000)%60).toLocaleString(undefined, {minimumIntegerDigits: 2}) ;
+ 
+        //return $filter('date')(ngnotifyService.ServerTime(val), 'HH:mm:ss');
     };
     $scope.GetOrderPaymentsTotal = function (data) {
         var ptotal = 0;
@@ -35,7 +54,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         return order.Amount - ptotal;
     };
     $scope.LoadStoreTablePlans = function () {
-        $scope.isWaiting = true;
+        //$scope.isWaiting = true;
         Restangular.all('tableplan').getList({
             pageNo: 1,
             pageSize: 1000,
@@ -51,14 +70,20 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             }
             $scope.selectedOrder = '';
             $scope.tableplans = result
-            $scope.isWaiting = false;
+            //$scope.isWaiting = false;
             $scope.tool = { icon: 'assets/images/InStore.png' };
         }, function (response) {
-            toaster.pop('error', "Server error", response.data.ExceptionMessage);
-            $scope.isWaiting = false;
+            if (response.data && response.data.ExceptionMessage)
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
+            else
+                toaster.pop('error', "Server error", "Error loading data!");
+            //$scope.isWaiting = false;
         });
     };
     $scope.LoadStoreTablePlans();
+    var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
+        $scope.LoadStoreTablePlans();
+    });
     $scope.PersonSelect = function (item) {
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/tableplan/SelectPersonCount.html',
@@ -120,11 +145,11 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
     };
     $scope.printOrder = function (data) {
         if (data) {
-        Restangular.all('ordertools/PrintReciept').getList({
-            OrderID: data.id
-        }).then(function (_orderItems) {
-        }, function (response) {
-        });
+            Restangular.all('ordertools/PrintReciept').getList({
+                OrderID: data.id
+            }).then(function (_orderItems) {
+            }, function (response) {
+            });
         }
     };
     $scope.OrderPaymentDeteails = function (data) {
@@ -134,7 +159,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             Restangular.restangularizeElement('', order, 'order');
             if (order.restangularized && order.id) {
                 order.put().then(function (resp) {
-                    $scope.LoadStoreTablePlans();
+                    //$scope.LoadStoreTablePlans();
                     $scope.ShowObject = true;
                     toaster.pop('success', "Order Closed !");
                 }, function (response) {
@@ -144,33 +169,33 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             }
         } else {
             Restangular.one('order', data.id).get().then(function (result) {
-           var data = result;
-           var modalInstance = $modal.open({
-               templateUrl: 'assets/views/order/orderpayments.html',
-               controller: 'orderpaymentCtrl',
-               size: 'lg',
-               backdrop: '',
-               resolve: {
-                   Order: function () {
-                       return data;
-                   },
-               }
-           });
-           modalInstance.result.then(function (item) {
-               if (item.msg == 'ECRPayment') {
-                   $scope.LoadStoreTablePlans();
-               }
-               if (item.msg == 'OtherPayment') {
-                   if (item.ReqOrderAmount <= 0) {
-                       $scope.LoadStoreTablePlans();
-                   }
-               }
-               $scope.ShowObject = true;
-           })
-       }, function (response) {
-           $scope.ShowObject = true;
-           toaster.pop('error', "Server error", response.data.ExceptionMessage);
-       });
+                var data = result;
+                var modalInstance = $modal.open({
+                    templateUrl: 'assets/views/order/orderpayments.html',
+                    controller: 'orderpaymentCtrl',
+                    size: 'lg',
+                    backdrop: '',
+                    resolve: {
+                        Order: function () {
+                            return data;
+                        },
+                    }
+                });
+                modalInstance.result.then(function (item) {
+                    if (item.msg == 'ECRPayment') {
+                        //$scope.LoadStoreTablePlans();
+                    }
+                    if (item.msg == 'OtherPayment') {
+                        if (item.ReqOrderAmount <= 0) {
+                            //$scope.LoadStoreTablePlans();
+                        }
+                    }
+                    $scope.ShowObject = true;
+                })
+            }, function (response) {
+                $scope.ShowObject = true;
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
+            });
         }
     };
     $scope.changeSlectedtable = function (item) {
@@ -178,7 +203,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         Restangular.restangularizeElement('', $scope.selectedOrder, 'order');
         if ($scope.selectedOrder.restangularized && $scope.selectedOrder.id) {
             $scope.selectedOrder.put().then(function (resp) {
-                $scope.LoadStoreTablePlans();
+                //$scope.LoadStoreTablePlans();
                 item['Selected'] = false;
             });
         }
@@ -201,12 +226,13 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
     $scope.$on('$destroy', function () {
         $element.remove();
         $rootScope.uService.ExitController("tablePlanCtrl");
+        OrderRefresh();
     });
 };
 app.controller('SelectPersoncountCtrl', SelectPersoncountCtrl);
 function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, $modal, tableID, SweetAlert, toaster, $window) {
     $rootScope.uService.EnterController("SelectPersoncountCtrl");
-    $scope.isWaiting = true;
+    //$scope.isWaiting = true;
     $scope.Departments = [];
     $scope.PersonCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     $scope.dbClick = function () {
@@ -260,44 +286,45 @@ function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, 
         }
     };
     $scope.InsotreOrder = function (PersonCount) {
-        if ($scope.isWaiting == true) {
-            $scope.isWaiting = false;
-        var data = $scope.GetDepartment();
-        if (data != null) {
-            var order = {
-                StoreTableID: tableID,
-                persons: [],
-                OrderTypeID: 0,
-                StoreID: $rootScope.user.StoreID,
-                DepartmentID: $rootScope.user.UserRole.OrderSource.Department.id
+        //if ($scope.isWaiting == true) {
+          //  $scope.isWaiting = false;
+            var data = $scope.GetDepartment();
+            if (data != null) {
+                var order = {
+                    StoreTableID: tableID,
+                    persons: [],
+                    OrderTypeID: 0,
+                    StoreID: $rootScope.user.StoreID,
+                    DepartmentID: $rootScope.user.UserRole.OrderSource.Department.id
+                }
+                for (var i = 0; i < PersonCount; i++) {
+                    var orderperson = { PersonIndex: i + 1 }
+                    order.persons.push(orderperson);
+                }
+                Restangular.restangularizeElement('', order, 'order');
+                order.post().then(function (resp) {
+                    location.href = '#/app/orders/orderStoreTable/' + resp.id;
+                    $scope.ok('Yes');
+                },
+                    function (resp) {
+                        //$scope.isWaiting = true;
+                        toaster.pop('error', resp.data.ExceptionMessage, "Failed to Create New Order !");
+                    });
+            } else {
+                //TODO Swet Alert
             }
-            for (var i = 0; i < PersonCount; i++) {
-                var orderperson = { PersonIndex: i + 1 }
-                order.persons.push(orderperson);
-            }
-            Restangular.restangularizeElement('', order, 'order');
-            order.post().then(function (resp) {
-                location.href = '#/app/orders/orderStoreTable/' + resp.id;
-                $scope.ok('Yes');
-            },
-            function (resp) {
-                $scope.isWaiting = true;
-                toaster.pop('error', resp.data.ExceptionMessage, "Failed to Create New Order !");
-            });
-        } else {
-            //TODO Swet Alert
-        }
-        }
+        //}
     };
     $scope.ok = function () {
         $modalInstance.close();
-        $scope.isWaiting = true;
+        //$scope.isWaiting = true;
     };
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
     $scope.$on('$destroy', function () {
         $rootScope.uService.ExitController("SelectPersoncountCtrl");
+
     });
 };
 app.directive('ngPosition', ngPosition);

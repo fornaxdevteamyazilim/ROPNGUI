@@ -116,6 +116,9 @@
                                         {{'main.TODAYINCOME' | translate}} : <span class="pull-right"> <label ng-class="{'badge badge-danger':item.TodayIncome < item.PrewWeekIncome ,'badge badge-success':item.TodayIncome > item.PrewWeekIncome , 'badge badge-inverse':item.TodayIncome == item.PrewWeekIncome}">{{item.TodayIncome | number:2 }}</label> TL</span>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TARGETS' | translate}} : <span class="pull-right">{{::item.TodaySalesTarget | number:2 }} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
                                         {{'main.TODAYTC' | translate}} :
                                         <span class="pull-right">
                                             <span ng-class="{'fa fa-arrow-down':item.TodayTC < item.PrewWeekTC, 'fa fa-arrow-up':item.TodayTC > item.PrewWeekTC}"></span>
@@ -226,6 +229,9 @@
                                         {{'main.TODAYINCOME' | translate}} : <span class="pull-right">{{:refresh:totalToday| number:2}} TL</span>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
+                                        {{'main.TARGETS' | translate}} : <span class="pull-right">{{::item.TodaySalesTarget | number:2 }} TL</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border:1px solid;">
                                         {{'main.TODAYTC' | translate}} : <span class="pull-right">{{:refresh:totalTodayTC}} {{'main.PIECE' | translate}}</span>
                                     </div>
                                 </div>
@@ -313,7 +319,7 @@
                 <thead>
                     <tr>
                         <th colspan="3" class="col-lg-3 text-bold"></th>
-                        <th colspan="3" class="col-lg-3 text-bold bg-grey">{{'main.TODAY' | translate}}</th>
+                        <th colspan="4" class="col-lg-3 text-bold bg-grey">{{'main.TODAY' | translate}}</th>
                         <th colspan="3" class="col-lg-3 text-bold">{{'main.PREWWEEK' | translate}}</th>
                         <th colspan="3" class="col-lg-3 text-bold bg-grey">{{'main.LASTDAY' | translate}}</th>
                         <th colspan="3" class="col-lg-3 text-bold">{{'main.PREVMONTH' | translate}}</th>
@@ -326,6 +332,7 @@
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('RegionalSalesRank')">{{'main.REGIONALSALESRANK' | translate}}</th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('SalesRank')">{{'main.SALESRANK' | translate}}</th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey" ng-click="ChangeSortData('TodayIncome')"> <span class="pull-right">{{'main.TODAYINCOME' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey" ng-click="ChangeSortData('TodaySalesTarget')"> <span class="pull-right">{{'main.SALESTARGET' | translate}} (TL)</span></th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey" ng-click="ChangeSortData('TodayTC')"><span class="pull-right">{{'main.TODAYTC' | translate}}</span></th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold bg-grey" ng-click="ChangeSortData('TodayAC')"><span class="pull-right">{{'main.TODAYAC' | translate}} (TL)</span></th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold" ng-click="ChangeSortData('PrewWeekIncome')"> <span class="pull-right">{{'main.TODAYINCOME' | translate}} (TL)</span></th>
@@ -363,6 +370,9 @@
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
                             <span class="pull-right"> <label ng-class="{'badge badge-danger':item.TodayIncome < item.PrewWeekIncome ,'badge badge-success':item.TodayIncome > item.PrewWeekIncome , 'badge badge-inverse':item.TodayIncome == item.PrewWeekIncome}">{{item.TodayIncome | number:2 }} ₺</label></span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
+                            <span class="pull-right"> <label >{{item.TodaySalesTarget | number:0 }}₺</label></span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3 bg-grey">
                             <span>

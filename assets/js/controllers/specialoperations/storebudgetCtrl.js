@@ -28,8 +28,7 @@ function storebudgetCtrl($rootScope, $scope, NG_SETTING, $translate, $element,lo
         //     formdata.append(key, value);
         // });
     };
-    $scope.handleFile = function () {  
-  
+    $scope.handleFile = function () {    
         var file = $scope.selectedFile;    
         if (file) {    
             var reader = new FileReader();    

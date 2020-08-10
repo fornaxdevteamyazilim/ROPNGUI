@@ -7,12 +7,11 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
     //    isFirstOpen: false,
     //    isFirstDisabled: false
     //};
-    if ($rootScope.user.restrictions.idletimeout == 'Enable')
-        {
-            Idle.watch();
-            toaster.pop("success", "IdleTimeout", "Active.");
-        }
-        else 
+    if ($rootScope.user.restrictions.idletimeout == 'Enable') {
+        Idle.watch();
+        toaster.pop("success", "IdleTimeout", "Active.");
+    }
+    else
         Idle.watch();
     $scope.$on('IdleStart', function () {
         // the user appears to have gone idle
@@ -152,11 +151,11 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                 $scope.orders[i].OrderStateID = 6;
                 $scope.orders[i].put().then(
                     function (res) {
-                        toaster.pop("success", $translate.instant('invantories.Prepared'), $translate.instant('invantories.OrderOutput') );
+                        toaster.pop("success", $translate.instant('invantories.Prepared'), $translate.instant('invantories.OrderOutput'));
                         $scope.orders.splice(i, 1);
                     },
                     function (response) {
-                        toaster.pop('error',  $translate.instant('difinitions.UpdatedFailed'), response.data.ExceptionMessage);
+                        toaster.pop('error', $translate.instant('difinitions.UpdatedFailed'), response.data.ExceptionMessage);
                         $scope.LoadOrders();
                     }
                 );
@@ -171,7 +170,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
             Restangular.restangularizeElement('', state, 'orderstate')
             state.post().then(
                 function (res) {
-                    toaster.pop("success", $translate.instant('invantories.Prepared'),$translate.instant('invantories.Wasdelivered') );
+                    toaster.pop("success", $translate.instant('invantories.Prepared'), $translate.instant('invantories.Wasdelivered'));
                 });
         }
         else {
@@ -397,7 +396,7 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
         state.post().then(
             function (res) {
                 $rootScope.$emit('PreparedOrderRefresh', { id: $scope.order.id });
-                toaster.pop("success", $translate.instant('dispatcherfile.OrderOutput'),$translate.instant('dispatcherfile.OrdermarkedOut'));
+                toaster.pop("success", $translate.instant('dispatcherfile.OrderOutput'), $translate.instant('dispatcherfile.OrdermarkedOut'));
                 $scope.ok();
             }, function (response) {
                 toaster.pop('error', "Server error", response.data.ExceptionMessage);
