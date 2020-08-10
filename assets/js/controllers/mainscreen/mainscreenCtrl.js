@@ -100,7 +100,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
     };
     $scope.GetStoreStats();
     if ($rootScope.user && $rootScope.user.UserRole) {
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("STOREADMIN") || userService.userIsInRole("Alonet")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CMRESTORANHATTI") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("STOREADMIN") || userService.userIsInRole("Alonet")) {
             $rootScope.user.UserExtensionNumber = callsService.currentExtension = localStorageService.get('ExtensionNumber');
             $rootScope.user.ClientName = localStorageService.get('ClientName');
             if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {

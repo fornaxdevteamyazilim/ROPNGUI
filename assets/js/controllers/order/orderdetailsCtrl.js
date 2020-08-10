@@ -444,7 +444,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         })
     };
     $scope.CheckCode = function (item, root) {
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCBACKOFFICE") ||userService.userIsInRole("CCMANAGER")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCBACKOFFICE") || userService.userIsInRole("CMRESTORANHATTI") ||userService.userIsInRole("CCMANAGER")) {
             if (root == 'CancelOrder')
                 $scope.UpdateOrderStatus(item)
         } else {

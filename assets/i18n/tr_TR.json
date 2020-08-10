@@ -3242,7 +3242,14 @@
     "OrderConfirmed":"Sipariş Onaylandı",
     "NotSaved":"Kaydedilmedi",
     "ServerConnectionError":"Sunucu Bağlantı Hatası",
-    "Youwillnotbeablerecoverthisrecord":"Bu kaydı kurtarmak mümkün olmayacaktır!"
+    "Youwillnotbeablerecoverthisrecord":"Bu kaydı kurtarmak mümkün olmayacaktır!",
+    "ACCOUNTCLOSED":"HESAP KAPATILDI",
+    "UNABLERECEIVEPAYMENT":"ÖDEME ALINAMIYOR !",
+    "PAYMENTRECEIVED":"ÖDEME ALINDI.",
+    "NEWPAYMENTRECORDED":"YENİ ÖDEME KAYDEDİLDİ !",
+    "PasswordIncorrect":"Şifre Yanlış!",
+    "YOURENOTAUTHORIZEDTODOTHAT":"BUNU YAPMAYA YETKİLİ DEĞİLSİN !",
+    "ALLACCOUNTSHAVEBEENCLOSED":"HESAPLARIN HEPSİ KAPATILDI."
   },
   "yemeksepetifile":{
     "Updatefailed":"Güncelleme başarısız oldu !",

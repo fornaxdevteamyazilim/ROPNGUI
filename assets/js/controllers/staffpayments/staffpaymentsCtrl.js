@@ -65,10 +65,10 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
         driver.orders.splice(index, 1);
         Restangular.one('ordertools/updateorderascharged').get({ OrderID: OrderID }).then
             (function (restresult) {
-                toaster.pop("success", "ACCOUNT CLOSED.");
+                toaster.pop("success",  $translate.instant('orderfile.ACCOUNTCLOSED'));
             }, function (restresult) {
                 $scope.GetPayOff();
-                toaster.pop('warning', "UNABLE RECEIVE PAYMENT !", restresult.data.ExceptionMessage);
+                toaster.pop('warning',  $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
             })
     };
     $scope.CloseAcount = function (item, index, driver) {
@@ -80,12 +80,12 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 driver.orders.splice(driver.orders.indexOf(item), 1);
                 Restangular.one('ordertools/updateorderascharged').get({ OrderID: item.id }).then
                     (function (restresult) {
-                        toaster.pop('success', "PAYMENT RECEIVED.");
+                        toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
                         $scope.Showspinner = false;
                         $scope.isWaiting = false;
                     },
                     function (restresult) {
-                        toaster.pop('warning', "UNABLE TO RECEIVE PAYMENT !", restresult.data.ExceptionMessage);
+                        toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                         $scope.Showspinner = false;
                         $scope.isWaiting = false;
                     })
@@ -101,17 +101,17 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 payment.post().then(function (resp) {
                     Restangular.one('ordertools/updateorderascharged').get({ OrderID: resp.OrderID }).then
                         (function (restresult) {
-                            toaster.pop("success", "ACCOUNT CLOSED.");
+                            toaster.pop("success",  $translate.instant('orderfile.ACCOUNTCLOSED'));
                             $scope.isWaiting = false;
                             $scope.GetPayOff();
                         }, function (restresult) {
-                            toaster.pop('warning', "UNABLE TO RECEIVE PAYMENT !", restresult.data.ExceptionMessage);
+                            toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                             $scope.isWaiting = false;
                             $scope.GetPayOff();
                         })
                 }, function (resp) {
                     $scope.GetPayOff();
-                    toaster.pop('error', "NEW PAYMENT RECORDED !", resp.data.ExceptionMessage);
+                    toaster.pop('error',  $translate.instant('orderfile.NEWPAYMENTRECORDED'), resp.data.ExceptionMessage);
                     $scope.isWaiting = false
                 });
             }
@@ -132,12 +132,12 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                     userService.cardLogin(password,true).then(function (response) {
                         swal({
                             title: "'" + Payment.name + "'  All Accounts Will Be Closed !",
-                            text: "Do you approve of this operation? ?",
+                            text:  $translate.instant('margeaddress.Doyouapproveofthisoperation'),
                             type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Yes",
-                            cancelButtonText: "No",
+                            confirmButtonText:  $translate.instant('mainscreen.yes'),
+                            cancelButtonText:  $translate.instant('mainscreen.no'),
                             closeOnConfirm: true
                         }, function () {
                             for (var i = 0; i < item.length; i++) {
@@ -145,9 +145,9 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                                     if (item[i].PaymentStatusID == 1) {
                                         Restangular.one('ordertools/updateorderascharged').get({ OrderID: item[i].id }).then
                                             (function (restresult) {
-                                                toaster.pop('success', "PAYMENT RECEIVED.");
+                                                toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
                                             }, function (restresult) {
-                                                toaster.pop('warning', "UNABLE TO RECEIVE PAYMENT !", restresult.data.ExceptionMessage);
+                                                toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                                             })
                                     } else {
                                         var payment = {
@@ -161,12 +161,12 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                                             toaster.pop("success", "'" + Payment.name + "All Accounts Will Be Closed.");
                                             Restangular.one('ordertools/updateorderascharged').get({ OrderID: resp.OrderID }).then
                                                 (function (restresult) {
-                                                    toaster.pop('success', "PAYMENT RECEIVEDI.");
+                                                    toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
                                                 }, function (restresult) {
-                                                    toaster.pop('warning', "UNABLE TO RECEIVE PAYMENT !", restresult.data.ExceptionMessage);
+                                                    toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                                                 })
                                         }, function (resp) {
-                                            toaster.pop('error', "NO NEW PAYMENT RECORDED !", resp.data.ExceptionMessage);
+                                            toaster.pop('error',  $translate.instant('orderfile.NONEWPAYMENTRECORDED'), resp.data.ExceptionMessage);
                                         });
                                     }
                                 }
@@ -176,7 +176,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                         });
                     }, function (err) {
                         if (err) {
-                            toaster.pop('warning', "Password Incorrect!", err.error_description);
+                            toaster.pop('warning',  $translate.instant('orderfile.PasswordIncorrect'), err.error_description);
                             $scope.Showspinner = false;
                             return 'No';
                         }
@@ -189,7 +189,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 }
             })
         } else {
-            toaster.pop("warning", "YOU'RE NOT AUTHORIZED TO DO THAT !");
+            toaster.pop("warning",  $translate.instant('orderfile.YOURENOTAUTHORIZEDTODOTHAT'));
             $scope.Showspinner = false;
             return 'No';
         }
@@ -208,21 +208,21 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                     userService.cardLogin(password,true).then(function (response) {
                         swal({
                             title: "'" + Driver + "' All Accounts Will Be Closed !",
-                            text: "Do you approve of this operation ?",
+                            text:  $translate.instant('margeaddress.Doyouapproveofthisoperation'),
                             type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Yes",
-                            cancelButtonText: "No",
+                            confirmButtonText:  $translate.instant('mainscreen.yes'),
+                            cancelButtonText:  $translate.instant('mainscreen.no'),
                             closeOnConfirm: true
                         }, function () {
                             for (var i = 0; i < item.length; i++) {
                                 if (item[i].PaymentStatusID == 1) {
                                     Restangular.one('ordertools/updateorderascharged').get({ OrderID: item[i].id }).then
                                         (function (restresult) {
-                                            toaster.pop('success', "PAYMENT RECEIVED.");
+                                            toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
                                         }, function (restresult) {
-                                            toaster.pop('warning', "UNABLE TO RECEIVE PAYMENT !", restresult.data.ExceptionMessage);
+                                            toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                                         })
                                 } else {
                                     var payment = {
@@ -233,15 +233,15 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                                     };
                                     Restangular.restangularizeElement('', payment, 'orderpayment');
                                     payment.post().then(function (resp) {
-                                        toaster.pop("success", "'" + Driver + "HESAPLARIN HEPSİ KAPATILDI.");
+                                        toaster.pop("success", "'" + Driver +  $translate.instant('orderfile.ALLACCOUNTSHAVEBEENCLOSED'));
                                         Restangular.one('ordertools/updateorderascharged').get({ OrderID: resp.OrderID }).then
                                             (function (restresult) {
-                                                toaster.pop('success', "PAYMENT RECEIVED.");
+                                                toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
                                             }, function (restresult) {
-                                                toaster.pop('warning', "UNABLE TO RECEIVE PAYMENT !", restresult.data.ExceptionMessage);
+                                                toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                                             })
                                     }, function (resp) {
-                                        toaster.pop('error', "NO NEW PAYMENT RECORDED !", resp.data.ExceptionMessage);
+                                        toaster.pop('error',  $translate.instant('orderfile.NONEWPAYMENTRECORDED'), resp.data.ExceptionMessage);
                                     });
                                 }
                             }
@@ -250,7 +250,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                         });
                     }, function (err) {
                         if (err) {
-                            toaster.pop('warrning', "Password Incorrect!", err.error_description);
+                            toaster.pop('warrning',  $translate.instant('orderfile.PasswordIncorrect'), err.error_description);
                             $scope.Showspinner = false;
                             return 'No';
                         }
@@ -264,7 +264,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 }
             })
         } else {
-            toaster.pop("warning", "YOU'RE NOT AUTHORIZED TO DO THAT !");
+            toaster.pop("warning",  $translate.instant('orderfile.YOURENOTAUTHORIZEDTODOTHAT'));
             $scope.Showspinner = false;
             return 'No';
         }
@@ -274,11 +274,11 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
         if (item.PaymentStatusID == 1) {
             Restangular.one('ordertools/updateorderascharged').get({ OrderID: item.id }).then
                 (function (restresult) {
-                    toaster.pop('success', "PAYMENT RECEIVED.");
+                    toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
                     $scope.Showspinner = false;
                 },
                 function (restresult) {
-                    toaster.pop('warning', "UNABLE TO RECEIVE PAYMENT !", restresult.data.ExceptionMessage);
+                    toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                     $scope.Showspinner = false
                 })
         } else {
@@ -305,11 +305,11 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                     if (data.msg == "OtherPayment" || data.msg == "ECRPayment") {
                         Restangular.one('ordertools/updateorderascharged').get({ OrderID: item.id }).then
                             (function (restresult) {
-                                toaster.pop('success', "PAYMENT RECEIVED.");
+                                toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
                                 $scope.Showspinner = false;
                             },
                             function (restresult) {
-                                toaster.pop('warning', "UNABLE TO RECEIVE PAYMENT !", restresult.data.ExceptionMessage);
+                                toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                                 $scope.Showspinner = false;
                             })
                     }
@@ -338,7 +338,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                         $scope.ChangeOrderDriver(orderID, itemStates)
                     }, function (err) {
                         if (err) {
-                            toaster.pop('warrning', "Password Incorrect !", err.error_description);
+                            toaster.pop('warrning',  $translate.instant('orderfile.PasswordIncorrect'), err.error_description);
                             return 'No'
                         }
                         else {
@@ -350,7 +350,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 }
             })
         } else {
-            toaster.pop("warning", "YOU'RE NOT AUTHORIZED TO DO THAT !");
+            toaster.pop("warning",  $translate.instant('orderfile.YOURENOTAUTHORIZEDTODOTHAT'));
             return 'No';
         }
     };
