@@ -1238,12 +1238,15 @@ function orderItems($compile) {
         template:
             "<div class='col-lg-12 col-sm-12 col-md-12 col-xs-12'>" +
             "<div class='row text-dark text-bold text-extra-large'>" +
-            "<div id='div2' class='col-lg-6 col-md-10 col-sm-10 col-xs-10 margin-top-5'>" +
+            "<div id='div2' class='col-lg-7 col-md-7 col-sm-7 col-xs-7 margin-top-5'>" +
             "<label class='text-bold text-extra-large' ng-model='member.Quantity'><strong>{{member.Quantity}}</strong>  x </label>" +
             "&nbsp; <label class='text-bold text-extra-large text-capitalize ng'><strong> {{member.Product || member.ProductPrototype}} </strong></label>" +
             "</div>" +
-            "<div id='div2' class='col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-5'>" +
-            "<label class='text-bold pull-right text-extra-large'>{{member.Amount| number : 2}} TL</label>" +
+            "<div id='div2' class='col-lg-3 col-md-3 col-sm-3 col-xs-3 margin-top-5'>" +
+            "<label class='text-bold text-extra-large'>{{member.Amount| number : 2}} TL</label>" +
+            "</div>" +
+            "<div id='div2' class='col-lg-1 col-md-1 col-sm-1 col-xs-1 margin-top-5'>" +
+            "<label class='text-extra-small'>({{member.AddDate| date:'HH:mm:ss'}})</label>" +
             "</div>" +
             "</div>" +
             "</div>",
@@ -1271,8 +1274,9 @@ function detailorderItems($compile) {
         },
         template:
             "<div class='row col-lg-12 col-md-12 col-sm-12 col-xs-12'>" +
-            "<label class='col-lg-8 col-md-6 col-sm-7 col-xs-7 text-capitalize' style='font-size:medium;'>" +
+            "<label class='col-lg-7 col-md-7 col-sm-7 col-xs-7 text-capitalize' style='font-size:medium;'>" +
             "<span class='margin-left-5'>{{member.Quantity}} X {{member.Product}}</span></label>" +
+            "<label class='pull-right text-extra-small'>({{member.AddDate| date:'HH:mm:ss'}})</label>" +
             "<label class='col-lg-3 col-md-3 col-sm-3 col-xs-3 text-large'>" +
             "<span>{{member.Amount | number : 2}} TL</span>" +
             "</label>" +

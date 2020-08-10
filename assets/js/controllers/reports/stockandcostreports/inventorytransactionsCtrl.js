@@ -113,7 +113,7 @@ function inventorytransactionsCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             { dataField: "Inventory.ItemCode", caption: "Code", dataType: "string" },
             { dataField: "Inventory.name", caption: "Inventory", dataType: "string" },
             { dataField: "InventoryUnit.name", caption: "UnitName", dataType: "string" },
-            { caption: "Units", dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: "Units", dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 4 } },
             { caption: "Price", dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "Amount", dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { dataField: "Repository", dataType: "string" },

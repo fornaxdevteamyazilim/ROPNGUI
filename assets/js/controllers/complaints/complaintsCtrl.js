@@ -47,7 +47,7 @@ function complaintsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, R
     $scope.ComplaintStatusID = "ComplaintStatusID = 0";
     $scope.BuildSearchString = function (src) {
         var result = [];
-        if ($rootScope.user.UserRole.Name != "CALLCENTER" && $rootScope.user.UserRole.Name != "CCMANAGER" && $rootScope.user.UserRole.Name != "LC" && $rootScope.user.UserRole.Name != "Admin" && $rootScope.user.UserRole.Name != "PHAdmin")
+        if ($rootScope.user.UserRole.Name != "CALLCENTER" && $rootScope.user.UserRole.Name != "CCMANAGER" && $rootScope.user.UserRole.Name != "LC" && $rootScope.user.UserRole.Name != "Admin" && $rootScope.user.UserRole.Name != "PHAdmin" && $rootScope.user.StoreID)
             result.push("StoreID=" + $rootScope.user.StoreID + "");
         if (comp.search && comp.search.length > 1)
             result.push("Persons.name like '%" + comp.search + "%'");

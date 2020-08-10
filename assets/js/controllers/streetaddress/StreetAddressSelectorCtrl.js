@@ -75,7 +75,7 @@ function StreetAddressSelectorCtrl($scope, $rootScope, $modalInstance, $location
             result.push("Subcities.id='" + $scope.SubcityID + "'");
         if ($scope.QuarterID && $scope.QuarterID != undefined)
             result.push("Quarters.id='" + $scope.QuarterID + "'");
-        if ($rootScope.user.UserRole.Name != "CALLCENTER" && $rootScope.user.UserRole.Name != "CCMANAGER" && $rootScope.user.UserRole.Name != "CMRESTORANHATTI" && $rootScope.user.UserRole.Name != "Admin") {
+        if ($rootScope.user.UserRole.Name != "CALLCENTER" && $rootScope.user.UserRole.Name != "CCMANAGER" && $rootScope.user.UserRole.Name != "CMRESTORANHATTI" && $rootScope.user.UserRole.Name != "Admin" && $rootScope.user.StoreID) {
             result.push("StoreStreetAddresses.StoreID='" + $rootScope.user.StoreID + "'");
         } else {
             result.push("StoreStreetAddresses.id<>'0'");

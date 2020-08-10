@@ -37,7 +37,8 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
             }, function (response) {
                 toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
-            Restangular.all('YemekSepetiRejectReason').getList({                
+            Restangular.all('YemekSepetiRejectReason').getList({   
+                search: "isActive=1",             
             }).then(function (items) {
                 angular.copy(items, $scope.YemekSepetiRejectReasons);                
             }, function (response) {

@@ -13,7 +13,7 @@ function restangularConfig(RestangularProvider) {
     //RestangularProvider.setBaseUrl('http://10.101.252.150:9067/api/'); //Little Caesars 9067
     //RestangularProvider.setBaseUrl('http://pizzahut.ropng.site:9075/api/'); //PH - Test
     //RestangularProvider.setBaseUrl('http://192.168.9.40:9065/api/'); //PH
-    RestangularProvider.setBaseUrl('http://192.168.9.40:9065/api/'); //localhost
+    RestangularProvider.setBaseUrl('http://localhost:9065/api/'); //localhost
 
     
     //RestangularProvider.setDefaultHeaders({ "Content-Type": "application/json;charset=utf-8" });

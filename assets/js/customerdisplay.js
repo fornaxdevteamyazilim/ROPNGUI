@@ -4,7 +4,7 @@
       $scope.$storage = $localStorage.$default({
           customerItems: []
       });
-      var pages=['page-idle','page-active','sosyal-mesafe','sosyal-mesafe2','sosyal-mesafe3'];
+      var pages=['page-idle','page-active'];//,'sosyal-mesafe','sosyal-mesafe2','sosyal-mesafe3'];
       var pageIndex=0;
       $scope.bgIndex = pages[pageIndex];
       $interval(function () {
