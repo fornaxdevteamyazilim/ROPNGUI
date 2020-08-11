@@ -211,6 +211,7 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             //if (isTimedOut && userServiceFactory.currentUser.UserRole.ShiftControl)// && userServiceFactory.currentUser.ShiftActive)
                 //$location.path("/login/lock");
             //else
+            $rootScope.updateSessionTimeOutState();
             if (!userServiceFactory.currentUser.ShiftActive && routeToShift && $location.path() != '/login/signin/logout') {
                 $location.path('/login/clockinout');
             } else if (userServiceFactory.currentUser && userServiceFactory.currentUser.UserRole && userServiceFactory.currentUser.UserRole.MemberID == '116642192568') {

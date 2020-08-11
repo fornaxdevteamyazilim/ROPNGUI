@@ -1,5 +1,5 @@
 ﻿app.controller('dispatcherCtrl', dispatcherCtrl);
-function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $modal, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, $translate, userService, ngnotifyService, $element, Idle, Keepalive) {
+function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $modal, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, $translate, userService, ngnotifyService, $element) {
     $rootScope.uService.EnterController("dispatcherCtrl");
     var dis = this;
     //$scope.oneAtATime = true;
@@ -7,34 +7,8 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
     //    isFirstOpen: false,
     //    isFirstDisabled: false
     //};
-    if ($rootScope.user.restrictions.idletimeout == 'Enable') {
-        Idle.watch();
-        toaster.pop("success", "IdleTimeout", "Active.");
-    }
-    else
-        Idle.watch();
-    $scope.$on('IdleStart', function () {
-        // the user appears to have gone idle
-        toaster.pop("success", "IdleTimeout", "Start.");
-    });
-    $scope.$on('IdleTimeout', function () {
-        // the user has timed out (meaning idleDuration + timeout has passed without any activity)
-        // this is where you'd log them
-        toaster.pop('error', "IdleTimeout", "Bye!");
-        $location.path("/login/lock");
-    });
-    $scope.$on('IdleEnd', function () {
-        // the user has come back from AFK and is doing stuff. if you are warning them, you can use this to hide the dialog
-        toaster.pop("success", "IdleTimeout", "Idle end.");
-    });
-    $scope.$on('IdleWarn', function (e, countdown) {
-        if (countdown < 3)
-            toaster.pop("warn", "IdleTimeout", ("IdleTimeout end in: " + countdown));
-        // follows after the IdleStart event, but includes a countdown until the user is considered timed out
-        // the countdown arg is the number of seconds remaining until then.
-        // you can change the title or display a warning dialog from here.
-        // you can let them resume their session by calling Idle.watch()
-    });
+    
+    
 
     $scope.getOrder = true;
     userService.userAuthorizated();

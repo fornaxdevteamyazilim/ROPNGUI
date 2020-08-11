@@ -95,6 +95,7 @@ function trendsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $int
         });
     };
     $scope.loadtrendsReport();
+    //$rootScope.enableSessionTimeOut();
     $scope.sumColumnJS = function sumColumnJS(array, col) {
         var sum = 0;
         array.forEach(function (value, index, array) {

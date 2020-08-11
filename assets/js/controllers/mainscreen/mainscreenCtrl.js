@@ -197,7 +197,7 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
     $scope.StartTimeOut = function () {
         userService.startTimeout(60000);
     };
-    $scope.StartTimeOut();
+    //$scope.StartTimeOut();
     $scope.isTimedOut = function () {
         return userService.TimedOut();
     };

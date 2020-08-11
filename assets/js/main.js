@@ -54,10 +54,12 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
         $rootScope.allowNavigation = function () {
             _preventNavigation = false;
             _preventNavigationUrl = null;
+            $rootScope.setSessionTimeOutState(true);
         };
         $rootScope.preventNavigation = function () {
             _preventNavigation = true;
             _preventNavigationUrl = $location.absUrl();
+            $rootScope.setSessionTimeOutState(false);
         }
         $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
             // Allow navigation if our old url wasn't where we prevented navigation from
@@ -93,7 +95,7 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
             name: 'ROP NG',
             author: 'Fornax A.Ş.',
             description: 'Retail Operation Platform NG',
-            version: '1.0.594',
+            version: '1.0.595',
             year: ((new Date()).getFullYear()),
             isMobile: (function () {// true if the browser is a mobile device
                 var check = false;
@@ -130,7 +132,7 @@ app.config(function ($httpProvider) {
                 if (request.url.endsWith(".html") && !request.url.includes("tabset.html")) {
                     if ($templateCache.get(request.url) === undefined) { // cache miss
                         // Item is not in $templateCache so add our query string
-                        request.url = request.url + '?v=0594';
+                        request.url = request.url + '?v=0595';
                     }
                 }
                 return request;
@@ -151,8 +153,8 @@ app.run(['userService', function (userService) { }]);
 //app.value('signalRServer', 'http://10.101.252.150:9077');//Little Caesars 9077
 //app.value('signalRServer', 'http://10.101.252.150:9067');//Little Caesars 9067
 //app.value('signalRServer', 'http://pizzahut.ropng.site:9075');//PH - Test
-//app.value('signalRServer', 'http://192.168.9.40:9065');//PH
-app.value('signalRServer', 'http://localhost:9065');//localhost
+app.value('signalRServer', 'http://192.168.9.40:9065');//PH
+//app.value('signalRServer', 'http://localhost:9065');//localhost
 
 app.run(['callsService', function (callsService) { }]);
 app.run(['ngnotifyService', function (ngnotifyService) { }]);
@@ -195,6 +197,7 @@ app.config(['KeepaliveProvider', 'IdleProvider', function (KeepaliveProvider, Id
     KeepaliveProvider.interval(10);
     IdleProvider.interrupt('keydown wheel mousedown touchstart touchmove scroll');
 }]);
+
 /* app.run(function(Idle){
 	// start watching when the app runs. also starts the Keepalive service by default.
 	Idle.watch();

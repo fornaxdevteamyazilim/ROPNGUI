@@ -2,14 +2,14 @@
 /**
  * Clip-Two Main Controller
  */
-app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$translate', '$localStorage', '$window', '$document', '$timeout', '$http','cfpLoadingBar', 'authService', 'authInterceptorService', 'userService', 'callsService', 'localStorageService', 'Restangular', 'ngnotifyService', '$location', 'ngAudio', '$animate', '$element', 'Fullscreen','toaster', 
-    function ($rootScope, $scope, $modal, $state, $translate, $localStorage, $window, $document, $timeout, $http,cfpLoadingBar, authService, authInterceptorService, userService, callsService, localStorageService, Restangular, ngnotifyService, $location, ngAudio, $animate, $element, Fullscreen,toaster) {
+app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$translate', '$localStorage', '$window', '$document', '$timeout', '$http', 'cfpLoadingBar', 'authService', 'authInterceptorService', 'userService', 'callsService', 'localStorageService', 'Restangular', 'ngnotifyService', '$location', 'ngAudio', '$animate', '$element', 'Fullscreen', 'toaster', 'Idle', 'Keepalive',
+    function ($rootScope, $scope, $modal, $state, $translate, $localStorage, $window, $document, $timeout, $http, cfpLoadingBar, authService, authInterceptorService, userService, callsService, localStorageService, Restangular, ngnotifyService, $location, ngAudio, $animate, $element, Fullscreen, toaster, Idle, Keepalive) {
         $rootScope.uService = userService;
         $rootScope.uService.EnterController("AppCtrl");
         $animate.enabled(false);
         $scope.audio = ngAudio.load('assets/sound/ringin.mp3');
         $scope.audio.volume = 0.8;
-        var stopTime;  
+        var stopTime;
         // -----------------------------------
         var $win = $($window);
         var deregistration6 = $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -33,10 +33,9 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
             }
         });
         var CustomerArrivedEvent = $scope.$on('CustomerArrived', function (event, data) {
-            $rootScope.CustomerArrived=true;
+            $rootScope.CustomerArrived = true;
             $scope.audio.play();
-            stopTime = $timeout(function ()
-            {
+            stopTime = $timeout(function () {
                 $scope.audio.pause();
                 $rootScope.CustomerArrived = false;
 
@@ -53,7 +52,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                 $rootScope.user = result;
                 ngnotifyService.SetStoreID(result.StoreID);
                 userService.getRestrictions();
-                userService.setCurrentUser(result,true);
+                userService.setCurrentUser(result, true);
                 if ($rootScope.user.UserRole.MemberID == '116642192568') {
                     $location.path('/app/orders/tablePlan');
                 }
@@ -222,7 +221,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                         });
                     }
                 }
-            } 
+            }
         });
         $scope.StorePhones = function () {
             var modalInstance = $modal.open({
@@ -267,7 +266,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
         $scope.ReloadCacheAll = function () {
             $scope.StartReloadCacheAll = true;
             Restangular.all('tools/reloadcache').getList({
-                ReloadAll : 'true',
+                ReloadAll: 'true',
             }).then(function (result) {
                 $scope.StartReloadCacheAll = false;
             }, function (response) {
@@ -295,7 +294,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
         $scope.GetNewOrderCount = function () {
             if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
                 if (!userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("MemberAdmin") && !userService.userIsInRole("PHAdmin")
-                && $rootScope.user.restrictions.NewOrdersCount!='Disable'
+                    && $rootScope.user.restrictions.NewOrdersCount != 'Disable'
                 ) {
                     Restangular.one('ordertools/NewOrdersCount').get().then(function (result) {
                         $scope.audio.muting = !(result.Total > 0);
@@ -313,20 +312,20 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
         });
         $scope.getNewYSOrder = function () {
             if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
-                if ($rootScope.user.restrictions.ysorder=='Enable') {
+                if ($rootScope.user.restrictions.ysorder == 'Enable') {
                     Restangular.all('yemeksepeti/unmapedorders').getList({
                         StoreID: $rootScope.user.StoreID ? $rootScope.user.StoreID : ''
                     }).then(function (result) {
                         $scope.audio.muting = !(result.length > 0);
                         if (result.length > 0) {
-                            if (!($rootScope.user.restrictions.ysnosound=='Enable'))
+                            if (!($rootScope.user.restrictions.ysnosound == 'Enable'))
                                 $scope.audio.play();
                             $rootScope.YSOrderCount = angular.copy(result.length);
                         } else
                             $scope.audio.pause();
                         $rootScope.YSOrderCount = angular.copy(result.length);
                     }, function (response) {
-                        toaster.pop('error',"Server Error", response.data.ExceptionMessage);
+                        toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                     });
                 }
             }
@@ -334,7 +333,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
         var OrderRefresh = $scope.$on('ServerTime', function (event, data) {
             if ($rootScope.OrderCount > 0)
                 $scope.GetNewOrderCount();
-            if ($rootScope.YSOrderCount > 0 || $rootScope.user.restrictions.ysorder=='Enable')
+            if ($rootScope.YSOrderCount > 0 || $rootScope.user.restrictions.ysorder == 'Enable')
                 $scope.getNewYSOrder();
         });
         $scope.getNewYSOrder();
@@ -360,6 +359,55 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
             else
                 Fullscreen.all();
         };
+        var IdleStart = $scope.$on('IdleStart', function () {
+            // the user appears to have gone idle
+            toaster.pop("success", "IdleTimeout", "Start.");
+        });
+        var IdleTimeout = $scope.$on('IdleTimeout', function () {
+            // the user has timed out (meaning idleDuration + timeout has passed without any activity)
+            // this is where you'd log them
+            toaster.pop('error', "IdleTimeout", "Bye!");
+            $location.path("/login/lock");
+        });
+        var IdleEnd = $scope.$on('IdleEnd', function () {
+            // the user has come back from AFK and is doing stuff. if you are warning them, you can use this to hide the dialog
+            toaster.pop("success", "IdleTimeout", "Idle end.");
+        });
+        var IdleWarn = $scope.$on('IdleWarn', function (e, countdown) {
+            if (countdown < 5)
+                toaster.pop("warn", "IdleTimeout", ("IdleTimeout end in: " + countdown));
+            // follows after the IdleStart event, but includes a countdown until the user is considered timed out
+            // the countdown arg is the number of seconds remaining until then.
+            // you can change the title or display a warning dialog from here.
+            // you can let them resume their session by calling Idle.watch()
+        });
+        //Idle.watch();
+        $rootScope.enableSessionTimeOut = function () {
+            Idle.watch();
+            //toaster.pop("success", "IdleTimeout", "Active.");
+            console.log("Idle TimeOut active!");
+        };
+        $rootScope.disableSessionTimeOut = function () {
+            Idle.unwatch();
+            //toaster.pop("warn", "IdleTimeout", "Inactive!");
+            console.log("Idle TimeOut InActive!");
+        };
+        $rootScope.updateSessionTimeOutState = function () {
+            if ($rootScope.user && $rootScope.user.restrictions && $rootScope.user.restrictions.idletimeout == 'Enable') {
+                $rootScope.enableSessionTimeOut();
+            }
+            else {
+                $rootScope.disableSessionTimeOut();
+            }
+        }
+        $rootScope.setSessionTimeOutState = function (state) {
+            if (state && $rootScope.user && $rootScope.user.restrictions && $rootScope.user.restrictions.idletimeout == 'Enable') {
+                $rootScope.enableSessionTimeOut();
+            }
+            else {
+                $rootScope.disableSessionTimeOut();
+            }
+        }
         $scope.$on('$destroy', function () {
             deregistration1();
             deregistration2();
@@ -373,6 +421,10 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
             NewYSOrderfresh();
             NewOrderfresh();
             OrderRefresh();
+            IdleStart();
+            IdleTimeout();
+            IdleEnd();
+            IdleWarn();
             $element.remove();
             $rootScope.uService.ExitController("AppCtrl");
         });
