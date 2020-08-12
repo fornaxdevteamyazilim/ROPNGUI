@@ -25,7 +25,7 @@
     </a>
 </div>
 <div  class="navbar-collapse collapse" collapse="navbarCollapsed" ng-init="navbarCollapsed = true" off-click="navbarCollapsed = true" off-click-if='!navbarCollapsed' off-click-filter="#menu-toggler">
-    <div class="text-bold text-dark pull-left margin-right-30 visible-lg visible-md">
+    <div ng-if="user.restrictions.ClientName=='Enable'" class="text-bold text-dark pull-left margin-right-30 visible-lg visible-md">
         <label class="margin-top-15" ng-click="ChangeExtensionNumber()"><i class="ti-user"></i> {{user.Store.name}}  {{user.ClientName}} / {{user.UserExtensionNumber}}</label><br />
         <label><i class="ti-world"></i> {{user.UserRole.OrderSource.Department.Member.name}}</label><br />
     </div>
@@ -40,7 +40,7 @@
         </a>
     </li>-->
         <li ng-if="user.restrictions.storephones=='Enable'" class="dropdown hidden-md hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
-            <a class="dropdown-toggle margin-top-10" ng-click="StorePhones()">
+            <a class="dropdown-toggle margin-top-10"  ng-click="StorePhones()">
                 <!--<i class="fa fa-phone-square" style="font-size:x-large;" ng-if="user.UserRole.OrderSource.Department.Member.id == 106851154380"></i>-->
                 <i class="fa fa-phone-square tooltips hidden-sm hidden-xs" style="font-size:x-large;" tooltip="{{'main.STOREPHONES' | translate}}" tooltip-placement="left">
                 </i>
