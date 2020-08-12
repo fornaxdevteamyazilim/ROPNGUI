@@ -3037,7 +3037,7 @@
   },
   "systemmessages":{
     "BrowseDisabledShort":"Geçiş yapılamaz",
-    "BrowseDisabled":"Sayfalar arası gezinme kapatı!"
+    "BrowseDisabled":"Kaydetmeden cıkamazsınız!"
   },
   "mainscreen":{
     "NEWORDER":"Yeni Siparişiniz",

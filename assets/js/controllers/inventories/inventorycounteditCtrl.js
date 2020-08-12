@@ -6,10 +6,10 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
     $scope.item = {};
     $scope.TagData = { name: '' };
     $scope.groupItem = [];
-    $scope.Back = function () {
-        $window.history.back();
-        $rootScope.preventNavigation(); 
-    };
+    // $scope.Back = function () {
+    //     $window.history.back();
+    //     $rootScope.preventNavigation();
+    // };
     $scope.translate = function () {
         $scope.trInventory = $translate.instant('main.INVENTORY');
         $scope.trUnitCount = $translate.instant('main.UNITCOUNT');
@@ -28,10 +28,9 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
         $scope.selectinventorygroup = $translate.instant('main.SELECTINVENTORYGROUP');
         $scope.back = $translate.instant('main.BACK');
     };
-    stopTime = $timeout(function ()
-    {
-        $rootScope.preventNavigation();                
-    }, 1000);
+    // stopTime = $timeout(function () {
+    //     $rootScope.preventNavigation();
+    // }, 1000);
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
         $scope.translate();
@@ -46,6 +45,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $scope.item = Restangular.copy(restresult);
                 if ($scope.item.items.length > 0) {
                     ici.tableParams.reload();
+                    $rootScope.preventNavigation();
                 }
             })
     } else {
@@ -53,8 +53,8 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
         $scope.item = {};
         $scope.item.InventoryCountTypeID = "0";
     }
-    var searchText='';
-    var inventoryUnit= function(item){
+    var searchText = '';
+    var inventoryUnit = function (item) {
         return item.InventoryUnit;
     }
     var InventoryGroup = function (item) {
@@ -69,15 +69,15 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $defer.resolve($scope.item.items);
         }
     });
-  
+
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.ShowObject = true;
             $scope.item.put().then(function (resp) {
-                toaster.pop('success',  $translate.instant('invantories.Updated'), $translate.instant('invantories.Savedserver'));
-                $location.path('/app/inventory/inventorycount/list');
-                $scope.ShowObject = false;
+                toaster.pop('success', $translate.instant('invantories.Updated'), $translate.instant('invantories.Savedserver'));
                 $rootScope.allowNavigation();
+                $location.path('/app/inventory/inventorycount/list');
+                $scope.ShowObject = false;                
             }, function (response) {
                 $scope.ShowObject = false;
                 toaster.pop('Warning', "Error!", response.data.ExceptionMessage);
@@ -92,7 +92,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $scope.item = {};
                 $scope.item = Restangular.copy(resp);
                 ici.tableParams.reload();
-                $rootScope.allowNavigation();
+                $rootScope.preventNavigation();
                 $scope.ShowObject = false;
             }, function (response) {
                 $scope.ShowObject = false;
@@ -133,25 +133,25 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title:  $translate.instant('invantories.Sure') ,
-            text:  $translate.instant('invantories.SureRecord'),
+            title: $translate.instant('invantories.Sure'),
+            text: $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
-            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
+            confirmButtonText: $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText: $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal($translate.instant('invantories.Deleted'),  $translate.instant('invantories.RecordDeleted'), "success");
+                    SweetAlert.swal($translate.instant('invantories.Deleted'), $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('/app/inventory/inventorycount/list');
                     $rootScope.allowNavigation();
                 });
             }
             else {
-                SweetAlert.swal(  $translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled'), "error");
+                SweetAlert.swal($translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled'), "error");
             }
         });
     };
@@ -162,7 +162,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 pageNo: 1,
                 pageSize: 1000,
                 sort: 'id',
-                search: "StoreID='" + $rootScope.user.StoreID + "'"
+                //search: "StoreID='" + $rootScope.user.StoreID + "'"
             }).then(function (result) {
                 if (result && result.length > 0) {
                     $scope.repositories = result;
