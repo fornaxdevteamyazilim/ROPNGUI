@@ -156,72 +156,84 @@
                                 <tbody ng-repeat="item in $data">
                                     <tr ng-class="{'isActiveValue': item.id==SelectedItem, strike: !item.isActiveValue, red: !item.isActiveValue}"
                                         ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
-                                        <td data-title="trName" data-sortable="'name'" width="8%" ng-click="rowform.$show()" class="ng">
+                                        <td data-title="trName" data-sortable="'name'" width="6%" ng-click="rowform.$show()" class="ng">
                                             <span editable-text="item.name" e-name="name" e-form="rowform" e-ng-model="item.name">
                                                 {{ :: item.name }}
                                             </span>
                                         </td>
 
-                                        <td data-title="trSize" data-sortable="'SizeID'" width="8%" class="ng">
+                                        <td data-title="trSize" data-sortable="'SizeID'" width="6%" class="ng">
                                             <span class="text-capitalize" editable-select="item.SizeID" e-name="SizeID" e-ng-options="q.Value as q.Name for q in sizes | orderBy:'+Name'"
                                                   e-form="rowform" e-ng-model="item.SizeID">
                                                 {{ ShowObject('sizes','Value',item.SizeID,'Name') }}
                                             </span>
                                         </td>
-                                        <td data-title="trFilter" data-sortable="'isActiveFilter'" style="width:8%" class="ng">
+                                        <td data-title="trFilter" data-sortable="'isActiveFilter'" style="width:6%" class="ng">
                                             <span class="text-capitalize" editable-select="item.isActiveFilter" e-name="isActiveFilter" e-ng-options="q.id as q.Name for q in filters | orderBy:'+Name'"
                                                   e-form="rowform" e-ng-model="item.isActiveFilter">
                                                 {{ ShowObject('filters','id',item.isActiveFilter,'Name') }}
                                             </span>
                                         </td>
-                                        <td data-title="trActive" style="width:8%">
+                                        <td data-title="trActive" style="width:6%">
                                             <span class="text-capitalize" e-name="isActiveValue" e-form="rowform" e-ng-model="item.isActiveValue">
                                                 {{ :: item.isActiveValue  }}
                                             </span>
                                         </td>
-                                        <td data-title="trIndex" style="width:8%">
+                                        <td data-title="trIndex" style="width:6%">
                                             <span editable-number="item.Index" e-min="-100" e-name="Price" e-form="rowform" e-ng-model="item.Index">
                                                 {{ :: item.Index  }}
                                             </span>
                                         </td>
-                                        <td data-title="trProductOptionType" width="8%" class="ng">
+                                        <td data-title="trProductOptionType" width="6%" class="ng">
                                             <span class="text-capitalize" editable-select="item.ProductOptionTypeID" e-name="ProductOptionTypeID" e-ng-options="q.Value as q.Name for q in productoptiontypes "
                                                   e-form="rowform" e-ng-model="item.ProductOptionTypeID">
                                                 {{ ShowObject('productoptiontypes','Value',item.ProductOptionTypeID,'Name') }}
                                             </span>
                                         </td>
-                                        <td data-title="trRelatedOption" style="width:8%" class="ng">
+                                        <td   data-title="trpluname" style="width:6%">
+                                          <span editable-text="item.PLUNAME" e-name="pluname"
+                                                  e-form="rowform" e-ng-model="item.PLUNAME">
+                                                {{ :: item.PLUNAME }}
+                                            </span>
+                                        </td>
+                                        <td data-title="trRelatedOption" style="width:6%" class="ng">
                                             <span class="text-capitalize" editable-select="item.RelatedOpiton" e-name="RelatedOpiton" e-ng-options="q.id as q.name for q in productoptions | orderBy:'+name'"
                                                   e-form="rowform" e-ng-model="item.RelatedOpiton">
                                                 {{ ShowObject('productoptions','id',item.RelatedOpiton,'name') }}
                                             </span>
                                         </td>
-                                        <td data-title="trMinCount" style="width:8%">
+                                        <td data-title="trMinCount" style="width:6%">
                                             <span editable-number="item.MinCount" e-min="0" e-name="MinCount" e-form="rowform" e-ng-model="item.MinCount">
                                                 {{ :: item.MinCount  }}
                                             </span>
                                         </td>
-                                        <td data-title="trMaxCount" style="width:8%">
+                                        <td  data-title="trextname" style="width:6%">
+                                            <span editable-text="item.EXTNAME" e-name="extname"
+                                                  e-form="rowform" e-ng-model="item.EXTNAME">
+                                                {{ :: item.EXTNAME }}
+                                            </span>
+                                        </td>
+                                        <td data-title="trMaxCount" style="width:6%">
                                             <span editable-number="item.MaxCount" e-min="0" e-name="MaxCount" e-form="rowform" e-ng-model="item.MaxCount">
                                                 {{ :: item.MaxCount  }}
                                             </span>
                                         </td>
-                                        <td data-title="trQuantity" style="width:8%">
+                                        <td data-title="trQuantity" style="width:6%">
                                             <span editable-number="item.Quantity" e-min="0" e-name="Quantity" e-form="rowform" e-ng-model="item.Quantity">
                                                 {{ :: item.Quantity  }}
                                             </span>
                                         </td>
-                                        <td data-title="trFreeCount" style="width:8%" class="ng">
+                                        <td data-title="trFreeCount" style="width:6%" class="ng">
                                             <span editable-number="item.FreeCount" e-name="FreeCount" e-form="rowform" e-ng-model="item.FreeCount">
                                                 {{ :: item.FreeCount  }}
                                             </span>
                                         </td>
-                                        <td data-title="trMaxItemCount" style="width:8%" class="ng">
+                                        <td data-title="trMaxItemCount" style="width:6%" class="ng">
                                             <span editable-number="item.MaxItemCount" e-name="MaxItemCount" e-form="rowform" e-ng-model="item.MaxItemCount">
                                                 {{ :: item.MaxItemCount  }}
                                             </span>
                                         </td>
-                                        <td data-title="trMinItemCount" style="width:8%" class="ng">
+                                        <td data-title="trMinItemCount" style="width:6%" class="ng">
                                             <span editable-number="item.MinItemCount" e-name="MinItemCount" e-form="rowform" e-ng-model="item.MinItemCount">
                                                 {{ :: item.MinItemCount  }}
                                             </span>

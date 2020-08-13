@@ -62,6 +62,8 @@ function productprototypeeditCtrl($scope, $log, $filter, SweetAlert, Restangular
         $scope.trProductItemCode = $translate.instant('main.PRODUCTITEMCODE');
         $scope.trProductId = $translate.instant('main.PRODUCTID');
         $scope.vat = $translate.instant('main.VAT');
+        $scope.trpluname = $translate.instant('main.PLUNAME');
+        $scope.trextname = $translate.instant('main.EXTNAME');
         $scope.copyprototype = $translate.instant('main.COPYPROTOTYPE');
         $scope.trMaxItemCount = $translate.instant('main.MAXITEMCOUNT');
         $scope.trMinItemCount = $translate.instant('main.MINITEMCOUNT');

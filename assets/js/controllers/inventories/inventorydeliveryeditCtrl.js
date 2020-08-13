@@ -75,6 +75,7 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
                 $scope.original = restresult;
                 $scope.item = Restangular.copy(restresult);
                 $scope.InventoryDeliveryID = restresult.id;
+              
             })
     else {
         $scope.item = {};
@@ -84,6 +85,7 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
                 swal("Updated.",$translate.instant('invantories.Updated'), "success");
+                $rootScope.allowNavigation();
                 $location.path('app/inventory/inventorydeliveries/list');
                 $scope.SaveButtonActive = true;
             }, function (response) {
@@ -96,6 +98,7 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
                 $scope.item.id = resp.id;
                 swal("Saved!", $translate.instant('invantories.SuccessfullySaved'), "success");
                 $location.path('app/inventory/inventorydeliveries/edit/' + resp.id);
+                $rootScope.preventNavigation();
                 $scope.SaveButtonActive = true;
             }, function (response) {
                 toaster.pop('error', "Error!!!", response.data.ExceptionMessage);
