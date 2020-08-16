@@ -3126,7 +3126,8 @@
     "PricesUpdated": "Prices Updated!",
     "PrescriptionsCopied" :"Prescriptions Copied!",
     "UpdatedFailed" :"Update Failed!",
-    "InsertFailed":"Data Insert Failed!"
+    "InsertFailed":"Data Insert Failed!",
+    "Clonerestrictions" :"Role Copied!"
     },
     "dispatcherfile":{
       "Drivechanged":"Drive changed !",

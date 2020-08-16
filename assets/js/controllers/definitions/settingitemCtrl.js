@@ -57,7 +57,19 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular,ngnotifySer
         });
     };
     
-    
+    $scope.clonerestrictions= function (FromRoleName, ToRoleName) {
+        $scope.isWaiting = true;
+        Restangular.one('tools/clonerestrictions').get({
+            FromRoleName:FromRoleName,
+            ToRoleName: ToRoleName,
+        }).then(function (result) {
+            $scope.isWaiting = false;
+            toaster.pop('success',$translate.instant('difinitions.Clonerestrictions '));
+        }, function (response) {
+            $scope.isWaiting = false;
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
+        });
+    };
     $scope.correctopdates = function () {
         $scope.isWaiting = true;
              //var data = new Date();
@@ -74,7 +86,7 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular,ngnotifySer
             toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
         });        
     };
-    
+  
     
     $scope.DateRange = {
         fromDate: {

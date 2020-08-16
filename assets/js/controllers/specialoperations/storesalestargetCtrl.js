@@ -12,25 +12,11 @@
     }
 } ]);
 app.controller('storesalestargetCtrl', storesalestargetCtrl);
-function storesalestargetCtrl($rootScope, $scope, Restangular, ngTableParams, toaster, $translate, $element, $http,NG_SETTING) {
+function storesalestargetCtrl($rootScope, $scope, NG_SETTING, $translate, $element,localStorageService,$http) {
     $rootScope.uService.EnterController("storesalestargetCtrl");
-    var sst = this;
-    $scope.translate = function () {
-        ///**********************************
-        $scope.trStore = $translate.instant('main.STORE');
-        $scope.trYear = $translate.instant('main.YEAR');
-        $scope.trMonth = $translate.instant('main.MONTH');
-        $scope.trAmount = $translate.instant('main.AMOUNT');
-        $scope.trTC = $translate.instant('main.TC');
-        $scope.trAC = $translate.instant('main.AC');
-        $scope.trCommands = $translate.instant('main.COMMANDS');
-    }
-    $scope.translate();
-    var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
-        $scope.translate();
-    });
-//UploadExcel
-$scope.selectedFile = null;  
+    var ngurr = this;
+
+    $scope.selectedFile = null;  
     $scope.msg = "";  
     
     $scope.getTheFiles = function ($files) {
@@ -70,125 +56,125 @@ $scope.selectedFile = null;
             }    
         }).then(function (data) {  
             if (data.status) {  
-                $scope.msg = "Data has been inserted !";  
-                toaster.pop('success',$translate.instant('orderfile.Saved') , 'Saved.');
-                sst.tableParams.reload();
+                $scope.msg = "Data has been inserted ! ";  
+                $scope.LoadData();
             }  
             else {  
                 $scope.msg = "Error : Something Wrong";  
-                toaster.pop('error', "Error", "Upload failed!");
             }  
         }, function (error) {  
             $scope.msg = "Error : Something Wrong";  
-            toaster.pop('error', "Error", "Upload failed!");
         })  
       }  
-//UploadExcel
-    $scope.saveData = function () {
-        if (this.item.restangularized) {
-            this.item.put().then(function (res) {
-                sst.tableParams.reload();
-                toaster.pop('success',$translate.instant('orderfile.Updated') , 'Updated.');
-            });
-        }
-        else {
-            Restangular.restangularizeElement('', this.item, 'storesalestarget')
-            this.item.post().then(function (res) {
-                sst.tableParams.reload();
-                toaster.pop('success',$translate.instant('orderfile.Saved') , 'Saved.');
-            });
-            this.item.get();
-        }
+$scope.LoadData = function () {
+            var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            dataGrid.refresh();
+        };
+    $scope.translate = function () {
+        $scope.trStore = $translate.instant('main.STORE');
+        $scope.trYear = $translate.instant('main.YEAR');
+        $scope.trMonth = $translate.instant('main.MONTH');
+        $scope.trAmount = $translate.instant('main.AMOUNT');
+        $scope.trTC = $translate.instant('main.TC');
+        $scope.trAC = $translate.instant('main.AC');
+        $scope.trCommands = $translate.instant('main.COMMANDS');
     };
-    $scope.FormKeyPress = function (event, rowform, data, index) {
-        if (event.keyCode === 13 && rowform.$visible) {
-            rowform.$submit();
-            return data;
-        }
-        if (event.keyCode === 27 && rowform.$visible) {
-            $scope.cancelForm(rowform);
-        }
-    };
-    $scope.cancelForm = function (rowform) {
-        rowform.$cancel();
-        if (!sst.tableParams.data[sst.tableParams.data.length - 1].restangularized) {
-            $scope.cancelremove(sst.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
-        } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
-        }
-    };
-    sst.tableParams = new ngTableParams({
-        page: 1,
-        count: 10,
-        sorting: {
-        }
-    }, {
-        getData: function ($defer, params) {
-            Restangular.all('storesalestarget').getList({
-                pageNo: params.page(),
-                pageSize: params.count(),
-                sort: params.orderBy(),
-            }).then(function (items) {
-                params.total(items.paging.totalRecordCount);
-                $defer.resolve(items);
-            }, function (response) {
-                toaster.pop('warning', "Server error", response.data.ExceptionMessage);
-            });
-        }
-    });
-    $scope.removeItem = function (index) {
-        SweetAlert.swal({
-            title:  $translate.instant('orderfile.Sure') ,
-            text:  $translate.instant('orderfile.SureRecord'),
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
-            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
-            closeOnConfirm: true,
-            closeOnCancel: true
-        }, function (isConfirm) {
-            if (isConfirm) {
-                if (sst.tableParams.data[index].fromServer) {
-                    sst.tableParams.data[index].remove();
-                }
-                sst.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+
+    $scope.dataGridOptions = {
+        dataSource: DevExpress.data.AspNet.createStore({
+            key: "id",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxstoresalestarget",
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxstoresalestarget",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxstoresalestarget",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxstoresalestarget",
+            onBeforeSend: function (method, ajaxOptions) {
+                //if (request.method === "PUT") {
+                //    updateUrl = NG_SETTING.apiServiceBaseUri + "/api/dxUser"+
+                //}
+                var authData = localStorageService.get('authorizationData');
+                if (authData) {
+                    
+                    ajaxOptions.headers = {
+                        Authorization: 'Bearer ' + authData.token//,
+                        //'Content-type': 'application/json'
+                    };  
+                }                
             }
-        });
+        }),
+        //filterValue: getFilter(),
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: false,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        showBorders: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        filterPanel: { visible: true },
+        headerFilter: { visible: true },
+        //grouping: { autoExpandAll: false },
+        searchPanel: { visible: true },
+        //groupPanel: { visible: true },
+        editing: {
+            allowAdding: true,
+            allowUpdating: true,
+            allowDeleting: true,
+            allowInserting: true,
+            useIcons: true
+        },
+        columnChooser: { enabled: false },
+        columnFixing: { enabled: true },
+        remoteOperations: true,
+        columns: [
+            { dataField: "id", caption: "ID", allowEditing: false ,visible:false }, 
+            {
+                dataField: "StoreID", caption: "Store",
+                lookup: {
+                    valueExpr: "id",
+                    displayExpr: "name",
+                    dataSource: {
+                        store: DevExpress.data.AspNet.createStore({
+                            key: "id",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                            onBeforeSend: function (method, ajaxOptions) {
+                                var authData = localStorageService.get('authorizationData');
+                                if (authData) {
+                                    ajaxOptions.headers = {
+                                        Authorization: 'Bearer ' + authData.token,
+                                        'Content-type': 'application/json'
+                                    };
+                                }
+                            }
+                        }),
+                        sort: "name",
+                        headerFilter: { allowSearch: true }
+                    },
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    }
+                },
+            }  , 
+            { dataField: "Year",caption: "Year", allowEditing: true },  
+             { dataField: "Month",caption: "Month", allowEditing: true },  
+             { dataField: "Amount",caption: "Amount", allowEditing: true },  
+             { dataField: "TC",caption: "TC", allowEditing: true },  
+             { dataField: "AC",caption: "AC", allowEditing: true },
+             { dataField: "SalesInStore",caption: "SalesInStore", allowEditing: true },  
+             { dataField: "TCInStore",caption: "TCInStore", allowEditing: true },  
+             { dataField: "SalesTakeAway",caption: "SalesTakeAway", allowEditing: true },
+             { dataField: "TCTakeAway",caption: "TCTakeAway", allowEditing: true },  
+             { dataField: "SalesDelivery",caption: "SalesDelivery", allowEditing: true },  
+             { dataField: "TCDelivery",caption: "TCDelivery", allowEditing: true },  
+
+                       
+        ],
+        export: { enabled: true, fileName: "storesalestargetlist"},
+        scrolling: { mode: "virtual" },
+        height: 600
     };
-    $scope.cancelremove = function (index) {
-        if (sst.tableParams.data[index].fromServer) {
-            sst.tableParams.data[index].remove();
-        }
-        sst.tableParams.data.splice(index, 1);
-    };
-    $scope.addItem = function () {
-        sst.tableParams.data.push({});
-    };
-    $scope.ShowObject = function (Container, idName, idvalue, resName) {
-        for (var i = 0; i < $scope[Container].length; i++) {
-            if ($scope[Container][i][idName] == idvalue)
-                return $scope[Container][i][resName];
-        }
-        return idvalue || 'Not set';
-    };
-    $scope.loadEntitiesCache = function (EntityType, Container) {
-        if (!$scope[Container].length) {
-            Restangular.all(EntityType).getList({}).then(function (result) {
-                $scope[Container] = result;
-            }, function (response) {
-                toaster.pop('Warning', "Server error", response);
-            });
-        }
-    };
-    $scope.stores = [];
-    $scope.loadEntitiesCache('cache/store', 'stores');
-    //$scope.storepaymenttypes = [];
-    //$scope.loadEntitiesCache('cache/storepaymenttype', 'storepaymenttypes');
     $scope.$on('$destroy', function () {
-        deregistration();
         $element.remove();
         $rootScope.uService.ExitController("storesalestargetCtrl");
     });

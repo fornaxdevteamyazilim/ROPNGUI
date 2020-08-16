@@ -3128,7 +3128,8 @@
     "PricesUpdated": "Fiyatlar Güncellendi!",
     "PrescriptionsCopied": "Reçeteler Kopyalandı!",
     "UpdatedFailed" : "Güncelleme Başarısız Oldu!",
-    "Insertfailed": "Veri Ekleme Başarısız Oldu!"
+    "Insertfailed": "Veri Ekleme Başarısız Oldu!",
+    "Clonerestrictions": "Role Kopyalandı!"
   },
   "dispatcherfile":{
     "Drivechanged":"Sürücü değişti !",
