@@ -476,6 +476,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
         $scope.personinfo = $translate.instant('main.PERSONINFO');
         $scope.namesurname = $translate.instant('main.NAMESURNAME');
         $scope.gender = $translate.instant('main.GENDER');
+        $scope.AvailableBonus = $translate.instant('main.AVAILABLEBONUS');
         $scope.marketingquestion = $translate.instant('main.MARKETINGQUESTION');
         $scope.email = $translate.instant('main.EMAIL');
         $scope.phone = $translate.instant('main.PHONE');
@@ -639,6 +640,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
             $scope.PersonAddresses = null;
         }
     };
+    
     $scope.PersonOrders = [];
     $scope.GetPersonOrders = function (PersonID) {
         if (PersonID) {
@@ -673,6 +675,14 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
         $scope.GetPersonAddressList(PersonID);
         $scope.GetPerson(PersonID);
         $scope.GetMarketingPermission(PersonID);
+    });
+    var deregistration2 = $scope.$on('GetLoyalty', function (event, Loyalty) {
+        $scope.isWait(true);
+        $scope.isPersonOrderButton(true);
+        $scope.ShowPersonButon = true;
+        $rootScope.Loyalty = Loyalty;
+        $scope.GetPerson(Loyalty);
+       
     });
     $scope.TestMarketingArray = true;
     $scope.ChangeTestMarketingArray = function (value) {
@@ -733,11 +743,15 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
         });
     };
     $scope.Person = [];
+    $scope.Bonus={};
+    $scope.Person.Loyalty =[];
     $scope.GetPerson = function (PersonID) {
         if (PersonID) {
             Restangular.one('person', PersonID).get()
                .then(function (restresult) {
                    $scope.Person = restresult;
+                   $scope.Bonus=(restresult.Loyalty)?restresult.Loyalty.Bonus:{};
+                   $scope.Person.Loyalty = restresult.plain(); 
                    if (restresult.PersonPhones && restresult.PersonPhones.length == 0) {
                        $scope.CheckPersonPhones(false);
                    } else {
@@ -783,6 +797,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
         tranlatelistener();
         deregistration();
         deregistration1();
+        deregistration2();
         $element.remove();
         $rootScope.uService.ExitController("personlistaddresslistCtrl");
     });
