@@ -163,6 +163,9 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
         });
     };
     $scope.loadOrders();
+    var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
+        $scope.loadOrders();
+    });
     $scope.GetDepartments = function () {
         Restangular.all('department').getList({
             pageNo: 1,
@@ -225,6 +228,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
     };
     $scope.$on('$destroy', function () {
         tranlatelistener();
+        OrderRefresh();
         $element.remove();
         $rootScope.uService.ExitController("takeawayCtrl");
     });

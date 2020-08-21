@@ -179,14 +179,14 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         var _startTimeout = function (timeout) {
             LogutTimeOut = $timeout(function () {
                 isTimedOut = true;
-                $location.path("/login/lock");
+                //$location.path("/login/lock");
                 //authService.logOut();
                 //_resetUserData();
                 //$location.path('app/login/logout/logout');//.search('ref', '/path/to/redirect');
             }, timeout);
         }
         var _TimedOut = function () {                
-            return isTimedOut;
+            return false;//isTimedOut;
         }
         var _RestartTimeout = function (timeout) {                
             _stopTimeout();

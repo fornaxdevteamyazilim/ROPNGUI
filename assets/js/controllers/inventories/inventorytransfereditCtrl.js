@@ -48,11 +48,13 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             $scope.InventoryTransferApproval();
         })
     else {
+        //Restangular.all('repository/cache/Repositories').getList({
         Restangular.all('repository').getList({
             pageNo: 1,
             pageSize: 1000,
             sort: 'id',
-            search: "StoreID='" + $rootScope.user.StoreID + "'"
+            search: "", //"StoreID='" + $rootScope.user.StoreID + "'"
+            calcparameters="SelectAll"
         }).then(function (result) {
             $scope.item.FromRepositoryID = result[0].id;
         }, function (response) {

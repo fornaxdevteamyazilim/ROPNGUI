@@ -782,17 +782,17 @@
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.SOSREPORT">Transactions</span>
                         </a>
                     </li>
-                    <li ui-sref-active="active" >
+                    <li ui-sref-active="active" ng-if="user.restrictions.fsrspeedofservice=='Enable'">
                         <a ui-sref="app.reports.fsr.fsrspeedofservice">
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.FSRSPEEDOFSERVICE">Transactions</span>
                         </a>
                     </li>
-                    <li ui-sref-active="active">
+                    <li ui-sref-active="active"  ng-if="user.restrictions.fsrcomparisonbudget=='Enable'">
                         <a ui-sref="app.reports.fsr.fsrcomparisonbudget">
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.FSRCOMPARISONBUDGET">Transactions</span>
                         </a>
                     </li>
-                    <li ui-sref-active="active" >
+                    <li ui-sref-active="active" ng-if="user.restrictions.fsractualtheoretical=='Enable'" >
                         <a ui-sref="app.reports.fsr.fsractualtheoretical">
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.FSRACTUALTHEORETICAL">Transactions</span>
                         </a>

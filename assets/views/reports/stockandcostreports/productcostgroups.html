@@ -52,7 +52,7 @@
                 <span translate="main.PRODUCT"></span><br />
                 <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-model="ProductID" ng-change="GetProduct(ProductID)">
                     <option value=''>Tümü !</option>
-                    <option ng-repeat="product in products | orderBy : '+name'" value="{{product.id}}">{{product.name}} / {{product.Size}}</option>
+                    <option ng-repeat="product in products | orderBy : '+name'" value="{{::product.id}}">{{::product.name}} / {{::product.Size}}</option>
                 </select>
             </div>
             <span class="col-lg-12 col-md-12">

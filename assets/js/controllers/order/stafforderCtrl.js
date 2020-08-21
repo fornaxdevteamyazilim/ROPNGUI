@@ -8,6 +8,7 @@ function stafforderCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, 
      $scope.BuildSearchString = function () {
         var result = [];
         result.push(" StoreID= '" + $rootScope.user.StoreID + "'");
+        result.push(" tt.id= '" + $rootScope.user.id + "'");
         return result;
      };
     Restangular.all('user').getList({

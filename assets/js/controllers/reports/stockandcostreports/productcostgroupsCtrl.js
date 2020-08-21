@@ -23,7 +23,7 @@ function productcostgroupsCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                 ProductID: ($scope.ProductID) ? $scope.ProductID : '',
                 StoreID: $scope.StoreID,
                 PeriodID: ($scope.PeriodID),
-                OrderType: ($scope.OrderTypeID == null) ? '' : $scope.OrderTypeID,
+                OrderTypeID: ($scope.OrderTypeID == null) ? -1 : $scope.OrderTypeID,
 
             }).then(function (result) {
                 $scope.isWaiting = false;
