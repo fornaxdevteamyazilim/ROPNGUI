@@ -1008,7 +1008,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
         });
     };
     $scope.ChangeOrderState = function (item) {
-        $rootScope.allowNavigation();
+        //$rootScope.allowNavigation(); 
         item.root = "order";
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/order/changeorderstate.html',
@@ -1025,6 +1025,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             event.preventDefault();
             $scope.clearCustomerDislpay();
             if (value == 'result') {
+                $rootScope.allowNavigation(); 
                 $scope.CallReason(2, 'cancel');
                 $scope.ClearCallerID();
                 $window.history.back();

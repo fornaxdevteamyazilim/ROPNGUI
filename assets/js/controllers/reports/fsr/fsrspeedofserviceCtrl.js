@@ -38,6 +38,8 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         max: maxYear,
         showSpinButtons: true
     };
+    $scope.weekCaption1 = "Week " + $scope.startWeek;
+    $scope.weekCaption2 = "Week " + $scope.endWeek;
     $scope.startWeekButton = {
         bindingOptions: {
             value: "startWeek"
@@ -67,6 +69,14 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.refresh();
+            var oldCaption1 = $scope.weekCaption1;
+            var oldCaption2 = $scope.weekCaption2;
+            $scope.weekCaption1 = "Week " + $scope.startWeek;
+            $scope.weekCaption2 = "Week " + $scope.endWeek;
+            dataGrid.columnOption("week1bump", 'caption', $scope.weekCaption1);
+            dataGrid.columnOption("week1ys", 'caption', $scope.weekCaption1);
+            dataGrid.columnOption("week2bump", 'caption', $scope.weekCaption2);
+            dataGrid.columnOption("week2ys", 'caption', $scope.weekCaption2);
         }
     };
     $scope.resetlayout = $translate.instant('main.RESETLAYOUT');
@@ -129,14 +139,15 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         columnChooser: { enabled: false },
         columnFixing: { enabled: true },
         scrolling: { mode: "virtual" },
-        columns: [            
-            { dataField: "Store", caption: "MGT Turkey",dataType: "string", width: 230, fixed: true },
-            { dataField: "RegionManager",caption: "Area", dataType: "string", width: 230, fixed: true },
+        columns: [
+            { dataField: "Store", caption: "MGT Turkey", dataType: "string", width: 230, fixed: true },
+            { dataField: "RegionManager", caption: "Area", dataType: "string", width: 230, fixed: true },
             {
                 caption: "YemekSepeti",
                 columns: [
                     {
-                        caption: "Week " + $scope.startWeek,
+                        caption: $scope.weekCaption1,
+                        name: "week1ys",
                         columns: [
                             { caption: "Time", dataField: "YSserviceTime", dataType: "number", format: "fixedPoint", },
                             { caption: "Score", dataField: "YS", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
@@ -146,7 +157,8 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                         ]
                     },
                     {
-                        caption: "Week " + $scope.endWeek,
+                        caption: $scope.weekCaption2,
+                        name: "week2ys",
                         columns: [
                             { caption: "Time", dataField: "YSserviceTime2", dataType: "number", format: "fixedPoint", },
                             { caption: "Score", dataField: "YS2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
@@ -161,35 +173,48 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                 caption: "Bump Time",
                 columns: [
                     {
-                        caption: "Week " + $scope.startWeek,
+                        caption: $scope.weekCaption1,
+                        name: "week1bump",
                         columns: [
                             { caption: "Make Table", dataField: "AvgMakeTable", dataType: "number", customizeText: formatTime },
                             { caption: "Cut Table", dataField: "AvgCutTable", dataType: "number", customizeText: formatTime },
                             { caption: "Dispatch", dataField: "AvgDispatchTime", dataType: "number", customizeText: formatTime },
-                            { caption: "Delivery", dataField: "AvgDeliveryTime", dataType: "number", customizeText: formatTime },                                                    ]
+                            { caption: "Delivery", dataField: "AvgDeliveryTime", dataType: "number", customizeText: formatTime },]
                     },
                     {
-                        caption: "Week " + $scope.endWeek,
+                        caption: $scope.weekCaption2,
+                        name: "week2bump",
                         columns: [
                             { caption: "Make Table", dataField: "AvgMakeTable2", dataType: "number", customizeText: formatTime },
                             { caption: "Cut Table", dataField: "AvgCutTable2", dataType: "number", customizeText: formatTime },
                             { caption: "Dispatch", dataField: "AvgDispatchTime2", dataType: "number", customizeText: formatTime },
-                            { caption: "Delivery", dataField: "AvgDeliveryTime2", dataType: "number", customizeText: formatTime }, 
+                            { caption: "Delivery", dataField: "AvgDeliveryTime2", dataType: "number", customizeText: formatTime },
                         ]
                     }],
                 fixed: true
             },
-            
+
         ],
         onRowPrepared: function (e) {
             if (e.rowType === 'data') {
                 if (e.data.Summary === true) {
                     //e.rowElement.addClass('place');
-                    e.rowElement.css({ 'font-weight': 'bold' }); 
+                    e.rowElement.css({ 'font-weight': 'bold', 'background': '#dcdcdc' });
                 }
                 //else {
                 //    e.data.place = "";
                 //}
+            }
+        },
+        onCellPrepared: function (options) {
+            var fieldData = options.value;
+            var ColoredFileds = ["YSserviceTime2","YS2","YS_Speed2","YS_Serving2","YS_Flavor2","AvgMakeTable2","AvgCutTable2","AvgDispatchTime2","AvgDeliveryTime2"];
+            if (fieldData && ColoredFileds.indexOf(options.column.dataField) > -1) {
+                if (options.value != options.row.data[options.column.dataField.substring(0, options.column.dataField.length-1)])
+                    if (options.value <= options.row.data[options.column.dataField.substring(0, options.column.dataField.length-1)])
+                        options.cellElement.css({ 'color': '#f00' });
+                    else
+                        options.cellElement.css({ 'color': '#2ab71b' });
             }
         },
         export: {
@@ -200,10 +225,18 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                 if (!gridCell) {
                     return;
                 }
+                var ColoredFileds = ["YSserviceTime2","YS2","YS_Speed2","YS_Serving2","YS_Flavor2","AvgMakeTable2","AvgCutTable2","AvgDispatchTime2","AvgDeliveryTime2"];
+                if (ColoredFileds.indexOf(gridCell.column.dataField)>-1) {
+                    if (gridCell.data && gridCell.data[gridCell.column.dataField]!=gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
+                        if (gridCell.data[gridCell.column.dataField] <= gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
+                            options.font.color = '#008000';
+                        else
+                            options.font.color = '#FF0000';
+                }
                 if (gridCell.rowType === 'data') {
                     if (gridCell.data.Summary === true) {
                         options.font.bold = true;
-                        options.backgroundColor = '#FFBB00';
+                        options.backgroundColor = '#DCDCDC';
                     }
                 }
             }
@@ -220,6 +253,13 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
     $scope.LoadData = function () {
         var dataGrid = $('#gridContainer').dxDataGrid('instance');
         dataGrid.refresh();
+        var oldCaption1 = $scope.weekCaption1;
+        var oldCaption1 = $scope.weekCaption2;
+        $scope.weekCaption1 = "Week " + $scope.startWeek;
+        $scope.weekCaption2 = "Week " + $scope.endWeek;
+        dataGrid.columnOption(oldCaption1, 'caption', $scope.weekCaption1);
+        dataGrid.columnOption(oldCaption2, 'caption', $scope.weekCaption2);
+
     };
 
 }

@@ -23,6 +23,7 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
     };
     $scope.translate = function () {
         $scope.trInventory = $translate.instant('main.INVENTORY');
+        $scope.trInventoryUnit = $translate.instant('main.INVENTORYUNIT');
         $scope.trStore = $translate.instant('main.STORE');
         $scope.trDateTime = $translate.instant('main.DATETIME');
         $scope.trUnitPrice = $translate.instant('main.UNITPRICE');
@@ -78,7 +79,7 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
             if ($scope[Container][i][idName] == idvalue)
                 return $scope[Container][i][resName];
         }
-        return idvalue || 'Not set';
+        return idvalue || '';
     };
     $scope.loadEntitiesCache = function (EntityType, Container) {
         if (!$scope[Container].length) {
@@ -96,6 +97,8 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
     $scope.loadEntitiesCache('cache/store', 'stores');
     $scope.inventories = [];
     $scope.loadEntitiesCache('cache/inventory', 'inventories');
+    $scope.inventoryunits = [];
+    $scope.loadEntitiesCache('cache/inventoryunit', 'inventoryunits');
     $scope.saveItem = function (data) {
         _update(data, this.item);
         $scope.saveData(this.item);

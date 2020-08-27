@@ -116,19 +116,18 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
             { dataField: "Area", dataType: "string", width: 230, fixed: true, },
             { dataField: "Year", dataType: "number", fixed: true, },
             { dataField: "Week", dataType: "number", fixed: true, },
-            { dataField: "Sales", dataType: "number", format: "fixedPoint" },
-            { dataField: "HDSSales", dataType: "number", format: "fixedPoint" },
+            { dataField: "Sales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "HDSSales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "HDS %", dataField: "HDSSalesPercent", dataType: "number", format: { type: "percent", precision: 2 } },
-            { dataField: "DINSales", dataType: "number", format: "fixedPoint" },
+            { dataField: "DINSales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "DIN %", dataField: "DINSalesPercent", dataType: "number", format: { type: "percent", precision: 2 } },
-            { dataField: "COSales", dataType: "number", format: "fixedPoint" },
+            { dataField: "COSales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "CO %", dataField: "COSalesPercent", dataType: "number", format: { type: "percent", precision: 2 } },
-            { caption: "Total Trx", dataField: "Trx", dataType: "number", format: "fixedPoint" },
-            { caption: "HDS Trx", dataField: "HDSTrx", dataType: "number", format: "fixedPoint" },
+            { caption: "HDS Trx", dataField: "HDSTrx", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "HDS Tx %", dataField: "HDSTrxPercent", dataType: "number", format: { type: "percent", precision: 2 } },
-            { caption: "DIN Trx", dataField: "DINTrx", dataType: "number", format: "fixedPoint" },
+            { caption: "DIN Trx", dataField: "DINTrx", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "DIN Tx %", dataField: "DINTrxPercent", dataType: "number", format: { type: "percent", precision: 2 } },
-            { caption: "CO Trx", dataField: "COTrx", dataType: "number", format: "fixedPoint" },
+            { caption: "CO Trx", dataField: "COTrx", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "CO Tx %", dataField: "COTrxPercent", dataType: "number", format: { type: "percent", precision: 2 } },
             { caption: "Avg GC", dataField: "AvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "HDS Avg GC", dataField: "HDSAvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
@@ -138,8 +137,19 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
         onRowPrepared: function (e) {
             if (e.rowType === 'data') {
                 if (e.data.Delta === true) {
-                    e.rowElement.css({ 'font-weight': 'bold', 'background': '#ebb3af' });
+                    e.rowElement.css({ 'font-weight': 'bold', 'background': '#dcdcdc' });
                 }
+            }
+        },
+        onCellPrepared: function (options) {
+            var fieldData = options.value;
+            var ColoredFileds = ["Sales","HDSSales","HDSSalesPercent","DINSales","DINSalesPercent","COSales","COSalesPercent","HDSTrx","HDSTrxPercent","DINTrx","DINTrxPercent",
+            "COTrx","COTrxPercent","AvgGC","HDSAvgGC","DINAvgGC","COAvgGC"];
+            if (fieldData && options.row.data.Delta === true && ColoredFileds.indexOf(options.column.dataField)>-1) {
+                if (options.value < 0)
+                    options.cellElement.css({ 'color': '#f00' });
+                else
+                    options.cellElement.css({ 'color': '#2ab71b' });
             }
         },
         export: {
@@ -150,10 +160,19 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
                 if (!gridCell) {
                     return;
                 }
+                var ColoredFileds = ["Sales","HDSSales","HDSSalesPercent","DINSales","DINSalesPercent","COSales","COSalesPercent","HDSTrx","HDSTrxPercent","DINTrx","DINTrxPercent",
+                "COTrx","COTrxPercent","AvgGC","HDSAvgGC","DINAvgGC","COAvgGC"];
+                if (ColoredFileds.indexOf(gridCell.column.dataField)>-1) {
+                    if (gridCell.data && gridCell.data.Delta === true)
+                        if (gridCell.data[gridCell.column.dataField] > 0)
+                            options.font.color = '#008000';
+                        else
+                            options.font.color = '#FF0000';
+                }
                 if (gridCell.rowType === 'data') {
                     if (gridCell.data.Delta === true) {
                         options.font.bold = true;
-                        options.backgroundColor = '#FFBB00';
+                        options.backgroundColor = '#DCDCDC';
                     }
                 }
             }

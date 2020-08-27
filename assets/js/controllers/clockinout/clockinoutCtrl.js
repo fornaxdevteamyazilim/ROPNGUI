@@ -23,11 +23,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
             data
         ).then(function (result) {
             $scope.data = result;
-            toaster.pop('success', "Was recorded !", 'Information saved.');
-            //$location.path('/app/mainscreen');
-            //SweetAlert.swal("Success", "Siparişiniz Ödenmez Olarak İşaretlendi", "success");
-            //userService.refreshUserData();
-            //$scope.statusmessage = userService.getCurrentUser().ShiftActive ? 'Vardiya çıkışı için parmak okutunuz' : 'Vardiya girişi için parmak okutunuz';
+            toaster.pop('success', "Clock In/Out", 'Request Recieved.');
             if ($scope.data.Action == 'ClockOut') {
                 $location.path('/login/logout/logout');
             }

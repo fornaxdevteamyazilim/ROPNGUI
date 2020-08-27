@@ -41,7 +41,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restang
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
         $scope.translate();
     });
-    
+    //$rootScope.disableSessionTimeOut();
     var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
         $scope.LoadOrderItemStates();        
     });
@@ -228,6 +228,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restang
         BumpBarData();
         stopClock();
         $element.remove();
+        //$rootScope.updateSessionTimeOutState();
         $rootScope.uService.ExitController("kds2Ctrl");
     });
 };

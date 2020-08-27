@@ -18,6 +18,7 @@ function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $loca
             userService.stopTimeout();
             if (response) {
                 $rootScope.allowNavigation();
+                //$window.history.back();
                 $location.path('/app/mainscreen');
             }
         }, function (err) {
@@ -28,7 +29,7 @@ function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $loca
                 };
             }
             else {
-                $scope.message = "Unknown error";
+                $scope.message = (err && err.error)?err.error:"Unknown error";
                 return 'No'
             }
         });
@@ -43,6 +44,7 @@ function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $loca
                 userService.stopTimeout();
                 if (response) {
                     $rootScope.allowNavigation();
+                    //$window.history.back();
                     $location.path('/app/mainscreen');                    
                 }
             }, function (err) {
@@ -53,7 +55,7 @@ function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $loca
                 }
                 else {
                     //toaster
-                    $scope.message = "Unknown error";
+                    $scope.message = (err && err.error)?err.error:"Unknown error";                
                     return 'No'
                 }
             });

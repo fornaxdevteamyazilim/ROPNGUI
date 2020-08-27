@@ -22,12 +22,18 @@
         <table ng-table="inp.tableParams" class="table table-striped table-hover">
             <tr ng-repeat="item in $data"
                 ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
-                <td data-title="trInventory" data-sortable="'InventoryID'" width="8%" ng-click="rowform.$show()">
-                    <span class="text-capitalize" editable-select="item.InventoryID" e-name="InventoryID" e-ng-model="item.InventoryID" e-form="rowform" e-ng-options="q.id as q.name+' ('+ q.Unit+')' for q in inventories | orderBy:'+name'">
+                <td data-title="trInventoryUnit" data-sortable="'InventoryUnitID'" width="8%" ng-click="rowform.$show()">
+                    <span class="text-capitalize" editable-select="item.InventoryUnitID" e-name="InventoryUnitID" e-ng-model="item.InventoryUnitID" e-form="rowform" e-ng-options="q.id as q.name for q in inventoryunits | orderBy:'+name'">
                         <!--{{ ShowObject('inventories','id',item.InventoryID,'name','Unit') }}-->
-                        {{ ShowObject('inventories','id',item.Inventory) }}
+                        {{ ShowObject('inventoryunits','id',item.InventoryUnit) }}
                     </span>
                 </td>
+                <td data-title="trUnitPrice" data-sortable="'Price'" width="8%">
+                    <span editable-number="item.InventoryUnitPrice" e-min="0" e-name="InventoryUnitPrice" e-form="rowform" e-ng-model="item.InventoryUnitPrice" e-required e-style="width: 5vw;">
+                        {{ item.InventoryUnitPrice | number : 4 }}
+                    </span>
+                </td>
+                        
                 <td data-title="trStore" data-sortable="'StoreID'" width="8%">
                     <span class="text-capitalize" editable-select="item.StoreID" e-name="StoreID" e-ng-model="item.StoreID" e-form="rowform" e-ng-options="q.id as q.name for q in stores | orderBy:'+name'">
                         {{ ShowObject('stores','id',item.StoreID,'name') }}
@@ -44,11 +50,20 @@
                         {{ item.ValidFrom| date:'dd.MM.yyyy' }}
                     </span>
                 </td>
+                <td data-title="trInventory" data-sortable="'InventoryID'" width="8%" ng-click="rowform.$show()">
+                    <!-- <span class="text-capitalize" editable-select="item.InventoryID" e-name="InventoryID" e-ng-model="item.InventoryID" e-form="rowform" e-ng-options="q.id as q.name+' ('+ q.Unit+')' for q in inventories | orderBy:'+name'">
+                     -->
+                    <span class="text-capitalize" >
+                        <!--{{ ShowObject('inventories','id',item.InventoryID,'name','Unit') }}-->
+                        {{ ShowObject('inventories','id',item.Inventory) }}
+                    </span>
+                </td>        
                 <td data-title="trUnitPrice" data-sortable="'Price'" width="8%">
                     <span editable-number="item.Price" e-min="0" e-name="Price" e-form="rowform" e-ng-model="item.Price" e-required e-style="width: 5vw;">
                         {{ item.Price | number : 4 }}
                     </span>
                 </td>
+                
               <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                     <form editable-form name="rowform" onbeforesave="saveItem($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
                           shown="inserted == item|| !item.id">

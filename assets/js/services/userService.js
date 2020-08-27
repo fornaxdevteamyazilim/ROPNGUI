@@ -113,6 +113,7 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                     //} else if (!_userIsInRole("CALLCENTER") && !_userIsInRole("CCMANAGER")) {
                     //    $location.path('/app/mainscreen');
                     //}
+                    $rootScope.updateSessionTimeOutState();
                 }
                 return response;
             }).error(function (err, status) {
@@ -133,7 +134,7 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                             preferences[response.preferences[i].Preference.name] = response.preferences[i].Value;
                             angular.copy(preferences, $rootScope.user.preferences);
                         }
-
+                        
                     }
                 }).error(function (err, status) {
                     //send error to toster
