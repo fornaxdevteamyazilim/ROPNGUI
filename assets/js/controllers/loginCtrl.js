@@ -8,8 +8,8 @@
         }
     };
 });
-app.controller('loginCtrl', ['$scope', '$location', 'authService', 'ngAuthSettings', 'Restangular', '$rootScope', 'userService', 'toaster', '$translate', 'NG_SETTING', 'ngnotifyService', '$element','$stateParams',
-    function ($scope, $location, authService, ngAuthSettings, Restangular, $rootScope, userService, toaster, $translate, NG_SETTING, ngnotifyService, $element, $stateParams) {
+app.controller('loginCtrl', ['$scope', '$location', 'authService', 'ngAuthSettings', 'Restangular', '$rootScope', 'userService', 'toaster', '$translate', 'NG_SETTING', 'ngnotifyService', '$element','$stateParams','localStorageService','callsService',
+    function ($scope, $location, authService, ngAuthSettings, Restangular, $rootScope, userService, toaster, $translate, NG_SETTING, ngnotifyService, $element, $stateParams,localStorageService,callsService) {
         $rootScope.uService.EnterController("loginCtrl");
         $scope.loginData = {
             userName: "",
@@ -75,6 +75,8 @@ app.controller('loginCtrl', ['$scope', '$location', 'authService', 'ngAuthSettin
                 ngnotifyService.SetStoreID(result.StoreID);
                 userService.getRestrictions();
                 userService.setCurrentUser(result, skipRoute);
+                $rootScope.user.UserExtensionNumber = callsService.currentExtension = localStorageService.get('ExtensionNumber');
+                $rootScope.user.ClientName = localStorageService.get('ClientName');
                 //userService.landingPage(false);
             }, function (response) {
                 $scope.isWaiting = false;

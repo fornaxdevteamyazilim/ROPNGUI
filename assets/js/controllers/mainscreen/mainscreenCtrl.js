@@ -99,10 +99,10 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
         $scope.isFinalizeRequired=angular.copy(stats.isFinalizeRequired);
     };
     $scope.GetStoreStats();
+    //$rootScope.user.UserExtensionNumber = callsService.currentExtension = localStorageService.get('ExtensionNumber');
+    //$rootScope.user.ClientName = localStorageService.get('ClientName');
     if ($rootScope.user && $rootScope.user.UserRole) {
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CMRESTORANHATTI") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("STOREADMIN") || userService.userIsInRole("Alonet")) {
-            $rootScope.user.UserExtensionNumber = callsService.currentExtension = localStorageService.get('ExtensionNumber');
-            $rootScope.user.ClientName = localStorageService.get('ClientName');
+        if ($rootScope.user.restrictions.ClientName=='Enable') {            
             if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
                 if (!$rootScope.user.UserExtensionNumber) {
                     var modalInstance = $modal.open({

@@ -238,7 +238,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
 
         $scope.ChangeExtensionNumber = function () {
             if ($rootScope.user && $rootScope.user.UserRole) {
-                if ($rootScope.user.UserRole.Name == "CALLCENTER" || $rootScope.user.UserRole.Name == "CCMANAGER" || $rootScope.user.UserRole.Name == "Admin" || $rootScope.user.UserRole.Name == "PHAdmin" || $rootScope.user.UserRole.Name == "STORETEST" || $rootScope.user.UserRole.Name == "STOREMANAGER" || $rootScope.user.UserRole.Name == "STOREASSISTANTMANAGER" || $rootScope.user.UserRole.Name == "STORESHIFTMANAGER" || $rootScope.user.UserRole.Name == "STOREUSER" || $rootScope.user.UserRole.Name == "Alonet") {
+                if ($rootScope.user.restrictions.ClientName=='Enable') {
                     var modalInstance = $modal.open({
                         templateUrl: 'assets/views/mainscreen/acentextension.html',
                         controller: 'acentextensionCtrl',

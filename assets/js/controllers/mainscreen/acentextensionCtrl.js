@@ -2,8 +2,12 @@
 app.controller('acentextensionCtrl', acentextensionCtrl);
 function acentextensionCtrl($scope, $modalInstance, $log, $translate, $rootScope, toaster, Restangular, $window, $location, callsService, localStorageService, userService) {
     $rootScope.uService.EnterController("acentextensionCtrl");
-    if (!userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("Admin") && !userService.userIsInRole("PHAdmin") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("Alonet"))
-        $scope.ShowClientName = true;
+    //if (!userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("Admin") && !userService.userIsInRole("PHAdmin") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("Alonet"))
+    $scope.item={
+        clientname:localStorageService.get('ClientName'),
+        number:localStorageService.get('ExtensionNumber')
+    };
+    $scope.ShowClientName = $rootScope.user.restrictions.ClientName=='Enable';
     $scope.ok = function (data) {
         if (data) {
             $rootScope.user.UserExtensionNumber = data.number;
