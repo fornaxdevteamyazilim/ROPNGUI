@@ -16,10 +16,10 @@ function punchcardsettingCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardSetting",
-            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardSetting",
-            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardSetting",
-            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardSetting",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSetting",
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSetting",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSetting",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSetting",
             onBeforeSend: function (method, ajaxOptions) {
                 //if (request.method === "PUT") {
                 //    updateUrl = NG_SETTING.apiServiceBaseUri + "/api/dxUser"+

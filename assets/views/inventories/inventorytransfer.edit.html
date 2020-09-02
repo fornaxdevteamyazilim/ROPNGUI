@@ -30,7 +30,7 @@
                     </div>
                     <div print-remove class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label>{{:: fromrepository}}</label> &nbsp;<span class="symbol required"></span><br />
-                        <select id="repository" ng-options="q.id as q.fullname for q in repositories | orderBy:'+name'" class="form-control text-uppercase ng" ng-model="item.FromRepositoryID"></select>
+                        <select id="repository" ng-options="q.id as q.fullname for q in repositories | orderBy:'+name'" class="form-control text-uppercase ng" ng-model="item.FromRepositoryID" ng-disabled="!user.isAdmin"></select>
                     </div>
                     <div print-only class="visible-print hidden col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label class="text-bold">{{:: fromrepository}}</label>

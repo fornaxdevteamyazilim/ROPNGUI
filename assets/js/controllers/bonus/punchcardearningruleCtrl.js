@@ -1,5 +1,5 @@
 app.controller('punchcardearningruleCtrl', punchcardearningruleCtrl);
-function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService,$http) {
+function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService, $http) {
     $rootScope.uService.EnterController("punchcardearningruleCtrl");
     var ngurr = this;
     $scope.NGUserRoleID = '';
@@ -17,28 +17,45 @@ function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $e
         store: new DevExpress.data.CustomStore({
             key: "id",
             //loadMode: "raw",
-            load: function() {
+            load: function () {
                 // Returns an array of objects that have the following structure:
                 // { id: 1, name: "John Doe" }
                 //return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
                 return $http.get(NG_SETTING.apiServiceBaseUri + "/api/ordersource")
-                                    .then(function (response) {
-                                        return {
-                                            data: response.data,
-                                            totalCount: 10
-                                        };
-                                    }, function (response) {
-                                        return $q.reject("Data Loading Error");
-                                    });
+                    .then(function (response) {
+                        return {
+                            data: response.data.Items,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
             }
         }),
         sort: "name"
+    }
+    var BonusTransactionEventDS = {
+        store: new DevExpress.data.CustomStore({
+            key: "Value",
+            load: function () {
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/BonusTransactionEvent")
+                    .then(function (response) {
+                        return {
+                            data: response.data,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        }),
+        sort: "Value"
     }
     var lookupDataSource2 = {
         store: new DevExpress.data.CustomStore({
             key: "id",
             loadMode: "raw",
-            load: function() {
+            load: function () {
                 // Returns an array of objects that have the following structure:
                 // { id: 1, name: "John Doe" }
                 return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
@@ -49,10 +66,10 @@ function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $e
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardEarningRule",
-            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardEarningRule",
-            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardEarningRule",
-            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardEarningRule",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardEarningRule",
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardEarningRule",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardEarningRule",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardEarningRule",
             onBeforeSend: function (method, ajaxOptions) {
                 //if (request.method === "PUT") {
                 //    updateUrl = NG_SETTING.apiServiceBaseUri + "/api/dxUser"+
@@ -115,13 +132,13 @@ function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $e
                     dataSource: {
                         store: DevExpress.data.AspNet.createStore({
                             key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/punchcardSetting",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxpunchcardSetting",
                             onBeforeSend: function (method, ajaxOptions) {
                                 var authData = localStorageService.get('authorizationData');
                                 if (authData) {
                                     ajaxOptions.headers = {
                                         Authorization: 'Bearer ' + authData.token,
-                                        
+
                                     };
                                 }
                             }
@@ -148,7 +165,7 @@ function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $e
                                 var authData = localStorageService.get('authorizationData');
                                 if (authData) {
                                     ajaxOptions.headers = {
-                                        Authorization: 'Bearer ' + authData.token,                                        
+                                        Authorization: 'Bearer ' + authData.token,
                                     };
                                 }
                             }
@@ -162,12 +179,23 @@ function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $e
                     }
                 },
             },
-            { dataField: "fk_ObjectUpdate_id", caption: "DokumanNummer"  },
-            { dataField: "isActiveValue", caption: "ActiveValue"  },
-            { dataField: "ConfirmImmediately", caption: "ConfirmImmediately"  },
-            { dataField: "Multiplier", caption: "Multiplier"  },
-            { dataField: "PunchcardTransactionEventID", caption: "PunchcardTransaction"  },
-             {
+            //{ dataField: "isActiveValue", caption: "ActiveValue" },
+            { dataField: "ConfirmImmediately", caption: "ConfirmImmediately",dataType: 'boolean' },
+            { dataField: "Enabled", caption: "Enabled",dataType: 'boolean' },
+            { dataField: "Multiplier", caption: "Multiplier" },
+            {
+                dataField: "PunchcardTransactionEventID", caption: "PunchcardTransaction",
+                lookup: {
+                    valueExpr: "Value",
+                    displayExpr: "Name",
+                    dataSource: BonusTransactionEventDS,
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    }
+                }
+            },
+            {
                 dataField: "OrderSourceID", caption: "Order Source",
                 lookup: {
                     valueExpr: "id",
@@ -175,8 +203,8 @@ function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $e
                     dataSource: OrderSourceDataSource,
                 },
 
-            } ,
-            
+            },
+
 
 
         ],

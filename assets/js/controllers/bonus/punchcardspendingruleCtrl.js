@@ -16,10 +16,10 @@ function punchcardspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardSpendingRule",
-            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardSpendingRule",
-            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardSpendingRule",
-            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardSpendingRule",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSpendingRule",
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSpendingRule",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSpendingRule",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSpendingRule",
             onBeforeSend: function (method, ajaxOptions) {
                 //if (request.method === "PUT") {
                 //    updateUrl = NG_SETTING.apiServiceBaseUri + "/api/dxUser"+
@@ -60,7 +60,10 @@ function punchcardspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            { dataField: "fk_ObjectUpdate_id", caption: "fk_ObjectUpdate_id", allowEditing: true  },
+            "name","description",
+            "PunchCardTransactionEventID", 
+            "Multiplier",
+            "Amount",
             {
                 dataField: "PunchcardSettingID", caption: "PunchcardSetting",
                 lookup: {
@@ -69,7 +72,7 @@ function punchcardspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $
                     dataSource: {
                         store: DevExpress.data.AspNet.createStore({
                             key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/PunchcardSetting",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSetting",
                             onBeforeSend: function (method, ajaxOptions) {
                                 var authData = localStorageService.get('authorizationData');
                                 if (authData) {
@@ -90,7 +93,7 @@ function punchcardspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $
                 },
             },
             {
-                dataField: "PunchcardFilterID", caption: "Filter",
+                dataField: "isActiveFilter", caption: "Filter",
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "Name",

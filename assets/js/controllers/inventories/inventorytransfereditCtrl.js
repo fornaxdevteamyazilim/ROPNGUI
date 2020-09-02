@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('inventorytransfereditCtrl', inventorytransfereditCtrl);
-function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, $element) {
+function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, $element,userService) {
     $rootScope.uService.EnterController("inventorytransfereditCtrl");
     var vm = this;
     $scope.item = {};
@@ -53,8 +53,8 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             pageNo: 1,
             pageSize: 1000,
             sort: 'id',
-            search: "", //"StoreID='" + $rootScope.user.StoreID + "'"
-            calcparameters="SelectAll"
+            search: userService.isAdmin()?"":"StoreID='" + $rootScope.user.StoreID + "'",
+            //calcparameters: userService.isAdmin()?null:"SelectAll"
         }).then(function (result) {
             $scope.item.FromRepositoryID = result[0].id;
         }, function (response) {
@@ -97,7 +97,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         $scope.item.items = vm.tableParams.data;
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal("Updated.", translate="invantories.Updated", "success");
+                swal("Updated.", $translate.instant("invantories.Updated"), "success");
                 $location.path('app/inventory/inventorytransfer/list');
                 $scope.SaveButtonActive = true;
             }, function (response) {
@@ -120,12 +120,12 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
     }
     $scope.showtoaster = function () {
         if ($scope.addoredit == 'add')
-            toaster.pop('success',$translate.instant('invantories.DataAdded '), $translate.instant('invantories.DataSaved '));
+            toaster.pop('success', $translate.instant('invantories.DataAdded '), $translate.instant('invantories.DataSaved '));
         else
             toaster.pop('success', $translate.instant('invantories.DataAdded '), $translate.instant('invantories.DataSaved '));
     }
     $scope.savetoaster = function () {
-        toaster.pop('success',$translate.instant('invantories.DataAdded ') ,$translate.instant('invantories.DataSaved ') );
+        toaster.pop('success', $translate.instant('invantories.DataAdded '), $translate.instant('invantories.DataSaved '));
     }
     $scope.isClean = function () {
         return angular.equals($scope.original, $scope.item);
@@ -144,45 +144,47 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     vm.tableParams = new ngTableParams({
         page: 1,
         count: 500,
     }, {
-            getData: function ($defer, params) {
-                if ($scope.InventoryTransferID == 'new' && $stateParams.id == 'new') {
-                    $scope.InventoryTransferID = 0;
-                }
-                Restangular.all('inventorytransferitem').getList({
-                    pageNo: params.page(),
-                    pageSize: params.count(),
-                    sort: params.orderBy(),
-                    search: "InventoryTransferID='" + $scope.InventoryTransferID + "'"
-                }).then(function (items) {
-                    $scope.groupTotal = 0;
-                    params.total(items.paging.totalRecordCount);
-                    $defer.resolve(items);
-                    if (items && items.length) {
-                        for (var i = 0; i < items.length; i++) {
-                            $scope.groupTotal += items[i].UnitCount * items[i].UnitPrice
-                        }
-                    }
-                }, function (response) {
-                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
-                });
+        getData: function ($defer, params) {
+            if ($scope.InventoryTransferID == 'new' && $stateParams.id == 'new') {
+                $scope.InventoryTransferID = 0;
             }
+            Restangular.all('inventorytransferitem').getList({
+                pageNo: params.page(),
+                pageSize: params.count(),
+                sort: params.orderBy(),
+                search: "InventoryTransferID='" + $scope.InventoryTransferID + "'"
+            }).then(function (items) {
+                $scope.groupTotal = 0;
+                params.total(items.paging.totalRecordCount);
+                $defer.resolve(items);
+                if (items && items.length) {
+                    for (var i = 0; i < items.length; i++) {
+                        $scope.groupTotal += items[i].UnitCount * items[i].UnitPrice
+                    }
+                }
+            }, function (response) {
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+            });
+        }
 
-        });
+    });
     $scope.loadRepository = function () {
         if (!$scope.repositories.length) {
             Restangular.all('repository').getList({
                 pageNo: 1,
                 pageSize: 1000,
                 sort: 'id',
+                search: "", //"StoreID='" + $rootScope.user.StoreID + "'"
+                calcparameters: "SelectAll"
             }).then(function (result) {
                 $scope.repositories = result;
             }, function (response) {
@@ -253,36 +255,36 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
     $scope.loadEntities('enums/InventoryApproveState', 'InventoryApproveState');
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title:  $translate.instant('invantories.Sure') ,
-            text:  $translate.instant('invantories.SureRecord'),
+            title: $translate.instant('invantories.Sure'),
+            text: $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
-            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
+            confirmButtonText: $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText: $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal(  $translate.instant('invantories.Deleted'),  $translate.instant('invantories.RecordDeleted'), "success");
+                    SweetAlert.swal($translate.instant('invantories.Deleted'), $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('app/inventory/inventorytransfer/list');
                 });
             }
             else {
-                SweetAlert.swal( $translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled') , "error");
+                SweetAlert.swal($translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled'), "error");
             }
         });
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title:  $translate.instant('invantories.Sure') ,
-            text:  $translate.instant('invantories.SureRecord'),
+            title: $translate.instant('invantories.Sure'),
+            text: $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText:    $translate.instant('invantories.confirmButtonText'),
-            cancelButtonText:   $translate.instant('invantories.cancelButtonText'),
+            confirmButtonText: $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText: $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -291,7 +293,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('invantories.Attention'),$translate.instant('invantories.RecordDeleted'));
+                toaster.pop("error", $translate.instant('invantories.Attention'), $translate.instant('invantories.RecordDeleted'));
             }
         });
     };

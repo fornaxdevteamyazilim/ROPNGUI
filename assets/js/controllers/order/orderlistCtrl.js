@@ -91,7 +91,7 @@ function orderlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             result.push("ExtendedSearch=" + ao.search);
             return result;
         } else {
-            if (!userService.userIsInRole("CALLCENTER") &&  userService.userIsInRole("CMRESTORANHATTI") && !userService.userIsInRole("Admin") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("PHAdmin")) {
+            if (!userService. userIsInRole("CALLCENTER") &&  !userService.userIsInRole("CMRESTORANHATTI") && !userService.userIsInRole("Admin") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("PHAdmin")) {
                 result.push("StoreID='" + $rootScope.user.StoreID + "'");
                 result.push("tt.OperationDate ='" + $rootScope.user.Store.OperationDate + "'");
                 result.push("OrderDate >'" + $rootScope.user.Store.OperationDate + "'");

@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <span>Kasa Adı: </span>
-                        <select id="OrderStateID" class="form-control" ng-model="item.clientname" ng-disabled=$rootscope.user.restrictions.ClientName=='Enable'>
+                        <select id="OrderStateID" class="form-control" ng-model="item.clientname" ng-disabled="$rootscope.user.restrictions.ClientName=='Enable'"">
                             <option value="Kasa1">Kasa1</option>
                             <option value="Kasa2">Kasa2</option>
                             <option value="Kasa3">Kasa3</option>

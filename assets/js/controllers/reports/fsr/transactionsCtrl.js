@@ -10,7 +10,7 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
     $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;
     $scope.Time = ngnotifyService.ServerTime();
-    function ISO8601_week_no(dt) {
+    function ISO8601_week_no(dt) { 
         var tdt = new Date(dt.valueOf());
         var dayn = (dt.getDay() + 6) % 7;
         tdt.setDate(tdt.getDate() - dayn + 3);

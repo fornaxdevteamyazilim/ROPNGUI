@@ -90,6 +90,11 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
         searchPanel: { visible: true },
         groupPanel: { visible: true },
         grouping: { autoExpandAll: false },
+        stateStoring: {
+            enabled: true,
+            type: "localStorage",
+            storageKey: "dx-sosreport-storing"
+        },
         columnChooser: { enabled: false },
         columnFixing: { enabled: true },
         columns: [
