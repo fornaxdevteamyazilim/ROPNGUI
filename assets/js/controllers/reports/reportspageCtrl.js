@@ -14,6 +14,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
     $scope.AccountingReport = false;
     $scope.FSRReport = false;
     $scope.MGMGTReport = false;
+    $scope.AUDITReports = false;
+    $scope.SOSReports = false;
     $scope.goReportsPage = function (page) {
         $location.path(page);
     };
@@ -46,6 +48,10 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
             $scope.FSRReport = false;
         if (data == 'MGMGTReport')
             $scope.MGMGTReport = false;
+        if (data == 'SOSReports')
+            $scope.SOSReports = false;
+        if (data == 'AUDITReports')
+            $scope.AUDITReports = false;
     };
     $scope.loadSCRPage = function () {
         $scope.ProductSaleReport = false;
@@ -62,6 +68,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
     };
     $scope.loadOtherPage = function () {
         $scope.ProductSaleReport = false;
@@ -78,6 +86,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
     };
     $scope.loadGiroPage = function () {
         $scope.ProductSaleReport = false;
@@ -93,6 +103,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
     };
     $scope.loadProductSalePage = function () {
         $scope.StockandCost = false;
@@ -109,6 +121,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
     };
     $scope.loadConsolidatedPage = function () {
         $scope.StockandCost = false;
@@ -125,6 +139,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
 
     };
     $scope.loadOrdersPage = function () {
@@ -142,6 +158,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
 
     };
     $scope.loadCallcenterPage = function () {
@@ -159,6 +177,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
 
     };
     $scope.loadComplaintPage = function () {
@@ -177,6 +197,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
 
     };
     $scope.loadSmsListPage = function () {
@@ -195,6 +217,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
 
     };
     $scope.loadStoreLogsPage = function () {
@@ -213,6 +237,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
 
     };
     $scope.loadAccountingPage = function () {
@@ -231,6 +257,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
 
     };
     $scope.loadStaffShiftPage = function () {
@@ -249,6 +277,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = true;
         $scope.FSRReport = false;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
     };
     $scope.loadFsrReportPage = function () {
         $scope.StockandCost = false;
@@ -266,6 +296,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = true;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
 
     };
     $scope.loadFsrReportPage = function () {
@@ -284,6 +316,8 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = true;
         $scope.MGMGTReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
 
     };
     $scope.loadMGMGTReporPage = function () {
@@ -302,6 +336,49 @@ function reportspageCtrl($scope, SweetAlert, toaster, $window, Restangular, $sta
         $scope.StaffShiftReport = false;
         $scope.FSRReport = false;
         $scope.MGMGTReport = true;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = false;
+
+    };
+    $scope.loadSOSReportsPage = function () {
+        $scope.StockandCost = false;
+        $scope.OtherReport = false;
+        $scope.GiroReport = false;
+        $scope.ProductSaleReport = false;
+        $scope.ConsolidatedReport = false;
+        $scope.OrdersReport = false;
+        $scope.ComplaintReport = false;
+        $scope.CallcenterReport = false;
+        $scope.ComplaintReport = false;
+        $scope.SmsListReport = false;
+        $scope.StoreLogsReport = false;
+        $scope.AccountingReport = false;
+        $scope.StaffShiftReport = false;
+        $scope.FSRReport = false;
+        $scope.MGMGTReport =false;
+        $scope.FSRReport = false;
+        $scope.AUDITReports = false;
+        $scope.SOSReports = true;
+
+    };
+    $scope.loadAUDITReportPage = function () {
+        $scope.StockandCost = false;
+        $scope.OtherReport = false;
+        $scope.GiroReport = false;
+        $scope.ProductSaleReport = false;
+        $scope.ConsolidatedReport = false;
+        $scope.OrdersReport = false;
+        $scope.ComplaintReport = false;
+        $scope.CallcenterReport = false;
+        $scope.ComplaintReport = false;
+        $scope.SmsListReport = false;
+        $scope.StoreLogsReport = false;
+        $scope.AccountingReport = false;
+        $scope.StaffShiftReport = false;
+        $scope.FSRReport = false;
+        $scope.MGMGTReport = false;
+        $scope.AUDITReports = true;
+        $scope.SOSReports = false;
 
     };
 
