@@ -99,7 +99,8 @@ function orderlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
                 return result;
             } else {
                 $scope.OrderDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
-                result.push("OrderDate >'" + $scope.OrderDate + "'");
+                //result.push("OrderDate >'" + $scope.OrderDate + "'");
+                result.push("tt.OperationDate ='" + $rootScope.user.Store.OperationDate + "'");
                 result.push($scope.OrderStateID);
                 return result;
             }

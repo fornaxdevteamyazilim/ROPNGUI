@@ -10,7 +10,7 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
     $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;
     $scope.Time = ngnotifyService.ServerTime();
-    function ISO8601_week_no(dt) { 
+    function ISO8601_week_no(dt) {
         var tdt = new Date(dt.valueOf());
         var dayn = (dt.getDay() + 6) % 7;
         tdt.setDate(tdt.getDate() - dayn + 3);
@@ -27,8 +27,8 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
     var minYear = parseInt(cYeaar - 4);
     var maxYear = parseInt(cYeaar);
     var vNumber = ISO8601_week_no((new Date()));
-    $scope.startWeek = parseInt(vNumber - 1);
-    $scope.endWeek = parseInt(vNumber);
+    $scope.startWeek = parseInt(vNumber - 2);
+    $scope.endWeek = parseInt(vNumber - 1);
     $scope.VeiwHeader = {};
     $scope.startYearButton = {
         bindingOptions: {
@@ -109,7 +109,7 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
         columnAutoWidth: true,
         showBorders: true,
         filterRow: { visible: true },
-        filterPanel: { visible: true },
+        //filterPanel: { visible: true },
         headerFilter: { visible: true },
         columnChooser: {
             enabled: true
@@ -117,48 +117,57 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
         columnFixing: {
             enabled: true
         },
+        sorting: {
+            mode: "none"
+        },
         columns: [
             { dataField: "Area", dataType: "string", width: 180, fixed: true, },
             { dataField: "Store", dataType: "string", width: 180, fixed: true, },
             { dataField: "Week", dataType: "number", fixed: true, },
-            { dataField: "Sales", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
-            { 
-                caption: "Food Materials",
+            { dataField: "Sales", dataType: "number", format: { type: "fixedPoint", precision: 0 }, fixed: true },
+            { dataField: "x", caption:"",dataType: "string", width: 10, allowFiltering: false },
+            {
+                caption: "Food",
                 columns: [
                     { caption: "Actual", dataField: "YiyecekMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "YiyecekMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: "Theoretical", dataField: "YiyecekMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "YiyecekMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
-                ]                    
+                ]
             },
-            { 
-                caption: "Beverages Materials",
+            { dataField: "x",caption:"", dataType: "string", width: 10, allowFiltering: false },
+            {
+                caption: "Beverages",
                 columns: [
                     { caption: "Actual", dataField: "IcecekMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "IcecekMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: "Theoretical", dataField: "IcecekMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "IcecekMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
-                ]                    
+                ]
             },
-            { 
-                caption: "Packaging Materials",
+            { dataField: "x",caption:"", dataType: "string", width: 10, allowFiltering: false },
+            {
+                caption: "Packaging",
                 columns: [
                     { caption: "Actual", dataField: "AmbalajMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "AmbalajMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: "Theoretical", dataField: "AmbalajMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "AmbalajMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
-                ]                    
+                ]
             },
-            { 
+            { dataField: "x",caption:"", dataType: "string", width: 10, allowFiltering: false },
+            {
                 caption: "Total Materials",
+                name: "MaterialsTotal",
                 columns: [
                     { caption: "Actual", dataField: "Total_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "Total_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: "Theoretical", dataField: "Total_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "Total_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
-                ]                    
+                ]
             },
-            { 
+            { dataField: "x",caption:"", dataType: "string", width: 10, allowFiltering: false },
+            {
                 caption: "Labor Costs",
                 columns: [
                     { caption: "Actual Col", dataField: "Total_Actual_COL", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
@@ -167,10 +176,10 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                     { caption: "Projection COL", dataField: "Projection_COL", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "Projection_COL_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: "Var %", dataField: "Labor_Variance", dataType: "number", format: { type: "percent", precision: 2 } }
-                ]                    
+                ]
             },
         ],
-        
+
         onRowPrepared: function (e) {
             if (e.rowType === 'data') {
                 if (!e.data.Store) {
@@ -180,14 +189,19 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
         },
         onCellPrepared: function (options) {
             var fieldData = options.value;
-            var ColoredFileds = ["Sales","HDSSales","HDSSalesPercent","DINSales","DINSalesPercent","COSales","COSalesPercent","HDSTrx","HDSTrxPercent","DINTrx","DINTrxPercent",
-            "COTrx","COTrxPercent","AvgGC","HDSAvgGC","DINAvgGC","COAvgGC"];
-            if (fieldData && options.row.data.Delta === true && ColoredFileds.indexOf(options.column.dataField)>-1) {
+            var ColoredFileds = ["Sales", "HDSSales", "HDSSalesPercent", "DINSales", "DINSalesPercent", "COSales", "COSalesPercent", "HDSTrx", "HDSTrxPercent", "DINTrx", "DINTrxPercent",
+                "COTrx", "COTrxPercent", "AvgGC", "HDSAvgGC", "DINAvgGC", "COAvgGC"];
+            if (fieldData && options.row.data.Delta === true && ColoredFileds.indexOf(options.column.dataField) > -1) {
                 if (options.value < 0)
                     options.cellElement.css({ 'color': '#f00' });
                 else
                     options.cellElement.css({ 'color': '#2ab71b' });
+                
             }
+            if (options.column.dataField === 'x') {
+                options.cellElement.css({ 'background-color': '#DCDCDC' });  
+            }
+
         },
         export: {
             enabled: true,
@@ -197,9 +211,9 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                 if (!gridCell) {
                     return;
                 }
-                var ColoredFileds = ["Sales","HDSSales","HDSSalesPercent","DINSales","DINSalesPercent","COSales","COSalesPercent","HDSTrx","HDSTrxPercent","DINTrx","DINTrxPercent",
-                "COTrx","COTrxPercent","AvgGC","HDSAvgGC","DINAvgGC","COAvgGC"];
-                if (ColoredFileds.indexOf(gridCell.column.dataField)>-1) {
+                var ColoredFileds = ["Sales", "HDSSales", "HDSSalesPercent", "DINSales", "DINSalesPercent", "COSales", "COSalesPercent", "HDSTrx", "HDSTrxPercent", "DINTrx", "DINTrxPercent",
+                    "COTrx", "COTrxPercent", "AvgGC", "HDSAvgGC", "DINAvgGC", "COAvgGC"];
+                if (ColoredFileds.indexOf(gridCell.column.dataField) > -1) {
                     if (gridCell.data && gridCell.data.Delta === true)
                         if (gridCell.data[gridCell.column.dataField] > 0)
                             options.font.color = '#008000';
@@ -211,6 +225,10 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                         options.font.bold = true;
                         options.backgroundColor = '#DCDCDC';
                     }
+                    
+                }
+                if (gridCell.column.dataField === 'x') {
+                    options.backgroundColor = '#000000';
                 }
             }
         },
@@ -224,5 +242,5 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
         var dataGrid = $('#gridContainer').dxDataGrid('instance');
         dataGrid.refresh();
     };
-    
+
 }

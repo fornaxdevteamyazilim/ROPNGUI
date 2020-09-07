@@ -15,7 +15,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             bindingOptions: {
                 value: "DateRange.fromDate.value"
             },
-            value: new Date()
+            value: new Date(Date.now() - 2 * 24*60*60*1000)
         },
         toDate: {
             max: new Date(),
@@ -24,7 +24,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             bindingOptions: {
                 value: "DateRange.toDate.value"
             },
-            value: new Date()
+            value: new Date(Date.now() - 1* 24*60*60*1000)
         }
     };
     $scope.VeiwHeader = {};

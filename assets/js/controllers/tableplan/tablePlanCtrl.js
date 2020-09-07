@@ -1,15 +1,15 @@
-﻿app.filter("getDiff", function() {
-    return function(time) {
-      var startDate = new Date(time.startDate);
-      var endDate = new Date(time.endDate);
-      var milisecondsDiff = endDate - startDate;
-      
-        return Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2}) + ":" + (Math.floor(milisecondsDiff/(1000*60))%60).toLocaleString(undefined, {minimumIntegerDigits: 2})  + ":" + (Math.floor(milisecondsDiff/1000)%60).toLocaleString(undefined, {minimumIntegerDigits: 2}) ;
-    
+﻿app.filter("getDiff", function () {
+    return function (time) {
+        var startDate = new Date(time.startDate);
+        var endDate = new Date(time.endDate);
+        var milisecondsDiff = endDate - startDate;
+
+        return Math.floor(milisecondsDiff / (1000 * 60 * 60)).toLocaleString(undefined, { minimumIntegerDigits: 2 }) + ":" + (Math.floor(milisecondsDiff / (1000 * 60)) % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 }) + ":" + (Math.floor(milisecondsDiff / 1000) % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+
     }
-  });
+});
 app.controller('tablePlanCtrl', tablePlanCtrl);
-function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $filter, $window, $rootScope, $location, userService, $element,ngnotifyService) {
+function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $filter, $window, $rootScope, $location, userService, $element, ngnotifyService) {
     $rootScope.uService.EnterController("tablePlanCtrl");
     $scope.tableplans = [];
     $scope.PersonCount = [];
@@ -36,11 +36,11 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
     };
 
     $scope.FormatClock = function (val) {
-        var n=new Date();
+        var n = new Date();
         var milisecondsDiff = n - val;
-    
-      return Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2}) + ":" + (Math.floor(milisecondsDiff/(1000*60))%60).toLocaleString(undefined, {minimumIntegerDigits: 2})  + ":" + (Math.floor(milisecondsDiff/1000)%60).toLocaleString(undefined, {minimumIntegerDigits: 2}) ;
- 
+
+        return Math.floor(milisecondsDiff / (1000 * 60 * 60)).toLocaleString(undefined, { minimumIntegerDigits: 2 }) + ":" + (Math.floor(milisecondsDiff / (1000 * 60)) % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 }) + ":" + (Math.floor(milisecondsDiff / 1000) % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+
         //return $filter('date')(ngnotifyService.ServerTime(val), 'HH:mm:ss');
     };
     $scope.GetOrderPaymentsTotal = function (data) {
@@ -107,8 +107,14 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         if (table && table.length > 0) {
             for (var i = 0; i < table.length; i++) {
                 if (table[i].StoreTableID == tableID) {
-                    $scope.ShowObject = true;
-                    location.href = '#/app/orders/orderStoreTable/' + table[i].id;
+                    if (table[i].OrderStateID == 0 || table[i].OrderStateID == 2) {
+                        $scope.ShowObject = true;
+                        toaster.pop('error', "Order in use","Cannot change Order!");
+                    }
+                    else {
+                        $scope.ShowObject = true;
+                        location.href = '#/app/orders/orderStoreTable/' + table[i].id;
+                    }
                     break;
                 }
                 else {
@@ -287,32 +293,32 @@ function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, 
     };
     $scope.InsotreOrder = function (PersonCount) {
         //if ($scope.isWaiting == true) {
-          //  $scope.isWaiting = false;
-            var data = $scope.GetDepartment();
-            if (data != null) {
-                var order = {
-                    StoreTableID: tableID,
-                    persons: [],
-                    OrderTypeID: 0,
-                    StoreID: $rootScope.user.StoreID,
-                    DepartmentID: $rootScope.user.UserRole.OrderSource.Department.id
-                }
-                for (var i = 0; i < PersonCount; i++) {
-                    var orderperson = { PersonIndex: i + 1 }
-                    order.persons.push(orderperson);
-                }
-                Restangular.restangularizeElement('', order, 'order');
-                order.post().then(function (resp) {
-                    location.href = '#/app/orders/orderStoreTable/' + resp.id;
-                    $scope.ok('Yes');
-                },
-                    function (resp) {
-                        //$scope.isWaiting = true;
-                        toaster.pop('error', resp.data.ExceptionMessage, "Failed to Create New Order !");
-                    });
-            } else {
-                //TODO Swet Alert
+        //  $scope.isWaiting = false;
+        var data = $scope.GetDepartment();
+        if (data != null) {
+            var order = {
+                StoreTableID: tableID,
+                persons: [],
+                OrderTypeID: 0,
+                StoreID: $rootScope.user.StoreID,
+                DepartmentID: $rootScope.user.UserRole.OrderSource.Department.id
             }
+            for (var i = 0; i < PersonCount; i++) {
+                var orderperson = { PersonIndex: i + 1 }
+                order.persons.push(orderperson);
+            }
+            Restangular.restangularizeElement('', order, 'order');
+            order.post().then(function (resp) {
+                location.href = '#/app/orders/orderStoreTable/' + resp.id;
+                $scope.ok('Yes');
+            },
+                function (resp) {
+                    //$scope.isWaiting = true;
+                    toaster.pop('error', resp.data.ExceptionMessage, "Failed to Create New Order !");
+                });
+        } else {
+            //TODO Swet Alert
+        }
         //}
     };
     $scope.ok = function () {

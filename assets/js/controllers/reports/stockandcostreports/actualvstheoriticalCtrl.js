@@ -10,7 +10,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
     //Globalize.locale(navigator.language);
     //DevExpress.localization.locale(navigator.language);
     //Globalize.locale('tr');
-    $scope.params = userService.getParameter('inventorydeliverylist',
+    $scope.params = userService.getParameter('actualvstheoriticalreport',
         {
             fromDate: $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd'),
             toDate: moment().add(1, 'days').format('YYYY-MM-DD')

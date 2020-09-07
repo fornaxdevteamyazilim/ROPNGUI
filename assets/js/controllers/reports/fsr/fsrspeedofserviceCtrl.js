@@ -27,8 +27,8 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
     var minYear = parseInt(cYeaar - 4);
     var maxYear = parseInt(cYeaar);
     var vNumber = ISO8601_week_no((new Date()));
-    $scope.startWeek = parseInt(vNumber - 1);
-    $scope.endWeek = parseInt(vNumber);
+    $scope.startWeek = parseInt(vNumber - 2);
+    $scope.endWeek = parseInt(vNumber- 1);
     $scope.VeiwHeader = {};
     $scope.startYearButton = {
         bindingOptions: {
