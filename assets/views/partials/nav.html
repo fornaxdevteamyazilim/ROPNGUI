@@ -777,12 +777,8 @@
                         </a>
                     </li>
                     <!--<li ui-sref-active="active" ng-if="user.restrictions.sosreport=='Enable'">-->
-                    <li ui-sref-active="active" ng-if="user.restrictions.sosreport=='Enable'">
-                        <a ui-sref="app.reports.fsr.sosreport">
-                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.SOSREPORT">Transactions</span>
-                        </a>
-                    </li>
-                    <li ui-sref-active="active" ng-if="user.restrictions.fsrspeedofservice=='Enable'">
+                  
+                     <li ui-sref-active="active" ng-if="user.restrictions.fsrspeedofservice=='Enable'">
                         <a ui-sref="app.reports.fsr.fsrspeedofservice">
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.FSRSPEEDOFSERVICE">Transactions</span>
                         </a>
@@ -795,6 +791,48 @@
                     <li ui-sref-active="active" ng-if="user.restrictions.fsractualtheoretical=='Enable'" >
                         <a ui-sref="app.reports.fsr.fsractualtheoretical">
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.FSRACTUALTHEORETICAL">Transactions</span>
+                        </a>
+                    </li>
+                    
+
+                </ul>
+            </li>
+            <li ng-if="user.restrictions.sos=='Enable'">
+                <a href="javascript:void(0)">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-pencil-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="sidebar.nav.reports.SOS"> SOS </span><i class="icon-arrow"></i>
+                        </div>
+                    </div>
+                </a>
+                <ul class="sub-menu">
+                       <!--<li ui-sref-active="active" ng-if="user.restrictions.sosreport=='Enable'">-->
+                    <li ui-sref-active="active" ng-if="user.restrictions.sosreport=='Enable'">
+                        <a ui-sref="app.reports.fsr.sosreport">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.SOSREPORT">Transactions</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.ordersreports.orderdriverlist" ng-if="user.restrictions.orderdriverlist=='Enable'">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERDRIVERLIST">Sipariþ - Sürücü Listesi</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.ordersreports.performance" ng-if="user.restrictions.performance=='Enable'">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERPERFORMANCE">Sipariþ Performanslarý</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.ordersreports.kitchenperformance" ng-if="user.restrictions.performance=='Enable'">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.KITCHENPERFORMANCE">Mutfak Performanslarý</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.management.podsreport">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.PODSREPORT">Podlar</span>
                         </a>
                     </li>
                     
@@ -948,7 +986,7 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
-                        <a ui-sref="app.reports.productsalesreports.productwithrelations" ng-if="user.restrictions.promotionanaisys=='Enable'">
+                        <a ui-sref="app.reports.productsalesreports.promotionanaisys" ng-if="user.restrictions.promotionanaisys=='Enable'">
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.PROMOTIONANALISYS">Menü - Ürün Satýþ</span>
                         </a>
                     </li>
@@ -1071,11 +1109,7 @@
                     </div>
                 </a>
                 <ul class="sub-menu">
-                    <li ui-sref-active="active">
-                        <a ui-sref="app.reports.ordersreports.orderdriverlist" ng-if="user.restrictions.orderdriverlist=='Enable'">
-                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERDRIVERLIST">Sipariþ - Sürücü Listesi</span>
-                        </a>
-                    </li>
+                   
                     <li ui-sref-active="active">
                         <a ui-sref="app.reports.ordersreports.OrderTotalsStoreByOrderType" ng-if="user.restrictions.OrderTotalsStoreByOrderType=='Enable'">
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERSEBYORDERTYPE">sipariþ Tipine Göre Sipariþler (Tutar)</span>
@@ -1091,11 +1125,7 @@
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERTOTALSSTOREBYORDERTYPE">Sipariþ Tipine Göre Sipariþler</span>
                         </a>
                     </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="app.reports.ordersreports.performance" ng-if="user.restrictions.performance=='Enable'">
-                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERPERFORMANCE">Sipariþ Performanslarý</span>
-                        </a>
-                    </li>
+                    
                     <!--<li ui-sref-active="active">
                 <a ui-sref="app.reports.ordersreports.OrderCountsByPamentType" ng-if="user.restrictions.OrderCountsByPamentType=='Enable'">
                     <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERCOUNTSBYPAYMENTTYPE">Ödeme Tiplerine Göre Sipariþ Adetleri</span>
@@ -1122,6 +1152,50 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
+                        <a ui-sref="app.reports.ordersreports.orderpromotion" ng-if="user.restrictions.orderpromotionreport=='Enable'">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERPROMOTIONREPORT">Sipariþ Ýndirim Raporu</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.ordersreports.ordertotals" ng-if="user.restrictions.ordertotals=='Enable'">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERTOTALS">Sipariþ Toplamlarý</span>
+                        </a>
+                    </li>
+                        <li ui-sref-active="active">
+                        <a ui-sref="app.reports.ordersreports.orderlaststates" ng-if="user.restrictions.orderlaststates=='Enable'">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERLASTATES">Sipariþ Durumlarý Toplamý</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.callcenterreports.hourlyorders" ng-if="user.restrictions.hourlyorders=='Enable'">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.HOURLYORDERS">Saatlik Sipariþler (Adet)</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.ordersreports.changeorderpayments" ng-if="user.restrictions.changeorderpayments=='Enable'">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.CHANGEORDERPAYMENTS">Ödeme Tipleri Deðiþen Sipariþler</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.ordersreports.staffordersreport">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.STAFFORDERSREPORT">personel sipariş raporu</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ng-if="user.restrictions.audit=='Enable'">
+                <a href="javascript:void(0)">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-pencil-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="sidebar.nav.reports.AUDIT">Audit</span><i class="icon-arrow"></i>
+                        </div>
+                    </div>
+                </a>
+                <ul class="sub-menu">                 
+                    <li ui-sref-active="active">
                         <a ui-sref="app.reports.ordersreports.ReturnedProducts" ng-if="user.restrictions.ReturnedProducts=='Enable'">
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.RETURNLIST">Return (Ýptal Adisyon) Listesi</span>
                         </a>
@@ -1134,26 +1208,6 @@
                     <li ui-sref-active="active">
                         <a ui-sref="app.reports.ordersreports.deletedorderitems" ng-if="user.restrictions.deletedorderitems=='Enable'">
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.DELETEDORDERITEMS">Silinen Sipariþ Kalemleri (Return Listesi)</span>
-                        </a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="app.reports.ordersreports.orderpromotion" ng-if="user.restrictions.orderpromotionreport=='Enable'">
-                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERPROMOTIONREPORT">Sipariþ Ýndirim Raporu</span>
-                        </a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="app.reports.ordersreports.ordertotals" ng-if="user.restrictions.ordertotals=='Enable'">
-                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERTOTALS">Sipariþ Toplamlarý</span>
-                        </a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="app.reports.ordersreports.kitchenperformance" ng-if="user.restrictions.performance=='Enable'">
-                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.KITCHENPERFORMANCE">Mutfak Performanslarý</span>
-                        </a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="app.reports.ordersreports.orderlaststates" ng-if="user.restrictions.orderlaststates=='Enable'">
-                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.ORDERLASTATES">Sipariþ Durumlarý Toplamý</span>
                         </a>
                     </li>
                     <li ui-sref-active="active">
@@ -1172,8 +1226,8 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
-                        <a ui-sref="app.reports.ordersreports.staffordersreport">
-                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.STAFFORDERSREPORT">personel sipariş raporu</span>
+                        <a ui-sref="app.reports.management.voidorders">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.VOIDORDERSREPORT">Podlar</span>
                         </a>
                     </li>
                 </ul>
@@ -1283,19 +1337,9 @@
                     </div>
                 </a>
                 <ul class="sub-menu">
-                    <li ui-sref-active="active">
-                        <a ui-sref="app.reports.management.podsreport">
-                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.PODSREPORT">Podlar</span>
-                        </a>
-                    </li>
-                    <li ui-sref-active="active">
+                     <li ui-sref-active="active">
                         <a ui-sref="app.reports.management.productwastes">
                             <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.PRODUCTWASTES">Pişmiş Atık</span>
-                        </a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="app.reports.management.voidorders">
-                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.VOIDORDERSREPORT">Podlar</span>
                         </a>
                     </li>
                 </ul>

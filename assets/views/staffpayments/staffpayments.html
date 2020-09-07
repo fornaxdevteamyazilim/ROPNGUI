@@ -61,9 +61,11 @@
         </span>
         <button class="btn btn-default glyphicon glyphicon-trash" ng-click="DriverID = undefined"> </button>
         <button class="btn btn-default glyphicon glyphicon-refresh tooltips" tooltip="Sayfayı Yenile!" ng-click="GetPayOff()"> </button>
-        <button ng-click="goOrderDriverListReport('app/reports/ordersreports/orderdriverlist')" class="btn btn-o btn-default text-uppercase text-large text-bold margin-left-10 visible-lg visible-md">
-            <span>{{'main.GOORDERDRIVERLIST' |translate}}</span>
-        </button>
+       <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right" style="margin-right: -750px;">
+            <button ng-click="goOrderDriverListReport('app/reports/ordersreports/orderdriverlist')" class="btn btn-o btn-default text-uppercase text-large text-bold margin--10 visible-lg visible-md">
+                 <span>{{'main.GOORDERDRIVERLIST' |translate}}</span>
+            </button> 
+        </div> 
         <button ng-if="user.UserRole.MemberID == '111679600561'" print-btn class="btn btn-default tooltips" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
             <img ng-src="assets/images/print.png" style="width:2vw; height:2.2vh;" class="center" /><br />
             <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
