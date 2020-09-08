@@ -201,6 +201,24 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
             }
         },
     };
+    $scope.NewShiftPlan = function () {
+        var item = {};
+        if (userService.userIsInRole("STOREMANAGER")) {
+            item.StoreID = $rootScope.user.StoreID;
+        }
+        else {
+            item.StoreID = $scope.StoreID;
+        }
+        item.PeriodYear = $scope.Year;
+        item.PeriodWeek = $scope.Week;
+        Restangular.restangularizeElement('', item, 'ShiftPlan')
+        item.post().then(function (resp) {
+            location.href = '#/app/specialoperations/shiftplanedit2/' + resp.id;
+        }, function (response) {
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+        });
+    };
+
     $scope.LoadData = function () {
         var dataGrid = $('#gridContainer').dxDataGrid('instance');
         dataGrid.refresh();

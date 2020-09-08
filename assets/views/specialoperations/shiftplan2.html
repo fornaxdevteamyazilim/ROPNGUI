@@ -27,19 +27,13 @@
                 <span print-remove class="mainTitle text-dark" style="font-size:25px;" translate="tittle.SHIFTPLANTWO" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
                 <i class="fa fa-info-circle" style="font-size:25px;" popover="{{'reportsinformation.SHIFTPLANTWO' |translate}}" popover-title="{{'reportspage.INFORMATION' |translate}}" popover-trigger="mouseenter" popover-placement="bottom"></i>
                 <br />
-
-
-
-            </div>
-            
-            <div print-remove class="col-lg-1 col-md-1 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
-                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
-                    <span translate="main.BACK">Back</span>
+            </div>         
+            <div print-remove class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10 pull-right visible-lg visible-md" ng-hide="isWaiting==true">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="NewShiftPlan()">
+                    <span translate="main.NEW"></span>
                 </a>
             </div>
-            <div class="col-md-1 margin-top-5 pull-right visible-md">
-                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
-            </div>
+          
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
             <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
@@ -67,13 +61,14 @@
                     </div>
                     
                     </div>
-                    <div class="dx-fieldset col-lg-3">
-                       
-                        <div dx-button="addNewButtonOptions"></div>
+                    <div print-remove class="col-sm-6 col-xs-6 margin-top-10 pull-right visible-sm visible-xs" ng-hide="isWaiting==true">
+                        <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="NewShiftPlan()">
+                            <span translate="main.NEW"></span>
+                        </a>
                     </div>
             </div>
-    
         </div>
+        
     <div id="report" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive" ng-hide="isWaiting==true">
         <!--<div id="sales-chart" dx-chart="chartOptions"></div>-->
         <!--<div dx-button="resetButtonOptions"></div>-->
