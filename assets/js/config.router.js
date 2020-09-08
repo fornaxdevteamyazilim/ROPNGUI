@@ -3083,6 +3083,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'shiftplan'
             }
+        }).state('app.specialoperations.shiftplan2', {
+            url: '/shiftplan2',
+            templateUrl: "assets/views/specialoperations/shiftplan2.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'shiftplan2Ctrl', 'dateCtrl'),
+            title: 'shiftplan2',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'shiftplan2'
+            }
         }).state('app.specialoperations.shiftplanedit', {
             url: '/shiftplanedit/:id',
             templateUrl: "assets/views/specialoperations/shiftplanitem.html",
@@ -3091,6 +3100,25 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'shiftplanedit'
+            }
+        }).state('app.specialoperations.shiftplanedit2', {
+            url: '/shiftplanedit2/:id',
+            templateUrl: "assets/views/specialoperations/shiftplanedit2.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'shiftplanedit2Ctrl', 'dateCtrl'),
+            title: 'shiftplanedit2',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'shiftplanedit2'
+            }
+        }).
+        state('app.specialoperations.staffpermitts', {
+            url: '/staffpermitts/:id',
+            templateUrl: "assets/views/specialoperations/staffpermitts.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'staffpermittsCtrl', 'dateCtrl'),
+            title: 'staffpermitts',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'staffpermitts'
             }
         }).state('app.specialoperations.shiftplanactual', {
             url: '/shiftplanactual',

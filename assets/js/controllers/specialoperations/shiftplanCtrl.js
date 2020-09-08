@@ -16,7 +16,7 @@ function shiftplanCtrl($rootScope, $scope, Restangular, ngTableParams, toaster, 
     });
     $scope.SelectItem = function (id) {
         $scope.SelectedItem = id;
-        location.href = '#/app/specialoperations/shiftplanedit/' + $scope.SelectedItem;
+        location.href = '#/app/specialoperations/shiftplanedit2/' + $scope.SelectedItem;
     };
     $scope.GetSoreID = function (data) {
         $scope.StoreID = data;
@@ -141,7 +141,7 @@ function shiftplanCtrl($rootScope, $scope, Restangular, ngTableParams, toaster, 
         item.PeriodWeek = $scope.Week;
         Restangular.restangularizeElement('', item, 'ShiftPlan')
         item.post().then(function (resp) {
-            location.href = '#/app/specialoperations/shiftplanedit/' + resp.id;
+            location.href = '#/app/specialoperations/shiftplanedit2/' + resp.id;
         }, function (response) {
             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
         });
