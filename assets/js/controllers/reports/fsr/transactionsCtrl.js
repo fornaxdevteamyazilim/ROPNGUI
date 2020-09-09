@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('transactionsCtrl', transactionsCtrl);
+app.controller('    ', transactionsCtrl);
 function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING, $http, $q) {
     if (!$rootScope.ReportParameters.StartDate) {
         $rootScope.ReportParameters.StartDate = moment().add(-1, 'days').format('YYYY-MM-DD ');//$filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');

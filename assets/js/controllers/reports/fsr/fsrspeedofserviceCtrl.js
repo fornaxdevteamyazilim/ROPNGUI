@@ -69,8 +69,6 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.refresh();
-            var oldCaption1 = $scope.weekCaption1;
-            var oldCaption2 = $scope.weekCaption2;
             $scope.weekCaption1 = "Week " + $scope.startWeek;
             $scope.weekCaption2 = "Week " + $scope.endWeek;
             dataGrid.columnOption("week1bump", 'caption', $scope.weekCaption1);
