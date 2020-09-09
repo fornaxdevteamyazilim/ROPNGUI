@@ -315,6 +315,8 @@
     "STAFFOFFTYPE": "{{appName}} - Staff Off Type",
     "LABORCOSTTYPE": "{{appName}} - Labor Cost Type",
     "SHIFTPLAN": "{{appName}} - Shift Plan",
+    "SHIFTPLANTWO": "{{appName}} - Shift Plan 2",
+    "STAFFPERMITS": "{{appName}} - Staff Permits",
     "SHIFTPLANITEM": "{{appName}} - Shift Plan Details",
     "CHANGEORDERPAYMENTS": "{{appName}} - Change Order Payments",
     "YSSTORESTATEEDIT": "{{appName}} - Ys Store State Edit",
@@ -2830,6 +2832,8 @@
       "staffshiftplan": {
         "MAIN": "Staff",
         "SHIFTPLAN": "Shift Plan",
+        "SHIFTPLANTWO": "Shift Plan 2",
+        "STAFFPERMITS": "Staff Permits",
         "QUITREASON": "Staff Quit Reasons",
         "STAFFPOSITION": "Staff Position",
         "TRAINING": "Training Definition",

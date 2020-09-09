@@ -319,6 +319,8 @@
     "STAFFOFFTYPE": "{{appName}} - Personel İzin Sebepleri",
     "LABORCOSTTYPE": "{{appName}} - Kullanıcı Sözleşme Tipleri",
     "SHIFTPLAN": "{{appName}} - Vardiya Planı",
+    "SHIFTPLANTWO": "{{appName}} - Vardiya Planı 2",
+    "STAFFPERMITS": "{{appName}} - Personel İzinleri",
     "SHIFTPLANITEM": "{{appName}} - Vardiya Planı Detayları",
     "CHANGEORDERPAYMENTS": "{{appName}} - Ödeme Tipleri Değişen Siparişler",
     "YSSTORESTATEEDIT": "{{appName}} - Ys Restoran Durum Değişikliği",
@@ -2829,6 +2831,8 @@
       "staffshiftplan": {
         "MAIN": "Personel Vardiya Planı",
         "SHIFTPLAN": "Vardiya Planı",
+        "SHIFTPLANTWO": "Vardiya Planı 2",
+        "STAFFPERMITS": "Personel İzinleri",
         "QUITREASON": "Personel Ayrılma Sebep Tanımı",
         "STAFFPOSITION": "Personel Pozisyonları Tanımı",
         "TRAINING": "Eğitim Tanımları",

@@ -314,7 +314,11 @@
     <Content Include="assets\js\controllers\specialoperations\shiftplanactualCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\shiftplanactualeditCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\shiftplanCtrl.js" />
+    <Content Include="assets\js\controllers\specialoperations\staffpermittsCtrl.js" />
+    <Content Include="assets\js\controllers\specialoperations\staffpermitsCtrl.js" />
+    <Content Include="assets\js\controllers\specialoperations\shiftplanCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\shiftplaneditCtrl.js" />
+    <Content Include="assets\js\controllers\specialoperations\shiftplanedit2Ctrl.js" />
     <Content Include="assets\js\controllers\specialoperations\storesalestargetCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\storebudgetCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\storestaffshiftCtrl.js" />
@@ -896,6 +900,7 @@
     <Content Include="assets\views\specialoperations\shiftplanactual.html" />
     <Content Include="assets\views\specialoperations\shiftplanactualitem.html" />
     <Content Include="assets\views\specialoperations\shiftplanitem.html" />
+    <Content Include="assets\views\specialoperations\staffpermitts.html" />
     <Content Include="assets\views\specialoperations\storesalestarget.html" />
     <Content Include="assets\views\specialoperations\storebudget.html" />
     <Content Include="assets\views\specialoperations\storestaffshift.html" />

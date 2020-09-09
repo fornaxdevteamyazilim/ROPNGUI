@@ -1,0 +1,101 @@
+<style>
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+</style>
+
+<div print-section ng-controller="shiftplanedit2Ctrl as spi" ng-init="app.layout.isSidebarClosed=true">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+                <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+                <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span><br />
+                <span class="col-lg-12 text-bold pull-left">{{'main.WEEK' |translate}} : {{item.PeriodWeek}} </span><br />
+                <span class="col-lg-12 text-bold pull-left">{{'main.YEAR' |translate}} : {{item.PeriodYear}} </span><br />
+                <span class="col-lg-12 text-bold pull-left">{{'main.DATERANGE' |translate}} : {{item.DateRange}} </span><br />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+                <span class="text-bold text-dark" style="font-size:18px;" translate="tittle.SHIFTPLANITEM" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+                <span class="col-lg-12 pull-right">{{Time | date:'dd-MM-yyyy HH:mm'}} </span><br />
+            </div>
+        </div>
+        <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                    <span class="mainTitle text-dark text-uppercase" style="font-size:25px;" translate="tittle.SHIFTPLANITEM" translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10 visible-lg visible-md">
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
+                    <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left margin-right-10 pull-right" ng-click="Back()">
+                        <span translate="main.BACK"></span>
+                    </a>
+                </div>
+            </div>
+            <div print-remove class="col-sm-2 col-xs-2 margin-top-5 pull-right visible-sm visible-xs">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+        <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel panel-white" ng-hide="isWaiting==true">
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group  col-sm-6 col-lg-3 col-md-3 col-xs-12">
+                        <label translate="main.STORE"></label>
+                        <!--<select ng-options="q.id as q.name for q in stores | orderBy:'+name'" class="form-control text-uppercase" ng-model="item.StoreID" ng-selected="item.StoreID" readonly></select>-->
+                        <input type="text" id="Store" class="form-control text-uppercase" ng-model="item.Store" readonly>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-12">
+                        <label translate="main.WEEK"></label>
+                        <input type="text" id="PeriodWeek" class="form-control text-uppercase" ng-model="item.PeriodWeek" readonly>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-12">
+                        <label translate="main.YEAR"></label>
+                        <input type="text" id="PeriodYear" class="form-control text-uppercase" ng-model="item.PeriodYear" readonly>
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-12">
+                        <label translate="main.DATERANGE"></label>
+                        <input type="text" id="DateRange" class="form-control text-uppercase" ng-model="item.DateRange" readonly>
+                    </div>
+                    <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save " ng-click="saveData()" ng-disabled="isClean()">
+                                <span translate="main.SAVE"></span>
+                            </button>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <button class="btn btn-default tooltips center" style="margin-top:2px;" tooltip="{{'main.EXCEL' | translate}}" tooltip-placement="bottom" ng-click="exportToExcel('#shiftplan')">
+                                <img ng-src="assets/images/excel.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                            </button>
+                        </div>
+                        <!--<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <button print-btn class="btn btn-default tooltips center" style="margin-top:2px;" tooltip="{{'main.PRINT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true">
+                                <img ng-src="assets/images/print.png" style="width:2.2vw; height:3vh;" class="center" /><br />
+                                <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                            </button>
+                        </div>-->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 pull-right">
+                            <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-if="user.UserRole.Name == 'Admin' || user.UserRole.Name == 'LC'|| user.UserRole.Name == 'PH'|| user.UserRole.Name == 'PHAdmin'" ng-click="removedata(item.id)">
+                                <span>{{:: delete}}</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="report" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive" ng-hide="isWaiting==true">
+        <!--<div id="sales-chart" dx-chart="chartOptions"></div>-->
+        <!--<div dx-button="resetButtonOptions"></div>-->
+        <div id="gridContainer" dx-data-grid="dataGridOptions" dx-item-alias="ShiftPlanItem">
+            <div data-options="dxTemplate: {name: 'detail'}">
+                <!-- <div class="master-detail-caption">{{employee.data.FirstName + " " + employee.data.LastName + "'s Tasks:"}}</div> -->
+                <div dx-data-grid="getDetailGridSettings(ShiftPlanItem.key)"></div>
+        	</div>
+        </div>
+    </div>
+</div>

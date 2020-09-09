@@ -312,7 +312,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
     $scope.$on('$destroy', function () {
         deregistration();
         $element.remove();
-        $rootScope.uService.ExitController("shiftplaneditCtrl");
+        $rootScope.uService.ExitController("shiftplanedit2Ctrl");
     });
 };
 app.factory('Excel', function ($window) {
