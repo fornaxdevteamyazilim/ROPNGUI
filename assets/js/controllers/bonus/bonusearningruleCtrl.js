@@ -18,9 +18,6 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
             key: "id",
             //loadMode: "raw",
             load: function() {
-                // Returns an array of objects that have the following structure:
-                // { id: 1, name: "John Doe" }
-                //return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
                 return $http.get(NG_SETTING.apiServiceBaseUri + "/api/ordersource")
                                     .then(function (response) {
                                         return {
@@ -185,6 +182,7 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
         height: 600
     };
     $scope.$on('$destroy', function () {
+        deregistration();
         $element.remove();
         $rootScope.uService.ExitController("bonusearningruleCtrl");
     });

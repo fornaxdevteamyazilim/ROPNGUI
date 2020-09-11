@@ -213,6 +213,7 @@ function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $e
         height: 600
     };
     $scope.$on('$destroy', function () {
+        deregistration();
         $element.remove();
         $rootScope.uService.ExitController("punchcardearningruleCtrl");
     });

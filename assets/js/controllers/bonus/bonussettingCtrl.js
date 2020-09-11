@@ -71,6 +71,7 @@ function bonussettingCtrl($rootScope, $scope, NG_SETTING, $translate, $element,l
         height: 600
     };
     $scope.$on('$destroy', function () {
+        deregistration();
         $element.remove();
         $rootScope.uService.ExitController("bonussettingCtrl");
     });

@@ -1,6 +1,6 @@
 ﻿app.controller('usertansferCtrl', usertansferCtrl);
 function usertansferCtrl($rootScope, $scope, NG_SETTING, $translate, $element,localStorageService) {
-    $rootScope.uService.EnterController("usertansferCtrl");
+    $rootScope.uService.EnterController("usertransferCtrl");
     var ngurr = this;
     $scope.NGUserRoleID = '';
 
@@ -119,12 +119,12 @@ function usertansferCtrl($rootScope, $scope, NG_SETTING, $translate, $element,lo
                 },
             }               
         ],
-        export: { enabled: true, fileName: "userrtansferlist", },
+        export: { enabled: true, fileName: "usertransferlist", },
         scrolling: { mode: "virtual" },
         height: 600
     };
     $scope.$on('$destroy', function () {
         $element.remove();
-        $rootScope.uService.ExitController("usertansferCtrl");
+        $rootScope.uService.ExitController("usertransferCtrl");
     });
 };

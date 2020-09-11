@@ -1,6 +1,6 @@
 'use strict';
 app.controller('shiftplan2Ctrl', shiftplan2Ctrl);
-function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING, $http, $q) {
+function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING, $http, $q, userService, localStorageService) {
     if (!$rootScope.ReportParameters.StartDate) {
         $rootScope.ReportParameters.StartDate = moment().add(-1, 'days').format('YYYY-MM-DD ');//$filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
     }
@@ -78,29 +78,63 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
     function isNotEmpty(value) {
         return value !== undefined && value !== null && value !== "";
     }
-    var store = new DevExpress.data.CustomStore({
-        //key: "id",
-        load: function (loadOptions) {
-            var params = {
-                firstYear: $scope.startYear,
-                firstWeek: $scope.startWeek,
-                secondYear: $scope.endYear,
-                secondWeek: $scope.endWeek
-            };
+    Date.prototype.getWeek = function () {
+        var date = new Date(this.getTime());
+        date.setHours(0, 0, 0, 0);
+        // Thursday in current week decides the year.
+        date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+        // January 4 is always in week 1.
+        var week1 = new Date(date.getFullYear(), 0, 4);
+        // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+        return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+    }
 
-            return $http.get(NG_SETTING.apiServiceBaseUri + "/api/ShiftPlan", { params: params })
-                .then(function (response) {
-                    return {
-                        data: response.data,
-                        totalCount: 10
-                    };
-                }, function (response) {
-                    return $q.reject("Data Loading Error");
-                });
-        }
-    });
+    function getDateRangeOfWeek(weekNo, y) {
+        var d1, numOfdaysPastSinceLastMonday, rangeIsFrom, rangeIsTo;
+        d1 = new Date('' + y + '');
+        numOfdaysPastSinceLastMonday = d1.getDay() - 1;
+        d1.setDate(d1.getDate() - numOfdaysPastSinceLastMonday);
+        d1.setDate(d1.getDate() + (7 * (weekNo - d1.getWeek())));
+        rangeIsFrom = d1.getDate() + "-" + (d1.getMonth() + 1) + "-" + d1.getFullYear();
+        d1.setDate(d1.getDate() + 6);
+        rangeIsTo = d1.getDate() + "-" + (d1.getMonth() + 1) + "-" + d1.getFullYear();
+        return rangeIsFrom + " to " + rangeIsTo;
+    };
+    function getStaratOfWeek(weekNo, y) {
+        var d1, numOfdaysPastSinceLastMonday, rangeIsFrom, rangeIsTo;
+        d1 = new Date('' + y + '');
+        numOfdaysPastSinceLastMonday = d1.getDay() - 1;
+        d1.setDate(d1.getDate() - numOfdaysPastSinceLastMonday);
+        d1.setDate(d1.getDate() + (7 * (weekNo - d1.getWeek())));
+        return d1;
+    };
     $scope.dataGridOptions = {
-        dataSource: store,
+        dataSource: DevExpress.data.AspNet.createStore({
+            key: "id",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftPlans",
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftPlans",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftPlans",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftPlans",
+            onBeforeSend: function (method, ajaxOptions) {
+                //if (request.method === "PUT") {
+                //    updateUrl = NG_SETTING.apiServiceBaseUri + "/api/dxUser"+
+                //}
+                var authData = localStorageService.get('authorizationData');
+                if (authData) {
+
+                    ajaxOptions.headers = {
+                        Authorization: 'Bearer ' + authData.token//,
+                        //'Content-type': 'application/json'
+                    };
+                }
+            },
+            remoteOperations: {
+                filtering: true,
+                sorting: true,
+                grouping: true
+            },
+
+        }),
         showBorders: true,
         showRowLines: true,
         rowAlternationEnabled: true,
@@ -117,74 +151,83 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
             enabled: true
         },
         sorting: {
-            mode: "none"
+            mode: "single"
+        },
+        editing: {
+            allowAdding: true,
+            allowDeleting: true,
+            useIcons: true
         },
         columns: [
-            { type: "buttons", width: 50, buttons: [{ hint: "edit", icon: "edit", onClick: function (e) { location.href = '#/app/specialoperations/shiftplanedit2/' + e.row.data.id; } }] },
-            { dataField: "Store", dataType: "string", width: 180, fixed: true, },
-            { dataField: "PeriodWeek", dataType: "number", fixed: true, },
-            { dataField: "PeriodYear", dataType: "string", width: 180, fixed: true, },
-            { dataField: "PeriodWeek", dataType: "number", fixed: true, },
-         
-            
+            // {
+            //     type: "buttons", width: 100, buttons: [{ hint: "edit", icon: "edit", onClick: function (e) { location.href = '#/app/specialoperations/shiftplanedit2/' + e.row.data.id; } }
+            //         , "save", "cancel"]
+            // },
+            {
+                dataField: "StoreID", caption: "Store",
+                lookup: {
+                    valueExpr: "id",
+                    displayExpr: "name",
+                    dataSource: {
+                        store: DevExpress.data.AspNet.createStore({
+                            key: "id",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                            onBeforeSend: function (method, ajaxOptions) {
+                                var authData = localStorageService.get('authorizationData');
+                                if (authData) {
+                                    ajaxOptions.headers = {
+                                        Authorization: 'Bearer ' + authData.token,
+                                        'Content-type': 'application/json'
+                                    };
+                                }
+                            }
+                        }),
+                        sort: "name",
+                        headerFilter: { allowSearch: true }
+                    },
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    }
+                },
+            },
+            { dataField: "PeriodYear", sortIndex: 0, sortOrder: "desc" },
+            { dataField: "PeriodWeek", sortIndex: 1, sortOrder: "desc" },
+
+            {
+                caption: "Start Date",
+                calculateCellValue: function (data) {
+                    return DevExpress.localization.formatDate(getStaratOfWeek(data.PeriodWeek, data.PeriodYear), "dd.MM.yyyy");
+                    //getDateRangeOfWeek(data.PeriodWeek,data.PeriodYear);
+                },
+                //sortOrder: "asc"
+            }
+
         ],
-
-        onRowPrepared: function (e) {
-            if (e.rowType === 'data') {
-                if (!e.data.Store) {
-                    e.rowElement.css({ 'font-weight': 'bold', 'background': '#dcdcdc' });
-                }
-            }
+        onInitNewRow: function (e) {
+            e.data.PeriodYear = new Date().getFullYear();
+            e.data.PeriodWeek = ISO8601_week_no((new Date()));
+            e.data.StoreID = $rootScope.user.StoreID;
         },
-        onCellPrepared: function (options) {
-            var fieldData = options.value;
-            var ColoredFileds = ["Sales", "HDSSales", "HDSSalesPercent", "DINSales", "DINSalesPercent", "COSales", "COSalesPercent", "HDSTrx", "HDSTrxPercent", "DINTrx", "DINTrxPercent",
-                "COTrx", "COTrxPercent", "AvgGC", "HDSAvgGC", "DINAvgGC", "COAvgGC"];
-            if (fieldData && options.row.data.Delta === true && ColoredFileds.indexOf(options.column.dataField) > -1) {
-                if (options.value < 0)
-                    options.cellElement.css({ 'color': '#f00' });
-                else
-                    options.cellElement.css({ 'color': '#2ab71b' });
-                
-            }
-            if (options.column.dataField === 'x') {
-                options.cellElement.css({ 'background-color': '#DCDCDC' });  
-            }
-
+        onRowInserted: function (e) {
+            //location.href = '#/app/specialoperations/shiftplanedit2/' + e.key;
         },
         export: {
             enabled: true,
-            fileName: "Actual Theoretical COS COL",
-            customizeExcelCell: (options) => {
-                var gridCell = options.gridCell;
-                if (!gridCell) {
-                    return;
-                }
-                var ColoredFileds = ["Sales", "HDSSales", "HDSSalesPercent", "DINSales", "DINSalesPercent", "COSales", "COSalesPercent", "HDSTrx", "HDSTrxPercent", "DINTrx", "DINTrxPercent",
-                    "COTrx", "COTrxPercent", "AvgGC", "HDSAvgGC", "DINAvgGC", "COAvgGC"];
-                if (ColoredFileds.indexOf(gridCell.column.dataField) > -1) {
-                    if (gridCell.data && gridCell.data.Delta === true)
-                        if (gridCell.data[gridCell.column.dataField] > 0)
-                            options.font.color = '#008000';
-                        else
-                            options.font.color = '#FF0000';
-                }
-                if (gridCell.rowType === 'data') {
-                    if (!gridCell.data.Store) {
-                        options.font.bold = true;
-                        options.backgroundColor = '#DCDCDC';
-                    }
-                    
-                }
-                if (gridCell.column.dataField === 'x') {
-                    options.backgroundColor = '#000000';
-                }
-            }
+            fileName: "ShiftPlan List"
         },
         scrolling: {
             mode: "virtual"
         },
-
+        onRowDblClick: function (e) {
+            if (!e.isNewRow)
+                location.href = '#/app/specialoperations/shiftplanedit2/' + e.key;
+        },
+        onRowClick: function (rowInfo) {
+            if (!rowInfo.isNewRow)
+                location.href = '#/app/specialoperations/shiftplanedit2/' + rowInfo.key;
+            //rowInfo.component.editRow(rowInfo.rowIndex);  
+        },
     };
     $scope.selectBox = {
         dataSourceUsage: {

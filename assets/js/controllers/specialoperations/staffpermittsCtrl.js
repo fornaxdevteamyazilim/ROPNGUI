@@ -1,5 +1,5 @@
 app.controller('staffpermittsCtrl', staffpermittsCtrl);
-function staffpermittsCtrl($rootScope, $scope, NG_SETTING, $translate, $element,localStorageService) {
+function staffpermittsCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService) {
     $rootScope.uService.EnterController("staffpermittsCtrl");
     var ngurr = this;
     $scope.NGUserRoleID = '';
@@ -16,22 +16,22 @@ function staffpermittsCtrl($rootScope, $scope, NG_SETTING, $translate, $element,
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/staffpermitts",
-            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/staffpermitts",
-            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/staffpermitts",
-            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/staffpermitts",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPermits",
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPermits",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPermits",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPermits",
             onBeforeSend: function (method, ajaxOptions) {
                 //if (request.method === "PUT") {
                 //    updateUrl = NG_SETTING.apiServiceBaseUri + "/api/dxUser"+
                 //}
                 var authData = localStorageService.get('authorizationData');
                 if (authData) {
-                    
+
                     ajaxOptions.headers = {
                         Authorization: 'Bearer ' + authData.token//,
                         //'Content-type': 'application/json'
-                    };  
-                }                
+                    };
+                }
             }
         }),
         //filterValue: getFilter(),
@@ -44,7 +44,7 @@ function staffpermittsCtrl($rootScope, $scope, NG_SETTING, $translate, $element,
         showBorders: true,
         allowColumnReordering: true,
         filterRow: { visible: true },
-        filterPanel: { visible: true },
+        //filterPanel: { visible: true },
         headerFilter: { visible: true },
         //grouping: { autoExpandAll: false },
         searchPanel: { visible: true },
@@ -55,24 +55,35 @@ function staffpermittsCtrl($rootScope, $scope, NG_SETTING, $translate, $element,
             allowDeleting: true,
             allowInserting: true,
             useIcons: true
+            // mode: "popup",
+            // popup: {
+            //     title: "StaffPermit",
+            //     showTitle: true,
+            //     //fullScreen:true,
+            //     form: {
+            //         items: [{
+            //             itemType: "group",
+            //             colCount: 3,
+            //             colSpan: 3,
+            //             items: ["StoreID",""]
+            //         }
+            //         ]
+            //     }                             
+            //},
         },
         columnChooser: { enabled: false },
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            "name","description",
-            "PunchCardTransactionEventID", 
-            "Multiplier",
-            "Amount",
             {
-                dataField: "PunchcardSettingID", caption: "PunchcardSetting",
+                dataField: "StoreID", caption: "Store",
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
                     dataSource: {
                         store: DevExpress.data.AspNet.createStore({
                             key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSetting",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
                             onBeforeSend: function (method, ajaxOptions) {
                                 var authData = localStorageService.get('authorizationData');
                                 if (authData) {
@@ -93,14 +104,42 @@ function staffpermittsCtrl($rootScope, $scope, NG_SETTING, $translate, $element,
                 },
             },
             {
-                dataField: "isActiveFilter", caption: "Filter",
+                dataField: "NGUserID", caption: "User", allowEditing: true,
+                lookup: {
+                    valueExpr: "id",
+                    displayExpr: "FullName",
+                    dataSource: {
+                        store: DevExpress.data.AspNet.createStore({
+                            key: "id",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxUser",
+                            onBeforeSend: function (method, ajaxOptions) {
+                                var authData = localStorageService.get('authorizationData');
+                                if (authData) {
+                                    ajaxOptions.headers = {
+                                        Authorization: 'Bearer ' + authData.token,
+                                        'Content-type': 'application/json'
+                                    };
+                                }
+                            }
+                        }),
+                        sort: "FullName",
+                        headerFilter: { allowSearch: true }
+                    },
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    }
+                },
+            },
+            { 
+                dataField: "StaffOffTypeID", caption: "OffType", allowEditing: true,
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "Name",
                     dataSource: {
                         store: DevExpress.data.AspNet.createStore({
                             key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxFilter",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffOffTypes",
                             onBeforeSend: function (method, ajaxOptions) {
                                 var authData = localStorageService.get('authorizationData');
                                 if (authData) {
@@ -119,16 +158,31 @@ function staffpermittsCtrl($rootScope, $scope, NG_SETTING, $translate, $element,
                         return this.lookup.calculateCellValue(value);
                     }
                 },
-            } 
-
-                       
+            },
+            { dataField: "Days", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
+            { dataField: "Hours", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
+            { dataField: "InTime", alignment: "right", dataType: "date", width: 80, format: 'dd.MM.yyyy' },
+            { dataField: "OutTime", alignment: "right", dataType: "date", width: 80, format: 'dd.MM.yyyy' }
         ],
-        export: { enabled: true, fileName: "punchcardspendingrulelist", },
+        onInitNewRow: function(e) {
+            e.data.InTime = new Date();
+            e.data.OutTime = new Date();
+            e.data.StoreID = $rootScope.user.StoreID;
+            // e.promise = getDefaultData().done(function(data) {
+            //     e.data.ID = data.ID;
+            //     e.data.position = data.Position;
+            // });
+        },
+        onRowClick: function (rowInfo) {
+            rowInfo.component.editRow(rowInfo.rowIndex);
+        },
+        export: { enabled: true, fileName: "StaffPermits", },
         scrolling: { mode: "virtual" },
         height: 600
     };
     $scope.$on('$destroy', function () {
+        deregistration();
         $element.remove();
-        $rootScope.uService.ExitController("punchcardspendingruleCtrl");
+        $rootScope.uService.ExitController("staffpermittsCtrl");
     });
 };

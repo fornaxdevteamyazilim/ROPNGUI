@@ -16,7 +16,7 @@ function shiftplanCtrl($rootScope, $scope, Restangular, ngTableParams, toaster, 
     });
     $scope.SelectItem = function (id) {
         $scope.SelectedItem = id;
-        location.href = '#/app/specialoperations/shiftplanedit2/' + $scope.SelectedItem;
+        location.href = '#/app/specialoperations/shiftplanedit/' + $scope.SelectedItem;
     };
     $scope.GetSoreID = function (data) {
         $scope.StoreID = data;

@@ -71,6 +71,7 @@ function punchcardsettingCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
         height: 600
     };
     $scope.$on('$destroy', function () {
+        deregistration();
         $element.remove();
         $rootScope.uService.ExitController("punchcardsettingCtrl");
     });
