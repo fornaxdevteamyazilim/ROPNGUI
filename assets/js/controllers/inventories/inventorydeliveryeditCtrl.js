@@ -248,7 +248,7 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
     });
 };
 app.controller('inventorydeliveryitemCtrl', inventorydeliveryitemCtrl);
-function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element) {
+function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element,$translate) {
     $rootScope.uService.EnterController("inventorydeliveryitemCtrl");
     var idi = this;
     $scope.item = {};
@@ -446,7 +446,7 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
     };
     $scope.GetInventoryVAT = function (InventoryUnitID) {
         if (InventoryUnitID && $scope.inventories.length) {
-            var SelectInventory = $filter('filter')($scope.inventoryunits, { id: InventoryUnitID });
+            var SelectInventory = $filter('filter')($scope.inventoryunitstoshow, { id: InventoryUnitID });
             var selected = $filter('filter')($scope.inventories, { id: SelectInventory[0].InventoryID });
             return selected.length ? selected[0].VATRatio : 0;
         } else {

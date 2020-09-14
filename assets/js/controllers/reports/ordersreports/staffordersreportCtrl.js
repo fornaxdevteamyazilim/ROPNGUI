@@ -140,7 +140,7 @@ function staffordersreportCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         scrolling: {
             mode: "virtual"
         },
-        height: 600
+        height: 600,
         //scrolling: {
         //    columnRenderingMode: "virtual"
         //},
