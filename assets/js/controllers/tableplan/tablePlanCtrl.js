@@ -81,6 +81,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         });
     };
     $scope.LoadStoreTablePlans();
+    //Burası masa güncellemelri için: sorun - boş masa siaprişleri oluşmakta. 
     var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
         $scope.LoadStoreTablePlans();
     });
@@ -107,14 +108,14 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         if (table && table.length > 0) {
             for (var i = 0; i < table.length; i++) {
                 if (table[i].StoreTableID == tableID) {
-                    if (table[i].OrderStateID == 0 || table[i].OrderStateID == 2) {
-                        $scope.ShowObject = true;
-                        toaster.pop('error', "Order in use","Cannot change Order!");
-                    }
-                    else {
+                    // if (table[i].OrderStateID == 0 || table[i].OrderStateID == 2) {
+                    //     $scope.ShowObject = true;
+                    //     toaster.pop('error', "Order in use","Cannot change Order!");
+                    // }
+                    // else {
                         $scope.ShowObject = true;
                         location.href = '#/app/orders/orderStoreTable/' + table[i].id;
-                    }
+                    // }
                     break;
                 }
                 else {

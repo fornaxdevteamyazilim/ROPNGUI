@@ -1824,7 +1824,7 @@
                     <i class="ti-user"></i>  <span class="title" translate="sidebar.nav.staffshiftplan.STAFFPOSITION">Personel Pozisyonu</span>
                 </a>
             </li>
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-if="user.restrictions.staffpermitts=='Enable'">
                 <a ui-sref="app.specialoperations.staffpermitts">
                     <i class="ti-user"></i>  <span class="title" translate="sidebar.nav.staffshiftplan.STAFFPERMITS">Personel Pozisyonu</span>
                 </a>
