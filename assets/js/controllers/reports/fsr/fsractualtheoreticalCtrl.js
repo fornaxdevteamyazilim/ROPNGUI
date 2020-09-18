@@ -172,7 +172,7 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                 columns: [
                     { caption: "Actual Col", dataField: "Total_Actual_COL", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "Total_Actual_COL_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "4 Week Sales AVG", dataField: "Sales_4Week_AVG", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: "4 Week Sales AVG", dataField: "StoreSales4Weeks", dataType: "number", format: { type: "fixedPoint", precision: 0 }, },
                     { caption: "Projection COL", dataField: "Projection_COL", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "Projection_COL_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: "Var %", dataField: "Labor_Variance", dataType: "number", format: { type: "percent", precision: 2 } }

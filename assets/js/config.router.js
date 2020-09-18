@@ -3120,6 +3120,16 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'staffpermitts'
             }
+        }).
+        state('app.specialoperations.hourlywages', {
+            url: '/hourlywages',
+            templateUrl: "assets/views/specialoperations/hourlywages.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'hourlywagesCtrl', 'dateCtrl'),
+            title: 'hourlywages',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'hourlywages'
+            }
         }).state('app.specialoperations.shiftplanactual', {
             url: '/shiftplanactual',
             templateUrl: "assets/views/specialoperations/shiftplanactual.html",
