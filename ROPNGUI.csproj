@@ -1395,6 +1395,7 @@
     <Content Include="vendor\devextreme\js\localization\dx.messages.ru.js" />
     <Content Include="vendor\devextreme\js\localization\dx.messages.sv.js" />
     <Content Include="vendor\devextreme\js\localization\dx.messages.zh.js" />
+    <Content Include="vendor\devextreme\js\localization\dx.messages.tr.js" />
     <Content Include="vendor\devextreme\js\vectormap-data\africa.js" />
     <Content Include="vendor\devextreme\js\vectormap-data\canada.js" />
     <Content Include="vendor\devextreme\js\vectormap-data\eurasia.js" />

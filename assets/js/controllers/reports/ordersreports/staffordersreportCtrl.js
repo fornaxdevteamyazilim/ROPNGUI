@@ -6,7 +6,7 @@ function staffordersreportCtrl($scope, $filter, $modal, $log, Restangular, Sweet
     //    $scope.translate();
     //});
 
-    DevExpress.localization.locale("tr");
+    //DevExpress.localization.locale("tr");
     //Globalize.locale('tr');
     $scope.DateRange = {
         fromDate: {

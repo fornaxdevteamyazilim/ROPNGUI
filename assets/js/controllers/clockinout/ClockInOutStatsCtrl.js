@@ -110,6 +110,7 @@ function ClockInOutStatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAl
                 { dataField: "Day", dataType: "number", area: "column" },
                 { caption: "WorkingHours", dataField: "WorkingHours", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2 },
                 { caption: "Count", dataField: "id", dataType: "number", summaryType: "count", area: "data" },
+                { caption: "Cost", dataField: "Cost", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 }
 
             ],
             store: DevExpress.data.AspNet.createStore({

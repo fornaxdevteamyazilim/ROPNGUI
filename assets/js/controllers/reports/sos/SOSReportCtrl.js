@@ -5,7 +5,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
     //var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
     //    $scope.translate();
     //});
-    DevExpress.localization.locale("tr");
+    //DevExpress.localization.locale("tr");
     //Globalize.locale('tr');
     $scope.DateRange = {
         fromDate: {
@@ -15,7 +15,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             bindingOptions: {
                 value: "DateRange.fromDate.value"
             },
-            value: new Date(Date.now() - 2 * 24*60*60*1000)
+            value: new Date(Date.now())//new Date(Date.now() - 2 * 24*60*60*1000)
         },
         toDate: {
             max: new Date(),
@@ -24,7 +24,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             bindingOptions: {
                 value: "DateRange.toDate.value"
             },
-            value: new Date(Date.now() - 1* 24*60*60*1000)
+            value: new Date(Date.now())//new Date(Date.now() - 1* 24*60*60*1000)
         }
     };
     $scope.VeiwHeader = {};

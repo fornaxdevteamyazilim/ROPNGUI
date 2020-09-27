@@ -7,6 +7,7 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
     if (!$rootScope.ReportParameters.EndDate) {
         $rootScope.ReportParameters.EndDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
     }
+    //DevExpress.localization.locale("tr");
     $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;
     $scope.Time = ngnotifyService.ServerTime();
@@ -127,6 +128,13 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                         //'Content-type': 'application/json'
                     };
                 }
+                
+            },
+            onAjaxError: function (e) {
+                //var emsg=e.xhr.responseText.map(item => ExceptionMessage);
+                var obj = JSON.parse(e.xhr.responseText);
+                //console.log(obj.ExceptionMessage);
+                toaster.pop('error', obj.Message, obj.ExceptionMessage);
             },
             remoteOperations: {
                 filtering: true,
@@ -164,7 +172,7 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
             //         , "save", "cancel"]
             // },
             {
-                dataField: "StoreID", caption: "Store",
+                dataField: "StoreID", caption: $translate.instant('main.STORE'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -181,7 +189,7 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                                     };
                                 }
                             }
-                        }),
+                        }), 
                         sort: "name",
                         headerFilter: { allowSearch: true }
                     },
@@ -191,11 +199,11 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                     }
                 },
             },
-            { dataField: "PeriodYear", sortIndex: 0, sortOrder: "desc" },
-            { dataField: "PeriodWeek", sortIndex: 1, sortOrder: "desc" },
+            { dataField: "PeriodYear", sortIndex: 0, sortOrder: "desc" ,caption: $translate.instant('main.YEAR')},
+            { dataField: "PeriodWeek", sortIndex: 1, sortOrder: "desc",caption: $translate.instant('main.WEEK') },
 
             {
-                caption: "Start Date",
+                caption: $translate.instant('main.FROMDATE'),
                 calculateCellValue: function (data) {
                     return DevExpress.localization.formatDate(getStaratOfWeek(data.PeriodWeek, data.PeriodYear), "dd.MM.yyyy");
                     //getDateRangeOfWeek(data.PeriodWeek,data.PeriodYear);

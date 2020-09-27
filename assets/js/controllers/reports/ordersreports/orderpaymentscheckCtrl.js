@@ -6,7 +6,7 @@ function orderpaymentscheckCtrl($scope, $filter, $modal, $log, Restangular, Swee
     //    $scope.translate();
     //});
 
-    DevExpress.localization.locale("tr");
+    //DevExpress.localization.locale("tr");
     //Globalize.locale('tr');
     $scope.DateRange = {
         fromDate: {

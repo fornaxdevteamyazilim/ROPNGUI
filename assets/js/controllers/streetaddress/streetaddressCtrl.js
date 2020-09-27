@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿//'use strict';
 app.controller('streetaddressCtrl', streetaddressCtrl);
 function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate, $element) {
     $rootScope.uService.EnterController("streetaddressCtrl");

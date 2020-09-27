@@ -16,10 +16,10 @@ function hourlywagesCtrl($rootScope, $scope, NG_SETTING, $translate, $element, l
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPositionHourlyWedges",
-            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPositionHourlyWedges",
-            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPositionHourlyWedges",
-            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPositionHourlyWedges",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPositionHourlyWages",
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPositionHourlyWages",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPositionHourlyWages",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStaffPositionHourlyWages",
             onBeforeSend: function (method, ajaxOptions) {
                 //if (request.method === "PUT") {
                 //    updateUrl = NG_SETTING.apiServiceBaseUri + "/api/dxUser"+

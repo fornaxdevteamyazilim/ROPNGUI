@@ -5,7 +5,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
     //var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
     //    $scope.translate();
     //});
-    DevExpress.localization.locale("tr");
+    //DevExpress.localization.locale("tr");
     //Globalize.locale('tr');
     //$scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;

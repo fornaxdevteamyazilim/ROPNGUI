@@ -3,7 +3,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
     $rootScope.uService.EnterController("shiftplanedit2Ctrl");
     var ngurr = this;
     $scope.NGUserRoleID = '';
-
+    //DevExpress.localization.locale("tr");
     $scope.translate = function () {
         $scope.trNGUser = $translate.instant('main.USER');
         $scope.trLaborCostType = $translate.instant('main.LABORCOSTTYPE');
@@ -31,6 +31,13 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         $scope.trD7isOff = $translate.instant('main.D7ISOFF');
         $scope.trCommands = $translate.instant('main.COMMANDS');
         $scope.delete = $translate.instant('main.DELETE');
+        $scope.trOffType = $translate.instant('main.OFFTYPE');
+        $scope.trShifts = $translate.instant('main.SHIFTS');
+        $scope.trEditShifts = $translate.instant('main.EDITSHIFTS');
+        $scope.trStartShifts = $translate.instant('main.STARTSHIFT');
+        $scope.trEndShift = $translate.instant('main.ENDSHIFT');
+        $scope.trIsOff = $translate.instant('main.ISOFFDAY');
+        $scope.trTotalHours = $translate.instant('main.TOTALHOURS');
 
     };
     $scope.translate();
@@ -73,28 +80,37 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
     function ConvertToSeconds(time) {
         if (time) {
             var splitTime = time.split(":");
-            return splitTime[0] * 3600 + splitTime[1] * 60;
+            if (time.split(":").length > 1)
+                return splitTime[0] * 3600 + splitTime[1] * 60;
+            else
+                return -1;
         }
         else
             return 0;
     }
-    function SumHoursStr(startTime, endTime) {
-        var dd = SumHours(startTime, endTime);
+    function SumHoursStr(startTime, endTime,isOff) {
+        if (isOff) return "";
+        var dd = SumHours(startTime, endTime,isOff);
         return dd == 0 ? "" : "[" + dd + "]";
 
     }
-    function SumHours(startTime, endTime) {
+    function SumHours(startTime, endTime,isOff) {
         var diff = 0;
+        if (isOff) return null;
         if (startTime && endTime) {
             var smon = ConvertToSeconds(startTime);
             var fmon = ConvertToSeconds(endTime);
             if (smon > fmon) {
                 fmon += 86400;
             }
-            diff = Math.abs(fmon - smon);
-
+            if (smon < 0 || fmon < 0) {
+                diff = 0;
+            }
+            else {
+                diff = Math.abs(fmon - smon);
+            }
         }
-        return diff / 3600;
+        return diff / 3600-((diff / 3600>=5.5)?0.5:0);
     }
     function secondsTohhmmss(secs) {
         var hours = parseInt(secs / 3600);
@@ -123,7 +139,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         $scope.item = Restangular.copy(restresult);
 
         var dataGrid = $('#gridContainer').dxDataGrid('instance');
-        dataGrid.columnOption("main", 'caption', "Shift Plan [" + $scope.item.Store + "] Week: [" + $scope.item.PeriodWeek + "] Year: [" + $scope.item.PeriodYear + "]  (" + $scope.item.DateRange + ")");
+        dataGrid.columnOption("main", 'caption', $translate.instant('main.SHIFTPLAN')+" [" + $scope.item.Store + "] "+ $translate.instant('main.WEEK')+": [" + $scope.item.PeriodWeek + "] "+ $translate.instant('main.YEAR')+": [" + $scope.item.PeriodYear + "]  (" + $scope.item.DateRange + ")");
         var dataGrid = $('#advgridContainer').dxDataGrid('instance');
         dataGrid.option("dataSource",
             new DevExpress.data.CustomStore({
@@ -211,38 +227,40 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         columns: [
             { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
             { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
-            { name: "Status_08",dataField: "Status_08", caption: "08", dataType: "number" },
-            { name: "Status_09",dataField: "Status_09", caption: "09", dataType: "number" },
-            { name: "Status_10",dataField: "Status_10", caption: "10", dataType: "number" },
-            { name: "Status_11",dataField: "Status_11", caption: "11", dataType: "number" },
-            { name: "Status_12",dataField: "Status_12", caption: "12", dataType: "number" },
-            { name: "Status_13",dataField: "Status_13", caption: "13", dataType: "number" },
-            { name: "Status_14",dataField: "Status_14", caption: "14", dataType: "number" },
-            { name: "Status_15",dataField: "Status_15", caption: "15", dataType: "number" },
-            { name: "Status_16",dataField: "Status_16", caption: "16", dataType: "number" },
-            { name: "Status_17",dataField: "Status_17", caption: "17", dataType: "number" },
-            { name: "Status_18",dataField: "Status_18", caption: "18", dataType: "number" },
-            { name: "Status_19",dataField: "Status_19", caption: "19", dataType: "number" },
-            { name: "Status_20",dataField: "Status_20", caption: "20", dataType: "number" },
-            { name: "Status_21",dataField: "Status_21", caption: "21", dataType: "number" },
-            { name: "Status_22",dataField: "Status_22", caption: "22", dataType: "number" },
-            { name: "Status_23",dataField: "Status_23", caption: "23", dataType: "number" },
-            { name: "Status_00",dataField: "Status_00", caption: "00", dataType: "number" },
-            { name: "Status_01",dataField: "Status_01", caption: "01", dataType: "number" },
-            { name: "Status_02",dataField: "Status_02", caption: "02", dataType: "number" },
-            { name: "Status_03",dataField: "Status_03", caption: "03", dataType: "number" }
+            { name: "Status_08", dataField: "Status_08", caption: "08", dataType: "number" },
+            { name: "Status_09", dataField: "Status_09", caption: "09", dataType: "number" },
+            { name: "Status_10", dataField: "Status_10", caption: "10", dataType: "number" },
+            { name: "Status_11", dataField: "Status_11", caption: "11", dataType: "number" },
+            { name: "Status_12", dataField: "Status_12", caption: "12", dataType: "number" },
+            { name: "Status_13", dataField: "Status_13", caption: "13", dataType: "number" },
+            { name: "Status_14", dataField: "Status_14", caption: "14", dataType: "number" },
+            { name: "Status_15", dataField: "Status_15", caption: "15", dataType: "number" },
+            { name: "Status_16", dataField: "Status_16", caption: "16", dataType: "number" },
+            { name: "Status_17", dataField: "Status_17", caption: "17", dataType: "number" },
+            { name: "Status_18", dataField: "Status_18", caption: "18", dataType: "number" },
+            { name: "Status_19", dataField: "Status_19", caption: "19", dataType: "number" },
+            { name: "Status_20", dataField: "Status_20", caption: "20", dataType: "number" },
+            { name: "Status_21", dataField: "Status_21", caption: "21", dataType: "number" },
+            { name: "Status_22", dataField: "Status_22", caption: "22", dataType: "number" },
+            { name: "Status_23", dataField: "Status_23", caption: "23", dataType: "number" },
+            { name: "Status_00", dataField: "Status_00", caption: "00", dataType: "number" },
+            { name: "Status_01", dataField: "Status_01", caption: "01", dataType: "number" },
+            { name: "Status_02", dataField: "Status_02", caption: "02", dataType: "number" },
+            { name: "Status_03", dataField: "Status_03", caption: "03", dataType: "number" }
         ],
         onCellPrepared: function (e) {
-            
-            if (e.rowType == 'data' && e.column.name && e.column.name.length>5 && e.column.name.substring(0,6)=="Status") {
+
+            if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
                 var fieldData = e.value;
                 var fieldHtml = "";
                 if (fieldData != 0) {
                     e.cellElement.addClass((fieldData > 0) ? "inc" : "dec");
-                    fieldHtml += "<div class='diff'>" +
+                    fieldHtml += "<div class='current-value'>" +
+                        e.row.data["Req_" + e.column.dataField.split("_")[1]] +
+                        "</div> <div class='diff'>" +
                         Math.abs(fieldData.toFixed(2)) +
                         "  </div>";
-                } 
+                }
                 /* else {
                     fieldHtml = fieldData.value;
                 } */
@@ -307,8 +325,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             mode: "popup",
 
             popup: {
-                title: "Edit Staff Shift", showTitle: true,
-                //fullScreen: true 
+                title: $scope.trEditShifts, showTitle: true,
+                fullScreen: true
             },
             form: {
                 labelLocation: "top",
@@ -321,7 +339,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     itemType: "group",
                     colCount: 5,
                     colSpan: 2,
-                    caption: "Shifts",
+                    caption: $scope.trShifts,
                     items: ["D1ShiftStart", "D1ShiftEnd", "D1isOff", { colSpan: 2, dataField: "D1OffTypeID" }]
                 },
                 {
@@ -425,7 +443,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                 columns: [
                     { dataField: "ShiftPlanID", caption: "Name", visible: false, formItem: { visible: false } },
                     {
-                        dataField: "StaffPositionID", caption: "Position",
+                        dataField: "StaffPositionID", caption: $scope.trStaffPosition,
                         visibleIndex: 0,
                         sortIndex: 0,
                         sortOrder: "asc",
@@ -466,7 +484,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     },
                     {
                         dataField: "NGUserID",
-                        caption: "Staff",
+                        caption: $scope.trNGUser,
                         visible: false,
                         editable: true,
                         lookup: {
@@ -477,24 +495,30 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 };
                             },
                             valueExpr: "id",
-                            displayExpr: "FullName"
+                            displayExpr: function (item) {
+                                // "item" can be null
+                                return item && item.FullName + ((item.LaborCostType)?('-' + item.LaborCostType.Name):'');
+                            },
                         }
                     },
 
                     {
                         dataField: "NGUserID",
-                        caption: "Staff Name",
+                        caption: $scope.trNGUser,
                         visibleIndex: 1,
                         formItem: {
                             visible: false
                         },
                         lookup: {
                             valueExpr: "id",
-                            displayExpr: "FullName",
+                            displayExpr: function (item) {
+                                // "item" can be null
+                                return item && item.FullName +' [' + item.LaborCostType +']';
+                            },
                             dataSource: {
                                 store: DevExpress.data.AspNet.createStore({
                                     key: "id",
-                                    loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxUser",
+                                    loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxUserDetails",
                                     onBeforeSend: function (method, ajaxOptions) {
                                         var authData = localStorageService.get('authorizationData');
                                         if (authData) {
@@ -515,7 +539,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         },
                     },
                     {
-                        dataField: "D1OffTypeID", caption: "Off Type",
+                        dataField: "D1OffTypeID", caption: $scope.trOffType,
                         visible: false,
                         lookup: {
                             valueExpr: "id",
@@ -545,27 +569,27 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     },
                     {
                         dataField: "D1ShiftStart",
-                        caption: "Monday - Start",
+                        caption: $scope.trD1ShiftStart + " " + $scope.trStartShifts,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
                         dataField: "D1ShiftEnd",
-                        caption: "End",
+                        caption: $scope.trEndShift,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
-                        dataField: "D1isOff", caption: "Off day", visible: false,
+                        dataField: "D1isOff", caption: $scope.trIsOff, visible: false,
                         setCellValue: function (rowData, value) {
                             rowData.D1isOff = value;
                             rowData.D1OffTypeID = null;
                         }
                     },
                     {
-                        dataField: "D2OffTypeID", caption: "Off Type",
+                        dataField: "D2OffTypeID", caption: $scope.trOffType,
                         visible: false,
 
                         lookup: {
@@ -596,20 +620,20 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     },
                     {
                         dataField: "D2ShiftStart",
-                        caption: "Tuesday - Start",
+                        caption: $scope.trD2ShiftStart + " " + $scope.trStartShifts,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
                         dataField: "D2ShiftEnd",
-                        caption: "End",
+                        caption: $scope.trEndShift,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
-                        dataField: "D2isOff", caption: "Off day", visible: false, setCellValue: function (rowData, value) {
+                        dataField: "D2isOff", caption: $scope.trIsOff, visible: false, setCellValue: function (rowData, value) {
                             rowData.D2isOff = value;
                             rowData.D2OffTypeID = null;
                         }
@@ -617,7 +641,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
 
 
                     {
-                        dataField: "D3OffTypeID", caption: "Off Type",
+                        dataField: "D3OffTypeID", caption: $scope.trOffType,
                         visible: false,
                         lookup: {
                             valueExpr: "id",
@@ -647,27 +671,27 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     },
                     {
                         dataField: "D3ShiftStart",
-                        caption: "Wednesday - Start",
+                        caption: $scope.trD3ShiftStart + " " + $scope.trStartShifts,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
                         dataField: "D3ShiftEnd",
-                        caption: "End",
+                        caption: $scope.trEndShift,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
-                        dataField: "D3isOff", caption: "Off day", visible: false, setCellValue: function (rowData, value) {
+                        dataField: "D3isOff", caption: $scope.trIsOff, visible: false, setCellValue: function (rowData, value) {
                             rowData.D3isOff = value;
                             rowData.D3OffTypeID = null;
                         }
                     },
 
                     {
-                        dataField: "D4OffTypeID", caption: "Off Type",
+                        dataField: "D4OffTypeID", caption: $scope.trOffType,
                         visible: false,
                         lookup: {
                             valueExpr: "id",
@@ -697,27 +721,27 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     },
                     {
                         dataField: "D4ShiftStart",
-                        caption: "Thursday - Start",
+                        caption: $scope.trD4ShiftStart + " " + $scope.trStartShifts,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
                         dataField: "D4ShiftEnd",
-                        caption: "End",
+                        caption: $scope.trEndShift,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
-                        dataField: "D4isOff", caption: "Off day", visible: false, setCellValue: function (rowData, value) {
+                        dataField: "D4isOff", caption: $scope.trIsOff, visible: false, setCellValue: function (rowData, value) {
                             rowData.D4isOff = value;
                             rowData.D4OffTypeID = null;
                         }
                     },
 
                     {
-                        dataField: "D5OffTypeID", caption: "Off Type",
+                        dataField: "D5OffTypeID", caption: $scope.trOffType,
                         visible: false,
                         lookup: {
                             valueExpr: "id",
@@ -747,27 +771,27 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     },
                     {
                         dataField: "D5ShiftStart",
-                        caption: "Friday - Start",
+                        caption: $scope.trD5ShiftStart + " " + $scope.trStartShifts,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
                         dataField: "D5ShiftEnd",
-                        caption: "End",
+                        caption: $scope.trEndShift,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
-                        dataField: "D5isOff", caption: "Off day", visible: false, setCellValue: function (rowData, value) {
+                        dataField: "D5isOff", caption: $scope.trIsOff, visible: false, setCellValue: function (rowData, value) {
                             rowData.D5isOff = value;
                             rowData.D5OffTypeID = null;
                         }
                     },
 
                     {
-                        dataField: "D6OffTypeID", caption: "Off Type",
+                        dataField: "D6OffTypeID", caption: $scope.trOffType,
                         visible: false,
                         lookup: {
                             valueExpr: "id",
@@ -797,27 +821,27 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     },
                     {
                         dataField: "D6ShiftStart",
-                        caption: "Saturday - Start",
+                        caption: $scope.trD6ShiftStart + " " + $scope.trStartShifts,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
                         dataField: "D6ShiftEnd",
-                        caption: "End",
+                        caption: $scope.trEndShift,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
-                        dataField: "D6isOff", caption: "Off day", visible: false, setCellValue: function (rowData, value) {
+                        dataField: "D6isOff", caption: $scope.trIsOff, visible: false, setCellValue: function (rowData, value) {
                             rowData.D6isOff = value;
                             rowData.D6OffTypeID = null;
                         }
                     },
 
                     {
-                        dataField: "D7OffTypeID", caption: "Off Type",
+                        dataField: "D7OffTypeID", caption: $scope.trOffType,
                         visible: false,
                         lookup: {
                             valueExpr: "id",
@@ -847,26 +871,26 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     },
                     {
                         dataField: "D7ShiftStart",
-                        caption: "Sunday - Start",
+                        caption: $scope.trD7ShiftStart + " " + $scope.trStartShifts,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
                         dataField: "D7ShiftEnd",
-                        caption: "End",
+                        caption: $scope.trEndShift,
                         visible: false,
                         editable: true,
                         lookup: { dataSource: function (options) { return { store: hstep }; }, }
                     },
                     {
-                        dataField: "D7isOff", caption: "Off day", visible: false, setCellValue: function (rowData, value) {
+                        dataField: "D7isOff", caption: $scope.trIsOff, visible: false, setCellValue: function (rowData, value) {
                             rowData.D7isOff = value;
                             rowData.D7OffTypeID = null;
                         }
                     },
                     {
-                        caption: "Monday",
+                        caption: $scope.trD1ShiftStart,
                         name: "Monday",
                         visibleIndex: 5,
                         calculateCellValue: function (data) {
@@ -874,11 +898,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D1OffTypeID);
                             return [data.D1ShiftStart,
                             data.D1ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D1ShiftStart, data.D1ShiftEnd);
+                                .join("-") + " " + SumHoursStr(data.D1ShiftStart, data.D1ShiftEnd,data.D1isOff);
                         }
                     },
                     {
-                        caption: "Tuesday",
+                        caption: $scope.trD2ShiftStart,
                         name: "Tuesday",
                         visibleIndex: 6,
                         calculateCellValue: function (data) {
@@ -886,11 +910,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D2OffTypeID);
                             return [data.D2ShiftStart,
                             data.D2ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D2ShiftStart, data.D2ShiftEnd);
+                                .join("-") + " " + SumHoursStr(data.D2ShiftStart, data.D2ShiftEnd,data.D2isOff);
                         }
                     },
                     {
-                        caption: "Wednesday",
+                        caption: $scope.trD3ShiftStart,
                         name: "Wednesday",
                         visibleIndex: 7,
                         calculateCellValue: function (data) {
@@ -902,7 +926,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     },
                     {
-                        caption: "Thursday",
+                        caption: $scope.trD4ShiftStart,
                         name: "Thursday",
                         visibleIndex: 8,
                         calculateCellValue: function (data) {
@@ -910,11 +934,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D4OffTypeID);
                             return [data.D4ShiftStart,
                             data.D4ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D4ShiftStart, data.D4ShiftEnd);
+                                .join("-") + " " + SumHoursStr(data.D4ShiftStart, data.D4ShiftEnd,data.D4isOff);
                         }
                     },
                     {
-                        caption: "Friday",
+                        caption: $scope.trD5ShiftStart,
                         name: "Friday",
                         visibleIndex: 9,
                         calculateCellValue: function (data) {
@@ -922,11 +946,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D5OffTypeID);
                             return [data.D5ShiftStart,
                             data.D5ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D5ShiftStart, data.D5ShiftEnd);
+                                .join("-") + " " + SumHoursStr(data.D5ShiftStart, data.D5ShiftEnd,data.D5isOff,data.D5isOff);
                         }
                     },
                     {
-                        caption: "Saturday",
+                        caption: $scope.trD6ShiftStart,
                         name: "Saturday",
                         visibleIndex: 10,
                         calculateCellValue: function (data) {
@@ -934,11 +958,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D6OffTypeID);
                             return [data.D6ShiftStart,
                             data.D6ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D6ShiftStart, data.D6ShiftEnd);
+                                .join("-") + " " + SumHoursStr(data.D6ShiftStart, data.D6ShiftEnd,data.D6isOff);
                         }
                     },
                     {
-                        caption: "Sunday",
+                        caption: $scope.trD7ShiftStart,
                         name: "Sunday",
                         visibleIndex: 11,
                         calculateCellValue: function (data) {
@@ -946,21 +970,21 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D7OffTypeID);
                             return [data.D7ShiftStart,
                             data.D7ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D7ShiftStart, data.D7ShiftEnd);
+                                .join("-") + " " + SumHoursStr(data.D7ShiftStart, data.D7ShiftEnd,data.D7isOff);
                         }
                     },
                     {
-                        caption: "Total Hours",
+                        caption: $scope.trTotalHours,
                         name: "TotalHours",
                         visibleIndex: 12,
                         calculateCellValue: function (data) {
-                            return SumHours(data.D1ShiftStart, data.D1ShiftEnd) +
-                                SumHours(data.D2ShiftStart, data.D2ShiftEnd) +
-                                SumHours(data.D3ShiftStart, data.D3ShiftEnd) +
-                                SumHours(data.D4ShiftStart, data.D4ShiftEnd) +
-                                SumHours(data.D5ShiftStart, data.D5ShiftEnd) +
-                                SumHours(data.D6ShiftStart, data.D6ShiftEnd) +
-                                SumHours(data.D7ShiftStart, data.D7ShiftEnd);
+                            return SumHours(data.D1ShiftStart, data.D1ShiftEnd,data.D1isOff) +
+                                SumHours(data.D2ShiftStart, data.D2ShiftEnd,data.D2isOff) +
+                                SumHours(data.D3ShiftStart, data.D3ShiftEnd,data.D3isOff) +
+                                SumHours(data.D4ShiftStart, data.D4ShiftEnd,data.D4isOff) +
+                                SumHours(data.D5ShiftStart, data.D5ShiftEnd,data.D5isOff) +
+                                SumHours(data.D6ShiftStart, data.D6ShiftEnd,data.D6isOff) +
+                                SumHours(data.D7ShiftStart, data.D7ShiftEnd,data.D7isOff);
                         },
                         format: { type: "fixedPoint", precision: 2 }
                     },
@@ -989,7 +1013,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             //options.dg = 0;
                             break;
                         case "calculate":
-                            options.totalValue = options.totalValue + SumHours(options.value.D7ShiftStart, options.value.D7ShiftEnd);
+                            options.totalValue = options.totalValue + SumHours(options.value.D7ShiftStart, options.value.D7ShiftEnd,options.value.D7isOff);
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue;
@@ -1018,7 +1042,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd) == 0 || SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd) > 8.5) {
+                        if (SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd,e.data.D1isOff) == 0 || SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd,e.data.D1isOff) > 8.5) {
                             if (e.column.name === 'Monday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1040,12 +1064,12 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd) == 0 || SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd) > 8.5) {
+                        if (SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd,e.data.D2isOff) == 0 || SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd,e.data.D2isOff) > 8.5) {
                             if (e.column.name === 'Tuesday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
                         }
-                    }
+                    } 
                 }
                 if (e.data.D3isOff) {
                     if (e.column.name === 'Wednesday') {
@@ -1061,17 +1085,17 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd) == 0 || SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd) > 8.5) {
+                        if (SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd,e.data.D3isOff) == 0 || SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd,e.data.D3isOff) > 8.5) {
                             if (e.column.name === 'Wednesday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
                         }
                     }
                 }
-                if (e.data.D4isOff) {
+                if (e.data.D4isOff) { 
                     if (e.column.name === 'Thursday') {
                         e.cellElement.css({ 'background-color': '#DCDCDC' });
-                        if (typeof e.row.data.D3OffTypeID !== "number")
+                        if (typeof e.row.data.D4OffTypeID !== "number")
                             e.cellElement.css({ 'color': '#f00' });
                     }
                 }
@@ -1082,7 +1106,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd) == 0 || SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd) > 8.5) {
+                        if (SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd,e.data.D4isOff) == 0 || SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd,e.data.D4isOff) > 8.5) {
                             if (e.column.name === 'Thursday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1103,7 +1127,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd) == 0 || SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd) > 8.5) {
+                        if (SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd,e.data.D5isOff) == 0 || SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd,e.data.D5isOff) > 8.5) {
                             if (e.column.name === 'Friday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1124,7 +1148,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd) == 0 || SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd) > 8.5) {
+                        if (SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd,e.data.D6isOff) == 0 || SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd,e.data.D6isOff) > 8.5) {
                             if (e.column.name === 'Saturday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1146,7 +1170,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd) == 0 || SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd) > 8.5) {
+                        if (SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd,e.data.D7isOff) == 0 || SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd,e.data.D7isOff) > 8.5) {
                             if (e.column.name === 'Sunday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1178,7 +1202,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd) == 0 || SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd) > 8.5) {
+                            if (SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd,gridCell.data.D1isOff) == 0 || SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd,gridCell.data.D1isOff) > 8.5) {
                                 if (gridCell.column.name === 'Monday')
                                     options.font.color = '#FF0000';
                             }
@@ -1201,7 +1225,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd) == 0 || SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd) > 8.5) {
+                            if (SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd,gridCell.data.D1isOff) == 0 || SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd,gridCell.data.D1isOff) > 8.5) {
                                 if (gridCell.column.name === 'Tuesday')
                                     options.font.color = '#FF0000';
                             }
@@ -1224,7 +1248,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd) == 0 || SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd) > 8.5) {
+                            if (SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd,gridCell.data.D3isOff) == 0 || SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd,gridCell.data.D3isOff) > 8.5) {
                                 if (gridCell.column.name === 'Wednesday')
                                     options.font.color = '#FF0000';
                             }
@@ -1247,7 +1271,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd) == 0 || SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd) > 8.5) {
+                            if (SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd,gridCell.data.D4isOff) == 0 || SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd,gridCell.data.D4isOff) > 8.5) {
                                 if (gridCell.column.name === 'Thursday')
                                     options.font.color = '#FF0000';
                             }
@@ -1270,7 +1294,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd) == 0 || SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd) > 8.5) {
+                            if (SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd,gridCell.data.D5isOff) == 0 || SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd,gridCell.data.D5isOff) > 8.5) {
                                 if (gridCell.column.name === 'Friday')
                                     options.font.color = '#FF0000';
                             }
@@ -1293,7 +1317,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd) == 0 || SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd) > 8.5) {
+                            if (SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd,gridCell.data.D6isOff) == 0 || SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd,gridCell.data.D6isOff) > 8.5) {
                                 if (gridCell.column.name === 'Saturday')
                                     options.font.color = '#FF0000';
                             }
@@ -1316,7 +1340,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd) == 0 || SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd) > 8.5) {
+                            if (SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd,gridCell.data.D7isOff) == 0 || SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd,gridCell.data.D7isOff) > 8.5) {
                                 if (gridCell.column.name === 'Sunday')
                                     options.font.color = '#FF0000';
                             }
