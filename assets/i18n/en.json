@@ -1892,6 +1892,7 @@
     "STARTSHIFT":"Start",
     "SHIFTS":"Shifts",
     "ISOFFDAY":"is Off",
+    "IGNOREOVERTIME":"Ignore Overtime",
     "EDITSHIFTS":"Edit Staff Shifts",
     "MINPERSONSPERSTORE": "Min Staff Count",
     "MAXPERSONSPERSTORE": "Max Staff Count",

@@ -33,6 +33,11 @@
                             {{ item.Description}}
                         </span>
                     </td>
+                    <td data-title="trMaxWorkingHours" data-sortable="'maxWorkingHours'" style="width:30%">
+                        <span editable-text="item.maxWorkingHours" e-name="maxWorkingHours" e-form="rowform" e-ng-model="item.maxWorkingHours" e-style="width:15vw;">
+                            {{ item.maxWorkingHours}}
+                        </span>
+                    </td>
                     <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                         <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
                               shown="inserted == item|| !item.id">

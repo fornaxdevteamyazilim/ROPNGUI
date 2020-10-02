@@ -95,7 +95,7 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
             name: 'ROP NG',
             author: 'Fornax A.Ş.',
             description: 'Retail Operation Platform NG',
-            version: '1.0.615',
+            version: '1.0.616',
             year: ((new Date()).getFullYear()),
             isMobile: (function () {// true if the browser is a mobile device
                 var check = false;
@@ -132,7 +132,7 @@ app.config(function ($httpProvider) {
                 if (request.url.endsWith(".html") && !request.url.includes("tabset.html")) {
                     if ($templateCache.get(request.url) === undefined) { // cache miss
                         // Item is not in $templateCache so add our query string
-                        request.url = request.url + '?v=0615';
+                        request.url = request.url + '?v=0616';
                     }
                 }
                 return request;
@@ -198,7 +198,7 @@ app.config(['$compileProvider',
 
 app.config(['KeepaliveProvider', 'IdleProvider', function (KeepaliveProvider, IdleProvider) {
     // configure Idle settings
-    IdleProvider.idle(90);
+    IdleProvider.idle(120);
     IdleProvider.timeout(10);
     KeepaliveProvider.interval(10);
     IdleProvider.interrupt('keydown wheel mousedown touchstart touchmove scroll');

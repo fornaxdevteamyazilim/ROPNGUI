@@ -1909,6 +1909,7 @@
     "STARTSHIFT":"Başlangıç",
     "SHIFTS":"Vardiyalar",
     "ISOFFDAY":"İzinli",
+    "IGNOREOVERTIME":"Mesai Yok",
     "EDITSHIFTS":"Personel Vardiyaları Düzenleme",
     "MINPERSONSPERSTORE": "Min Personel Sayısı",
     "MAXPERSONSPERSTORE": "Max Personel Sayısı",
