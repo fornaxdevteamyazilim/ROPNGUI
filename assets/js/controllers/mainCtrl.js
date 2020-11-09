@@ -137,7 +137,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                 else {
                     Restangular.setDefaultHeaders({ "Accept-Language": "tr-TR" });
                     $http.defaults.headers.common["Accept-Language"] = "tr-TR";
-                    DevExpress.localization.locale("tr");
+                    DevExpress.localization.locale("tr"); 
                 }
                 
             },
@@ -158,6 +158,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
             }
         };
         $scope.language.init();
+        //DevExpress.localization.locale("tr");
         // Function that find the exact height and width of the viewport in a cross-browser way
         var viewport = function () {
             var e = window, a = 'inner';

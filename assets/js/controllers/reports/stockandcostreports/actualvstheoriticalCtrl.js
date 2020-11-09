@@ -275,7 +275,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
             }
         },
         scrolling: { mode: "virtual" },
-        height: 600
+        //height: 600
         //scrolling: {
         //    columnRenderingMode: "virtual"
         //},

@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('inventorytransactionsCtrl', inventorytransactionsCtrl);
-function inventorytransactionsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $timeout, Excel, $translate, userService, ngnotifyService, $element, NG_SETTING, $http, $q, localStorageService) {
+function inventorytransactionsCtrl($scope,  $filter,  $window, $stateParams, $rootScope, $translate, userService, ngnotifyService, $element, NG_SETTING, $http, $q) {
     $rootScope.uService.EnterController("inventorytransactionsCtrl");
     $scope.Time = ngnotifyService.ServerTime();
 

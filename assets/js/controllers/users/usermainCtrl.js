@@ -21,7 +21,7 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
                 });
             }
         } else {
-            toaster.pop('warning',$translate.instant('userfile.Sorry'), $translate.instant('userfile.EnterPassword'));
+            toaster.pop('warning', $translate.instant('userfile.Sorry'), $translate.instant('userfile.EnterPassword'));
         }
     };
     if ($stateParams.id != 'new') {
@@ -30,20 +30,22 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
                 $scope.original = restresult;
                 $scope.item = Restangular.copy(restresult);
             },
-           function (restresult) {
-               toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
-               swal("Error!", "Data Error!", "Warning");
-           }
-           )
+                function (restresult) {
+                    toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+                    swal("Error!", "Data Error!", "Warning");
+                }
+            )
     }
     $scope.CheckFingerPrint = function () {
-        Restangular.all('NGUserFingerPrint').getList({
-            search: 'NGUserID=' + $stateParams.id
-        }).then(function (result) {
-            $scope.fingerPrintExists = result.length;
-        }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
-        });
+        if ($stateParams.id != 'new') {
+            Restangular.all('NGUserFingerPrint').getList({
+                search: 'NGUserID=' + $stateParams.id
+            }).then(function (result) {
+                $scope.fingerPrintExists = result.length;
+            }, function (response) {
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            });
+        }
     }
     $scope.deleteFingerPrint = function () {
         Restangular.all('user/deletefingerprints').getList({
@@ -89,30 +91,30 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
     $scope.loadEntities('nguserrole', 'nguserroles');
     $scope.staffpositions = [];
     $scope.loadEntities('staffposition', 'staffpositions');
-        $scope.quitreasons = [];
-        $scope.loadEntities('quitreason', 'quitreasons');
-        $scope.trainings = [];
-        $scope.loadEntities('training', 'trainings');
-        $scope.laborcosttypes = [];
-        $scope.loadEntities('laborcosttype', 'laborcosttypes');
+    $scope.quitreasons = [];
+    $scope.loadEntities('quitreason', 'quitreasons');
+    $scope.trainings = [];
+    $scope.loadEntities('training', 'trainings');
+    $scope.laborcosttypes = [];
+    $scope.loadEntities('laborcosttype', 'laborcosttypes');
 
 
-        $scope.datepopupTrainingDate = function (item) {
-            var modalInstance = $modal.open({
-                templateUrl: 'assets/views/Tools/date.html',
-                controller: 'dateCtrl',
-                size: '',
-                backdrop: '',
-                resolve: {
-                    DateTime: function () {
-                        return item.TrainingDate;
-                    }
+    $scope.datepopupTrainingDate = function (item) {
+        var modalInstance = $modal.open({
+            templateUrl: 'assets/views/Tools/date.html',
+            controller: 'dateCtrl',
+            size: '',
+            backdrop: '',
+            resolve: {
+                DateTime: function () {
+                    return item.TrainingDate;
                 }
-            });
-            modalInstance.result.then(function (result) {
-                item.TrainingDate = result;
-            })
-        };
+            }
+        });
+        modalInstance.result.then(function (result) {
+            item.TrainingDate = result;
+        })
+    };
 
     var deregistration = $scope.$on('LoadUserRole', function () {
         $scope.$broadcast('ChangeUserRoles', 'Reload');
@@ -125,26 +127,26 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
     });
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title:  $translate.instant('orderfile.Sure') ,
-            text:  $translate.instant('orderfile.SureRecord'),
+            title: $translate.instant('orderfile.Sure'),
+            text: $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
-            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
+            confirmButtonText: $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText: $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal($translate.instant('orderfile.Deleted'),  $translate.instant('orderfile.RecordDeleted'), "success");
+                    SweetAlert.swal($translate.instant('orderfile.Deleted'), $translate.instant('orderfile.RecordDeleted'), "success");
                     $location.path('app/users/userlist');
                 }, function (response) {
                     toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
             else {
-                SweetAlert.swal($translate.instant('orderfile.Cancelled'),  $translate.instant('orderfile.DeletionCanceled'), "error");
+                SweetAlert.swal($translate.instant('orderfile.Cancelled'), $translate.instant('orderfile.DeletionCanceled'), "error");
             }
         });
     };

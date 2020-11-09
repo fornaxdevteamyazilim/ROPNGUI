@@ -115,7 +115,9 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
                         type: "fixedPoint",
                         precision: 2
                     }
-                }
+                },
+                { caption: "AmountWithVAT", dataField: "AmountWithVAT", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
+                
             ],
             store: DevExpress.data.AspNet.createStore({
                 key: "id",

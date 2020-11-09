@@ -180,7 +180,7 @@
                         <div class="col-sm-12 col-xs-12">
                             <span class="col-sm-6 col-xs-6 btn btn-o btn-md btn-primary fa fa-cutlery"
                                 ng-class="{'btn btn-red text-bold':(item.orders && item.orders.length  > 0)}"
-                                ng-click="AddTableOrder(item.orders,item.id)" ng-dblclick="dbClick()"></span>
+                                ng-click="AddTableOrder(item.orders,item.id)" ng-dblclick="dbClick()" ng-disabled="ShowObject == false"></span>
                             <span ng-repeat="orderitem in item.orders"
                                 class="col-sm-6 col-xs-6 btn btn-o btn-md btn-primary fa fa-calculator"
                                 ng-class="{'btn btn-red text-bold':(item.orders && item.orders.length > 0)}"
@@ -238,7 +238,7 @@
                         <div class="col-sm-12 col-xs-12">
                             <span class="col-sm-6 col-xs-6 btn btn-o btn-md btn-primary fa fa-cutlery"
                                 ng-class="{'btn btn-red text-bold':(item.orders && item.orders.length  > 0)}"
-                                ng-click="AddTableOrder(item.orders,item.id)" ng-dblclick="dbClick()"></span>
+                                ng-click="AddTableOrder(item.orders,item.id)" ng-dblclick="dbClick()" ng-disabled="ShowObject == false"></span>
                             <span ng-repeat="orderitem in item.orders"
                                 class="col-sm-6 col-xs-6 btn btn-o btn-md btn-primary fa fa-calculator"
                                 ng-class="{'btn btn-red text-bold':(item.orders && item.orders.length > 0)}"

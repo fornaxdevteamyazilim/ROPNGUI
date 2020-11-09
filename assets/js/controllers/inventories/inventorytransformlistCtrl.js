@@ -84,7 +84,7 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
             Restangular.all('repository').getList({
                 pageNo: 1,
                 pageSize: 1000,
-                search: "StoreID='" + $rootScope.user.StoreID + "'"
+                //search: "StoreID='" + $rootScope.user.StoreID + "'"
             }).then(function (result) {
                 $scope.repositories = result;
                 if (result && result.length > 0) {

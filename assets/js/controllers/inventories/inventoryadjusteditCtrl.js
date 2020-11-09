@@ -93,7 +93,7 @@ function inventoryadjusteditCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                 pageNo: 1,
                 pageSize: 1000,
                 sort: 'id',
-                search: "StoreID='" + $rootScope.user.StoreID + "'"
+                //search: "StoreID='" + $rootScope.user.StoreID + "'"
             }).then(function (result) {
                 $scope.repositories = result;
                 $scope.item.RepositoryID = result[0].id;

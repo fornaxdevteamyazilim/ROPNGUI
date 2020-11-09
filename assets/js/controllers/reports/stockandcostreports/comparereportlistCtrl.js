@@ -140,7 +140,7 @@ function comparereportlistCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
             pageNo: 1,
             pageSize: 1000,
             sort: 'id',
-            search: "StoreID='" + StoreID + "'"
+            //search: "StoreID='" + StoreID + "'"
         }).then(function (result) {
             if (result && result.length >0 ) {
                 $scope.repositories = result;

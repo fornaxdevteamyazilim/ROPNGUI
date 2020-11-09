@@ -1881,7 +1881,10 @@
     "DATERANGE": "Tarih Aralığı",
     "SHIFTPLAN": "Vardiya Planı",
     "WEEK": "Hafta",
-    "SHIFTPLANADVICE":"Vardiya Planı Öneri",
+    "SHIFTPLANADVICE":"Öneri",
+    "SHIFTPLANADVICETRANSACTIONS":"Ortalama Çek Sayıları",
+    "SHIFTPLANADVICESALES":"Ortalama Satış Tutarı",
+    "SHIFTPLANSALESBYTYPE":"Tiplere Göre Ort. Çek Sayısı",
     "SHIFTPLANITEM": "Vardiya Planı Detayları",
     "D1SHIFTSTART": "Pazartesi",
     "D1SHIFTEND": "",
@@ -1910,6 +1913,7 @@
     "SHIFTS":"Vardiyalar",
     "ISOFFDAY":"İzinli",
     "IGNOREOVERTIME":"Mesai Yok",
+    "SHOWALL":"Tümünü Göster",
     "EDITSHIFTS":"Personel Vardiyaları Düzenleme",
     "MINPERSONSPERSTORE": "Min Personel Sayısı",
     "MAXPERSONSPERSTORE": "Max Personel Sayısı",
@@ -3529,5 +3533,31 @@
 
 
 
-  }
+  },
+  "trends":{
+    "today":"Bugün",
+    "prevweek":"Geçen Hafta",
+    "prevDay":"Önceki Gün",
+    "prevMonth":"Önceki Ay",
+    "monthlyTotal":"Aylık Toplam",
+    "trends":"Trend",
+    "sales":"Ciro",
+    "AC":"Ort.Çek",
+    "TC":"Sipariş",
+    "SalesTarget":"Sales Target",
+    "hitRate":"Hit %",
+    "Store":"Restoran",
+    "Region":"Bölge",
+    "Rank":"#",
+    "regionRank":"Bölge #",
+    "dailyTarget":"Günlük Hedef"
+  },
+    "SignalR":{
+      "ConnectionOk":"ROPNG sunucu bağlantısı kuruldu.",
+      "ConnectionInfo":"ROPNG sunucu bağlantısı: ",
+      "ConnectionLost":"ROPNG sunucu bağlantı koptu: ",
+      "ConnectionError":"Bağlantı hatası",
+      "Reconnecting":"ROPNG servislerine yeniden bağlanıyor...",
+      "ConnectionSlow":"ROPNG sunucu bağlantı kalitesi düşük..."
+    } 
 }

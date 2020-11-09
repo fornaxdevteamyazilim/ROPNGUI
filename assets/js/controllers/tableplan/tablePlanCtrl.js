@@ -104,27 +104,29 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         })
     };
     $scope.AddTableOrder = function (table, tableID) {
-        $scope.ShowObject = false;
-        if (table && table.length > 0) {
-            for (var i = 0; i < table.length; i++) {
-                if (table[i].StoreTableID == tableID) {
-                    // if (table[i].OrderStateID == 0 || table[i].OrderStateID == 2) {
-                    //     $scope.ShowObject = true;
-                    //     toaster.pop('error', "Order in use","Cannot change Order!");
-                    // }
-                    // else {
+        if ($scope.ShowObject) {
+            $scope.ShowObject = false;
+            if (table && table.length > 0) {
+                for (var i = 0; i < table.length; i++) {
+                    if (table[i].StoreTableID == tableID) {
+                        // if (table[i].OrderStateID == 0 || table[i].OrderStateID == 2) {
+                        //     $scope.ShowObject = true;
+                        //     toaster.pop('error', "Order in use","Cannot change Order!");
+                        // }
+                        // else {
                         $scope.ShowObject = true;
                         location.href = '#/app/orders/orderStoreTable/' + table[i].id;
-                    // }
-                    break;
+                        // }
+                        break;
+                    }
+                    else {
+                        $scope.PersonSelect(tableID);
+                    }
                 }
-                else {
-                    $scope.PersonSelect(tableID);
-                }
+            } else {
+                $scope.ShowObject = true;
+                $scope.PersonSelect(tableID);
             }
-        } else {
-            $scope.ShowObject = true;
-            $scope.PersonSelect(tableID);
         }
     };
     $scope.CopyOrder = function (order, PaymentType, OrderStateID) {
@@ -239,7 +241,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
 app.controller('SelectPersoncountCtrl', SelectPersoncountCtrl);
 function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, $modal, tableID, SweetAlert, toaster, $window) {
     $rootScope.uService.EnterController("SelectPersoncountCtrl");
-    //$scope.isWaiting = true;
+    $scope.isWaiting = true;
     $scope.Departments = [];
     $scope.PersonCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     $scope.dbClick = function () {
@@ -356,6 +358,21 @@ function ngPosition($document, $window) {
         link: makePosition,
     }
 };
+app.directive('clickAndDisable', function() {
+    return {
+      scope: {
+        clickAndDisable: '&'
+      },
+      link: function(scope, iElement, iAttrs) {
+        iElement.bind('click', function() {
+          iElement.prop('disabled',true);
+          scope.clickAndDisable().finally(function() {
+            iElement.prop('disabled',false);
+          })
+        });
+      }
+    };
+  });
 
 
 

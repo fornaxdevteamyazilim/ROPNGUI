@@ -1864,7 +1864,10 @@
     "DATERANGE": "Date Range",
     "SHIFTPLAN": "Shift Plan",
     "WEEK": "Week",
-    "SHIFTPLANADVICE":"Shift Plan Advice",
+    "SHIFTPLANADVICE":"Advice",
+    "SHIFTPLANADVICETRANSACTIONS":"Avg Transactions",
+    "SHIFTPLANADVICESALES":"Avg Sales",
+    "SHIFTPLANSALESBYTYPE":"Avg Transactions By Type",
     "SHIFTPLANITEM": "Shift Plan Details",
     "D1SHIFTSTART": "Monday",
     "D1SHIFTEND": "",
@@ -1893,6 +1896,7 @@
     "SHIFTS":"Shifts",
     "ISOFFDAY":"is Off",
     "IGNOREOVERTIME":"Ignore Overtime",
+    "SHOWALL":"Show All",
     "EDITSHIFTS":"Edit Staff Shifts",
     "MINPERSONSPERSTORE": "Min Staff Count",
     "MAXPERSONSPERSTORE": "Max Staff Count",
@@ -3359,7 +3363,7 @@
       "OrderOut":"Order Out!",
       "OrdermarkedasOut":"Order marked as Out!",
       "NONEWPAYMENTRECORDED":"NO NEW PAYMENT RECORDED!",
-      "Youdonothavepermittion": "You do not have permittion  !!!",
+      "Youdonothavepermittion": "You do not have permition  !!!",
       "Sorry": "Sorry",
       "UnauthorizedAccessRequest":"Unauthorized Access Request.",
       "EnterPassword":"Enter Password !"
@@ -3525,5 +3529,31 @@
 
 
 
-    }
+    },
+    "trends":{
+      "today":"Today",
+      "prevweek":"Previous Week",
+      "prevDay":"Previous Day",
+      "prevMonth":"Previous Month",
+      "monthlyTotal":"Monthly Total",
+      "trends":"Trends",
+      "sales":"Sales",
+      "AC":"AC",
+      "TC":"TC",
+      "SalesTarget":"Sales Target",
+      "hitRate":"Hit %",
+      "Store":"Store",
+      "Region":"Region",
+      "Rank":"#",
+      "regionRank":"Region #",
+      "dailyTarget":"Daily Target"
+    },
+    "SignalR":{
+      "ConnectionOk":"Connection to ROPNG services is OK.",
+      "ConnectionInfo":"ROPNG Server Connection: ",
+      "ConnectionLost":"ROPNG Server Disconnected: ",
+      "ConnectionError":"Server Connection error!!!",
+      "Reconnecting":"Reconnecting to ROPNG services...",
+      "ConnectionSlow":"Connection quality is poor!"
+    } 
 }

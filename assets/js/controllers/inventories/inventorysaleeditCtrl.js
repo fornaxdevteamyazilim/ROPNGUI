@@ -131,7 +131,7 @@ function inventorysaleeditCtrl($scope, $filter, SweetAlert, Restangular, ngTable
                 pageNo: 1,
                 pageSize: 1000,
                 sort: 'id',
-                search: $scope.BuildSearchString()
+                //search: $scope.BuildSearchString()
             }).then(function (result) {
                 if (result && result.length > 0) {
                     if (result && result.length > 1) {

@@ -95,7 +95,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             type: "localStorage",
             storageKey: "dx-sosreport-storing"
         },
-        columnChooser: { enabled: false },
+        //columnChooser: { enabled: false },
         columnFixing: { enabled: true },
         columns: [
             { dataField: "RegionManager", dataType: "string", width: 230, fixed: true },
@@ -389,7 +389,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
         scrolling: {
             mode: "virtual"
         },
-        height: 600
+        //height: 600
         //scrolling: {
         //    columnRenderingMode: "virtual"
         //},

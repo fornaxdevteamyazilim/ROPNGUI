@@ -125,7 +125,10 @@ function storerankingCtrl($scope, $rootScope, $modal, $filter, SweetAlert, Resta
         $scope.exportHref = Excel.tableToExcel(tableId, 'SatisSiralamasiAylik');
         $timeout(function () { location.href = $scope.exportHref }, 1);
     };
-
+    $scope.ShowSalesAmount = function (value) {
+        return userService.isAdmin() || $rootScope.user.restrictions.ShowSalesAmount=='Enable';
+            
+    };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
         for (var i = 0; i < $scope[Container].length; i++) {
             if ($scope[Container][i][idName] == idvalue)

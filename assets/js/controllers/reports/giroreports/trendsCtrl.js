@@ -1,24 +1,10 @@
 ﻿'use strict';
 app.controller('trendsCtrl', trendsCtrl);
-function trendsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $interval, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, Excel, $timeout, NG_SETTING, ngnotifyService, $element, userService) {
+function trendsCtrl($scope, Restangular, toaster,$interval, $http, NG_SETTING, $q, $rootScope, $location, $translate, $timeout, $element, userService) {
     $rootScope.uService.EnterController("trendsCtrl");
     userService.userAuthorizated();
-    var stopTime;
-    $scope.mark = '+';
-    $scope.SortData = '+Store';
-    $scope.OnRefresh = true;
-    $scope.Time = new Date();
-    var totalToday = 0;
-    var totalTodayTC = 0;
-    var totalPrewWeekIncome = 0;
-    var totalPrewWeekTC = 0;
-    var totalLastDayIncome = 0;
-    var totalLastDayTC = 0;
-    var totalDailyIncome = 0;
-    var totalTotalMonthlyIncome = 0;
-    var totalMonthlyTC = 0;
-    var totalTCTrend = 0;
-    var totalIncomeTrend = 0;
+    var promise;
+    
     $scope.translate = function () {
         $scope.trREPORT = $translate.instant('main.REPORT');
         $scope.trEXCEL = $translate.instant('main.EXCEL');
@@ -33,23 +19,6 @@ function trendsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $int
         $scope.ACTARGET = $translate.instant('main.PREWEEKAC');
 
     };
-    $scope.ChangeSortData = function (data) {
-        var datamark = $scope.SortData.substring(0, 1);
-        var sortdata = $scope.SortData.substring(1, $scope.SortData.length);
-        if (sortdata == data) {
-            if (datamark == '+') {
-                $scope.SortData = '-' + data;
-                $scope.loadtrendsReport();
-            }
-            if (datamark == '-') {
-                $scope.SortData = '+' + data;
-                $scope.loadtrendsReport();
-            }
-        } else {
-            $scope.SortData = '-' + data;
-            $scope.loadtrendsReport();
-        }
-    };
     $scope.selectedStore = function (StoreID, Store) {
         var data = {};
         data.id = StoreID;
@@ -61,41 +30,7 @@ function trendsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $int
     var tranlatelistener = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
         $scope.translate();
     });
-    if (!$scope.DateFromDate) {
-        $scope.DateFromDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
-    } else {
-        $scope.DateFromDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
-    }
-    $scope.trendresult = [];
-    $scope.loadtrendsReport = function (FromValue) {
-        $scope.isWaiting = true;
-        Restangular.all('extendedreports/trends').getList({}).then(function (result) {
-            $scope.isWaiting = false;
-            $scope.totalToday = $scope.sumColumnJS(result, "TodayIncome");
-            $scope.totalTodayTC = $scope.sumColumnJS(result, "TodayTC");
-            $scope.totalPrewWeekIncome = $scope.sumColumnJS(result, "PrewWeekIncome");
-            $scope.totalPrewWeekTC = $scope.sumColumnJS(result, "PrewWeekTC");
-            $scope.totalLastDayIncome = $scope.sumColumnJS(result, "LastDayIncome");
-            $scope.totalLastDayTC = $scope.sumColumnJS(result, "LastDayTC");
-            $scope.totalDailyIncome = $scope.sumColumnJS(result, "DailyIncome");
-            $scope.totalTotalMonthlyIncome = $scope.sumColumnJS(result, "TotalMonthlyIncome");
-            $scope.totalMonthlyTC = $scope.sumColumnJS(result, "MonthlyTC");
-            $scope.totalTCTrend = $scope.sumColumnJS(result, "TCTrend");
-            $scope.totalIncomeTrend = $scope.sumColumnJS(result, "IncomeTrend");
-            $scope.totalPrevMonth = $scope.sumColumnJS(result, "TotalPrevMonthToDateIncome");
-            $scope.totalPrevMonthTC = $scope.sumColumnJS(result, "PrevMonthToDateTC");
-            $scope.totalSalesTarget = $scope.sumColumnJS(result, "SalesTarget");
-            $scope.totalTcTarget = $scope.sumColumnJS(result, "TCTarget");
 
-            $scope.$broadcast('$$rebind::refresh');
-            $scope.trendresult = angular.copy(result);
-        }, function (response) {
-            $scope.isWaiting = false;
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
-        });
-    };
-    $scope.loadtrendsReport();
-    //$rootScope.enableSessionTimeOut();
     $scope.sumColumnJS = function sumColumnJS(array, col) {
         var sum = 0;
         array.forEach(function (value, index, array) {
@@ -103,41 +38,268 @@ function trendsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $int
         });
         return sum;
     }
-    $scope.exportToExcel = function (tableId) { // ex: '#my-table'
-        $scope.exportHref = Excel.tableToExcel(tableId, 'Trend Raporu');
-        $timeout(function () { location.href = $scope.exportHref }, 1); // trigger download
+
+    $scope.TrendsGridOptions = {
+        dataSource: new DevExpress.data.CustomStore({
+            key: "StoreID",
+            load: function (loadOptions) {
+                var params = {
+                    /* StoreID: $scope.item.StoreID,
+                    theYear: $scope.item.PeriodYear,
+                    theWeek: $scope.item.PeriodWeek */
+                };
+
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/extendedreports/trends", { params: params })
+                    .then(function (response) {
+                        return {
+                            data: response.data,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        }),
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        //filterPanel: { visible: true },
+        headerFilter: { visible: true },
+        grouping: { autoExpandAll: true },
+        searchPanel: { visible: true },
+        groupPanel: { visible: true },
+        columnChooser: { enabled: true },
+        columnFixing: { enabled: true },
+        remoteOperations: false,
+        repaintChangesOnly: true,
+        highlightChanges: true,
+        hoverStateEnabled: true,
+        twoWayBindingEnabled: false,
+        repaintChangesOnly: true,
+        loadPanel: {
+            enabled: false
+        },
+        stateStoring: {
+            enabled: true,
+            type: "localStorage",
+            storageKey: "dx-trendsGrid"
+        },
+        columns: [
+            { dataField: "Store", caption: $translate.instant('trends.Store'), visibleIndex: 0, fixed: true, dataType: "string", sortIndex: 0, sortOrder: "asc" },
+            { dataField: "RegionManager", caption: $translate.instant('trends.Region'), visible: false, dataType: "string" },
+            { dataField: "SalesRank", caption: $translate.instant('trends.Rank'), format: { type: "fixedPoint", precision: 0 } },
+            { dataField: "RegionalSalesRank", caption: $translate.instant('trends.regionRank'), format: { type: "fixedPoint", precision: 0 } },
+            {
+                caption: $translate.instant('trends.today'), name: "Today",
+                columns: [
+                    { dataField: "TodayIncome", dataType:"number",caption: $translate.instant('trends.sales'), name: "TodayIncome", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "TodayAC", caption: $translate.instant('trends.AC'), format: { type: "fixedPoint", precision: 2 }, visible: false },
+                    { dataField: "TodayTC", caption: $translate.instant('trends.TC'), name: "TodayTC", format: { type: "fixedPoint", precision: 0 } },
+                ]
+            },
+            {
+                caption: $translate.instant('trends.prevweek'), name: "PrewWeek",
+                columns: [
+                    { dataField: "PrewWeekIncome", caption: $translate.instant('trends.sales'), format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "PrewWeekAC", caption: $translate.instant('trends.AC'), format: { type: "fixedPoint", precision: 2 }, visible: false },
+                    { dataField: "PrewWeekTC", caption: $translate.instant('trends.TC'), name: "PrewWeekTC", format: { type: "fixedPoint", precision: 0 } },
+                ]
+            },
+            {
+                caption: $translate.instant('trends.prevDay'), name: "LastDay",
+                columns: [
+                    { dataField: "LastDayIncome", caption: $translate.instant('trends.sales'), format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "LastDayAC", caption: $translate.instant('trends.AC'), format: { type: "fixedPoint", precision: 2 }, visible: false },
+                    { dataField: "LastDayTC", caption: $translate.instant('trends.TC'), format: { type: "fixedPoint", precision: 0 } },
+                ]
+            },
+            {
+                caption: $translate.instant('trends.prevMonth'), name: "PrevMonth", visible: false,
+                columns: [
+                    { dataField: "TotalPrevMonthToDateIncome", caption: $translate.instant('trends.sales'), format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "PrevMonthToDateAC", caption: $translate.instant('trends.AC'), format: { type: "fixedPoint", precision: 2 }, visible: false },
+                    { dataField: "PrevMonthToDateTC", caption: $translate.instant('trends.TC'), format: { type: "fixedPoint", precision: 0 } },
+                ]
+            },
+            {
+                caption: $translate.instant('trends.monthlyTotal'), name: "Monthly",
+                columns: [
+                    { dataField: "TotalMonthlyIncome", caption: $translate.instant('trends.sales'), format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "MonthlyAC", caption: $translate.instant('trends.AC'), format: { type: "fixedPoint", precision: 2 }, visible: false  },
+                    { dataField: "MonthlyTC", caption: $translate.instant('trends.TC'), format: { type: "fixedPoint", precision: 0 } },
+                ]
+            },
+            {
+                caption: $translate.instant('trends.trends'), name: "Trends",
+                columns: [
+                    { dataField: "IncomeTrend", caption: $translate.instant('trends.sales'), format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "SalesTarget", caption: "Sales Target", format: { type: "fixedPoint", precision: 0 }},
+                    { dataField: "TCTrend", caption: $translate.instant('trends.TC'), format: { type: "fixedPoint", precision: 0 } , visible: false },
+                    { dataField: "TCTarget", caption: "TC Target", format: { type: "fixedPoint", precision: 0 }, visible: false },
+                    { dataField: "HitRate", caption: "Hit %", name: "HitRate", format: { type: "fixedPoint", precision: 2 }, },
+                ]
+            },
+            { dataField: "TodaySalesTarget", caption: $translate.instant('trends.dailyTarget'), format: { type: "fixedPoint", precision: 0 }, visible: false },
+                        
+        ],
+        summary: {
+            totalItems: [{ column: "Store", summaryType: "count", displayFormat: "{0}" },
+            { column: "TodayIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "TodayTC", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "TodayAC", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "PrewWeekIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "PrewWeekTC", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "PrewWeekAC", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "LastDayIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "LastDayTC", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "LastDayAC", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "TotalPrevMonthToDateIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "PrevMonthToDateTC", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "PrevMonthToDateAC", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "TotalMonthlyIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "MonthlyTC", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "MonthlyAC", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "IncomeTrend", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "TCTrend", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "HitRate", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "SalesTarget", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "TCTarget", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            ],
+            groupItems: [
+                { column: "Store", summaryType: "count", displayFormat: "{0}" },
+                { column: "TodayIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "TodayTC", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "TodayAC", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "PrewWeekIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "PrewWeekTC", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "PrewWeekAC", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "LastDayIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "LastDayTC", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "LastDayAC", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "TotalPrevMonthToDateIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "PrevMonthToDateTC", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "PrevMonthToDateAC", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "TotalMonthlyIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "MonthlyTC", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "MonthlyAC", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "IncomeTrend", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "TCTrend", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "HitRate", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "SalesTarget", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "TCTarget", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                
+            ],
+        },
+        onCellPrepared: function (options) {
+            if (options.rowType == 'data') {
+                var fieldData = options.value;
+                if (options.rowType == 'data' && options.column.name && options.column.name.length > 5 && options.column.name == "TodayIncome") {
+                            var fieldData = options.value;
+                            var fieldHtml = "";
+                            if (options.row.data["TodayIncome"] != options.row.data["PrewWeekIncome"]) {
+                                options.cellElement.addClass((options.row.data["TodayIncome"] > options.row.data["PrewWeekIncome"]) ? "inc" : "dec");
+                                fieldHtml += "<div class='current-value'>" +
+                                    "</div> <div class='diff'>" +
+                                    parseInt(fieldData).toLocaleString() +
+                                    "  </div>";
+                            }
+                            /* else {
+                                fieldHtml = fieldData.value;
+                            } */
+                            options.cellElement.html(fieldHtml);
+                        }
+                // if (options.column.name && options.column.name == "TodayIncome") {
+                //     if (options.row.data["TodayIncome"] != options.row.data["PrewWeekIncome"]) {
+
+                //         if (options.row.data["TodayIncome"] < options.row.data["PrewWeekIncome"])
+                //             options.cellElement.css({ 'color': '#f00' });
+                //         else
+                //             options.cellElement.css({ 'color': '#2ab71b' });
+                //     }
+
+                // }
+                if (options.column.name && options.column.name == "TodayTC") {
+                    if (options.row.data["TodayTC"] != options.row.data["PrewWeekTC"]) {
+
+                        if (options.row.data["TodayTC"] < options.row.data["PrewWeekTC"])
+                            options.cellElement.css({ 'color': '#f00' });
+                        else
+                            options.cellElement.css({ 'color': '#2ab71b' });
+                    }
+
+                }
+                if (options.column.name && options.column.name == "HitRate") {
+                    if (options.row.data["HitRate"] != 0) {
+
+                        if (options.row.data["HitRate"] < 0)
+                            options.cellElement.css({ 'color': '#f00' });
+                        else
+                            options.cellElement.css({ 'color': '#2ab71b' });
+                    }
+
+                }
+            }
+        },        
+        onDataErrorOccurred: function (e) {
+            console.log(e.error);
+        },
+        export: {
+            enabled: true,
+            fileName: "Trends Report",
+            customizeExcelCell: (options) => {
+                var gridCell = options.gridCell;
+                var fieldData = options.value;
+                if (!gridCell) {
+                    return;
+                }
+                if (options.gridCell.rowType == 'data' && gridCell.column.name && gridCell.column.name == "TodayIncome")
+                    if (gridCell.data && gridCell.data["TodayIncome"] != gridCell.data["PrewWeekIncome"])
+                        if (gridCell.data["TodayIncome"] > gridCell.data["PrewWeekIncome"])
+                            options.font.color = '#008000';
+                        else
+                            options.font.color = '#FF0000';
+                if (options.gridCell.rowType == 'data' && gridCell.column.name && gridCell.column.name == "TodayTC")
+                    if (gridCell.data && gridCell.data["TodayTC"] != gridCell.data["PrewWeekTC"])
+                        if (gridCell.data["TodayTC"] > gridCell.data["PrewWeekTC"])
+                            options.font.color = '#008000';
+                        else
+                            options.font.color = '#FF0000';
+                            if (options.gridCell.rowType == 'data' && gridCell.column.name && gridCell.column.name == "HitRate")
+                    if (gridCell.data && gridCell.data["HitRate"] != 0)
+                        if (gridCell.data["HitRate"] > 0)
+                            options.font.color = '#008000';
+                        else
+                            options.font.color = '#FF0000';
+            }
+
+
+        },
+        scrolling: { mode: "virtual" },
+        //height: 600
     };
-    $scope.LoadStoreCashxls = function () {
-        location.href = NG_SETTING.apiServiceBaseUri + '/api/extendedreports/trends';
-    };
-    $scope.RefreshData = function () {
-        $scope.loadtrendsReport();
-        $scope.start();
-    };
-    $scope.start = function () {
-        $scope.stop();
-        if ($scope.OnRefresh == true) {
-            stopTime = $timeout(function () { $scope.RefreshData(); }, 60000);
-        }
-    };
-    $scope.stop = function () {
-        $timeout.cancel(stopTime);
-    };
-    $scope.$watch(angular.bind($scope.OnRefresh, function () {
-        return $scope.OnRefresh;
-    }), function (value) {
-        if (value == false) {
-            $scope.stop();
-        }
-        if (value == true) {
-            $scope.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
-            $scope.EndDate = moment().add(1, 'days').format('YYYY-MM-DD');
-            $scope.start();
-        }
-    });
-    $scope.Back = function () {
-        $window.history.back();
-    };
+    function numberWithCommas(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+    var refreshData = function () {
+        var dataGrid = $('#advgridContainer').dxDataGrid('instance');
+        dataGrid.refresh();
+    }
+    $scope.start = function() {
+        $scope.stop(); 
+        promise = $interval(refreshData, 30000);
+      };
+    
+      $scope.stop = function() {
+        $interval.cancel(promise);
+      };
+    $scope.start();
 
     $scope.$on('$destroy', function () {
         $scope.stop();
@@ -146,22 +308,3 @@ function trendsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $int
         $rootScope.uService.ExitController("trendsCtrl");
     });
 };
-app.factory('Excel', function ($window) {
-    var uri = 'data:application/vnd.ms-excel;base64,',
-        template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"<!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
-        base64 = function (s) { return $window.btoa(unescape(encodeURIComponent(s))); },
-        format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) };
-    return {
-        tableToExcel: function (tableId, worksheetName) {
-            var table = document.querySelector(tableId),
-                ctx = { worksheet: worksheetName, table: table.innerHTML },
-                href = uri + base64(format(template, ctx));
-            return href;
-        }
-    };
-})
-app.filter('abs', function () {
-    return function (val) {
-        return Math.abs(val);
-    }
-});

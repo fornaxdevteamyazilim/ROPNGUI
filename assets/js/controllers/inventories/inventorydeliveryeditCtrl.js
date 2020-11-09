@@ -154,7 +154,7 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
             Restangular.all('repository').getList({
                 pageNo: 1,
                 pageSize: 1000,
-                search: "StoreID='" + $rootScope.user.StoreID + "'"
+                //search: "StoreID='" + $rootScope.user.StoreID + "'"
             }).then(function (result) {
                 if (result && result.length > 0) {
                     $scope.repositories = result;

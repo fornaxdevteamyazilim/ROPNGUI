@@ -39,6 +39,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         $scope.trEndShift = $translate.instant('main.ENDSHIFT');
         $scope.trIsOff = $translate.instant('main.ISOFFDAY');
         $scope.trTotalHours = $translate.instant('main.TOTALHOURS');
+        $scope.trShowAll == $translate.instant('main.SHOWALL');
 
     };
     $scope.translate();
@@ -89,9 +90,9 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         else
             return 0;
     }
-    function SumHoursStr(startTime, endTime, isOff, IgnoreOvertime,userID) {
+    function SumHoursStr(startTime, endTime, isOff, IgnoreOvertime, userID) {
         if (isOff) return "";
-        var dd = SumHours(startTime, endTime, isOff, IgnoreOvertime,userID);
+        var dd = SumHours(startTime, endTime, isOff, IgnoreOvertime, userID);
         return dd == 0 ? "" : "[" + dd + "]";
 
     }
@@ -121,7 +122,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             }
         }
         var result = diff / 3600 - ((diff / 3600 >= 5.5) ? 0.5 : 0);
-        result = GetMaxHours(result,IgnoreOvertime, userID);
+        result = GetMaxHours(result, IgnoreOvertime, userID);
         return result;
     }
 
@@ -159,6 +160,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
 
         var dataGrid = $('#gridContainer').dxDataGrid('instance');
         dataGrid.columnOption("main", 'caption', $translate.instant('main.SHIFTPLAN') + " [" + $scope.item.Store + "] " + $translate.instant('main.WEEK') + ": [" + $scope.item.PeriodWeek + "] " + $translate.instant('main.YEAR') + ": [" + $scope.item.PeriodYear + "]  (" + $scope.item.DateRange + ")");
+        dataGrid.refresh();
         var dataGrid = $('#advgridContainer').dxDataGrid('instance');
         dataGrid.option("dataSource",
             new DevExpress.data.CustomStore({
@@ -181,11 +183,77 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         });
                 }
             }));
+        var dataGrid = $('#advstatgridContainer').dxDataGrid('instance');
+        dataGrid.option("dataSource",
+            new DevExpress.data.CustomStore({
+                //key: "id",
+                load: function (loadOptions) {
+                    var params = {
+                        StoreID: $scope.item.StoreID,
+                        theYear: $scope.item.PeriodYear,
+                        theWeek: $scope.item.PeriodWeek
+                    };
+
+                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
+                        .then(function (response) {
+                            return {
+                                data: response.data,
+                                totalCount: 10
+                            };
+                        }, function (response) {
+                            return $q.reject("Data Loading Error");
+                        });
+                }
+            }));
+        var dataGrid = $('#advsalesgridContainer').dxDataGrid('instance');
+        dataGrid.option("dataSource",
+            new DevExpress.data.CustomStore({
+                //key: "id",
+                load: function (loadOptions) {
+                    var params = {
+                        StoreID: $scope.item.StoreID,
+                        theYear: $scope.item.PeriodYear,
+                        theWeek: $scope.item.PeriodWeek
+                    };
+
+                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
+                        .then(function (response) {
+                            return {
+                                data: response.data,
+                                totalCount: 10
+                            };
+                        }, function (response) {
+                            return $q.reject("Data Loading Error");
+                        });
+                }
+            }));
+        var dataGrid = $('#salesbytypegridContainer').dxDataGrid('instance');
+        dataGrid.option("dataSource",
+            new DevExpress.data.CustomStore({
+                //key: "id",
+                load: function (loadOptions) {
+                    var params = {
+                        StoreID: $scope.item.StoreID,
+                        theYear: $scope.item.PeriodYear,
+                        theWeek: $scope.item.PeriodWeek
+                    };
+
+                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftSalesByOrderType", { params: params })
+                        .then(function (response) {
+                            return {
+                                data: response.data,
+                                totalCount: 10
+                            };
+                        }, function (response) {
+                            return $q.reject("Data Loading Error");
+                        });
+                }
+            }));
         //dataGrid.refresh(); 
         Restangular.all('user').getList({
             pageNo: 1,
             pageSize: 10000,
-            search: "StoreID='" + $scope.item.StoreID + "'"
+            //search: "StoreID='" + $scope.item.StoreID + "'",
         }).then(function (result) {
             users = result;
         }, function (response) {
@@ -308,7 +376,277 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             console.log(e.error);
         },
         export: {
-            enabled: true, fileName: "ShiftPlan",
+            enabled: true, fileName: "ShiftPlanAdvice",
+
+        },
+        scrolling: { mode: "virtual" },
+        height: 600
+    };
+    $scope.advstatdataGridOptions = {
+        //dataSource: store,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        showBorders: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        //filterPanel: { visible: true },
+        headerFilter: { visible: true },
+        grouping: { autoExpandAll: true },
+        searchPanel: { visible: true },
+        groupPanel: { visible: true },
+        columnChooser: { enabled: true },
+        columnFixing: { enabled: true },
+        remoteOperations: false,
+        repaintChangesOnly: true,
+        highlightChanges: true,
+        twoWayBindingEnabled: false,
+        columns: [
+            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { name: "Status_08", dataField: "AvgTC_08", caption: "08", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_09", dataField: "AvgTC_09", caption: "09", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_10", dataField: "AvgTC_10", caption: "10", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_11", dataField: "AvgTC_11", caption: "11", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_12", dataField: "AvgTC_12", caption: "12", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_13", dataField: "AvgTC_13", caption: "13", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_14", dataField: "AvgTC_14", caption: "14", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_15", dataField: "AvgTC_15", caption: "15", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_16", dataField: "AvgTC_16", caption: "16", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_17", dataField: "AvgTC_17", caption: "17", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_18", dataField: "AvgTC_18", caption: "18", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_19", dataField: "AvgTC_19", caption: "19", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_20", dataField: "AvgTC_20", caption: "20", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_21", dataField: "AvgTC_21", caption: "21", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_22", dataField: "AvgTC_22", caption: "22", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_23", dataField: "AvgTC_23", caption: "23", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_00", dataField: "AvgTC_00", caption: "00", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_01", dataField: "AvgTC_01", caption: "01", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_02", dataField: "AvgTC_02", caption: "02", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_03", dataField: "AvgTC_03", caption: "03", format: { type: "fixedPoint", precision: 2 } }
+        ],
+        // onCellPrepared: function (e) {
+        //     if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
+        //         var fieldData = e.value;
+        //         var fieldHtml = "";
+        //         if (fieldData != 0) {
+        //             e.cellElement.addClass((fieldData > 0) ? "inc" : "dec");
+        //             fieldHtml += "<div class='current-value'>" +
+        //                 e.row.data["Req_" + e.column.dataField.split("_")[1]] +
+        //                 "</div> <div class='diff'>" +
+        //                 Math.abs(fieldData.toFixed(2)) +
+        //                 "  </div>";
+        //         }
+        //         /* else {
+        //             fieldHtml = fieldData.value;
+        //         } */
+        //         e.cellElement.html(fieldHtml);
+        //     }
+        // },
+        onDataErrorOccurred: function (e) {
+            console.log(e.error);
+        },
+        export: {
+            enabled: true, fileName: "ShiftPlanTransactions",
+
+        },
+        scrolling: { mode: "virtual" },
+        height: 600
+    };
+    $scope.advsalesdataGridOptions = {
+        //dataSource: store,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        showBorders: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        //filterPanel: { visible: true },
+        headerFilter: { visible: true },
+        grouping: { autoExpandAll: true },
+        searchPanel: { visible: true },
+        groupPanel: { visible: true },
+        columnChooser: { enabled: true },
+        columnFixing: { enabled: true },
+        remoteOperations: false,
+        repaintChangesOnly: true,
+        highlightChanges: true,
+        twoWayBindingEnabled: false,
+        columns: [
+            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { name: "Status_08", dataField: "AvgSales_08", caption: "08", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_09", dataField: "AvgSales_09", caption: "09", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_10", dataField: "AvgSales_10", caption: "10", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_11", dataField: "AvgSales_11", caption: "11", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_12", dataField: "AvgSales_12", caption: "12", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_13", dataField: "AvgSales_13", caption: "13", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_14", dataField: "AvgSales_14", caption: "14", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_15", dataField: "AvgSales_15", caption: "15", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_16", dataField: "AvgSales_16", caption: "16", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_17", dataField: "AvgSales_17", caption: "17", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_18", dataField: "AvgSales_18", caption: "18", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_19", dataField: "AvgSales_19", caption: "19", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_20", dataField: "AvgSales_20", caption: "20", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_21", dataField: "AvgSales_21", caption: "21", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_22", dataField: "AvgSales_22", caption: "22", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_23", dataField: "AvgSales_23", caption: "23", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_00", dataField: "AvgSales_00", caption: "00", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_01", dataField: "AvgSales_01", caption: "01", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_02", dataField: "AvgSales_02", caption: "02", format: { type: "fixedPoint", precision: 2 } },
+            { name: "Status_03", dataField: "AvgSales_03", caption: "03", format: { type: "fixedPoint", precision: 2 } }
+        ],
+        // onCellPrepared: function (e) {
+        //     if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
+        //         var fieldData = e.value;
+        //         var fieldHtml = "";
+        //         if (fieldData != 0) {
+        //             e.cellElement.addClass((fieldData > 0) ? "inc" : "dec");
+        //             fieldHtml += "<div class='current-value'>" +
+        //                 e.row.data["Req_" + e.column.dataField.split("_")[1]] +
+        //                 "</div> <div class='diff'>" +
+        //                 Math.abs(fieldData.toFixed(2)) +
+        //                 "  </div>";
+        //         }
+        //         /* else {
+        //             fieldHtml = fieldData.value;
+        //         } */
+        //         e.cellElement.html(fieldHtml);
+        //     }
+        // },
+        onDataErrorOccurred: function (e) {
+            console.log(e.error);
+        },
+        export: {
+            enabled: true, fileName: "ShiftPlanSales",
+
+        },
+        scrolling: { mode: "virtual" },
+        height: 600
+    };
+    $scope.salesbytypeGridOptions = {
+        //dataSource: store,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        showBorders: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        //filterPanel: { visible: true },
+        headerFilter: { visible: true },
+        grouping: { autoExpandAll: false },
+        searchPanel: { visible: true },
+        groupPanel: { visible: true },
+        columnChooser: { enabled: true },
+        columnFixing: { enabled: true },
+        remoteOperations: false,
+        repaintChangesOnly: true,
+        highlightChanges: true,
+        twoWayBindingEnabled: false,
+        columns: [
+            { dataField: "OrderType", caption: "OrderType" , visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { name: "AvgTC_08", dataField: "AvgTC_08", caption: "08", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_09", dataField: "AvgTC_09", caption: "09", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_10", dataField: "AvgTC_10", caption: "10", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_11", dataField: "AvgTC_11", caption: "11", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_12", dataField: "AvgTC_12", caption: "12", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_13", dataField: "AvgTC_13", caption: "13", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_14", dataField: "AvgTC_14", caption: "14", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_15", dataField: "AvgTC_15", caption: "15", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_16", dataField: "AvgTC_16", caption: "16", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_17", dataField: "AvgTC_17", caption: "17", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_18", dataField: "AvgTC_18", caption: "18", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_19", dataField: "AvgTC_19", caption: "19", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_20", dataField: "AvgTC_20", caption: "20", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_21", dataField: "AvgTC_21", caption: "21", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_22", dataField: "AvgTC_22", caption: "22", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_23", dataField: "AvgTC_23", caption: "23", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_00", dataField: "AvgTC_00", caption: "00", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_01", dataField: "AvgTC_01", caption: "01", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_02", dataField: "AvgTC_02", caption: "02", format: { type: "fixedPoint", precision: 2 } },
+            { name: "AvgTC_03", dataField: "AvgTC_03", caption: "03", format: { type: "fixedPoint", precision: 2 } }
+        ],
+        // onCellPrepared: function (e) {
+        //     if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
+        //         var fieldData = e.value;
+        //         var fieldHtml = "";
+        //         if (fieldData != 0) {
+        //             e.cellElement.addClass((fieldData > 0) ? "inc" : "dec");
+        //             fieldHtml += "<div class='current-value'>" +
+        //                 e.row.data["Req_" + e.column.dataField.split("_")[1]] +
+        //                 "</div> <div class='diff'>" +
+        //                 Math.abs(fieldData.toFixed(2)) +
+        //                 "  </div>";
+        //         }
+        //         /* else {
+        //             fieldHtml = fieldData.value;
+        //         } */
+        //         e.cellElement.html(fieldHtml);
+        //     }
+        // },
+        summary: {
+            totalItems: [
+            { column: "AvgTC_08", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_09", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_10", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_11", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_12", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_13", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_14", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_15", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_16", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_17", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_18", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_19", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_20", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_21", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_22", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_23", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_00", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_01", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_02", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_03", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            
+        ],
+            groupItems: [
+            { column: "AvgTC_08", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_09", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_10", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_11", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_12", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_13", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_14", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_15", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_16", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_17", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_18", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_19", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_20", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_21", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_22", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_23", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_00", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_01", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_02", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvgTC_03", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            
+        ]
+        },
+        onDataErrorOccurred: function (e) {
+            console.log(e.error);
+        },
+        export: {
+            enabled: true, fileName: "ShiftPlanSalesByType",
 
         },
         scrolling: { mode: "virtual" },
@@ -369,9 +707,9 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                 labelLocation: "top",
                 items: [{
                     itemType: "group",
-                    colCount: 2,
+                    colCount: 3,
                     colSpan: 2,
-                    items: ["StaffPositionID", "NGUserID"]
+                    items: ["StaffPositionID", "NGUserID", { dataField: "ShowAllUsers", label: { text: $scope.trShowAll } }]
                 }, {
                     itemType: "group",
                     colCount: 6,
@@ -433,7 +771,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         },
         onRowInserted: function (e) {
             var dataGrid = $('#advgridContainer').dxDataGrid('instance');
-            dataGrid.refresh();
+            dataGrid.refresh();            
         },
         onRowUpdated: function (e) {
             var dataGrid = $('#advgridContainer').dxDataGrid('instance');
@@ -441,7 +779,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         },
         onEditorPreparing: function (e) {
             if (e.parentType === "dataRow" && e.dataField === "NGUserID") {
-                e.editorOptions.disabled = (typeof e.row.data.StaffPositionID !== "number");
+                e.editorOptions.disabled = (typeof e.row.data.StaffPositionID !== "number") || (typeof e.row.data.NGUserID === "number");
             }
             if (e.parentType === "dataRow" && e.dataField === "StaffPositionID") {
                 e.editorOptions.disabled = (typeof e.row.data.NGUserID === "number");
@@ -474,6 +812,14 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                 caption: "Shift Plan",
                 name: "main",
                 columns: [
+                    {
+                        dataField: "ShowAllUsers", caption: $scope.trShowAll, visible: false, dataType: "boolean",
+                        setCellValue: function (rowData, value) {
+                            $scope.ShowAllUsers = !$scope.ShowAllUsers;
+                            rowData.ShowAllUsers = value;
+                            //rowData.NGUserID = null;
+                        },
+                    },
                     { dataField: "ShiftPlanID", caption: "Name", visible: false, formItem: { visible: false } },
                     {
                         dataField: "StaffPositionID", caption: $scope.trStaffPosition,
@@ -522,15 +868,26 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         editable: true,
                         lookup: {
                             dataSource: function (options) {
+                                var filtr = [];
+                                if (options.data) {
+                                    filtr.push(["StaffPositionID", "=", options.data.StaffPositionID]);
+                                    if (!options.data.ShowAllUsers && !options.data.NGUserID) {
+                                        filtr.push("and");
+                                        filtr.push(["StoreID", "=", $scope.item.StoreID]);
+                                    }
+                                }
                                 return {
                                     store: users,
-                                    filter: options.data ? ["StaffPositionID", "=", options.data.StaffPositionID] : null
+                                    //filter: options.data ? [["StaffPositionID", "=", options.data.StaffPositionID],"and",["StoreID","=",$scope.item.StoreID]] : null
+                                    filter: filtr
+                                    //"StoreID='" + $scope.item.StoreID 
                                 };
                             },
                             valueExpr: "id",
                             displayExpr: function (item) {
                                 // "item" can be null
-                                return item && item.FullName + ((item.LaborCostType) ? ('-' + item.LaborCostType.Name) : '');
+                                return item && item.FullName + ((item.LaborCostType) ? (' (' + item.LaborCostType.Name) + ') ' : '')
+                                    + ((item.Store) ? ('[' + item.Store.name + ']') : '');
                             },
                         }
                     },
@@ -546,7 +903,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             valueExpr: "id",
                             displayExpr: function (item) {
                                 // "item" can be null
-                                return item && item.FullName + ' [' + item.LaborCostType + ']';
+                                //return item && item.FullName +' [' + item.LaborCostType + '](' +item.StoreName+')';
+                                return item && item.FullName + ' [' + item.LaborCostType + ']' + ($scope.item && $scope.item.Store != item.StoreName ? ('(' + item.StoreName + ')') : '');
                             },
                             dataSource: {
                                 store: DevExpress.data.AspNet.createStore({
@@ -947,7 +1305,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D1OffTypeID);
                             return [data.D1ShiftStart,
                             data.D1ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime,data.NGUserID);
+                                .join("-") + " " + SumHoursStr(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime, data.NGUserID);
                         }
                     },
                     {
@@ -959,7 +1317,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D2OffTypeID);
                             return [data.D2ShiftStart,
                             data.D2ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime,data.NGUserID);
+                                .join("-") + " " + SumHoursStr(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime, data.NGUserID);
                         }
                     },
                     {
@@ -971,7 +1329,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D3OffTypeID);
                             return [data.D3ShiftStart,
                             data.D3ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime,data.NGUserID);
+                                .join("-") + " " + SumHoursStr(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime, data.NGUserID);
                         }
                     },
                     {
@@ -983,7 +1341,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D4OffTypeID);
                             return [data.D4ShiftStart,
                             data.D4ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime,data.NGUserID);
+                                .join("-") + " " + SumHoursStr(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime, data.NGUserID);
                         }
                     },
                     {
@@ -995,7 +1353,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D5OffTypeID);
                             return [data.D5ShiftStart,
                             data.D5ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime,data.NGUserID);
+                                .join("-") + " " + SumHoursStr(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime, data.NGUserID);
                         }
                     },
                     {
@@ -1007,7 +1365,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D6OffTypeID);
                             return [data.D6ShiftStart,
                             data.D6ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime,data.NGUserID);
+                                .join("-") + " " + SumHoursStr(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime, data.NGUserID);
                         }
                     },
                     {
@@ -1019,7 +1377,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return $scope.GetOffType(data.D7OffTypeID);
                             return [data.D7ShiftStart,
                             data.D7ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime,data.NGUserID);
+                                .join("-") + " " + SumHoursStr(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime, data.NGUserID);
                         }
                     },
                     {
@@ -1027,13 +1385,13 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         name: "TotalHours",
                         visibleIndex: 12,
                         calculateCellValue: function (data) {
-                            return SumHours(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime,data.NGUserID) +
-                                SumHours(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime,data.NGUserID) +
-                                SumHours(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime,data.NGUserID) +
-                                SumHours(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime,data.NGUserID) +
-                                SumHours(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime,data.NGUserID) +
-                                SumHours(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime,data.NGUserID) +
-                                SumHours(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime,data.NGUserID);
+                            return SumHours(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime, data.NGUserID) +
+                                SumHours(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime, data.NGUserID) +
+                                SumHours(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime, data.NGUserID) +
+                                SumHours(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime, data.NGUserID) +
+                                SumHours(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime, data.NGUserID) +
+                                SumHours(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime, data.NGUserID) +
+                                SumHours(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime, data.NGUserID);
                         },
                         format: { type: "fixedPoint", precision: 2 }
                     },
@@ -1062,7 +1420,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             //options.dg = 0;
                             break;
                         case "calculate":
-                            options.totalValue = options.totalValue + SumHours(options.value.D7ShiftStart, options.value.D7ShiftEnd, options.value.D7isOff, options.data.D7IgnoreOvertime,options.data.NGUserID);
+                            options.totalValue = options.totalValue + SumHours(options.value.D7ShiftStart, options.value.D7ShiftEnd, options.value.D7isOff, options.data.D7IgnoreOvertime, options.data.NGUserID);
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue;
@@ -1091,7 +1449,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd, e.data.D1isOff, e.data.D1IgnoreOvertime) == 0 || SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd, e.data.D1isOff, e.data.D1IgnoreOvertime,e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd, e.data.D1isOff, e.data.D1IgnoreOvertime) == 0 || SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd, e.data.D1isOff, e.data.D1IgnoreOvertime, e.data.NGUserID) > 8.5) {
                             if (e.column.name === 'Monday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1113,7 +1471,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd, e.data.D2isOff, e.data.D2IgnoreOvertime) == 0 || SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd, e.data.D2isOff, e.data.D2IgnoreOvertime,e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd, e.data.D2isOff, e.data.D2IgnoreOvertime) == 0 || SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd, e.data.D2isOff, e.data.D2IgnoreOvertime, e.data.NGUserID) > 8.5) {
                             if (e.column.name === 'Tuesday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1134,7 +1492,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd, e.data.D3isOff, e.data.D3IgnoreOvertime) == 0 || SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd, e.data.D3isOff, e.data.D3IgnoreOvertime,e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd, e.data.D3isOff, e.data.D3IgnoreOvertime) == 0 || SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd, e.data.D3isOff, e.data.D3IgnoreOvertime, e.data.NGUserID) > 8.5) {
                             if (e.column.name === 'Wednesday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1155,7 +1513,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd, e.data.D4isOff, e.data.D4IgnoreOvertime) == 0 || SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd, e.data.D4isOff, e.data.D4IgnoreOvertime,e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd, e.data.D4isOff, e.data.D4IgnoreOvertime) == 0 || SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd, e.data.D4isOff, e.data.D4IgnoreOvertime, e.data.NGUserID) > 8.5) {
                             if (e.column.name === 'Thursday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1176,7 +1534,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd, e.data.D5isOff, e.data.D5IgnoreOvertime) == 0 || SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd, e.data.D5isOff, e.data.D5IgnoreOvertime,e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd, e.data.D5isOff, e.data.D5IgnoreOvertime) == 0 || SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd, e.data.D5isOff, e.data.D5IgnoreOvertime, e.data.NGUserID) > 8.5) {
                             if (e.column.name === 'Friday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1197,7 +1555,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd, e.data.D6isOff, e.data.D6IgnoreOvertime) == 0 || SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd, e.data.D6isOff, e.data.D6IgnoreOvertime,e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd, e.data.D6isOff, e.data.D6IgnoreOvertime) == 0 || SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd, e.data.D6isOff, e.data.D6IgnoreOvertime, e.data.NGUserID) > 8.5) {
                             if (e.column.name === 'Saturday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1219,7 +1577,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd, e.data.D7isOff, e.data.D7IgnoreOvertime) == 0 || SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd, e.data.D7isOff, e.data.D7IgnoreOvertime,e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd, e.data.D7isOff, e.data.D7IgnoreOvertime) == 0 || SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd, e.data.D7isOff, e.data.D7IgnoreOvertime, e.data.NGUserID) > 8.5) {
                             if (e.column.name === 'Sunday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -1251,7 +1609,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd, gridCell.data.D1isOff, gridCell.data.D1IgnoreOvertime) == 0 || SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd, gridCell.data.D1isOff, gridCell.data.D1IgnoreOvertime,gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd, gridCell.data.D1isOff, gridCell.data.D1IgnoreOvertime) == 0 || SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd, gridCell.data.D1isOff, gridCell.data.D1IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
                                 if (gridCell.column.name === 'Monday')
                                     options.font.color = '#FF0000';
                             }
@@ -1274,7 +1632,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd, gridCell.data.D2isOff, gridCell.data.D2IgnoreOvertime) == 0 || SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd, gridCell.data.D2isOff, gridCell.data.D2IgnoreOvertime,gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd, gridCell.data.D2isOff, gridCell.data.D2IgnoreOvertime) == 0 || SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd, gridCell.data.D2isOff, gridCell.data.D2IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
                                 if (gridCell.column.name === 'Tuesday')
                                     options.font.color = '#FF0000';
                             }
@@ -1297,7 +1655,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd, gridCell.data.D3isOff, gridCell.data.D3IgnoreOvertime) == 0 || SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd, gridCell.data.D3isOff, gridCell.data.D3IgnoreOvertime,gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd, gridCell.data.D3isOff, gridCell.data.D3IgnoreOvertime) == 0 || SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd, gridCell.data.D3isOff, gridCell.data.D3IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
                                 if (gridCell.column.name === 'Wednesday')
                                     options.font.color = '#FF0000';
                             }
@@ -1320,7 +1678,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd, gridCell.data.D4isOff, gridCell.data.D4IgnoreOvertime) == 0 || SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd, gridCell.data.D4isOff, gridCell.data.D4IgnoreOvertime,gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd, gridCell.data.D4isOff, gridCell.data.D4IgnoreOvertime) == 0 || SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd, gridCell.data.D4isOff, gridCell.data.D4IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
                                 if (gridCell.column.name === 'Thursday')
                                     options.font.color = '#FF0000';
                             }
@@ -1343,7 +1701,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd, gridCell.data.D5isOff, gridCell.data.D5IgnoreOvertime) == 0 || SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd, gridCell.data.D5isOff, gridCell.data.D5IgnoreOvertime,gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd, gridCell.data.D5isOff, gridCell.data.D5IgnoreOvertime) == 0 || SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd, gridCell.data.D5isOff, gridCell.data.D5IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
                                 if (gridCell.column.name === 'Friday')
                                     options.font.color = '#FF0000';
                             }
@@ -1366,7 +1724,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd, gridCell.data.D6isOff, gridCell.data.D6IgnoreOvertime) == 0 || SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd, gridCell.data.D6isOff, gridCell.data.D6IgnoreOvertime,gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd, gridCell.data.D6isOff, gridCell.data.D6IgnoreOvertime) == 0 || SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd, gridCell.data.D6isOff, gridCell.data.D6IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
                                 if (gridCell.column.name === 'Saturday')
                                     options.font.color = '#FF0000';
                             }
@@ -1389,7 +1747,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd, gridCell.data.D7isOff, gridCell.data.D7IgnoreOvertime) == 0 || SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd, gridCell.data.D7isOff, gridCell.data.D7IgnoreOvertime,gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd, gridCell.data.D7isOff, gridCell.data.D7IgnoreOvertime) == 0 || SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd, gridCell.data.D7isOff, gridCell.data.D7IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
                                 if (gridCell.column.name === 'Sunday')
                                     options.font.color = '#FF0000';
                             }

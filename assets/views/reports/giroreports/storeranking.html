@@ -151,10 +151,9 @@
                     <tr>
                         <!--<td>{{ReportParameters.StartDate| date:'dd-MM-yyyy'}}</td>
                         <td>{{ReportParameters.EndDate| date:'dd-MM-yyyy'}}</td>-->
-                        <td>{{Time | date:'dd-MM-yyyy
- HH:mm'}}
+                        <td>{{Time | date:'dd-MM-yyyy HH:mm'}}
                         </td>
-                        yy
+                        
                         <td>{{user.FullName}}</td>
                         <td>{{user.Store.Member}} - {{user.Store.name}}</td>
                     </tr>
@@ -165,18 +164,18 @@
                         <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{'main.SALESRANK' | translate}}</th>
                         <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{'main.STORE' | translate}}</th>
                         <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{'main.STOREREGION' | translate}}</th>
-                        ol
+                        
                         <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">2 {{'main.REGIONALSALESRANK' | translate}}</th>
-                        <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold" ng-if="user.UserRole.Name == 'Admin'|| user.UserRole.Name == 'LC'|| user.UserRole.Name == 'PH'|| user.UserRole.Name == 'PHAdmin' || user.UserRole.Name == 'Manager'"><span class="pull-right">er{{'main.SALESTOTAL' | translate}} (TL)</span></th>
+                        <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold" ng-if="ShowSalesAmount()"><span class="pull-right">{{'main.SALESTOTAL' | translate}} (TL)</span></th>
 
                         
 
-                        r
+                        
 
                     </tr>
                     
 
-                    r
+                    
                     <tr ng-repeat="item in data | orderBy:['+SalesRank']">
                         <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             {{item.SalesRank}}
@@ -190,7 +189,7 @@
                         <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             {{item.RegionalRank}}
                         </td>
-                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" ng-if="user.UserRole.Name == 'Admin'|| user.UserRole.Name == 'LC'|| user.UserRole.Name == 'PH'|| user.UserRole.Name == 'PHAdmin'  || user.UserRole.Name == 'Manager'">
+                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" ng-if="ShowSalesAmount()">
                             <span class="pull-right"> {{item.SalesTotal |number:2}}</span>
                         </td>
                     </tr>

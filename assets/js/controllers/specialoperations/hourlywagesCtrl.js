@@ -117,7 +117,8 @@ function hourlywagesCtrl($rootScope, $scope, NG_SETTING, $translate, $element, l
             },
             { dataField: "ValidFrom", alignment: "right", dataType: "date", format: 'dd.MM.yyyy',sortIndex:0, 
             sortOrder:"asc" },
-            { dataField: "Price", alignment: "right", dataType: "money" }
+            { dataField: "Price", alignment: "right", dataType: "money",format: { type: "fixedPoint", precision: 4 } },
+            { dataField: "OrderDeliveryPrice", alignment: "right", dataType: "money" ,format: { type: "fixedPoint", precision: 4 }}
         ],
         onInitNewRow: function(e) {
             e.data.InTime = new Date();

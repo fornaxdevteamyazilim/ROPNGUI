@@ -1,5 +1,5 @@
-﻿app.factory('ngnotifyService', ['$http', '$rootScope', '$location', '$timeout', 'ngAuthSettings', 'signalRServer', 'signalRHubProxy', 'localStorageService','toaster', ngnotifyService]);
-function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings, signalRServer, signalRHubProxy, localStorageService,toaster) {
+﻿app.factory('ngnotifyService', ['$http', '$rootScope', '$location', '$timeout', 'ngAuthSettings', 'signalRServer', 'signalRHubProxy', 'localStorageService', 'toaster', '$translate', ngnotifyService]);
+function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings, signalRServer, signalRHubProxy, localStorageService, toaster, $translate) {
     var ngnotifyServiceFactory = {};
     var _serverDate = new Date();
     var _groups = [];
@@ -17,10 +17,12 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
         _JoinGroup("ServerTime");
     };
     _JoinGroup = function (groupName) {
-        _groups.push(groupName);
+        if (_groups.indexOf(groupName) === -1)
+            _groups.push(groupName);
         ngnotifyHubProxy.invoke('JoinGroup', groupName, function () {
             console.log('Invocation of JoinGroup succeeded');
         });
+
     };
     _reJoinToGroups = function () {
         angular.forEach(_groups, function (value, key) {
@@ -115,7 +117,7 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
     });
     ngnotifyHubProxy.on('CustomerArrived', function (data) {
         $rootScope.$broadcast('CustomerArrived', data);
-        toaster.pop('Warning', 'CustomerArrived', 'Recieved CustomerArrived Event!');        
+        toaster.pop('Warning', 'CustomerArrived', 'Recieved CustomerArrived Event!');
     });
     ngnotifyHubProxy.on('BumpBarData', function (data) {
         $rootScope.$broadcast('BumpBarData', data);
@@ -150,36 +152,39 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
     ngnotifyHubProxy.connection.start().done(function () {
         _JoinGroup("ServerTime");
         var _storeID = localStorageService.get('StoreID');
-        if (_storeID) 
-        {
+        if (_storeID) {
             _JoinGroup(_storeID.toString());
         }
+        toaster.pop('success', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionOk'));
     });
     ngnotifyHubProxy.connection.connectionSlow(function () {
         console.log('We are currently experiencing difficulties with the connection.');
-        toaster.pop('warning', "SignalR warning: ", "We are currently experiencing difficulties with the connection.");
+        toaster.pop('warning', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionSlow'));
     });
     ngnotifyHubProxy.connection.disconnected(function () {
-        if (ngnotifyHubProxy.connection.lastError)
-        {
-            toaster.pop('error', "Disconnected. Reason: ", ngnotifyHubProxy.connection.lastError.message);
+        if (ngnotifyHubProxy.connection.lastError) {
+            toaster.pop('error', $translate.instant('SignalR.ConnectionLost'), ngnotifyHubProxy.connection.lastError.message);
             //alert("Disconnected. Reason: " + ngnotifyHubProxy.connection.lastError.message);
         }
+        else
+            toaster.pop('error', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionLost'));
     });
     ngnotifyHubProxy.connection.error(function (error) {
-        toaster.pop('error', "SignalR error: ", error);
+        toaster.pop('error', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionError'));
         console.log('SignalR error: ' + error);
     });
     ngnotifyHubProxy.connection.reconnecting(function () {
         //notifyUserOfTryingToReconnect(); // Your function to notify user.
         console.log('SignalR Reconnecting...');
-        toaster.pop('warning', "SignalR warning: ", "SignalR Reconnecting...");
+        toaster.pop('warning', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.Reconnecting'));
     });
     ngnotifyHubProxy.connection.disconnected(function () {
         setTimeout(function () {
+            toaster.pop('warning', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.Reconnecting'));
             ngnotifyHubProxy.connection.start().done(function () {
                 _reJoinToGroups();
-            });;
+                toaster.pop('success', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionOk'));
+            });
         }, 5000); // Restart connection after 5 seconds.
     });
     ngnotifyServiceFactory.ServerTime = _ServerTime;

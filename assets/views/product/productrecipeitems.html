@@ -62,6 +62,30 @@
                                 {{ ShowObject('inventoryunits','id',item.InventoryUnitID,'name') }}
                             </span>
                         </td>
+                        <td data-title="trStartDate" data-sortable="'ValidFrom'" style="width:7%">
+                            <input id="ValidFrom"
+                                   type="text"
+                                   class="form-control"
+                                   ng-model="item.ValidFrom"
+                                   readonly
+                                   ng-click="DatePopup(item,'ValidFrom')" ng-show="productrowform.$visible">
+        
+                            <span ng-show="!productrowform.$visible" e-name="ValidFrom" e-form="productrowform" e-ng-model="item.ValidFrom" e-style="width:5vw;">
+                                {{ item.ValidFrom| date:'dd.MM.yyyy' }}
+                            </span>
+                        </td>
+                        <td data-title="trEndDate" data-sortable="'ValidTo'" style="width:7%">
+                            <input id="ValidTo"
+                                   type="text"
+                                   class="form-control"
+                                   ng-model="item.ValidTo"
+                                   readonly
+                                   ng-click="DatePopup(item,'ValidTo')" ng-show="productrowform.$visible">
+        
+                            <span ng-show="!productrowform.$visible" e-name="ValidTo" e-form="productrowform" e-ng-model="item.ValidTo" e-style="width:5vw;">
+                                {{ item.ValidTo| date:'dd.MM.yyyy' }}
+                            </span>
+                        </td>
                         <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                             <form editable-form name="productrowform" onaftersave="saveData(item)" ng-show="productrowform.$visible" class="form-buttons form-inline"
                                   shown="inserted == item|| !item.id">

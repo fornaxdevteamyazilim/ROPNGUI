@@ -95,7 +95,7 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
             name: 'ROP NG',
             author: 'Fornax A.Ş.',
             description: 'Retail Operation Platform NG',
-            version: '1.0.616',
+            version: '1.0.622',
             year: ((new Date()).getFullYear()),
             isMobile: (function () {// true if the browser is a mobile device
                 var check = false;
@@ -132,7 +132,7 @@ app.config(function ($httpProvider) {
                 if (request.url.endsWith(".html") && !request.url.includes("tabset.html")) {
                     if ($templateCache.get(request.url) === undefined) { // cache miss
                         // Item is not in $templateCache so add our query string
-                        request.url = request.url + '?v=0616';
+                        request.url = request.url + '?v=0622';
                     }
                 }
                 return request;
@@ -172,12 +172,6 @@ app.config(['$translateProvider',
         $translateProvider.preferredLanguage('tr_TR');
         // Store the language in the local storage
         $translateProvider.useLocalStorage();
-        
-            // Restangular.setDefaultHeaders({ "Accept-Language": "en-US" });
-            // $http.defaults.headers.common["Accept-Language"] = "en-US";
-            // DevExpress.localization.locale("en");
-            //DevExpress.localization.locale("tr");
-        
     }]);
 // Angular-Loading-Bar
 // configuration

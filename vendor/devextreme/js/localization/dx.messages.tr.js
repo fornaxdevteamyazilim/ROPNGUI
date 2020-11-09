@@ -22,7 +22,7 @@
     }
 }(this, function(localization) {
     localization.loadMessages({
-        en: {
+        tr: {
             Yes: "Evet",
             No: "Hayır",
             Cancel: "İptal",

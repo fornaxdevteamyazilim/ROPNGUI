@@ -12,7 +12,7 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
     $scope.Time = ngnotifyService.ServerTime();
     function ISO8601_week_no(dt) {
         var tdt = new Date(dt.valueOf());
-        var dayn = (dt.getDay() + 6) % 7;
+        var dayn = (dt.getDay() + 6) % 7; 
         tdt.setDate(tdt.getDate() - dayn + 3);
         var firstThursday = tdt.valueOf();
         tdt.setMonth(0, 1);
@@ -173,7 +173,7 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                     { caption: "Actual Col", dataField: "Total_Actual_COL", dataType: "number", format: { type: "fixedPoint", precision: 0 }, },
                     { caption: "%", dataField: "Total_Actual_COL_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: "4 Week Sales AVG", dataField: "StoreSales4Weeks", dataType: "number", format: { type: "fixedPoint", precision: 0 }, },
-                    { caption: "Projection COL", dataField: "Projection_COL", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: "Projection COL", dataField: "Projection_COL", dataType: "number", format: { type: "fixedPoint", precision: 0 }, },
                     { caption: "%", dataField: "Projection_COL_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: "Var %", dataField: "Labor_Variance", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]

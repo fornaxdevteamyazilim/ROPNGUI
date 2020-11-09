@@ -111,7 +111,7 @@ function balancelistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
             pageNo: 1,
             pageSize: 1000,
             sort: 'id',
-            search: "StoreID='" + StoreID + "'"
+            //search: "StoreID='" + StoreID + "'"
         }).then(function (result) {
             $scope.repositories = result;
             $scope.RepositoryID = result[0].id;
