@@ -39,23 +39,23 @@
             <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <span class="text-bold" translate="main.STARTDATE">Başlangıç Tarihi :</span> <span class="text-bold">*</span><br />
-                    <span><input class="form-control" id="Date" type="text" ng-model="StartDate" ng-click="SelectStartDate()"></span>
+                    <span><input class="form-control" id="Date" type="text" ng-model="params.StartDate" ng-click="SelectStartDate()"></span>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <span class="text-bold" translate="main.ENDDATE">Bitiş Tarihi :</span> <span class="text-bold">*</span><br />
-                    <span><input class="form-control" id="Date" type="text" ng-model="EndDate" ng-click="SelectEndDate()"></span>
+                    <span><input class="form-control" id="Date" type="text" ng-model="params.EndDate" ng-click="SelectEndDate()"></span>
                 </div>
             </div>
             <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <span class="text-bold" translate="main.STORE">Town</span> <span class="text-bold">*</span><br />
-                       <select class="form-control" ng-options="q.id as q.name for q in stores | orderBy: 'name'" ng-model="StoreID">
+                       <select class="form-control" ng-options="q.id as q.name for q in stores | orderBy: 'name'" ng-model="params.StoreID">
                             <option value="" selected>{{:: selectstore}}</option>
                        </select>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <span translate="main.ORDERSOURCE">Order Source</span><br />
-                    <select class="form-control" ng-options="q.id as q.name for q in ordersources | orderBy: 'name'" ng-model="OrderSourceID"></select>
+                    <select class="form-control" ng-options="q.id as q.name for q in ordersources | orderBy: 'name'" ng-model="params.OrderSourceID"></select>
                 </div>
             </div>
             <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">
@@ -63,7 +63,7 @@
                     <span for="ComplaintStatusID">
                         {{:: selectorderstatus}}
                     </span><br />
-                           <select id="OrderStateID" class="form-control" ng-model="OrderStateID" ng-change="changeOrderState(OrderStateID)">
+                           <select id="OrderStateID" class="form-control" ng-model="params.OrderStateID" ng-change="changeOrderState(params.OrderStateID)">
                                <option value="OrderStateID >0">{{:: allorder}}</option>
                                <option value="OrderTypeID=2">{{:: hdorders}}</option>
                                <option value="OrderTypeID=3">{{:: hnrorders}}</option>

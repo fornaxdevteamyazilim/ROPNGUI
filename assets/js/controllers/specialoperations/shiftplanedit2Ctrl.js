@@ -40,7 +40,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         $scope.trIsOff = $translate.instant('main.ISOFFDAY');
         $scope.trTotalHours = $translate.instant('main.TOTALHOURS');
         $scope.trShowAll == $translate.instant('main.SHOWALL');
-
+        $scope.trTotal == $translate.instant('main.TOTALAMOUNT');
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
@@ -162,6 +162,72 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         dataGrid.columnOption("main", 'caption', $translate.instant('main.SHIFTPLAN') + " [" + $scope.item.Store + "] " + $translate.instant('main.WEEK') + ": [" + $scope.item.PeriodWeek + "] " + $translate.instant('main.YEAR') + ": [" + $scope.item.PeriodYear + "]  (" + $scope.item.DateRange + ")");
         dataGrid.refresh();
         var dataGrid = $('#advgridContainer').dxDataGrid('instance');
+        dataGrid.option("dataSource",
+            new DevExpress.data.CustomStore({
+                //key: "id",
+                load: function (loadOptions) {
+                    var params = {
+                        StoreID: $scope.item.StoreID,
+                        theYear: $scope.item.PeriodYear,
+                        theWeek: $scope.item.PeriodWeek
+                    };
+
+                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
+                        .then(function (response) {
+                            return {
+                                data: response.data,
+                                totalCount: 10
+                            };
+                        }, function (response) {
+                            return $q.reject("Data Loading Error");
+                        });
+                }
+            }));
+        var dataGrid = $('#reqgridContainer').dxDataGrid('instance');
+        dataGrid.option("dataSource",
+            new DevExpress.data.CustomStore({
+                //key: "id",
+                load: function (loadOptions) {
+                    var params = {
+                        StoreID: $scope.item.StoreID,
+                        theYear: $scope.item.PeriodYear,
+                        theWeek: $scope.item.PeriodWeek
+                    };
+
+                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
+                        .then(function (response) {
+                            return {
+                                data: response.data,
+                                totalCount: 10
+                            };
+                        }, function (response) {
+                            return $q.reject("Data Loading Error");
+                        });
+                }
+            }));
+            var dataGrid = $('#plangridContainer').dxDataGrid('instance');
+        dataGrid.option("dataSource",
+            new DevExpress.data.CustomStore({
+                //key: "id",
+                load: function (loadOptions) {
+                    var params = {
+                        StoreID: $scope.item.StoreID,
+                        theYear: $scope.item.PeriodYear,
+                        theWeek: $scope.item.PeriodWeek
+                    };
+
+                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
+                        .then(function (response) {
+                            return {
+                                data: response.data,
+                                totalCount: 10
+                            };
+                        }, function (response) {
+                            return $q.reject("Data Loading Error");
+                        });
+                }
+            }));
+            var dataGrid = $('#costgridContainer').dxDataGrid('instance');
         dataGrid.option("dataSource",
             new DevExpress.data.CustomStore({
                 //key: "id",
@@ -352,6 +418,265 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             { name: "Status_01", dataField: "Status_01", caption: "01", dataType: "number" },
             { name: "Status_02", dataField: "Status_02", caption: "02", dataType: "number" },
             { name: "Status_03", dataField: "Status_03", caption: "03", dataType: "number" }
+        ],
+        onCellPrepared: function (e) {
+
+            if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
+                var fieldData = e.value;
+                var fieldHtml = "";
+                if (fieldData != 0) {
+                    e.cellElement.addClass((fieldData <= 0) ? "inc" : "dec");
+                    // fieldHtml += "<div class='current-value'>" +
+                    //     e.row.data["Req_" + e.column.dataField.split("_")[1]];
+                    if (fieldData != 0)
+                        fieldHtml += "</div> <div class='diff'>" +
+                            Math.abs(fieldData.toFixed(2)) +
+                            "  </div>";
+                }
+                // else {
+                //     fieldHtml = e.row.data["Req_" + e.column.dataField.split("_")[1]];//fieldData.value;
+                // }
+                e.cellElement.html(fieldHtml);
+            }
+        },
+        onDataErrorOccurred: function (e) {
+            console.log(e.error);
+        },
+        export: {
+            enabled: true, fileName: "ShiftPlanAdvice",
+
+        },
+        scrolling: { mode: "virtual" },
+        height: 600
+    };
+    $scope.plandataGridOptions = {
+        //dataSource: store,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        showBorders: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        //filterPanel: { visible: true },
+        headerFilter: { visible: true },
+        grouping: { autoExpandAll: true },
+        searchPanel: { visible: true },
+        groupPanel: { visible: true },
+        columnChooser: { enabled: true },
+        columnFixing: { enabled: true },
+        remoteOperations: false,
+        repaintChangesOnly: true,
+        highlightChanges: true,
+        twoWayBindingEnabled: false,
+        columns: [
+            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { name: "Plan_08", dataField: "Plan_08", caption: "08", dataType: "number" },
+            { name: "Plan_09", dataField: "Plan_09", caption: "09", dataType: "number" },
+            { name: "Plan_10", dataField: "Plan_10", caption: "10", dataType: "number" },
+            { name: "Plan_11", dataField: "Plan_11", caption: "11", dataType: "number" },
+            { name: "Plan_12", dataField: "Plan_12", caption: "12", dataType: "number" },
+            { name: "Plan_13", dataField: "Plan_13", caption: "13", dataType: "number" },
+            { name: "Plan_14", dataField: "Plan_14", caption: "14", dataType: "number" },
+            { name: "Plan_15", dataField: "Plan_15", caption: "15", dataType: "number" },
+            { name: "Plan_16", dataField: "Plan_16", caption: "16", dataType: "number" },
+            { name: "Plan_17", dataField: "Plan_17", caption: "17", dataType: "number" },
+            { name: "Plan_18", dataField: "Plan_18", caption: "18", dataType: "number" },
+            { name: "Plan_19", dataField: "Plan_19", caption: "19", dataType: "number" },
+            { name: "Plan_20", dataField: "Plan_20", caption: "20", dataType: "number" },
+            { name: "Plan_21", dataField: "Plan_21", caption: "21", dataType: "number" },
+            { name: "Plan_22", dataField: "Plan_22", caption: "22", dataType: "number" },
+            { name: "Plan_23", dataField: "Plan_23", caption: "23", dataType: "number" },
+            { name: "Plan_00", dataField: "Plan_00", caption: "00", dataType: "number" },
+            { name: "Plan_01", dataField: "Plan_01", caption: "01", dataType: "number" },
+            { name: "Plan_02", dataField: "Plan_02", caption: "02", dataType: "number" },
+            { name: "Plan_03", dataField: "Plan_03", caption: "03", dataType: "number" }
+        ],
+        onCellPrepared: function (e) {
+
+            if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
+                var fieldData = e.value;
+                var fieldHtml = "";
+                if (fieldData != 0) {
+                    e.cellElement.addClass((fieldData <= 0) ? "inc" : "dec");
+                    // fieldHtml += "<div class='current-value'>" +
+                    //     e.row.data["Req_" + e.column.dataField.split("_")[1]];
+                    if (fieldData != 0)
+                        fieldHtml += "</div> <div class='diff'>" +
+                            Math.abs(fieldData.toFixed(2)) +
+                            "  </div>";
+                }
+                // else {
+                //     fieldHtml = e.row.data["Req_" + e.column.dataField.split("_")[1]];//fieldData.value;
+                // }
+                e.cellElement.html(fieldHtml);
+            }
+        },
+        onDataErrorOccurred: function (e) {
+            console.log(e.error);
+        },
+        export: {
+            enabled: true, fileName: "ShiftPlanAdvice",
+
+        },
+        scrolling: { mode: "virtual" },
+        height: 600
+    };
+    $scope.costdataGridOptions = {
+        //dataSource: store,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        showBorders: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        //filterPanel: { visible: true },
+        headerFilter: { visible: true },
+        grouping: { autoExpandAll: true },
+        searchPanel: { visible: true },
+        groupPanel: { visible: true },
+        columnChooser: { enabled: true },
+        columnFixing: { enabled: true },
+        remoteOperations: false,
+        repaintChangesOnly: true,
+        highlightChanges: true,
+        twoWayBindingEnabled: false,
+        columns: [
+            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { name: "CostPlan_08", dataField: "CostPlan_08", caption: "08", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_09", dataField: "CostPlan_09", caption: "09", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_10", dataField: "CostPlan_10", caption: "10", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_11", dataField: "CostPlan_11", caption: "11", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_12", dataField: "CostPlan_12", caption: "12", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_13", dataField: "CostPlan_13", caption: "13", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_14", dataField: "CostPlan_14", caption: "14", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_15", dataField: "CostPlan_15", caption: "15", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_16", dataField: "CostPlan_16", caption: "16", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_17", dataField: "CostPlan_17", caption: "17", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_18", dataField: "CostPlan_18", caption: "18", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_19", dataField: "CostPlan_19", caption: "19", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_20", dataField: "CostPlan_20", caption: "20", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_21", dataField: "CostPlan_21", caption: "21", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_22", dataField: "CostPlan_22", caption: "22", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_23", dataField: "CostPlan_23", caption: "23", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_00", dataField: "CostPlan_00", caption: "00", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_01", dataField: "CostPlan_01", caption: "01", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_02", dataField: "CostPlan_02", caption: "02", format: { type: "fixedPoint", precision: 2 } },
+            { name: "CostPlan_03", dataField: "CostPlan_03", caption: "03", format: { type: "fixedPoint", precision: 2 } },
+            {
+                caption: $scope.trTotal,
+                name: "Total",
+                //visibleIndex: 12,
+                calculateCellValue: function (data) {
+                    return data.CostPlan_08+data.CostPlan_09+data.CostPlan_10+data.CostPlan_11+data.CostPlan_12+data.CostPlan_13+
+                    data.CostPlan_14+data.CostPlan_15+data.CostPlan_16+data.CostPlan_17+data.CostPlan_18+data.CostPlan_19+data.CostPlan_20+
+                    data.CostPlan_21+data.CostPlan_22+data.CostPlan_23+data.CostPlan_00+data.CostPlan_01+data.CostPlan_02+data.CostPlan_03;
+                },
+                format: { type: "fixedPoint", precision: 0 }
+            },
+        ],
+        summary: {
+            totalItems: [
+                {
+                    column: "Total",
+                    name: "Total",
+                    summaryType: "sum",
+                    valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}"
+                    //, summaryType: "custom"
+                    //    , valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" 
+                },
+            ],
+            groupItems:[
+                {
+                    column: "Total",
+                    name: "Total",
+                    summaryType: "sum",
+                    valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}",
+                    alignByColumn:true
+                },
+            ],
+            calculateCustomSummary: function (options) {
+                if (options.name === "Total") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            //options.dg = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + 
+                            options.CostPlan_08+options.CostPlan_09+options.CostPlan_10+options.CostPlan_11+options.CostPlan_12+options.CostPlan_13+
+                    options.CostPlan_14+options.CostPlan_15+options.CostPlan_16+options.CostPlan_17+options.CostPlan_18+options.CostPlan_19+options.CostPlan_20+
+                    options.CostPlan_21+options.CostPlan_22+options.CostPlan_23+options.CostPlan_00+options.CostPlan_01+options.CostPlan_02+options.CostPlan_03;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+            }
+        },
+        onDataErrorOccurred: function (e) {
+            console.log(e.error);
+        },
+        export: {
+            enabled: true, fileName: "ShiftPlanAdvice",
+
+        },
+        scrolling: { mode: "virtual" },
+        height: 600
+    };
+    $scope.reqdataGridOptions = {
+        //dataSource: store,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        showBorders: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        //filterPanel: { visible: true },
+        headerFilter: { visible: true },
+        grouping: { autoExpandAll: true },
+        searchPanel: { visible: true },
+        groupPanel: { visible: true },
+        columnChooser: { enabled: true },
+        columnFixing: { enabled: true },
+        remoteOperations: false,
+        repaintChangesOnly: true,
+        highlightChanges: true,
+        twoWayBindingEnabled: false,
+        columns: [
+            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { name: "Req_08", dataField: "Req_08", caption: "08", dataType: "number" },
+            { name: "Req_09", dataField: "Req_09", caption: "09", dataType: "number" },
+            { name: "Req_10", dataField: "Req_10", caption: "10", dataType: "number" },
+            { name: "Req_11", dataField: "Req_11", caption: "11", dataType: "number" },
+            { name: "Req_12", dataField: "Req_12", caption: "12", dataType: "number" },
+            { name: "Req_13", dataField: "Req_13", caption: "13", dataType: "number" },
+            { name: "Req_14", dataField: "Req_14", caption: "14", dataType: "number" },
+            { name: "Req_15", dataField: "Req_15", caption: "15", dataType: "number" },
+            { name: "Req_16", dataField: "Req_16", caption: "16", dataType: "number" },
+            { name: "Req_17", dataField: "Req_17", caption: "17", dataType: "number" },
+            { name: "Req_18", dataField: "Req_18", caption: "18", dataType: "number" },
+            { name: "Req_19", dataField: "Req_19", caption: "19", dataType: "number" },
+            { name: "Req_20", dataField: "Req_20", caption: "20", dataType: "number" },
+            { name: "Req_21", dataField: "Req_21", caption: "21", dataType: "number" },
+            { name: "Req_22", dataField: "Req_22", caption: "22", dataType: "number" },
+            { name: "Req_23", dataField: "Req_23", caption: "23", dataType: "number" },
+            { name: "Req_00", dataField: "Req_00", caption: "00", dataType: "number" },
+            { name: "Req_01", dataField: "Req_01", caption: "01", dataType: "number" },
+            { name: "Req_02", dataField: "Req_02", caption: "02", dataType: "number" },
+            { name: "Req_03", dataField: "Req_03", caption: "03", dataType: "number" }
         ],
         onCellPrepared: function (e) {
 
@@ -553,7 +878,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         highlightChanges: true,
         twoWayBindingEnabled: false,
         columns: [
-            { dataField: "OrderType", caption: "OrderType" , visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "OrderType", caption: "OrderType", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
             { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
             { name: "AvgTC_08", dataField: "AvgTC_08", caption: "08", format: { type: "fixedPoint", precision: 2 } },
             { name: "AvgTC_09", dataField: "AvgTC_09", caption: "09", format: { type: "fixedPoint", precision: 2 } },
@@ -596,51 +921,51 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         // },
         summary: {
             totalItems: [
-            { column: "AvgTC_08", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_09", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_10", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_11", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_12", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_13", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_14", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_15", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_16", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_17", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_18", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_19", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_20", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_21", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_22", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_23", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_00", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_01", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_02", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_03", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            
-        ],
+                { column: "AvgTC_08", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_09", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_10", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_11", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_12", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_13", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_14", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_15", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_16", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_17", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_18", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_19", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_20", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_21", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_22", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_23", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_00", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_01", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_02", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_03", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+
+            ],
             groupItems: [
-            { column: "AvgTC_08", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_09", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_10", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_11", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_12", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_13", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_14", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_15", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_16", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_17", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_18", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_19", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_20", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_21", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_22", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_23", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_00", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_01", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_02", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgTC_03", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            
-        ]
+                { column: "AvgTC_08", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_09", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_10", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_11", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_12", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_13", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_14", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_15", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_16", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_17", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_18", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_19", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_20", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_21", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_22", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_23", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_00", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_01", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_02", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvgTC_03", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+
+            ]
         },
         onDataErrorOccurred: function (e) {
             console.log(e.error);
@@ -771,7 +1096,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         },
         onRowInserted: function (e) {
             var dataGrid = $('#advgridContainer').dxDataGrid('instance');
-            dataGrid.refresh();            
+            dataGrid.refresh();
         },
         onRowUpdated: function (e) {
             var dataGrid = $('#advgridContainer').dxDataGrid('instance');

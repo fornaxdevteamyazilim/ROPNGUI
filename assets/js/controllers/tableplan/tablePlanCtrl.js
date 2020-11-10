@@ -295,38 +295,38 @@ function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, 
         }
     };
     $scope.InsotreOrder = function (PersonCount) {
-        //if ($scope.isWaiting == true) {
-        //  $scope.isWaiting = false;
-        var data = $scope.GetDepartment();
-        if (data != null) {
-            var order = {
-                StoreTableID: tableID,
-                persons: [],
-                OrderTypeID: 0,
-                StoreID: $rootScope.user.StoreID,
-                DepartmentID: $rootScope.user.UserRole.OrderSource.Department.id
+        if ($scope.isWaiting == true) {
+            $scope.isWaiting = false;
+            var data = $scope.GetDepartment();
+            if (data != null) {
+                var order = {
+                    StoreTableID: tableID,
+                    persons: [],
+                    OrderTypeID: 0,
+                    StoreID: $rootScope.user.StoreID,
+                    DepartmentID: $rootScope.user.UserRole.OrderSource.Department.id
+                }
+                for (var i = 0; i < PersonCount; i++) {
+                    var orderperson = { PersonIndex: i + 1 }
+                    order.persons.push(orderperson);
+                }
+                Restangular.restangularizeElement('', order, 'order');
+                order.post().then(function (resp) {
+                    location.href = '#/app/orders/orderStoreTable/' + resp.id;
+                    $scope.ok('Yes');
+                },
+                    function (resp) {
+                        $scope.isWaiting = true;
+                        toaster.pop('error', resp.data.ExceptionMessage, "Failed to Create New Order !");
+                    });
+            } else {
+                //TODO Swet Alert
             }
-            for (var i = 0; i < PersonCount; i++) {
-                var orderperson = { PersonIndex: i + 1 }
-                order.persons.push(orderperson);
-            }
-            Restangular.restangularizeElement('', order, 'order');
-            order.post().then(function (resp) {
-                location.href = '#/app/orders/orderStoreTable/' + resp.id;
-                $scope.ok('Yes');
-            },
-                function (resp) {
-                    //$scope.isWaiting = true;
-                    toaster.pop('error', resp.data.ExceptionMessage, "Failed to Create New Order !");
-                });
-        } else {
-            //TODO Swet Alert
         }
-        //}
     };
     $scope.ok = function () {
         $modalInstance.close();
-        //$scope.isWaiting = true;
+        $scope.isWaiting = true;
     };
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
@@ -358,21 +358,21 @@ function ngPosition($document, $window) {
         link: makePosition,
     }
 };
-app.directive('clickAndDisable', function() {
+app.directive('clickAndDisable', function () {
     return {
-      scope: {
-        clickAndDisable: '&'
-      },
-      link: function(scope, iElement, iAttrs) {
-        iElement.bind('click', function() {
-          iElement.prop('disabled',true);
-          scope.clickAndDisable().finally(function() {
-            iElement.prop('disabled',false);
-          })
-        });
-      }
+        scope: {
+            clickAndDisable: '&'
+        },
+        link: function (scope, iElement, iAttrs) {
+            iElement.bind('click', function () {
+                iElement.prop('disabled', true);
+                scope.clickAndDisable().finally(function () {
+                    iElement.prop('disabled', false);
+                })
+            });
+        }
     };
-  });
+});
 
 
 

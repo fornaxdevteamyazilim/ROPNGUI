@@ -1,12 +1,8 @@
 ﻿app.controller('orderlisttwoCtrl', orderlisttwoCtrl);
-function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $timeout, $interval, $filter, $location, $translate, $element, Excel) {
+function orderlisttwoCtrl($scope, ngnotifyService, $modal, Restangular, ngTableParams, userService, toaster, $window, $rootScope, $timeout, $interval, $filter, $location, $translate, $element, Excel) {
     $rootScope.uService.EnterController("orderlisttwoCtrl");
     var aot = this;
-    var OrderRefreshTimeOut;
     $scope.ShowObject = true;
-    $scope.OrderStateID = "OrderStateID >0";
-    $scope.item = {};
-    $scope.OrderSourceID = '';
     $scope.translate = function () {
         $scope.trOrderNo = $translate.instant('main.ORDERNO');
         $scope.trOrderNumber = $translate.instant('main.ORDERNUMBER');
@@ -28,6 +24,7 @@ function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
         $scope.outorder = $translate.instant('main.OUTORDER');
         $scope.cancell = $translate.instant('main.CANCELL');
         $scope.rejected = $translate.instant('main.REJECTED');
+        $scope.delayed= $translate.instant('main.DELAYED');
         $scope.awaitingauthorization = $translate.instant('main.AWAITINGAUTORIZATION');
         $scope.deliveredorder = $translate.instant('main.DELIVEREDORDER');
         $scope.closedorder = $translate.instant('main.CLOSEDORDER');
@@ -44,6 +41,17 @@ function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
         $scope.stafforders = $translate.instant('main.STAFFORDERS');
         $scope.voids = $translate.instant('main.VOIDS');
     }
+    $scope.params = userService.getParameter('inventorydeliverylist',
+        {            
+            OrderSourceID:'',
+            OrderStateID : "OrderStateID >0",
+            StartDate: $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd'),
+            EndDate: moment().format('YYYY-MM-DD'),//moment().add(1, 'days').format('YYYY-MM-DD'),
+            StoreID:null,
+            page:1,
+            count:10
+        }
+    ).Parameters;
     $scope.translate();
     var tranlatelistener = $scope.$on('$translateChangeSuccess', function (event, data) {
         $scope.translate();
@@ -53,21 +61,21 @@ function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
     };
     $scope.BuildSearchString = function (StoreID) {
         var result = [];
-        if ($scope.StartDate && $scope.EndDate) {
+        if ($scope.params.StartDate && $scope.params.EndDate) {
             if (StoreID)
                 result.push("StoreID='" + StoreID + "'");
-            result.push($scope.OrderStateID);
-            result.push("OperationDate between '" + $scope.StartDate + "'and'" + $scope.EndDate + "'");
-            if ($scope.OrderSourceID)
-                result.push("OrderSourceID='" + $scope.OrderSourceID + "'");
+            result.push($scope.params.OrderStateID);
+            result.push("OperationDate between '" + $scope.params.StartDate + "'and'" + $scope.params.EndDate + "'");
+            if ($scope.params.OrderSourceID)
+                result.push("OrderSourceID='" + $scope.params.OrderSourceID + "'");
             return result;
         } else {
             toaster.pop('warning',$translate.instant('orderfile.PleaseSelectDatePlease'));
         }
     };
     aot.tableParams = new ngTableParams({
-        page: 1,
-        count: 10,
+        page: $scope.params.page,
+        count: $scope.params.count,
         sorting: {
             OrderDate: 'descending'
         }
@@ -76,11 +84,13 @@ function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
         //if (!$scope.StoreID) {
         //    toaster.pop('warning', "Lütfen Gerekli Alanları Seçiniz ! (*)");
         //} else {
+            $scope.params.page=params.page();
+            $scope.params.count=params.count();
             $scope.ShowObject = true;
             Restangular.all('order').getList({
                 pageNo: params.page(),
                 pageSize: params.count(),
-                search: $scope.BuildSearchString($scope.StoreID),
+                search: $scope.BuildSearchString($scope.params.StoreID),
                 sort: params.orderBy()
             }).then(function (items) {
                 params.total(items.paging.totalRecordCount);
@@ -128,7 +138,7 @@ function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
         });
         modalInstance.result.then(function (item) {
             var data = new Date(item);
-            $scope.StartDate = $filter('date')(data, 'yyyy-MM-dd ');
+            $scope.params.StartDate = $filter('date')(data, 'yyyy-MM-dd ');
         })
     };
     $scope.SelectEndDate = function (item) {
@@ -145,7 +155,7 @@ function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
         });
         modalInstance.result.then(function (item) {
             var data = new Date(item);
-            $scope.EndDate = $filter('date')(data, 'yyyy-MM-dd ');
+            $scope.params.EndDate = $filter('date')(data, 'yyyy-MM-dd ');
         })
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -181,8 +191,8 @@ function orderlisttwoCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
     $scope.ordersources = [];
     $scope.loadEntities('ordersource', 'ordersources');
     $scope.changeOrderState = function (StateID) {
-        $scope.OrderStateID = StateID;
-        ao.tableParams.reload();
+        $scope.params.OrderStateID = StateID;
+        aot.tableParams.reload();
     };
     $scope.exportToExcel = function (tableId) { // ex: '#my-table'
         $scope.exportHref = Excel.tableToExcel(tableId, 'Order List');
