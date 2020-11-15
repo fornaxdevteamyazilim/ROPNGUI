@@ -91,7 +91,7 @@ function orderlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             result.push("ExtendedSearch=" + ao.search);
             return result;
         } else {
-            if (!userService. userIsInRole("CALLCENTER") &&  !userService.userIsInRole("CMRESTORANHATTI") && !userService.userIsInRole("Admin") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("PHAdmin")) {
+            if (!userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("CMRESTORANHATTI") && !userService.userIsInRole("Admin") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("PHAdmin")) {
                 result.push("StoreID='" + $rootScope.user.StoreID + "'");
                 result.push("tt.OperationDate ='" + $rootScope.user.Store.OperationDate + "'");
                 result.push("OrderDate >'" + $rootScope.user.Store.OperationDate + "'");
@@ -100,7 +100,8 @@ function orderlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             } else {
                 $scope.OrderDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
                 //result.push("OrderDate >'" + $scope.OrderDate + "'");
-                result.push("tt.OperationDate ='" + $rootScope.user.Store.OperationDate + "'");
+                if ($rootScope.user.Store)
+                    result.push("tt.OperationDate ='" + $rootScope.user.Store.OperationDate + "'");
                 result.push($scope.OrderStateID);
                 return result;
             }
@@ -113,7 +114,7 @@ function orderlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         sorting: {
             OrderDate: 'descending'
         }
-    },{
+    }, {
         getData: function ($defer, params) {
             if (!$rootScope.user.Store || $rootScope.user.Store.OperationDate) {
                 $scope.ShowObject = true;
@@ -174,7 +175,7 @@ function orderlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         ao.tableParams.reload();
     });
 
-        $scope.Back = function () {
+    $scope.Back = function () {
         $window.history.back();
     };
     //var OrderRefresh = $scope.$on('OrderChange', function (event, data) {

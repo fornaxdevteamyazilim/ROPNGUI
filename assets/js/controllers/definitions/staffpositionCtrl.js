@@ -9,6 +9,7 @@ function staffpositionCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         $scope.trPersonsPerStore = $translate.instant('main.PERSONSPERSTORE');
         $scope.trMinPersonsPerStore = $translate.instant('main.MINPERSONSPERSTORE');
         $scope.trMaxPersonsPerStore = $translate.instant('main.MAXPERSONSPERSTORE');
+        $scope.trHourlyProductsByPerson = $translate.instant('main.HOURLYPRODUCTSBYPERSON');
         $scope.trHourlyOrdersByPerson = $translate.instant('main.HOURLYORDERSBYPERSON');
         $scope.trCalculateHourlyRequirment = $translate.instant('main.CALCULATEHOURLYREQUIRMENT');
         $scope.trCommands = $translate.instant('main.COMMANDS');

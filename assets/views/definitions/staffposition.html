@@ -23,12 +23,12 @@
             <table ng-table="sp.tableParams" class="table table-striped table-hover">
                 <tr ng-repeat="item in $data"
                     ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
-                    <td data-title="trName" data-sortable="'Name'" ng-click="rowform.$show()" style="width:15%">
+                    <td data-title="trName" data-sortable="'Name'" ng-click="rowform.$show()" style="width:10%">
                         <span editable-text="item.Name" e-name="Name" e-form="rowform" e-ng-model="item.Name" e-style="width:15vw;">
                             {{ item.Name }}
                         </span>
                     </td>
-                    <td data-title="trDescription" data-sortable="'Description'" style="width:15%">
+                    <td data-title="trDescription" data-sortable="'Description'" style="width:10%">
                         <span editable-text="item.Description" e-name="Description" e-form="rowform" e-ng-model="item.Description" e-style="width:15vw;">
                             {{ item.Description}}
                         </span>
@@ -51,6 +51,11 @@
                     <td data-title="trHourlyOrdersByPerson" data-sortable="'HourlyOrdersByPerson'" style="width:10%">
                         <span editable-number="item.HourlyOrdersByPerson" e-name="HourlyOrdersByPerson" e-form="rowform" e-ng-model="item.HourlyOrdersByPerson">
                             {{ item.HourlyOrdersByPerson}}
+                        </span>
+                    </td>
+                    <td data-title="trHourlyProductsByPerson" data-sortable="'HourlyProductsByPerson'" style="width:10%">
+                        <span editable-number="item.HourlyProductsByPerson" e-name="HourlyProductsByPerson" e-form="rowform" e-ng-model="item.HourlyOrdersByPerson">
+                            {{ item.HourlyProductsByPerson}}
                         </span>
                     </td>
                     <td data-title="trCalculateHourlyRequirment" data-sortable="'CalculateHourlyRequirment'" style="width:10%">

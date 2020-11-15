@@ -169,7 +169,10 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     var params = {
                         StoreID: $scope.item.StoreID,
                         theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek
+                        theWeek: $scope.item.PeriodWeek,
+                        AllPositions: false,
+                        ProductRelated: true,
+                        ShowHourly: true
                     };
 
                     return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
@@ -191,7 +194,10 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     var params = {
                         StoreID: $scope.item.StoreID,
                         theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek
+                        theWeek: $scope.item.PeriodWeek,
+                        AllPositions: false,
+                        ProductRelated: true,
+                        ShowHourly: true
                     };
 
                     return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
@@ -205,7 +211,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         });
                 }
             }));
-            var dataGrid = $('#plangridContainer').dxDataGrid('instance');
+        var dataGrid = $('#plangridContainer').dxDataGrid('instance');
         dataGrid.option("dataSource",
             new DevExpress.data.CustomStore({
                 //key: "id",
@@ -213,7 +219,10 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     var params = {
                         StoreID: $scope.item.StoreID,
                         theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek
+                        theWeek: $scope.item.PeriodWeek,
+                        AllPositions: false,
+                        ProductRelated: true,
+                        ShowHourly: true
                     };
 
                     return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
@@ -227,7 +236,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         });
                 }
             }));
-            var dataGrid = $('#costgridContainer').dxDataGrid('instance');
+        var dataGrid = $('#costgridContainer').dxDataGrid('instance');
         dataGrid.option("dataSource",
             new DevExpress.data.CustomStore({
                 //key: "id",
@@ -235,7 +244,35 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     var params = {
                         StoreID: $scope.item.StoreID,
                         theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek
+                        theWeek: $scope.item.PeriodWeek,
+                        AllPositions: true,
+                        ProductRelated: true,
+                        ShowHourly: true
+                    };
+
+                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
+                        .then(function (response) {
+                            return {
+                                data: response.data,
+                                totalCount: 10
+                            };
+                        }, function (response) {
+                            return $q.reject("Data Loading Error");
+                        });
+                }
+            }));
+        var dataGrid = $('#productgridContainer').dxDataGrid('instance');
+        dataGrid.option("dataSource",
+            new DevExpress.data.CustomStore({
+                //key: "id",
+                load: function (loadOptions) {
+                    var params = {
+                        StoreID: $scope.item.StoreID,
+                        theYear: $scope.item.PeriodYear,
+                        theWeek: $scope.item.PeriodWeek,
+                        AllPositions: false,
+                        ProductRelated: true,
+                        ShowHourly: false
                     };
 
                     return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
@@ -257,7 +294,10 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     var params = {
                         StoreID: $scope.item.StoreID,
                         theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek
+                        theWeek: $scope.item.PeriodWeek,
+                        AllPositions: false,
+                        ProductRelated: true,
+                        ShowHourly: true
                     };
 
                     return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
@@ -279,7 +319,10 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     var params = {
                         StoreID: $scope.item.StoreID,
                         theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek
+                        theWeek: $scope.item.PeriodWeek,
+                        AllPositions: true,
+                        ProductRelated: true,
+                        ShowHourly: true
                     };
 
                     return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
@@ -315,6 +358,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         });
                 }
             }));
+
         //dataGrid.refresh(); 
         Restangular.all('user').getList({
             pageNo: 1,
@@ -335,6 +379,207 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30',
         '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00', '00:30', '00:45',
         '01:00', '01:30', '02:00', '02:30', '03:00', '03:15', '03:30', '03:45', '04:00', '04:30'];
+    $scope.summaryTabSelected = function () {
+        var dataGrid = $('#advPivotContainer').dxPivotGrid('instance');
+        dataGrid.option("dataSource",
+            {
+                fields: [{
+                    caption: "Position",
+                    width: 120,
+                    dataField: "Position",
+                    area: "row",
+                    autoExpandGroup: true,
+                    allowExpandAll: true
+                }, {
+                    caption: "WeekDay",
+                    dataField: "WeekDay",
+                    width: 150,
+                    area: "row",
+                    autoExpandGroup: true,
+                    allowExpandAll: true,
+                    sortingMethod: function (a, b) {
+                        var txt1 = a.value;
+                        var txt2 = b.value;
+                        switch (txt1) {
+                            case "Monday":
+                                txtindex1 = 1;
+                                break;
+                            case "Pazartesi":
+                                txtindex1 = 1;
+                                break;
+                            case "Tuesday":
+                                txtindex1 = 2;
+                                break;
+                            case "Salı":
+                                txtindex1 = 2;
+                                break;
+                            case "Wednesday":
+                                txtindex1 = 3;
+                                break;
+                            case "Çarşamba":
+                                txtindex1 = 3;
+                                break;
+                            case "Thursday":
+                                txtindex1 = 4;
+                                break;
+                            case "Perşembe":
+                                txtindex1 = 4;
+                                break;
+                            case "Friday":
+                                txtindex1 = 5;
+                                break;
+                            case "Cuma":
+                                txtindex1 = 5;
+                                break;
+                            case "Saturday":
+                                txtindex1 = 6;
+                                break;
+                            case "Cumartesi":
+                                txtindex1 = 6;
+                                break;
+                            case "Sunday":
+                                txtindex1 = 7;
+                                break;
+                            case "Pazar":
+                                txtindex1 = 7;
+                                break;
+                        }
+                        switch (txt2) {
+                            case "Monday":
+                                txtindex2 = 1;
+                                break;
+                            case "Pazartesi":
+                                txtindex2 = 1;
+                                break;
+                            case "Tuesday":
+                                txtindex2 = 2;
+                                break;
+                            case "Salı":
+                                txtindex2 = 2;
+                                break;
+                            case "Wednesday":
+                                txtindex2 = 3;
+                                break;
+                            case "Çarşamba":
+                                txtindex2 = 3;
+                                break;
+                            case "Thursday":
+                                txtindex2 = 4;
+                                break;
+                            case "Perşembe":
+                                txtindex2 = 4;
+                                break;
+                            case "Friday":
+                                txtindex2 = 5;
+                                break;
+                            case "Cuma":
+                                txtindex2 = 5;
+                                break;
+                            case "Saturday":
+                                txtindex2 = 6;
+                                break;
+                            case "Cumartesi":
+                                txtindex2 = 6;
+                                break;
+                            case "Sunday":
+                                txtindex2 = 7;
+                                break;
+                            case "Pazar":
+                                txtindex2 = 7;
+                                break;
+                        }
+                        if (txtindex1 < txtindex2)
+                            return -1;
+                        else if (txtindex1 > txtindex2)
+                            return 1;
+                        else
+                            return 0;
+
+                    },
+                }, {
+                    caption: "Hour",
+                    dataField: "Hour",
+                    area: "column",
+                    allowSorting: false,
+                    allowExpandAll: true,
+                    sortingMethod: function (a, b) {
+                        var txtindex1 = a.value;
+                        var txtindex2 = b.value;
+                        if (txtindex1 < 4)
+                            txtindex1 += 24;
+                        if (txtindex2 < 4)
+                            txtindex2 += 24;
+                        if (txtindex1 < txtindex2)
+                            return -1;
+                        else if (txtindex1 > txtindex2)
+                            return 1;
+                        else
+                            return 0;
+
+                    },
+                    autoExpandGroup: true
+                }, {
+                    caption: "Required",
+                    dataField: "Req",
+                    dataType: "number",
+                    summaryType: "sum",
+                    area: "data"
+                },
+                {
+                    caption: "Plan",
+                    dataField: "Plan",
+                    dataType: "number",
+                    summaryType: "sum",
+                    area: "data"
+                },
+                {
+                    caption: "Status",
+                    dataField: "Status",
+                    dataType: "number",
+                    summaryType: "sum",
+                    area: "data"
+                }],
+                store: DevExpress.data.AspNet.createStore({
+                    key: "id",
+                    loadUrl: NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceDatav2",
+                    loadParams: {
+                        StoreID: $scope.item.StoreID,
+                        theYear: $scope.item.PeriodYear,
+                        theWeek: $scope.item.PeriodWeek,
+                        AllPositions: false,
+                        ProductRelated: true,
+                        ShowHourly: true
+                    },
+                    onBeforeSend: function (method, ajaxOptions) {
+                        var authData = localStorageService.get('authorizationData');
+                        if (authData) {
+                            ajaxOptions.headers = {
+                                Authorization: 'Bearer ' + authData.token,
+                                "Accept-Language": $rootScope.locale
+                            };
+                        }
+                    }
+                })
+                /* stroe: DevExpress.data.CustomStore({
+                    load: function (loadOptions) {
+                        var params = {
+                            StoreID: $scope.item.StoreID,
+                            theYear: $scope.item.PeriodYear,
+                            theWeek: $scope.item.PeriodWeek
+                        };
+                        return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceDatav2", { params: params })
+                            .then(function (response) {
+                                return {
+                                    data: response
+                                };
+                            }, function (response) {
+                                return $q.reject("Data Loading Error");
+                            });
+                    }
+                }) */
+            });
+        dataGrid.getDataSource().expandAll("Position");
+    }
     $scope.GetOffType = function (StaffOffTypeID) {
         if (StaffOffTypeID) {
             var selected = $filter('filter')(OffTypes, {
@@ -373,8 +618,53 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             swipeEnabled: "swipeEnabled"
         }
     };
+
+    $scope.advPivotOptions = {
+        allowSortingBySummary: true,
+        allowFiltering: true,
+        allowExpandAll: true,
+        showDataFields: true,
+        showRowFields: true,
+        showColumnFields: true,
+        showFilterFields: true,
+        allowFieldDragging: true,
+        height: 600,
+        showBorders: true,
+        dataFieldArea: "row",
+        rowHeaderLayout: "tree",
+        showTotalsPrior: "row",
+        fieldChooser: {
+            enabled: true,
+            allowSearch: true
+        },
+        "export": {
+            enabled: true,
+            fileName: "Günlere Göre Ciro"
+        },
+        fieldPanel: {
+            visible: true
+        },
+        onCellPrepared: function (e) {
+            if (e.area == 'data' && e.cell.value!=0)
+                if (e.cell.value<0) 
+                        e.cellElement.css({ 'color': '#f00' });
+                    else
+                        e.cellElement.css({ 'color': '#2ab71b' });
+        },
+        customizeExcelCell: (options) => {
+            var gridCell = options.gridCell;
+            if (!gridCell) {
+                return;
+            }
+            if (gridCell.column.dataField=='data') {
+                    if (gridCell.data[gridCell.column.dataField] > 0)
+                        options.font.color = '#008000';
+                    else
+                        options.font.color = '#FF0000';
+            }            
+        }
+    };
     $scope.advdataGridOptions = {
-        //dataSource: store,
         showBorders: true,
         allowColumnResizing: true,
         columnAutoWidth: true,
@@ -519,7 +809,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             console.log(e.error);
         },
         export: {
-            enabled: true, fileName: "ShiftPlanAdvice",
+            enabled: true, fileName: "ShiftPlan_Planed",
 
         },
         scrolling: { mode: "virtual" },
@@ -575,9 +865,9 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                 name: "Total",
                 //visibleIndex: 12,
                 calculateCellValue: function (data) {
-                    return data.CostPlan_08+data.CostPlan_09+data.CostPlan_10+data.CostPlan_11+data.CostPlan_12+data.CostPlan_13+
-                    data.CostPlan_14+data.CostPlan_15+data.CostPlan_16+data.CostPlan_17+data.CostPlan_18+data.CostPlan_19+data.CostPlan_20+
-                    data.CostPlan_21+data.CostPlan_22+data.CostPlan_23+data.CostPlan_00+data.CostPlan_01+data.CostPlan_02+data.CostPlan_03;
+                    return data.CostPlan_08 + data.CostPlan_09 + data.CostPlan_10 + data.CostPlan_11 + data.CostPlan_12 + data.CostPlan_13 +
+                        data.CostPlan_14 + data.CostPlan_15 + data.CostPlan_16 + data.CostPlan_17 + data.CostPlan_18 + data.CostPlan_19 + data.CostPlan_20 +
+                        data.CostPlan_21 + data.CostPlan_22 + data.CostPlan_23 + data.CostPlan_00 + data.CostPlan_01 + data.CostPlan_02 + data.CostPlan_03;
                 },
                 format: { type: "fixedPoint", precision: 0 }
             },
@@ -593,13 +883,13 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     //    , valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" 
                 },
             ],
-            groupItems:[
+            groupItems: [
                 {
                     column: "Total",
                     name: "Total",
                     summaryType: "sum",
                     valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}",
-                    alignByColumn:true
+                    alignByColumn: true
                 },
             ],
             calculateCustomSummary: function (options) {
@@ -610,10 +900,10 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             //options.dg = 0;
                             break;
                         case "calculate":
-                            options.totalValue = options.totalValue + 
-                            options.CostPlan_08+options.CostPlan_09+options.CostPlan_10+options.CostPlan_11+options.CostPlan_12+options.CostPlan_13+
-                    options.CostPlan_14+options.CostPlan_15+options.CostPlan_16+options.CostPlan_17+options.CostPlan_18+options.CostPlan_19+options.CostPlan_20+
-                    options.CostPlan_21+options.CostPlan_22+options.CostPlan_23+options.CostPlan_00+options.CostPlan_01+options.CostPlan_02+options.CostPlan_03;
+                            options.totalValue = options.totalValue +
+                                options.CostPlan_08 + options.CostPlan_09 + options.CostPlan_10 + options.CostPlan_11 + options.CostPlan_12 + options.CostPlan_13 +
+                                options.CostPlan_14 + options.CostPlan_15 + options.CostPlan_16 + options.CostPlan_17 + options.CostPlan_18 + options.CostPlan_19 + options.CostPlan_20 +
+                                options.CostPlan_21 + options.CostPlan_22 + options.CostPlan_23 + options.CostPlan_00 + options.CostPlan_01 + options.CostPlan_02 + options.CostPlan_03;
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue;
@@ -626,7 +916,114 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             console.log(e.error);
         },
         export: {
-            enabled: true, fileName: "ShiftPlanAdvice",
+            enabled: true, fileName: "ShiftPlanCost",
+
+        },
+        scrolling: { mode: "virtual" },
+        height: 600
+    };
+    $scope.productdataGridOptions = {
+        //dataSource: store,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        showBorders: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        //filterPanel: { visible: true },
+        headerFilter: { visible: true },
+        grouping: { autoExpandAll: true },
+        searchPanel: { visible: true },
+        groupPanel: { visible: true },
+        columnChooser: { enabled: true },
+        columnFixing: { enabled: true },
+        remoteOperations: false,
+        repaintChangesOnly: true,
+        highlightChanges: true,
+        twoWayBindingEnabled: false,
+        columns: [
+            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { name: "AvgFPSales_08", dataField: "AvgFPSales_08", caption: "08", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_09", dataField: "AvgFPSales_09", caption: "09", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_10", dataField: "AvgFPSales_10", caption: "10", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_11", dataField: "AvgFPSales_11", caption: "11", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_12", dataField: "AvgFPSales_12", caption: "12", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_13", dataField: "AvgFPSales_13", caption: "13", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_14", dataField: "AvgFPSales_14", caption: "14", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_15", dataField: "AvgFPSales_15", caption: "15", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_16", dataField: "AvgFPSales_16", caption: "16", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_17", dataField: "AvgFPSales_17", caption: "17", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_18", dataField: "AvgFPSales_18", caption: "18", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_19", dataField: "AvgFPSales_19", caption: "19", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_20", dataField: "AvgFPSales_20", caption: "20", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_21", dataField: "AvgFPSales_21", caption: "21", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_22", dataField: "AvgFPSales_22", caption: "22", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_23", dataField: "AvgFPSales_23", caption: "23", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_00", dataField: "AvgFPSales_00", caption: "00", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_01", dataField: "AvgFPSales_01", caption: "01", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_02", dataField: "AvgFPSales_02", caption: "02", format: { type: "fixedPoint", precision: 0 } },
+            { name: "AvgFPSales_03", dataField: "AvgFPSales_03", caption: "03", format: { type: "fixedPoint", precision: 0 } },
+            {
+                caption: $scope.trTotal,
+                name: "Total",
+                //visibleIndex: 12,
+                calculateCellValue: function (data) {
+                    return data.AvgFPSales_08 + data.AvgFPSales_09 + data.AvgFPSales_10 + data.AvgFPSales_11 + data.AvgFPSales_12 + data.AvgFPSales_13 +
+                        data.AvgFPSales_14 + data.AvgFPSales_15 + data.AvgFPSales_16 + data.AvgFPSales_17 + data.AvgFPSales_18 + data.AvgFPSales_19 + data.AvgFPSales_20 +
+                        data.AvgFPSales_21 + data.AvgFPSales_22 + data.AvgFPSales_23 + data.AvgFPSales_00 + data.AvgFPSales_01 + data.AvgFPSales_02 + data.AvgFPSales_03;
+                },
+                format: { type: "fixedPoint", precision: 0 }
+            },
+        ],
+        summary: {
+            totalItems: [
+                {
+                    column: "Total",
+                    name: "Total",
+                    summaryType: "sum",
+                    valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}"
+                    //, summaryType: "custom"
+                    //    , valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" 
+                },
+            ],
+            groupItems: [
+                {
+                    column: "Total",
+                    name: "Total",
+                    summaryType: "sum",
+                    valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}",
+                    alignByColumn: true
+                },
+            ],
+            calculateCustomSummary: function (options) {
+                if (options.name === "Total") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            //options.dg = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue +
+                                options.CostPlan_08 + options.CostPlan_09 + options.CostPlan_10 + options.CostPlan_11 + options.CostPlan_12 + options.CostPlan_13 +
+                                options.CostPlan_14 + options.CostPlan_15 + options.CostPlan_16 + options.CostPlan_17 + options.CostPlan_18 + options.CostPlan_19 + options.CostPlan_20 +
+                                options.CostPlan_21 + options.CostPlan_22 + options.CostPlan_23 + options.CostPlan_00 + options.CostPlan_01 + options.CostPlan_02 + options.CostPlan_03;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+            }
+        },
+        onDataErrorOccurred: function (e) {
+            console.log(e.error);
+        },
+        export: {
+            enabled: true, fileName: "ShiftPlanProductStats",
 
         },
         scrolling: { mode: "virtual" },
@@ -701,7 +1098,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             console.log(e.error);
         },
         export: {
-            enabled: true, fileName: "ShiftPlanAdvice",
+            enabled: true, fileName: "ShiftPlanRequirment",
 
         },
         scrolling: { mode: "virtual" },

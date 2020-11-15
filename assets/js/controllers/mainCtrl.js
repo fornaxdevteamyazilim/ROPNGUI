@@ -130,11 +130,13 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                 // we know we have set a preferred one in app.config
                 $scope.language.selected = $scope.language.available[(proposedLanguage || preferredLanguage)];
                 if (proposedLanguage == "en") {
+                    $rootScope.locale="en-US";
                     Restangular.setDefaultHeaders({ "Accept-Language": "en-US" });
                     $http.defaults.headers.common["Accept-Language"] = "en-US";
                     DevExpress.localization.locale("en");
                 }
                 else {
+                    $rootScope.locale="tr-TR";
                     Restangular.setDefaultHeaders({ "Accept-Language": "tr-TR" });
                     $http.defaults.headers.common["Accept-Language"] = "tr-TR";
                     DevExpress.localization.locale("tr"); 
@@ -146,11 +148,13 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                 $scope.language.selected = $scope.language.available[localeId];
                 $scope.language.listIsOpen = !$scope.language.listIsOpen;
                 if (localeId == "en") {
+                    $rootScope.locale="en-US";
                     Restangular.setDefaultHeaders({ "Accept-Language": "en-US" });
                     $http.defaults.headers.common["Accept-Language"] = "en-US";
                     DevExpress.localization.locale("en");
                 }
                 else {
+                    $rootScope.locale="tr-TR";
                     Restangular.setDefaultHeaders({ "Accept-Language": "tr-TR" });
                     $http.defaults.headers.common["Accept-Language"] = "tr-TR";
                     DevExpress.localization.locale("tr");
