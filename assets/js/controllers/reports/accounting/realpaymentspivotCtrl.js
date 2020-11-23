@@ -3,7 +3,7 @@ app.controller('realpaymentspivotCtrl', realpaymentspivotCtrl);
 function realpaymentspivotCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING) {
     $rootScope.uService.EnterController("realpaymentspivotCtrl");
     if (!$rootScope.ReportParameters.StartDate) {
-        $rootScope.ReportParameters.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
+        $rootScope.ReportParameters.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     }
     if (!$rootScope.ReportParameters.EndDate) {
         $rootScope.ReportParameters.EndDate = moment().add(1, 'days').format('YYYY-MM-DD ');

@@ -1,10 +1,10 @@
 ﻿'use strict';
 app.controller('trendsCtrl', trendsCtrl);
-function trendsCtrl($scope, Restangular, toaster,$interval, $http, NG_SETTING, $q, $rootScope, $location, $translate, $timeout, $element, userService) {
+function trendsCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTING, $q, $rootScope, $location, $translate, $timeout, $element, userService) {
     $rootScope.uService.EnterController("trendsCtrl");
     userService.userAuthorizated();
     var promise;
-    
+
     $scope.translate = function () {
         $scope.trREPORT = $translate.instant('main.REPORT');
         $scope.trEXCEL = $translate.instant('main.EXCEL');
@@ -81,9 +81,7 @@ function trendsCtrl($scope, Restangular, toaster,$interval, $http, NG_SETTING, $
         hoverStateEnabled: true,
         twoWayBindingEnabled: false,
         repaintChangesOnly: true,
-        loadPanel: {
-            enabled: false
-        },
+        loadPanel: { enabled: false },
         stateStoring: {
             enabled: true,
             type: "localStorage",
@@ -97,7 +95,7 @@ function trendsCtrl($scope, Restangular, toaster,$interval, $http, NG_SETTING, $
             {
                 caption: $translate.instant('trends.today'), name: "Today",
                 columns: [
-                    { dataField: "TodayIncome", dataType:"number",caption: $translate.instant('trends.sales'), name: "TodayIncome", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "TodayIncome", dataType: "number", caption: $translate.instant('trends.sales'), name: "TodayIncome", format: { type: "fixedPoint", precision: 0 } },
                     { dataField: "TodayAC", caption: $translate.instant('trends.AC'), format: { type: "fixedPoint", precision: 2 }, visible: false },
                     { dataField: "TodayTC", caption: $translate.instant('trends.TC'), name: "TodayTC", format: { type: "fixedPoint", precision: 0 } },
                 ]
@@ -130,7 +128,7 @@ function trendsCtrl($scope, Restangular, toaster,$interval, $http, NG_SETTING, $
                 caption: $translate.instant('trends.monthlyTotal'), name: "Monthly",
                 columns: [
                     { dataField: "TotalMonthlyIncome", caption: $translate.instant('trends.sales'), format: { type: "fixedPoint", precision: 0 } },
-                    { dataField: "MonthlyAC", caption: $translate.instant('trends.AC'), format: { type: "fixedPoint", precision: 2 }, visible: false  },
+                    { dataField: "MonthlyAC", caption: $translate.instant('trends.AC'), format: { type: "fixedPoint", precision: 2 }, visible: false },
                     { dataField: "MonthlyTC", caption: $translate.instant('trends.TC'), format: { type: "fixedPoint", precision: 0 } },
                 ]
             },
@@ -138,14 +136,14 @@ function trendsCtrl($scope, Restangular, toaster,$interval, $http, NG_SETTING, $
                 caption: $translate.instant('trends.trends'), name: "Trends",
                 columns: [
                     { dataField: "IncomeTrend", caption: $translate.instant('trends.sales'), format: { type: "fixedPoint", precision: 0 } },
-                    { dataField: "SalesTarget", caption: "Sales Target", format: { type: "fixedPoint", precision: 0 }},
-                    { dataField: "TCTrend", caption: $translate.instant('trends.TC'), format: { type: "fixedPoint", precision: 0 } , visible: false },
+                    { dataField: "SalesTarget", caption: "Sales Target", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "TCTrend", caption: $translate.instant('trends.TC'), format: { type: "fixedPoint", precision: 0 }, visible: false },
                     { dataField: "TCTarget", caption: "TC Target", format: { type: "fixedPoint", precision: 0 }, visible: false },
                     { dataField: "HitRate", caption: "Hit %", name: "HitRate", format: { type: "fixedPoint", precision: 2 }, },
                 ]
             },
             { dataField: "TodaySalesTarget", caption: $translate.instant('trends.dailyTarget'), format: { type: "fixedPoint", precision: 0 }, visible: false },
-                        
+
         ],
         summary: {
             totalItems: [{ column: "Store", summaryType: "count", displayFormat: "{0}" },
@@ -192,27 +190,27 @@ function trendsCtrl($scope, Restangular, toaster,$interval, $http, NG_SETTING, $
                 { column: "HitRate", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "SalesTarget", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TCTarget", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
-                
+
             ],
         },
         onCellPrepared: function (options) {
             if (options.rowType == 'data') {
                 var fieldData = options.value;
                 if (options.rowType == 'data' && options.column.name && options.column.name.length > 5 && options.column.name == "TodayIncome") {
-                            var fieldData = options.value;
-                            var fieldHtml = "";
-                            if (options.row.data["TodayIncome"] != options.row.data["PrewWeekIncome"]) {
-                                options.cellElement.addClass((options.row.data["TodayIncome"] > options.row.data["PrewWeekIncome"]) ? "inc" : "dec");
-                                fieldHtml += "<div class='current-value'>" +
-                                    "</div> <div class='diff'>" +
-                                    parseInt(fieldData).toLocaleString() +
-                                    "  </div>";
-                            }
-                            /* else {
-                                fieldHtml = fieldData.value;
-                            } */
-                            options.cellElement.html(fieldHtml);
-                        }
+                    var fieldData = options.value;
+                    var fieldHtml = "";
+                    if (options.row.data["TodayIncome"] != options.row.data["PrewWeekIncome"]) {
+                        options.cellElement.addClass((options.row.data["TodayIncome"] > options.row.data["PrewWeekIncome"]) ? "inc" : "dec");
+                        fieldHtml += "<div class='current-value'>" +
+                            "</div> <div class='diff'>" +
+                            parseInt(fieldData).toLocaleString() +
+                            "  </div>";
+                    }
+                    /* else {
+                        fieldHtml = fieldData.value;
+                    } */
+                    options.cellElement.html(fieldHtml);
+                }
                 // if (options.column.name && options.column.name == "TodayIncome") {
                 //     if (options.row.data["TodayIncome"] != options.row.data["PrewWeekIncome"]) {
 
@@ -244,14 +242,14 @@ function trendsCtrl($scope, Restangular, toaster,$interval, $http, NG_SETTING, $
 
                 }
             }
-        }, 
+        },
         onRowClick: function (rowInfo) {
             //    location.href = '#/app/specialoperations/shiftplanedit2/' + rowInfo.key;
             //rowInfo.component.editRow(rowInfo.rowIndex);  
-        $rootScope.SelectedData = {id:rowInfo.key,name:rowInfo.data.Store};
-        $location.path('/app/dashboard');
-        //$location.href = '#/app/dashboard';
-        },       
+            $rootScope.SelectedData = { id: rowInfo.key, name: rowInfo.data.Store };
+            $location.path('/app/dashboard');
+            //$location.href = '#/app/dashboard';
+        },
         onDataErrorOccurred: function (e) {
             console.log(e.error);
         },
@@ -276,7 +274,7 @@ function trendsCtrl($scope, Restangular, toaster,$interval, $http, NG_SETTING, $
                             options.font.color = '#008000';
                         else
                             options.font.color = '#FF0000';
-                            if (options.gridCell.rowType == 'data' && gridCell.column.name && gridCell.column.name == "HitRate")
+                if (options.gridCell.rowType == 'data' && gridCell.column.name && gridCell.column.name == "HitRate")
                     if (gridCell.data && gridCell.data["HitRate"] != 0)
                         if (gridCell.data["HitRate"] > 0)
                             options.font.color = '#008000';
@@ -298,14 +296,14 @@ function trendsCtrl($scope, Restangular, toaster,$interval, $http, NG_SETTING, $
         var dataGrid = $('#advgridContainer').dxDataGrid('instance');
         dataGrid.refresh();
     }
-    $scope.start = function() {
-        $scope.stop(); 
+    $scope.start = function () {
+        $scope.stop();
         promise = $interval(refreshData, 30000);
-      };
-    
-      $scope.stop = function() {
+    };
+
+    $scope.stop = function () {
         $interval.cancel(promise);
-      };
+    };
     $scope.start();
 
     $scope.$on('$destroy', function () {

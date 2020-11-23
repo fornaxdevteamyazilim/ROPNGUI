@@ -39,6 +39,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         $scope.trEndShift = $translate.instant('main.ENDSHIFT');
         $scope.trIsOff = $translate.instant('main.ISOFFDAY');
         $scope.trTotalHours = $translate.instant('main.TOTALHOURS');
+        $scope.trOvertime = $translate.instant('main.OVERTIME');
+        $scope.trTotalAmount = $translate.instant('main.TOTALAMOUNT');
         $scope.trShowAll == $translate.instant('main.SHOWALL');
         $scope.trTotal == $translate.instant('main.TOTALAMOUNT');
     };
@@ -106,26 +108,68 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         }
     }
     function SumHours(startTime, endTime, isOff, IgnoreOvertime, userID) {
-        var diff = 0;
-        if (isOff) return null;
-        if (startTime && endTime) {
-            var smon = ConvertToSeconds(startTime);
-            var fmon = ConvertToSeconds(endTime);
-            if (smon > fmon) {
-                fmon += 86400;
-            }
-            if (smon < 0 || fmon < 0) {
-                diff = 0;
-            }
-            else {
-                diff = Math.abs(fmon - smon);
-            }
-        }
-        var result = diff / 3600 - ((diff / 3600 >= 5.5) ? 0.5 : 0);
+        if (isOff) return 0;
+        var diff = CalcHours(startTime, endTime);
+        var result = diff - ((diff >= 7.5) ? 0.5 : 0);
         result = GetMaxHours(result, IgnoreOvertime, userID);
         return result;
     }
-
+    function CalcHours(startTime, endTime) {
+        var diff = 0;
+        if (startTime && endTime) {
+            var smon = ConvertToSeconds(startTime);
+            var fmon = ConvertToSeconds(endTime);
+            if (smon > fmon) { fmon += 86400; }
+            if (smon < 0 || fmon < 0) { diff = 0; } else { diff = Math.abs(fmon - smon); }
+        }
+        return diff / 3600;
+    }
+    function GetNormalHours(startTime, endTime, isOff, IgnoreOvertime, userID) {
+        if (isOff) return 0;
+        var diff = GetMaxHours(CalcHours(startTime, endTime), true, userID);
+        return diff - ((diff >= 7.5) ? 0.5 : 0);
+    }
+    function GetOvertimeHours(startTime, endTime, isOff, IgnoreOvertime, userID) {
+        if (isOff || IgnoreOvertime) return 0;
+        var diff = CalcHours(startTime, endTime);
+        return diff > GetMaxHours(diff, true, userID) ? diff - GetMaxHours(diff, true, userID) : 0;
+    }
+    function LaborCost(startTime, endTime, isOff, IgnoreOvertime, userID, StaffPositionID) {
+        // return (GetNormalHours(startTime, endTime, isOff, IgnoreOvertime, userID) +
+        //     (GetOvertimeHours(startTime, endTime, isOff, IgnoreOvertime, userID) * 1.5))
+        //     ;
+        return (GetNormalHours(startTime, endTime, isOff, IgnoreOvertime, userID) +
+            (GetOvertimeHours(startTime, endTime, isOff, IgnoreOvertime, userID) * 1.5))
+            * HourlyWage(StaffPositionID);
+    };
+    function HourlyWage(StaffPositionID) {
+        if (StaffPositionID) {
+            var selected = wages.filter(function (item) {
+                return item.StaffPositionID === StaffPositionID;
+            });
+            return (selected.length) ? selected[0].Price : 0;
+        }
+        return 0;
+    };
+    //staffpositions
+    function maxWorkingHours(LaborCostTypeID) {
+        if (LaborCostTypeID) {
+            var selected = $filter('filter')(LaborCostTypes, {
+                id: LaborCostTypeID
+            });
+            return (selected.length) ? selected[0].maxWorkingHours ?? 7.5 : 7.5;
+        }
+        return "N/A";
+    };
+    function DeliveryWage(StaffPossitionID) {
+        if (StaffPossitionID) {
+            var selected = wages.filter(function (item) {
+                return item.StaffPossitionID === StaffPossitionID;
+            });
+            return (selected.length) ? selected[0].OrderDeliveryPrice ?? 0 : 0;
+        }
+        return "N/A";
+    };
     function secondsTohhmmss(secs) {
         var hours = parseInt(secs / 3600);
         var seconds = parseInt(secs % 3600);
@@ -154,231 +198,157 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
     }, function (response) {
         toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
     });
+    var wages = [];
+    Restangular.all('user').getList({
+        pageNo: 1,
+        pageSize: 10000,
+        //search: "StoreID='" + $scope.item.StoreID + "'",
+    }).then(function (result) {
+        users = result;
+        Restangular.one('ShiftPlan', $stateParams.id).get().then(function (restresult) {
+            $scope.item = Restangular.copy(restresult);
 
-    Restangular.one('ShiftPlan', $stateParams.id).get().then(function (restresult) {
-        $scope.item = Restangular.copy(restresult);
+            var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            dataGrid.columnOption("main", 'caption', $translate.instant('main.SHIFTPLAN') + " [" + $scope.item.Store + "] " + $translate.instant('main.WEEK') + ": [" + $scope.item.PeriodWeek + "] " + $translate.instant('main.YEAR') + ": [" + $scope.item.PeriodYear + "]  (" + $scope.item.DateRange + ")");
+            dataGrid.refresh();
 
-        var dataGrid = $('#gridContainer').dxDataGrid('instance');
-        dataGrid.columnOption("main", 'caption', $translate.instant('main.SHIFTPLAN') + " [" + $scope.item.Store + "] " + $translate.instant('main.WEEK') + ": [" + $scope.item.PeriodWeek + "] " + $translate.instant('main.YEAR') + ": [" + $scope.item.PeriodYear + "]  (" + $scope.item.DateRange + ")");
-        dataGrid.refresh();
-        var dataGrid = $('#advgridContainer').dxDataGrid('instance');
-        dataGrid.option("dataSource",
-            new DevExpress.data.CustomStore({
-                //key: "id",
-                load: function (loadOptions) {
-                    var params = {
-                        StoreID: $scope.item.StoreID,
-                        theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek,
-                        AllPositions: false,
-                        ProductRelated: true,
-                        ShowHourly: true
-                    };
-
-                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
-                        .then(function (response) {
-                            return {
-                                data: response.data,
-                                totalCount: 10
-                            };
-                        }, function (response) {
-                            return $q.reject("Data Loading Error");
-                        });
+            $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/hourlywages", {
+                params: {
+                    theYear: $scope.item.PeriodYear,
+                    theWeek: $scope.item.PeriodWeek
                 }
-            }));
-        var dataGrid = $('#reqgridContainer').dxDataGrid('instance');
-        dataGrid.option("dataSource",
-            new DevExpress.data.CustomStore({
-                //key: "id",
-                load: function (loadOptions) {
-                    var params = {
-                        StoreID: $scope.item.StoreID,
-                        theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek,
-                        AllPositions: false,
-                        ProductRelated: true,
-                        ShowHourly: true
-                    };
+            })
+                .then(function (response) {
+                    wages = response.data;
+                }, function (response) {
+                    toaster.pop('warning', "Server Error", "Data Loading Error");
+                });
+            // $http.get(NG_SETTING.apiServiceBaseUri + "/api/LaborCostType", {
+            //     params: {
 
-                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
-                        .then(function (response) {
-                            return {
-                                data: response.data,
-                                totalCount: 10
-                            };
-                        }, function (response) {
-                            return $q.reject("Data Loading Error");
-                        });
-                }
-            }));
-        var dataGrid = $('#plangridContainer').dxDataGrid('instance');
-        dataGrid.option("dataSource",
-            new DevExpress.data.CustomStore({
-                //key: "id",
-                load: function (loadOptions) {
-                    var params = {
-                        StoreID: $scope.item.StoreID,
-                        theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek,
-                        AllPositions: false,
-                        ProductRelated: true,
-                        ShowHourly: true
-                    };
+            //     }
+            // })
+            //     .then(function (response) {
+            //         LaborCostTypes = response.data.Items;
+            //     }, function (response) {
+            //         toaster.pop('warning', "Server Error", "Data Loading Error");
+            //     });
 
-                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
-                        .then(function (response) {
-                            return {
-                                data: response.data,
-                                totalCount: 10
-                            };
-                        }, function (response) {
-                            return $q.reject("Data Loading Error");
-                        });
-                }
-            }));
-        var dataGrid = $('#costgridContainer').dxDataGrid('instance');
-        dataGrid.option("dataSource",
-            new DevExpress.data.CustomStore({
-                //key: "id",
-                load: function (loadOptions) {
-                    var params = {
-                        StoreID: $scope.item.StoreID,
-                        theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek,
-                        AllPositions: true,
-                        ProductRelated: true,
-                        ShowHourly: true
-                    };
+            var dataGrid = $('#costgridContainer').dxDataGrid('instance');
+            dataGrid.option("dataSource",
+                new DevExpress.data.CustomStore({
+                    //key: "id",
+                    load: function (loadOptions) {
+                        var params = {
+                            StoreID: $scope.item.StoreID,
+                            theYear: $scope.item.PeriodYear,
+                            theWeek: $scope.item.PeriodWeek,
+                            AllPositions: true,
+                            ProductRelated: true,
+                            ShowHourly: true
+                        };
 
-                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
-                        .then(function (response) {
-                            return {
-                                data: response.data,
-                                totalCount: 10
-                            };
-                        }, function (response) {
-                            return $q.reject("Data Loading Error");
-                        });
-                }
-            }));
-        var dataGrid = $('#productgridContainer').dxDataGrid('instance');
-        dataGrid.option("dataSource",
-            new DevExpress.data.CustomStore({
-                //key: "id",
-                load: function (loadOptions) {
-                    var params = {
-                        StoreID: $scope.item.StoreID,
-                        theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek,
-                        AllPositions: false,
-                        ProductRelated: true,
-                        ShowHourly: false
-                    };
+                        return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
+                            .then(function (response) {
+                                return {
+                                    data: response.data,
+                                    totalCount: 10
+                                };
+                            }, function (response) {
+                                return $q.reject("Data Loading Error");
+                            });
+                    }
+                }));
+            var dataGrid = $('#productgridContainer').dxDataGrid('instance');
+            dataGrid.option("dataSource",
+                new DevExpress.data.CustomStore({
+                    //key: "id",
+                    load: function (loadOptions) {
+                        var params = {
+                            StoreID: $scope.item.StoreID,
+                            theYear: $scope.item.PeriodYear,
+                            theWeek: $scope.item.PeriodWeek,
+                            AllPositions: false,
+                            ProductRelated: true,
+                            ShowHourly: false
+                        };
 
-                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
-                        .then(function (response) {
-                            return {
-                                data: response.data,
-                                totalCount: 10
-                            };
-                        }, function (response) {
-                            return $q.reject("Data Loading Error");
-                        });
-                }
-            }));
-        var dataGrid = $('#advstatgridContainer').dxDataGrid('instance');
-        dataGrid.option("dataSource",
-            new DevExpress.data.CustomStore({
-                //key: "id",
-                load: function (loadOptions) {
-                    var params = {
-                        StoreID: $scope.item.StoreID,
-                        theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek,
-                        AllPositions: false,
-                        ProductRelated: true,
-                        ShowHourly: true
-                    };
+                        return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
+                            .then(function (response) {
+                                return {
+                                    data: response.data,
+                                    totalCount: 10
+                                };
+                            }, function (response) {
+                                return $q.reject("Data Loading Error");
+                            });
+                    }
+                }));
+            var dataGrid = $('#advstatgridContainer').dxDataGrid('instance');
+            dataGrid.option("dataSource",
+                new DevExpress.data.CustomStore({
+                    //key: "id",
+                    load: function (loadOptions) {
+                        var params = {
+                            StoreID: $scope.item.StoreID,
+                            theYear: $scope.item.PeriodYear,
+                            theWeek: $scope.item.PeriodWeek,
+                            AllPositions: false,
+                            ProductRelated: true,
+                            ShowHourly: true
+                        };
 
-                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
-                        .then(function (response) {
-                            return {
-                                data: response.data,
-                                totalCount: 10
-                            };
-                        }, function (response) {
-                            return $q.reject("Data Loading Error");
-                        });
-                }
-            }));
-        var dataGrid = $('#advsalesgridContainer').dxDataGrid('instance');
-        dataGrid.option("dataSource",
-            new DevExpress.data.CustomStore({
-                //key: "id",
-                load: function (loadOptions) {
-                    var params = {
-                        StoreID: $scope.item.StoreID,
-                        theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek,
-                        AllPositions: true,
-                        ProductRelated: true,
-                        ShowHourly: true
-                    };
+                        return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
+                            .then(function (response) {
+                                return {
+                                    data: response.data,
+                                    totalCount: 10
+                                };
+                            }, function (response) {
+                                return $q.reject("Data Loading Error");
+                            });
+                    }
+                }));
+            var dataGrid = $('#advsalesgridContainer').dxDataGrid('instance');
+            dataGrid.option("dataSource",
+                new DevExpress.data.CustomStore({
+                    //key: "id",
+                    load: function (loadOptions) {
+                        var params = {
+                            StoreID: $scope.item.StoreID,
+                            theYear: $scope.item.PeriodYear,
+                            theWeek: $scope.item.PeriodWeek,
+                            AllPositions: true,
+                            ProductRelated: true,
+                            ShowHourly: true
+                        };
 
-                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
-                        .then(function (response) {
-                            return {
-                                data: response.data,
-                                totalCount: 10
-                            };
-                        }, function (response) {
-                            return $q.reject("Data Loading Error");
-                        });
-                }
-            }));
-        var dataGrid = $('#salesbytypegridContainer').dxDataGrid('instance');
-        dataGrid.option("dataSource",
-            new DevExpress.data.CustomStore({
-                //key: "id",
-                load: function (loadOptions) {
-                    var params = {
-                        StoreID: $scope.item.StoreID,
-                        theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek
-                    };
+                        return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceData", { params: params })
+                            .then(function (response) {
+                                return {
+                                    data: response.data,
+                                    totalCount: 10
+                                };
+                            }, function (response) {
+                                return $q.reject("Data Loading Error");
+                            });
+                    }
+                }));
+            //dataGrid.refresh(); 
 
-                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftSalesByOrderType", { params: params })
-                        .then(function (response) {
-                            return {
-                                data: response.data,
-                                totalCount: 10
-                            };
-                        }, function (response) {
-                            return $q.reject("Data Loading Error");
-                        });
-                }
-            }));
 
-        //dataGrid.refresh(); 
-        Restangular.all('user').getList({
-            pageNo: 1,
-            pageSize: 10000,
-            //search: "StoreID='" + $scope.item.StoreID + "'",
-        }).then(function (result) {
-            users = result;
-        }, function (response) {
-            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
-        });
-
-    }, function (restresult) {
-        toaster.pop('warning', "Server Error", restresult.data.ExceptionMessage);
-        swal("Hata!", "Warning");
-    })
+        }, function (restresult) {
+            toaster.pop('warning', "Server Error", restresult.data.ExceptionMessage);
+            swal("Hata!", "Warning");
+        })
+    }, function (response) {
+        toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+    });
     var hstep = ['-', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
         '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00',
         '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30',
-        '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00', '00:30', '00:45',
-        '01:00', '01:30', '02:00', '02:30', '03:00', '03:15', '03:30', '03:45', '04:00', '04:30'];
+        '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00', '00:30',
+        '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30'];
     $scope.summaryTabSelected = function () {
         var dataGrid = $('#advPivotContainer').dxPivotGrid('instance');
         dataGrid.option("dataSource",
@@ -538,7 +508,22 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     dataType: "number",
                     summaryType: "sum",
                     area: "data"
-                }],
+                },
+                    // {
+                    //     caption: "CostReq", dataField: "CostReq", dataType: "number", summaryType: "sum", area: "filter",
+                    //     format: {
+                    //         type: "fixedPoint",
+                    //         precision: 2
+                    //     }
+                    // },
+                    // {
+                    //     caption: "CostPlan", dataField: "CostPlan", dataType: "number", summaryType: "sum", area: "filter",
+                    //     format: {
+                    //         type: "fixedPoint",
+                    //         precision: 2
+                    //     }
+                    // },
+                ],
                 store: DevExpress.data.AspNet.createStore({
                     key: "id",
                     loadUrl: NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceDatav2",
@@ -582,30 +567,31 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
     }
     $scope.GetOffType = function (StaffOffTypeID) {
         if (StaffOffTypeID) {
-            var selected = $filter('filter')(OffTypes, {
-                id: StaffOffTypeID
+            var selected = OffTypes.filter(function (item) {
+                return item.id === StaffOffTypeID;
             });
             return (selected.length) ? selected[0].Name : "Not set";
         }
         return "N/A";
     };
+
     $scope.GetLaborCostTypeMaxHours = function (LaborCostTypeID) {
         if (LaborCostTypeID) {
-            var selected = $filter('filter')(LaborCostTypes, {
-                id: LaborCostTypeID
-            });
-            return (selected.length) ? selected[0].maxWorkingHours : 24.0;
+            var selected = LaborCostTypes.filter(function (item) {
+                return item.id === LaborCostTypeID;
+            });            
+            return (selected.length) ? selected[0].maxWorkingHours : 8.0;
         }
         return 24.0;
     };
     GetUserMaxHours = function (UserID) {
         if (UserID) {
-            var selected = $filter('filter')(users, {
-                id: UserID
+            var selected = users.filter(function (item) {
+                return item.id === UserID;
             });
-            return (selected.length) ? (selected[0].LaborCostType ? selected[0].LaborCostType.maxWorkingHours : 24.0) : 24.0;
+            return ((selected.length && selected[0].LaborCostType) ? selected[0].LaborCostType.maxWorkingHours : 8.0);
         }
-        return 24.0;
+        return 8.0;
     };
     $scope.tabPanelOptions = {
         height: 260,
@@ -639,29 +625,34 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         },
         "export": {
             enabled: true,
-            fileName: "Günlere Göre Ciro"
+            fileName: "StaffPlanSummary"
         },
         fieldPanel: {
             visible: true
         },
         onCellPrepared: function (e) {
-            if (e.area == 'data' && e.cell.value!=0)
-                if (e.cell.value<0) 
-                        e.cellElement.css({ 'color': '#f00' });
-                    else
-                        e.cellElement.css({ 'color': '#2ab71b' });
+            if (e.area == 'data' && e.cell.value != 0) {
+                if (e.cell.value < 0)
+                    e.cellElement.css({ 'color': '#f00' });
+                else
+                    e.cellElement.css({ 'color': '#2ab71b' });
+                //if (e.cell.rowPath.indexOf("Status")>-1)
+                e.cellElement.css({ 'font-weight': 'bold' });
+                // if (e.cell.value > 0)
+                //     e.cellElement.text("+" + e.cell.text);
+            }
         },
         customizeExcelCell: (options) => {
             var gridCell = options.gridCell;
             if (!gridCell) {
                 return;
             }
-            if (gridCell.column.dataField=='data') {
-                    if (gridCell.data[gridCell.column.dataField] > 0)
-                        options.font.color = '#008000';
-                    else
-                        options.font.color = '#FF0000';
-            }            
+            if (gridCell.column.dataField == 'data') {
+                if (gridCell.data[gridCell.column.dataField] > 0)
+                    options.font.color = '#008000';
+                else
+                    options.font.color = '#FF0000';
+            }
         }
     };
     $scope.advdataGridOptions = {
@@ -1407,12 +1398,12 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         rowAlternationEnabled: true,
         showBorders: true,
         allowColumnReordering: true,
-        filterRow: { visible: true },
+        //filterRow: { visible: true },
         //filterPanel: { visible: true },
-        headerFilter: { visible: true },
+        //headerFilter: { visible: true },
         grouping: { autoExpandAll: true },
         searchPanel: { visible: true },
-        groupPanel: { visible: true },
+        //groupPanel: { visible: true },
         editing: {
             allowAdding: true,
             allowUpdating: true,
@@ -1492,12 +1483,12 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             e.data.ShiftPlanID = $scope.item.id;
         },
         onRowInserted: function (e) {
-            var dataGrid = $('#advgridContainer').dxDataGrid('instance');
-            dataGrid.refresh();
+            // var dataGrid = $('#advgridContainer').dxDataGrid('instance');
+            // dataGrid.refresh();
         },
         onRowUpdated: function (e) {
-            var dataGrid = $('#advgridContainer').dxDataGrid('instance');
-            dataGrid.refresh();
+            // var dataGrid = $('#advgridContainer').dxDataGrid('instance');
+            // dataGrid.refresh();
         },
         onEditorPreparing: function (e) {
             if (e.parentType === "dataRow" && e.dataField === "NGUserID") {
@@ -2104,45 +2095,467 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     },
                     {
                         caption: $scope.trTotalHours,
-                        name: "TotalHours",
+                        name: "NormalHours",
                         visibleIndex: 12,
                         calculateCellValue: function (data) {
-                            return SumHours(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime, data.NGUserID) +
-                                SumHours(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime, data.NGUserID) +
-                                SumHours(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime, data.NGUserID) +
-                                SumHours(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime, data.NGUserID) +
-                                SumHours(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime, data.NGUserID) +
-                                SumHours(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime, data.NGUserID) +
-                                SumHours(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime, data.NGUserID);
+                            return GetNormalHours(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime, data.NGUserID) +
+                                GetNormalHours(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime, data.NGUserID) +
+                                GetNormalHours(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime, data.NGUserID) +
+                                GetNormalHours(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime, data.NGUserID) +
+                                GetNormalHours(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime, data.NGUserID) +
+                                GetNormalHours(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime, data.NGUserID) +
+                                GetNormalHours(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime, data.NGUserID);
                         },
                         format: { type: "fixedPoint", precision: 2 }
                     },
-
-
-
+                    {
+                        caption: $scope.trOvertime,
+                        name: "OvertimeHours",
+                        visibleIndex: 13,
+                        calculateCellValue: function (data) {
+                            return GetOvertimeHours(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime, data.NGUserID) +
+                                GetOvertimeHours(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime, data.NGUserID) +
+                                GetOvertimeHours(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime, data.NGUserID) +
+                                GetOvertimeHours(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime, data.NGUserID) +
+                                GetOvertimeHours(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime, data.NGUserID) +
+                                GetOvertimeHours(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime, data.NGUserID) +
+                                GetOvertimeHours(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime, data.NGUserID);
+                        },
+                        format: { type: "fixedPoint", precision: 2 }
+                    },
+                    {
+                        caption: $scope.trTotalAmount,
+                        name: "TotalAmount",
+                        visibleIndex: 14,
+                        calculateCellValue: function (data) {
+                            return LaborCost(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime, data.NGUserID, data.StaffPositionID) +
+                                LaborCost(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime, data.NGUserID, data.StaffPositionID) +
+                                LaborCost(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime, data.NGUserID, data.StaffPositionID) +
+                                LaborCost(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime, data.NGUserID, data.StaffPositionID) +
+                                LaborCost(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime, data.NGUserID, data.StaffPositionID) +
+                                LaborCost(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime, data.NGUserID, data.StaffPositionID) +
+                                LaborCost(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime, data.NGUserID, data.StaffPositionID);
+                        },
+                        format: { type: "fixedPoint", precision: 2 }
+                    },
                 ]
             }
         ],
         summary: {
             totalItems: [
                 {
-                    column: "TotalHours",
-                    name: "TotalHours",
+                    column: "NormalHours",
+                    name: "NormalHours",
                     summaryType: "sum",
                     valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}"
                     //, summaryType: "custom"
                     //    , valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" 
-                }
+                },
+                {
+                    column: "OvertimeHours",
+                    name: "OvertimeHours",
+                    summaryType: "sum",
+                    valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}"
+                    //, summaryType: "custom"
+                    //    , valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" 
+                },
+
+                {
+                    column: "TotalAmount",
+                    name: "TotalAmount",
+                    summaryType: "sum",
+                    valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}"
+                    //, summaryType: "custom"
+                    //    , valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" 
+                },
+                { name: "StaffD1", showInColumn: "Monday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Staff:{0}" },
+                { name: "StaffD2", showInColumn: "Tuesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Staff:{0}" },
+                { name: "StaffD3", showInColumn: "Wednesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Staff:{0}" },
+                { name: "StaffD4", showInColumn: "Thursday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Staff:{0}" },
+                { name: "StaffD5", showInColumn: "Friday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Staff:{0}" },
+                { name: "StaffD6", showInColumn: "Saturday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Staff:{0}" },
+                { name: "StaffD7", showInColumn: "Sunday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Staff:{0}" },
+                { name: "NormalHoursD1", showInColumn: "Monday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Hours:{0}" },
+                { name: "NormalHoursD2", showInColumn: "Tuesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Hours:{0}" },
+                { name: "NormalHoursD3", showInColumn: "Wednesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Hours:{0}" },
+                { name: "NormalHoursD4", showInColumn: "Thursday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Hours:{0}" },
+                { name: "NormalHoursD5", showInColumn: "Friday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Hours:{0}" },
+                { name: "NormalHoursD6", showInColumn: "Saturday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Hours:{0}" },
+                { name: "NormalHoursD7", showInColumn: "Sunday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Hours:{0}" },
+                { name: "OvertimeHoursD1", showInColumn: "Monday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "OverT:{0}" },
+                { name: "OvertimeHoursD2", showInColumn: "Tuesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "OverT:{0}" },
+                { name: "OvertimeHoursD3", showInColumn: "Wednesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "OverT:{0}" },
+                { name: "OvertimeHoursD4", showInColumn: "Thursday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "OverT:{0}" },
+                { name: "OvertimeHoursD5", showInColumn: "Friday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "OverT:{0}" },
+                { name: "OvertimeHoursD6", showInColumn: "Saturday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "OverT:{0}" },
+                { name: "OvertimeHoursD7", showInColumn: "Sunday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "OverT:{0}" },
+                { name: "LaborD1", showInColumn: "Monday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Cost:{0}" },
+                { name: "LaborD2", showInColumn: "Tuesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Cost:{0}" },
+                { name: "LaborD3", showInColumn: "Wednesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Cost:{0}" },
+                { name: "LaborD4", showInColumn: "Thursday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Cost:{0}" },
+                { name: "LaborD5", showInColumn: "Friday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Cost:{0}" },
+                { name: "LaborD6", showInColumn: "Saturday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Cost:{0}" },
+                { name: "LaborD7", showInColumn: "Sunday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "Cost:{0}" },
             ],
             calculateCustomSummary: function (options) {
-                if (options.name === "TotalHours") {
+                if (options.name === "StaffD1") {
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            //options.dg = 0;
                             break;
                         case "calculate":
-                            options.totalValue = options.totalValue + SumHours(options.value.D7ShiftStart, options.value.D7ShiftEnd, options.value.D7isOff, options.data.D7IgnoreOvertime, options.data.NGUserID);
+                            options.totalValue += (GetNormalHours(options.value.D1ShiftStart, options.value.D1ShiftEnd, options.value.D1isOff, options.value.D1IgnoreOvertime, options.value.NGUserID)>0?1:0);
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "StaffD2") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue += (GetNormalHours(options.value.D2ShiftStart, options.value.D2ShiftEnd, options.value.D2isOff, options.value.D2IgnoreOvertime, options.value.NGUserID)>0?1:0);
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "StaffD3") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue += (GetNormalHours(options.value.D3ShiftStart, options.value.D3ShiftEnd, options.value.D3isOff, options.value.D3IgnoreOvertime, options.value.NGUserID)>0?1:0);
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "StaffD4") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue += (GetNormalHours(options.value.D4ShiftStart, options.value.D4ShiftEnd, options.value.D4isOff, options.value.D4IgnoreOvertime, options.value.NGUserID)>0?1:0);
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "StaffD5") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue += (GetNormalHours(options.value.D5ShiftStart, options.value.D5ShiftEnd, options.value.D5isOff, options.value.D5IgnoreOvertime, options.value.NGUserID)>0?1:0);
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "StaffD6") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue += (GetNormalHours(options.value.D6ShiftStart, options.value.D6ShiftEnd, options.value.D6isOff, options.value.D6IgnoreOvertime, options.value.NGUserID)>0?1:0);
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "StaffD7") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue += (GetNormalHours(options.value.D7ShiftStart, options.value.D7ShiftEnd, options.value.D7isOff, options.value.D7IgnoreOvertime, options.value.NGUserID)>0?1:0);
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "NormalHoursD1") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetNormalHours(options.value.D1ShiftStart, options.value.D1ShiftEnd, options.value.D1isOff, options.value.D1IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "NormalHoursD2") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetNormalHours(options.value.D2ShiftStart, options.value.D2ShiftEnd, options.value.D2isOff, options.value.D2IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "NormalHoursD3") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetNormalHours(options.value.D3ShiftStart, options.value.D3ShiftEnd, options.value.D3isOff, options.value.D3IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "NormalHoursD4") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetNormalHours(options.value.D4ShiftStart, options.value.D4ShiftEnd, options.value.D4isOff, options.value.D4IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "NormalHoursD5") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetNormalHours(options.value.D5ShiftStart, options.value.D5ShiftEnd, options.value.D5isOff, options.value.D5IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "NormalHoursD6") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetNormalHours(options.value.D6ShiftStart, options.value.D6ShiftEnd, options.value.D6isOff, options.value.D6IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "NormalHoursD7") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetNormalHours(options.value.D7ShiftStart, options.value.D7ShiftEnd, options.value.D7isOff, options.value.D7IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "OvertimeHoursD1") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetOvertimeHours(options.value.D1ShiftStart, options.value.D1ShiftEnd, options.value.D1isOff, options.value.D1IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "OvertimeHoursD2") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetOvertimeHours(options.value.D2ShiftStart, options.value.D2ShiftEnd, options.value.D2isOff, options.value.D2IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "OvertimeHoursD3") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetOvertimeHours(options.value.D3ShiftStart, options.value.D3ShiftEnd, options.value.D3isOff, options.value.D3IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "OvertimeHoursD4") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetOvertimeHours(options.value.D4ShiftStart, options.value.D4ShiftEnd, options.value.D4isOff, options.value.D4IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "OvertimeHoursD5") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetOvertimeHours(options.value.D5ShiftStart, options.value.D5ShiftEnd, options.value.D5isOff, options.value.D5IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "OvertimeHoursD6") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetOvertimeHours(options.value.D6ShiftStart, options.value.D6ShiftEnd, options.value.D6isOff, options.value.D6IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "OvertimeHoursD7") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (GetOvertimeHours(options.value.D7ShiftStart, options.value.D7ShiftEnd, options.value.D7isOff, options.value.D7IgnoreOvertime, options.value.NGUserID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "LaborD1") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (LaborCost(options.value.D1ShiftStart, options.value.D1ShiftEnd, options.value.D1isOff, options.value.D1IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "LaborD2") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (LaborCost(options.value.D2ShiftStart, options.value.D2ShiftEnd, options.value.D2isOff, options.value.D2IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "LaborD3") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (LaborCost(options.value.D3ShiftStart, options.value.D3ShiftEnd, options.value.D3isOff, options.value.D3IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "LaborD4") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (LaborCost(options.value.D4ShiftStart, options.value.D4ShiftEnd, options.value.D4isOff, options.value.D4IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "LaborD5") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (LaborCost(options.value.D5ShiftStart, options.value.D5ShiftEnd, options.value.D5isOff, options.value.D5IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "LaborD6") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (LaborCost(options.value.D6ShiftStart, options.value.D6ShiftEnd, options.value.D6isOff, options.value.D6IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID));
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue;
+                            break;
+                    }
+                }
+                if (options.name === "LaborD7") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            break;
+                        case "calculate":
+                            options.totalValue = options.totalValue + (LaborCost(options.value.D7ShiftStart, options.value.D7ShiftEnd, options.value.D7isOff, options.value.D7IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID));
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue;
@@ -2171,7 +2584,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd, e.data.D1isOff, e.data.D1IgnoreOvertime) == 0 || SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd, e.data.D1isOff, e.data.D1IgnoreOvertime, e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd, e.data.D1isOff, e.data.D1IgnoreOvertime) == 0 || SumHours(e.data.D1ShiftStart, e.data.D1ShiftEnd, e.data.D1isOff, e.data.D1IgnoreOvertime, e.data.NGUserID) > 8.0) {
                             if (e.column.name === 'Monday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -2193,7 +2606,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd, e.data.D2isOff, e.data.D2IgnoreOvertime) == 0 || SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd, e.data.D2isOff, e.data.D2IgnoreOvertime, e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd, e.data.D2isOff, e.data.D2IgnoreOvertime) == 0 || SumHours(e.data.D2ShiftStart, e.data.D2ShiftEnd, e.data.D2isOff, e.data.D2IgnoreOvertime, e.data.NGUserID) > 8.0) {
                             if (e.column.name === 'Tuesday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -2214,7 +2627,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd, e.data.D3isOff, e.data.D3IgnoreOvertime) == 0 || SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd, e.data.D3isOff, e.data.D3IgnoreOvertime, e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd, e.data.D3isOff, e.data.D3IgnoreOvertime) == 0 || SumHours(e.data.D3ShiftStart, e.data.D3ShiftEnd, e.data.D3isOff, e.data.D3IgnoreOvertime, e.data.NGUserID) > 8.0) {
                             if (e.column.name === 'Wednesday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -2235,7 +2648,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd, e.data.D4isOff, e.data.D4IgnoreOvertime) == 0 || SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd, e.data.D4isOff, e.data.D4IgnoreOvertime, e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd, e.data.D4isOff, e.data.D4IgnoreOvertime) == 0 || SumHours(e.data.D4ShiftStart, e.data.D4ShiftEnd, e.data.D4isOff, e.data.D4IgnoreOvertime, e.data.NGUserID) > 8.0) {
                             if (e.column.name === 'Thursday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -2256,7 +2669,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd, e.data.D5isOff, e.data.D5IgnoreOvertime) == 0 || SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd, e.data.D5isOff, e.data.D5IgnoreOvertime, e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd, e.data.D5isOff, e.data.D5IgnoreOvertime) == 0 || SumHours(e.data.D5ShiftStart, e.data.D5ShiftEnd, e.data.D5isOff, e.data.D5IgnoreOvertime, e.data.NGUserID) > 8.0) {
                             if (e.column.name === 'Friday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -2277,7 +2690,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd, e.data.D6isOff, e.data.D6IgnoreOvertime) == 0 || SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd, e.data.D6isOff, e.data.D6IgnoreOvertime, e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd, e.data.D6isOff, e.data.D6IgnoreOvertime) == 0 || SumHours(e.data.D6ShiftStart, e.data.D6ShiftEnd, e.data.D6isOff, e.data.D6IgnoreOvertime, e.data.NGUserID) > 8.0) {
                             if (e.column.name === 'Saturday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -2299,7 +2712,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         }
                     }
                     else {
-                        if (SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd, e.data.D7isOff, e.data.D7IgnoreOvertime) == 0 || SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd, e.data.D7isOff, e.data.D7IgnoreOvertime, e.data.NGUserID) > 8.5) {
+                        if (SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd, e.data.D7isOff, e.data.D7IgnoreOvertime) == 0 || SumHours(e.data.D7ShiftStart, e.data.D7ShiftEnd, e.data.D7isOff, e.data.D7IgnoreOvertime, e.data.NGUserID) > 8.0) {
                             if (e.column.name === 'Sunday') {
                                 e.cellElement.css({ 'color': '#f00' });
                             }
@@ -2331,7 +2744,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd, gridCell.data.D1isOff, gridCell.data.D1IgnoreOvertime) == 0 || SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd, gridCell.data.D1isOff, gridCell.data.D1IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd, gridCell.data.D1isOff, gridCell.data.D1IgnoreOvertime) == 0 || SumHours(gridCell.data.D1ShiftStart, gridCell.data.D1ShiftEnd, gridCell.data.D1isOff, gridCell.data.D1IgnoreOvertime, gridCell.data.NGUserID) > 8.0) {
                                 if (gridCell.column.name === 'Monday')
                                     options.font.color = '#FF0000';
                             }
@@ -2354,7 +2767,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd, gridCell.data.D2isOff, gridCell.data.D2IgnoreOvertime) == 0 || SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd, gridCell.data.D2isOff, gridCell.data.D2IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd, gridCell.data.D2isOff, gridCell.data.D2IgnoreOvertime) == 0 || SumHours(gridCell.data.D2ShiftStart, gridCell.data.D2ShiftEnd, gridCell.data.D2isOff, gridCell.data.D2IgnoreOvertime, gridCell.data.NGUserID) > 8.0) {
                                 if (gridCell.column.name === 'Tuesday')
                                     options.font.color = '#FF0000';
                             }
@@ -2377,7 +2790,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd, gridCell.data.D3isOff, gridCell.data.D3IgnoreOvertime) == 0 || SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd, gridCell.data.D3isOff, gridCell.data.D3IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd, gridCell.data.D3isOff, gridCell.data.D3IgnoreOvertime) == 0 || SumHours(gridCell.data.D3ShiftStart, gridCell.data.D3ShiftEnd, gridCell.data.D3isOff, gridCell.data.D3IgnoreOvertime, gridCell.data.NGUserID) > 8.0) {
                                 if (gridCell.column.name === 'Wednesday')
                                     options.font.color = '#FF0000';
                             }
@@ -2400,7 +2813,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd, gridCell.data.D4isOff, gridCell.data.D4IgnoreOvertime) == 0 || SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd, gridCell.data.D4isOff, gridCell.data.D4IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd, gridCell.data.D4isOff, gridCell.data.D4IgnoreOvertime) == 0 || SumHours(gridCell.data.D4ShiftStart, gridCell.data.D4ShiftEnd, gridCell.data.D4isOff, gridCell.data.D4IgnoreOvertime, gridCell.data.NGUserID) > 8.0) {
                                 if (gridCell.column.name === 'Thursday')
                                     options.font.color = '#FF0000';
                             }
@@ -2423,7 +2836,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd, gridCell.data.D5isOff, gridCell.data.D5IgnoreOvertime) == 0 || SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd, gridCell.data.D5isOff, gridCell.data.D5IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd, gridCell.data.D5isOff, gridCell.data.D5IgnoreOvertime) == 0 || SumHours(gridCell.data.D5ShiftStart, gridCell.data.D5ShiftEnd, gridCell.data.D5isOff, gridCell.data.D5IgnoreOvertime, gridCell.data.NGUserID) > 8.0) {
                                 if (gridCell.column.name === 'Friday')
                                     options.font.color = '#FF0000';
                             }
@@ -2446,7 +2859,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd, gridCell.data.D6isOff, gridCell.data.D6IgnoreOvertime) == 0 || SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd, gridCell.data.D6isOff, gridCell.data.D6IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd, gridCell.data.D6isOff, gridCell.data.D6IgnoreOvertime) == 0 || SumHours(gridCell.data.D6ShiftStart, gridCell.data.D6ShiftEnd, gridCell.data.D6isOff, gridCell.data.D6IgnoreOvertime, gridCell.data.NGUserID) > 8.0) {
                                 if (gridCell.column.name === 'Saturday')
                                     options.font.color = '#FF0000';
                             }
@@ -2469,7 +2882,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
                         }
                         else {
-                            if (SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd, gridCell.data.D7isOff, gridCell.data.D7IgnoreOvertime) == 0 || SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd, gridCell.data.D7isOff, gridCell.data.D7IgnoreOvertime, gridCell.data.NGUserID) > 8.5) {
+                            if (SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd, gridCell.data.D7isOff, gridCell.data.D7IgnoreOvertime) == 0 || SumHours(gridCell.data.D7ShiftStart, gridCell.data.D7ShiftEnd, gridCell.data.D7isOff, gridCell.data.D7IgnoreOvertime, gridCell.data.NGUserID) > 8.0) {
                                 if (gridCell.column.name === 'Sunday')
                                     options.font.color = '#FF0000';
                             }

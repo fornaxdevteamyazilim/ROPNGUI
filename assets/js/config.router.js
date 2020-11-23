@@ -1381,6 +1381,33 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'staffshiftdiff'
             }
+        }).state('app.reports.staffshiftreports.weeklycol', {
+            url: '/weeklycol',
+            templateUrl: "assets/views/reports/staffshiftreports/weeklycol.html",
+            resolve: loadSequence('weeklycolCtrl'),
+            title: 'weekly col',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'weeklycol'
+            }
+        }).state('app.reports.staffshiftreports.staffcost', {
+            url: '/staffcost',
+            templateUrl: "assets/views/reports/staffshiftreports/staffcost.html",
+            resolve: loadSequence('staffcostCtrl'),
+            title: 'Staff Cost',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'staffcost'
+            }
+        }).state('app.reports.staffshiftreports.staffcostdetail', {
+            url: '/staffcostdetail',
+            templateUrl: "assets/views/reports/staffshiftreports/staffcostdetail.html",
+            resolve: loadSequence('staffcostdetailCtrl'),
+            title: 'Staff Cost Detail',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'staffcostdetail'
+            }
         }).state('app.reports.staffshiftreports.diffbyhour', {
             url: '/diffbyhour',
             templateUrl: "assets/views/reports/staffshiftreports/diffbyhour.html",

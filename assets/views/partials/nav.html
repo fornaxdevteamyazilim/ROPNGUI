@@ -1747,6 +1747,27 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
+                        <a ui-sref="app.reports.staffshiftreports.weeklycol"
+                            ng-if="user.restrictions.weeklycolreport=='Enable'">
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.WEEKLYCOLREPORT">Weekly COL</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.staffshiftreports.staffcost"
+                            ng-if="user.restrictions.staffcostreport=='Enable'">
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.STAFFCOSTREPORT">Staff Cost of Labor</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.staffshiftreports.staffcostdetail"
+                            ng-if="user.restrictions.staffcostdetailreport=='Enable'">
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.STAFFCOSTDETAILREPORT">Staff Cost Detail</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
                         <a ui-sref="app.reports.staffshiftreports.diffbyhour"
                             ng-if="user.restrictions.diffbyhour=='Enable'">
                             <i class="ti-files"></i><span class="title"
