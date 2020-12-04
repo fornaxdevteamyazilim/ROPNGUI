@@ -1754,6 +1754,13 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
+                        <a ui-sref="app.reports.staffshiftreports.weeklycolsummary"
+                            ng-if="user.restrictions.weeklycolsummaryreport=='Enable'">
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.WEEKLYCOLSUMMARYREPORT">Weekly COL</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
                         <a ui-sref="app.reports.staffshiftreports.staffcost"
                             ng-if="user.restrictions.staffcostreport=='Enable'">
                             <i class="ti-files"></i><span class="title"

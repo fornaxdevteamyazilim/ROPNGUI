@@ -6,6 +6,8 @@ function laborcosttypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         $scope.trDescription = $translate.instant('main.DESCRIPTION');
         $scope.trName = $translate.instant('main.NAME');
         $scope.trCommands = $translate.instant('main.COMMANDS');
+        $scope.trisPaid = $translate.instant('main.ISPAID');
+        $scope.trMaxWorkingHours=$translate.instant('main.MAXWORKINGHOURS');
     }
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED

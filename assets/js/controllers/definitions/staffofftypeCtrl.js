@@ -6,6 +6,7 @@ function staffofftypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
         $scope.trDescription = $translate.instant('main.DESCRIPTION');
         $scope.trName = $translate.instant('main.NAME');
         $scope.trisPaid = $translate.instant('main.ISPAID');
+        $scope.trisDefault = $translate.instant('main.ISDEFAULT');
         $scope.trCommands = $translate.instant('main.COMMANDS');
     }
     $scope.translate();

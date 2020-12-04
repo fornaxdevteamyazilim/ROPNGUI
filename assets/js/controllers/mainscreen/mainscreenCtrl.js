@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('mainscreenCtrl', mainscreenCtrl);
-function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $interval, ngTableParams, toaster, $window, Restangular, $stateParams, $rootScope, $anchorScroll, $location, userService, localStorageService, callsService, ngAudio, $translate, authService, NG_SETTING, ngnotifyService, $element) {
+function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval, toaster, Restangular, $rootScope, $location, userService, ngAudio, $translate, ngnotifyService, $element) {
     $rootScope.uService.EnterController("mainscreenCtrl");
     var OrderRefreshTimeOut;
     var Departments = [];
@@ -19,7 +19,8 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
         $scope.totalorders = $translate.instant('main.TOTALORDERS');
         if (StoreOrderTypes)
             angular.forEach(StoreOrderTypes, function (StoreOrderType) {
-                StoreOrderType.OrderType = $translate.instant(StoreOrderType.OrderType)
+                StoreOrderType.OrderType = $translate.instant(StoreOrderType.OrderType);
+                //StoreOrderType.OrderType = $translate.instant('OrderType.'+StoreOrderType.OrderType);
             });
         $scope.txtORDERLIST = $translate.instant('main.ORDERLIST');
         $scope.txtKITCHENDISPLAY = $translate.instant('main.KITCHENDISPLAY');
@@ -42,11 +43,14 @@ function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $in
         $scope.accept = $translate.instant('main.ACCEPT');
 
     };
+    $scope.StoreOrderTypes=[];
     if ($rootScope.user && $rootScope.user.Store) {
-        $scope.translate($rootScope.user.Store.StoreOrderTypes);
+        $scope.StoreOrderTypes=angular.copy($rootScope.user.Store.StoreOrderTypes);
+        $scope.translate($scope.StoreOrderTypes);
     }
     var deregistration1 = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
-        $scope.translate($rootScope.user.Store.StoreOrderTypes);
+        $scope.StoreOrderTypes=angular.copy($rootScope.user.Store.StoreOrderTypes);
+        $scope.translate($scope.StoreOrderTypes);
     });
     var NewOrderfresh = $scope.$on('NewOrder', function (event, data) {
         $scope.GetNewOrderCount();

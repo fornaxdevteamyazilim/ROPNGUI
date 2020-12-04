@@ -103,9 +103,10 @@ function scheduletypeeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
     });
 };
 app.controller('scheduletypetimerangesCtrl', scheduletypetimerangesCtrl);
-function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, ngnotifyService, $element) {
+function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, ngnotifyService, $element, $translate) {
     $rootScope.uService.EnterController("scheduletypetimerangesCtrl");
     var sttr = this;
+        
     $scope.date = $filter('date')(ngnotifyService.ServerTime(), 'HH:mm');
     $scope.saveData = function (item) {
         if (this.item.restangularized && item.id) {

@@ -1390,6 +1390,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'weeklycol'
             }
+        }).state('app.reports.staffshiftreports.weeklycolsummary', {
+            url: '/weeklycolsummary',
+            templateUrl: "assets/views/reports/staffshiftreports/weeklycolsummary.html",
+            resolve: loadSequence('weeklycolsummaryCtrl'),
+            title: 'weekly col summary',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'weeklycolsummary'
+            }
         }).state('app.reports.staffshiftreports.staffcost', {
             url: '/staffcost',
             templateUrl: "assets/views/reports/staffshiftreports/staffcost.html",

@@ -49,14 +49,14 @@
                                 <span editable-bstime="item.StartTime" e-name="StartTime" e-ng-model="item.StartTime" e-form="rowform"
                                       e-required e-show-meridian="false" e-style="width: 20vw;">
                                     <!--{{ GetRawDate(item.StartTime)}}-->
-                                    {{item.StartTime}}
+                                    {{item.StartTime | date:"HH:mm" }}
                                 </span>
                             </td>
                             <td data-title="trEndTime" data-sortable="'EndTime'" style="width:45%">
                                 <span editable-bstime="item.EndTime" e-name="EndTime" e-ng-model="item.EndTime" e-form="rowform"
                                       e-required e-show-meridian="false" e-style="width: 20vw;">
                                     <!--{{ GetRawDate(item.EndTime)}}-->
-                                    {{item.EndTime}}
+                                    {{item.EndTime| date:"HH:mm"}}
                                 </span>
                             </td>
                             <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">

@@ -38,6 +38,11 @@
                             {{ item.isPaid  && "True" || "False"}}
                         </span>
                     </td>
+                    <td data-title="trisDefault" data-sortable="'isDefault'" style="width:15%">
+                        <span class="text-capitalize" editable-checkbox="item.isDefault " e-name="isDefault " e-form="rowform" e-ng-model="item.isDefault " e-ng-true-value="true" e-ng-false-value="false" e-style="width:10vw;">
+                            {{ item.isDefault  && "True" || "False"}}
+                        </span>
+                    </td>
                     <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                         <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
                               shown="inserted == item|| !item.id">
