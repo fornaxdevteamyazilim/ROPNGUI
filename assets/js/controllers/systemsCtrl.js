@@ -63,7 +63,7 @@
                     $scope.SelectedItem = items[0].id;
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error', "Server error", response);
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response);
                     SweetAlert.swal("Server error!", angular.toJson(response, false), "error");
                 });
             }

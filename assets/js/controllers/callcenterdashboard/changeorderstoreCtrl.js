@@ -11,7 +11,7 @@ function changeorderstoreCtrl($rootScope,$translate, $scope, $modalInstance, ite
             angular.copy(items,$scope.Stores);
             $scope.LoadOrder();
         }, function (response) {
-            toaster.pop('error', "Server Error", responsedata.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), responsedata.ExceptionMessage);
         });
 
     }
@@ -21,7 +21,7 @@ function changeorderstoreCtrl($rootScope,$translate, $scope, $modalInstance, ite
                 $scope.order= angular.copy(restresult);
              },
             function (restresult) {
-                swal("Error!", "Data Error!", restresult.data.ExceptionMessage);
+                swal("Error!", $translate.instant('Server.DataError'), restresult.data.ExceptionMessage);
             })
     };
     $scope.CopyOrder = function (order) {
@@ -52,10 +52,10 @@ function changeorderstoreCtrl($rootScope,$translate, $scope, $modalInstance, ite
         Restangular.restangularizeElement('', ordertosave, 'order');
         if (ordertosave.restangularized && ordertosave.id) {
             ordertosave.put().then(function (resp) {
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success',$translate.instant('accounting.Updated'), $translate.instant('accounting.Updated'));
                 $scope.ok();
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

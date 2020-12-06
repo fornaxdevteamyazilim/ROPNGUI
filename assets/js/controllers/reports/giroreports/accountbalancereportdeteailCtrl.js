@@ -20,7 +20,7 @@ function accountbalancereportdeteailCtrl($scope, $modalInstance, item, $filter, 
                $defer.resolve(items);
            }, function (response) {
                $scope.isWaiting = false;
-               toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+               toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
            });
        }
    });

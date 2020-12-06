@@ -45,7 +45,7 @@ function storecashcontrolCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
 
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {
@@ -110,7 +110,7 @@ function storecashcontrolCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

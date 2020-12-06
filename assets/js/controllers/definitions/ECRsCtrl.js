@@ -38,7 +38,7 @@ function ECRsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restang
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         });
@@ -46,14 +46,14 @@ function ECRsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restang
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 ecr.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success', $translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'ECR')
             data.post().then(function (res) {
                 ecr.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', $translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
             });
             data.get();
         }
@@ -71,9 +71,9 @@ function ECRsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restang
         rowform.$cancel();
         if (!ecr.tableParams.data[ecr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ecr.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.removeItem = function (index) {
@@ -126,7 +126,7 @@ function ECRsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restang
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -135,7 +135,7 @@ function ECRsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restang
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Errorı", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

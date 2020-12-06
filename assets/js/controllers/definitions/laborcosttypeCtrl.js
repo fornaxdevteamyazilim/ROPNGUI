@@ -6,8 +6,6 @@ function laborcosttypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         $scope.trDescription = $translate.instant('main.DESCRIPTION');
         $scope.trName = $translate.instant('main.NAME');
         $scope.trCommands = $translate.instant('main.COMMANDS');
-        $scope.trisPaid = $translate.instant('main.ISPAID');
-        $scope.trMaxWorkingHours=$translate.instant('main.MAXWORKINGHOURS');
     }
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
@@ -17,14 +15,14 @@ function laborcosttypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 lct.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'laborcosttype')
             data.post().then(function (res) {
                 lct.tableParams.reload();
-                toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('difinitions.Saved'),$translate.instant('difinitions.Saved'));
             });
             data.get();
         }
@@ -42,9 +40,9 @@ function laborcosttypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         rowform.$cancel();
         if (!lct.tableParams.data[lct.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(lct.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
         }
     };
     lct.tableParams = new ngTableParams({
@@ -65,7 +63,7 @@ function laborcosttypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });

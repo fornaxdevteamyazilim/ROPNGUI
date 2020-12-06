@@ -24,9 +24,9 @@ function inventoryrecipelistCtrl($rootScope, $scope, $log, $modal, SweetAlert, R
         rowform.$cancel();
         if (!ir.tableParams.data[ir.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ir.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     ir.tableParams = new ngTableParams({
@@ -43,7 +43,7 @@ function inventoryrecipelistCtrl($rootScope, $scope, $log, $modal, SweetAlert, R
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });

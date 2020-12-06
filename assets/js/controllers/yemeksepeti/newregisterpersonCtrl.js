@@ -38,7 +38,7 @@ function newregisterpersonCtrl($rootScope, $scope, $modalInstance, $filter, item
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
                 $scope.item.personID = resp.id;
-                toaster.pop("success",$translate.instant('personfile.DataUpdated '), "Updated!");
+                toaster.pop("success",$translate.instant('personfile.DataUpdated '), $translate.instant('yemeksepetifile.Updated'));
             });
         }
         else {
@@ -51,7 +51,7 @@ function newregisterpersonCtrl($rootScope, $scope, $modalInstance, $filter, item
                 toaster.pop('warning',  $translate.instant('yemeksepetifile.Selectaddress '));
             } else {
                 data.post().then(function (resp) {
-                    toaster.pop("success", $translate.instant('personfile.DataSaved'), "Saved!");
+                    toaster.pop("success", $translate.instant('personfile.DataSaved'), $translate.instant('yemeksepetifile.Saved'));
                     $scope.item.personID = resp.id;
                     var phone = ({ PersonID: resp.id, Number: data.PersonPhone })
                     $scope.SavePhoneNumber(phone);
@@ -92,13 +92,13 @@ function newregisterpersonCtrl($rootScope, $scope, $modalInstance, $filter, item
         Restangular.restangularizeElement('', personAddress, 'person_deliveryaddress');
         if (personAddress.restangularized && personAddress.id) {
             personAddress.put().then(function (resp) {
-                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated!');
+                toaster.pop('success', $translate.instant('yemeksepetifile.Updated'), $translate.instant('yemeksepetifile.Updated'));
                 $scope.ok();
             });
         }
         else {
             personAddress.post().then(function (resp) {
-                toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved!');
+                toaster.pop('success',$translate.instant('yemeksepetifile.Saved'), $translate.instant('yemeksepetifile.Saved'));
                 $scope.ok();
             });
         }
@@ -115,7 +115,7 @@ function newregisterpersonCtrl($rootScope, $scope, $modalInstance, $filter, item
             Restangular.all(EntityType).getList().then(function (result) {
                 angular.copy(result.plain(), $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

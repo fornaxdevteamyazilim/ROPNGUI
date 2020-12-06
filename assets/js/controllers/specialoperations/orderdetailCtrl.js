@@ -25,7 +25,7 @@ function orderdetailCtrl($rootScope, $scope, $translate, RelatedID, $modalInstan
         }).then(function (_orderItems) {
             $scope.orderItems = angular.copy(_orderItems);
         }, function (response) {
-            toaster.pop('error', "Server Error", response);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response);
             SweetAlert.swal("Server Error!", angular.toJson(response, false), "error");
         });
     };

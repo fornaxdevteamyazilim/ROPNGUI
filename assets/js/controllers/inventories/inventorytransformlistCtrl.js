@@ -69,7 +69,7 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
                 $defer.resolve(items);
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
             }
 
@@ -91,7 +91,7 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
                     $scope.RepositoryID = result[0].id;
                 }
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -111,7 +111,7 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -120,7 +120,7 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -138,11 +138,11 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
     };
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { itr.tableParams.reload(); toaster.pop('success', "Updated.", 'Updated.'); });
+            data.put().then(function (res) { itr.tableParams.reload(); toaster.pop('success', $translate.instant('invantories.Updated'),$translate.instant('invantories.Updated')); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { itr.tableParams.reload(); toaster.pop('success', "Saved.", 'Saved.'); });
+            data.post().then(function (res) { itr.tableParams.reload(); toaster.pop('success', $translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved')); });
             data.get();
         }
 
@@ -160,9 +160,9 @@ function inventorytransformlistCtrl($scope, $log, $modal, $filter, SweetAlert, R
         rowform.$cancel();
         if (!itr.tableParams.data[itr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(itr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         }
     };
     $scope.removeItem = function (index) {

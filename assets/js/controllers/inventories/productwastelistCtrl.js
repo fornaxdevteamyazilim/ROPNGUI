@@ -51,7 +51,7 @@ function productwastelistCtrl($scope, $log, $modal, Restangular, ngTableParams, 
             }).then(function (result) {
                 $scope.productwaste = result;
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -63,9 +63,9 @@ function productwastelistCtrl($scope, $log, $modal, Restangular, ngTableParams, 
         rowform.$cancel();
         if (!pw.tableParams.data[pw.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pw.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     pw.tableParams = new ngTableParams({
@@ -83,7 +83,7 @@ function productwastelistCtrl($scope, $log, $modal, Restangular, ngTableParams, 
                      params.total(items.paging.totalRecordCount);
                      $defer.resolve(items);
                  }, function (response) {
-                     toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                     toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                  });
              }
          }
@@ -107,7 +107,7 @@ function productwastelistCtrl($scope, $log, $modal, Restangular, ngTableParams, 
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -116,7 +116,7 @@ function productwastelistCtrl($scope, $log, $modal, Restangular, ngTableParams, 
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };

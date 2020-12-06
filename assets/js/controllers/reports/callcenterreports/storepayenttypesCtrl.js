@@ -46,7 +46,7 @@ function storepayenttypesCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             $scope.DailyTotals = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.LoadDailyTotals();

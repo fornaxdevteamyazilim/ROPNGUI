@@ -96,9 +96,9 @@ function inventorydemandruleitemCtrl($scope, $log, $modal, $filter, SweetAlert, 
         rowform.$cancel();
         if (!idri.tableParams.data[idri.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(idri.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'),$translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.removeItem = function (index) {
@@ -143,7 +143,7 @@ function inventorydemandruleitemCtrl($scope, $log, $modal, $filter, SweetAlert, 
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };

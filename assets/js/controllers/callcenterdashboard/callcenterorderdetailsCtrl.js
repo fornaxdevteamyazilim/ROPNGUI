@@ -33,8 +33,8 @@ function callcenterorderdetailsCtrl($rootScope, $scope, $log, $modal, $filter, S
                      params.total(items.paging.totalRecordCount);
                      $defer.resolve(items);
                  }, function (response) {
-                     toaster.pop('error', "Server Error", response);
-                     SweetAlert.swal("Server Error ", angular.toJson(response.data.ExceptionMessage, false), "error");
+                     toaster.pop('error', $translate.instant('Server.ServerError'), response);
+                     SweetAlert.swal($translate.instant('Server.ServerError'), angular.toJson(response.data.ExceptionMessage, false), "error");
                  });
              }
          });

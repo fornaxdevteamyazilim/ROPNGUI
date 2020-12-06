@@ -18,7 +18,7 @@ function addcashCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $wi
             $scope.ok();
             return $scope.AddCash = result;
         }, function (response) {
-            toaster.pop('error', "Server Error", response);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response);
         });
     };
     $scope.ok = function () {

@@ -22,11 +22,11 @@ function storeregionCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableP
     };
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { sr.tableParams.reload(); toaster.pop('success',$translate.instant('orderfile.Updated') , 'Updated.'); });
+            data.put().then(function (res) { sr.tableParams.reload(); toaster.pop('success',$translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated')); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { sr.tableParams.reload(); toaster.pop('success', $translate.instant('orderfile.Saved') , 'Saved.'); });
+            data.post().then(function (res) { sr.tableParams.reload(); toaster.pop('success', $translate.instant('orderfile.Saved') , $translate.instant('orderfile.Saved')); });
             data.get();
         }
     };
@@ -45,9 +45,9 @@ function storeregionCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableP
         rowform.$cancel();
         if (!sr.tableParams.data[sr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     sr.tableParams = new ngTableParams({
@@ -69,7 +69,7 @@ function storeregionCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableP
                     $scope.SelectedItem = (items && items.length > 0) ? items[0].id : null;
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         });

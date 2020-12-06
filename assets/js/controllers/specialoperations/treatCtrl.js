@@ -9,18 +9,18 @@ function treatCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParams,
                    OrderItemID: data.items[0].id,
                }
            ).then(function (result) {
-               toaster.pop('success', $translate.instant('orderfile.Saved'), 'SAVED');
+               toaster.pop('success', $translate.instant('orderfile.Saved'),  $translate.instant('orderfile.Saved'));
                SweetAlert.swal("Success", $translate.instant('orderfile.YourOrderMarkedNonPayment'), "success");
                $scope.ok();
            }, function (response) {
-               toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+               toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
            });
     };
     $scope.SaveOrder = function (data) {
         data.PaymentStatusID = 3
         Restangular.restangularizeElement('', data, 'order')
         data.post().then(function (res) {
-            toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+            toaster.pop('success', $translate.instant('orderfile.Saved'),  $translate.instant('orderfile.Saved'));
         });
         data.get();
     };
@@ -33,7 +33,7 @@ function treatCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParams,
         }).then(function (result) {
             $scope.orders = result;
         }, function (response) {
-            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();

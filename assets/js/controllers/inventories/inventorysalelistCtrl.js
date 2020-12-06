@@ -61,7 +61,7 @@ function inventorysalelistCtrl($scope, $log, $modal, Restangular, ngTableParams,
             }).then(function (result) {
                 $scope.inventorysale = result;
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -73,9 +73,9 @@ function inventorysalelistCtrl($scope, $log, $modal, Restangular, ngTableParams,
         rowform.$cancel();
         if (!isl.tableParams.data[isl.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(isl.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     isl.tableParams = new ngTableParams({
@@ -92,7 +92,7 @@ function inventorysalelistCtrl($scope, $log, $modal, Restangular, ngTableParams,
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error', "Server Error ", response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         }
@@ -115,7 +115,7 @@ function inventorysalelistCtrl($scope, $log, $modal, Restangular, ngTableParams,
             }).then(function (result) {
                 $scope.company = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -132,7 +132,7 @@ function inventorysalelistCtrl($scope, $log, $modal, Restangular, ngTableParams,
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error ", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

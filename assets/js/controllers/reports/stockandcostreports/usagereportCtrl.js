@@ -9,7 +9,7 @@ function usagereportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
        }).then(function (result) {
        $scope.VeiwHeader = result[0];
    }, function (response) {
-       toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+       toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
    });
     }
     $scope.periods = [];
@@ -29,7 +29,7 @@ function usagereportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
                 $scope.EndDate = moment().add(1, 'days').format('YYYY-MM-DD ');
             }
         }, function (response) {
-            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     }
     $scope.Time = ngnotifyService.ServerTime();
@@ -59,7 +59,7 @@ function usagereportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
                 $scope.TotalUnit += result[i].UnitCount;
             }}, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.GetSoreID = function (data) {
@@ -87,7 +87,7 @@ function usagereportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

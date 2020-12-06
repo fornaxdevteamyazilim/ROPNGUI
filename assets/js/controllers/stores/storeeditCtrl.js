@@ -1,5 +1,5 @@
 ﻿app.controller('storeeditCtrl', storeeditCtrl);
-function storeeditCtrl($scope, SweetAlert, Restangular, $modal, toaster, $window, $stateParams, $rootScope, $location, $translate, userService, $element) {
+function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, $modal, toaster, $window, $stateParams, $rootScope, $location, $translate, userService, $element) {
     $rootScope.uService.EnterController("storeeditCtrl");
     var vm = this;
     userService.userAuthorizated();
@@ -61,8 +61,8 @@ function storeeditCtrl($scope, SweetAlert, Restangular, $modal, toaster, $window
                 $scope.$broadcast('StoreIdChanged', restresult);
             },
            function (restresult) {
-               toaster.pop('warning', " It is cancelled !", 'Edit cancelled !');
-               swal("Error!", "Data Error!", "Warning");
+               toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+               swal("Error!", $translate.instant('Server.DataError'), "Warning");
            }
            )
     }
@@ -96,14 +96,14 @@ function storeeditCtrl($scope, SweetAlert, Restangular, $modal, toaster, $window
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 ia.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'inventoryadjustitem')
             this.item.post().then(function (res) {
                 ia.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }
@@ -128,9 +128,9 @@ function storeeditCtrl($scope, SweetAlert, Restangular, $modal, toaster, $window
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
 
@@ -149,7 +149,7 @@ function storeeditCtrl($scope, SweetAlert, Restangular, $modal, toaster, $window
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -213,7 +213,7 @@ function storeeditCtrl($scope, SweetAlert, Restangular, $modal, toaster, $window
     });
 };
 app.controller('storePaymentTypeCtrl', storePaymentTypeCtrl);
-function storePaymentTypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $element) {
+function storePaymentTypeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("storePaymentTypeCtrl");
     var vm = this;
     $scope.item = {};
@@ -221,14 +221,14 @@ function storePaymentTypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangula
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 vm.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') ,$translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'storepaymenttype')
             this.item.post().then(function (res) {
                 vm.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }
@@ -246,9 +246,9 @@ function storePaymentTypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangula
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     vm.tableParams = new ngTableParams({
@@ -271,7 +271,7 @@ function storePaymentTypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangula
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -291,7 +291,7 @@ function storePaymentTypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangula
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -317,7 +317,7 @@ function storePaymentTypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangula
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error", $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -360,7 +360,7 @@ function storePaymentTypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangula
     });
 };
 app.controller('storeordertypeCtrl', storeordertypeCtrl);
-function storeordertypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTableParams, toaster,  $stateParams, $element,$translate) {
+function storeordertypeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("storeordertypeCtrl");
     var vm = this;
     $scope.item = {};
@@ -368,14 +368,14 @@ function storeordertypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangular,
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 vm.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'storeordertype')
             this.item.post().then(function (res) {
                 vm.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }
@@ -393,9 +393,9 @@ function storeordertypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangular,
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     vm.tableParams = new ngTableParams({
@@ -418,7 +418,7 @@ function storeordertypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangular,
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -438,7 +438,7 @@ function storeordertypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -463,7 +463,7 @@ function storeordertypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangular,
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -506,7 +506,7 @@ function storeordertypeCtrl($rootScope, $scope, $modal, SweetAlert, Restangular,
     });
 };
 app.controller('vehicleCtrl', vehicleCtrl);
-function vehicleCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $element) {
+function vehicleCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("vehicleCtrl");
     var vm = this;
     $scope.item = {};
@@ -514,14 +514,14 @@ function vehicleCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTabl
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 vm.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'vehicle')
             this.item.post().then(function (res) {
                 vm.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }
@@ -539,9 +539,9 @@ function vehicleCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTabl
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     vm.tableParams = new ngTableParams({
@@ -564,7 +564,7 @@ function vehicleCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTabl
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -584,7 +584,7 @@ function vehicleCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTabl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -607,7 +607,7 @@ function vehicleCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTabl
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -682,7 +682,7 @@ function vehicleCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTabl
     });
 };
 app.controller('storestreetaddressCtrl', storestreetaddressCtrl);
-function storestreetaddressCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $element,$translate) {
+function storestreetaddressCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $element) {
     $rootScope.uService.EnterController("storestreetaddressCtrl");
     var ssa = this;
     $scope.SelectedItem = null;
@@ -705,7 +705,7 @@ function storestreetaddressCtrl($rootScope, $scope, $modal, SweetAlert, Restangu
             }).then(function (result) {
                 $scope.subcity = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -719,7 +719,7 @@ function storestreetaddressCtrl($rootScope, $scope, $modal, SweetAlert, Restangu
         }).then(function (result) {
             $scope.quarters = result;
         }, function (response) {
-            toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
         //$scope.Quarter = null;//why write this code
     };
@@ -758,7 +758,7 @@ function storestreetaddressCtrl($rootScope, $scope, $modal, SweetAlert, Restangu
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         }
@@ -778,7 +778,7 @@ function storestreetaddressCtrl($rootScope, $scope, $modal, SweetAlert, Restangu
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -797,7 +797,7 @@ function storestreetaddressCtrl($rootScope, $scope, $modal, SweetAlert, Restangu
                 $scope.pods = result;
 
             }, function (respons) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             })
         }
     };
@@ -828,7 +828,7 @@ function storestreetaddressCtrl($rootScope, $scope, $modal, SweetAlert, Restangu
                 $scope.SelectedItem = (items[0]) ? items[0].id : null;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
 
@@ -884,7 +884,7 @@ function storestreetaddressCtrl($rootScope, $scope, $modal, SweetAlert, Restangu
             newssa.post().then(
                 function (res) {
                     ssa.StoreStreetsTable.reload();
-                    toaster.pop('success',  $translate.instant('storefile.PodAdded '), 'Saved.');
+                    toaster.pop('success',  $translate.instant('storefile.PodAdded '), $translate.instant('orderfile.Saved'));
                     $scope.$emit('pod',  $translate.instant('storefile.PodAdded '));
                     newssa.get();
                 }
@@ -915,7 +915,7 @@ function storestreetaddressCtrl($rootScope, $scope, $modal, SweetAlert, Restangu
                     ssa.StoreStreetsTable.data[index].remove();
                 }
                 ssa.StoreStreetsTable.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -930,7 +930,7 @@ function storestreetaddressCtrl($rootScope, $scope, $modal, SweetAlert, Restangu
     });
 };
 app.controller('podCtrl', podCtrl);
-function podCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $element,$translate) {
+function podCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("podCtrl");
     var vm = this;
     $scope.saveData = function (data) {
@@ -938,7 +938,7 @@ function podCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTablePar
             this.item.put().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                    toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
                     $scope.$emit('pod',  $translate.instant('storefile.PodAdded '));
                 });
         }
@@ -948,7 +948,7 @@ function podCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTablePar
             this.item.post().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                    toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
                     $scope.$emit('pod', $translate.instant('storefile.PodAdded '));
                 });
             data.get();
@@ -967,9 +967,9 @@ function podCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTablePar
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     vm.tableParams = new ngTableParams({
@@ -992,7 +992,7 @@ function podCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTablePar
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -1008,7 +1008,7 @@ function podCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTablePar
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error ", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -1041,7 +1041,7 @@ function podCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTablePar
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -1090,7 +1090,7 @@ function podCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTablePar
     });
 };
 app.controller('repositoryCtrl', repositoryCtrl);
-function repositoryCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $element) {
+function repositoryCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("repositoryCtrl");
     var vm = this;
     $scope.item = {};
@@ -1098,14 +1098,14 @@ function repositoryCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngT
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 vm.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'repository')
             this.item.post().then(function (res) {
                 vm.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }
@@ -1123,9 +1123,9 @@ function repositoryCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngT
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     vm.tableParams = new ngTableParams({
@@ -1148,7 +1148,7 @@ function repositoryCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngT
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -1169,7 +1169,7 @@ function repositoryCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngT
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -1211,7 +1211,7 @@ function repositoryCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngT
     });
 };
 app.controller('driverCtrl', driverCtrl);
-function driverCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $translate, userService, $element) {
+function driverCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $translate, userService, $element) {
     $rootScope.uService.EnterController("driverCtrl");
     var dc = this;
     //$scope.item = {};
@@ -1267,9 +1267,9 @@ function driverCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTable
         if (data.restangularized) {
             data.put().then(function (res) {
                 dc.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
         else {
@@ -1277,9 +1277,9 @@ function driverCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTable
             Restangular.restangularizeElement('', data, 'user')
             data.post().then(function (res) {
                 dc.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
             data.get();
         }
@@ -1297,9 +1297,9 @@ function driverCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTable
         rowform.$cancel();
         if (!dc.tableParams.data[dc.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(dc.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
 
@@ -1343,7 +1343,7 @@ function driverCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTable
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -1364,7 +1364,7 @@ function driverCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTable
                     dc.tableParams.data[index].remove();
                 }
                 dc.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -1393,7 +1393,7 @@ function driverCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTable
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -1402,7 +1402,7 @@ function driverCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTable
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error ", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -1446,7 +1446,7 @@ function driverCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTable
     });
 };
 app.controller('drivervehicleCtrl', drivervehicleCtrl);
-function drivervehicleCtrl($rootScope, $scope, $filter, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $translate, ngnotifyService, userService, $element) {
+function drivervehicleCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $translate, ngnotifyService, userService, $element) {
     $rootScope.uService.EnterController("drivervehicleCtrl");
     var dc = this;
     $scope.translate = function () {
@@ -1470,7 +1470,7 @@ function drivervehicleCtrl($rootScope, $scope, $filter, SweetAlert, Restangular,
             this.item.EndDate = $scope.EndDate;
             this.item.put().then(function (res) {
                 dc.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
@@ -1479,7 +1479,7 @@ function drivervehicleCtrl($rootScope, $scope, $filter, SweetAlert, Restangular,
             this.item.EndDate = $scope.EndDate;
             this.item.post().then(function (res) {
                 dc.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }
@@ -1497,9 +1497,9 @@ function drivervehicleCtrl($rootScope, $scope, $filter, SweetAlert, Restangular,
         rowform.$cancel();
         if (!dc.tableParams.data[dc.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(dc.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
 
@@ -1524,7 +1524,7 @@ function drivervehicleCtrl($rootScope, $scope, $filter, SweetAlert, Restangular,
                 $defer.resolve(items);
                 $scope.DriverVehicle = items;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -1558,7 +1558,7 @@ function drivervehicleCtrl($rootScope, $scope, $filter, SweetAlert, Restangular,
                     dc.tableParams.data[index].remove();
                 }
                 dc.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -1587,7 +1587,7 @@ function drivervehicleCtrl($rootScope, $scope, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -1607,7 +1607,7 @@ function drivervehicleCtrl($rootScope, $scope, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -1622,7 +1622,7 @@ function drivervehicleCtrl($rootScope, $scope, $filter, SweetAlert, Restangular,
     });
 };
 app.controller('storetableCtrl', storetableCtrl);
-function storetableCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $element) {
+function storetableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("storetableCtrl");
     var stable = this;
     $scope.item = {};
@@ -1630,14 +1630,14 @@ function storetableCtrl($rootScope, $scope, SweetAlert, Restangular, ngTablePara
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 stable.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'storetable')
             this.item.post().then(function (res) {
                 stable.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }
@@ -1655,9 +1655,9 @@ function storetableCtrl($rootScope, $scope, SweetAlert, Restangular, ngTablePara
         rowform.$cancel();
         if (!stable.tableParams.data[stable.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(stable.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     stable.tableParams = new ngTableParams({
@@ -1679,7 +1679,7 @@ function storetableCtrl($rootScope, $scope, SweetAlert, Restangular, ngTablePara
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -1699,7 +1699,7 @@ function storetableCtrl($rootScope, $scope, SweetAlert, Restangular, ngTablePara
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -1722,7 +1722,7 @@ function storetableCtrl($rootScope, $scope, SweetAlert, Restangular, ngTablePara
                     stable.tableParams.data[index].remove();
                 }
                 stable.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -1747,7 +1747,7 @@ function storetableCtrl($rootScope, $scope, SweetAlert, Restangular, ngTablePara
     });
 };
 app.controller('storetableplanCtrl', storetableplanCtrl);
-function storetableplanCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $element) {
+function storetableplanCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("storetableplanCtrl");
     var stableplan = this;
     $scope.item = {};
@@ -1755,14 +1755,14 @@ function storetableplanCtrl($rootScope, $scope, $modal, SweetAlert, Restangular,
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 stableplan.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'tableplan')
             this.item.post().then(function (res) {
                 stableplan.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }
@@ -1780,9 +1780,9 @@ function storetableplanCtrl($rootScope, $scope, $modal, SweetAlert, Restangular,
         rowform.$cancel();
         if (!stableplan.tableParams.data[stableplan.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(stableplan.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     stableplan.tableParams = new ngTableParams({
@@ -1804,7 +1804,7 @@ function storetableplanCtrl($rootScope, $scope, $modal, SweetAlert, Restangular,
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -1825,7 +1825,7 @@ function storetableplanCtrl($rootScope, $scope, $modal, SweetAlert, Restangular,
                     stableplan.tableParams.data[index].remove();
                 }
                 stableplan.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -1868,7 +1868,7 @@ function storetableplanCtrl($rootScope, $scope, $modal, SweetAlert, Restangular,
     });
 };
 app.controller('storeproductionCtrl', storeproductionCtrl);
-function storeproductionCtrl($rootScope, $scope, $modal, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $element) {
+function storeproductionCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("storeproductionCtrl");
     var sp = this;
     $scope.item = {};
@@ -1893,14 +1893,14 @@ function storeproductionCtrl($rootScope, $scope, $modal, SweetAlert, Restangular
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 sp.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'storeproduction')
             this.item.post().then(function (res) {
                 sp.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }
@@ -1918,9 +1918,9 @@ function storeproductionCtrl($rootScope, $scope, $modal, SweetAlert, Restangular
         rowform.$cancel();
         if (!sp.tableParams.data[sp.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sp.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     sp.tableParams = new ngTableParams({
@@ -1942,7 +1942,7 @@ function storeproductionCtrl($rootScope, $scope, $modal, SweetAlert, Restangular
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -1957,7 +1957,7 @@ function storeproductionCtrl($rootScope, $scope, $modal, SweetAlert, Restangular
             }).then(function (result) {
                 $scope.repositories = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -1977,7 +1977,7 @@ function storeproductionCtrl($rootScope, $scope, $modal, SweetAlert, Restangular
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -2004,7 +2004,7 @@ function storeproductionCtrl($rootScope, $scope, $modal, SweetAlert, Restangular
                     sp.tableParams.data[index].remove();
                 }
                 sp.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -2046,7 +2046,7 @@ function storeproductionCtrl($rootScope, $scope, $modal, SweetAlert, Restangular
     });
 };
 app.controller('storeauditmediaCtrl', storeauditmediaCtrl);
-function storeauditmediaCtrl($rootScope, $scope, $modal, $modalInstance, item, SweetAlert, Restangular, ngTableParams, toaster, $translate) {
+function storeauditmediaCtrl($rootScope, $scope, $modal, $modalInstance, $filter, item, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $translate) {
     $rootScope.uService.EnterController("storeauditmediaCtrl");
     $scope.translate = function () {
         $scope.trName = $translate.instant('main.NAME');
@@ -2078,7 +2078,7 @@ function storeauditmediaCtrl($rootScope, $scope, $modal, $modalInstance, item, S
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -2086,14 +2086,14 @@ function storeauditmediaCtrl($rootScope, $scope, $modal, $modalInstance, item, S
         if (data.restangularized) {
             data.put().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'storeauditmedia')
             data.post().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             data.get();
         }
@@ -2111,9 +2111,9 @@ function storeauditmediaCtrl($rootScope, $scope, $modal, $modalInstance, item, S
         rowform.$cancel();
         if (!$scope.tableParams.data[$scope.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove($scope.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -2131,7 +2131,7 @@ function storeauditmediaCtrl($rootScope, $scope, $modal, $modalInstance, item, S
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -2158,7 +2158,7 @@ function storeauditmediaCtrl($rootScope, $scope, $modal, $modalInstance, item, S
                     $scope.tableParams.data[index].remove();
                 }
                 $scope.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -2199,7 +2199,7 @@ function storeauditmediaCtrl($rootScope, $scope, $modal, $modalInstance, item, S
     });
 };
 app.controller('storelocationCtrl', storelocationCtrl);
-function storelocationCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $element) {
+function storelocationCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("storelocationCtrl");
     var sl = this;
     $scope.item = {};
@@ -2222,7 +2222,7 @@ function storelocationCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableP
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -2231,7 +2231,7 @@ function storelocationCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableP
             this.item.StoreID = $stateParams.id;
             this.item.put().then(function (res) {
                 sl.tableParams.reload();
-                toaster.pop('success', "Data Updated", 'Data update applied to server.');
+                toaster.pop('success', $translate.instant('personfile.DataUpdated'), $translate.instant('invantories.Updatedapplied'));
             });
         }
         else {
@@ -2239,7 +2239,7 @@ function storelocationCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableP
             this.item.StoreID = $stateParams.id;
             this.item.post().then(function (res) {
                 sl.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }
@@ -2257,9 +2257,9 @@ function storelocationCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableP
         rowform.$cancel();
         if (!sl.tableParams.data[sl.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sl.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -2277,7 +2277,7 @@ function storelocationCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableP
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -2300,7 +2300,7 @@ function storelocationCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableP
                     sl.tableParams.data[index].remove();
                 }
                 sl.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -2328,7 +2328,7 @@ function storelocationCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableP
 
 };
 app.controller('storeworkingtimesCtrl', storeworkingtimesCtrl);
-function storeworkingtimesCtrl($rootScope, $scope, $filter, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $modal, $element) {
+function storeworkingtimesCtrl($rootScope, $scope, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $modal, $element) {
     $rootScope.uService.EnterController("storeworkingtimesCtrl");
     var swt = this;
     $scope.StoreID = $stateParams.id;
@@ -2352,7 +2352,7 @@ function storeworkingtimesCtrl($rootScope, $scope, $filter, SweetAlert, Restangu
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -2364,7 +2364,7 @@ function storeworkingtimesCtrl($rootScope, $scope, $filter, SweetAlert, Restangu
             data.StoreID = $stateParams.id;
             data.put().then(function (res) {
                 swt.tableParams.reload();
-                toaster.pop('success', "Data Updated", 'Data update applied to server.');
+                toaster.pop('success', $translate.instant('personfile.DataUpdated'), $translate.instant('invantories.Updatedapplied'));
             });
         }
         else {
@@ -2374,7 +2374,7 @@ function storeworkingtimesCtrl($rootScope, $scope, $filter, SweetAlert, Restangu
             data.StoreID = $stateParams.id;
             data.post().then(function (res) {
                 swt.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             data.get();
         }
@@ -2392,9 +2392,9 @@ function storeworkingtimesCtrl($rootScope, $scope, $filter, SweetAlert, Restangu
         rowform.$cancel();
         if (!swt.tableParams.data[swt.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(swt.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.removeItem = function (index) {
@@ -2414,7 +2414,7 @@ function storeworkingtimesCtrl($rootScope, $scope, $filter, SweetAlert, Restangu
                     swt.tableParams.data[index].remove();
                 }
                 swt.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -2440,7 +2440,7 @@ function storeworkingtimesCtrl($rootScope, $scope, $filter, SweetAlert, Restangu
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -2484,7 +2484,7 @@ function storeworkingtimesCtrl($rootScope, $scope, $filter, SweetAlert, Restangu
     });
 };
 app.controller('useremailCtrl', useremailCtrl);
-function useremailCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $translate, $element) {
+function useremailCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $translate, $element) {
     $rootScope.uService.EnterController("useremailCtrl");
     var ue = this;
     $scope.ID = $stateParams.id;
@@ -2501,14 +2501,14 @@ function useremailCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableParam
         if (data.restangularized) {
             data.put().then(function (res) {
                 ue.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'useremail')
             data.post().then(function (res) {
                 ue.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             data.get();
         }
@@ -2526,9 +2526,9 @@ function useremailCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableParam
         rowform.$cancel();
         if (!ue.tableParams.data[ue.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ue.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     ue.tableParams = new ngTableParams({
@@ -2547,7 +2547,7 @@ function useremailCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableParam
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     });
@@ -2568,7 +2568,7 @@ function useremailCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableParam
                     ue.tableParams.data[index].remove();
                 }
                 ue.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -2588,7 +2588,7 @@ function useremailCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableParam
     });
 };
 app.controller('usertrainingCtrl', usertrainingCtrl);
-function usertrainingCtrl($rootScope, $scope, SweetAlert, Restangular, ngTableParams, toaster, $stateParams, $translate, $element) {
+function usertrainingCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $translate, $element) {
     $rootScope.uService.EnterController("usertrainingCtrl");
     var ut = this;
     $scope.ID = $stateParams.id;
@@ -2606,14 +2606,14 @@ function usertrainingCtrl($rootScope, $scope, SweetAlert, Restangular, ngTablePa
         if (data.restangularized) {
             data.put().then(function (res) {
                 ut.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'usertraining')
             data.post().then(function (res) {
                 ut.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             data.get();
         }
@@ -2631,9 +2631,9 @@ function usertrainingCtrl($rootScope, $scope, SweetAlert, Restangular, ngTablePa
         rowform.$cancel();
         if (!ut.tableParams.data[ut.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ut.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     ut.tableParams = new ngTableParams({
@@ -2652,7 +2652,7 @@ function usertrainingCtrl($rootScope, $scope, SweetAlert, Restangular, ngTablePa
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     });
@@ -2673,7 +2673,7 @@ function usertrainingCtrl($rootScope, $scope, SweetAlert, Restangular, ngTablePa
                     ut.tableParams.data[index].remove();
                 }
                 ut.tableParams.data.splice(index, 1);
-              toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+              toaster.pop("error",  $translate.instant('invantories.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

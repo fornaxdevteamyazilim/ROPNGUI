@@ -23,7 +23,7 @@ function personsurveyCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
             $scope.PersonSurvey = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.LoadPersonSurvey();

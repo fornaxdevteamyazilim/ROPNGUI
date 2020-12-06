@@ -30,7 +30,7 @@ function tagCtrl($rootScope, $scope, $log, Restangular, $modal, ngTableParams, S
             data.put().then(
                 function (res) {
                     tag.tableParams.reload();
-                    toaster.pop('success', $translate.instant('difinitions.Updated'), 'Updated.');
+                    toaster.pop('success', $translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
                 },
                 function (response) {
                     toaster.pop('error',$translate.instant('difinitions.Updatedapplied'), response.data.ExceptionMessage);
@@ -42,7 +42,7 @@ function tagCtrl($rootScope, $scope, $log, Restangular, $modal, ngTableParams, S
             data.post().then(
                 function (res) {
                     tag.tableParams.reload();
-                    toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
+                    toaster.pop('success', $translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
                 },
                     function (response) {
                         toaster.pop('error', $translate.instant('difinitions.InsertFailed '), response.data.ExceptionMessage);
@@ -65,9 +65,9 @@ function tagCtrl($rootScope, $scope, $log, Restangular, $modal, ngTableParams, S
         rowform.$cancel();
         if (!tag.tableParams.data[tag.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(tag.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
         }
     };
     tag.tableParams = new ngTableParams({
@@ -91,7 +91,7 @@ function tagCtrl($rootScope, $scope, $log, Restangular, $modal, ngTableParams, S
                 $defer.resolve(items);
                 }
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -107,7 +107,7 @@ function tagCtrl($rootScope, $scope, $log, Restangular, $modal, ngTableParams, S
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

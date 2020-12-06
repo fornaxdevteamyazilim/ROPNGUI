@@ -58,13 +58,13 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
                 data.PersonID = angular.copy($rootScope.PersonID);
             }
             else {
-                toaster.pop('error', "Invalid Registration !");
+                toaster.pop('error',$translate.instant('accounting.InvalidRegistration') );
             }
         }
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 $scope.CallReason(4);
-                toaster.pop('success',  $translate.instant('accounting.Updated'), 'Updated.');
+                toaster.pop('success',  $translate.instant('accounting.Updated'),$translate.instant('accounting.Updated'));
                 $scope.isActiveButton(true);
             }, function (response) {
                 $scope.isActiveButton(true);
@@ -76,7 +76,7 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
             Restangular.restangularizeElement('', data, 'complaint')
             data.post().then(function (res) {
                 $scope.CallReason(4);
-                toaster.pop('success', $translate.instant('accounting.Saved') , 'Saved.');
+                toaster.pop('success', $translate.instant('accounting.Saved') ,$translate.instant('accounting.Saved'));
                 $scope.isActiveButton(true);
                 $location.path('app/complaints/complaints/list');
             }, function (response) {
@@ -93,7 +93,7 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
         data.ComplaintStatusID = 1;
         Restangular.restangularizeElement('', data, 'complaint')
         data.put().then(function (res) {
-            toaster.pop('success', "Updated.", 'Updated.');
+            toaster.pop('success',$translate.instant('accounting.Updated'), $translate.instant('accounting.Updated'));
             $location.path('app/complaints/complaints/list');
         });
     }
@@ -117,9 +117,10 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning',  $translate.instant('accounting.Cancelled'), 'Insert Cancelled.');
+            toaster.pop('warning',  $translate.instant('accounting.Cancelled'), $translate.instant('accounting.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('accounting.Cancelled'), 'Edit Cancelled.');
+            toaster.pop('warning', $translate.instant('accounting.Cancelled'), $translate.instant('accounting.Editcancelled')
+            );
         }
     };
     $scope.loadEntities = function (EntityType, Container) {
@@ -130,7 +131,7 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -139,7 +140,7 @@ function complainteditCtrl($rootScope, $scope, $modal, $log, $filter, SweetAlert
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -273,7 +274,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
                             $scope.$emit('ComplaintAction', false);
                         }
                     }, function (response) {
-                        toaster.pop('warning', "Server Error", response);
+                        toaster.pop('warning', $translate.instant('Server.ServerError'), response);
                     });
             }
         });
@@ -283,7 +284,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
             data.put().then(function (res) {
                 $scope.CallReason(4);
                 car.tableParams.reload();
-                toaster.pop('success',$translate.instant('accounting.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('accounting.Updated'),$translate.instant('accounting.Updated'));
             });
         }
         else {
@@ -292,7 +293,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
             data.post().then(function (res) {
                 $scope.CallReason(4);
                 car.tableParams.reload();
-                toaster.pop('success', $translate.instant('accounting.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('accounting.Saved'), $translate.instant('accounting.Saved'));
             });
             data.get();
         }
@@ -310,9 +311,9 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
         rowform.$cancel();
         if (!car.tableParams.data[car.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(car.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('accounting.Cancelled'), 'Insert cancelled.');
+            toaster.pop('warning', $translate.instant('accounting.Cancelled'), $translate.instant('accounting.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('accounting.Cancelled'), 'Edit cancelled.');
+            toaster.pop('warning', $translate.instant('accounting.Cancelled'), $translate.instant('accounting.Editcancelled'));
         }
     };
     $scope.removeItem = function (index) {
@@ -360,7 +361,7 @@ function complaintactionsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

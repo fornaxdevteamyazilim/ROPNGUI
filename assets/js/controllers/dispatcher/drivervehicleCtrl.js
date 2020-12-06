@@ -22,7 +22,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             this.item.EndDate = $scope.EndDate;
             this.item.put().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', $translate.instant('difinitions.Updated'), 'Updated.');
+                toaster.pop('success', $translate.instant('difinitions.Updated'),  $translate.instant('difinitions.Updated'));
             });
         }
         else {
@@ -31,7 +31,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             this.item.EndDate = $scope.EndDate;
             this.item.post().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('difinitions.Saved'), $translate.instant('difinitions.Updated'));
             });
             this.item.get();
         }
@@ -49,9 +49,9 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         rowform.$cancel();
         if (!$scope.tableParams.data[$scope.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove($scope.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
         }
     };
 
@@ -73,7 +73,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
                     $defer.resolve(items);
                     $scope.DriverVehicle = items;
                 }, function (response) {
-                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         });
@@ -122,7 +122,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -139,7 +139,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

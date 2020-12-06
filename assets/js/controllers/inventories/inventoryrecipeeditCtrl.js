@@ -28,8 +28,8 @@ function inventoryrecipeeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
                $rootScope.InventoryRecipeID = restresult.id;
            },
            function (restresult) {
-               toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
-               swal("Error!", "Server Error!", "Warning");
+               toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+               swal("Error!", $translate.instant('Server.ServerError'), "Warning");
            })
     }
     else {
@@ -38,7 +38,7 @@ function inventoryrecipeeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
     $scope.saveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal(translate="invantories.Updated", "Updated.", "success");
+                swal($translate.instant('invantories.Updated'), $translate.instant('invantories.Updated'), "success");
                 $rootScope.InventoryRecipeID = resp.id;
             });
         }
@@ -47,7 +47,7 @@ function inventoryrecipeeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
                 $rootScope.InventoryRecipeID = resp.id;
-                swal( $translate.instant('invantories.Saved'), "Saved.", "success");
+                swal( $translate.instant('invantories.Saved'), $translate.instant('invantories.Saved'), "success");
             });
         }
     }
@@ -68,9 +68,9 @@ function inventoryrecipeeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
         rowform.$cancel();
         if (!ire.tableParams.data[ire.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ire.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     //$scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -85,7 +85,7 @@ function inventoryrecipeeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
     //        Restangular.all(EntityType).getList({}).then(function (result) {
     //            $scope[Container] = result;
     //        }, function (response) {
-    //            toaster.pop('Warning', "Server Error", response);
+    //            toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
     //        });
     //    }
     //};
@@ -107,12 +107,12 @@ function inventoryrecipeeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal(translate="invantories.Deleted",  translate="invantories.RecordDeleted", "success");
+                    SweetAlert.swal($translate.instant('invantories.Deleted'),  $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('app/inventory/inventoryrecipe/list');
                 });
             }
             else {
-                SweetAlert.swal($translate.instant('invantories.Cancelled'),  translate="invantories.DeletionCanceled" , "error");
+                SweetAlert.swal($translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled') , "error");
             }
         });
     };
@@ -146,14 +146,14 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 iri.tableParams.reload();
-                toaster.pop('success',$translate.instant('invantories.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('invantories.Updated'), $translate.instant('invantories.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'inventoryrecipeitem')
             this.item.post().then(function (res) {
                 iri.tableParams.reload();
-                toaster.pop('success', $translate.instant('invantories.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('invantories.Saved'), $translate.instant('invantories.Saved'));
             });
             this.item.get();
         }
@@ -171,9 +171,9 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         rowform.$cancel();
         if (!iri.tableParams.data[iri.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(iri.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     iri.tableParams = new ngTableParams({
@@ -192,7 +192,7 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -208,7 +208,7 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -221,7 +221,7 @@ function inventoryrecipeitemCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -357,7 +357,7 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -377,7 +377,7 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -386,7 +386,7 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };

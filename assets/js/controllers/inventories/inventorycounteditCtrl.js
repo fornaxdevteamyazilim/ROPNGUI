@@ -96,7 +96,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $scope.ShowObject = false;
             }, function (response) {
                 $scope.ShowObject = false;
-                toaster.pop('error', "Error!", response.data.ExceptionMessage);
+                toaster.pop('error',  "Error!", response.data.ExceptionMessage);
             });
         }
     };
@@ -169,7 +169,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                     $scope.item.RepositoryID = result[0].id;
                 }
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -190,7 +190,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -199,7 +199,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -256,7 +256,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 }
             }
         }, function (response) {
-            toaster.pop('error', "Server Error", response);
+            toaster.pop('error',$translate.instant('Server.ServerError'), response);
         });
     };
     $scope.LoadTags(20);

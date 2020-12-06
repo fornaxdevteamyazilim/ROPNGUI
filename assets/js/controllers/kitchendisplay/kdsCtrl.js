@@ -62,7 +62,7 @@ function kdsCtrl($scope, $log, $modal, $interval, $timeout, Restangular, ngTable
             $scope.start();
         }, function (response) {
             $scope.inProgress = false;
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             $scope.start();
         });
     };

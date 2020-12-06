@@ -15,11 +15,11 @@ function currentendCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTablePa
                 Description: data.Description
             }
         ).then(function (result) {
-            toaster.pop('success', $translate.instant('orderfile.Saved'), 'SAVED');
+            toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             $scope.ok();
             location.href = '#/app/mainscreen'
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     }
     $scope.selectPerson = function (item) {
@@ -53,7 +53,7 @@ function currentendCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTablePa
         }).then(function (result) {
             $scope.current = result;
         }, function (response) {
-            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
 
@@ -67,7 +67,7 @@ function currentendCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTablePa
             }).then(function (result) {
                 $scope.storepaymenttypes = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -124,7 +124,7 @@ function selectPersonCtrl($rootScope, $scope, $modalInstance, Restangular, ngTab
                     $defer.resolve(items);
                     $scope.isSearching(false);
                 }, function (response) {
-                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
 
@@ -153,7 +153,7 @@ function selectPersonCtrl($rootScope, $scope, $modalInstance, Restangular, ngTab
             }).then(function (result) {
                 $scope.personcurrent = result[0];
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

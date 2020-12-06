@@ -26,14 +26,14 @@ function paymenttypesCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
         if (this.item.restangularized && this.item.id) {
             this.item.put().then(function (res) {
                 pt.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'),$translate.instant('difinitions.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'paymenttype')
             this.item.post().then(function (res) {
                 pt.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
+                toaster.pop('success',$translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
             });
             this.item.get();
         }
@@ -51,9 +51,9 @@ function paymenttypesCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
         rowform.$cancel();
         if (!pt.tableParams.data[pt.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pt.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !' );
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     pt.tableParams = new ngTableParams({
@@ -74,7 +74,7 @@ function paymenttypesCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -94,7 +94,7 @@ function paymenttypesCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

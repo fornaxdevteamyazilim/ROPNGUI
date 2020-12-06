@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('mainscreenCtrl', mainscreenCtrl);
-function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval, toaster, Restangular, $rootScope, $location, userService, ngAudio, $translate, ngnotifyService, $element) {
+function mainscreenCtrl($scope, $log, $modal, $timeout, $filter, SweetAlert, $interval, ngTableParams, toaster, $window, Restangular, $stateParams, $rootScope, $anchorScroll, $location, userService, localStorageService, callsService, ngAudio, $translate, authService, NG_SETTING, ngnotifyService, $element) {
     $rootScope.uService.EnterController("mainscreenCtrl");
     var OrderRefreshTimeOut;
     var Departments = [];
@@ -19,8 +19,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         $scope.totalorders = $translate.instant('main.TOTALORDERS');
         if (StoreOrderTypes)
             angular.forEach(StoreOrderTypes, function (StoreOrderType) {
-                StoreOrderType.OrderType = $translate.instant(StoreOrderType.OrderType);
-                //StoreOrderType.OrderType = $translate.instant('OrderType.'+StoreOrderType.OrderType);
+                StoreOrderType.OrderType = $translate.instant(StoreOrderType.OrderType)
             });
         $scope.txtORDERLIST = $translate.instant('main.ORDERLIST');
         $scope.txtKITCHENDISPLAY = $translate.instant('main.KITCHENDISPLAY');
@@ -43,14 +42,11 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         $scope.accept = $translate.instant('main.ACCEPT');
 
     };
-    $scope.StoreOrderTypes=[];
     if ($rootScope.user && $rootScope.user.Store) {
-        $scope.StoreOrderTypes=angular.copy($rootScope.user.Store.StoreOrderTypes);
-        $scope.translate($scope.StoreOrderTypes);
+        $scope.translate($rootScope.user.Store.StoreOrderTypes);
     }
     var deregistration1 = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
-        $scope.StoreOrderTypes=angular.copy($rootScope.user.Store.StoreOrderTypes);
-        $scope.translate($scope.StoreOrderTypes);
+        $scope.translate($rootScope.user.Store.StoreOrderTypes);
     });
     var NewOrderfresh = $scope.$on('NewOrder', function (event, data) {
         $scope.GetNewOrderCount();
@@ -287,7 +283,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
                     toaster.pop('warrning', err.error, err.error_description);
                 }
                 else {
-                    toaster.pop('warrning', "Error", "Unknown Error!");
+                    toaster.pop('warrning', "Error", $translate.instant('Server.UnknownError'));
                 }
             }
         });
@@ -477,7 +473,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error',$translate.instant('invantories.NoDepartment'), "error");
                     });
             }
         }

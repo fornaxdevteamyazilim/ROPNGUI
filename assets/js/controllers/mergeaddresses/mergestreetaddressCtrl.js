@@ -27,7 +27,7 @@ function mergestreetaddressCtrl($rootScope, $scope, $log, $modal, Restangular, n
         }).then(function (result) {
             angular.copy(result, $scope.subcities);
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.LoadQuarters = function (SubcityID) {
@@ -38,7 +38,7 @@ function mergestreetaddressCtrl($rootScope, $scope, $log, $modal, Restangular, n
         }).then(function (result) {
             angular.copy(result, $scope.quarters);
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.SelectQuarter = function (QuarterID) {
@@ -66,7 +66,7 @@ function mergestreetaddressCtrl($rootScope, $scope, $log, $modal, Restangular, n
             angular.copy(result, $scope.toStreetAddress);
             $scope.ShowObject = false;
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             $scope.ShowObject = false;
         });
     };
@@ -94,7 +94,7 @@ function mergestreetaddressCtrl($rootScope, $scope, $log, $modal, Restangular, n
                      $scope.LoadStreetAddress();
                      toaster.pop('success',  $translate.instant('margeaddress.NeighborhoodCombined'));
                  }, function (response) {
-                     toaster.pop('error', "Server Error", response.ExceptionMessage);
+                     toaster.pop('error', $translate.instant('Server.ServerError'), response.ExceptionMessage);
                  });
         });
     };
@@ -113,7 +113,7 @@ function mergestreetaddressCtrl($rootScope, $scope, $log, $modal, Restangular, n
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

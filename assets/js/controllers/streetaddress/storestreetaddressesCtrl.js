@@ -29,7 +29,7 @@ function storestreetaddressesCtrl($rootScope, $scope, $translate, $modalInstance
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -37,17 +37,17 @@ function storestreetaddressesCtrl($rootScope, $scope, $translate, $modalInstance
         if (data.restangularized) {
             data.put().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', "Updated", 'Updated.');
+                toaster.pop('success', $translate.instant('margeaddress.Updated'), $translate.instant('margeaddress.Updated'));
             }, function (response) {
-                toaster.pop('error', "Failed to Update !", response.data.ExceptionMessage);
+                toaster.pop('error',$translate.instant('margeaddress.FailedtoUpdate'), response.data.ExceptionMessage);
             });
         } else {
             Restangular.restangularizeElement('', data, 'storestreetaddress')
             data.post().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', "Added.", 'Saved.');
+                toaster.pop('success', "Added.", $translate.instant('margeaddress.Saved'));
             }, function (response) {
-                toaster.pop('error', "Not Saved !", response.data.ExceptionMessage);
+                toaster.pop('error',$translate.instant('margeaddress.NotSaved'), response.data.ExceptionMessage);
             });
             data.get();
         }
@@ -59,9 +59,9 @@ function storestreetaddressesCtrl($rootScope, $scope, $translate, $modalInstance
         rowform.$cancel();
         if (!$scope.tableParams.data[$scope.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove($scope.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('margeaddress.Cancelled'), $translate.instant('margeaddress.Insertcancelled'));
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('margeaddress.Cancelled'), $translate.instant('margeaddress.Editcancelled'));
         }
     };
     $scope.cancelremove = function (index) {
@@ -73,7 +73,7 @@ function storestreetaddressesCtrl($rootScope, $scope, $translate, $modalInstance
     $scope.removeItem = function (index) {
         if ($scope.tableParams.data[index].fromServer) {
             $scope.tableParams.data[index].remove();
-            toaster.pop("error", "Attention !", "Record Deleted !");
+            toaster.pop("error", $translate.instant('margeaddress.Attention'), $translate.instant('margeaddress.RecordDeleted'));
         }
         $scope.tableParams.data.splice(index, 1);
     };
@@ -89,7 +89,7 @@ function storestreetaddressesCtrl($rootScope, $scope, $translate, $modalInstance
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -105,7 +105,7 @@ function storestreetaddressesCtrl($rootScope, $scope, $translate, $modalInstance
         }).then(function (result) {
             angular.copy(result, $scope.storePods);
         }, function (response) {
-            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     var deregistration1 = $scope.$watch(angular.bind($scope, function () {

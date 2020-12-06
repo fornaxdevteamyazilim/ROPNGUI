@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('orderinvoiceCtrl', orderinvoiceCtrl);
-function orderinvoiceCtrl($rootScope, $scope, $translate, $modalInstance, SweetAlert, Restangular, ngTableParams, toaster) {
+function orderinvoiceCtrl($rootScope, $scope, $translate, $modalInstance, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
     var oin = this;
     $rootScope.uService.EnterController("orderinvoiceCtrl");
     $scope.item = {};
@@ -8,14 +8,14 @@ function orderinvoiceCtrl($rootScope, $scope, $translate, $modalInstance, SweetA
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 oin.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated'),$translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'OrderInvoice')
             this.item.post().then(function (res) {
                 oin.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }
@@ -47,9 +47,9 @@ function orderinvoiceCtrl($rootScope, $scope, $translate, $modalInstance, SweetA
         rowform.$cancel();
         if (!oin.tableParams.data[oin.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(oin.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
 
@@ -70,7 +70,7 @@ function orderinvoiceCtrl($rootScope, $scope, $translate, $modalInstance, SweetA
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         });

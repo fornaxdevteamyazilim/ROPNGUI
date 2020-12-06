@@ -57,7 +57,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
     //}).then(function (result) {
     //    $scope.storeUsers = result;
     //}, function (response) {
-    //    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+    //    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
     //});
     $scope.changestart = function (item, field,value) {
             item[field] = $scope.addTime(value, 8, 30);  
@@ -88,11 +88,11 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
             }).then(function (result) {
                 $scope.storeUsers = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }, function (restresult) {
-            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
-            swal("Hata!", "Warning");
+            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            swal("Erorr", "Warning");
         })
     }
     else {
@@ -137,9 +137,9 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
         rowform.$cancel();
         if (!spi.tableParams.data[spi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(spi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.cancelremove = function (index) {
@@ -162,7 +162,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
         });
@@ -181,7 +181,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
         Restangular.restangularizeElement('', item, 'ShiftPlanItem')
         item.post().then(function (resp) {
             spi.tableParams.reload();
-            toaster.pop("success", "Updated.", $translate.instant('orderfile.Updated') );
+            toaster.pop("success",  $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated') );
             spi.tableParams.reload();
         });
     };
@@ -237,7 +237,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -246,7 +246,7 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -263,22 +263,22 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
     $scope.saveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal($translate.instant('orderfile.Updated') , "Updated.", "success");
+                swal($translate.instant('orderfile.Updated') ,  $translate.instant('orderfile.Updated'), "success");
                 $rootScope.ShiftPlanID = resp.id;
                 $scope.$broadcast('ShiftPlan', resp);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
         else {
             Restangular.restangularizeElement('', $scope.item, 'ShiftPlan')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal($translate.instant('orderfile.Saved') , "Saved.", "success");
+                swal($translate.instant('orderfile.Saved') ,  $translate.instant('orderfile.Saved'), "success");
                 $rootScope.ShiftPlanID = resp.id;
                 $scope.$broadcast('ShiftPlan', resp);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
 
         }
@@ -288,14 +288,14 @@ function shiftplaneditCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTab
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 spi.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated') , 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated') , $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'ShiftPlanItem')
             this.item.post().then(function (res) {
                 spi.tableParams.reload();
-                toaster.pop('success',$translate.instant('orderfile.Saved') , 'Saved.');
+                toaster.pop('success',$translate.instant('orderfile.Saved') , $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }

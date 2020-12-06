@@ -28,7 +28,7 @@ function fingerprintenrollCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
             $scope.UserList=items;
             //$defer.resolve(items);
         }, function (response) {
-            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     }
     $scope.FillStoreUsers();
@@ -45,10 +45,10 @@ function fingerprintenrollCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
         $http.post(NG_SETTING.apiServiceBaseUri + '/api/FingerPrint/startEnroll', data, {
             'Content-Type': 'application/json'
         }).success(function (response) {
-            toaster.pop('success', "Started", 'FingerPrint enroll process started...');
+            toaster.pop('success',$translate.instant('clockiout.Started'), $translate.instant('clockiout.FingerPrint'));
             //deferred.resolve(response);
         }).error(function (err, status) {
-            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             //deferred.reject(err);
         });
         //return deferred.promise;

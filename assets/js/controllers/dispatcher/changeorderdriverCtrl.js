@@ -20,7 +20,7 @@ function changeorderdriverCtrl($scope, $modal, $translate, $filter, OrderStates,
         }).then(function (result) {
             angular.copy(result, $scope.Drivers);
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     }
     $scope.SaveNewDriver = function (driverId) {
@@ -37,7 +37,7 @@ function changeorderdriverCtrl($scope, $modal, $translate, $filter, OrderStates,
                             toaster.pop('error', $translate.instant('dispatcherfile.Driverupdated'), err.error_description);
                         }
                         else {
-                            toaster.pop('error',  $translate.instant('dispatcherfile.Driverupdated'), "Unknown Error !");
+                            toaster.pop('error',  $translate.instant('dispatcherfile.Driverupdated'), $translate.instant('Server.UnknownError'));
                         }
                     });
             }

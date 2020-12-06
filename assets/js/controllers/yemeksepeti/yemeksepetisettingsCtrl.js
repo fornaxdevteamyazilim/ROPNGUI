@@ -36,7 +36,7 @@ function yemeksepetisettingsCtrl($rootScope, $scope, $modal, $filter, SweetAlert
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -44,14 +44,14 @@ function yemeksepetisettingsCtrl($rootScope, $scope, $modal, $filter, SweetAlert
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 yss.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
+                toaster.pop('success', $translate.instant('yemeksepetifile.Updated'),  $translate.instant('yemeksepetifile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'yemeksepetisetting')
             data.post().then(function (res) {
                 yss.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('yemeksepetifile.Saved'),  $translate.instant('yemeksepetifile.Saved'));
             });
             data.get();
         }
@@ -72,7 +72,7 @@ function yemeksepetisettingsCtrl($rootScope, $scope, $modal, $filter, SweetAlert
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -91,9 +91,9 @@ function yemeksepetisettingsCtrl($rootScope, $scope, $modal, $filter, SweetAlert
         rowform.$cancel();
         if (!yss.tableParams.data[yss.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(yss.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('yemeksepetifile.Cancelled'), $translate.instant('yemeksepetifile.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('yemeksepetifile.Cancelled'), $translate.instant('yemeksepetifile.Editcancelled'));
         }
     };
     $scope.removeItem = function (index) {
@@ -113,7 +113,7 @@ function yemeksepetisettingsCtrl($rootScope, $scope, $modal, $filter, SweetAlert
                     yss.tableParams.data[index].remove();
                 }
                 yss.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+                toaster.pop("error", $translate.instant('yemeksepetifile.Attention'),$translate.instant('yemeksepetifile.RecordDeleted'));
             }
         });
     };

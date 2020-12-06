@@ -175,7 +175,7 @@ function storeanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular, toa
                 angular.copy(result, $scope.StoreAnalisys);
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {
@@ -244,7 +244,7 @@ function storeanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular, toa
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -256,7 +256,7 @@ function storeanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular, toa
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

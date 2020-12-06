@@ -15,11 +15,11 @@ function checkoutcashCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster
                AccountTransactionGroupID: data.AccountTransactionGroupID
            }
        ).then(function (result) {
-           toaster.pop('success', $translate.instant('orderfile.Saved'), 'SAVED');
+           toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
            $scope.ok();
            return $scope.CheckOutCash = result;
        }, function (response) {
-           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
        });
         }
                if (data.Value == 1) {
@@ -31,11 +31,11 @@ function checkoutcashCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster
                AccountTransactionGroupID: data.AccountTransactionGroupID
            }
        ).then(function (result) {
-           toaster.pop('success', $translate.instant('orderfile.Saved'), 'SAVED');
+           toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
            $scope.ok();
            return $scope.CheckOutCash = result;
        }, function (response) {
-           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
        });
         }
     };
@@ -47,7 +47,7 @@ function checkoutcashCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

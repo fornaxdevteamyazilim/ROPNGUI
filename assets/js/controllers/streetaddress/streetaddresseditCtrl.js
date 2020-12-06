@@ -11,17 +11,17 @@
                 $scope.item = Restangular.copy(restresult);
             })
         else {
-            toaster.pop('error', "Please Try Again");
+            toaster.pop('error',$translate.instant('margeaddress.PleaseTryAgain'));
         }
         $scope.saveData = function (data) {
             if (data.restangularized) {
                 data.put().then(
                     function (res) {
-                        toaster.pop('success', "Updated", 'Updated.');
+                        toaster.pop('success',$translate.instant('margeaddress.Updated'), $translate.instant('margeaddress.Updated'));
                         $scope.ok();
                     },
                      function (response) {
-                         toaster.pop('error', "Failed to update !", response.data.ExceptionMessage);
+                         toaster.pop('error', $translate.instant('margeaddress.FailedtoUpdate'), response.data.ExceptionMessage);
                      }
                      );
             }
@@ -34,7 +34,7 @@
             }).then(function (result) {
                 angular.copy(result, $scope.subcities);
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         };
         $scope.LoadQuarters = function (QuarterID) {
@@ -45,7 +45,7 @@
             }).then(function (result) {
                 angular.copy(result, $scope.quarters);
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         };
         $scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -63,7 +63,7 @@
                 }).then(function (result) {
                     $scope[Container] = result;
                 }, function (response) {
-                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         };
