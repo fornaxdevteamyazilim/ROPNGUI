@@ -125,7 +125,7 @@ function shiftplanCtrl($rootScope, $scope, Restangular, ngTableParams, toaster, 
                     $scope.isWaiting = false;
                     }, function (response) {
                         $scope.isWaiting = false;
-                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -143,7 +143,7 @@ function shiftplanCtrl($rootScope, $scope, Restangular, ngTableParams, toaster, 
         item.post().then(function (resp) {
             location.href = '#/app/specialoperations/shiftplanedit2/' + resp.id;
         }, function (response) {
-            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
         });
     };
 

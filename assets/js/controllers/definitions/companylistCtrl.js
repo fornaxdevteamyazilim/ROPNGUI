@@ -48,7 +48,7 @@ function companyCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParam
                     $defer.resolve(items);
                 }               
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });

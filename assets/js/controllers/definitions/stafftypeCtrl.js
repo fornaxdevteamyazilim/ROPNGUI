@@ -14,14 +14,14 @@ function stafftypeCtrl($rootScope, $scope, Restangular, ngTableParams, toaster, 
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 sr.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
+                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'stafftype')
             this.item.post().then(function (res) {
                 sr.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
+                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
             });
             this.item.get();
         }
@@ -39,9 +39,9 @@ function stafftypeCtrl($rootScope, $scope, Restangular, ngTableParams, toaster, 
         rowform.$cancel();
         if (!sr.tableParams.data[sr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'),$translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     sr.tableParams = new ngTableParams({
@@ -60,7 +60,7 @@ function stafftypeCtrl($rootScope, $scope, Restangular, ngTableParams, toaster, 
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });

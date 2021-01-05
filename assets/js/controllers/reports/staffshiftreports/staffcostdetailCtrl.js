@@ -1,6 +1,6 @@
 'use strict';
 app.controller('staffcostdetailCtrl', staffcostdetailCtrl);
-function staffcostdetailCtrl($scope, $filter, NG_SETTING, $q, $rootScope, $location, $translate, $timeout, $element, userService, localStorageService) {
+function staffcostdetailCtrl($scope, NG_SETTING, $rootScope, $translate, $element, localStorageService) {
     $rootScope.uService.EnterController("staffcostdetailCtrl");
     $scope.translate = function () {
         $scope.trREPORT = $translate.instant('main.REPORT');
@@ -103,7 +103,8 @@ function staffcostdetailCtrl($scope, $filter, NG_SETTING, $q, $rootScope, $locat
         //     storageKey: "dx-weeklycolGrid"
         // },
         columns: [
-            { dataField: "Store", caption: $translate.instant('trends.Store'), visibleIndex: 0, fixed: true, dataType: "string", sortIndex: 0, sortOrder: "asc" },
+            { dataField: "Store", caption: $translate.instant('trends.Store'), visibleIndex: 0, fixed: true, dataType: "string" },            
+            { dataField: "UserName", dataType: "string", fixed: true },
             { dataField: "RegionManager", caption: $translate.instant('trends.Region'), fixed: true, dataType: "string" },
             { dataField: "StaffPossition", caption: "StaffPossition", fixed: true, dataType: "string" },
             { dataField: "OperationDate", caption: "OperationDate", dataType: "date", format: 'dd.MM.yyyy' },
@@ -137,97 +138,13 @@ function staffcostdetailCtrl($scope, $filter, NG_SETTING, $q, $rootScope, $locat
                 { column: "TotalCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
 
             ],
-        },
-        onCellPrepared: function (options) {
-            if (options.rowType == 'data') {
-                var fieldData = options.value;
-                if (options.rowType == 'data' && options.column.name && options.column.name.length > 5 && options.column.name == "TodayIncome") {
-                    var fieldData = options.value;
-                    var fieldHtml = "";
-                    if (options.row.data["TodayIncome"] != options.row.data["PrewWeekIncome"]) {
-                        options.cellElement.addClass((options.row.data["TodayIncome"] > options.row.data["PrewWeekIncome"]) ? "inc" : "dec");
-                        fieldHtml += "<div class='current-value'>" +
-                            "</div> <div class='diff'>" +
-                            parseInt(fieldData).toLocaleString() +
-                            "  </div>";
-                    }
-                    /* else {
-                        fieldHtml = fieldData.value;
-                    } */
-                    options.cellElement.html(fieldHtml);
-                }
-                // if (options.column.name && options.column.name == "TodayIncome") {
-                //     if (options.row.data["TodayIncome"] != options.row.data["PrewWeekIncome"]) {
-
-                //         if (options.row.data["TodayIncome"] < options.row.data["PrewWeekIncome"])
-                //             options.cellElement.css({ 'color': '#f00' });
-                //         else
-                //             options.cellElement.css({ 'color': '#2ab71b' });
-                //     }
-
-                // }
-                if (options.column.name && options.column.name == "TodayTC") {
-                    if (options.row.data["TodayTC"] != options.row.data["PrewWeekTC"]) {
-
-                        if (options.row.data["TodayTC"] < options.row.data["PrewWeekTC"])
-                            options.cellElement.css({ 'color': '#f00' });
-                        else
-                            options.cellElement.css({ 'color': '#2ab71b' });
-                    }
-
-                }
-                if (options.column.name && options.column.name == "HitRate") {
-                    if (options.row.data["HitRate"] != 0) {
-
-                        if (options.row.data["HitRate"] < 0)
-                            options.cellElement.css({ 'color': '#f00' });
-                        else
-                            options.cellElement.css({ 'color': '#2ab71b' });
-                    }
-
-                }
-            }
-        },
-        onRowClick: function (rowInfo) {
-            //    location.href = '#/app/specialoperations/shiftplanedit2/' + rowInfo.key;
-            //rowInfo.component.editRow(rowInfo.rowIndex);  
-            //$rootScope.SelectedData = {id:rowInfo.key,name:rowInfo.data.Store};
-            //$location.path('/app/dashboard');
-            //$location.href = '#/app/dashboard';
-        },
+        },        
         onDataErrorOccurred: function (e) {
             console.log(e.error);
         },
         export: {
             enabled: true,
-            fileName: "Staff Cost Details Report",
-            customizeExcelCell: (options) => {
-                var gridCell = options.gridCell;
-                var fieldData = options.value;
-                if (!gridCell) {
-                    return;
-                }
-                if (options.gridCell.rowType == 'data' && gridCell.column.name && gridCell.column.name == "TodayIncome")
-                    if (gridCell.data && gridCell.data["TodayIncome"] != gridCell.data["PrewWeekIncome"])
-                        if (gridCell.data["TodayIncome"] > gridCell.data["PrewWeekIncome"])
-                            options.font.color = '#008000';
-                        else
-                            options.font.color = '#FF0000';
-                if (options.gridCell.rowType == 'data' && gridCell.column.name && gridCell.column.name == "TodayTC")
-                    if (gridCell.data && gridCell.data["TodayTC"] != gridCell.data["PrewWeekTC"])
-                        if (gridCell.data["TodayTC"] > gridCell.data["PrewWeekTC"])
-                            options.font.color = '#008000';
-                        else
-                            options.font.color = '#FF0000';
-                if (options.gridCell.rowType == 'data' && gridCell.column.name && gridCell.column.name == "HitRate")
-                    if (gridCell.data && gridCell.data["HitRate"] != 0)
-                        if (gridCell.data["HitRate"] > 0)
-                            options.font.color = '#008000';
-                        else
-                            options.font.color = '#FF0000';
-            }
-
-
+            fileName: "Staff Cost Details Report",       
         },
         scrolling: { mode: "virtual" },
         //height: 600
@@ -274,7 +191,6 @@ function staffcostdetailCtrl($scope, $filter, NG_SETTING, $q, $rootScope, $locat
     };
 
     $scope.$on('$destroy', function () {
-        $scope.stop();
         tranlatelistener();
         $element.remove();
         $rootScope.uService.ExitController("staffcostdetailCtrl");

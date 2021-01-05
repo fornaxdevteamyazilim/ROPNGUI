@@ -1,7 +1,8 @@
 ﻿app.controller('orderdetailsCtrl', orderdetailsCtrl);
-function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $interval, $filter, Restangular, $stateParams, NG_SETTING, ngTableParams, SweetAlert, toaster, $window, $location, userService, ngnotifyService, $element, $translate) {
+function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interval, $filter, Restangular, $stateParams, ngTableParams, SweetAlert, toaster, $window, $location, userService, ngnotifyService, $element, $translate) {
     $rootScope.uService.EnterController("orderdetailsCtrl");
     userService.userAuthorizated();
+    $scope.StoreData = {};
     if ($rootScope.user.UserRole.Name == 'Alonet') {
         $scope.buttonpanel = false;
     } else {
@@ -11,8 +12,8 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         $window.history.back();
     };
     $scope.userRestrictions = $rootScope.user.restrictions;
-    $scope.translate = function (StoreOrderTypes) {
-        $scope.orderdetails = $translate.instant('main.ORDERDETAILSS');
+     $scope.translate = function (StoreOrderTypes) {
+         $scope.orderdetails = $translate.instant('main.ORDERDETAILSS');
         $scope.ordernumber = $translate.instant('main.ORDERNUMBER');
         $scope.ordertype = $translate.instant('main.ORDERTYPE');
         $scope.orderno = $translate.instant('main.ORDERNO');
@@ -32,9 +33,9 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         $scope.deliverydate = $translate.instant('main.DELIVERYDATE');
         $scope.agent = $translate.instant('main.AGENT');
         $scope.reprint = $translate.instant('main.REPRINT');
-        $scope.changetoorder = $translate.instant('main.CHANGETOORDER');
-        $scope.sendtofiyuu = $translate.instant('main.SENDTOFIYUU');
-        $scope.sendgifpromotions = $translate.instant('main.SENDGIFTPROMOTIONS');
+         $scope.changetoorder = $translate.instant('main.CHANGETOORDER');
+         $scope.sendtofiyuu = $translate.instant('main.SENDTOFIYUU');
+         $scope.sendgifpromotions = $translate.instant('main.SENDGIFTPROMOTIONS');
         $scope.canceltoorder = $translate.instant('main.CANCELTOORDER');
         $scope.addpromotion = $translate.instant('main.ADDPROMOTION');
         $scope.deleteysmaping = $translate.instant('main.DELETEYSMAPING');
@@ -42,8 +43,8 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         $scope.refreshorder = $translate.instant('main.REFRESHORDER');
         $scope.changetopaymenttype = $translate.instant('main.CHANGETOPAYMENTTYPE');
         $scope.refuseorder = $translate.instant('main.REFUSEDORDER');
-        $scope.chooseorderstate = $translate.instant('main.CHOOSEORDERSTATE');
-        $scope.sendordertofiyuu = $translate.instant('main.SENDORDERTOFIYUU');
+         $scope.chooseorderstate = $translate.instant('main.CHOOSEORDERSTATE');
+         $scope.sendordertofiyuu = $translate.instant('main.SENDORDERTOFIYUU');
         $scope.reverttoprevstate = $translate.instant('main.REVERTTOPREVSTATE');
         $scope.updateorderpaymentstatus = $translate.instant('main.UPDATEORDERPAYMENTSTATUS');
         $scope.updateorderstatusadmin = $translate.instant('main.UPDATEORDERSTATUSADMIN');
@@ -73,28 +74,19 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         $scope.repeatorder = $translate.instant('main.REPEATORDER');
         $scope.isChargedd = $translate.instant('main.ISCHARGEDD');
         $scope.open = $translate.instant('main.OPEN');
-        $scope.close = $translate.instant('main.CLOSE');
-        $scope.efaturadetails = $translate.instant('main.EFATURADETAILS');
-        $scope.invoiceid = $translate.instant('main.ORDERINVOICEID');
-        $scope.phonenumber = $translate.instant('main.PHONENUMBER');
-        $scope.taxnumber = $translate.instant('main.TAXNUMBER');
-        $scope.taxoffice = $translate.instant('main.TAXOFFICE');
-        $scope.title = $translate.instant('main.TITLE');
-        $scope.duration = $translate.instant('main.DURATION');
-        $scope.durationn = $translate.instant('main.DURATIONN');
-        $scope.product = $translate.instant('main.PRODUCT');
-        $scope.productOption = $translate.instant('main.PRODUCTOPTION');
-        $scope.productPrice = $translate.instant('main.PRODUCTPRICE');
-        $scope.addDate = $translate.instant('main.ADDDATE');
-        $scope.totalAmount = $translate.instant('main.TOTALAMOUNT');
-        $scope.landmark = $translate.instant('main.LANDMARK');
-        $scope.addressType = $translate.instant('main.ADDRESSTYPE');
-        $scope.Floor = $translate.instant('main.FLOOR');
-        $scope.AddressNo = $translate.instant('main.*ADDRESSNO');
-        $scope.AppartmentNo = $translate.instant('main.*APERTMENTNO');
-        $scope.AppartmentName = $translate.instant('main.APPARTMENTNAME');
-        $scope.OperationDate = $translate.instant('main.OPERATIONDATE');
-        $scope.LastStateDate = $translate.instant('main.STATEDATE');
+         $scope.close = $translate.instant('main.CLOSE');
+         $scope.efaturadetails = $translate.instant('main.EFATURADETAILS');
+         $scope.invoiceid = $translate.instant('main.ORDERINVOICEID');
+         $scope.phonenumber = $translate.instant('main.PHONENUMBER');
+         $scope.taxnumber = $translate.instant('main.TAXNUMBER');
+         $scope.taxoffice = $translate.instant('main.TAXOFFICE');
+         $scope.title = $translate.instant('main.TITLE');
+         $scope.duration = $translate.instant('main.DURATION');
+         $scope.durationn = $translate.instant('main.DURATIONN');
+
+
+
+
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
@@ -125,48 +117,25 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         }).then(function (result) {
             $scope.DeletePromotion(result[0].id);
         },
-            function (response) {
-                toaster.pop('error', $translate.instant('Server.Serverconnectionerror'), response.data.ExceptionMessage);
-            });
+      function (response) {
+          toaster.pop('error', "Server Connection Error", response.data.ExceptionMessage);
+      });
     };
     $scope.DeletePromotion = function (ID) {
         Restangular.one("orderpromotion", ID).remove().then(function () {
-            toaster.pop("error", $translate.instant('orderfile.Deleted'), $translate.instant('orderfile.PromotionDeleted'));
+            toaster.pop("error", "Deleted.", "Promotion Deleted !");
             $scope.getOrder();
             $scope.RefreshOrder($stateParams.id)
         });
     };
-    var states = [];
-    var promotions = [];
-    var payments = [];
     $scope.orders = [];
     $scope.getOrder = function () {
         if ($stateParams.id != 'new') {
             Restangular.one('order', $stateParams.id).get().then
                 (function (restresult) {
                     $scope.item = Restangular.copy(restresult);
-                    $scope.item = restresult.plain();
-                    var fo = $('#form').dxForm('instance');
-                    fo.updateData($scope.item);
-                    $scope.item.Address;
-                    var Ad = $('#form1').dxForm('instance');
-                    Ad.updateData($scope.item.Address);
-                    $scope.item;
-                    var Ad = $('#form2').dxForm('instance');
-                    Ad.updateData($scope.item);
-                    states = $scope.item.states;
-                    var statex = $('#gridContainerstate').dxDataGrid('instance');
-                    statex.option("dataSource", states);
-                    // statex.refresh();
-                    promotions = $scope.item.promotions;
-                    var promoti = $('#gridContainerpromoti').dxDataGrid('instance');
-                    promoti.option("dataSource", promotions);
-                    payments = $scope.item.payments;
-                    var payment = $('#gridContainerpayment').dxDataGrid('instance');
-                    payment.option("dataSource", payments);
                     $scope.LoadOrderItems();
-                    $scope.orderdxget();
-                    
+                    $scope.GetStore(restresult.StoreID)
                     for (var i = 0; i < restresult.states.length; i++) {
                         if (restresult.states[i].OrderStateID == 0)
                             if (restresult.states[i].User) {
@@ -174,131 +143,18 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
                             }
                     }
                 },
-                    function (restresult) {
-                        toaster.pop('warning', $translate.instant('orderfile.Cancelled'), restresult.data.ExceptionMessage);
-                    }
-                )
+               function (restresult) {
+                   toaster.pop('warning', $translate.instant('orderfile.Cancelled'), restresult.data.ExceptionMessage);
+               }
+               )
         }
     };
-
- 
-
-    $scope.getOrder();
-
-    // $scope.GetStore = function (StoreID) {
-    //     Restangular.one('store', StoreID).get().then
-    //         (function (restresult) {
-    //             $scope.item = Restangular.copy(restresult);
-    //             var dataGrid = $('#storegridContainer').dxDataGrid('instance');
-    //             dataGrid.option("dataSource",
-    //                 new DevExpress.data.CustomStore({
-    //                     //key: "id",
-    //                     load: function (loadOptions) {
-    //                         var params = {
-    //                             StoreID: $scope.item.StoreID,
-    //                             AllPositions: true,
-    //                             ProductRelated: true,
-    //                             ShowHourly: true
-    //                         };
-    
-    //                         return $http.get(NG_SETTING.apiServiceBaseUri + "/api/store", { params: params })
-    //                             .then(function (response) {
-    //                                 return {
-    //                                     data: response.data,
-    //                                     totalCount: 10
-    //                                 };
-    //                             }, function (response) {
-    //                                 return $q.reject("Data Loading Error");
-    //                             });
-    //                     }
-    //                 }));
-    //             debugger;
-              
-    //             debugger;
-    //         })
-    // };
-  
-   /*  $scope.GetStore = function (StoreID) {
-        Restangular.one('store',StoreID).get({  
-            // pageNo: 1,
-            // pageSize: 200,
-            //StoreID: order.StoreID,
-            //search: "StoreID='" + $StoreID + "'"
-            //StoreID: $scope.item.StoreID      
-        }).then(function (result) {
-            $scope.item = result;
-             
-            debugger;
-         $('#storegridContainer').dxDataGrid('instance').option("dataSource", result);
-           
-            debugger;
-        },
-            function (response) {
-                toaster.pop('error', $translate.instant('Server.Serverconnectionerror'), response.data.ExceptionMessage);
-            });
-        console.log();
-    }; */
-    $scope.selectedStore = function (StoreID, Store) {
-        var data = {};
-        data.id = StoreID;
-        data.name = Store;
-        $rootScope.SelectedData = data;
-      
-    };
-    $scope.storedataGridOptions = {
-        dataSource: new DevExpress.data.DataSource({
-            store: new DevExpress.data.CustomStore({
-                key: "id",
-                load: function (loadOptions) {
-                    var params = {
-                        pageSize: 200,
-                        pageNo: 1,
-                        item:$scope.item
-                    };
-                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/store", { params: params })
-                        .then(function (response) {
-                            return {
-                                data: response.data.Items,
-                                totalCount: 10
-                            };
-                        }, function (response) {
-                            return $q.reject("Data Loading Error");
-                        });
-                }
-            })
-        }),
-        showBorders: true,
-        allowColumnResizing: true,
-        columnAutoWidth: true,
-        showColumnLines: true,
-        showRowLines: true,
-        rowAlternationEnabled: true,
-        //keyExpr: "id",
-        showBorders: true,
-        hoverStateEnabled: true,
-        allowColumnReordering: true,
-        //filterRow: { visible: true },
-        // headerFilter: { visible: true },
-        // searchPanel: { visible: true },
-        columns: [
-            { name: "Store", dataField: "name", caption: $scope.store },
-            { name: "StoreType", dataField: "StoreType", caption: $scope.storetype },
-            { name: "StorePhone", dataField: "phone", caption: $scope.storephone },
-            { name: "ServicesTime", dataField: "ServiceTime", caption: $scope.servicestime },
-            { name: "StoreNote", dataField: "notes", caption: $scope.storenote },
-        ],
-    };
-    var order = [];
-    $scope.orderdxget = function () {
-        Restangular.all("orderitem").getList({
-            search: "OrderID='" + $stateParams.id + "'"
-        }).then(function (result) {
-            $scope.orderItems = angular.copy(result);
-            $('#gridContainerorder').dxDataGrid('instance').option("dataSource", result);
-        },
-            function (response) {
-                toaster.pop('error', $translate.instant('Server.Serverconnectionerror'), response.data.ExceptionMessage);
-            });
+    $scope.getOrder();    
+    $scope.GetStore = function (StoreID) {
+        Restangular.one('store', StoreID).get().then
+             (function (restresult) {
+                 angular.copy(restresult, $scope.StoreData);
+             })
     };
     $scope.LoadOrderItems = function () {
         Restangular.all('orderitem').getList({
@@ -308,7 +164,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         }).then(function (_orderItems) {
             $scope.orderItems = angular.copy(_orderItems);
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.Serverconnectionerror'), response.data.ExceptionMessage);;
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);;
         });
     };
     $scope.CopyOrder = function (order) {
@@ -324,154 +180,13 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
             PaymentTypeID: order.PaymentTypeID,
             PaymentStatusID: order.PaymentStatusID,
             OrderStateID: order.OrderStateID,
-            OrderDate: $filter('date')(order.OrderDate, 'yyyy-MM-dd HH:mm'),
-            DeliveryDate: $filter('date')(order.DeliveryDate, 'yyyy-MM-dd HH:mm'),
+            OrderDate: $filter('date')(order.OrderDate, 'yyyy-MM-dd HH:mm:ss'),
+            DeliveryDate: $filter('date')(order.DeliveryDate, 'yyyy-MM-dd HH:mm:ss'),
             OperationDate: order.OperationDate,
             OrderNote: order.OrderNote,
             PaymentNote: order.PaymentNote,
             StoreTableID: order.StoreTableID,
         }
-    };
-    $scope.item = {};
-    $scope.formOptions = {
-        formData: {},
-        colCount: 5,
-        items: [{ itemType: "group", items: [{  dataField: "id", dataType: "string",label: { text: $scope.orderno }  }] },
-        { itemType: "group", items: [  {  dataField: "OrderNumber",label: { text: $scope.ordernumber } }] },
-        { itemType: "group", items: [  {  dataField: "Amount",label: { text: $scope.amount } }] },
-        { itemType: "group", items: [  { dataField: "OrderSource",label: { text: $scope.ordersource } }] },
-        { itemType: "group", items: [  {  dataField: "Store", label: { text: $scope.store } }] }
-        ],
-        readOnly: true,
-        //disabled:true,
-        labelLocation: 'left'
-    };
-    $scope.item.Address = {};
-    $scope.formOptionss = {
-        formData: {},
-        colCount: 2,
-        items: [{
-            itemType: "group", items: [
-                { dataField: "StreetAddress", label: { text: $scope.address }  },
-                { dataField: "Notes",label: { text: $scope.ordernote }},
-                { dataField: "Landmark",label: { text: $scope.landmark }},
-                {  dataField: "AddressType", label: { text: $scope.addressType }},
-                ]
-        },
-        { itemType: "group", items: [
-            {  dataField: "Floor", label: { text: $scope.Floor }},
-            {  dataField: "AddressNo", label: { text: $scope.AddressNo }},
-            {  dataField: "AppartmentNo", label: { text: $scope.AppartmentNo }},
-            {  dataField: "AppartmentName", label: { text: $scope.AppartmentName }},
-            
-            ] }
-        ],
-        readOnly: true,
-        //disabled:true,
-        labelLocation: 'left'
-    };
-    $scope.formOptionsss = {
-        formData: {},
-        colCount: 3,
-
-        items: [
-            { itemType: "group", items: [
-                { name: "OrderState", dataField: "OrderState", label: { text: $scope.orderstate }},
-                { name: "OrderType", dataField: "OrderType", label: { text: $scope.ordertype }},
-                { name: "PaymentStatus", dataField: "PaymentStatus", label: { text: $scope.paymentstatus }},
-                ] },
-            {
-                itemType: "group", items: [
-
-                    { dataField: "OrderDate", alignment: "right", dataType: "date", width: 80, format: 'dd.MM.yyyy',label: { text: $scope.orderdate } },
-                    { name: "OperationDate", dataField: "OperationDate", label: { text: $scope.OperationDate }},
-                    { name: "DeliveryDate", dataField: "DeliveryDate", label: { text: $scope.deliverydate }},
-                   ]
-            },
-            { itemType: "group", items: [
-                { name: "OrderNote", dataField: "OrderNote",label: { text: $scope.ordernote }},
-                { name: "LastStateDate", dataField: "LastStateDate",label: { text: $scope.AppartmentName }},
-               ] }
-        ],
-        readOnly: true,
-        //disabled:true,
-        labelLocation: 'left'
-    };
-    $scope.dataGridOptionsorder = {
-        dataSource: order,
-        showBorders: true,
-        allowColumnResizing: true,
-        columnAutoWidth: true,
-        showColumnLines: true,
-        showRowLines: true,
-        rowAlternationEnabled: true,
-        //keyExpr: "id",
-        showBorders: true,
-        hoverStateEnabled: true,
-        allowColumnReordering: true,
-        //filterRow: { visible: true },
-        // headerFilter: { visible: true },
-        // searchPanel: { visible: true },
-
-        columns: [
-            { name: "Product", dataField: "Product", caption: $scope.product  },
-            { name: "ProductOption", dataField: "ProductOption", caption: $scope.productOption },
-            { name: "ProductPrice", dataField: "ProductPrice", caption: $scope.productPrice },
-            { name: "AddDate", dataField: "AddDate", caption:  $scope.addDate  },
-            { name: "TotalAmount", dataField: "TotalAmount", caption:  $scope.totalAmount, summaryType: "count", displayFormat: "{0}₺" },
-
-        ],
-        summary: {
-            totalItems: [{ caption:  $scope.totalAmount, column: "TotalAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },],
-
-        }
-    };
-    $scope.dataGridOptionsstate = {
-        dataSource: states,
-        showBorders: true,
-        allowColumnResizing: true,
-        columnAutoWidth: true,
-        showColumnLines: true,
-        showRowLines: true,
-        rowAlternationEnabled: true,
-        //keyExpr: "id",
-        showBorders: true,
-        hoverStateEnabled: true,
-        allowColumnReordering: true,
-        //filterRow: { visible: true },
-        // headerFilter: { visible: true },
-        // searchPanel: { visible: true },
-        columns: [
-            { name: "OrderStateName", dataField: "OrderStateName", caption:  $scope.state},
-            { name: "OrderStateDate", dataField: "OrderStateDate", caption:  $scope.time },
-            { name: "Duration", dataField: "Duration", caption: $scope.duration },
-            { name: "UpdateUserName", dataField: "UpdateUserName", caption: $scope.user },
-            { name: "Driver", dataField: "Driver", caption: $scope.driver },
-            { name: "Reason", dataField: "OrderReason", caption:   $scope.reason },
-        ],
-    };
-    $scope.dataGridOptionspromoti = {
-        dataSource: promotions,
-        columns: [
-            { name: "PromotionName", dataField: "PromotionName", caption:$scope.promotionname},
-            { name: "PromotionCode", dataField: "PromotionCode", caption: $scope.promotioncode },
-
-        ],
-        showBorders: true
-    };
-    $scope.dataGridOptionspayment = {
-        dataSource: payments,
-        repaintChangesOnly: true,
-        twoWayBindingEnabled: false,
-        columnAutoWidth: true,
-        showBorders: true,
-        columns: [
-            { name: "PaymentType", dataField: "PaymentType", caption:  $scope.paymenttype },
-            { name: "PaymentDate", dataField: "PaymentDate", caption:  $scope.date  },
-            { name: "Amount", dataField: "Amount", caption: $scope.amount  },
-            { name: "isAutomatic", dataField: "isAutomatic", caption: "isAutomatic" },
-        ],
-        showBorders: true
     };
     $scope.AwaitingCCAutorization = function (item) {
         if (item.OrderStateID == 20) {
@@ -484,22 +199,22 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
                 closeOnConfirm: false
             }, function () {
                 Restangular.one('order', item.id).get().then
-                    (function (restresult) {
-                        var ordertosave = $scope.CopyOrder(restresult);
-                        ordertosave.OrderStateID = 13;
-                        Restangular.restangularizeElement('', ordertosave, 'order');
-                        if (ordertosave.restangularized && ordertosave.id) {
-                            ordertosave.put().then(function (resp) {
-                                $scope.getOrder();
-                                swal($translate.instant('orderfile.Updated'), $translate.instant('yemeksepetifile.OrderConfirmed'), "success");
-                            }, function (response) {
-                                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-                            });
-                        }
-                    })
+               (function (restresult) {
+                   var ordertosave = $scope.CopyOrder(restresult);
+                   ordertosave.OrderStateID = 13;
+                   Restangular.restangularizeElement('', ordertosave, 'order');
+                   if (ordertosave.restangularized && ordertosave.id) {
+                       ordertosave.put().then(function (resp) {
+                           $scope.getOrder();
+                           swal("Updated.", $translate.instant('yemeksepetifile.OrderConfirmed'), "success");
+                       }, function (response) {
+                           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                       });
+                   }
+               })
             });
         } else {
-            toaster.pop('warning', $translate.instant('yemeksepetifile.OrderCannotBeChanged'), "");
+            toaster.pop('warning',$translate.instant('yemeksepetifile.OrderCannotBeChanged'), "");
         }
     };
     $scope.RePrintOrder = function (OrderID) {
@@ -508,7 +223,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         }).then(function (_orderItems) {
             toaster.pop('success', $translate.instant('yemeksepetifile.PrintedAgain'));
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.SendToFiyuu = function (OrderID) {
@@ -517,7 +232,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         }).then(function (_orderItems) {
             toaster.pop('success', $translate.instant('yemeksepetifile.OrderFiyuutransmissioninitiated'));
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.Date = $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss dd-MM-yyyy')
@@ -564,7 +279,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + item.id;
                 } else {
-                    toaster.pop('warning', $translate.instant('orderfile.ChangeOrderStatus'), "");
+                    toaster.pop('warning', "Change Order Status !", "");
                 }
             } else {
                 if (item.OrderStateID == 5 && $rootScope.user.restrictions.changeorder == 'Enable') {
@@ -585,7 +300,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
                 }
                 if (item.OrderStateID == 5 || item.OrderStateID == 6 || item.OrderStateID == 7 || item.OrderStateID == 10 || item.OrderStateID == 9 || item.OrderStateID == 8) {
                     if ($rootScope.user.restrictions.changeorder != 'Enable')
-                        toaster.pop('warning', $translate.instant('orderfile.OrderCannotBeChanged'), "");
+                        toaster.pop('warning', "Order Cannot Be Changed!", "");
                 } else {
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage == 'Enable') {
                         if (item.OrderTypeID == 0)
@@ -604,12 +319,12 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
                 }
             }
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.OrderCannotBeChanged'), "");
+            toaster.pop('warning', "Order Cannot Be Changed!", "");
         }
     };
     $scope.UpdateOrderStatusAdmin = function (itemID) {
         SweetAlert.swal({
-            title: $translate.instant('yemeksepetifile.CANCELORDER'),
+            title:$translate.instant('yemeksepetifile.CANCELORDER'),
             text: $translate.instant('yemeksepetifile.Areyousureyouwantcanceltheorder'),
             type: "warning",
             showCancelButton: true,
@@ -621,22 +336,22 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         }, function (isConfirm) {
             if (isConfirm) {
                 Restangular.all('ordertools/updateorderstatus').getList(
-                    {
-                        OrderID: itemID,
-                        newSatus: 7,
-                        OrderReasonID: '100592257695',
-                        OrderNote: $translate.instant('yemeksepetifile.AuthorizedUserCanceled')
-                    }
-                ).then(function (result) {
-                    $scope.getOrder();
-                    toaster.pop('success', $translate.instant('yemeksepetifile.OrderStatusUpdated'), "");
-                });
+            {
+                OrderID: itemID,
+                newSatus: 7,
+                OrderReasonID: '100592257695',
+                OrderNote: $translate.instant('yemeksepetifile.AuthorizedUserCanceled')
+            }
+            ).then(function (result) {
+                $scope.getOrder();
+                toaster.pop('success',$translate.instant('yemeksepetifile.OrderStatusUpdated'), "");
+            });
             }
         });
     };
     $scope.UpdateOrderStatus = function (item) {
         SweetAlert.swal({
-            title: $translate.instant('yemeksepetifile.CANCELORDER'),
+            title:$translate.instant('yemeksepetifile.CANCELORDER'),
             text: $translate.instant('yemeksepetifile.Areyousureyouwantcanceltheorder'),
             type: "warning",
             showCancelButton: true,
@@ -672,7 +387,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
             OrderID: OrderID,
             newSatus: 1
         }).then(function () {
-            toaster.pop('success', $translate.instant('yemeksepetifile.PaymentOfOrderClosed'), "");
+            toaster.pop('success',$translate.instant('yemeksepetifile.PaymentOfOrderClosed'), "");
             $scope.getOrder();
         }, function (response) {
             toaster.pop('error', "Response", response.data.ExceptionMessage);
@@ -682,7 +397,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         Restangular.one("ordertools/reverttoprevstate").get({
             OrderID: OrderID
         }).then(function () {
-            toaster.pop('success', $translate.instant('yemeksepetifile.OrderRestoredToPreviousState'), "");
+            toaster.pop('success',$translate.instant('yemeksepetifile.OrderRestoredToPreviousState'), "");
             $scope.getOrder();
         }, function (response) {
             toaster.pop('error', "Response", response.data.ExceptionMessage);
@@ -729,7 +444,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         })
     };
     $scope.CheckCode = function (item, root) {
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCBACKOFFICE") || userService.userIsInRole("CMRESTORANHATTI") || userService.userIsInRole("CCMANAGER")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCBACKOFFICE") || userService.userIsInRole("CMRESTORANHATTI") ||userService.userIsInRole("CCMANAGER")) {
             if (root == 'CancelOrder')
                 $scope.UpdateOrderStatus(item)
         } else {
@@ -742,7 +457,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
                 });
                 modalInstance.result.then(function (password) {
                     if (password != "cancel") {
-                        userService.cardLogin(password, true).then(function (response) {
+                        userService.cardLogin(password,true).then(function (response) {
                             userService.stopTimeout();
                             if (root == 'ChangeOrderDriver')
                                 $scope.ChangeOrderDriver(item)
@@ -810,10 +525,10 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
                             $scope.LoadOrderItems();
                             $scope.getOrder();
                         },
-                            function (restresult) {
-                                toaster.pop('warning', $translate.instant('orderfile.Cancelled'), restresult.data.ExceptionMessage);
-                            }
-                        )
+                       function (restresult) {
+                           toaster.pop('warning', $translate.instant('orderfile.Cancelled'), restresult.data.ExceptionMessage);
+                       }
+                       )
                 }
             }
         })
@@ -847,7 +562,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
                 location.href = '#/app/orders/orderStore/' + result.id;
             if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                 location.href = '#/app/orders/order/' + result.id;
-            toaster.pop("success", $translate.instant('orderfile.OrderCreated'));
+            toaster.pop("success", "Order Created.");
             $scope.isSpinner = false;
         }, function (response) {
             toaster.pop('error', "error!", response.data.ExceptionMessage);
@@ -859,7 +574,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         Restangular.one('yemekSepetiCustomerMap/deletemap').get({
             OrderID: OrderID,
         }).then(function (result) {
-            toaster.pop("success", $translate.instant('orderfile.YSOrderCustomerMappingDeleted'));
+            toaster.pop("success", "YS Order Customer Mapping Deleted!");
             $scope.isSpinner = false;
         }, function (response) {
             toaster.pop('error', "error!", response.data.Message);

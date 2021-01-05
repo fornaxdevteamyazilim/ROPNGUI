@@ -89,7 +89,7 @@ function productsalesbyweeksCtrl($scope, $filter, $modal, $log, Restangular, ngT
                 ctrl.table.data = orders;
                 $scope.ShowReport();
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     ctrl.table = {

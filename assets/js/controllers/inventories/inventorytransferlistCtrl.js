@@ -30,9 +30,9 @@ function inventorytransferlistCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         rowform.$cancel();
         if (!its.tableParams.data[its.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(its.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.translate = function () {
@@ -92,7 +92,7 @@ function inventorytransferlistCtrl($scope, $log, $modal, $filter, SweetAlert, Re
                     //$scope.SelectedItem = items[0].id;
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -119,7 +119,7 @@ function inventorytransferlistCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -128,7 +128,7 @@ function inventorytransferlistCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

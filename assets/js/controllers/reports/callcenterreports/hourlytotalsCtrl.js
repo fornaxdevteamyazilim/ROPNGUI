@@ -48,7 +48,7 @@ function hourlytotalsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
             $scope.DailyTotals = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadDailyTotals();

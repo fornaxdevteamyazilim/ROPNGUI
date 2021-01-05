@@ -15,7 +15,7 @@ function deleteorderpromotionCtrl($scope, $rootScope, $translate, $modalInstance
                  angular.copy(restresult, $scope.order);
              },
             function (restresult) {
-                swal("Error!", $translate.instant('Server.DataError'), "Warning");
+                swal("Error!", "Data Error!", "Warning");
             })
     };
     $scope.CopyOrder = function (order) {
@@ -49,7 +49,7 @@ function deleteorderpromotionCtrl($scope, $rootScope, $translate, $modalInstance
          $scope.ok();
          toaster.pop('success', $translate.instant('orderfile.StatusOrderChanged'), 'Success');
      }, function (response) {
-         toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+         toaster.pop('error', "Server Error", response.data.ExceptionMessage);
      });
     };
     $scope.storepaymenttypes = [];
@@ -62,7 +62,7 @@ function deleteorderpromotionCtrl($scope, $rootScope, $translate, $modalInstance
             }).then(function (result) {
                 $scope.storepaymenttypes = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

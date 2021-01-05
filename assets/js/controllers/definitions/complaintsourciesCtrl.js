@@ -37,7 +37,7 @@ function complaintsourciesCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
              params.total(items.paging.totalRecordCount);
              $defer.resolve(items);
          }, function (response) {
-             toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
          });
      }
  });
@@ -45,14 +45,14 @@ function complaintsourciesCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 cs.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
+                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'complaintsource')
             data.post().then(function (res) {
                 cs.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
+                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -70,9 +70,9 @@ function complaintsourciesCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
         rowform.$cancel();
         if (!cs.tableParams.data[cs.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(cs.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {

@@ -25,7 +25,7 @@
                             {{:: item.StoreTable.name}}
                         </span>
                         <span class="col-lg-2">{{:: item.OrderSource}}</span>
-                        <span class="col-lg-1">{{:: item.Amount | number : 2}} TL</span>
+                        <span class="col-lg-1">{{:: item.Amount | number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>
                         <span class="col-lg-1">{{:: item.PaymentType.PaymentType.name}}</span>
                         <span class="col-lg-2">{{:: item.OrderState}}</span>
                         <span class="col-lg-2">{{:: item.OrderDate | date:'dd-MM-yyyy / HH:mm:ss'}}</span>

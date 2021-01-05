@@ -17,14 +17,14 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 bbi.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
+                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'billboarditem')
             this.item.post().then(function (res) {
                 bbi.tableParams.reload();
-                toaster.pop('success', $translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
+                toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
             });
             this.item.get();
         }
@@ -42,9 +42,9 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
         rowform.$cancel();
         if (!bbi.tableParams.data[bbi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(bbi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     bbi.tableParams = new ngTableParams({
@@ -63,7 +63,7 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -110,7 +110,7 @@ function billboarditemCtrl($rootScope, $scope, Restangular, ngTableParams, toast
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

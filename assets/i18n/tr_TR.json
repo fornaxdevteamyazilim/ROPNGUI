@@ -380,9 +380,14 @@
     "ACCOUNTTOOLS": "{{appName}} - Muhasebe Aktarımları",
     "USERTRANSFERS": "{{appName}} - Kullanıcı Tansferi",
     "CLOCKINOUTSTATS": "{{appName}} - Vardiya giriş-çıkış istatistikleri",
-    "PROMOTIONANALISYS": "{{appName}} - Promosyon Analizi"
+    "PROMOTIONANALISYS": "{{appName}} - Promosyon Analizi",
+    "PUNCHCARDTRANSACTIONS": "{{appName}} - Dilim Raporu",
+    "BONUSTRANSACTIONS": "{{appName}} - Puan Detay Raporu",
+    "WEBUSERS": "{{appName}} - Web Kullanıcıları Raporu"
   },
   "main": {
+    "CURRENCY_SYMBOL":"₺",
+    "MONEY_CHANGE":"Para Üstü",
     "RETURNREASON": "İptal Sebebi",
     "WASTEUSAGE": "Atık Kullanım Maliyeti",
     "APPERTMENTNAME": "Apartman",
@@ -391,7 +396,6 @@
     "SELECTSTORE": "Restoran Seçimi",
     "SHOWVOUCHER": "Fişleri Göster",
     "PAYABLEAMOUNT": "Ödenecek Tutar",
-    "CHANGE":"Para Üstü",
     "ADDNEWINVENTORYPRICE": "Yeni Fiyat Ekle",
     "CALLER": "Arayan",
     "CALLSTART": "Çağrı Başlangıcı",
@@ -512,7 +516,7 @@
     "PHONES": "Telefon Numaraları",
     "EMAILS": "E-Mail Adresleri",
     "SPECIALDATES": "Özel Günler",
-    "ORDERS": "Siparişler",
+    "ORDERS": "Sipariş",
     "ADDNEW": "Yeni Ekle",
     "HOMEDELIVERY": "Adrese Sipariş",
     "STREETADDRESNAME": "Adres Adı",
@@ -684,8 +688,6 @@
     "ADDSTATE": "Süreç Ekle",
     "SIZE": "Boy",
     "INDEX": "İndeks",
-    "ADDDATE":"Eklenme tarihi",
-    "PRODUCTOPTION":"Ürün Seçenekleri",
     "PRODUCTOPTIONTYPE": "Seçenek Tipi",
     "RELATEDOPTION": "İlgili Seçenek",
     "MINCOUNT": "Min Seçilebilen",
@@ -919,7 +921,7 @@
     "ORDERSOURCE": "Kaynak",
     "ADDUSERROLE": "Kullanıcı Rolu Ekle",
     "ORDERLIST": "Sipariş Listesi",
-    "KITCHENDISPLAY": "Mutfak Ekranı1",
+    "KITCHENDISPLAY": "Mutfak Ekranı",
     "KITCHENDISPLAY2": "Mutfak Ekranı",
     "TABLESALE": "Masa Satışı",
     "DISPATCHER": "Sipariş Yönetimi",
@@ -1504,7 +1506,7 @@
     "WAREHOUSEINDEX": "Depo Kodu",
     "DIVISIONINDEX": "Bölüm",
     "CURRENTCOMPANYCODE": "Cari Hesap Kodu",
-    "CURRENTACCOUNTINCODE": "Cari Muhasebe Kodu",
+    "CURRENTACCOUNTINGCODE": "Cari Muhasebe Kodu",
     "TERMCODE": "Vade Kodu",
     "ACCODE": "Muhasebe Birim Kodu",
     "ACITEMCOD": "Stok Kodu",
@@ -1890,6 +1892,7 @@
     "SHIFTPLAN": "Vardiya Planı",
     "WEEK": "Hafta",
     "SHIFTPLANADVICE":"Öneri",
+    "SUMMARY":"Özet",
     "SHIFTPLANREQUIRMENT":"İhtiyaç",
     "SHIFTPLANADVICETRANSACTIONS":"Ort. Çek",
     "SHIFTPLANADVICESALES":"Ort. Satış",
@@ -2136,6 +2139,7 @@
     "30DKDISCOUNTAMOUNT": "30 Dk İndirim TL",
     "POSITIONCAPACITY": "Personel Çarpanı Tanımlama",
     "HOURLYORDERSBYPERSON": "Kişi Başı Saatlik Sipariş",
+    "HOURLYPRODUCTSBYPERSON": "Kişi Başı Saatlik Ürün",
     "TOTALSHIFT": "Toplam Gün",
     "TOTALHOURS": "Toplam Saat",
     "OVERTIME": "Fazla Mesai",
@@ -2350,7 +2354,12 @@
     "PAYMENTORDERSOURCESTATS": "Sipariş Kaynağına Göre Dağılım",
     "STOREROUTINGTYPE": "Yönlendirme Tipi",
     "ORDERPAYMENTSCHECK":"Ödeme Karşılaştırma Raporu",
-    "STAFFORDERSREPORT": "Personel Sipariş Raporu"
+    "STAFFORDERSREPORT": "Personel Sipariş Raporu",
+    "LOYALTYREPORTS": "Sadakat",
+    "PUNCHCARDTRANSACTIONS": "Dilim Raporu",
+    "BONUSTRANSACTIONS": "Puan Detay Raporu",
+    "WEBUSERS": "Web Kullanıcıları",
+    "WEBREPORTS":"Web"
   },
   "topbar": {
     "messages": {
@@ -2711,7 +2720,12 @@
         "VOIDORDERSREPORT": "İptal Sipariş Raporu",
         "PRODUCTSALESSCOREBOARD": "Product Sales ScoreBoard",
         "ACTUALVSTHEORITICAL": "Actual vs Theoric",
-        "PROMOTIONANALISYS": "Promosyon Analizi"
+        "PROMOTIONANALISYS": "Promosyon Analizi",
+        "PUNCHCARDTRANSACTIONS": "Dilim Raporu",
+        "BONUSTRANSACTIONS": "Puan Detay Raporu",
+        "LOYALTYREPORTS": "Sadakat",
+        "WEBUSERS": "Web Kullanıcıları",
+        "WEBREPORTS":"Web"
       },
       "addresses": {
         "MAIN": "Adresler",
@@ -3124,10 +3138,8 @@
     "REQUİREDFİELDS": "GEREKLİ ALANLARI DOLDURUN !",
     "Plugs Created": "Fişler Oluşturuldu!",
     "CreatedTransferred": "Fişler Oluşturuldu ve Aktarıldı !",
-    "RegistrationRealized":"Kayıt Gerçekleşti !",
-    "InvalidRegistration":"Geçersiz Kayıt !",
-    "Insertcancelled":"Ekleme iptal edildi!",
-    "Editcancelled":"Düzenleme iptal edildi !"
+    "RegistrationRealized":"Kayıt Gerçekleşti !"
+
   },
   "callcenterdash":{
     "PreparingChanging": "Sipariş Durumunu ' Hazırlanıyor ' olarak değiştirmek istediğinize ! Emin misiniz?",
@@ -3145,12 +3157,11 @@
     "cancelButtonText": "Hayır, Silme !",
     "RecordDeleted":"Kayıt Silindi.",
     "Deleted":"Silindi.",
-    "Attention":"Dikkat",
-    "Insertcancelled":"Ekleme iptal edildi!",
-    "Editcancelled":"Düzenleme iptal edildi !"
+    "Attention":"Dikkat"
   },
   "clockiout":{
     "Started":"Başladı",
+    "EnrollFingerprint":"Parmak İzi Kaydet",
     "FingerPrint": "Parmak İzi kayıt işlemi başladı...",
     "Fingerreading":"Vardiya çıkışı için parmak okutunuz",
     "Fingerentry":"'Vardiya girişi için parmak okutunuz'",
@@ -3180,9 +3191,7 @@
     "PrescriptionsCopied": "Reçeteler Kopyalandı!",
     "UpdatedFailed" : "Güncelleme Başarısız Oldu!",
     "Insertfailed": "Veri Ekleme Başarısız Oldu!",
-    "Clonerestrictions": "Role Kopyalandı!",
-    "Insertcancelled":"Ekleme iptal edildi!",
-    "Editcancelled":"Düzenleme iptal edildi !"
+    "Clonerestrictions": "Role Kopyalandı!"
   },
   "dispatcherfile":{
     "Drivechanged":"Sürücü değişti !",
@@ -3193,6 +3202,7 @@
     "Wasdelivered":"Teslim edildi.",
     "LabelPrintingAgain":"Yine Etiket Baskısı.",
     "OrdermarkedOut":"Sipariş dışarı olarak işaretlenmiş!"
+
   },
   "invantories":{
     "Updated":"Güncellendi.",
@@ -3205,7 +3215,6 @@
     "cancelButtonText": "Hayır, Silme !",
     "RecordDeleted":"Kayıt Silindi.",
     "Deleted":"Silindi.",
-    "Attention":"Dikkat",
     "warning":"UYARI...",
     "Updatedapplied":"Sunucuya veri güncellemesi uygulandı.",
     "Savedserver": "Veriler Sunucuya Kaydedildi.",
@@ -3213,9 +3222,8 @@
     "ProblemOccurred": "Sorun Oluştu !",
     "SuccessfullySaved":"Veri Başarıyla Kaydedildi!",
     "DataAdded": "Veri Eklendi",
-    "DataSaved": "Veriler Kaydedildi",
-    "DataSuccessfullySaved":"Veri Başarıyla Kaydedildi!",
-    "NoDepartment":"Bölüm Yok"
+    "DataSaved": "Veriler Kaydedildi"
+
   },
   "kitchendisplayf":{
     "PleaseWait":"Lütfen Bekleyin !",
@@ -3228,8 +3236,6 @@
     "Seleccancellation":"İptal nedenini seçin",
     "OrderStatusUpdated":"Sipariş Durumu Güncellendi.",
     "OrderDenied":"Sipariş Reddedildi",
-    "yes":"Evet",
-    "no":"Hayır",
     "StatusOrderChanged":"Siparişin Durumu Değişti!!",
     "Havewedeliveredorder":"Siparişi teslim ettik mi ?",
     "NoDepartment":"Bölüm Yok",
@@ -3248,7 +3254,7 @@
     "PAYMENTAPPROVED":"ÖDEME ONAYLANDI!",
     "PaymentType":"Ödeme Tipi",
     "SELECTPAYMENTTYPE":"ÖDEME TÜRÜNÜ SEÇİN!",
-    "OrderChange":"Sipariş Değişikliği",
+    "OrderChange":"Order Change",
     "OrderStateSetChanging":"Sipariş durumu değişmeye ayarlandı.",
     "UnablechangeOrder":"Sipariş değiştirilemiyor!",
     "EInvoice":"E-Fatura",
@@ -3266,9 +3272,6 @@
     "Cancelled":"İptal edildi !",
     "Updated":"Güncellendi.",
     "Saved":"Kaydedildi.",
-    "Attention":"Dikkat",
-    "DataAdded": "Veri Eklendi",
-    "Saveddata":"Kaydedilmiş veriler",
     "Sure": "EMİN MİSİNİZ?",
     "SureRecord" : "Kaydı Silmek Istediğinizden Emin Misiniz ?",
     "DeletionCanceled":"Silme İşlemi İptal Edildi !",
@@ -3286,18 +3289,22 @@
     "PAYMENTTYPECHANGED":"ÖDEME ŞEKLİ DEĞİŞTİ.",
     "Confirmed":"Onaylandı.",
     "Added":"Eklendi.",
+    "Notrecorded":"Kaydedilmedi !",
+    "Couldnotupdated":"Güncellenemedi !",
     "YourOrderMarkedNonPayment":"Siparişiniz Ödeme Yapılmamış Olarak İşaretlenmiştir",
     "InsufficientLimit":"Yetersiz Limit!",
     "BillOff":"Adisyon Kapatıldı!",
     "MistakeFailedCloseBill":"Hata! Adisyon Kapatılamadı!",
     "NewPrototypeCreated":"Yeni Prototip Oluşturuldu.",
     "OperationFailed":"İşleminiz Başarısız Oldu!",
+    "PleaseTryAgain":"Lütfen Tekrar Deneyin!",
     "Ordertransferprocessinitiated":"Sipariş transfer süreci başlatıldı.",
     "DepartmentsNull":"Bölümler Null",
     "PairingSaved":"Eşleştirme Kaydedildi!",
     "PairingNotSaved":"Eşleştirme Kaydedilmedi!",
     "OrderConfirmed":"Sipariş Onaylandı",
     "NotSaved":"Kaydedilmedi",
+    "ServerConnectionError":"Sunucu Bağlantı Hatası",
     "Youwillnotbeablerecoverthisrecord":"Bu kaydı kurtarmak mümkün olmayacaktır!",
     "ACCOUNTCLOSED":"HESAP KAPATILDI",
     "UNABLERECEIVEPAYMENT":"ÖDEME ALINAMIYOR !",
@@ -3305,33 +3312,9 @@
     "NEWPAYMENTRECORDED":"YENİ ÖDEME KAYDEDİLDİ !",
     "PasswordIncorrect":"Şifre Yanlış!",
     "YOURENOTAUTHORIZEDTODOTHAT":"BUNU YAPMAYA YETKİLİ DEĞİLSİN !",
-    "ALLACCOUNTSHAVEBEENCLOSED":"HESAPLARIN HEPSİ KAPATILDI.",
-    "Couldnotcreateneworder":"Yeni sipariş oluşturulamadı!",
-    "Personupdatefailed":"Kişi güncellemesi başarısız oldu!",
-    "Orderfailedtoload":"Sipariş yüklenemedi",
-    "OrderFailed":"Sipariş Başarısız Oldu",
-    "Paymenttypesfailedtoload":"Ödeme türleri yüklenemedi",
-    "PersonAssigned":"Atanan Kişi.",
-    "InvalidDate":"Geçersiz Tarih !",
-    "ChangeOrderStatus":"Sipariş Durumunu Değiştir !",
-    "OrderCannotBeChanged":"Sipariş Değiştirilemez !",
-    "OrderCreated": "Sipariş Oluşturuldu.",
-    "YSOrderCustomerMappingDeleted":"YS sipariş Müşteri haritalama silindi!",
-    "AddressChanged":"Adres değişti.",
-    "RecordingTookPlace": "Kayıt Gerçekleşti.",
-    "AddressCannotChanged":"Adres Değiştirilemez !",
-    "PromotionAdded":"Promosyon Eklendi.",
-    "CannotAddPromotion":"Promosyon Ekleyemezsiniz !",
-    "PaymentTypeOrderChanged":"Ödeme Türü Sipariş Değişti!!",   
-    "NEWPAYMENTNOTSAVED":"YENİ ÖDEME KAYDEDİLMEDİ !",
-    "OrderClosed":"Sipariş Kapalı !"
+    "ALLACCOUNTSHAVEBEENCLOSED":"HESAPLARIN HEPSİ KAPATILDI."
   },
   "yemeksepetifile":{
-    "Cancelled":"İptal edildi !",
-    "Updated":"Güncellendi.",
-    "Saved":"Kaydedildi.",
-    "Attention":"Dikkat",
-    "RecordDeleted":"Kayıt Silindi.",
     "Updatefailed":"Güncelleme başarısız oldu !",
     "UnabletoloadYemekSepetistatisticsi":"Yemeksepeti statisticsi yüklenemiyor",
     "TwinningSaved":"Eşleştirme Kaydedildi",
@@ -3358,27 +3341,14 @@
     "YOUARENOTAUTHORIZEDFORTHISPROCEDURE":"BU PROSEDÜR İÇİN YETKİLİ DEĞİLSİNİZ. !",
     "OrderItemAdded":"Sipariş Öğesi Eklendi",
     "UpdatedOrderItem":"Sipariş Öğesi Güncellendi",
-    "UnableToAddOrderItem":"Sipariş Öğesi Eklenemiyor !",
-    "YSRestaurantStatusChanged":"YS restoran durumu değişti !",
-    "Editcancelled":"Düzenleme iptal edildi !",
-    "Insertcancelled":"Ekleme iptal edildi!",
-    "PleaseTryAgain":"Lütfen Tekrar Deneyin!"
+    "UnableToAddOrderItem":"Sipariş Öğesi Eklenemiyor !"
+
   },
   "storefile":{
     "SelectPod":"Pod Seçiniz !",
     "PodAdded":"Pod Eklendi.",
     "Saveddatatoserver":"Veriler Sunucuya Kaydedildi "
-  },
-   "Server":{
-    "ServerError":"Sunucu Hatası",
-    "DataError":"Veri Hatası!",
-    "UnknownError":"Bilinmeyen Hata !",
-    "Returnfailed":"Dönüş başarısız oldu",
-    "Uploaderror":"Yükleme hatası",
-    "Serverconnectionerror":"Sunucu bağlantı hatası",
-    "Errorloadingdata":"Veri yükleme hatası!",
-    "PasswordError":"Şifre Hatası!",
-    "DataLoadingError":"Veri Yükleme Hatası"
+
   },
   "personfile":{
     "EnterPhoneNumber":"Telefon Numarasını Girin !",
@@ -3396,20 +3366,9 @@
     "CannotCreateNewOrder":"Yeni Sipariş Oluşturulamıyor !",
     "PhoneNumberMustBe11Characters":"Telefon Numarası 11 Karakter Olmalı !",
     "THISADDRESSNOTTHERESTAURANTADDRESSES":"BU ADRES RESTORAN ADRESLERİNDE DEĞİL !",
-    "AproblemhasoccurredTryAgain":"Bir sorun oluştu. Bir daha dene!",
-    "Addcanceled":"İptal ekleyin.",
-    "Editcancelled":"Düzenleme iptal edildi !",
-    "Insertcancelled":"Ekleme iptal edildi!"
+    "AproblemhasoccurredTryAgain":"Bir sorun oluştu. Bir daha dene!"
   },
   "margeaddress":{
-    "Cancelled":"İptal edildi !",
-    "Updated":"Güncellendi.",
-    "Saved":"Kaydedildi.",
-    "Attention":"Dikkat",
-    "RecordDeleted":"Kayıt Silindi.",
-    "Deleted":"Silindi.",
-    "Added":"Eklendi.",
-    "Notrecorded":"Kaydedilmedi !",
     "BemergedNeighborhood":"Birleştirilecek Mahalle",
     "WilluniteNeighborhood":"Birleşecek Mahalle",
     "DoYouConfirmThisTransaction":"Bu İşlemi Onaylıyor Musunuz?",
@@ -3432,28 +3391,9 @@
     "Willmergewiththecity":"'Şehirle birleşecek",
     "Mergedwiththecity":"Şehirle birleşti.",
     "CityToBeMerged":"Birleştirilecek Şehir",
-    "UnitedCity":"Birleşik Şehir",
-    "Couldnotupdated":"Güncellenemedi !",
-    "Editcancelled":"Düzenleme iptal edildi !",
-    "Insertcancelled":"Ekleme iptal edildi!",
-    "FailedtoUpdate":"Güncelleme başarısız oldu !",
-    "NotSaved":"Kaydedilmedi",
-    "PleaseTryAgain":"Lütfen Tekrar Deneyin!",
-    "Failedupdate":"Güncelleme başarısız oldu.",
-    "ChangesNotSaved":"Değişiklikler Kaydedilmedi !",
-    "SelectedPersonPaymentUnrealizable":"Seçilen Kişi Ödeme Gerçekleşemez!",
-    "PleaseSelectPerson":"Lütfen Kişiyi Seçin!",
-    "PayableAmount":"Ödenecek Tutar: 0 !",
-    "FailedtoCreateNewOrder":"Yeni bir düzen oluşturulamadı !"   
+    "UnitedCity":"Birleşik Şehir"
   }, 
   "userfile":{
-    "Cancelled":"İptal edildi !",
-    "Updated":"Güncellendi.",
-    "Saved":"Kaydedildi.",
-    "Attention":"Dikkat",
-    "RecordDeleted":"Kayıt Silindi.",
-    "Deleted":"Silindi.",
-    "DeletionCanceled":"Silme İşlemi İptal Edildi !",
     "YourPasswordHasChangedPleaseloginagain":"Parolanız Değiştirildi. Lütfen tekrar giriş yapın!",
     "TheValuesEnteredNotMatchPleaseEnterAgain":"Girilen Değerler Eşleşmiyor! Lütfen Tekrar Girin!",
     "OrderOut":"Sipariş iptali!",
@@ -3462,10 +3402,9 @@
     "Youdonothavepermittion": "Bu işlem için yetkiniz yoktur",
     "Sorry":"Üzgünüm",
     "UnauthorizedAccessRequest":"Yetkisiz Erişim İsteği.",
-    "EnterPassword":"Şifreyi Girin !",
-    "Addcanceled":"İptal ekleyin.",
-    "Editcancelled":"Düzenleme iptal edildi !",
-    "Insertcancelled":"Ekleme iptal edildi!"
+    "EnterPassword":"Şifreyi Girin !"
+
+
   },
   "reportspage":{
     "INFORMATION":"BILGILENDIRME",
@@ -3541,6 +3480,7 @@
     "SHIFTACTUALTOTALS":"Seçilen haftaya göre hangi kullanıcının kaç gün ve saat gerçekleşen vardiyasının olduğunu ve şubenin gün bazlı toplamını veren rapordur.",
     "WEEKLYANALYSIS":"Seçilen hafta ve restoranın günlük ve saatlik olarak farkı ve ihtiyacı veren rapordur.",
     "CLOCKINOUTSTATS":"Vardiya istatistikleri"
+
   },
   "reportsinformation":{
     "FSRSPEEDOFSERVICE":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! FSR transaction karşılaştırma.",
@@ -3569,7 +3509,7 @@
     "ORDERPAYMENT":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen tarihler arasında yetkili olunan tüm restoranların şablonlara göre gerçekleşen ödeme tipleri dağılımlarının verildiği rapordur.",
     "ORDERPROMOTIONSREPORT":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen tarihler arasında hangi siparişe ne kadarlık hangi indirimden ve hangi kodla indirim eklendiği bilgilerini bu rapordan görebilirsiniz.",
     "ORDERTOTALS":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen tarihler arasında sipariş tiplerinin toplam ve adet dağılımlarını görebilirsiniz.",
-    "ORDERTOTALSBYPAYMENTTYPEPIVOT":"Karanlıkta ve yanlarında * ile yazılmış alanlar zorunludur! Sipariş toplamlarının dağıtımlarının, seçilen tarihler arasında tüm restoranların ödeme türlerine göre verildiği rapordur.",
+    "ORDERTOTALSBYPAYMENTTYPEPIVOT":"Fields written in dark and with * next to them are mandatory! It is the report that order totals distributions are given according to payment types of all restaurants between selected dates.",
     "ORDERSBYORDERTYPE":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen tarihler arasında şablonlara göre sipariş tiplerinde sipariş toplamlarının verildiği rapordur.",
     "ORDERPERFORMANCE":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen tarihler arasında paket siparişlerin hazırlama,bekleme,çıkış,dönüş sürelerinin hesaplandığı rapordur. Teslim süresi 30 dk yı geçen siparişlerde 'Hesaplanan Teslim Süresi' alanı renkli gösterilir. OKC ile kapıda yapılan ödemeler ise 'Dönüş Saati/Ödeme Saati' alanında mavi renk ile gösterilir.",
     "PRODUCTSALES":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen tarihler arasında şablonlara göre satılan ürünlerin adet ve toplamlarının verildiği rapordur. Ürün ve ürün gruplarına göre filtrelenebilir.",
@@ -3632,6 +3572,9 @@
     "ORDERLASTSTATE":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen tarihler arasında yetkili tüm restoranların sipariş durumlarının adet ve tutar dağılımlarının verildiği rapordur.",
     "STORECASHREPORT":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen tarihte restoran için icmaller bu rapordan kontrol edilebilir. Fark alanında 0 haricinde (-) veya (+) tutar yazarsa bu kasanın farklı olduğu anlamına gelmektedir. (-) kasa açığı, (+) kasa fazlası olarak değerlendirilebilir.",
     "ORDERCOUNTSBYPAYMENTTYPE":"Koyu renk yazılmış ve yanında * olan alanlar zorunludur! Seçilen tarihler arasında tüm restoranların ödeme tiplerine göre sipariş adetleri dağılımlarının verildiği rapordur. "
+
+
+
   },
   "trends":{
     "today":"Bugün",
@@ -3658,7 +3601,7 @@
       "ConnectionError":"Bağlantı hatası",
       "Reconnecting":"ROPNG servislerine yeniden bağlanıyor...",
       "ConnectionSlow":"ROPNG sunucu bağlantı kalitesi düşük..."
-      } ,
+    } ,
     "OrderType": {
       "Paket": "Paket",
       "Gel-Al Siparis": "Gel-Al",

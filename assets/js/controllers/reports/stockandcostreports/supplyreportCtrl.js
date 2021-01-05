@@ -22,7 +22,7 @@ function supplyreportCtrl($scope, $rootScope, $modal, $filter, SweetAlert, Resta
                 angular.copy(result, $scope.data);
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     $scope.exportToExcel = function (tableId) { // ex: '#my-table'

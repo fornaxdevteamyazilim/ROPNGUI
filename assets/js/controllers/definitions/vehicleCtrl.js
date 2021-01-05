@@ -27,14 +27,14 @@ function vehicleCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParam
         if (data.restangularized) {
             data.put().then(function (res) {
                 vm.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated') , $translate.instant('difinitions.Updated') );
+                toaster.pop('success',$translate.instant('difinitions.Updated') , 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
             data.post().then(function (res) {
                 vm.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Saved') , $translate.instant('difinitions.Saved') );
+                toaster.pop('success',$translate.instant('difinitions.Saved') , 'Saved.');
             });
             data.get();
         }
@@ -54,9 +54,9 @@ function vehicleCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParam
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     vm.tableParams = new ngTableParams({
@@ -80,7 +80,7 @@ function vehicleCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParam
                 }
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -99,7 +99,7 @@ function vehicleCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParam
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -108,7 +108,7 @@ function vehicleCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParam
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

@@ -14,11 +14,11 @@ function inventoryrecipeoutputitemCtrl($rootScope, $scope, $log, $modal, Restang
     };
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { iro.tableParams.reload(); toaster.pop('success',$translate.instant('invantories.Updated'), $translate.instant('invantories.Updated')); });
+            data.put().then(function (res) { iro.tableParams.reload(); toaster.pop('success', "Updated.", 'Updated.'); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { iro.tableParams.reload(); toaster.pop('success', $translate.instant('invantories.Saved'), $translate.instant('invantories.Saved')); });
+            data.post().then(function (res) { iro.tableParams.reload(); toaster.pop('success', "Saved.", 'Saved.'); });
             data.get();
         }
     };
@@ -37,9 +37,9 @@ function inventoryrecipeoutputitemCtrl($rootScope, $scope, $log, $modal, Restang
         rowform.$cancel();
         if (!iro.tableParams.data[iro.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(iro.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     iro.tableParams = new ngTableParams({
@@ -56,7 +56,7 @@ function inventoryrecipeoutputitemCtrl($rootScope, $scope, $log, $modal, Restang
                 $scope.SelectedItem = items[0].id;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     });

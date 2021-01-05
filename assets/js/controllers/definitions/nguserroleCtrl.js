@@ -23,14 +23,14 @@ function nguserroleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 ngur.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
+                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'nguserrole')
             data.post().then(function (res) {
                 ngur.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Saved'),$translate.instant('difinitions.Saved'));
+                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -48,9 +48,9 @@ function nguserroleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
         rowform.$cancel();
         if (!ngur.tableParams.data[ngur.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ngur.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'),$translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     ngur.tableParams = new ngTableParams({
@@ -71,7 +71,7 @@ function nguserroleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
             });
         }
     });
@@ -126,7 +126,7 @@ function nguserroleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

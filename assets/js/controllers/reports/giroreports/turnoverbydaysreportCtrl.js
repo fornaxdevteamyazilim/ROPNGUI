@@ -35,7 +35,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
             customizeTooltip: function (args) {
                 var valueText = (args.seriesName.indexOf("Total") != -1) ?
                     Globalize.formatCurrency(args.originalValue,
-                        "TL", { maximumFractionDigits: 2 }) :
+                        "", { maximumFractionDigits: 2 }) :
                     args.originalValue;
 
                 return {
@@ -139,7 +139,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
             //        d.resolve(orders.plain());                    
             //    }, function (response) {
             //        d.reject;
-            //        toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            //        toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             //    });
             //    return d.promise();
             //}
@@ -234,7 +234,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

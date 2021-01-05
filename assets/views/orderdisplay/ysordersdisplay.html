@@ -99,7 +99,7 @@
             <div class="col-sm-12">
                 <div class="panel panel-white" id="panel5">
                     <div class="panel-heading">
-                        <h4 class="panel-title text-primary" ng-click="collapse =! collapse">{{'main.ORDERDETAILS' |translate}} <span class="pull-right text-bold text-dark text-extra-large">{{order.YemekSepetiOrder.YemekSepetiRawOrder.OrderTotal | number:2}} TL</span></h4>
+                        <h4 class="panel-title text-primary" ng-click="collapse =! collapse">{{'main.ORDERDETAILS' |translate}} <span class="pull-right text-bold text-dark text-extra-large">{{order.YemekSepetiOrder.YemekSepetiRawOrder.OrderTotal | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></h4>
                     </div>
                     <div collapse="panel1" ng-if="collapse" class="panel-wrapper">
                         <div class="panel-body">

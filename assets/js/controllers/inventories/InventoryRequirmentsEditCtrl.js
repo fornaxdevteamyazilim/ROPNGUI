@@ -66,7 +66,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
                 $scope.ShowObject = false;
                 $scope.$broadcast('newRequirmentData', resp);
             }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 $scope.ShowObject = false;
             });
         }
@@ -84,7 +84,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
                 $scope.item = Restangular.copy(restresult);
             })
         }, function (response) {
-            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             $scope.isSpinner = false;
         });
     };
@@ -143,7 +143,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -152,7 +152,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -209,7 +209,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
                 $scope.ShowSpinnerObject = false;
             }, function (response) {
              $scope.ShowSpinnerObject = false;
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -229,7 +229,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -242,7 +242,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -260,7 +260,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
                 else
                     item.UnitPrice = 0;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         })
     };
@@ -295,7 +295,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
                 }
             }
         }, function (response) {
-            toaster.pop('error',$translate.instant('Server.ServerError'), response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.LoadTags(20);

@@ -98,7 +98,7 @@ $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
                 $scope.ShowReport();
                 $scope.isWaiting = false;
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 $scope.isWaiting = false;
             });
     };
@@ -154,7 +154,7 @@ $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

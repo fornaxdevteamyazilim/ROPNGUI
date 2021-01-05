@@ -14,7 +14,7 @@ function taghierarchyCtrl($rootScope, $scope, $modal, Restangular, toaster, $win
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -33,13 +33,13 @@ function taghierarchyCtrl($rootScope, $scope, $modal, Restangular, toaster, $win
             $scope.tags = result;
             $scope.RefreshNestables();
         }, function (response) {
-            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.saveData = function (data) {
         Restangular.restangularizeElement('', data, 'tag/array')
         data.post().then(function (res) {
-            toaster.pop('success', $translate.instant('difinitions.Saved'),  $translate.instant('difinitions.Saved'));
+            toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
         });
     }
     $scope.$on('$destroy', function () {

@@ -98,7 +98,7 @@ function weeklyanalysisCtrl($scope, $filter, $modal, $log, Restangular, ngTableP
                 $scope.VeiwHeader = result[0];
                 $scope.GetLayout(result[0].id)
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
             });
     }
     $scope.GetLayout = function (ReportID) {
@@ -116,7 +116,7 @@ function weeklyanalysisCtrl($scope, $filter, $modal, $log, Restangular, ngTableP
                     $scope.LoadPivotData();
                 }
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
             });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -246,7 +246,7 @@ function weeklyanalysisCtrl($scope, $filter, $modal, $log, Restangular, ngTableP
             $scope.isWaiting = false;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server error", response.data.ExceptionMessage);
         });
     };
 
@@ -265,7 +265,7 @@ function weeklyanalysisCtrl($scope, $filter, $modal, $log, Restangular, ngTableP
     //            $scope.ReportList = result;
     //        }, function (response) {
     //            $scope.isWaiting = false;
-    //            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+    //            toaster.pop('error', "Server error", response.data.ExceptionMessage);
     //        });
     //};
 
@@ -383,7 +383,7 @@ function weeklyanalysisCtrl($scope, $filter, $modal, $log, Restangular, ngTableP
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server error", response.data.ExceptionMessage);
             });
         }
     };
@@ -392,7 +392,7 @@ function weeklyanalysisCtrl($scope, $filter, $modal, $log, Restangular, ngTableP
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server error", response);
             });
         }
     };

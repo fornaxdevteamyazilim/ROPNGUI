@@ -29,7 +29,7 @@ function userautomaticreportCtrl($rootScope, $scope, $modal, $filter, SweetAlert
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', $translate.instant('Server.ServerError'), response);
+                    toaster.pop('warning', "Server Error", response);
                 });
             }
         });
@@ -37,14 +37,14 @@ function userautomaticreportCtrl($rootScope, $scope, $modal, $filter, SweetAlert
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 uar.tableParams.reload();
-                toaster.pop('success', $translate.instant('userfile.Updated'),  $translate.instant('userfile.Updated'));
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'automaticreportrecipient')
             data.post().then(function (res) {
                 uar.tableParams.reload();
-                toaster.pop('success', $translate.instant('userfile.Saved') ,  $translate.instant('userfile.Saved'));
+                toaster.pop('success', $translate.instant('orderfile.Saved') , 'Saved.');
             });
             data.get();
         }
@@ -62,9 +62,9 @@ function userautomaticreportCtrl($rootScope, $scope, $modal, $filter, SweetAlert
         rowform.$cancel();
         if (!uar.tableParams.data[uar.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(uar.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('userfile.Cancelled'), $translate.instant('userfile.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('userfile.Cancelled'), $translate.instant('userfile.Editcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
@@ -84,7 +84,7 @@ function userautomaticreportCtrl($rootScope, $scope, $modal, $filter, SweetAlert
                     uar.tableParams.data[index].remove();
                 }
                 uar.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('userfile.Attention'),$translate.instant('userfile.RecordDeleted'));
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };
@@ -112,7 +112,7 @@ function userautomaticreportCtrl($rootScope, $scope, $modal, $filter, SweetAlert
             }).then(function (result) {
                 angular.copy(result, $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerConnectionError'), "Error!");
+                toaster.pop('Warning',$translate.instant('orderfile.ServerConnectionError'), "Error!");
             });
         }
     };
@@ -121,7 +121,7 @@ function userautomaticreportCtrl($rootScope, $scope, $modal, $filter, SweetAlert
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

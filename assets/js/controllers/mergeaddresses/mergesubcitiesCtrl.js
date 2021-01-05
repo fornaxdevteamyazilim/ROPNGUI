@@ -29,7 +29,7 @@ function mergesubcitiesCtrl($rootScope, $scope, $log, $modal, Restangular, ngTab
             angular.copy(result, $scope.toSubcities);
             $scope.ShowObject = false;
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             $scope.ShowObject = false;
         });
     };
@@ -58,7 +58,7 @@ function mergesubcitiesCtrl($rootScope, $scope, $log, $modal, Restangular, ngTab
              $scope.LoadSubcities();
              toaster.pop('success',$translate.instant('margeaddress.DistrictMerged ') );
          }, function (response) {
-             toaster.pop('error', $translate.instant('Server.ServerError'), response.ExceptionMessage);
+             toaster.pop('error', "Server Error", response.ExceptionMessage);
          });
         });
     };
@@ -77,7 +77,7 @@ function mergesubcitiesCtrl($rootScope, $scope, $log, $modal, Restangular, ngTab
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

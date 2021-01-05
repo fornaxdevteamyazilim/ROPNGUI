@@ -29,7 +29,7 @@ function getdemandlistCtrl($scope, $filter, Restangular, toaster, $window, $stat
             $scope.result = result;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.getDemandList();
@@ -39,10 +39,10 @@ function getdemandlistCtrl($scope, $filter, Restangular, toaster, $window, $stat
         data.post().then(function (resp) {
             $scope.isSpinner = false;
             $scope.result = resp;
-            toaster.pop("success", $translate.instant('orderfile.Saved'));
+            toaster.pop("success", "Saved.");
         }, function (response) {
             $scope.isSpinner = false;
-            toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.checkedData = function (data) {

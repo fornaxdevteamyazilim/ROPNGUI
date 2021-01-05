@@ -25,7 +25,7 @@ function selectInventorySupplyCtrl($rootScope, $scope, $modalInstance, Restangul
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

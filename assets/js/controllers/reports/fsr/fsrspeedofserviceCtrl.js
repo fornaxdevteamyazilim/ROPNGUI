@@ -45,7 +45,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             value: "startWeek"
         },
         min: 1,
-        max: 52,
+        max: 53,
         showSpinButtons: true
     };
     $scope.endYearButton = {
@@ -61,7 +61,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             value: "endWeek"
         },
         min: 1,
-        max: 52,
+        max: 53,
         showSpinButtons: true
     };
     $scope.reportButtonOptions = {
@@ -235,17 +235,17 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                 if (ColoredFileds.indexOf(gridCell.column.dataField)>-1) {
                     if (gridCell.data && gridCell.data[gridCell.column.dataField]!=gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
                         if (gridCell.data[gridCell.column.dataField] < gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
-                            options.font.color = '#008000';
-                        else
                             options.font.color = '#FF0000';
+                        else
+                            options.font.color = '#008000';
                 }
                 var ColoredFiledsInvert = ["YSserviceTime2","AvgMakeTable2","AvgCutTable2","AvgDispatchTime2","AvgDeliveryTime2"];
                 if (ColoredFiledsInvert.indexOf(gridCell.column.dataField)>-1) {
                     if (gridCell.data && gridCell.data[gridCell.column.dataField]!=gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
                         if (gridCell.data[gridCell.column.dataField] > gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
-                            options.font.color = '#008000';
+                        options.font.color = '#FF0000';
                         else
-                            options.font.color = '#FF0000';
+                            options.font.color = '#008000';
                 }
                 if (gridCell.rowType === 'data') {
                     if (gridCell.data.Summary === true) {

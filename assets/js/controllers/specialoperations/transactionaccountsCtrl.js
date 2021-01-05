@@ -77,7 +77,7 @@ function transactionaccountsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             }
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('warning', "Server error", response.data.ExceptionMessage);
             $scope.ShowObject = false;
         });
     }
@@ -117,9 +117,9 @@ function transactionaccountsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         rowform.$cancel();
         if (!trna.tableParams.data[trna.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(trna.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning',$translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning',$translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.ChangeAccountTransactionType = function (TransactionType) {
@@ -166,7 +166,7 @@ function transactionaccountsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server error", response);
             });
         }
     };

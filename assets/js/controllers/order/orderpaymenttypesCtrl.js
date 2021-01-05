@@ -26,7 +26,7 @@ function orderpaymenttypesCtrl($scope, $translate, $rootScope, $modalInstance, i
                     }
                 }
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

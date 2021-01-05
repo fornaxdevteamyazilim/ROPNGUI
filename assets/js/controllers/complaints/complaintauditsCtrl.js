@@ -43,7 +43,7 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -52,9 +52,9 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
             data.put().then(function (res) {
                 $scope.CallReason(4);
                 ca.tableParams.reload();
-                toaster.pop('success', $translate.instant('accounting.Updated'), 'Updated.');
+                toaster.pop('success', "Updated.", 'Updated.');
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
         else {
@@ -62,9 +62,9 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
             data.post().then(function (res) {
                 $scope.CallReason(4);
                 ca.tableParams.reload();
-                toaster.pop('success',$translate.instant('accounting.Saved'), 'Saved.');
+                toaster.pop('success', "Saved.", 'Saved.');
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
             data.get();
         }
@@ -82,9 +82,9 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
         rowform.$cancel();
         if (!ca.tableParams.data[ca.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ca.tableParams.data.length - 1, 1);
-            toaster.pop('warning',  $translate.instant('accounting.Cancelled'), $translate.instant('callmonitor.Insertcancelled'));
+            toaster.pop('warning',  $translate.instant('accounting.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning',  $translate.instant('accounting.Cancelled'), $translate.instant('callmonitor.Editcancelled'));
+            toaster.pop('warning',  $translate.instant('accounting.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {

@@ -31,7 +31,7 @@ function scheduleeditCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
         $scope.item.items = si.tableParams.data;
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-               swal($translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'), "success");
+               swal($translate.instant('orderfile.Updated'), "Updated.", "success");
                 $scope.ScheduleID = resp.id;
             });
         }
@@ -39,7 +39,7 @@ function scheduleeditCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
             Restangular.restangularizeElement('', $scope.item, 'schedule')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal($translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'), "success");
+                swal($translate.instant('orderfile.Saved'), "Saved.", "success");
                 $scope.ScheduleID = resp.id;
             });
         }
@@ -48,7 +48,7 @@ function scheduleeditCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
         if (data.restangularized) {
             data.put().then(function (res) {
                 si.tableParams.reload();
-               swal($translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'), "success");
+               swal($translate.instant('orderfile.Updated'), "Updated.", "success");
 
             });
         }
@@ -56,7 +56,7 @@ function scheduleeditCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
             Restangular.restangularizeElement('', data, 'scheduleitem')
             data.post().then(function (res) {
                 si.tableParams.reload();
-                swal($translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'), "success");
+                swal($translate.instant('orderfile.Saved'), "Saved.", "success");
 
             });
         }
@@ -67,7 +67,7 @@ function scheduleeditCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
         return this.item;
     }
     $scope.savetoaster = function () {
-        toaster.pop('success',$translate.instant('orderfile.DataAdded'),$translate.instant('orderfile.Saveddata'));
+        toaster.pop('success', "Data Added", 'Saved data');
     }
     function _update(srcObj, destObj) {
         for (var key in srcObj) {
@@ -95,9 +95,9 @@ function scheduleeditCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
         rowform.$cancel();
         if (!si.tableParams.data[si.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(si.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled') );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     si.tableParams = new ngTableParams({
@@ -116,7 +116,7 @@ function scheduleeditCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
 
                $defer.resolve(items);
            }, function (response) {
-               toaster.pop('warning', $translate.instant('Server.ServerError'), response);
+               toaster.pop('warning', "Server Error", response);
            });
        }
    });
@@ -135,7 +135,7 @@ function scheduleeditCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

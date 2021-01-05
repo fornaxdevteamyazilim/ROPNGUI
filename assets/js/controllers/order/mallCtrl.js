@@ -70,7 +70,7 @@ function mallCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTabl
                 $scope.loadOrders();
             })
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.CopyOrder = function (order) {
@@ -111,10 +111,10 @@ function mallCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTabl
                     newSatus: 10,
                 }
             ).then(function (result) {
-                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
+                toaster.pop('success', "Updated", 'Updated!');
                 $scope.loadOrders();
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         });
     };
@@ -148,7 +148,7 @@ function mallCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTabl
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {
             $scope.ShowObject = false;
-            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();
@@ -207,7 +207,7 @@ function mallCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTabl
                 location.href = '#/app/orders/orderStoreTable/' + resp.id;
             },
                 function (resp) {
-                    toaster.pop('error', resp.data.ExceptionMessage, $translate.instant('orderfile.Couldnotcreateneworder'));
+                    toaster.pop('error', resp.data.ExceptionMessage, "Could not create new order !");
                 });
         } else {
         }

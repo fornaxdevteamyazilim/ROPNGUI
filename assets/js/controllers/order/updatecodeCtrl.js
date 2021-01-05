@@ -8,9 +8,9 @@ function updatecodeCtrl($rootScope, $scope, $modalInstance, Restangular, toaster
      }
  ).then(function (result) {
      $scope.ok();
-     toaster.pop('success', $translate.instant('orderfile.StatusOrderChanged'), 'Success');
+     toaster.pop('success', "Status Order Changed!!", 'Success');
  }, function (response) {
-     toaster.pop('error', $translate.instant('Server.ServerError'), response);
+     toaster.pop('error', "Server Error", response);
  });
     };
     $scope.ok = function () {

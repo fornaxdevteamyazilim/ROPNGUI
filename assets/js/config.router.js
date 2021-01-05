@@ -1390,6 +1390,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'weeklycol'
             }
+        }).state('app.reports.staffshiftreports.weeklycolsummary', {
+            url: '/weeklycolsummary',
+            templateUrl: "assets/views/reports/staffshiftreports/weeklycolsummary.html",
+            resolve: loadSequence('weeklycolsummaryCtrl'),
+            title: 'weekly col summary',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'weeklycolsummary'
+            }
         }).state('app.reports.staffshiftreports.staffcost', {
             url: '/staffcost',
             templateUrl: "assets/views/reports/staffshiftreports/staffcost.html",
@@ -2634,6 +2643,84 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'voidorders'
+            }
+        }).state('app.reports.loyalty', {
+            url: '/ordersreports',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'loyalty',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'loyalty'
+            }
+        }).state('app.reports.loyalty.punchcardtransactions', {
+            url: '/punchcardtransactions',
+            templateUrl: "assets/views/reports/loyalty/punchcardtransactions.html",
+            resolve: loadSequence('punchcardtransactionsCtrl'),
+            title: 'punch card transactions Report',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'punchcardtransactions'
+            }
+        }).state('app.reports.loyalty.bonustransactions', {
+            url: '/bonustransactions',
+            templateUrl: "assets/views/reports/loyalty/bonustransactions.html",
+            resolve: loadSequence('bonustransactionsCtrl'),
+            title: 'bonus transactions Report',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'bonustransactions'
+            }
+        }).state('app.reports.web', {
+            url: '/web',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'web',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'web'
+            }
+        }).state('app.reports.web.webusers', {
+            url: '/webusers',
+            templateUrl: "assets/views/reports/web/webusers.html",
+            resolve: loadSequence('webusersCtrl'),
+            title: 'Web Users Report',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'webusers'
+            }
+        }).state('app.aggregators', {
+            url: '/aggregators',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Aggregators',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'Aggregators'
+            }
+        }).state('app.aggregators.orders', {
+            url: '/orders',
+            templateUrl: "assets/views/aggregators/aggregatororderlist.html",
+            resolve: loadSequence('aggregatororderlistCtrl'),
+            title: 'orderlist',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'orderlist'
+            }
+        }).state('app.aggregators.mapping', {
+            url: '/mapping',
+            templateUrl: "assets/views/aggregators/aggregatormapping.html",
+            resolve: loadSequence('aggregatormappingCtrl'),
+            title: 'aggregatormapping',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'aggregatormapping'
+            }
+        }).state('app.aggregators.customermap', {
+            url: '/customermap/:id',
+            templateUrl: "assets/views/aggregators/aggregatorcustomer.html",
+            resolve: loadSequence('ngTable','aggregatorcustomerCtrl','newregisterpersonCtrl', 'addnewaddressCtrl', 'StreetAddressSelectorCtrl'),
+            title: 'customermap',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'customermap'
             }
         }).state('app.addresses', {
             url: '/addresses',

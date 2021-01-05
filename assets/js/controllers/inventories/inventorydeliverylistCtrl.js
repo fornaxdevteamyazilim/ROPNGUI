@@ -49,7 +49,7 @@ function inventorydeliverylistCtrl($scope, $log, $modal, Restangular, ngTablePar
         }
         Restangular.restangularizeElement('', item, 'inventorydelivery/assigntoinvoice')
         item.post().then(function (resp) {
-            swal("success" ,$translate.instant('invantories.Saved'), $translate.instant('difinitions.DataSuccessfullySaved') );
+            swal("Saved!", "Data Successfully Saved!", "success");
             $location.path('app/inventory/inventorydeliveryinvoice/edit/' + resp.id);
         });
     };

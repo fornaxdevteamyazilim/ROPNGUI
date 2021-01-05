@@ -39,9 +39,9 @@ function orderinvoicelistCtrl($scope, $log, $filter, $modal, Restangular, ngTabl
         rowform.$cancel();
         if (!oil.tableParams.data[oil.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(oil.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled') );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled') );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     //$scope.BuildSearchString = function () {
@@ -81,8 +81,8 @@ function orderinvoicelistCtrl($scope, $log, $filter, $modal, Restangular, ngTabl
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error', $translate.instant('Server.ServerError'), response);
-                    SweetAlert.swal($translate.instant('Server.ServerError'), angular.toJson(response, false), "error");
+                    toaster.pop('error', "Server Error", response);
+                    SweetAlert.swal("Server Error!", angular.toJson(response, false), "error");
                 });
             }
         });
@@ -101,7 +101,7 @@ function orderinvoicelistCtrl($scope, $log, $filter, $modal, Restangular, ngTabl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };

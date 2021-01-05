@@ -23,7 +23,7 @@ function mergetownsCtrl($rootScope, $scope, $log, $modal, Restangular, ngTablePa
             angular.copy(result, $scope.toTowns);
             $scope.ShowObject = false;
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             $scope.ShowObject = false;
         });
     };
@@ -52,7 +52,7 @@ function mergetownsCtrl($rootScope, $scope, $log, $modal, Restangular, ngTablePa
             $scope.LoadTowns();
             toaster.pop('success',$translate.instant('margeaddress.Mergedwiththecity') );
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.ExceptionMessage);
         });
         });
     };

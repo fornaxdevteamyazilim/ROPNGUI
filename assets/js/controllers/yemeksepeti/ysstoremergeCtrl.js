@@ -38,7 +38,7 @@ function ysstoremergeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -62,14 +62,14 @@ function ysstoremergeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 ysst.tableParams.reload();
-                toaster.pop('success', $translate.instant('yemeksepetifile.Updated'), $translate.instant('yemeksepetifile.Updated'));
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'yemeksepetistore')
             data.post().then(function (res) {
                 ysst.tableParams.reload();
-                toaster.pop('success',$translate.instant('yemeksepetifile.Saved'), $translate.instant('yemeksepetifile.Saved'));
+                toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -90,7 +90,7 @@ function ysstoremergeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -99,7 +99,7 @@ function ysstoremergeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -120,9 +120,9 @@ function ysstoremergeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
         rowform.$cancel();
         if (!ysst.tableParams.data[ysst.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ysst.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('yemeksepetifile.Cancelled'), $translate.instant('yemeksepetifile.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('yemeksepetifile.Cancelled'), $translate.instant('yemeksepetifile.Editcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
@@ -142,7 +142,7 @@ function ysstoremergeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
                     ysst.tableParams.data[index].remove();
                 }
                 ysst.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('yemeksepetifile.Attention'),$translate.instant('yemeksepetifile.RecordDeleted'));
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

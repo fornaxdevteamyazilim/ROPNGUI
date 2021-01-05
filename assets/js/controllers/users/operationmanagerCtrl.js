@@ -20,11 +20,11 @@ function operationmanagerCtrl($rootScope, $scope, $log, $modal, Restangular, ngT
     };
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { om.tableParams.reload(); toaster.pop('success',$translate.instant('userfile.Updated'), $translate.instant('userfile.Updated')); });
+            data.put().then(function (res) { om.tableParams.reload(); toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated.'); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { om.tableParams.reload(); toaster.pop('success', $translate.instant('userfile.Saved'), $translate.instant('userfile.Saved')); });
+            data.post().then(function (res) { om.tableParams.reload(); toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.'); });
             data.get();
         }
     };
@@ -43,9 +43,9 @@ function operationmanagerCtrl($rootScope, $scope, $log, $modal, Restangular, ngT
         rowform.$cancel();
         if (!om.tableParams.data[om.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(om.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('userfile.Cancelled'), $translate.instant('userfile.Insertcancelled') );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('userfile.Cancelled'), $translate.instant('userfile.Editcancelled') );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     om.tableParams = new ngTableParams({
@@ -67,7 +67,7 @@ function operationmanagerCtrl($rootScope, $scope, $log, $modal, Restangular, ngT
                     $scope.SelectedItem = (items && items.length > 0) ? items[0].id : null;
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -104,7 +104,7 @@ function operationmanagerCtrl($rootScope, $scope, $log, $modal, Restangular, ngT
                     om.tableParams.data[index].remove();
                 }
                 om.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('userfile.Attention'),$translate.instant('userfile.RecordDeleted'));
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

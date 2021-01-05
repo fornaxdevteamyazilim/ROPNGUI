@@ -135,9 +135,9 @@ function inventoryeditCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
         rowform.$cancel();
         if (!inved.tableParams.data[inved.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(inved.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removedata = function (SelectItem) {
@@ -210,7 +210,7 @@ function inventoryeditCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

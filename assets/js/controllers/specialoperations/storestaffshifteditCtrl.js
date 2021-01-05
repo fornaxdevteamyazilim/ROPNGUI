@@ -29,8 +29,8 @@ function storestaffshifteditCtrl($scope, $log, $filter, SweetAlert, Restangular,
                 ssse.tableParams.reload();
             }
         }, function (restresult) {
-            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            swal("Error", "Warning");
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+            swal("Hata!", "Warning");
         })
     }
     else {
@@ -49,7 +49,7 @@ function storestaffshifteditCtrl($scope, $log, $filter, SweetAlert, Restangular,
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -58,7 +58,7 @@ function storestaffshifteditCtrl($scope, $log, $filter, SweetAlert, Restangular,
         Restangular.restangularizeElement('', item, 'storestaffshiftitem')
         item.post().then(function (resp) {
             ssse.tableParams.reload();
-            toaster.pop("success", $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
+            toaster.pop("success", "Updated.", $translate.instant('orderfile.Updated'));
             ssse.tableParams.reload();
         });        
     };    
@@ -114,7 +114,7 @@ function storestaffshifteditCtrl($scope, $log, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };
@@ -136,7 +136,7 @@ function storestaffshifteditCtrl($scope, $log, $filter, SweetAlert, Restangular,
     }).then(function (result) {
         $scope.storeUsers = result;
     }, function (response) {
-        toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+        toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
     });
     $scope.isClean = function () {
         return angular.equals($scope.original, $scope.item);

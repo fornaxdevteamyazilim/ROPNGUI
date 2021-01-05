@@ -13,11 +13,11 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
     }
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { inp.tableParams.reload(); toaster.pop('success',$translate.instant('invantories.Updated'), $translate.instant('invantories.Updated')); });
+            data.put().then(function (res) { inp.tableParams.reload(); toaster.pop('success',$translate.instant('invantories.Updated'), 'Updated.'); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { inp.tableParams.reload(); toaster.pop('success',$translate.instant('invantories.Saved'), $translate.instant('invantories.Saved')); });
+            data.post().then(function (res) { inp.tableParams.reload(); toaster.pop('success',$translate.instant('invantories.Saved'), 'Saved.'); });
             data.get();
         }
     };
@@ -48,9 +48,9 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
         rowform.$cancel();
         if (!inp.tableParams.data[inp.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(inp.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     inp.tableParams = new ngTableParams({
@@ -70,7 +70,7 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -89,7 +89,7 @@ function inventorypriceCtrl($rootScope, $scope, $log, $modal, $filter, SweetAler
                     $scope[Container].push({ id: '', name: "" })
                 }
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

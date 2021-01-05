@@ -27,8 +27,8 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                     }, function (rresult) { toaster.pop('error', "Error", rresult.data.ExceptionMessage); });
             },
            function (restresult) {
-               toaster.pop('error', "Error", $translate.instant('Server.ServerError'));
-               swal("Error!",$translate.instant('Server.DataError'), "Warning");
+               toaster.pop('error', "Error", 'Server Error');
+               swal("Error!", "Data Error!", "Warning");
            }
            );
     } else {
@@ -69,7 +69,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
           }
       },
       function (restresult) {
-          toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+          toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
       })
     };
     $scope.GetPerson();
@@ -181,7 +181,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                           }
                       }
                   }, function (response) {
-                      toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                      toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                   });
         }
     };
@@ -209,7 +209,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
         Restangular.restangularizeElement('', $scope.item, 'person_deliveryaddress');
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                toaster.pop('success', $translate.instant('orderfile.Updated'),  $translate.instant('orderfile.Updated'));
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated!');
                 if (path == 'Order' && resp.id) {
                     $scope.HomeOrder(data, 2)
                 }
@@ -218,7 +218,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
         else {
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                toaster.pop('success', $translate.instant('orderfile.Saved'),  $translate.instant('orderfile.Saved'));
+                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved!');
                 if (path == 'Order' && resp.id) {
                     $scope.HomeOrder(data, 2)
                 }
@@ -257,7 +257,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
             Restangular.all(EntityType).getList().then(function (result) {
                 angular.copy(result.plain(), $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -269,7 +269,7 @@ function personaddresseditCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
             }).then(function (result) {
                 angular.copy(result.plain(), $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

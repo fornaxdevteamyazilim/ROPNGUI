@@ -10,7 +10,7 @@ var person = personID;
     }).then(function (result) {
         $scope.orders = result.plain().join("<br>");
     }, function (response) {
-        toaster.pop('error', $translate.instant('Server.Serverconnectionerror'), "Warning!");
+        toaster.pop('error', "Server Connection Error", "Warning!");
     });
     $scope.ok = function () {
         $modalInstance.close('return');

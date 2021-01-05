@@ -77,7 +77,7 @@ function tablePlanEditCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
         }).then(function (result) {
             $scope.tableplans = result;
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadStoreTablePlans();
@@ -100,7 +100,7 @@ function tablePlanEditCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                             $scope.addstoretable();
                     }, function (err) {
                         if (err) {
-                            toaster.pop('warrning', $translate.instant('Server.PasswordError'), err.error_description);
+                            toaster.pop('warrning', "Password Error!", err.error_description);
                             return 'No'
                         }
                         else {
@@ -113,7 +113,7 @@ function tablePlanEditCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 }
             })
         } else {
-            toaster.pop("warning",  $translate.instant('yemeksepetifile.YOUARENOTAUTHORIZEDFORTHISPROCEDURE'));
+            toaster.pop("warning", "YOU ARE NOT AUTHORIZED FOR THIS PROCEDURE. !");
             return 'No';
         }
     };
@@ -134,10 +134,10 @@ function tablePlanEditCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
         if (data) {
             Restangular.restangularizeElement('', data, 'storetable');
             data.put().then(function (resp) {
-                toaster.pop('success', $translate.instant('margeaddress.Saved'));
+                toaster.pop('success', "Saved.");
             },
                 function (resp) {
-                    toaster.pop('error', $translate.instant('margeaddress.ChangesNotSaved'), "error");
+                    toaster.pop('error', "Changes Not Saved !", "error");
                 });
         }
     });
@@ -166,14 +166,14 @@ function addstoretableCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngT
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', $translate.instant('margeaddress.Updated'), $translate.instant('margeaddress.Updated'));
+                toaster.pop('success', "Updated.", 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'storetable')
             this.item.post().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', $translate.instant('margeaddress.Saved'), $translate.instant('margeaddress.Saved'));
+                toaster.pop('success', "Saved.", 'Saved.');
             });
             this.item.get();
         }
@@ -191,9 +191,9 @@ function addstoretableCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngT
         rowform.$cancel();
         if (!$scope.tableParams.data[$scope.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove($scope.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('margeaddress.Cancelled'), $translate.instant('margeaddress.Insertcancelled'));
+            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
         } else {
-            toaster.pop('warning',$translate.instant('margeaddress.Cancelled'), $translate.instant('margeaddress.Editcancelled'));
+            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
         }
     };
     $scope.tableParams = new ngTableParams({
@@ -212,7 +212,7 @@ function addstoretableCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngT
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('warning', "Server error", response);
             });
         }
     });
@@ -232,7 +232,7 @@ function addstoretableCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngT
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server error", response.data.ExceptionMessage);
             });
         }
     };
@@ -243,7 +243,7 @@ function addstoretableCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngT
                     $scope.tableParams.data[index].remove();
                 }
                 $scope.tableParams.data.splice(index, 1);
-        toaster.pop("error", $translate.instant('margeaddress.Attention'), $translate.instant('margeaddress.RecordDeleted'));
+        toaster.pop("error", "Attention !", "Record Deleted !");
     };
 
     $scope.cancelremove = function (index) {

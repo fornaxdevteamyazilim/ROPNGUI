@@ -43,7 +43,7 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
             value: "startWeek"
         },
         min: 1,
-        max: 52,
+        max: 53,
         showSpinButtons: true
     };
 
@@ -52,7 +52,7 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
             value: "endWeek"
         },
         min: 1,
-        max: 52,
+        max: 53,
         showSpinButtons: true
     };
     $scope.reportButtonOptions = {

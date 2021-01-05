@@ -44,7 +44,7 @@ function servicesareareportCtrl($scope, $modal, $filter, $translate, SweetAlert,
             angular.copy(result, $scope.ServicesArea);
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('Server.ServerError'), response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     //$scope.exportToExcel = function (tableId) {
@@ -75,7 +75,7 @@ function servicesareareportCtrl($scope, $modal, $filter, $translate, SweetAlert,
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -94,7 +94,7 @@ function servicesareareportCtrl($scope, $modal, $filter, $translate, SweetAlert,
                 $scope.addresstype = result;
             },
             function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

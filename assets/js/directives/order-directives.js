@@ -26,7 +26,7 @@ function orderable($compile, $modal,$translate) {
             "<div class='row col-lg-9 col-md-9 col-sm-12 col-xs-12 pull-right margin-bottom-5 margin-top-5' ng-if='item.isOrderItem'> " +
             "<button class='col-lg-4 col-md-4 col-sm-4 col-xs-6  btn-red btn-md tooltips radius-3 pull-right' style='height:33px' ng-hide='!item.canSave' ng-click='SaveToOrder(item)'ng-disabled='ButtonActive == false'><label class='fa fa-spin fa-spinner' ng-if='ButtonActive == false'></label><span> {{:: 'main.SAVE' | translate}} </span></button>" +
             "<span class='col-lg-2 col-md-3 col-sm-4 col-xs-6 pull-right'><input type='text' ng-model='item.Quantity' touchspin data-min='1' data-max='30' data-step='1'  data-stepinterval='50' data-maxboostedstep='10'/></span>" +
-            "<label class='col-lg-3 col-md-3 col-sm-4 col-xs-6 pull-right margin-top-5 margin-right-5 text-bold text-dark' style='color:black;'>{{:: 'main.TOTALAMOUNT' | translate}}: {{itemAmount| number : 2}} TL</label>" +
+            "<label class='col-lg-3 col-md-3 col-sm-4 col-xs-6 pull-right margin-top-5 margin-right-5 text-bold text-dark' style='color:black;'>{{:: 'main.TOTALAMOUNT' | translate}}: {{itemAmount| number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>" +
             "<label class='col-lg-2 col-md-2 col-sm-4 col-xs-6 pull-left text-bold text-dark' style='color:black;'>{{item.name}}</label>" +
             "</div>" +
             "<orderableoption class='fade-in' ng-if='option.OptionIndex>-2' bindonce ng-repeat='option in item.Options' option='option' order='OrderID'></orderableoption>" +
@@ -688,7 +688,7 @@ function optionitemImage() {
 
             "<div class='btn btn-wide btn-o  btn-warning col-lg-2 col-md-3 col-sm-8 col-xs-12 margin-top-5 margin-right-5' style='width:150px; height:90px;' ng-if='user.UserRole.MemberID == 106851154380'>" +
             "<div class='col-lg-12 col-md-12 col-sm-12' style='max-height:90px; min-height:90px;'>" +
-            "<label id='txshdw' class='col-lg-12 col-md-12 col-sm-12 col-xs-12 text-capitalize text-bold' style='overflow:hidden; text-overflow:clip; color:black; min-height:50px; max-height:50px;' >{{:: item.name}} / {{item.Price.Price| number : 2}} TL</label>" +
+            "<label id='txshdw' class='col-lg-12 col-md-12 col-sm-12 col-xs-12 text-capitalize text-bold' style='overflow:hidden; text-overflow:clip; color:black; min-height:50px; max-height:50px;' >{{:: item.name}} / {{item.Price.Price| number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>" +
             "<button class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn-red ti-zoom-in radius-3' style='height:25px;' option-click ></button>" +
             "<button class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn-dark-yellow ti-plus radius-3' style='height:25px;' ng-click='ControlOptions(item)'></button>" +
             "</div>" +
@@ -698,7 +698,7 @@ function optionitemImage() {
 
             "<div class='btn btn-wide btn-o  btn-red col-lg-2 col-md-3 col-sm-8 col-xs-12 margin-top-5 margin-right-5' style='width:150px; height:120px;' ng-if='user.UserRole.MemberID != 106851154380'>" +
             "<div class='col-lg-12 col-md-12 col-sm-12' style='max-height:120px; min-height:120px;'>" +
-            "<label id='txshdw' class='col-lg-12 col-md-12 col-sm-12 col-xs-12 text-capitalize text-bold' style='overflow:hidden; text-overflow:clip; color:black; min-height:70px; max-height:70px;' >{{:: item.name}} / {{item.Price.Price| number : 2}} TL</label>" +
+            "<label id='txshdw' class='col-lg-12 col-md-12 col-sm-12 col-xs-12 text-capitalize text-bold' style='overflow:hidden; text-overflow:clip; color:black; min-height:70px; max-height:70px;' >{{:: item.name}} / {{item.Price.Price| number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>" +
             "<button class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn-dark-red ti-zoom-in radius-3' style='height:25px;' option-click ></button>" +
             "<button class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn-light-red ti-plus radius-3' style='height:25px;' ng-click='ControlOptions(item)'></button>" +
             "</div>" +
@@ -1068,7 +1068,7 @@ function orderItem($compile) {
             //"<label class='text-bold pull-left text-red' ng-if='member.Amount != member.TotalAmount'>{{member.Amount| number : 2}} TL - </label>"+
             "</div>" +
             "<div class='col-lg-3 col-md-3 col-sm-3 col-xs-3 margin-top-5'>" +
-            "<label class='text-bold pull-right text-large text-red'>{{member.TotalAmount| number : 2}} TL</label>" +
+            "<label class='text-bold pull-right text-large text-red'>{{member.TotalAmount| number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>" +
             "</div>" +
             "<div class='col-lg-1 col-md-1 col-sm-1 col-xs-1 margin-top-5 pull-right'>" +
             "<span class='text-extra-large text-dark ng ti-close' ng-click='DeleteAndEdit()'><span class='text-large text-bold'></span>" + "</button>" +
@@ -1147,7 +1147,7 @@ function detailorderItem($compile) {
             //large & medium & small
             "<div class='row col-lg-12 col-md-12 col-sm-12 col-xs-12'>" +
             "<label class='col-lg-9 col-md-9 col-sm-9 col-xs-9 text-capitalize' style='font-size:medium;'><span>{{member.Quantity}} X {{:: member.Product}} </span></label>" +
-            "<label class='col-lg-3 col-md-3 col-sm-3 col-xs-3 text-large pull-right'><span class='pull-right'> {{member.Amount| number : 2}} <span ng-if='member.Amount >= 0'>TL</span></span></label>" +
+            "<label class='col-lg-3 col-md-3 col-sm-3 col-xs-3 text-large pull-right'><span class='pull-right'> {{member.Amount| number : 2}} <span ng-if='member.Amount >= 0'>{{:: 'main.CURRENCY_SYMBOL' | translate}}</span></span></label>" +
             "</div>",
         controller: function ($scope, $element, $attrs) {
             $scope.$on('$destroy', function () {
@@ -1243,7 +1243,7 @@ function orderItems($compile) {
             "&nbsp; <label class='text-bold text-extra-large text-capitalize ng'><strong> {{member.Product || member.ProductPrototype}} </strong></label>" +
             "</div>" +
             "<div id='div2' class='col-lg-3 col-md-3 col-sm-3 col-xs-3 margin-top-5'>" +
-            "<label class='text-bold text-extra-large'>{{member.Amount| number : 2}} TL</label>" +
+            "<label class='text-bold text-extra-large'>{{member.Amount| number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>" +
             "</div>" +
             "<div id='div2' class='col-lg-1 col-md-1 col-sm-1 col-xs-1 margin-top-5'>" +
             "<label class='text-extra-small'>({{member.AddDate| date:'HH:mm:ss'}})</label>" +
@@ -1278,7 +1278,7 @@ function detailorderItems($compile) {
             "<span class='margin-left-5'>{{member.Quantity}} X {{member.Product}}</span></label>" +
             "<label class='pull-right text-extra-small'>({{member.AddDate| date:'HH:mm:ss'}})</label>" +
             "<label class='col-lg-3 col-md-3 col-sm-3 col-xs-3 text-large'>" +
-            "<span>{{member.Amount | number : 2}} TL</span>" +
+            "<span>{{member.Amount | number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>" +
             "</label>" +
             "</div>",
         controller: function ($scope, $element, $attrs) {

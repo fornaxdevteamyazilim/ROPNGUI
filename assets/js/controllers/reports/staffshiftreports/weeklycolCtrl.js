@@ -44,7 +44,7 @@ function weeklycolCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
             value: "startWeek"
         },
         min: 1,
-        max: 52,
+        max: 53,
         showSpinButtons: true
     };
 
@@ -53,7 +53,7 @@ function weeklycolCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
             value: "endWeek"
         },
         min: 1,
-        max: 52,
+        max: 53,
         showSpinButtons: true
     };
     $scope.reportButtonOptions = {

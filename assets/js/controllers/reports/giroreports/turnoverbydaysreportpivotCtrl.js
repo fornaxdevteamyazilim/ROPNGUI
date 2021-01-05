@@ -93,7 +93,7 @@ function turnoverbydaysreportpivotCtrl($scope, $filter, $modal, $log, Restangula
                 $scope.VeiwHeader = result[0];
                 $scope.GetLayout(result[0].id)
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
             });
     }
     $scope.GetLayout = function (ReportID) {
@@ -112,7 +112,7 @@ function turnoverbydaysreportpivotCtrl($scope, $filter, $modal, $log, Restangula
                 $scope.LoadPivotData();
             }
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server error", response.data.ExceptionMessage);
         });
     };
     $scope.SetStoreTypeID = function (FromValue) {
@@ -184,7 +184,7 @@ function turnoverbydaysreportpivotCtrl($scope, $filter, $modal, $log, Restangula
             $scope.ShowReport();
             $scope.isWaiting = false;
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server error", response.data.ExceptionMessage);
             $scope.isWaiting = false;
         });
     };
@@ -294,7 +294,7 @@ function turnoverbydaysreportpivotCtrl($scope, $filter, $modal, $log, Restangula
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server error", response.data.ExceptionMessage);
             });
         }
     };

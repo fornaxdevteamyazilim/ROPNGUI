@@ -25,7 +25,7 @@ $scope.StoreData = {};
         }).then(function (_orderItems) {
             $scope.orderItems = angular.copy(_orderItems);
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.GetStore = function (StoreID) {

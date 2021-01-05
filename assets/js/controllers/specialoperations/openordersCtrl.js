@@ -50,7 +50,7 @@ function openordersCtrl($rootScope, $scope, $log, $modal, Restangular, $filter, 
             angular.copy(result, $scope.orders);
         }, function (response) {
             $scope.ShowObject = false;
-            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.selectStore = function (StoreID) {
@@ -81,7 +81,7 @@ function openordersCtrl($rootScope, $scope, $log, $modal, Restangular, $filter, 
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

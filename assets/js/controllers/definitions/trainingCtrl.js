@@ -17,14 +17,14 @@ function trainingCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ng
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 trn.tableParams.reload();
-                toaster.pop('success', $translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
+                toaster.pop('success', $translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'training')
             data.post().then(function (res) {
                 trn.tableParams.reload();
-                toaster.pop('success', $translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
+                toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -42,9 +42,9 @@ function trainingCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ng
         rowform.$cancel();
         if (!trn.tableParams.data[trn.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(trn.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'),$translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     trn.tableParams = new ngTableParams({
@@ -65,7 +65,7 @@ function trainingCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ng
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });

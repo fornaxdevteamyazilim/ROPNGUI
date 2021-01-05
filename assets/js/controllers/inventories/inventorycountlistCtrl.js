@@ -36,9 +36,9 @@ function inventorycountlistCtrl($scope, $log, $modal, Restangular, ngTableParams
         rowform.$cancel();
         if (!ic.tableParams.data[ic.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ic.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     //$scope.BuildSearchString = function (src) {
@@ -78,8 +78,8 @@ function inventorycountlistCtrl($scope, $log, $modal, Restangular, ngTableParams
                     $scope.SelectedItem = items[0].id;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response);
-                SweetAlert.swal($translate.instant('Server.ServerError'), angular.toJson(response.data.ExceptionMessage, false), "error");
+                toaster.pop('error', "Server Error", response);
+                SweetAlert.swal("Server Error!", angular.toJson(response.data.ExceptionMessage, false), "error");
             });
             }
         }
@@ -106,7 +106,7 @@ function inventorycountlistCtrl($scope, $log, $modal, Restangular, ngTableParams
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -115,7 +115,7 @@ function inventorycountlistCtrl($scope, $log, $modal, Restangular, ngTableParams
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

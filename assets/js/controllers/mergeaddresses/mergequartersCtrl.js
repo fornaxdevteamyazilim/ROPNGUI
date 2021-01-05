@@ -25,7 +25,7 @@ function mergequartersCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
         }).then(function (result) {
             angular.copy(result, $scope.subcities);
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.SelectSubcity = function (SubcityID) {
@@ -51,7 +51,7 @@ function mergequartersCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
             angular.copy(result, $scope.toQuarters);
             $scope.ShowObject = false;
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             $scope.ShowObject = false;
         });
     };
@@ -79,7 +79,7 @@ function mergequartersCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
                      $scope.LoadQuarters();
                      toaster.pop('success', $translate.instant('margeaddress.NeighborhoodCombined'));
                  }, function (response) {
-                     toaster.pop('error', $translate.instant('Server.ServerError'), response.ExceptionMessage);
+                     toaster.pop('error', "Server Error", response.ExceptionMessage);
                  });
         });
     };
@@ -98,7 +98,7 @@ function mergequartersCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

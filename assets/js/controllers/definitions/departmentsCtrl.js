@@ -30,7 +30,7 @@ function departmentsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, 
              $defer.resolve(items);
              $scope.DriverVehicle = items;
          }, function (response) {
-             toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
          });
      }
  });
@@ -38,14 +38,14 @@ function departmentsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, 
         if (data.restangularized) {
             data.put().then(function (res) {
                 dp.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
+                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'department')
             data.post().then(function (res) {
                 dp.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
+                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -63,9 +63,9 @@ function departmentsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, 
         rowform.$cancel();
         if (!dp.tableParams.data[dp.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(dp.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
@@ -118,7 +118,7 @@ function departmentsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, 
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };

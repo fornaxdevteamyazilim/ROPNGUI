@@ -38,7 +38,7 @@ function storestaffshiftCtrl($rootScope, $scope, Restangular, ngTableParams, toa
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });

@@ -41,7 +41,7 @@ function incomeslipCtrl($scope, $log, $modal, Restangular,$translate, ngTablePar
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -62,7 +62,7 @@ function incomeslipCtrl($scope, $log, $modal, Restangular,$translate, ngTablePar
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

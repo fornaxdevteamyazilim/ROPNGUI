@@ -93,7 +93,7 @@ function doughchartCtrl($scope, $filter, $modal, $log, Restangular, ngTableParam
            $scope.VeiwHeader = result[0];
            $scope.GetLayout(result[0].id)
        }, function (response) {
-           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+           toaster.pop('error', "Server error", response.data.ExceptionMessage);
        });
     }
 
@@ -124,7 +124,7 @@ $scope.SetStoreID = function (FromValue) {
             $scope.LoadPivotData();
         }
     }, function (response) {
-        toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+        toaster.pop('error', "Server error", response.data.ExceptionMessage);
     });
     };
     $scope.exportToExcel = function (tableId) {
@@ -185,7 +185,7 @@ $scope.SetStoreID = function (FromValue) {
                 $scope.ShowReport();
                 $scope.isWaiting = false;
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
                 $scope.isWaiting = false;
             });
     };

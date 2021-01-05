@@ -25,7 +25,7 @@ function orderpaymentcomparepivotCtrl($scope, $log, $modal, $filter, SweetAlert,
             $scope.OrderPaymentComparePivot = result.plain();
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
 

@@ -11,11 +11,11 @@
         };
         $scope.saveData = function (data) {
             if (data.restangularized) {
-                data.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success', $translate.instant('personfile.DataUpdated'), $translate.instant('personfile.DataUpdateapplyedserver')); });
+                data.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Data updated", 'Data Update applyed to server.'); });
             }
             else {
                 Restangular.restangularizeElement('', data, $scope.objectType)
-                data.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', $translate.instant('personfile.DataUpdated'), $translate.instant('invantories.Savedserver')); });
+                data.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', "Data added", 'Saved data to server.'); });
                 data.get();
             }
         }
@@ -34,9 +34,9 @@
             rowform.$cancel();
             if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
                 $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-                toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+                toaster.pop('warning', "Cancelled", 'Insert cancelled');
             } else {
-                toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+                toaster.pop('warning', "Cancelled", 'Edit cancelled');
             }
         };
         vm.tableParams = new ngTableParams({
@@ -55,8 +55,8 @@
                     $scope.SelectedItem = items[0].id;
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error',$translate.instant('Server.ServerError'), response);
-                    SweetAlert.swal($translate.instant('Server.ServerError'), angular.toJson(response, false), "error");
+                    toaster.pop('error', "Server Error", response);
+                    SweetAlert.swal("Server error!", angular.toJson(response, false), "error");
                 });
             }
         });
@@ -76,7 +76,7 @@
                 }).then(function (result) {
                     $scope[Container] = result;
                 }, function (response) {
-                    toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+                    toaster.pop('Warning', "Server Error", response);
                 });
             }
         };

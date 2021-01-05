@@ -107,13 +107,13 @@
                                 {{item.Name}}
                             </div>
                             <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
-                                <label class="pull-right">{{item.Quantity| number:0}}  Adet</label>
+                                <label class="pull-right">{{item.Quantity| number:0}}  #</label>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                 <label class="pull-right">{{item.Percent| number:0}}  %</label>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <label class="pull-right">{{item.Value | number:2}} TL</label>
+                                <label class="pull-right">{{item.Value | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                             </div>
                         </div>
                     </div>
@@ -126,13 +126,13 @@
                         <label translate="main.TOTALSALES" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.GrandTotals)| number:0}} Adet</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.GrandTotals)| number:0}} #</label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-repeat="storedata in CashReportResults">
                         <label class="text-bold pull-right" style="color:black;">{{CalcTotalPercent(storedata.GrandTotals)| number:0}} %</label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals)  | number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals)  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-grey">
@@ -140,8 +140,8 @@
                         <label translate="main.TOTALNETT" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals) * 100 / 108  | number:2}} TL</label>-->
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals) - CalcTotalVat(storedata.GrandTotals) | number:2}} TL</label>
+                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals) * 100 / 108  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>-->
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals) - CalcTotalVat(storedata.GrandTotals) | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
             </div>
@@ -162,7 +162,7 @@
                                 <label style="white-space: nowrap; overflow:hidden; text-overflow:clip;">{{item.Promotion.name}}</label>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                <label class="pull-right">{{item.DiscountAmount| number:2}} TL</label>
+                                <label class="pull-right">{{item.DiscountAmount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                             </div>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                         <label class="text-bold" style="color:black;">{{storedata.DiscountCount| number:0}} {{'main.PIECE' | translate}}</label>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalDiscount(storedata.Discounts)| number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalDiscount(storedata.Discounts)| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-grey">
@@ -186,7 +186,7 @@
                         <label translate="main.TOTALNETPROMO" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalDiscount(storedata.Discounts) * 100 / 108  | number:2}} TL</label>-->
+                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalDiscount(storedata.Discounts) * 100 / 108  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>-->
                     </div>
                 </div>
             </div>
@@ -204,7 +204,7 @@
                                 <label class="pull-right"> {{item.Quantity}} </label>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
-                                <label class="pull-right">{{item.Value| number:2}} TL</label>
+                                <label class="pull-right">{{item.Value| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                             </div>
                         </div>
                     </div>
@@ -217,10 +217,10 @@
                         <label translate="main.TOTALSALES" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.Income)| number:0}} Adet</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.Income)| number:0}} #</label>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income)  | number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income)  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-grey">
@@ -228,8 +228,8 @@
                         <label class="text-bold" style="color:black;"></label>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income) * 100 / 108  | number:2}} TL</label>
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income) | number:2}} TL</label>-->
+                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income) * 100 / 108  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income) | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>-->
                     </div>
                 </div>
             </div>
@@ -253,7 +253,7 @@
                                 <label class="pull-right">
                                     <span ng-if="item.TransactionType==6 || item.TransactionType==2">(+) </span>
                                     <span ng-if="item.TransactionType==3 ">(-) </span>
-                                    <span>{{item.Amount | number:2}} TL</span>
+                                    <span>{{item.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>
                                 </label>
                             </div>
                         </div>
@@ -273,7 +273,7 @@
                         <label class="text-bold pull-right" style="color:black;">-</label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalTransactions(storedata.AccountTransactions)  | number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalTransactions(storedata.AccountTransactions)  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-grey">
@@ -281,7 +281,7 @@
                         <label translate="main.TOTALNET" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalTransactions(storedata.AccountTransactions) * 100 / 108  | number:2}} TL</label>-->
+                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalTransactions(storedata.AccountTransactions) * 100 / 108  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>-->
                     </div>
                 </div>
             </div>
@@ -299,7 +299,7 @@
                                 <label class="pull-right"> {{item.Quantity}} </label>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
-                                <label class="pull-right">{{item.Value| number:2}} TL</label>
+                                <label class="pull-right">{{item.Value| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                             </div>
                         </div>
                     </div>
@@ -315,7 +315,7 @@
                         <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.PaymentStatistics)| number:0}} {{'main.PIECE' | translate}}</label>
                     </div>
                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.PaymentStatistics)   | number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.PaymentStatistics)   | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                         <!--- CalcTotalTransactions(storedata.AccountTransactions) CARİ ÖDEME TOPLAM ÇIKARASI GELECEK BİR ÜST SATIRA-->
                     </div>
                 </div>
@@ -324,7 +324,7 @@
                         <label translate="main.TOTALNET" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.PaymentStatistics)  * 100 / 108  | number:2}} TL</label>-->
+                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.PaymentStatistics)  * 100 / 108  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>-->
                         <!--- CalcTotalTransactions(storedata.AccountTransactions)---CARİ ÖDEME TOPLAM ÇIKARASI GELECEK BİR ÜST SATIRA    -->
                     </div>
                 </div>
@@ -343,7 +343,7 @@
                                 {{item.Title}}
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
-                                <label class="pull-right">{{item.Amount| number:2}} TL</label>
+                                <label class="pull-right">{{item.Amount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                             </div>
                         </div>
                     </div>
@@ -358,7 +358,7 @@
                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3" ng-repeat="storedata in CashReportResults">
                     </div>
                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalInvoice(storedata.OrderInvoices)   | number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalInvoice(storedata.OrderInvoices)   | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-grey">
@@ -384,7 +384,7 @@
                                 <label class="pull-right"> {{item2.PaymentsCount}} </label>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
-                                <label class="pull-right">{{item2.PaymenAmount| number:2}} TL</label>
+                                <label class="pull-right">{{item2.PaymenAmount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                             </div>
                         </div>
                     </div>
@@ -397,10 +397,10 @@
                         <label translate="main.TOTALSALES" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.Income)| number:0}} Adet</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.Income)| number:0}} #</label>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income)  | number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income)  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-grey">
@@ -426,7 +426,7 @@
                                 <label class="pull-right"> {{item2.PaymentsCount}} </label>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
-                                <label class="pull-right">{{item2.PaymenAmount| number:2}} TL</label>
+                                <label class="pull-right">{{item2.PaymenAmount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                             </div>
                         </div>
                     </div>
@@ -439,10 +439,10 @@
                         <label translate="main.TOTALSALES" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.Income)| number:0}} Adet</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.Income)| number:0}} #</label>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income)  | number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income)  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-grey">
@@ -469,13 +469,13 @@
                                 {{item.Name}}
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <label class="pull-right">{{item.Quantity| number:0}}  Adet</label>
+                                <label class="pull-right">{{item.Quantity| number:0}}  #</label>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                 <label class="pull-right">{{item.Percent| number:0}}  %</label>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <label class="pull-right">{{item.Value | number:2}} TL</label>
+                                <label class="pull-right">{{item.Value | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                             </div>
                         </div>
                     </div>
@@ -485,13 +485,13 @@
                         <label translate="main.TOTALSALES" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.GrandTotals)| number:0}} Adet</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.GrandTotals)| number:0}} #</label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-repeat="storedata in CashReportResults">
                         <label class="text-bold pull-right" style="color:black;">{{CalcTotalPercent(storedata.GrandTotals)| number:0}} %</label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals)  | number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals)  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -499,9 +499,9 @@
                         <label translate="main.TOTALNETT" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-repeat="storedata in CashReportResults">
-                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals) * 100 / 108  | number:2}} TL</label>-->
-                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals) | number:2}} TL</label>-->
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals) - CalcTotalVat(storedata.GrandTotals) | number:2}} TL</label>
+                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals) * 100 / 108  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>-->
+                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals) | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>-->
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.GrandTotals) - CalcTotalVat(storedata.GrandTotals) | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
             </div>
@@ -523,7 +523,7 @@
                                     <label style="white-space: nowrap; overflow:hidden; text-overflow:clip;">{{item.Promotion.name}}</label>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <label class="pull-right">{{item.DiscountAmount| number:2}} TL</label>
+                                    <label class="pull-right">{{item.DiscountAmount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                                 </div>
                             </div>
                         </div>
@@ -537,7 +537,7 @@
                         <label class="text-bold" style="color:black;">{{storedata.DiscountCount| number:0}} {{'main.PIECE' | translate}}</label>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalDiscount(storedata.Discounts)| number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalDiscount(storedata.Discounts)| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -545,7 +545,7 @@
                         <label translate="main.TOTALNETPROMO" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-repeat="storedata in CashReportResults">
-                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalDiscount(storedata.Discounts) * 100 / 108  | number:2}} TL</label>-->
+                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalDiscount(storedata.Discounts) * 100 / 108  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>-->
                     </div>
                 </div>
             </div>
@@ -566,7 +566,7 @@
                                     <label class="pull-right"> {{item.Quantity}} </label>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
-                                    <label class="pull-right">{{item.Value| number:2}} TL</label>
+                                    <label class="pull-right">{{item.Value| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                                 </div>
                             </div>
                         </div>
@@ -577,10 +577,10 @@
                         <label translate="main.TOTALSALES" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.Income)| number:0}} Adet</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.Income)| number:0}} #</label>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 " ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income)  | number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income)  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -588,8 +588,8 @@
                         <label translate="main.TOTALNETT" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-repeat="storedata in CashReportResults">
-                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income) * 100 / 108  | number:2}} TL</label>-->
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income) | number:2}} TL</label>
+                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income) * 100 / 108  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>-->
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.Income) | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
 
                     </div>
                 </div>
@@ -618,7 +618,7 @@
                                     <label class="pull-right">
                                         <span ng-if="item.TransactionType==6 || item.TransactionType==2">(+) </span>
                                         <span ng-if="item.TransactionType==3 ">(-) </span>
-                                        <span>{{item.Amount | number:2}} TL</span>
+                                        <span>{{item.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>
                                     </label>
                                 </div>
                             </div>
@@ -636,14 +636,14 @@
                         <label class="text-bold pull-right" style="color:black;"></label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalTransactions(storedata.AccountTransactions)  | number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalTransactions(storedata.AccountTransactions)  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <label translate="main.TOTALNET" class="text-bold" style="color:black;">Toplam Satış</label>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-repeat="storedata in CashReportResults">
-                            <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalTransactions(storedata.AccountTransactions) * 100 / 108  | number:2}} TL</label>-->
+                            <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalTransactions(storedata.AccountTransactions) * 100 / 108  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>-->
                         </div>
                     </div>
                 </div>
@@ -665,7 +665,7 @@
                                     <label class="pull-right"> {{item.Quantity}} </label>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
-                                    <label class="pull-right">{{item.Value| number:2}} TL</label>
+                                    <label class="pull-right">{{item.Value| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                                 </div>
                             </div>
                         </div>
@@ -679,7 +679,7 @@
                         <label class="text-bold pull-right" style="color:black;">{{CalcTotalQuantity(storedata.PaymentStatistics)| number:0}} {{'main.PIECE' | translate}}</label>
                     </div>
                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3" ng-repeat="storedata in CashReportResults">
-                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.PaymentStatistics)   | number:2}} TL</label>
+                        <label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.PaymentStatistics)   | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                         <!--- CalcTotalTransactions(storedata.AccountTransactions) CARİ ÖDEME TOPLAM ÇIKARASI GELECEK BİR ÜST SATIRA-->
                     </div>
                 </div>
@@ -688,7 +688,7 @@
                         <label translate="main.TOTALNET" class="text-bold" style="color:black;">Toplam Satış</label>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-repeat="storedata in CashReportResults">
-                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.PaymentStatistics)  * 100 / 108  | number:2}} TL</label>-->
+                        <!--<label class="text-bold pull-right" style="color:black;">{{CalcTotalAmount(storedata.PaymentStatistics)  * 100 / 108  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>-->
                         <!--- CalcTotalTransactions(storedata.AccountTransactions)---CARİ ÖDEME TOPLAM ÇIKARASI GELECEK BİR ÜST SATIRA    -->
                     </div>
                 </div>
@@ -713,7 +713,7 @@
                                     <label class="pull-right"> {{item2.PaymentsCount}} </label>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
-                                    <label class="pull-right">{{item2.PaymenAmount| number:2}} TL</label>
+                                    <label class="pull-right">{{item2.PaymenAmount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                                 </div>
                             </div>
                         </div>
@@ -738,7 +738,7 @@
                                     <label class="pull-right"> {{item2.PaymentsCount}} </label>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
-                                    <label class="pull-right">{{item2.PaymenAmount| number:2}} TL</label>
+                                    <label class="pull-right">{{item2.PaymenAmount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                                 </div>
                             </div>
                         </div>

@@ -7,7 +7,7 @@ function orderdisplayCtrl($scope, $log, $modal, $interval, Restangular, ngTableP
         Restangular.all('ordertools/NewOrders').getList().then(function (result) {
             $scope.UpdateOrderArray(result);
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadOrders();

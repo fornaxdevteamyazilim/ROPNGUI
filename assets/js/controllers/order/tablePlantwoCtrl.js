@@ -70,7 +70,7 @@ function tablePlantwoCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert
                 $scope.loadOrders();
             })
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.CopyOrder = function (order) {
@@ -97,12 +97,12 @@ function tablePlantwoCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert
     };
     $scope.SaveOpenOrders = function (data) {
         swal({
-            title:$translate.instant('orderfile.Havewedeliveredorder'),
+            title: "Mark order as delivered?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: $translate.instant('orderfile.yes'),
-            cancelButtonText: $translate.instant('orderfile.no'),
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
             closeOnConfirm: true
         }, function () {
             Restangular.all('ordertools/updateorderstatus').getList(
@@ -111,10 +111,10 @@ function tablePlantwoCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert
               newSatus: 10,
           }
       ).then(function (result) {
-          toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
+          toaster.pop('success', "Updated", 'Updated!');
           $scope.loadOrders();
       }, function (response) {
-          toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+          toaster.pop('error', "Server Error", response.data.ExceptionMessage);
       });
         });
     };
@@ -148,7 +148,7 @@ function tablePlantwoCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {
             $scope.ShowObject = false;
-            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();
@@ -187,7 +187,7 @@ function tablePlantwoCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error',$translate.instant('orderfile.NoDepartment'), "error");
+                        toaster.pop('error', "No Department", "error");
                     });
             }
         }
@@ -208,7 +208,7 @@ function tablePlantwoCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert
                 location.href = '#/app/orders/orderStoreTable/' + resp.id;
             },
             function (resp) {
-                toaster.pop('error', resp.data.ExceptionMessage, $translate.instant('orderfile.Couldnotcreateneworder'));
+                toaster.pop('error', resp.data.ExceptionMessage, "Could Not Create New Order !");
             });
         } else {
         }

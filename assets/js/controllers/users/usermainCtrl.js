@@ -9,15 +9,15 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
         if (data.Password || (!data.Password && userService.isAdmin())) {
             if (data.restangularized && data.id) {
                 data.put().then(function (res) {
-                    toaster.pop('success', $translate.instant('userfile.Updated'), $translate.instant('userfile.Updated'));
+                    toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
                 });
             }
             else {
                 Restangular.restangularizeElement('', data, 'user')
                 data.post().then(function (res) {
-                    toaster.pop('success', $translate.instant('userfile.Saved'), $translate.instant('userfile.Saved'));
+                    toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
                 }, function (response) {
-                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
         } else {
@@ -31,8 +31,8 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
                 $scope.item = Restangular.copy(restresult);
             },
                 function (restresult) {
-                    toaster.pop('warning', $translate.instant('userfile.Cancelled'), $translate.instant('userfile.Editcancelled'));
-                    swal("Error!", $translate.instant('Server.DataError'), "Warning");
+                    toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+                    swal("Error!", "Data Error!", "Warning");
                 }
             )
     }
@@ -43,7 +43,7 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
             }).then(function (result) {
                 $scope.fingerPrintExists = result.length;
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     }
@@ -51,9 +51,9 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
         Restangular.all('user/deletefingerprints').getList({
             UserID: $stateParams.id
         }).then(function (result) {
-            toaster.pop('success', $translate.instant('userfile.Deleted'), $translate.instant('userfile.Deleted'));
+            toaster.pop('success', $translate.instant('orderfile.Deleted'), 'Deleted.');
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     }
     $scope.CheckFingerPrint();
@@ -72,7 +72,7 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };
@@ -81,7 +81,7 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -139,14 +139,14 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal($translate.instant('userfile.Deleted'), $translate.instant('userfile.RecordDeleted'), "success");
+                    SweetAlert.swal($translate.instant('orderfile.Deleted'), $translate.instant('orderfile.RecordDeleted'), "success");
                     $location.path('app/users/userlist');
                 }, function (response) {
-                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
             else {
-                SweetAlert.swal($translate.instant('userfile.Cancelled'), $translate.instant('userfile.DeletionCanceled'), "error");
+                SweetAlert.swal($translate.instant('orderfile.Cancelled'), $translate.instant('orderfile.DeletionCanceled'), "error");
             }
         });
     };

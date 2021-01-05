@@ -306,13 +306,13 @@
                                     <label for="VAT">
                                         {{:: vat}}
                                     </label>
-                                    <input id="VAT" type="text" class="form-control" value="{{_order.VAT | number:2}} TL" readonly>
+                                    <input id="VAT" type="text" class="form-control" value="{{_order.VAT | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}" readonly>
                                 </div>
                                 <div class="form-group col-lg-1 col-md-3 col-sm-4 col-xs-12">
                                     <label for="Amount">
                                         {{:: amount}}
                                     </label>
-                                    <input id="Amount" type="text" class="form-control" value="{{_order.Amount | number:2}} TL" readonly>
+                                    <input id="Amount" type="text" class="form-control" value="{{_order.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}" readonly>
                                 </div>
                                 <div class="form-group col-lg-1 col-md-3 col-sm-4  col-xs-12">
                                     <label for="OrderStateID">
@@ -395,13 +395,13 @@
                                 <label for="VAT">
                                     {{:: vat}}
                                 </label>
-                                <input id="VAT" type="text" class="form-control" value="{{_order.VAT | number:2}} TL" readonly>
+                                <input id="VAT" type="text" class="form-control" value="{{_order.VAT | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}" readonly>
                             </div>
                             <div class="form-group col-lg-1 col-md-3 col-sm-4 col-xs-12">
                                 <label for="Amount">
                                     {{:: amount}}
                                 </label>
-                                <input id="Amount" type="text" class="form-control" value="{{_order.Amount | number:2}} TL" readonly>
+                                <input id="Amount" type="text" class="form-control" value="{{_order.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}" readonly>
                             </div>
                             <div class="form-group col-lg-1 col-md-3 col-sm-4  col-xs-12">
                                 <label for="OrderStateID">
@@ -475,7 +475,7 @@
                                                 {{:: item.name }}
                                             </td>
                                             <td data-title="trPrice" data-sortable="'Price.Price'" style="width:20%" class="ng">
-                                                {{:: item.Price }} TL
+                                                {{:: item.Price }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                                             </td>
                                         </tr>
                                     </table>
@@ -525,8 +525,8 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right margin-top-10">
                                 <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right">
-                                    <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-large text-bold pull-right" style="color:black;"> <span>{{:: grand}} </span><span ng-class="{'strike':orderPromotionAmount,'text-red':orderPromotionAmount}"> {{_order.Amount | number : 2}} TL</span></span>
-                                    <span ng-if="orderPromotionAmount" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-large text-bold pull-right" style="color:black;"> <span>{{:: grand}} </span><span> {{_order.Amount + orderPromotionAmount | number : 2}} TL</span></span>
+                                    <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-large text-bold pull-right" style="color:black;"> <span>{{:: grand}} </span><span ng-class="{'strike':orderPromotionAmount,'text-red':orderPromotionAmount}"> {{_order.Amount | number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></span>
+                                    <span ng-if="orderPromotionAmount" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-large text-bold pull-right" style="color:black;"> <span>{{:: grand}} </span><span> {{_order.Amount + orderPromotionAmount | number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></span>
                                 </span>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

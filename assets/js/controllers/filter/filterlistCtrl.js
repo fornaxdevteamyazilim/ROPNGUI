@@ -39,7 +39,7 @@ function filterlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -58,7 +58,7 @@ function filterlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

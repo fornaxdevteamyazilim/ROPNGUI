@@ -36,11 +36,11 @@
 //    };
 //    $scope.saveData = function (data) {
 //        if (data.restangularized) {
-//            data.put().then(function (res) { prp.tableParams.reload(); toaster.pop('success', "Güncellendi.",  $translate.instant('orderfile.Updated')); });
+//            data.put().then(function (res) { prp.tableParams.reload(); toaster.pop('success', "Güncellendi.", 'Updated.'); });
 //        }
 //        else {
 //            Restangular.restangularizeElement('', data, $scope.objectType)
-//            data.post().then(function (res) { prp.tableParams.reload(); toaster.pop('success', "Kaydedildi.", $translate.instant('orderfile.Saved')); });
+//            data.post().then(function (res) { prp.tableParams.reload(); toaster.pop('success', "Kaydedildi.", 'Saved.'); });
 //            data.get();
 //        }
 //    }
@@ -50,7 +50,7 @@
 //    //        data.put().then(
 //    //            function (res) {
 //    //                prp.tableParams.reload();
-//    //                toaster.pop('success', "Güncellendi.",  $translate.instant('orderfile.Updated'));
+//    //                toaster.pop('success', "Güncellendi.", 'Updated.');
 //    //            },
 //    //            function (response) {
 //    //                toaster.pop('error', "Update Failed!", response.data.ExceptionMessage);
@@ -62,7 +62,7 @@
 //    //        data.post().then(
 //    //            function (res) {
 //    //                prp.tableParams.reload();
-//    //                toaster.pop('success', "Kaydedildi.", $translate.instant('orderfile.Saved'));
+//    //                toaster.pop('success', "Kaydedildi.", 'Saved.');
 //    //            },
 //    //                function (response) {
 //    //                    toaster.pop('error', "Data Insert Failed!", response.data.ExceptionMessage);
@@ -86,9 +86,9 @@
 //        rowform.$cancel();
 //        if (!prp.tableParams.data[prp.tableParams.data.length - 1].restangularized) {
 //            $scope.cancelremove(prp.tableParams.data.length - 1, 1);
-//            toaster.pop('warning', "İptal edildi !", $translate.instant('personfile.Insertcancelled'));
+//            toaster.pop('warning', "İptal edildi !", 'Insert cancelled !');
 //        } else {
-//            toaster.pop('warning', "İptal edildi !", $translate.instant('personfile.Editcancelled'));
+//            toaster.pop('warning', "İptal edildi !", 'Edit cancelled !');
 //        }
 //    };
 
@@ -113,7 +113,7 @@
 //                    $defer.resolve(items);
 //                }
 //            }, function (response) {
-//                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+//                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
 //            });
 //        }
 //    });
@@ -139,7 +139,7 @@
 //            }).then(function (result) {
 //                $scope[Container] = result;
 //            }, function (response) {
-//                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+//                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
 //            });
 //        }
 //    };
@@ -243,7 +243,7 @@ function productrecomendedpromotionCtrl($rootScope, $scope, $log, $modal, $http,
              params.total(items.paging.totalRecordCount);
              $defer.resolve(items);
          }, function (response) {
-             toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
          });
      }
  });
@@ -255,21 +255,21 @@ function productrecomendedpromotionCtrl($rootScope, $scope, $log, $modal, $http,
            $scope.GetPrice(result);
        },
        function (response) {
-           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
        });
     };
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 prp.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated'),  $translate.instant('orderfile.Updated'));
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'productrecommendpromotion')
             data.post().then(function (res) {
                 prp.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
+                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -287,9 +287,9 @@ function productrecomendedpromotionCtrl($rootScope, $scope, $log, $modal, $http,
         rowform.$cancel();
         if (!prp.tableParams.data[prp.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(prp.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('personfile.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('personfile.Editcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
@@ -349,7 +349,7 @@ function productrecomendedpromotionCtrl($rootScope, $scope, $log, $modal, $http,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

@@ -71,14 +71,14 @@
                         <option value="ngsize18pt">18 pt</option>
                     </select>
                 </span>
-                <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" ng-if="user.Store.MemberID != 300000000000">
+                <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" ng-if="user.Store.MemberID < 300000000000">
                     <!--<input type="text" class="form-control text-uppercase" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">-->
                     <select id="KDisplayIndex" class="form-control" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">
                         <!--<option value="" selected>-- {{:: kitchendisplayselection}} --</option>-->
                         <option value="0" selected>MakeTable</option>
                     </select>
                 </span>
-                <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" ng-if="user.Store.MemberID == 300000000000">
+                <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" ng-if="user.Store.MemberID >= 300000000000">
                     <!--<input type="text" class="form-control text-uppercase" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">-->
                     <select id="KDisplayIndex" class="form-control" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">
                         <!--<option value="" selected>-- {{:: kitchendisplayselection}} --</option>-->

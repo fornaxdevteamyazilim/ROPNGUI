@@ -39,7 +39,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
             $scope.$broadcast('$$rebind::refresh');
             $scope.ShowObject = false;
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.GetPayOff();
@@ -318,7 +318,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                     }
                 })
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 $scope.Showspinner = false;
             });
             $scope.GetPayOff();

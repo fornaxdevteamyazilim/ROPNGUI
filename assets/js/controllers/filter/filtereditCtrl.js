@@ -36,7 +36,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
         $scope.item.items = ici.tableParams.data;
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal($translate.instant('orderfile.Updated'),$translate.instant('difinitions.Updated'), "success");
+                swal($translate.instant('orderfile.Updated'), "Updated.", "success");
                 $location.path('app/filter/filter/list');
             });
         }
@@ -44,7 +44,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
             Restangular.restangularizeElement('', $scope.item, 'filter')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal($translate.instant('difinitions.Saved'), $translate.instant('difinitions.Updated'), "success");
+                swal("Saved.", $translate.instant('difinitions.Updated'), "success");
                 $location.path('app/filter/filter/list');
             });
         }
@@ -53,7 +53,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
         $scope.savetoaster();
     }
     $scope.savetoaster = function () {
-        toaster.pop('success',$translate.instant('difinitions.Saved'),$translate.instant('difinitions.Saved'));
+        toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
     }
     $scope.isClean = function () {
         return angular.equals($scope.original, $scope.item);
@@ -72,9 +72,9 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
         rowform.$cancel();
         if (!ici.tableParams.data[ici.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ici.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     ici.tableParams = new ngTableParams({
@@ -95,7 +95,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -111,7 +111,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -123,7 +123,7 @@ function filtereditCtrl($rootScope, $scope, $log, $filter, SweetAlert, Restangul
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

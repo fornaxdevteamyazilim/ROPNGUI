@@ -40,7 +40,7 @@ function StreetAddressSelectorCtrl($scope, $rootScope, $modalInstance, $location
         }).then(function (result) {
             $scope.Subcities = result;
         }, function (response) {
-            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.SubcityChange = function (SubcityID) {
@@ -51,7 +51,7 @@ function StreetAddressSelectorCtrl($scope, $rootScope, $modalInstance, $location
         }).then(function (result) {
             $scope.Quarters = result;
         }, function (response) {
-            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
         });
         $scope.SubcityID = SubcityID;
     };
@@ -106,7 +106,7 @@ function StreetAddressSelectorCtrl($scope, $rootScope, $modalInstance, $location
                         $defer.resolve(items);
                         $scope.isSearching(false);
                     }, function (response) {
-                        toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.Message);
+                        toaster.pop('warning', "Server Error", response.data.Message);
                     });
                 } else {
                     $scope.isSearching(true);
@@ -120,7 +120,7 @@ function StreetAddressSelectorCtrl($scope, $rootScope, $modalInstance, $location
                         $defer.resolve(items);
                         $scope.isSearching(false);
                     }, function (response) {
-                        toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.Message);
+                        toaster.pop('warning', "Server Error", response.data.Message);
                     });
                 }
             }
@@ -137,7 +137,7 @@ function StreetAddressSelectorCtrl($scope, $rootScope, $modalInstance, $location
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

@@ -136,11 +136,11 @@
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERHOUR' | translate}}</span></th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.STORE' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERSCOUNTTKW' | translate}} ({{'main.PIECE' | translate}})</span></th>
-                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERSAMOUNTTKW' | translate}} (TL)</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERSAMOUNTTKW' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERSCOUNTDELIVERY' | translate}} ({{'main.PIECE' | translate}})</span></th>
-                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERSAMOUNTDELIVERY' | translate}} (TL)</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERSAMOUNTDELIVERY' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERCOUNT' | translate}} ({{'main.PIECE' | translate}})</span></th>
-                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERAMOUNT' | translate}} (TL)</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERAMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                 </tr>
                 <tr ng-repeat="item in DailyTotals | orderBy:['+OrderDate','+Hour','+Store']">
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -207,11 +207,11 @@
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERHOUR' | translate}}</span></div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.STORE' | translate}}</div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERSCOUNTTKW' | translate}} ({{'main.PIECE' | translate}})</span></div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.ORDERSAMOUNTTKW' | translate}} (TL)</span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.ORDERSAMOUNTTKW' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERSCOUNTDELIVERY' | translate}} ({{'main.PIECE' | translate}})</span></div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.ORDERSAMOUNTDELIVERY' | translate}} (TL)</span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.ORDERSAMOUNTDELIVERY' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDERCOUNT' | translate}} ({{'main.PIECE' | translate}})</span></div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.ORDERAMOUNT' | translate}} (TL)</span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.ORDERAMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
                 </div>
                 <hr />
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table" ng-repeat="item in DailyTotals | orderBy:['+OrderDate','+Hour','+Store']" style="border-bottom:1px solid; font-size:13px;">

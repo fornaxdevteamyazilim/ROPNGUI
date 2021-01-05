@@ -29,7 +29,7 @@
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', $translate.instant('Server.ServerError'), response);
+                    toaster.pop('warning', "Server Error", response);
                 });
             }
         });

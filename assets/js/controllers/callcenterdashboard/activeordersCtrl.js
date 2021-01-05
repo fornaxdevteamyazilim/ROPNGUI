@@ -74,7 +74,7 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
         }).then(function (result) {
             angular.copy(result, $scope.orders);
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
         // location.href = '#/app/callcenterdashboard/activeorders/orderdetails/' + Store.id;
     };
@@ -108,8 +108,8 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
                  else
                      $scope.audio.pause();
              }, function (response) {
-                 toaster.pop('error', $translate.instant('Server.ServerError'), response);
-                 SweetAlert.swal($translate.instant('Server.ServerError'), angular.toJson(response, false), "error");
+                 toaster.pop('error', "Server Error", response);
+                 SweetAlert.swal("Server Error", angular.toJson(response, false), "error");
              });
          }
      });
@@ -167,7 +167,7 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
         }).then(function (result) {
             angular.copy(result, $scope.orders);
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.RefreshData = function () {
@@ -238,15 +238,15 @@ function activeordersCtrl($rootScope, $scope, $log, $modal, $filter, $timeout, S
                    Restangular.restangularizeElement('', ordertosave, 'order');
                    if (ordertosave.restangularized && ordertosave.id) {
                        ordertosave.put().then(function (resp) {
-                           swal($translate.instant('accounting.Updated'), $translate.instant('accounting.OrderStatus'), "success");
+                           swal("Updated.", $translate.instant('accounting.OrderStatus'), "success");
                            // toaster.pop('success', "Güncellendi");
                        }, function (response) {
-                           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                        });
                    }
                })
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
             //$scope.isButtonShow(false);
         }

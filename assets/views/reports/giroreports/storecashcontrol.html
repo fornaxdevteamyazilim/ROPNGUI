@@ -137,13 +137,13 @@
                     <th class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold">{{'main.PERSONNAME' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.ORDERNUMBER' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.ORDERTYPE' | translate}}</th>
-                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.VAT' | translate}} (TL)</span></th>
-                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.VAT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.PAYMENTSTATUS' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.ORDERSTATE' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.PAYMENTTYPE' | translate}}</th>
-                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.PAYMENTSTOTAL' | translate}} (TL)</span></th>
-                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.DELTA' | translate}} (TL)</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.PAYMENTSTOTAL' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.DELTA' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                 </tr>
                 <tr ng-repeat="item in StoreCashControlResults | orderBy:'-OrderDate'">
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
@@ -202,13 +202,13 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-bold">{{'main.PERSONNAME' | translate}}</div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.ORDERNUMBER' | translate}}</div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.ORDERTYPE' | translate}}</div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.VAT' | translate}} (TL)</span></div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.VAT' | translate}} ({{:: 'main.CURRENCY_SYMBOL' | translate}})</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} ({{:: 'main.CURRENCY_SYMBOL' | translate}})</span></div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.PAYMENTSTATUS' | translate}}</div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.ORDERSTATEID' | translate}}</div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold">{{'main.PAYMENTTYPE' | translate}}</div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.PAYMENTSTOTAL' | translate}} (TL)</span></div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.DELTA' | translate}} (TL)</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.PAYMENTSTOTAL' | translate}} ({{:: 'main.CURRENCY_SYMBOL' | translate}})</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 text-bold"><span class="pull-right">{{'main.DELTA' | translate}} ({{:: 'main.CURRENCY_SYMBOL' | translate}})</span></div>
                 </div>
                 <hr />
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table" ng-repeat="item in StoreCashControlResults | orderBy:'-OrderDate'" style="border-bottom:1px solid;">

@@ -97,7 +97,7 @@ function orderlisttwoCtrl($scope, ngnotifyService, $modal, Restangular, ngTableP
                 $defer.resolve(items);
                 $scope.ShowObject = false;
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 $scope.ShowObject = false;
             });
         //}
@@ -173,7 +173,7 @@ function orderlisttwoCtrl($scope, ngnotifyService, $modal, Restangular, ngTableP
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -182,7 +182,7 @@ function orderlisttwoCtrl($scope, ngnotifyService, $modal, Restangular, ngTableP
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

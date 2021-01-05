@@ -12,14 +12,14 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
         }).then(function (result) {
             $scope.PersonAccount = result;
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response);
+            toaster.pop('error', "Server Error", response);
         });
     };
     $scope.GetPersonAccount();
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
-                toaster.pop('success',$translate.instant('userfile.Updated'), $translate.instant('userfile.Updated'));
+                toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
@@ -27,7 +27,7 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
                 data.NguserID = $stateParams.id;
                 Restangular.restangularizeElement('', data, 'useraccount')
                 data.post().then(function (res) {
-                    toaster.pop('success', $translate.instant('userfile.Saved'), $translate.instant('userfile.Saved'));
+                    toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
                 });
 
             } else
@@ -49,7 +49,7 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -72,7 +72,7 @@ function useraccountCtrl($scope, $modal, $log, Restangular, $stateParams, ngTabl
                     pa.tableParams.data[index].remove();
                 }
                 psd.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('userfile.Attention'),$translate.instant('userfile.RecordDeleted'));
+                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

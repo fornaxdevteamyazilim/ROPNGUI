@@ -69,7 +69,7 @@
                                     <span>{{PersonOrders.OrderDate | date:'dd-MM-yyyy HH:mm' }}</span>
                                 </td>
                                 <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <span>{{PersonOrders.Amount | number:2 }} TL</span>
+                                    <span>{{PersonOrders.Amount | number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>
                                 </td>
                                 <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                     <select class="form-control ng" ng-model="item.OrderPoint" required>

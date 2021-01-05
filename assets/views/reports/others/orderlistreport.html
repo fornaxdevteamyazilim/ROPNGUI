@@ -201,7 +201,7 @@
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.ORDERNUMBER' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.STORE' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.ORDERTYPE' | translate}}</th>
-                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.PAYMENTSTATUSID' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.PAYMENTTYPEID' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.ORDERSTATUS' | translate}}</th>
@@ -263,7 +263,7 @@
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>
-                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span class="pull-left">{{'main.AVE' | translate}} : {{TotalAmount/TotalOrders| number:2}} TL</span></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span class="pull-left">{{'main.AVE' | translate}} : {{TotalAmount/TotalOrders| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></td>
                 </tr>
             </table>
         </fieldset>
@@ -274,7 +274,7 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{'main.ORDERNUMBER' | translate}}</div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.STORE' | translate}}</div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="margin-left-10">{{'main.ORDERTYPE' | translate}}</span></div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="margin-left-10">{{'main.PAYMENTSTATUSID' | translate}}</span></div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.PAYMENTTYPEID' | translate}}</div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">{{'main.ORDERSTATUS' | translate}}</div>
@@ -327,7 +327,7 @@
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold text-dark center"></span></div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold text-dark center"></span></div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="text-bold text-dark center"></span></div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-left">{{'main.AVE' | translate}} : {{TotalAmount/TotalOrders| number:2}} TL</span></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-left">{{'main.AVE' | translate}} : {{TotalAmount/TotalOrders| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ function updateorderpaymenttypeCtrl($scope, $translate, $rootScope, $modalInstan
                  angular.copy(restresult, $scope.order);
              },
             function (restresult) {
-                swal("Error!",$translate.instant('Server.DataError'), "Warning");
+                swal("Error!", "Data Error!", "Warning");
             })
     };
     $scope.CopyOrder = function (order) {
@@ -48,9 +48,9 @@ function updateorderpaymenttypeCtrl($scope, $translate, $rootScope, $modalInstan
      }).then(function (result) {
      $scope.UpdateOrderPaymentType = result;
      $scope.ok();
-     toaster.pop('success', $translate.instant('orderfile.PaymentTypeOrderChanged'), 'Success');
+     toaster.pop('success', "Payment Type Order Changed!!", 'Success');
  }, function (response) {
-             toaster.pop('error',$translate.instant('Server.ServerError'), restresult.data.ExceptionMessage);
+             toaster.pop('error', "Server Error", restresult.data.ExceptionMessage);
  });
     };
     $scope.storepaymenttypes = [];
@@ -63,7 +63,7 @@ function updateorderpaymenttypeCtrl($scope, $translate, $rootScope, $modalInstan
             }).then(function (result) {
                 $scope.storepaymenttypes = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

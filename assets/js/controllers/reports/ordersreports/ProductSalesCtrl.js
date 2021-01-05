@@ -94,7 +94,7 @@ function ProductSalesCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
                 $scope.VeiwHeader = result[0];
                 $scope.GetLayout(result[0].id)
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
             });
     }
     $scope.GetLayout = function (ReportID) {
@@ -112,7 +112,7 @@ function ProductSalesCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
                     $scope.LoadPivotData();
                 }
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
             });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -176,7 +176,7 @@ function ProductSalesCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
             $scope.isWaiting = false;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server error", response.data.ExceptionMessage);
         });
     };
     $scope.exportToExcel = function (tableId) {
@@ -293,7 +293,7 @@ function ProductSalesCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server error", response.data.ExceptionMessage);
             });
         }
     };
@@ -302,7 +302,7 @@ function ProductSalesCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server error", response);
             });
         }
     };

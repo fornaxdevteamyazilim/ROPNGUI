@@ -76,7 +76,7 @@
                     {{:: item.SaleDate| date:'dd.MM.yyyy' }}
                 </td>
                 <td data-title="trGrandTotal" data-sortable="'GrandTotal'" width="15%">
-                    {{:: item.GrandTotal | number : 2}} TL
+                    {{:: item.GrandTotal | number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                     <div class="buttons pull-right">
                         <div class="buttons pull-right" ng-show="!rowform.$visible">
                             <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" tooltip-placement="top" href="#/app/inventory/inventorysale/edit/{{item.id}}"></a>

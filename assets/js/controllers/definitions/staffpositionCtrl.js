@@ -9,6 +9,7 @@ function staffpositionCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         $scope.trPersonsPerStore = $translate.instant('main.PERSONSPERSTORE');
         $scope.trMinPersonsPerStore = $translate.instant('main.MINPERSONSPERSTORE');
         $scope.trMaxPersonsPerStore = $translate.instant('main.MAXPERSONSPERSTORE');
+        $scope.trHourlyProductsByPerson = $translate.instant('main.HOURLYPRODUCTSBYPERSON');
         $scope.trHourlyOrdersByPerson = $translate.instant('main.HOURLYORDERSBYPERSON');
         $scope.trCalculateHourlyRequirment = $translate.instant('main.CALCULATEHOURLYREQUIRMENT');
         $scope.trCommands = $translate.instant('main.COMMANDS');
@@ -21,14 +22,14 @@ function staffpositionCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 sp.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
+                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'staffposition')
             data.post().then(function (res) {
                 sp.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Saved'),$translate.instant('difinitions.Saved'));
+                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -46,9 +47,9 @@ function staffpositionCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         rowform.$cancel();
         if (!sp.tableParams.data[sp.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sp.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     sp.tableParams = new ngTableParams({
@@ -69,7 +70,7 @@ function staffpositionCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });

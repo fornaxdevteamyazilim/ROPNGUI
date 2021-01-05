@@ -64,7 +64,7 @@ function surveypopupCtrl($scope, Restangular, item, $modal, ngTableParams, toast
         $scope.item.UserID = $rootScope.user.id;
         Restangular.restangularizeElement('', $scope.item, 'personsurvey')
         $scope.item.post().then(function (resp) {
-            toaster.pop("success",$translate.instant('personfile.DataSaved'), $translate.instant('orderfile.Saved'));
+            toaster.pop("success",$translate.instant('personfile.DataSaved'), "Saved!");
             $scope.tableParams.reload();
             $scope.ok();
         }, function (response) {
@@ -85,7 +85,7 @@ function surveypopupCtrl($scope, Restangular, item, $modal, ngTableParams, toast
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
                 });
             }
         });
@@ -149,7 +149,7 @@ function surveypopupCtrl($scope, Restangular, item, $modal, ngTableParams, toast
             }).then(function (result) {
                 $scope.PersonOrders = angular.copy(result[0]);
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error ", response.data.ExceptionMessage);
             });
         } else {
             $scope.PersonOrders = null;
@@ -161,7 +161,7 @@ function surveypopupCtrl($scope, Restangular, item, $modal, ngTableParams, toast
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error ", response);
             });
         }
     };

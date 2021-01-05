@@ -125,7 +125,7 @@
                                                     </td>
                                                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                                         <label class="margin-left-10">
-                                                            {{::order.AmountTXT}} TL  <br />
+                                                            {{::order.AmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}}  <br />
                                                             {{::order.PaymentType.PaymentType.name}}
                                                         </label>
                                                     </td>
@@ -161,7 +161,7 @@
                                                     <span class="text-bold text-dark"> {{::ordercontent}} : </span> <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
                                                 </div>
                                                 <div class="col-sm-12 col-xs-12">
-                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} TL /  {{::order.PaymentType.PaymentType.name}}
+                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}} /  {{::order.PaymentType.PaymentType.name}}
                                                 </div>
                                             </div>
                                         </accordion-group>
@@ -256,7 +256,7 @@
                                                     </td>
                                                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                                         <label>
-                                                            {{::order.AmountTXT}} TL <br />
+                                                            {{::order.AmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}} <br />
                                                             {{::order.PaymentType.PaymentType.name}}
                                                         </label> <br />
                                                     </td>
@@ -361,7 +361,7 @@
                                                     </td>
                                                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                                         <label class="margin-left-10">
-                                                            {{::order.AmountTXT}} TL  <br />
+                                                            {{::order.AmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}}  <br />
                                                             {{::order.PaymentType.PaymentType.name}}
                                                         </label><br />
                                                     </td>
@@ -508,7 +508,7 @@
                                                     <span class="text-bold text-dark"> {{::ordercontent}} : </span> <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
                                                 </div>
                                                 <div class="col-sm-12 col-xs-12">
-                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} TL /  {{::order.PaymentType.PaymentType.name}}
+                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}} /  {{::order.PaymentType.PaymentType.name}}
                                                 </div>
                                             </div>
                                         </accordion-group>
@@ -577,7 +577,7 @@
                                                     <span class="text-bold text-dark"> {{::ordercontent}} : </span> <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
                                                 </div>
                                                 <div class="col-sm-12 col-xs-12">
-                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} TL /  {{::order.PaymentType.PaymentType.name}}
+                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}} /  {{::order.PaymentType.PaymentType.name}}
                                                 </div>
                                             </div>
                                         </accordion-group>
@@ -651,7 +651,7 @@
                                                     <span class="text-bold text-dark"> {{::ordercontent}} : </span> <span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span>
                                                 </div>
                                                 <div class="col-sm-12 col-xs-12">
-                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} TL /  {{::order.PaymentType.PaymentType.name}}
+                                                    <span class="text-bold text-dark"> {{::totalamount}} : </span>  {{::order.AmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}} /  {{::order.PaymentType.PaymentType.name}}
                                                 </div>
                                             </div>
                                         </accordion-group>

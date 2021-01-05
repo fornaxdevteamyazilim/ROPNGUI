@@ -53,7 +53,7 @@ function declaredrevenueeditCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
     $scope.checkisCharged = function (data) {
         $scope.item.isCharged = true;
         $scope.item.put().then(function (resp) {
-            swal($translate.instant('orderfile.Confirmed'), $translate.instant('orderfile.Updated'), "warning");
+            swal($translate.instant('orderfile.Confirmed'), "Updated.", "warning");
             $location.path('app/specialoperations/declaredrevenue');
         });
         $scope.item.get();
@@ -62,14 +62,14 @@ function declaredrevenueeditCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
                 $location.path('app/specialoperations/declaredrevenue');
-                swal($translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'), "success");
+                swal($translate.instant('orderfile.Updated'), "Updated.", "success");
             });
         }
         else {
             Restangular.restangularizeElement('', $scope.item, 'declaredrevenue')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal($translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'), "success");
+                swal($translate.instant('orderfile.Saved'), "Saved.", "success");
                 $location.path('app/specialoperations/declaredrevenueedit/' + resp.id);
                 $scope.item = {};
                 $scope.item = Restangular.copy(resp);
@@ -92,9 +92,9 @@ function declaredrevenueeditCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         rowform.$cancel();
         if (!dre.tableParams.data[dre.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(dre.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removedata = function (SelectItem) {
@@ -162,7 +162,7 @@ function declaredrevenueeditCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -175,7 +175,7 @@ function declaredrevenueeditCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         }).then(function (result) {
             $scope.storepaymenttypes = result;
         }, function (response) {
-            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     if ($stateParams.id != 'new') {

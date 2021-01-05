@@ -35,7 +35,7 @@ function productdisableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
              params.total(items.paging.totalRecordCount);
              $defer.resolve(items);
          }, function (response) {
-             toaster.pop('warning', $translate.instant('Server.ServerError'), response);
+             toaster.pop('warning', "Server Error", response);
          });
      }
  });
@@ -43,14 +43,14 @@ function productdisableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 pd.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'productdisable')
             data.post().then(function (res) {
                 pd.tableParams.reload();
-                toaster.pop('success',$translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
+                toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -68,14 +68,14 @@ function productdisableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
         rowform.$cancel();
         if (!pd.tableParams.data[pd.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pd.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('personfile.Insertcancelled') );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('personfile.Insertcancelled') );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
         }
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title:  $translate.instant('orderfile.Sure') ,
+            itle:  $translate.instant('orderfile.Sure') ,
             text:  $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
@@ -118,7 +118,7 @@ function productdisableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('warning', "Server Error", response);
             });
         }
     };
@@ -127,7 +127,7 @@ function productdisableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

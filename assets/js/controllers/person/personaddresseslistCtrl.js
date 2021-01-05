@@ -130,7 +130,7 @@ function personaddresseslistCtrl($scope, $translate, $log, $filter, SweetAlert, 
                 $scope.itemscount = items.length;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
 
         }
@@ -147,7 +147,7 @@ function personaddresseslistCtrl($scope, $translate, $log, $filter, SweetAlert, 
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

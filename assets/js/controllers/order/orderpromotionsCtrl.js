@@ -23,7 +23,7 @@ function orderpromotionsCtrl($rootScope, $translate, $scope, $log, $filter, $mod
                     $scope.AktiveCode = true;
             }
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'));
+            toaster.pop('error', "Server Error");
         });
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -42,7 +42,7 @@ function orderpromotionsCtrl($rootScope, $translate, $scope, $log, $filter, $mod
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -54,12 +54,12 @@ function orderpromotionsCtrl($rootScope, $translate, $scope, $log, $filter, $mod
         Restangular.restangularizeElement('', result, 'orderpromotion');
         result.post().then(
             function (res) {
-                toaster.pop("success", $translate.instant('orderfile.PromotionAdded'));
+                toaster.pop("success", "Promotion Added.");
                 $scope.OrderPromotion = res;
                 $scope.ok();
             },
             function (res) {
-                toaster.pop("error", $translate.instant('orderfile.CannotAddPromotion'), res.data.ExceptionMessage);
+                toaster.pop("error", "Cannot Add Promotion !", res.data.ExceptionMessage);
             });
     };
     $scope.ok = function () {

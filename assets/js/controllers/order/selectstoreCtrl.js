@@ -26,7 +26,7 @@ function selectstoreCtrl($rootScope, $scope, $modalInstance, $log, $filter, Swee
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -48,7 +48,7 @@ function selectstoreCtrl($rootScope, $scope, $modalInstance, $log, $filter, Swee
             }
             $scope.stores = result;
         }, function (response) {
-            toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.ok = function () {

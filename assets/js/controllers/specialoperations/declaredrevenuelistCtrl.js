@@ -47,7 +47,7 @@ function declaredrevenuelistCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -63,7 +63,7 @@ function declaredrevenuelistCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

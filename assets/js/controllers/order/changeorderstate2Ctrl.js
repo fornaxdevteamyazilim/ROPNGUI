@@ -12,9 +12,9 @@ function changeorderstate2Ctrl($rootScope, $scope, $translate, $modalInstance, i
       ).then(function (result) {
           $scope.UpdateOrderStatusresult = result;
           $scope.ok();
-          toaster.pop('success', $translate.instant('orderfile.StatusOrderChanged'), 'Success');
+          toaster.pop('success', "Status Of Order Changed!!", 'Success');
       }, function (response) {
-          toaster.pop('error', $translate.instant('Server.ServerError'), response);
+          toaster.pop('error', "Server Error", response);
       });
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -32,7 +32,7 @@ function changeorderstate2Ctrl($rootScope, $scope, $translate, $modalInstance, i
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

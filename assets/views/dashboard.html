@@ -83,7 +83,7 @@
                     <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
                 </div>
                 <div class="values">
-                    <strong class="text-dark">{{OrderTotalAmountTXT}} TL</strong>
+                    <strong class="text-dark">{{OrderTotalAmountTXT}} </strong>
                     <p>
                         {{:: totalamount }}
                     </p>
@@ -312,11 +312,11 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center no-padding">
                         <div class="border-right border-dark">
-                            <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.THEORICINVANTORIES' | translate}}" tooltip-placement="top">{{InventoryCost.FoodCost | number: 2 }} TL</label>
+                            <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.THEORICINVANTORIES' | translate}}" tooltip-placement="top">{{InventoryCost.FoodCost | number: 2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center no-padding">
-                        <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.GRANDTOTALS' | translate}}"  tooltip-placement="top">{{InventoryCost.SalesTotal | number: 2 }} TL</label>
+                        <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.GRANDTOTALS' | translate}}"  tooltip-placement="top">{{InventoryCost.SalesTotal | number: 2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
             </div>
@@ -339,11 +339,11 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center no-padding">
                         <div class="border-right border-dark">
-                            <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.ACTUALINVANTORIES' | translate}}" tooltip-placement="top"> {{InventoryCost.RealFoodCost | number: 2 }} TL</label>
+                            <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.ACTUALINVANTORIES' | translate}}" tooltip-placement="top"> {{InventoryCost.RealFoodCost | number: 2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center no-padding">
-                        <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.GRANDTOTALS' | translate}}" tooltip-placement="top">{{InventoryCost.SalesTotal | number: 2 }} TL</label>
+                        <label class="text-bold block text-extra-large tooltips" tooltip="{{'main.GRANDTOTALS' | translate}}" tooltip-placement="top">{{InventoryCost.SalesTotal | number: 2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                     </div>
                 </div>
             </div>

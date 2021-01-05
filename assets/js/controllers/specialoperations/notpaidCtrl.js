@@ -27,7 +27,7 @@ function notpaidCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParam
         }).then(function (result) {
             $scope.orders = result;
         }, function (response) {
-            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();

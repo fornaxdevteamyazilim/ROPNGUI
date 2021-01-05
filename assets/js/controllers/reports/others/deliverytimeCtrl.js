@@ -27,7 +27,7 @@
                 //}
                 $scope.DeliveryTimes = result;
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response);
+                toaster.pop('error', "Server Error", response);
             });
         };
         $scope.LoadDeliveryTimes();

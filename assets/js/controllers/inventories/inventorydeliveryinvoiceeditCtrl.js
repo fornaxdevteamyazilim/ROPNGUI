@@ -85,7 +85,7 @@ function inventorydeliveryinvoiceeditCtrl($scope, $filter, SweetAlert, Restangul
             Restangular.restangularizeElement('', $scope.item, 'inventorydeliveryinvoice')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal($translate.instant('invantories.Saved'),$translate.instant('invantories.SuccessfullySaved'), "success");
+                swal("Saved!",$translate.instant('invantories.SuccessfullySaved'), "success");
                 $location.path('app/inventory/inventorydeliveryinvoice/edit/' + resp.id);
             });
         }
@@ -210,7 +210,7 @@ function inventorydeliveryinvoiceeditCtrl($scope, $filter, SweetAlert, Restangul
                         });                   
                 }, function (response) {
                     idr.tableParams.reload();
-                    toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         })
@@ -229,7 +229,7 @@ function inventorydeliveryinvoiceeditCtrl($scope, $filter, SweetAlert, Restangul
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                 });
             }
         }
@@ -240,7 +240,7 @@ function inventorydeliveryinvoiceeditCtrl($scope, $filter, SweetAlert, Restangul
             $scope.$broadcast('inventorydeliveryinvoiceItemreload', "Remove");
             toaster.pop('error', "Data Remove");
         }, function (response) {
-            toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.$on('$destroy', function () {
@@ -297,7 +297,7 @@ function inventorydeliveryinvoiceitemCtrl($scope, $modal, $filter, SweetAlert, R
                     $scope.item.Discount += items[i].Discount;
                 }
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -313,7 +313,7 @@ function inventorydeliveryinvoiceitemCtrl($scope, $modal, $filter, SweetAlert, R
                 else
                     item.UnitPrice = 0;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         })
     };
@@ -336,7 +336,7 @@ function inventorydeliveryinvoiceitemCtrl($scope, $modal, $filter, SweetAlert, R
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
@@ -349,7 +349,7 @@ function inventorydeliveryinvoiceitemCtrl($scope, $modal, $filter, SweetAlert, R
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -390,9 +390,9 @@ function inventorydeliveryinvoiceitemCtrl($scope, $modal, $filter, SweetAlert, R
         rowform.$cancel();
         if (!idii.tableParams.data[idii.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(idii.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {

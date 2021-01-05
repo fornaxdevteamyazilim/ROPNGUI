@@ -41,7 +41,7 @@ function salesbysourceCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
                 $scope.SalesBySource = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
 
@@ -114,7 +114,7 @@ function salesbysourceCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -123,7 +123,7 @@ function salesbysourceCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

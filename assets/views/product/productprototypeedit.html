@@ -314,7 +314,7 @@
                                             </span>
                                         </td>
                                         <td data-title="trPrice" data-sortable="'Price'">
-                                            {{ item.Price.Price }} TL
+                                            {{ item.Price.Price }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                                         </td>
                                         <td data-title="trSize" data-sortable="'SizeID'" width="10%" class="ng">
                                             <span class="text-capitalize" editable-select="item.SizeID" e-name="SizeID" e-ng-options="q.Value as q.Name for q in sizes | orderBy:'+Name'"
@@ -430,7 +430,7 @@
                                     </td>
                                     <td data-title="trPrice" data-sortable="'Price'" style="width:15%">
                                         <span editable-text="item.Price" e-name="Price" e-form="rowform" e-ng-model="item.Price" e-style="width: 15vw;">
-                                            {{:: item.Price  }} TL
+                                            {{:: item.Price  }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                                         </span>
                                     </td>
                                     <td data-title="trPriority" data-sortable="'Priority'" style="width:15%">

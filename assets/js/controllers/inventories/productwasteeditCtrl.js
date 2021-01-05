@@ -39,7 +39,7 @@ function productwasteeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableP
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal($translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'), "success");
+                swal(translate="invantories.Updated", "Updated.", "success");
                 $location.path('app/inventory/productwaste/list');
                 if ($stateParams.id == 'new') {
                     $scope.ProductWasteID = $stateParams.id = resp.id;
@@ -47,7 +47,7 @@ function productwasteeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableP
             },
             function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
         else {
@@ -57,11 +57,11 @@ function productwasteeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableP
                 if ($stateParams.id == 'new') {
                     $scope.ProductWasteID = $stateParams.id = resp.id;
                 }
-                swal( $translate.instant('difinitions.Saved'),$translate.instant('invantories.SuccessfullySaved') , "success");
+                swal( translate="invantories.Saved",translate="invantories.SuccessfullySaved" , "success");
             },
             function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -119,7 +119,7 @@ function productwasteeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableP
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -139,7 +139,7 @@ function productwasteeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableP
                 $scope.repositories = result;
                 $scope.item.RepositoryID = result[0].id;
             }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -157,7 +157,7 @@ function productwasteeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableP
                     $scope.item.OrderSourceID = result[1].id;
                 }
             }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response);
+                toaster.pop('error', "Server Error", response);
             });
         }
     };
@@ -194,7 +194,7 @@ function productwasteitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, R
                 $scope[Container] = result;
                 pwi.tableParams.reload();
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -220,7 +220,7 @@ function productwasteitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, R
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -254,9 +254,9 @@ function productwasteitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, R
         rowform.$cancel();
         if (!pwi.tableParams.data[pwi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pwi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'),$translate.instant('difinitions.Insertcancelled') );
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled') );
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {

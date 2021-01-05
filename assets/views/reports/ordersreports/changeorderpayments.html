@@ -151,7 +151,7 @@
                         <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.OPERATIONDATE' | translate}}</th>
                         <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.PAYMENTDATE' | translate}}</th>
                         <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.PAYMENTTYPE' | translate}}</th>
-                        <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.AMOUNT' | translate}} (TL)</th>
+                        <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</th>
                     </tr>
                     <tr ng-repeat="item in ReportList | orderBy:'[+Store, +OperationDate, +OrderNumber]'">
                         <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -199,7 +199,7 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.OPERATIONDATE' | translate}}</div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.PAYMENTDATE' | translate}}</div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.PAYMENTTYPE' | translate}}</div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.AMOUNT' | translate}} (TL)</div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="item in ReportList | orderBy:'[+Store, +OperationDate, +OrderNumber]'">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">

@@ -9,7 +9,7 @@ function inventorywasteconsuptionsCtrl($scope, $modal, $filter, SweetAlert, Rest
        }).then(function (result) {
            $scope.VeiwHeader = result[0];
        }, function (response) {
-           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
        });
     }
     $scope.periods = [];
@@ -29,7 +29,7 @@ function inventorywasteconsuptionsCtrl($scope, $modal, $filter, SweetAlert, Rest
                 $scope.EndDate = moment().add(1, 'days').format('YYYY-MM-DD ');
             }
         }, function (response) {
-            toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+            toaster.pop('Warning', "Server Error", response);
         });
     }
     $scope.Time = ngnotifyService.ServerTime();
@@ -54,7 +54,7 @@ function inventorywasteconsuptionsCtrl($scope, $modal, $filter, SweetAlert, Rest
                 $scope.ProductUsageCounts = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     $scope.GetSoreID = function (data) {

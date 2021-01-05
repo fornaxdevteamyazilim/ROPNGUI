@@ -34,7 +34,7 @@ function ropAndRopngCtrl($rootScope, $scope, $log, $modal, $http, Restangular, n
              params.total(items.paging.totalRecordCount);
              $defer.resolve(items);
          }, function (response) {
-             toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
          });
      }
  });
@@ -47,7 +47,7 @@ function ropAndRopngCtrl($rootScope, $scope, $log, $modal, $http, Restangular, n
         }).then(function (result) {
             $scope.productprice2=result;
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.GetPrdoduct = function (data) {
@@ -59,21 +59,21 @@ function ropAndRopngCtrl($rootScope, $scope, $log, $modal, $http, Restangular, n
            $scope.GetPrice(result);
        },
        function (response) {
-           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
        });
     };
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 ng.tableParams.reload();
-                toaster.pop('success', $translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
+                toaster.pop('success', $translate.instant('difinitions.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'rop6productmap')
             data.post().then(function (res) {
                 ng.tableParams.reload();
-                toaster.pop('success', $translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
+                toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -91,9 +91,9 @@ function ropAndRopngCtrl($rootScope, $scope, $log, $modal, $http, Restangular, n
         rowform.$cancel();
         if (!ng.tableParams.data[ng.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ng.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
@@ -153,7 +153,7 @@ function ropAndRopngCtrl($rootScope, $scope, $log, $modal, $http, Restangular, n
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

@@ -125,7 +125,7 @@ function shiftplanactualCtrl($rootScope, $scope, Restangular, ngTableParams, toa
                     $scope.isWaiting = false;
                 }, function (response) {
                     $scope.isWaiting = false;
-                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -143,7 +143,7 @@ function shiftplanactualCtrl($rootScope, $scope, Restangular, ngTableParams, toa
         item.post().then(function (resp) {
             location.href = '#/app/specialoperations/shiftplanactualedit/' + resp.id;
         }, function (response) {
-            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
         });
     };
 
@@ -207,7 +207,7 @@ function shiftplanactualCtrl($rootScope, $scope, Restangular, ngTableParams, toa
     //        }).then(function (result) {
     //            $scope[Container] = result;
     //        }, function (response) {
-    //            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+    //            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
     //        });
     //    }
     //};
@@ -216,7 +216,7 @@ function shiftplanactualCtrl($rootScope, $scope, Restangular, ngTableParams, toa
     //        Restangular.all(EntityType).getList({}).then(function (result) {
     //            $scope[Container] = result;
     //        }, function (response) {
-    //            toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+    //            toaster.pop('Warning', "Server Error", response);
     //        });
     //    }
     //};

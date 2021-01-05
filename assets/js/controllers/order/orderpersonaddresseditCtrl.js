@@ -8,20 +8,20 @@ function orderpersonaddresseditCtrl($scope, $translate, $modalInstance, $filter,
             $scope.item = restresult.StreetAddress;
         },
            function (restresult) {
-               toaster.pop('error', "Error", $translate.instant('Server.ServerError'));
-               swal("Error!", $translate.instant('Server.DataError'), "Warning");
+               toaster.pop('error', "Error", 'Server Error!');
+               swal("Error!", "Data Error!", "Warning");
            }
            );
     }
     $scope.SaveData = function (data) {
             Restangular.restangularizeElement('', data, 'address_streetaddress');
             data.put().then(function (resp) {
-                toaster.pop('success', $translate.instant('orderfile.AddressChanged'),$translate.instant('orderfile.RecordingTookPlace'));
+                toaster.pop('success', "Address Changed.", "Recording Took Place.");
                 var adderssdata =  $scope.item + 'Door : ' + resp.Floor + ', Apartment No. : ' + resp.AppartmentNo + ', Address No. : ' + resp.AddressNo; 
                 $scope.ok(adderssdata);
             },
             function (resp) {
-                toaster.pop('error', $translate.instant('orderfile.AddressCannotChanged'), "error");
+                toaster.pop('error', "Address Cannot Changed !", "error");
             });
     };
     $scope.loadEntities = function (EntityType, Container) {
@@ -29,7 +29,7 @@ function orderpersonaddresseditCtrl($scope, $translate, $modalInstance, $filter,
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };
@@ -41,7 +41,7 @@ function orderpersonaddresseditCtrl($scope, $translate, $modalInstance, $filter,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     }

@@ -29,8 +29,8 @@ function scheduletypeeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
                 $rootScope.ScheduleTypeID = restresult.id;
             },
            function (restresult) {
-               toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
-               swal("Error!", $translate.instant('Server.DataError'), "Warning");
+               toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+               swal("Error!", "Data Error!", "Warning");
            }
            )
     }
@@ -74,7 +74,7 @@ function scheduletypeeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
                 });
             }
             else {
-                SweetAlert.swal($translate.instant('orderfile.Cancelled'),$translate.instant('orderfile.DeletionCanceled'), "error");
+                SweetAlert.swal("It is cancelled!", "Deletion canceled !", "error");
             }
         });
     };
@@ -103,9 +103,10 @@ function scheduletypeeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
     });
 };
 app.controller('scheduletypetimerangesCtrl', scheduletypetimerangesCtrl);
-function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, ngnotifyService, $element) {
+function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, ngnotifyService, $element, $translate) {
     $rootScope.uService.EnterController("scheduletypetimerangesCtrl");
     var sttr = this;
+        
     $scope.date = $filter('date')(ngnotifyService.ServerTime(), 'HH:mm');
     $scope.saveData = function (item) {
         if (this.item.restangularized && item.id) {
@@ -113,7 +114,7 @@ function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangul
                 resp.StartTime = $filter('date')(resp.StartTime, 'HH:mm');
                 resp.EndTime = $filter('date')(resp.EndTime, 'HH:mm');
                 sttr.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
@@ -122,7 +123,7 @@ function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangul
                 resp.StartTime = $filter('date')(resp.StartTime, 'HH:mm');
                 resp.EndTime = $filter('date')(resp.EndTime, 'HH:mm');
                 sttr.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
+                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
             });
             this.item.get();
         }
@@ -143,9 +144,9 @@ function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangul
         rowform.$cancel();
         if (!sttr.tableParams.data[sttr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sttr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     sttr.tableParams = new ngTableParams({
@@ -166,7 +167,7 @@ function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangul
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });
@@ -220,14 +221,14 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 stw.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'scheduletypeweekday')
             this.item.post().then(function (res) {
                 stw.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
+                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
             });
             this.item.get();
         }
@@ -248,9 +249,9 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
         rowform.$cancel();
         if (!stw.tableParams.data[stw.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(stw.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     stw.tableParams = new ngTableParams({
@@ -270,7 +271,7 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Erro", response.data.ExceptionMessage);
             });
         }
     });
@@ -289,7 +290,7 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Erro", response.data.ExceptionMessage);
             });
         }
     }
@@ -345,14 +346,14 @@ function scheduletypedaterangeCtrl($scope, $modal, $log, $filter, SweetAlert, Re
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 stdr.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
+                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'scheduletypedaterange')
             this.item.post().then(function (res) {
                 stdr.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
+                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
             });
             this.item.get();
         }
@@ -373,9 +374,9 @@ function scheduletypedaterangeCtrl($scope, $modal, $log, $filter, SweetAlert, Re
         rowform.$cancel();
         if (!stdr.tableParams.data[stdr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(stdr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
         }
     };
     stdr.tableParams = new ngTableParams({
@@ -395,7 +396,7 @@ function scheduletypedaterangeCtrl($scope, $modal, $log, $filter, SweetAlert, Re
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     });

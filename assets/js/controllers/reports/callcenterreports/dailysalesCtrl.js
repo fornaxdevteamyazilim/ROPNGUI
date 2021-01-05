@@ -26,7 +26,7 @@ function dailysalesCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
             }
             $scope.AgentOrders = result;
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.LoadAgentOrders();

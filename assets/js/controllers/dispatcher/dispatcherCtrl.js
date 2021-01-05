@@ -86,7 +86,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                 $scope.getOrder = true;
                 $scope.$broadcast('$$rebind::refresh');
             }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
                 $scope.ShowObject = false;
                 $scope.getOrder = true;
             });
@@ -157,7 +157,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         }).then(function (_orderItems) {
             toaster.pop('success', $translate.instant('invantories.LabelPrintingAgain'));
         }, function (response) {
-            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server error", response.data.ExceptionMessage);
         });
     };
     $scope.homedeliveryOrder = function () {
@@ -251,7 +251,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                     //$scope.DriverVehicle = items; 
                     $scope.$broadcast('$$rebind::refresh');
                 }, function (response) {
-                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data);
+                    toaster.pop('warning', "Server error", response.data);
                 });
             }
         });
@@ -359,7 +359,7 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -373,7 +373,7 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
                 toaster.pop("success", $translate.instant('dispatcherfile.OrderOutput'), $translate.instant('dispatcherfile.OrdermarkedOut'));
                 $scope.ok();
             }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server error", response.data.ExceptionMessage);
                 $scope.LoadOrders();
             });
     };
@@ -422,7 +422,7 @@ function backDriverCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParam
             $rootScope.$emit('BackDriverRefresh', { id: $scope.order.id });
             $scope.ok();
         }, function (resp) {
-            toaster.pop('error', $translate.instant('Server.Returnfailed'), resp.data.ExceptionMessage);
+            toaster.pop('error', "Return failed", resp.data.ExceptionMessage);
             $scope.LoadOrders();
         });
     };

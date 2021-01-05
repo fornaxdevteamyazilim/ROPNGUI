@@ -50,7 +50,7 @@
                 </li>
                 <li>
                     <div class="values">
-                        <strong class="text-blue">{{opdate|| 'Gün Sonu'}}</strong>
+                        <strong class="text-blue">{{opdate|| txtENDOFDAY}}</strong>
                         <p>
                             {{'main.OPERATIONDATE' | translate}}
                         </p>
@@ -123,7 +123,7 @@
                         <span jq-sparkline ng-model="saless" type="bar" height="20px" bar-color="#D43F3A"></span>
                     </div>
                     <div class="values">
-                        <strong class="text-dark">{{OrderTotalCount}} Adet</strong>
+                        <strong class="text-dark">{{OrderTotalCount}} {{:: 'main.ORDERS' | translate}}</strong>
                         <p>
                             {{:: sales}}
                         </p>
@@ -134,7 +134,7 @@
                         <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
                     </div>
                     <div class="values">
-                        <strong class="text-dark">{{OrderTotalAmountTXT}} TL</strong>
+                        <strong class="text-dark">{{OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</strong>
                         <p>
                             {{:: totalamount }}
                         </p>
@@ -229,7 +229,7 @@
                         <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
                     </div>
                     <div class="values">
-                        <strong class="text-dark">{{OrderTotalAmountTXT}} TL</strong>
+                        <strong class="text-dark">{{OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</strong>
                         <p class="text-small no-margin">
                             {{:: totalamount }}
                         </p>
@@ -279,7 +279,7 @@
                     </p>
                 </div>
                 <div class="col-ms-4 col-xs-4 values">
-                    <strong class="text-blue">{{opdate|| 'Gün Sonu'}}</strong>
+                    <strong class="text-blue">{{opdate|| txtENDOFDAY}}</strong>
                     <p>
                         {{'main.OPERATIONDATE' | translate}}
                     </p>
@@ -344,7 +344,7 @@
                         <span jq-sparkline ng-model="saless" type="bar" height="20px" bar-color="#D43F3A"></span>
                     </div>
                     <div class="values">
-                        <strong class="text-dark">{{OrderTotalCount}} Adet</strong>
+                        <strong class="text-dark">{{OrderTotalCount}} {{:: 'main.ORDERS' | translate}}</strong>
                         <p>
                             {{:: sales}}
                         </p>
@@ -355,7 +355,7 @@
                         <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
                     </div>
                     <div class="values">
-                        <strong class="text-dark">{{OrderTotalAmountTXT}} TL</strong>
+                        <strong class="text-dark">{{OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</strong>
                         <p>
                             {{:: totalamount }}
                         </p>
@@ -397,7 +397,7 @@
                     </div>
                 </div>
                 <div class="col-ms-6 col-xs-6 values">
-                    <strong class="text-blue">{{opdate|| 'Gün Sonu'}}</strong>
+                    <strong class="text-blue">{{opdate|| txtENDOFDAY}}</strong>
                     <p>
                         {{'main.OPERATIONDATE' | translate}}
                     </p>
@@ -458,7 +458,7 @@
                             <span jq-sparkline ng-model="saless" type="bar" height="20px" bar-color="#D43F3A"></span>
                         </div>
                         <div class="values">
-                            <strong class="text-dark">{{OrderTotalCount}} Adet</strong>
+                            <strong class="text-dark">{{OrderTotalCount}} #</strong>
                             <p>
                                 {{:: sales}}
                             </p>
@@ -469,7 +469,7 @@
                             <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
                         </div>
                         <div class="values">
-                            <strong class="text-dark">{{OrderTotalAmountTXT}} TL</strong>
+                            <strong class="text-dark">{{OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</strong>
                             <p>
                                 {{:: totalamount }}
                             </p>
@@ -707,7 +707,7 @@
                     <img src="assets/images/gunSonu.png" style="width:10vw; height:15vh;" /><br />
                     <span ng-if="ShowingObje==true" style="width:10vw; height:15vh;"><span
                             class="fa fa-spin fa-spinner"></span></span>
-                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtENDDAY}} </span>
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{txtENDOFDAY}} </span>
                 </button>
             </div>
         </div>

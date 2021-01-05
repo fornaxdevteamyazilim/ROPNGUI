@@ -130,7 +130,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     $scope.LoadOrderItems();
                 },
                     function (resp) {
-                        toaster.pop('error', $translate.instant('orderfile.Personupdatefailed'), resp.data.ExceptionMessage);
+                        toaster.pop('error', "Person update failed!", resp.data.ExceptionMessage);
                     });
             }
         }
@@ -240,7 +240,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             $scope.LoadOrderItems();
             toaster.pop('success',$translate.instant('orderfile.Cateringproduct'), '');
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.Uploaderror'), response.data.ExceptionMessage);
+            toaster.pop('error', "Upload error", response.data.ExceptionMessage);
         });
     };
     $scope.UpdateOrderItemPersonsAndSplits = function (items) {
@@ -357,7 +357,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 }
                 //$scope.getMarketingPermission();
             }, function (restresult) {
-                toaster.pop('Warning', $translate.instant('orderfile.Orderfailedtoload'), restresult.data.ExceptionMessage);
+                toaster.pop('Warning', "Order failed to load", restresult.data.ExceptionMessage);
             })
     };
     $scope.GetStoreStreetAddress = function (StreetAddressID) {
@@ -567,7 +567,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         userService.landingPage(false);
                     }
                 }, function (result) {
-                    toaster.pop('Warning',$translate.instant('orderfile.OrderFailed'), result.data.ExceptionMessage);
+                    toaster.pop('Warning', "Order Failed", result.data.ExceptionMessage);
                 });
             } else { //Yeni sipariş
                 $scope._order.OrderStateID = 1;
@@ -590,7 +590,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         Restangular.restangularizeElement('', yemeksepetiordermapdetail, 'yemeksepetiordermap');
                         yemeksepetiordermapdetail.put().then(function (result) { }, function (result) {
                             var data = result;
-                            toaster.pop('success', $translate.instant('orderfile.Cateringproduct'), '');
+                            toaster.pop('success', "İkram ürün.", '');
                         });
                     }
                     $rootScope.searchName = '';
@@ -662,7 +662,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     $scope.ClearCallerID();
                     userService.landingPage(false);
                 }, function (restresult) {
-                    toaster.pop('Warning', $translate.instant('orderfile.OrderFailed'), restresult.data.ExceptionMessage);
+                    toaster.pop('Warning', "Order Failed", restresult.data.ExceptionMessage);
                 });
             }
         }
@@ -782,7 +782,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             }).then(function (result) {
                 angular.copy(result, $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.Serverconnectionerror'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server connection error", response.data.ExceptionMessage);
             });
         }
     };
@@ -799,7 +799,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     }
                 }
             }, function (response) {
-                toaster.pop('error', $translate.instant('orderfile.Paymenttypesfailedtoload'), response.data.ExceptionMessage);
+                toaster.pop('error', "Payment types failed to load", response.data.ExceptionMessage);
             });
         }
     };
@@ -868,7 +868,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             angular.copy(item, orderperson.Person);
             Restangular.restangularizeElement('', orderperson, 'orderperson');
             orderperson.put().then(function (resp) {
-                toaster.pop("success", $translate.instant('orderfile.PersonAssigned'));
+                toaster.pop("success", "Person Assigned.");
                 angular.copy(resp, orderperson);
             },
                 function (resp) {
@@ -1122,7 +1122,7 @@ function orderItemDiscountCtrl($rootScope, $scope, $modalInstance, $modal, ngTab
                 angular.copy(result, $scope.orders);
             },
             function (response) {
-                toaster.pop('error', $translate.instant('orderfile.Orderfailedtoload'), response.data.ExceptionMessage);
+                toaster.pop('error', "Order failed to load", response.data.ExceptionMessage);
             });
     };
     $scope.$on('$destroy', function () {
@@ -1149,7 +1149,7 @@ function orderDateCtrl($rootScope, $scope, $modalInstance, $filter, DateTime, $l
     $scope.ok = function (data) {
         var now = ngnotifyService.ServerTime();
         if (data < now) {
-            toaster.pop('warning',$translate.instant('orderfile.InvalidDate'));
+            toaster.pop('warning', "Invalid Date !");
         } else {
             $modalInstance.close($scope.Date = $filter('date')(data, 'yyyy-MM-dd HH:mm:ss'));
         }
@@ -1197,7 +1197,7 @@ function selectPersonCtrl($rootScope, $scope, $modalInstance, Restangular, ngTab
                     $scope.SelectedItem = items.length > 0 ? items[0].id : null;
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('error', "Server error", response.data.ExceptionMessage);
                 });
             }
         });
@@ -1221,7 +1221,7 @@ function selectPersonCtrl($rootScope, $scope, $modalInstance, Restangular, ngTab
                 angular.copy(result, $scope[Container]);
                 //$scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.Serverconnectionerror'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server connection error", response.data.ExceptionMessage);
             });
         }
     };

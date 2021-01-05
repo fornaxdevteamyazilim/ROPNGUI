@@ -128,7 +128,7 @@
                             <tr ng-repeat="items in order.items | filter: { OrderPersonID: order.persons[0].id }">
                                 <td class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="color:black;" ng-click="setProductPerson(items, $index)">* {{:: items.Product}}</td>
                                 <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="color:black;" ng-click="setProductPerson(items, $index)">{{:: items.Quantity}}</td>
-                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="color:black;" ng-click="setProductPerson(items, $index)">{{ items.Amount | number:2}} TL</td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="color:black;" ng-click="setProductPerson(items, $index)">{{ items.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</td>
                                 <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-extra-large" style="color:black; margin-top:10px;" ng-click="setProductPerson(items, $index)"><span class="ti-arrow-circle-right"></span></td>
                             </tr>
                         </tbody>
@@ -161,7 +161,7 @@
                                                     <tbody >
                                                         <tr>
                                                             <td class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="color:black;">* {{ item.Product}}</td>
-                                                            <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3 margin-left-10" style="color:black;" >{{ item.Amount | number:2}} TL</td>
+                                                            <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3 margin-left-10" style="color:black;" >{{ item.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</td>
                                                             <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="color:black;" ng-click="deleteProductItem(item)" ng-hide="item.select == false"><span class="ti-close text-extra-large text-bold pull-right"></span></td>
                                                         </tr>
                                                     </tbody>

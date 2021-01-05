@@ -34,7 +34,7 @@ function InventorysuppliyerCtrl($rootScope, $scope, $log, $modal, $filter, Sweet
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
                 });
             }
         }
@@ -43,14 +43,14 @@ function InventorysuppliyerCtrl($rootScope, $scope, $log, $modal, $filter, Sweet
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 isy.tableParams.reload();
-                toaster.pop('success',$translate.instant('invantories.Updated'), $translate.instant('invantories.Updated'));
+                toaster.pop('success',$translate.instant('invantories.Updated'), 'Updated.');
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'Inventorysuppliyer')
             data.post().then(function (res) {
                 isy.tableParams.reload();
-                toaster.pop('success',$translate.instant('invantories.Saved'), $translate.instant('invantories.Saved'));
+                toaster.pop('success',$translate.instant('invantories.Saved'), 'Saved.');
             });
             data.get();
         }
@@ -68,9 +68,9 @@ function InventorysuppliyerCtrl($rootScope, $scope, $log, $modal, $filter, Sweet
         rowform.$cancel();
         if (!isy.tableParams.data[isy.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(isy.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
         } else {
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
         }
     };
     $scope.removeItem = function (index) {
@@ -123,7 +123,7 @@ function InventorysuppliyerCtrl($rootScope, $scope, $log, $modal, $filter, Sweet
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

@@ -9,7 +9,7 @@ function inventoryperiodiccostsCtrl($scope, $log, $modal, $filter, SweetAlert, R
        }).then(function (result) {
            $scope.VeiwHeader = result[0];
        }, function (response) {
-           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
        });
     }
 
@@ -53,7 +53,7 @@ function inventoryperiodiccostsCtrl($scope, $log, $modal, $filter, SweetAlert, R
                 $scope.resresult = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     $scope.exportToExcel = function (tableId) {
@@ -115,7 +115,7 @@ function inventoryperiodiccostsCtrl($scope, $log, $modal, $filter, SweetAlert, R
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
             });
         }
     };

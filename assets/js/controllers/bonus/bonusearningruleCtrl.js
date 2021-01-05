@@ -102,7 +102,7 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            { name:"Name", dataField: "name", caption: "Name", allowEditing: true },
+            { dataField: "name", caption: "Name", allowEditing: true },
             { dataField: "description", caption: "Description", allowEditing: true },
             {
                 dataField: "BonusSettingID", caption: "Bonus Setting",

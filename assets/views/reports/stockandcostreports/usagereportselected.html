@@ -33,8 +33,8 @@
                         <th class="col-lg-1 col-md-1 col-sm-3 col-xs-6">{{'main.RECIPEUNITCOUNT' | translate}}</th>
                         <th class="col-lg-2 col-md-1 col-sm-3 col-xs-6">{{'main.INVENTORYUNIT' | translate}}</th>
                         <th class="col-lg-1 col-md-1 col-sm-3 col-xs-6">{{'main.UNITCOUNT' | translate}}</th>
-                        <th class="col-lg-1 col-md-1 col-sm-3 col-xs-6">{{'main.UNITPRICE' | translate}} (TL)</th>
-                        <th class="col-lg-1 col-md-1 col-sm-3 col-xs-6">{{'main.AMOUNT' | translate}} (TL)</th>
+                        <th class="col-lg-1 col-md-1 col-sm-3 col-xs-6">{{'main.UNITPRICE' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</th>
+                        <th class="col-lg-1 col-md-1 col-sm-3 col-xs-6">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</th>
                     </tr>
                     <tr ng-repeat="item in UsageReportResults | orderBy: '+Inventory.name'">
                         <td class="col-lg-2 col-md-1 col-sm-3 col-xs-6">

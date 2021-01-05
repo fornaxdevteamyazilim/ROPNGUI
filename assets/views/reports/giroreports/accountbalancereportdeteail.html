@@ -14,7 +14,7 @@
                         <span class="center">{{person.LastTransactionDate | date:'dd-MM-yyyy HH:mm'}}</span>
                     </td>
                     <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-bold text-extra-large">
-                        <span class="pull-right">{{person.Current |number:2}} (TL)</span>
+                        <span class="pull-right">{{person.Current |number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>
                     </td>
                 </tr>
             </table>

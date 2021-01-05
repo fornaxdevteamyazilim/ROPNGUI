@@ -343,7 +343,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                             $scope.audio.pause();
                         $rootScope.YSOrderCount = angular.copy(result.length);
                     }, function (response) {
-                        toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                        toaster.pop('error', "Server Error", response.data.ExceptionMessage);
                     });
                 }
             }

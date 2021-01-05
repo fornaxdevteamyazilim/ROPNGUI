@@ -15,7 +15,7 @@ function cashreportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
         ).then(function (result) {
             $scope.VeiwHeader = result[0].name;
         }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response);
+            toaster.pop('error', "Server Error", response);
         });
     }
     $scope.DateFromDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
@@ -45,7 +45,7 @@ function cashreportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
         }, function (response) {
             $scope.Tittle = "";
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
         });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {
@@ -160,7 +160,7 @@ function cashreportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };

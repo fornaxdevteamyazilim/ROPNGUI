@@ -152,8 +152,8 @@
                     <th class="col-lg-2 col-md-3 col-sm-3 col-xs-3">{{'main.ORDERNUMBER' | translate}}</th>
                     <!--<th class="col-lg-2 col-md-3 col-sm-3 col-xs-3">{{'main.PERSONNAME' | translate}}</th>-->
                     <th class="col-lg-2 col-md-3 col-sm-3 col-xs-3">{{'main.PROMOTION' | translate}} </th>
-                    <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></th>
-                    <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.ORDERAMOUNT' | translate}} (TL)</span></th>
+                    <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
+                    <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.ORDERAMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                     <th class="col-lg-2 col-md-3 col-sm-3 col-xs-3">{{'main.CODE' | translate}}</th>
                 </tr>
                 <tr ng-repeat="item in OrderPromotions">
@@ -200,8 +200,8 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{'main.STORE' | translate}}</div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{'main.ORDERNUMBER' | translate}}</div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{'main.PROMOTION' | translate}} </div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.ORDERAMOUNT' | translate}}(TL)</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.ORDERAMOUNT' | translate}}{{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="margin-left-10">{{'main.CODE' | translate}}</span></div>
                 </div>
                 <hr />

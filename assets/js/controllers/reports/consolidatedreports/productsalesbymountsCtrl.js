@@ -90,7 +90,7 @@ function productsalesbymountsCtrl($scope, $filter, $modal, $log, Restangular, ng
                 ctrl.table.data = orders;
                 $scope.ShowReport();
             }, function (response) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
             });
     };
     ctrl.table = {
@@ -136,7 +136,7 @@ function productsalesbymountsCtrl($scope, $filter, $modal, $log, Restangular, ng
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Server Error", response);
             });
         }
     };
