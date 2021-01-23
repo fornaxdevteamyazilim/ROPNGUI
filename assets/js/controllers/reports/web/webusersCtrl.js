@@ -104,7 +104,10 @@ function webusersCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $t
         columns: [
             { dataField: "PersonID",visible: false },
             "UserName",
+<<<<<<< HEAD
             "Phone",
+=======
+>>>>>>> 073d7b492605d9899b582e654c846965f5bb5425
             { dataField: "SignUpDate", caption: "SignUpDate", dataType: "date", format: 'dd.MM.yyyy' },
             "PersonName",
             { dataField: "TotalOrders", dataType: "number", caption: "TotalOrders", format: { type: "fixedPoint", precision: 0 } },

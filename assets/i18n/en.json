@@ -382,7 +382,10 @@
     "PROMOTIONANALISYS": "{{appName}} - Promotion Analisys Report",
     "PUNCHCARDTRANSACTIONS": "{{appName}} - Punch Card Transactions Report",
     "BONUSTRANSACTIONS": "{{appName}} - Bonus Transactions Report",
+<<<<<<< HEAD
     "BONUSSTATS": "{{appName}} - Bonus Stats Report",
+=======
+>>>>>>> 073d7b492605d9899b582e654c846965f5bb5425
     "WEBUSERS": "{{appName}} - Web Users Report"
   },
   "main": {
@@ -2351,7 +2354,10 @@
     "STAFFORDERSREPORT": "Staff  Order Reports",
     "PUNCHCARDTRANSACTIONS": "Punch Card Transactions Report",
     "BONUSTRANSACTIONS": "Bonus Transactions Report",
+<<<<<<< HEAD
     "BONUSSTATS": "Bonus Stats Report",
+=======
+>>>>>>> 073d7b492605d9899b582e654c846965f5bb5425
     "LOYALTYREPORTS": "Loyalty",
     "WEBUSERS": "{{appName}} - Web Users Report"
     
@@ -2721,7 +2727,10 @@
         "LOYALTYREPORTS": "Loyalty",
         "PUNCHCARDTRANSACTIONS": "Punch Card Transactions Report",
         "BONUSTRANSACTIONS": "Bonus Transactions Report",
+<<<<<<< HEAD
         "BONUSSTATS": "Bonus Stats Report",
+=======
+>>>>>>> 073d7b492605d9899b582e654c846965f5bb5425
         "WEBREPORTS":"Web",
         "WEBUSERS": "Web Users Report"
       },

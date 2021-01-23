@@ -2670,6 +2670,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'bonustransactions'
             }
+<<<<<<< HEAD
         }).state('app.reports.loyalty.bonusstats', {
             url: '/bonusstats',
             templateUrl: "assets/views/reports/loyalty/bonusstats.html",
@@ -2679,6 +2680,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'bonusstats'
             }
+=======
+>>>>>>> 073d7b492605d9899b582e654c846965f5bb5425
         }).state('app.reports.web', {
             url: '/web',
             template: '<div ui-view class="fade-in-up"></div>',

@@ -115,7 +115,10 @@ function bonustransactionsCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         remoteOperations: true,
         columns: [
             { dataField: "id" },
+<<<<<<< HEAD
             "PersonID",
+=======
+>>>>>>> 073d7b492605d9899b582e654c846965f5bb5425
             "PersonName",
             "RuleName",
             { dataField: "TransactionDate", caption: "TransactionDate", dataType: "date", format: 'dd.MM.yyyy' },
