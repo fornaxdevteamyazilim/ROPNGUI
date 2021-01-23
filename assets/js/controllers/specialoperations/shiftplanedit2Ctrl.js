@@ -173,7 +173,6 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             if (!ot.isPaid) return 0.0;
             var h = GetUserMaxHours(userID);
             if (ot && (ot.isDefault && h < 7.5))
-<<<<<<< HEAD
                 return 0.0; //Part time not paid for weekly off
             return h - ((h >= 7.5) ? 0.5 : 0);
         }
@@ -186,8 +185,6 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             if (ot.isPaid) return 0.0;
             var h = GetUserMaxHours(userID);
             if (ot && (ot.isDefault && h < 7.5))
-=======
->>>>>>> 073d7b492605d9899b582e654c846965f5bb5425
                 return 0.0; //Part time not paid for weekly off
             return h - ((h >= 7.5) ? 0.5 : 0);
         }

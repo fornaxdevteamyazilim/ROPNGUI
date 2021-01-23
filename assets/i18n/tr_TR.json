@@ -383,10 +383,7 @@
     "PROMOTIONANALISYS": "{{appName}} - Promosyon Analizi",
     "PUNCHCARDTRANSACTIONS": "{{appName}} - Dilim Raporu",
     "BONUSTRANSACTIONS": "{{appName}} - Puan Detay Raporu",
-<<<<<<< HEAD
     "BONUSSTATS": "{{appName}} - Bonus Durum Raporu",
-=======
->>>>>>> 073d7b492605d9899b582e654c846965f5bb5425
     "WEBUSERS": "{{appName}} - Web Kullanıcıları Raporu"
   },
   "main": {
@@ -2362,10 +2359,7 @@
     "LOYALTYREPORTS": "Sadakat",
     "PUNCHCARDTRANSACTIONS": "Dilim Raporu",
     "BONUSTRANSACTIONS": "Puan Detay Raporu",
-<<<<<<< HEAD
     "BONUSSTATS": "Bonus Durum Raporu",
-=======
->>>>>>> 073d7b492605d9899b582e654c846965f5bb5425
     "WEBUSERS": "Web Kullanıcıları",
     "WEBREPORTS":"Web"
   },
@@ -2731,10 +2725,7 @@
         "PROMOTIONANALISYS": "Promosyon Analizi",
         "PUNCHCARDTRANSACTIONS": "Dilim Raporu",
         "BONUSTRANSACTIONS": "Puan Detay Raporu",
-<<<<<<< HEAD
         "BONUSSTATS": "Bonus Durum Raporu",
-=======
->>>>>>> 073d7b492605d9899b582e654c846965f5bb5425
         "LOYALTYREPORTS": "Sadakat",
         "WEBUSERS": "Web Kullanıcıları",
         "WEBREPORTS":"Web"
