@@ -143,12 +143,12 @@
                                 </td>
                                 <td data-title="trUnitPrice" data-sortable="'UnitPrice'" width="13%">
                                     <span e-name="UnitPrice" e-ng-model="data.UnitPrice" e-form="rowform" e-style="width: 13vw;">
-                                        {{ data.UnitPrice | number : 2 }} TL
+                                        {{ data.UnitPrice | number : 2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                                     </span>
                                 </td>
                                 <td data-title="trDiscount " data-sortable="'Discount '" width="13%">
                                     <span e-name="Discount " e-ng-model="data.Discount " e-form="rowform" e-style="width: 13vw;">
-                                        {{ data.Discount | number : 2 }} TL
+                                        {{ data.Discount | number : 2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                                     </span>
                                 </td>
                                 <td data-title="trVATRatio" data-sortable="'VATRatio'" width="13%">
@@ -158,12 +158,12 @@
                                 </td>
                                 <td data-title="trVAT" data-sortable="'VAT'" width="13%">
                                     <span e-name="VAT" e-form="rowform" e-ng-model="data.VAT" e-style="width: 13vw;">
-                                        {{ data.VAT |number:2 }} TL
+                                        {{ data.VAT |number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                                     </span>
                                 </td>
                                 <td data-title="trAmount" data-sortable="'Amount'" width="13%">
                                     <span e-name="Amount" e-form="rowform" e-ng-model="data.Amount" e-style="width: 13vw;">
-                                        {{(data.UnitPrice*data.UnitCount) |number:2 }} TL
+                                        {{(data.UnitPrice*data.UnitCount) |number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                                     </span>
                                 </td>
                                 <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
@@ -200,17 +200,17 @@
                                     {{ data.UnitCount | number : 2 }}
                                 </td>
                                 <td data-title="trUnitPrice" data-sortable="'UnitPrice'" width="10%">
-                                    {{ data.UnitPrice |number:2 }} TL
+                                    {{ data.UnitPrice |number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                                 </td>
                                 <td data-title="trDiscount" data-sortable="'Discount'" width="10%">
-                                    {{ data.Discount |number:2 }} TL
+                                    {{ data.Discount |number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                                 </td>
                                 <td width="10%" class="ng"></td>
                                 <td data-title="trVAT" data-sortable="'VAT'" width="10%">
-                                    {{ data.VAT |number:2 }} TL
+                                    {{ data.VAT |number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                                 </td>
                                 <td data-title="trAmount" data-sortable="'Amount'" width="10%">
-                                    {{ data.Amount |number:2 }} TL
+                                    {{ data.Amount |number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                                 </td>
                             </tr>
                         </tbody>
@@ -264,7 +264,7 @@
                                     <td class="col-sm-12 col-lg-6 col-md-6 col-xs-12">
                                         <div class="form-group">
                                             <label class="h3 text-bold">{{:: grandtotal}}</label> <br />
-                                            <label ng-model="item.GrandTotal" ng-value="ShowGrantTotal()" class="h2">{{item.GrandTotal | number:2}} TL </label>
+                                            <label ng-model="item.GrandTotal" ng-value="ShowGrantTotal()" class="h2">{{item.GrandTotal | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}} </label>
                                         </div>
                                     </td>
                                 </tr>

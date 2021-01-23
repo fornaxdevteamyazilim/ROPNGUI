@@ -401,13 +401,13 @@
         <div class="panel col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <strong class="margin-top-10 pull-left" style="color:black;">Toplam Tutar:</strong>
+                    <strong class="margin-top-10 pull-left" style="color:black;" translate="main.TOTALAMOUNT">Toplam Tutar:</strong>
                     <input type="text" id="form-field-12" style="color:black; font-size:large;" class="form-control underline text-bold" step="0.02" ng-model="order.Amount" readonly>
                 </span>
             </label>
             <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5">
                 <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <strong class="margin-top-10 pull-left" style="color:black;">Ödenecek Tutar:</strong>
+                    <strong class="margin-top-10 pull-left" style="color:black;" translate="main.PAYABLEAMOUNT">Ödenecek Tutar:</strong>
                     <input type="text" id="form-field-12" style="color:black; font-size:large;" class="form-control underline  text-bold" step="0.02" ng-model="currentPayment.Amount">
                 </span>
             </label>
@@ -436,9 +436,9 @@
 <div class="panel panel-default panel-table visible-lg visible-md" ng-if="ShowObject==true">
     <div class="panel-heading">
         <div class="tr">
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 td text-bold center" style="color:black;">Ödeme Bilgileri</div>
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 td text-bold center" style="color:black;">Ödeme Tutar Bilgileri</div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 td text-bold center" style="color:black;">Ödeme Tipleri</div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 td text-bold center" style="color:black;" translate="main.PAYMENTINFORMATION">Ödeme Bilgileri</div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 td text-bold center" style="color:black;" translate="main.PAYMENTAMOUNTINFORMATION">Ödeme Tutar Bilgileri</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 td text-bold center" style="color:black;" translate="main.PAYMENTTYPES">Ödeme Tipleri</div>
         </div>
     </div>
     <div class="panel-body">
@@ -460,7 +460,7 @@
                                 <tr ng-click="SetCurrentOrderPayment(item)">
                                     <td class="text-uppercase" style="color:black;">{{:: item.PaymentType}}</td>
                                     <td style="color:black;">{{:: item.PaymentDate | date:'dd-MM-yyyy HH:mm'}}</td>
-                                    <td style="color:black;">{{:: item.Amount | number:2}} TL</td>
+                                    <td style="color:black;">{{:: item.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</td>
                                     <td style="color:black;">{{:: ShowPerson(item.OrderPersonID)}}</td>
                                     <td style="color:black;"><span ng-click="DeletePayment(item)"><button class="btn btn-sm btn-o ti-close"></button></span></td>
                                 </tr>
@@ -473,27 +473,27 @@
                 <div class="panel col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="ShowObject==true">
                     <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <strong class="margin-top-10" style="color:black;">Toplam Tutar:</strong>
+                            <strong class="margin-top-10" style="color:black;" translate="main.TOTALAMOUNT">Toplam Tutar:</strong>
                             <input type="text" id="form-field-12" style="color:black; font-size:large;" class="form-control underline text-bold" ng-model="order.Amount" readonly>
                         </span>
                     </label>
                     <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5">
                         <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <strong class="margin-top-10" style="color:black;">Ödenecek Tutar:</strong>
+                            <strong class="margin-top-10" style="color:black;" translate="main.PAYABLEAMOUNT">Ödenecek Tutar:</strong>
                             <input type="text" id="form-field-12" style="color:black; font-size:large;" class="form-control underline text-bold" ng-model="currentPayment.Amount">
                         </span>
                     </label>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="showchange == true">
-                    <span class="text text-bold text-danger" style="font-size:x-large;">Para Üstü: {{change | number:2}} TL</span><br />
+                    <span class="text text-bold text-danger" style="font-size:x-large;">{{:: 'main.MONEY_CHANGE' | translate}} {{change | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span><br />
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(5)"><span class='text text-bold text-dark text-extra-large'>5 TL</span></button>
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(10)"><span class='text text-bold text-dark text-extra-large'>10 TL</span></button>
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(20)"><span class='text text-bold text-dark text-extra-large'>20 TL</span></button>
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(50)"><span class='text text-bold text-dark text-extra-large'>50 TL</span></button>
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(100)"><span class='text text-bold text-dark text-extra-large'>100 TL</span></button>
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(200)"><span class='text text-bold text-dark text-extra-large'>200 TL</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(5)"><span class='text text-bold text-dark text-extra-large'>5 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(10)"><span class='text text-bold text-dark text-extra-large'>10 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(20)"><span class='text text-bold text-dark text-extra-large'>20 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(50)"><span class='text text-bold text-dark text-extra-large'>50 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(100)"><span class='text text-bold text-dark text-extra-large'>100 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="CalcChange(200)"><span class='text text-bold text-dark text-extra-large'>200 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15">
                     <button class="btn btn-default text-extra-large" style="width:50px; height:50px; color:black;" ng-click="splitAccount()" ng-if="order.OrderTypeID == 0"><span>n\n</span></button>
@@ -526,8 +526,8 @@
 <div class="panel panel-default panel-table visible-sm visible-xs" ng-if="ShowObject==true">
     <div class="panel-heading">
         <div class="tr">
-            <div class="col-sm-8 col-xs-8 td text-bold center" style="color:black;">Ödeme Tutar Bilgileri</div>
-            <div class="col-sm-4 col-xs-4 td text-bold center" style="color:black;">Ödeme Tipleri</div>
+            <div class="col-sm-8 col-xs-8 td text-bold center" style="color:black;" translate="main.PAYMENTAMOUNTINFORMATION">Ödeme Tutar Bilgileri</div>
+            <div class="col-sm-4 col-xs-4 td text-bold center" style="color:black;" translate="main.PAYMENTTYPES">Ödeme Tipleri</div>
         </div>
     </div>
     <div class="panel-body">
@@ -536,27 +536,27 @@
                 <div class="panel col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="ShowObject==true">
                     <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <strong class="margin-top-10" style="color:black;">Toplam Tutar:</strong>
+                            <strong class="margin-top-10" style="color:black;" translate="main.TOTALAMOUNT">Toplam Tutar:</strong>
                             <input type="text" id="form-field-12" style="color:black; font-size:large;" class="form-control underline text-bold" ng-model="order.Amount" currency readonly>
                         </span>
                     </label>
                     <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5">
                         <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <strong class="margin-top-10" style="color:black;">Ödenecek Tutar:</strong>
+                            <strong class="margin-top-10" style="color:black;" translate="main.PAYABLEAMOUNT">Ödenecek Tutar:</strong>
                             <input type="text" id="form-field-12" style="color:black; font-size:large;" class="form-control underline text-bold" ng-model="currentPayment.Amount">
                         </span>
                     </label>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="showchange== true">
-                    <span class="text text-bold text-danger" style="font-size:x-large;">Para Üstü: {{change | number:2}} TL</span><br />
+                    <span class="text text-bold text-danger" style="font-size:x-large;">{{:: 'main.MONEY_CHANGE' | translate}} {{change | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span><br />
                 </div>
                 <div class="col-sm-6 col-xs-12 margin-top-10">
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(5)"><span class='text text-bold text-dark text-large'>5 TL</span></button>
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(10)"><span class='text text-bold text-dark text-large'>10 TL</span></button>
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(20)"><span class='text text-bold text-dark text-large'>20 TL</span></button>
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(50)"><span class='text text-bold text-dark text-large'>50 TL</span></button>
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(100)"><span class='text text-bold text-dark text-large'>100 TL</span></button>
-                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(200)"><span class='text text-bold text-dark text-large'>200 TL</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(5)"><span class='text text-bold text-dark text-large'>5 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(10)"><span class='text text-bold text-dark text-large'>10 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(20)"><span class='text text-bold text-dark text-large'>20 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(50)"><span class='text text-bold text-dark text-large'>50 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(100)"><span class='text text-bold text-dark text-large'>100 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
+                    <button class='btn btn-default text-capitalize' style="color:black; overflow:hidden; width:78px; height:35px;" ng-click="CalcChange(200)"><span class='text text-bold text-dark text-large'>200 {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></button>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15">
                     <button class="btn btn-default text-large" style="width:50px; height:50px; color:black;" ng-click="CalcSumOpr('1/2')"><span>1\2</span></button>
@@ -583,7 +583,7 @@
     </div>
     <div class="panel-heading">
         <div class="tr">
-            <div class="col-sm-12 col-xs-12 td text-bold center" style="color:black;">Ödeme Bilgileri</div>
+            <div class="col-sm-12 col-xs-12 td text-bold center" style="color:black;" translate="main.PAYMENTINFORMATION">Ödeme Bilgileri</div>
         </div>
     </div>
     <div class="panel-body">
@@ -609,7 +609,7 @@
                                 <tr ng-click="SetCurrentOrderPayment(item)">
                                     <td class="text-uppercase" style="color:black;">{{:: item.PaymentType}}</td>
                                     <td style="color:black;">{{:: item.PaymentDate}}</td>
-                                    <td style="color:black;">{{:: item.Amount}} TL</td>
+                                    <td style="color:black;">{{:: item.Amount}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</td>
                                     <td style="color:black;">{{:: ShowPerson(item.OrderPersonID)}}</td>
                                     <td style="color:black;"><span ng-click="DeletePayment(item)"><button class="btn btn-sm btn-o ti-close"></button></span></td>
                                 </tr>

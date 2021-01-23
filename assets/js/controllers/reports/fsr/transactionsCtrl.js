@@ -43,7 +43,7 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
             value: "startWeek"
         },
         min: 1,
-        max: 52,
+        max: 53,
         showSpinButtons: true
     };
     $scope.endYearButton = {
@@ -59,7 +59,7 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
             value: "endWeek"
         },
         min: 1,
-        max: 52,
+        max: 53,
         showSpinButtons: true
     };
     $scope.reportButtonOptions = {

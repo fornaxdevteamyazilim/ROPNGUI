@@ -32,7 +32,7 @@ function poductsalesccoreboardCtrl($scope, $filter, $modal, $log, Restangular, S
             customizeTooltip: function (args) {
                 var valueText = (args.seriesName.indexOf("Total") != -1) ?
                     Globalize.formatCurrency(args.originalValue,
-                        "TL", { maximumFractionDigits: 2 }) :
+                        "", { maximumFractionDigits: 2 }) :
                     args.originalValue;
 
                 return {

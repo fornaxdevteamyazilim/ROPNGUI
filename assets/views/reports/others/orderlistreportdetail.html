@@ -22,7 +22,7 @@
                         </span>
                         <span class="col-lg-3">{{:: item.persons[0].Person}}<span ng-if="item.Alias">{{item.Alias}}</span></span>
                         <span class="col-lg-3">{{:: item.OrderSource}}</span>
-                        <span class="col-lg-1">{{:: item.Amount | number : 2}} TL</span>
+                        <span class="col-lg-1">{{:: item.Amount | number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>
                         <span class="col-lg-1">{{:: item.PaymentType.PaymentType.name}}</span>
                         <span class="col-lg-1">{{:: item.PaymentStatus}}</span>
                     </div>

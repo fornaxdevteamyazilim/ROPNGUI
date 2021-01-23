@@ -503,7 +503,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
                 var date = new Date($rootScope.user.Store.OperationDate);
                 $scope.opdate = $filter('date')(date, 'dd-MM-yyyy');
             } else {
-                $scope.opdate = 'Gün Sonu';
+                $scope.opdate = $translate.instant('main.ENDOFDAY');;
             }
         }
     }

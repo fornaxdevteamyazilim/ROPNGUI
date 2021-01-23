@@ -241,10 +241,10 @@
                 <tr>
                     <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{'main.NAME' | translate}}</th>
                     <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{'main.QUANTITY' | translate}} ({{'main.PIECE' | translate}})</span></th>
-                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{'main.PRICE' | translate}} (TL)</span></th>
-                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></th>
-                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{'main.COST' | translate}} (TL)</span></th>
-                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{'main.TOTALCOST' | translate}} (TL)</span></th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{'main.PRICE' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{'main.COST' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
+                    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{'main.TOTALCOST' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                 </tr>
             </table>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-responsive" ng-repeat="item in ReportData">
@@ -328,10 +328,10 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
                 <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-left">{{'main.NAME' | translate}}</span></span>
                 <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.QUANTITY' | translate}} (ADET)</span></span>
-                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.PRICE' | translate}} (TL)</span></span>
-                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></span>
-                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.COST' | translate}} (TL)</span></span>
-                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.TOTALCOST' | translate}} (TL)</span></span>
+                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.PRICE' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></span>
+                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></span>
+                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.COST' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></span>
+                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.TOTALCOST' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></span>
             </div>
             <div class="row panel panel-white margin-top-10" ng-repeat="item in ReportData">
                 <div class="row panel-heading">

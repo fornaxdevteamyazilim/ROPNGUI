@@ -185,8 +185,8 @@
                             <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="pull-right">{{'main.RECIPEUNITCOUNT' | translate}}</span></th>
                             <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.INVENTORYUNIT' | translate}}</th>
                             <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.UNITCOUNT' | translate}}</span></th>
-                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.UNITPRICE' | translate}} (TL)</span></th>
-                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></th>
+                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.UNITPRICE' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
+                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                         </tr>
                         <tr ng-repeat="item in UsageReportResults | orderBy: '+Inventory.name'">
                             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="white-space: nowrap; overflow:hidden; text-overflow:clip;">
@@ -245,8 +245,8 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="pull-right">{{'main.RECIPEUNITCOUNT' | translate}}</span></div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold"><span class="margin-left-10">{{'main.INVENTORYUNIT' | translate}}</span></div>
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.UNITCOUNT' | translate}}</span></div>
-                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="margin-left-10 pull-right">{{'main.UNITPRICE' | translate}} (TL)</span></div>
-                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="margin-left-10 pull-right">{{'main.UNITPRICE' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
                     </div>
                     <hr />
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table" ng-repeat="item in UsageReportResults | orderBy: '+Inventory.name'" style="border-bottom:1px solid;">

@@ -76,7 +76,7 @@
                     <div class="col-sm-12">
                         <div class="panel panel-white" id="panel5">
                             <div class="panel-heading">
-                                <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{::orderdetails}} <label class="pull-right text-red text-bold text-extra-large">{{::order.PaymentType.PaymentType.name}} / {{::order.Amount|number:2 }} TL </label></h4>
+                                <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{::orderdetails}} <label class="pull-right text-red text-bold text-extra-large">{{::order.PaymentType.PaymentType.name}} / {{::order.Amount|number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}} </label></h4>
                             </div>
                             <div collapse="panel1" ng-if="collapse" class="panel-wrapper">
                                 <div class="panel-body">
@@ -120,7 +120,7 @@
                 <div class="col-sm-12">
                     <div class="panel panel-white" id="panel5">
                         <div class="panel-heading">
-                            <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{::orderdetails}} <label class="pull-right text-red text-bold text-extra-large">{{::order.PaymentType.PaymentType.name}} / {{::order.Amount|number:2 }} TL </label></h4>
+                            <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{::orderdetails}} <label class="pull-right text-red text-bold text-extra-large">{{::order.PaymentType.PaymentType.name}} / {{::order.Amount|number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}} </label></h4>
                         </div>
                         <div collapse="panel1" ng-if="collapse" class="panel-wrapper">
                             <div class="panel-body">
@@ -176,7 +176,7 @@
             <div class="col-sm-12">
                 <div class="panel panel-white" id="panel5">
                     <div class="panel-heading">
-                        <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{::orderdetails}} <label class="pull-right text-red text-bold text-extra-large">{{::order.PaymentType.PaymentType.name}} / {{::order.AmountTXT }} TL </label></h4>
+                        <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{::orderdetails}} <label class="pull-right text-red text-bold text-extra-large">{{::order.PaymentType.PaymentType.name}} / {{::order.AmountTXT }} {{:: 'main.CURRENCY_SYMBOL' | translate}} </label></h4>
                     </div>
                     <div collapse="panel1" ng-if="collapse" class="panel-wrapper">
                         <div class="panel-body">

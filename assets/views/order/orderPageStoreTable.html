@@ -568,7 +568,7 @@
     </div>
     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 margin-top-10" ng-if="_order.OrderTypeID != 4">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <span class="text-large text-bold pull-right" style="color:black;"> <span>{{:: grand}} </span><span> {{_order.Amount | number : 2}} TL</span></span>
+            <span class="text-large text-bold pull-right" style="color:black;"> <span>{{:: grand}} </span><span> {{_order.Amount | number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></span>
         </div>
         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 pull-right">
             <span class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -634,7 +634,7 @@
             </div>
             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 margin-top-10">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <span class="text-large text-bold pull-right" style="color:black;"> <span>{{:: grand}} </span><span> {{_order.Amount | number : 2}} TL</span></span>
+                    <span class="text-large text-bold pull-right" style="color:black;"> <span>{{:: grand}} </span><span> {{_order.Amount | number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></span>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="_order.OrderTypeID != 4">

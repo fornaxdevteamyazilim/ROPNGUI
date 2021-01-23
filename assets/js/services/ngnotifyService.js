@@ -155,35 +155,48 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
         if (_storeID) {
             _JoinGroup(_storeID.toString());
         }
-        toaster.pop('success', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionOk'));
+        //toaster.pop('success', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionOk'));
+        DevExpress.ui.notify({
+            message: $translate.instant('SignalR.ConnectionOk'),
+            type: "success",
+            displayTime: 3000,
+        });
     });
     ngnotifyHubProxy.connection.connectionSlow(function () {
         console.log('We are currently experiencing difficulties with the connection.');
-        toaster.pop('warning', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionSlow'));
+        //toaster.pop('warning', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionSlow'));
+        DevExpress.ui.notify($translate.instant('SignalR.ConnectionSlow'), 'warning',3000);
     });
     ngnotifyHubProxy.connection.disconnected(function () {
         if (ngnotifyHubProxy.connection.lastError) {
-            toaster.pop('error', $translate.instant('SignalR.ConnectionLost'), ngnotifyHubProxy.connection.lastError.message);
+            //toaster.pop('error', $translate.instant('SignalR.ConnectionLost'), ngnotifyHubProxy.connection.lastError.message);
+            DevExpress.ui.notify($translate.instant('SignalR.ConnectionLost'), 'error',3000);
+            DevExpress.ui.notify(ngnotifyHubProxy.connection.lastError.message, 'error',3000);
             //alert("Disconnected. Reason: " + ngnotifyHubProxy.connection.lastError.message);
         }
         else
-            toaster.pop('error', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionLost'));
+            DevExpress.ui.notify($translate.instant('SignalR.ConnectionLost'), 'error',3000);
+        //toaster.pop('error', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionLost'));
     });
     ngnotifyHubProxy.connection.error(function (error) {
-        toaster.pop('error', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionError'));
+        //toaster.pop('error', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionError'));
+        DevExpress.ui.notify($translate.instant('SignalR.ConnectionError'), 'error',3000);
         console.log('SignalR error: ' + error);
     });
     ngnotifyHubProxy.connection.reconnecting(function () {
         //notifyUserOfTryingToReconnect(); // Your function to notify user.
         console.log('SignalR Reconnecting...');
-        toaster.pop('warning', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.Reconnecting'));
+        //toaster.pop('warning', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.Reconnecting'));
+        DevExpress.ui.notify($translate.instant('SignalR.Reconnecting'), 'warning',3000);
     });
     ngnotifyHubProxy.connection.disconnected(function () {
         setTimeout(function () {
-            toaster.pop('warning', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.Reconnecting'));
+            //toaster.pop('warning', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.Reconnecting'));
+            DevExpress.ui.notify($translate.instant('SignalR.Reconnecting'), 'warning',3000);
             ngnotifyHubProxy.connection.start().done(function () {
                 _reJoinToGroups();
-                toaster.pop('success', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionOk'));
+                //toaster.pop('success', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionOk'));
+                DevExpress.ui.notify($translate.instant('SignalR.ConnectionOk'), 'success',3000);
             });
         }, 5000); // Restart connection after 5 seconds.
     });

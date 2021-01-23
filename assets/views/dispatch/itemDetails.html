@@ -27,7 +27,7 @@
                 <div><span ng-repeat='member in order.items'><kvsorder-item member='member'></kvsorder-item></span></div>
 
                 <label class="pull-right text-bold margin-top-15" style="color:black;">
-                    {{'main.TOTALAMOUNT' | translate}} : {{order.Amount | number:2 }} TL
+                    {{'main.TOTALAMOUNT' | translate}} : {{order.Amount | number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                 </label>
             </fieldset>
            

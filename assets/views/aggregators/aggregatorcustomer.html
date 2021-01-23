@@ -1,0 +1,146 @@
+<style>
+    .ng {
+    }
+
+        .ng:hover {
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+</style>
+<div ng-controller="aggregatorcustomerCtrl" ng-keyup="event=$event" ng-init="app.layout.isSidebarClosed=true">
+    <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 table-responsive">
+            <fieldset style="min-height:390px;">
+                <legend>{{'main.YEMEKSEPETIPERSONINFO' | translate}}</legend>
+                <form name="userForm" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-6">
+                        <label translate="main.NAMESURNAME" for="name"></label>
+                        <input id="ysitem.name" type="text" class="form-control text-uppercase" ng-model="ysitem.name">
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-6 pull-right">
+                        <button class="col-lg-8 col-md-10 col-sm-12 col-xs-12 btn btn-primary btn-wide btn-scroll btn-scroll-top ti-search text-center pull-right margin-top-25" ng-click="searchByName(ysitem)"><span class="fa fa-user"> </span><span translate="main.SEARCHNAME"></span></button>
+                    </div>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-6">
+                        <label translate="main.PHONE" for="PersonPhone"></label>
+                        <input id="ysitem.PersonPhone" type="text" class="form-control" placeholder="(999) 999 99 99" ng-model="ysitem.PersonPhone" maxlength="10" />
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-6 pull-right">
+                        <button class="col-lg-8 col-md-10 col-sm-12 col-xs-12 btn btn-primary btn-wide btn-scroll btn-scroll-top ti-search text-center pull-right margin-top-25" ng-click="searchByPhone(ysitem)"><span class="fa fa-phone"> </span><span translate="main.SEARCHPHONE"></span></button>
+                    </div>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-6">
+                        <label translate="main.ADDRESS" for="Adress">
+                            Adres
+                        </label>
+                        <textarea id="ysitem.Adress" type="text" style='min-height:100px; max-width:500px; max-height:150px' class="form-control  text-uppercase" ng-model="ysitem.Adress" readonly></textarea>
+                        <div>{{ysitem.Region}}-{{ysitem.City}}</div>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-6 pull-right">
+                        <button class="col-lg-8 col-md-10 col-sm-12 col-xs-12 btn btn-primary btn-wide btn-scroll btn-scroll-top ti-search text-center pull-right margin-top-25" ng-click="search(ysitem)"> <span class="fa fa-search"> </span><span translate="main.SEARCHHH"></span></button>
+                    </div>
+                </form>
+            </fieldset>
+            <fieldset style="min-height:390px;">
+                <legend>{{'main.MATCHINGPERSONINFO' | translate}}</legend>
+                <form name="form3" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label translate="main.NAMESURNAME" for="person"></label>
+                        <input id="item.id" type="text" class="form-control text-uppercase" ng-model="selectedPersonAndAddress.Person" readonly>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label translate="main.PHONE" for="person"></label>
+                        <span ng-repeat="phone in selectedPersonAndAddress.Phone">
+                            <input class="form-control" placeholder="(999) 999 99 99" type="text" maxlength="10"  ng-model="phone.Number" readonly/>
+                        </span>
+                    </div>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <label translate="main.ADDRESS" for="Notes">
+                            Adres
+                        </label>
+                        <textarea id="Notes" type="text" style='min-height:100px; max-width:500px; max-height:150px' class="form-control text-uppercase" ng-model="selectedPersonAndAddress.address" readonly></textarea>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-6 pull-right">
+                        <button class="col-lg-8 col-md-10 col-sm-12 col-xs-12 btn btn-success btn-wide btn-scroll btn-scroll-top ti-save text-center pull-right margin-top-25" ng-click="mergePerson()"><span translate="main.MERGE"></span></button>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 table-responsive">
+            <fieldset style="min-height:800px;">
+                <legend>{{'main.ROPNGPERSONINFO' | translate}}</legend>
+                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-6 pull-right">
+                    <button class="col-lg-8 col-md-10 col-sm-12 col-xs-12 btn btn-primary btn-wide btn-scroll btn-scroll-top ti-save text-center pull-right margin-top-5" ng-click="newRegisterPerson(ysitem)"><span translate="main.ADDNEWPERSON"></span></button>
+                </div>
+                <form name="form1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive" style="max-height:200px;">
+                    <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-bordered">
+                        <tr>
+                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.SELECT' | translate}}</th>
+                            <th class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{'main.NAMESURNAME' | translate}}</th>
+                            <th class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{'main.PHONE' | translate}}</th>
+                        </tr>
+                        <tr ng-repeat="item in ropngitem">
+                            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 fa center ">
+                                <span ng-class="{'fa fa-dot-circle-o':item.id == slectedPerson.id, 'fa fa-circle-o':item.id != slectedPerson.id }" ng-model="item.id" class="fa fa-circle-o" ng-click="getPersonAddress(item)"></span>
+                            </td>
+                            <td class="col-lg-5 col-md-5 col-sm-5 col-xs-5" ng-click="getPersonAddress(item)">
+                                {{item.name}}
+                            </td>
+                            <td class="col-lg-5 col-md-5 col-sm-5 col-xs-5" ng-click="getPersonAddress(item)">
+                                <span ng-repeat="phone in item.PersonPhones">{{phone.Number}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                    <form name="form2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive margin-top-20" style="max-height:400px;">
+                        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-6 pull-right">
+                            <button class="col-lg-8 col-md-10 col-sm-12 col-xs-12 btn btn-primary btn-wide btn-scroll btn-scroll-top ti-save text-center pull-right margin-top-5" ng-click="addNewAddress()" ng-disabled="!slectedPerson"><span translate="main.ADDSTREETADDRESS"></span></button>
+                        </div>
+                        <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-bordered">
+                            <tr>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.SELECT' | translate}}</th>
+                                <th class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{'main.ADDRESS' | translate}}</th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ADDRESSNO' | translate}}</th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.APPARTMENTNO' | translate}}</th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.APPARTMENTNAME' | translate}}</th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.FLOOR' | translate}}</th>
+                                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ENTRANCE' | translate}}</th>
+                                <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.NOTE' | translate}}</th>
+                            </tr>
+                            <tr ng-repeat="address in personAddresses">
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 fa center">
+                                    <span ng-class="{'fa fa-dot-circle-o':address.id == slectedAddress.id, 'fa fa-circle-o':address.id != slectedAddress.id }" ng-model="address.id" class="fa fa-circle-o" ng-click="setPersonAndAddress(address)"></span>
+                                </td>
+                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase" ng-click="setPersonAndAddress(address)">
+                                    {{address.Address.StreetAddress}}
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    {{address.Address.AddressNo}}
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    {{address.Address.AppartmentNo}}
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase">
+                                    {{address.Address.AppartmentName}}
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    {{address.Address.Floor}}
+                                </td>
+                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-uppercase">
+                                    {{address.Address.Entrance}}
+                                </td>
+                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-uppercase">
+                                    {{address.Address.Notes}}
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+            </fieldset>
+        </div>
+    </fieldset>
+</div>

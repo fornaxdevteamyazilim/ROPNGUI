@@ -128,9 +128,9 @@
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.DOCUMENTNUMBER' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.DESCRIPTION' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.COMPANYNAME' | translate}}</th>
-                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></th> 
-                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.VAT' | translate}} (TL)</span></th>
-                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.GRANDTOTAL' | translate}} (TL)</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th> 
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.VAT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.GRANDTOTAL' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.DELIVERYDATE' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PAYMENTTERM' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PAYMENTDATE' | translate}}</th>
@@ -186,7 +186,7 @@
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
-                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span class="pull-right">{{totalOrderAmount| number:2}} (TL)</span></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span class="pull-right">{{totalOrderAmount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
@@ -201,9 +201,9 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.DELIVERYID' | translate}} <br /> {{'main.DOCUMENTNUMBER' | translate}}</div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.DESCRIPTION' | translate}}</div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.COMPANYNAME' | translate}}</div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.VAT' | translate}} (TL)</span></div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.GRANDTOTAL' | translate}} (TL)</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.VAT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.GRANDTOTAL' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.DELIVERYDATE' | translate}}</div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PAYMENTTERM' | translate}}</div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PAYMENTDATE' | translate}}</div>
@@ -257,7 +257,7 @@
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span class="pull-right">{{totalOrderAmount| number:2}} (TL)</span></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span class="pull-right">{{totalOrderAmount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>

@@ -380,9 +380,15 @@
     "ACCOUNTTOOLS": "{{appName}} - Muhasebe Aktarımları",
     "USERTRANSFERS": "{{appName}} - Kullanıcı Tansferi",
     "CLOCKINOUTSTATS": "{{appName}} - Vardiya giriş-çıkış istatistikleri",
-    "PROMOTIONANALISYS": "{{appName}} - Promosyon Analizi"
+    "PROMOTIONANALISYS": "{{appName}} - Promosyon Analizi",
+    "PUNCHCARDTRANSACTIONS": "{{appName}} - Dilim Raporu",
+    "BONUSTRANSACTIONS": "{{appName}} - Puan Detay Raporu",
+    "BONUSSTATS": "{{appName}} - Bonus Durum Raporu",
+    "WEBUSERS": "{{appName}} - Web Kullanıcıları Raporu"
   },
   "main": {
+    "CURRENCY_SYMBOL":"₺",
+    "MONEY_CHANGE":"Para Üstü",
     "RETURNREASON": "İptal Sebebi",
     "WASTEUSAGE": "Atık Kullanım Maliyeti",
     "APPERTMENTNAME": "Apartman",
@@ -511,7 +517,7 @@
     "PHONES": "Telefon Numaraları",
     "EMAILS": "E-Mail Adresleri",
     "SPECIALDATES": "Özel Günler",
-    "ORDERS": "Siparişler",
+    "ORDERS": "Sipariş",
     "ADDNEW": "Yeni Ekle",
     "HOMEDELIVERY": "Adrese Sipariş",
     "STREETADDRESNAME": "Adres Adı",
@@ -916,7 +922,7 @@
     "ORDERSOURCE": "Kaynak",
     "ADDUSERROLE": "Kullanıcı Rolu Ekle",
     "ORDERLIST": "Sipariş Listesi",
-    "KITCHENDISPLAY": "Mutfak Ekranı1",
+    "KITCHENDISPLAY": "Mutfak Ekranı",
     "KITCHENDISPLAY2": "Mutfak Ekranı",
     "TABLESALE": "Masa Satışı",
     "DISPATCHER": "Sipariş Yönetimi",
@@ -1501,7 +1507,7 @@
     "WAREHOUSEINDEX": "Depo Kodu",
     "DIVISIONINDEX": "Bölüm",
     "CURRENTCOMPANYCODE": "Cari Hesap Kodu",
-    "CURRENTACCOUNTINCODE": "Cari Muhasebe Kodu",
+    "CURRENTACCOUNTINGCODE": "Cari Muhasebe Kodu",
     "TERMCODE": "Vade Kodu",
     "ACCODE": "Muhasebe Birim Kodu",
     "ACITEMCOD": "Stok Kodu",
@@ -2349,7 +2355,13 @@
     "PAYMENTORDERSOURCESTATS": "Sipariş Kaynağına Göre Dağılım",
     "STOREROUTINGTYPE": "Yönlendirme Tipi",
     "ORDERPAYMENTSCHECK":"Ödeme Karşılaştırma Raporu",
-    "STAFFORDERSREPORT": "Personel Sipariş Raporu"
+    "STAFFORDERSREPORT": "Personel Sipariş Raporu",
+    "LOYALTYREPORTS": "Sadakat",
+    "PUNCHCARDTRANSACTIONS": "Dilim Raporu",
+    "BONUSTRANSACTIONS": "Puan Detay Raporu",
+    "BONUSSTATS": "Bonus Durum Raporu",
+    "WEBUSERS": "Web Kullanıcıları",
+    "WEBREPORTS":"Web"
   },
   "topbar": {
     "messages": {
@@ -2710,7 +2722,13 @@
         "VOIDORDERSREPORT": "İptal Sipariş Raporu",
         "PRODUCTSALESSCOREBOARD": "Product Sales ScoreBoard",
         "ACTUALVSTHEORITICAL": "Actual vs Theoric",
-        "PROMOTIONANALISYS": "Promosyon Analizi"
+        "PROMOTIONANALISYS": "Promosyon Analizi",
+        "PUNCHCARDTRANSACTIONS": "Dilim Raporu",
+        "BONUSTRANSACTIONS": "Puan Detay Raporu",
+        "BONUSSTATS": "Bonus Durum Raporu",
+        "LOYALTYREPORTS": "Sadakat",
+        "WEBUSERS": "Web Kullanıcıları",
+        "WEBREPORTS":"Web"
       },
       "addresses": {
         "MAIN": "Adresler",
@@ -3146,6 +3164,7 @@
   },
   "clockiout":{
     "Started":"Başladı",
+    "EnrollFingerprint":"Parmak İzi Kaydet",
     "FingerPrint": "Parmak İzi kayıt işlemi başladı...",
     "Fingerreading":"Vardiya çıkışı için parmak okutunuz",
     "Fingerentry":"'Vardiya girişi için parmak okutunuz'",

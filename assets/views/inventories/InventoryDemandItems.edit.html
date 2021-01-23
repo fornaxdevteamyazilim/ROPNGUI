@@ -106,7 +106,7 @@
                             </span>
                         </td>
                         <td data-title="trUnitPrice" data-sortable="'UnitPrice'" width="25%">
-                            {{  item.UnitPrice | number : 2 }} TL
+                            {{  item.UnitPrice | number : 2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                         </td>
                         <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                             <form editable-form name="rowform" onaftersave="saveItemData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"

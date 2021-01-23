@@ -201,7 +201,7 @@
                     </span>
                 </td>
                 <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trOrderTotal">
-                    <span class="pull-right">{{ item.YemekSepetiOrder.YemekSepetiRawOrder.OrderTotal }} TL</span>
+                    <span class="pull-right">{{ item.YemekSepetiOrder.YemekSepetiRawOrder.OrderTotal }} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>
                 </td>
                 <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trPaymentType">
                     <span ng-if="item.YemekSepetiOrder.YemekSepetiRawOrder.PaymentMethodId == 1">Nakit</span>
@@ -290,7 +290,7 @@
                     {{ item.YemekSepetiOrderState}}
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <span class="pull-right">{{ item.YemekSepetiOrder.YemekSepetiRawOrder.OrderTotal }} TL</span>
+                    <span class="pull-right">{{ item.YemekSepetiOrder.YemekSepetiRawOrder.OrderTotal }} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>
                 </div>
             </div>
         </div>

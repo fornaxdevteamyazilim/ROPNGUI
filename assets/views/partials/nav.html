@@ -1825,6 +1825,62 @@
                     </li>
                 </ul>
             </li>
+            <li ng-if="user.restrictions.loyality=='Enable'">
+                <a href="javascript:void(0)">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-pencil-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="sidebar.nav.reports.LOYALTYREPORTS">Loyalty Reports</span><i class="icon-arrow"></i>
+                        </div>
+                    </div>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.loyalty.punchcardtransactions"
+                            ng-if="user.restrictions.punchcardtransactions=='Enable'">
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.PUNCHCARDTRANSACTIONS">PunchCard Transactions</span>
+                        </a>
+                    </li>     
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.loyalty.bonustransactions"
+                        ng-if="user.restrictions.bonustransactions=='Enable'">
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.BONUSTRANSACTIONS">Bonus Transactions</span>
+                        </a>
+                    </li>      
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.loyalty.bonusstats"
+                        ng-if="user.restrictions.bonusstats=='Enable'">
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.BONUSSTATS">Bonus Stats</span>
+                        </a>
+                    </li>                    
+                </ul>
+            </li>
+            <li ng-if="user.restrictions.webreports=='Enable'">
+                <a href="javascript:void(0)">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-pencil-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="sidebar.nav.reports.WEBREPORTS">Web</span><i class="icon-arrow"></i>
+                        </div>
+                    </div>
+                </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.web.webusers"
+                            ng-if="user.restrictions.webusersreport=='Enable'">
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.WEBUSERS">PunchCard Transactions</span>
+                        </a>
+                    </li>                         
+                </ul>
+            </li>
         </ul>
     </li>
 
@@ -1865,6 +1921,35 @@
                         translate="sidebar.nav.addresses.STREETADDRESS">Adresler</span>
                 </a>
             </li>
+        </ul>
+    </li>
+    <li ng-class="{'active open':$state.includes('app.aggregator')}" ng-if="user.restrictions.aggregator=='Enable'">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-location-pin"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="sidebar.nav.aggregator.MAIN"> Aggregator </span><i
+                        class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active" ng-if="user.restrictions.aggregatorsorders=='Enable'">
+                <a ui-sref="app.aggregators.orders">
+                    <i class="ti-location-pin"></i> <span class="title"
+                        translate="sidebar.nav.aggregator.orders">Orders</span>
+                </a>
+            </li>            
+        </ul>
+        <ul class="sub-menu">
+            <li ui-sref-active="active" ng-if="user.restrictions.aggregatorsmapping=='Enable'">
+                <a ui-sref="app.aggregators.mapping">
+                    <i class="ti-location-pin"></i> <span class="title"
+                        translate="sidebar.nav.aggregator.mapping">Mapping</span>
+                </a>
+            </li>            
         </ul>
     </li>
     <li ng-class="{'active open':$state.includes('app.mergeaddresses')}"

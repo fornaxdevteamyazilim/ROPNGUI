@@ -107,7 +107,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
     };
     $scope.SaveOpenOrders = function (data) {
         swal({
-            title: "Have we delivered the order ?",
+            title: "Mark order as delivered?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",

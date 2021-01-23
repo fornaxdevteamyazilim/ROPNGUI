@@ -108,7 +108,7 @@
                         <span>{{:refresh:orders.PaymentType.PaymentType.name}}</span>
                     </td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                        <span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{:refresh:orders.Amount | number:2}} TL</span>
+                        <span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{:refresh:orders.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>
                     </td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-uppercase">
@@ -144,7 +144,7 @@
                 </tr>
                 <tr class="margin-top-10" ng-repeat="payments in :refresh:item.payments">
                     <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{:: payments.PaymentType.name}}</td>
-                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{:refresh:payments.Amount | number:2}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> TL </span></td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{:refresh:payments.Amount | number:2}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> {{:: 'main.CURRENCY_SYMBOL' | translate}} </span></td>
                     <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{payments.Count}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> Adet</span></td>
                     <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><button class="btn btn-o btn-warning tooltips" ng-click="CloseSameTypeAcounts(item.orders, payments.PaymentType)" ng-disabled="Showspinner == true"><span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button></td>
                 </tr>
@@ -185,7 +185,7 @@
                         <span>{{:refresh:orders.PaymentType.PaymentType.name}}</span>
                     </td>
                     <td class="col-sm-1 col-xs-1">
-                        <span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{:refresh:orders.Amount | number:2}} TL</span>
+                        <span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{:refresh:orders.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>
                     </td>
                     <td class="col-sm-1 col-xs-1">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-uppercase">
@@ -221,7 +221,7 @@
                 </tr>
                 <tr class="margin-top-10" ng-repeat="payments in :refresh:item.payments">
                     <td class="col-sm-3 col-xs-3">{{:: payments.PaymentType.name}}</td>
-                    <td class="col-sm-3 col-xs-3"><span>{{:refresh:payments.Amount | number:2}}</span> TL</td>
+                    <td class="col-sm-3 col-xs-3"><span>{{:refresh:payments.Amount | number:2}}</span> {{:: 'main.CURRENCY_SYMBOL' | translate}}</td>
                     <td class="col-sm-3 col-xs-3"><span>{{payments.Count}}</span> Adet</td>
                     <td class="col-sm-3 col-xs-3"><button class="btn btn-o btn-warning tooltips" ng-click="CloseSameTypeAcounts(item.orders, payments.PaymentType)" ng-disabled="Showspinner == true"><span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button></td>
                 </tr>
@@ -245,7 +245,7 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10" ng-repeat="payments in :refresh:item.payments">
                     <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{:: payments.PaymentType.name}}</span>
-                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{:refresh:payments.Amount | number:2}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> TL </span></span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{:refresh:payments.Amount | number:2}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> {{:: 'main.CURRENCY_SYMBOL' | translate}} </span></span>
                     <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{payments.Count}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> Adet</span></span>
                 </div>
             </div>

@@ -213,12 +213,12 @@
                             <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.COUNTED' | translate}}</span></th>
                             <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.DIFFERENCE' | translate}}</span></th>
                             <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.DIFFERENCEPERCENT' | translate}} (%)</span></th>
-                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.PRICE' | translate}} (TL)</span></th>
+                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.PRICE' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                             <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.REALCOSTS' | translate}}</span></th>
-                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.IDEALCOSTS' | translate}} (TL) </span></th>
-                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.REALCOSTS' | translate}} (TL)</span></th>
-                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.DIFFERENCEAMOUNT' | translate}} (TL)</span></th>
-                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.WASTEUSAGE' | translate}} (TL)</span></th>
+                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.IDEALCOSTS' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}} </span></th>
+                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.REALCOSTS' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
+                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.DIFFERENCEAMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
+                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.WASTEUSAGE' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                             <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.WASTEUSAGE' | translate}} (%)</span></th>
                         </tr>
                         <tr ng-repeat="data in item.InventoryCompareDatas |orderBy: '+Inventory.name'" style="border-bottom:1px solid; font-size:13px;">
@@ -340,10 +340,10 @@
                                 {{'main.GENERALTOTAL' | translate}}
                             </span>
                         </td>
-                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{'main.IDEALCOSTS' | translate}} (TL) : {{TotalCalculatedPrice |abs | number:2}}</span></td>
-                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{'main.REALCOSTS' | translate}} (TL) : {{TotalRealCostsPrice | number:2 }}</span></td>
-                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{'main.DIFFERENCEAMOUNT' | translate}} (TL) : {{TotalAmount |number:2}}</span></td>
-                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{'main.WASTEUSAGE' | translate}} (TL) : {{TotalWasteUsage |abs | number : 2}}</span></td>
+                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{'main.IDEALCOSTS' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}} : {{TotalCalculatedPrice |abs | number:2}}</span></td>
+                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{'main.REALCOSTS' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}} : {{TotalRealCostsPrice | number:2 }}</span></td>
+                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{'main.DIFFERENCEAMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}} : {{TotalAmount |number:2}}</span></td>
+                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{'main.WASTEUSAGE' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}} : {{TotalWasteUsage |abs | number : 2}}</span></td>
                         <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{'main.WASTEUSAGE' | translate}} (%) : {{TotalWasteUsage / TotalRealCostsPrice |abs | number:2}}</span></td>
                     </tr>-->
                 </table>
@@ -363,10 +363,10 @@
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 margin-left-20"><span class="pull-right">{{'main.CALCULATED' | translate}} /<br /> {{'main.COUNTED' | translate}}</span></div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.DIFFERENCE' | translate}}</span></div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.DIFFERENCEPERCENT' | translate}} (%)</span></div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.PRICE' | translate}} (TL)</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.PRICE' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.REALCOSTS' | translate}}</span></div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.IDEALCOSTS' | translate}} (TL) /<br /> {{'main.REALCOSTS' | translate}} (TL)</span></div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.DIFFERENCEAMOUNT' | translate}} (TL)</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.IDEALCOSTS' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}} /<br /> {{'main.REALCOSTS' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.DIFFERENCEAMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="data in item.InventoryCompareDatas|orderBy: '+Inventory.name'" style="border-bottom:1px solid; font-size:10px;">
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-click="SelectItem(data)">
@@ -451,7 +451,7 @@
                     </span>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{TotalWasteUsage / TotalRealCostsPrice |abs | number:2}} %</span></div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{TotalWasteUsage |abs | number : 2}} TL</span></div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-dark pull-right">{{TotalWasteUsage |abs | number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></div>
             </div>
         </div>
     </div>

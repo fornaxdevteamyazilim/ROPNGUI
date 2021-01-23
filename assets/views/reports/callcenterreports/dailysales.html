@@ -57,7 +57,7 @@
                     </td>
                     <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <div>
-                            <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold" style="color:black;">{{item.OrdersAmount | number:2}} <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right">TL</label></label>
+                            <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold" style="color:black;">{{item.OrdersAmount | number:2}} <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right">{{:: 'main.CURRENCY_SYMBOL' | translate}}</label></label>
                         </div>
                     </td>
                 </tr>
@@ -71,7 +71,7 @@
                         <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold" style="color:black;">{{TotalOrders}} <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right" style="color:black;" translate="main.PIECE"></label></label>
                     </td>
                     <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold" style="color:black;">{{TotalAmount | number:2}} <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right" style="color:black;">TL</label></label>
+                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold" style="color:black;">{{TotalAmount | number:2}} <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right" style="color:black;">{{:: 'main.CURRENCY_SYMBOL' | translate}}</label></label>
                     </td>
                 </tr>
 

@@ -59,7 +59,9 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         // January 4 is always in week 1.
         var week1 = new Date(date.getFullYear(), 0, 4);
         // Adjust to Thursday in week 1 and count number of weeks from date to week1.
-        return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+        var result = 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+        return result > 52 ? 0 : result;
+        //return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
     }
     String.prototype.format = function () {
         var formatted = this;
@@ -133,11 +135,17 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
     }
     function GetNormalHours(startTime, endTime, isOff, IgnoreOvertime, userID) {
         if (isOff) return 0;
+        var lct = GetUserLabourCostType(userID);
+        if (lct && lct.maxWorkingHours < 7.5)
+            return CalcHours(startTime, endTime);
         var diff = GetMaxHours(CalcHours(startTime, endTime), true, userID);
         return diff - ((diff >= 7.5) ? 0.5 : 0);
     }
     function GetOvertimeHours(startTime, endTime, isOff, IgnoreOvertime, userID) {
         if (isOff || IgnoreOvertime) return 0;
+        var lct = GetUserLabourCostType(userID);
+        if (lct && lct.maxWorkingHours < 7.5)
+            return 0;
         var diff = CalcHours(startTime, endTime);
         return diff > GetMaxHours(diff, true, userID) ? diff - GetMaxHours(diff, true, userID) : 0;
     }
@@ -145,11 +153,18 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         // return (GetNormalHours(startTime, endTime, isOff, IgnoreOvertime, userID) +
         //     (GetOvertimeHours(startTime, endTime, isOff, IgnoreOvertime, userID) * 1.5))
         //     ;
+
         return (GetNormalHours(startTime, endTime, isOff, IgnoreOvertime, userID) +
             (GetOvertimeHours(startTime, endTime, isOff, IgnoreOvertime, userID) * 1.5)
             + GetOffPaidHours(userID, isOff, StaffOffTypeID)
         )
             * HourlyWage(StaffPositionID);
+    };
+    function GetDefaultOffHours(userID,TotalNormalHours) {
+        //return 0;
+        if (TotalNormalHours==0) return 0;
+        var h = GetUserMaxHours(userID);
+        return h - ((h >= 7.5) ? 0.5 : 0);
     };
     function GetOffPaidHours(userID, isOff, StaffOffTypeID) {
         if (!isOff) return 0;
@@ -157,7 +172,19 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         if (ot) {
             if (!ot.isPaid) return 0.0;
             var h = GetUserMaxHours(userID);
-            if (ot && (ot.isDefault && h < 7.5)) 
+            if (ot && (ot.isDefault && h < 7.5))
+                return 0.0; //Part time not paid for weekly off
+            return h - ((h >= 7.5) ? 0.5 : 0);
+        }
+        return 0.0;
+    };
+    function GetOffFreeHours(userID, isOff, StaffOffTypeID) {
+        if (!isOff) return 0;
+        var ot = $scope.GetOffType(StaffOffTypeID);
+        if (ot) {
+            if (ot.isPaid) return 0.0;
+            var h = GetUserMaxHours(userID);
+            if (ot && (ot.isDefault && h < 7.5))
                 return 0.0; //Part time not paid for weekly off
             return h - ((h >= 7.5) ? 0.5 : 0);
         }
@@ -191,6 +218,13 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         }
         return null;
     };
+    $scope.GetDefaultOffType = function () {
+        for (var i = 0; i < OffTypes.length; i++) {
+            if (OffTypes[i].isDefault)
+                return OffTypes[i];
+        }
+        return null;
+    };
 
     $scope.GetLaborCostTypeMaxHours = function (LaborCostTypeID) {
         if (LaborCostTypeID) {
@@ -221,8 +255,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
     GetUserLabourCostType = function (UserID) {
         if (UserID) {
             for (var i = 0; i < users.length; i++) {
-                if (users[i].id == UserID){
-                    return users[i].LaborCostType ?users[i].LaborCostType:GetLaborCostType(users[i].LaborCostTypeID);
+                if (users[i].id == UserID) {
+                    return users[i].LaborCostType ? users[i].LaborCostType : GetLaborCostType(users[i].LaborCostTypeID);
                 }
             }
         }
@@ -450,7 +484,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             StoreID: $scope.item.StoreID,
                             theYear: $scope.item.PeriodYear,
                             theWeek: $scope.item.PeriodWeek,
-                            AllPositions: false ,
+                            AllPositions: false,
                             ProductRelated: false,
                             ShowHourly: true
                         };
@@ -769,11 +803,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         rowAlternationEnabled: true,
         showBorders: true,
         allowColumnReordering: true,
-        filterRow: { visible: true },
+        //filterRow: { visible: true },
         //filterPanel: { visible: true },
-        headerFilter: { visible: true },
+        //headerFilter: { visible: true },
         grouping: { autoExpandAll: true },
-        searchPanel: { visible: true },
+        //searchPanel: { visible: true },
         groupPanel: { visible: true },
         columnChooser: { enabled: true },
         columnFixing: { enabled: true },
@@ -805,26 +839,20 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             { name: "Status_02", dataField: "Status_02", caption: "02", dataType: "number" },
             { name: "Status_03", dataField: "Status_03", caption: "03", dataType: "number" }
         ],
-        onCellPrepared: function (e) {
-
-            if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
-                var fieldData = e.value;
-                var fieldHtml = "";
-                if (fieldData != 0) {
-                    e.cellElement.addClass((fieldData <= 0) ? "inc" : "dec");
-                    // fieldHtml += "<div class='current-value'>" +
-                    //     e.row.data["Req_" + e.column.dataField.split("_")[1]];
-                    if (fieldData != 0)
-                        fieldHtml += "</div> <div class='diff'>" +
-                            Math.abs(fieldData.toFixed(2)) +
-                            "  </div>";
-                }
-                // else {
-                //     fieldHtml = e.row.data["Req_" + e.column.dataField.split("_")[1]];//fieldData.value;
-                // }
-                e.cellElement.html(fieldHtml);
-            }
-        },
+        // onCellPrepared: function (e) {
+        //     if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
+        //         var fieldData = e.value;
+        //         var fieldHtml = "";
+        //         if (fieldData != 0) {
+        //             e.cellElement.addClass((fieldData <= 0) ? "inc" : "dec");
+        //             if (fieldData != 0)
+        //                 fieldHtml += "</div> <div class='diff'>" +
+        //                     Math.abs(fieldData.toFixed(2)) +
+        //                     "  </div>";
+        //         }
+        //         e.cellElement.html(fieldHtml);
+        //     }
+        // },
         onDataErrorOccurred: function (e) {
             console.log(e.error);
         },
@@ -845,11 +873,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         rowAlternationEnabled: true,
         showBorders: true,
         allowColumnReordering: true,
-        filterRow: { visible: true },
+        //filterRow: { visible: true },
         //filterPanel: { visible: true },
-        headerFilter: { visible: true },
+        //headerFilter: { visible: true },
         grouping: { autoExpandAll: true },
-        searchPanel: { visible: true },
+        //searchPanel: { visible: true },
         groupPanel: { visible: true },
         columnChooser: { enabled: true },
         columnFixing: { enabled: true },
@@ -881,26 +909,21 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             { name: "Plan_02", dataField: "Plan_02", caption: "02", dataType: "number" },
             { name: "Plan_03", dataField: "Plan_03", caption: "03", dataType: "number" }
         ],
-        onCellPrepared: function (e) {
+        // onCellPrepared: function (e) {
 
-            if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
-                var fieldData = e.value;
-                var fieldHtml = "";
-                if (fieldData != 0) {
-                    e.cellElement.addClass((fieldData <= 0) ? "inc" : "dec");
-                    // fieldHtml += "<div class='current-value'>" +
-                    //     e.row.data["Req_" + e.column.dataField.split("_")[1]];
-                    if (fieldData != 0)
-                        fieldHtml += "</div> <div class='diff'>" +
-                            Math.abs(fieldData.toFixed(2)) +
-                            "  </div>";
-                }
-                // else {
-                //     fieldHtml = e.row.data["Req_" + e.column.dataField.split("_")[1]];//fieldData.value;
-                // }
-                e.cellElement.html(fieldHtml);
-            }
-        },
+        //     if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
+        //         var fieldData = e.value;
+        //         var fieldHtml = "";
+        //         if (fieldData != 0) {
+        //             e.cellElement.addClass((fieldData <= 0) ? "inc" : "dec");
+        //             if (fieldData != 0)
+        //                 fieldHtml += "</div> <div class='diff'>" +
+        //                     Math.abs(fieldData.toFixed(2)) +
+        //                     "  </div>";
+        //         }
+        //         e.cellElement.html(fieldHtml);
+        //     }
+        // },
         onDataErrorOccurred: function (e) {
             console.log(e.error);
         },
@@ -921,11 +944,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         rowAlternationEnabled: true,
         showBorders: true,
         allowColumnReordering: true,
-        filterRow: { visible: true },
+        //filterRow: { visible: true },
         //filterPanel: { visible: true },
-        headerFilter: { visible: true },
+        //headerFilter: { visible: true },
         grouping: { autoExpandAll: true },
-        searchPanel: { visible: true },
+        //searchPanel: { visible: true },
         groupPanel: { visible: true },
         columnChooser: { enabled: true },
         columnFixing: { enabled: true },
@@ -1028,11 +1051,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         rowAlternationEnabled: true,
         showBorders: true,
         allowColumnReordering: true,
-        filterRow: { visible: true },
+        //filterRow: { visible: true },
         //filterPanel: { visible: true },
-        headerFilter: { visible: true },
+        //headerFilter: { visible: true },
         grouping: { autoExpandAll: true },
-        searchPanel: { visible: true },
+        //searchPanel: { visible: true },
         groupPanel: { visible: true },
         columnChooser: { enabled: true },
         columnFixing: { enabled: true },
@@ -1135,11 +1158,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         rowAlternationEnabled: true,
         showBorders: true,
         allowColumnReordering: true,
-        filterRow: { visible: true },
+        //filterRow: { visible: true },
         //filterPanel: { visible: true },
-        headerFilter: { visible: true },
+        //headerFilter: { visible: true },
         grouping: { autoExpandAll: true },
-        searchPanel: { visible: true },
+        //searchPanel: { visible: true },
         groupPanel: { visible: true },
         columnChooser: { enabled: true },
         columnFixing: { enabled: true },
@@ -1171,25 +1194,22 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             { name: "Req_02", dataField: "Req_02", caption: "02", dataType: "number" },
             { name: "Req_03", dataField: "Req_03", caption: "03", dataType: "number" }
         ],
-        onCellPrepared: function (e) {
+        // onCellPrepared: function (e) {
 
-            if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
-                var fieldData = e.value;
-                var fieldHtml = "";
-                if (fieldData != 0) {
-                    e.cellElement.addClass((fieldData > 0) ? "inc" : "dec");
-                    fieldHtml += "<div class='current-value'>" +
-                        e.row.data["Req_" + e.column.dataField.split("_")[1]] +
-                        "</div> <div class='diff'>" +
-                        Math.abs(fieldData.toFixed(2)) +
-                        "  </div>";
-                }
-                /* else {
-                    fieldHtml = fieldData.value;
-                } */
-                e.cellElement.html(fieldHtml);
-            }
-        },
+        //     if (e.rowType == 'data' && e.column.name && e.column.name.length > 5 && e.column.name.substring(0, 6) == "Status") {
+        //         var fieldData = e.value;
+        //         var fieldHtml = "";
+        //         if (fieldData != 0) {
+        //             e.cellElement.addClass((fieldData > 0) ? "inc" : "dec");
+        //             fieldHtml += "<div class='current-value'>" +
+        //                 e.row.data["Req_" + e.column.dataField.split("_")[1]] +
+        //                 "</div> <div class='diff'>" +
+        //                 Math.abs(fieldData.toFixed(2)) +
+        //                 "  </div>";
+        //         }
+        //         e.cellElement.html(fieldHtml);
+        //     }
+        // },
         onDataErrorOccurred: function (e) {
             console.log(e.error);
         },
@@ -1210,11 +1230,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         rowAlternationEnabled: true,
         showBorders: true,
         allowColumnReordering: true,
-        filterRow: { visible: true },
+        //filterRow: { visible: true },
         //filterPanel: { visible: true },
-        headerFilter: { visible: true },
+        //headerFilter: { visible: true },
         grouping: { autoExpandAll: true },
-        searchPanel: { visible: true },
+        //searchPanel: { visible: true },
         groupPanel: { visible: true },
         columnChooser: { enabled: true },
         columnFixing: { enabled: true },
@@ -1317,11 +1337,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         rowAlternationEnabled: true,
         showBorders: true,
         allowColumnReordering: true,
-        filterRow: { visible: true },
+        //filterRow: { visible: true },
         //filterPanel: { visible: true },
-        headerFilter: { visible: true },
+        //headerFilter: { visible: true },
         grouping: { autoExpandAll: true },
-        searchPanel: { visible: true },
+        //searchPanel: { visible: true },
         groupPanel: { visible: true },
         columnChooser: { enabled: true },
         columnFixing: { enabled: true },
@@ -1424,11 +1444,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         rowAlternationEnabled: true,
         showBorders: true,
         allowColumnReordering: true,
-        filterRow: { visible: true },
+        //filterRow: { visible: true },
         //filterPanel: { visible: true },
-        headerFilter: { visible: true },
+        //headerFilter: { visible: true },
         grouping: { autoExpandAll: false },
-        searchPanel: { visible: true },
+        //searchPanel: { visible: true },
         groupPanel: { visible: true },
         columnChooser: { enabled: true },
         columnFixing: { enabled: true },
@@ -1550,6 +1570,63 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     ajaxOptions.headers = { Authorization: 'Bearer ' + authData.token, "Accept-Language": "tr-TR" };
                 }
             },
+            onLoaded: function (result) {
+                //result["333"]=33;// Your code goes here
+                //r = response.data;
+                for (var i = 0; i < result.length; i++) {
+                    var offNotExist = !(result[i].D1isOff || result[i].D2isOff || result[i].D3isOff || result[i].D4isOff || result[i].D5isOff || result[i].D6isOff || result[i].D7isOff);
+                    result[i]["NormalHours"] = 
+                        GetNormalHours(result[i].D1ShiftStart, result[i].D1ShiftEnd, result[i].D1isOff, result[i].D1IgnoreOvertime, result[i].NGUserID) +
+                        GetNormalHours(result[i].D2ShiftStart, result[i].D2ShiftEnd, result[i].D2isOff, result[i].D2IgnoreOvertime, result[i].NGUserID) +
+                        GetNormalHours(result[i].D3ShiftStart, result[i].D3ShiftEnd, result[i].D3isOff, result[i].D3IgnoreOvertime, result[i].NGUserID) +
+                        GetNormalHours(result[i].D4ShiftStart, result[i].D4ShiftEnd, result[i].D4isOff, result[i].D4IgnoreOvertime, result[i].NGUserID) +
+                        GetNormalHours(result[i].D5ShiftStart, result[i].D5ShiftEnd, result[i].D5isOff, result[i].D5IgnoreOvertime, result[i].NGUserID) +
+                        GetNormalHours(result[i].D6ShiftStart, result[i].D6ShiftEnd, result[i].D6isOff, result[i].D6IgnoreOvertime, result[i].NGUserID) +
+                        GetNormalHours(result[i].D7ShiftStart, result[i].D7ShiftEnd, result[i].D7isOff, result[i].D7IgnoreOvertime, result[i].NGUserID);// +
+                        //((offNotExist ? (GetDefaultOffHours()) : 0) * 1.5);
+                    result[i]["Paid"] = GetOffPaidHours(result[i].NGUserID, result[i].D1isOff, result[i].D1OffTypeID) +
+                        GetOffPaidHours(result[i].NGUserID, result[i].D2isOff, result[i].D2OffTypeID) +
+                        GetOffPaidHours(result[i].NGUserID, result[i].D3isOff, result[i].D3OffTypeID) +
+                        GetOffPaidHours(result[i].NGUserID, result[i].D4isOff, result[i].D4OffTypeID) +
+                        GetOffPaidHours(result[i].NGUserID, result[i].D5isOff, result[i].D5OffTypeID) +
+                        GetOffPaidHours(result[i].NGUserID, result[i].D6isOff, result[i].D6OffTypeID) +
+                        GetOffPaidHours(result[i].NGUserID, result[i].D7isOff, result[i].D7OffTypeID);
+                    result[i]["Free"] = GetOffFreeHours(result[i].NGUserID, result[i].D1isOff, result[i].D1OffTypeID) +
+                        GetOffFreeHours(result[i].NGUserID, result[i].D2isOff, result[i].D2OffTypeID) +
+                        GetOffFreeHours(result[i].NGUserID, result[i].D3isOff, result[i].D3OffTypeID) +
+                        GetOffFreeHours(result[i].NGUserID, result[i].D4isOff, result[i].D4OffTypeID) +
+                        GetOffFreeHours(result[i].NGUserID, result[i].D5isOff, result[i].D5OffTypeID) +
+                        GetOffFreeHours(result[i].NGUserID, result[i].D6isOff, result[i].D6OffTypeID) +
+                        GetOffFreeHours(result[i].NGUserID, result[i].D7isOff, result[i].D7OffTypeID);
+                    result[i]["OvertimeHours"] = GetOvertimeHours(result[i].D1ShiftStart, result[i].D1ShiftEnd, result[i].D1isOff, result[i].D1IgnoreOvertime, result[i].NGUserID) +
+                        GetOvertimeHours(result[i].D2ShiftStart, result[i].D2ShiftEnd, result[i].D2isOff, result[i].D2IgnoreOvertime, result[i].NGUserID) +
+                        GetOvertimeHours(result[i].D3ShiftStart, result[i].D3ShiftEnd, result[i].D3isOff, result[i].D3IgnoreOvertime, result[i].NGUserID) +
+                        GetOvertimeHours(result[i].D4ShiftStart, result[i].D4ShiftEnd, result[i].D4isOff, result[i].D4IgnoreOvertime, result[i].NGUserID) +
+                        GetOvertimeHours(result[i].D5ShiftStart, result[i].D5ShiftEnd, result[i].D5isOff, result[i].D5IgnoreOvertime, result[i].NGUserID) +
+                        GetOvertimeHours(result[i].D6ShiftStart, result[i].D6ShiftEnd, result[i].D6isOff, result[i].D6IgnoreOvertime, result[i].NGUserID) +
+                        GetOvertimeHours(result[i].D7ShiftStart, result[i].D7ShiftEnd, result[i].D7isOff, result[i].D7IgnoreOvertime, result[i].NGUserID) +
+                        ((offNotExist ? (GetDefaultOffHours(result[i].NGUserID,result[i]["NormalHours"])) : 0));
+                    result[i]["Monday"] = (result[i].D1isOff) ? $scope.GetOffTypeName(result[i].D1OffTypeID) : [result[i].D1ShiftStart, result[i].D1ShiftEnd].join("-") + " " + SumHoursStr(result[i].D1ShiftStart, result[i].D1ShiftEnd, result[i].D1isOff, result[i].D1IgnoreOvertime, result[i].NGUserID);
+                    result[i]["Tuesday"] = (result[i].D2isOff) ? $scope.GetOffTypeName(result[i].D2OffTypeID) : [result[i].D2ShiftStart, result[i].D2ShiftEnd].join("-") + " " + SumHoursStr(result[i].D2ShiftStart, result[i].D2ShiftEnd, result[i].D2isOff, result[i].D2IgnoreOvertime, result[i].NGUserID);
+                    result[i]["Wednesday"] = (result[i].D3isOff) ? $scope.GetOffTypeName(result[i].D3OffTypeID) : [result[i].D3ShiftStart, result[i].D3ShiftEnd].join("-") + " " + SumHoursStr(result[i].D3ShiftStart, result[i].D3ShiftEnd, result[i].D3isOff, result[i].D3IgnoreOvertime, result[i].NGUserID);
+                    result[i]["Thursday"] = (result[i].D4isOff) ? $scope.GetOffTypeName(result[i].D4OffTypeID) : [result[i].D4ShiftStart, result[i].D4ShiftEnd].join("-") + " " + SumHoursStr(result[i].D4ShiftStart, result[i].D4ShiftEnd, result[i].D4isOff, result[i].D4IgnoreOvertime, result[i].NGUserID);
+                    result[i]["Friday"] = (result[i].D5isOff) ? $scope.GetOffTypeName(result[i].D5OffTypeID) : [result[i].D5ShiftStart, result[i].D5ShiftEnd].join("-") + " " + SumHoursStr(result[i].D5ShiftStart, result[i].D5ShiftEnd, result[i].D5isOff, result[i].D5IgnoreOvertime, result[i].NGUserID);
+                    result[i]["Saturday"] = (result[i].D6isOff) ? $scope.GetOffTypeName(result[i].D6OffTypeID) : [result[i].D6ShiftStart, result[i].D6ShiftEnd].join("-") + " " + SumHoursStr(result[i].D6ShiftStart, result[i].D6ShiftEnd, result[i].D6isOff, result[i].D6IgnoreOvertime, result[i].NGUserID);
+                    result[i]["Sunday"] = (result[i].D7isOff) ? $scope.GetOffTypeName(result[i].D7OffTypeID) : [result[i].D7ShiftStart, result[i].D7ShiftEnd].join("-") + " " + SumHoursStr(result[i].D7ShiftStart, result[i].D7ShiftEnd, result[i].D7isOff, result[i].D7IgnoreOvertime, result[i].NGUserID);
+                    result[i]["TotalAmount"] = LaborCost(result[i].D1ShiftStart, result[i].D1ShiftEnd, result[i].D1isOff, result[i].D1IgnoreOvertime, result[i].NGUserID, result[i].StaffPositionID, result[i].D1OffTypeID) +
+                        LaborCost(result[i].D2ShiftStart, result[i].D2ShiftEnd, result[i].D2isOff, result[i].D2IgnoreOvertime, result[i].NGUserID, result[i].StaffPositionID, result[i].D2OffTypeID) +
+                        LaborCost(result[i].D3ShiftStart, result[i].D3ShiftEnd, result[i].D3isOff, result[i].D3IgnoreOvertime, result[i].NGUserID, result[i].StaffPositionID, result[i].D3OffTypeID) +
+                        LaborCost(result[i].D4ShiftStart, result[i].D4ShiftEnd, result[i].D4isOff, result[i].D4IgnoreOvertime, result[i].NGUserID, result[i].StaffPositionID, result[i].D4OffTypeID) +
+                        LaborCost(result[i].D5ShiftStart, result[i].D5ShiftEnd, result[i].D5isOff, result[i].D5IgnoreOvertime, result[i].NGUserID, result[i].StaffPositionID, result[i].D5OffTypeID) +
+                        LaborCost(result[i].D6ShiftStart, result[i].D6ShiftEnd, result[i].D6isOff, result[i].D6IgnoreOvertime, result[i].NGUserID, result[i].StaffPositionID, result[i].D6OffTypeID) +
+                        LaborCost(result[i].D7ShiftStart, result[i].D7ShiftEnd, result[i].D7isOff, result[i].D7IgnoreOvertime, result[i].NGUserID, result[i].StaffPositionID, result[i].D7OffTypeID)
+                        + (offNotExist ? (GetDefaultOffHours(result[i].NGUserID,result[i]["NormalHours"]) * 1.5 * HourlyWage(result[i].StaffPositionID)) : 0);
+                    result[i]["Wage"] = HourlyWage(result[i].StaffPositionID);
+
+                }
+
+            },
+            loadParams: { filter: JSON.stringify(["ShiftPlanID", "=", $stateParams.id]) },
             // errorHandler: function(e) {
             //     console.log('hit');
             // },
@@ -1560,7 +1637,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                 toaster.pop('error', obj.Message, obj.ExceptionMessage);
             }
         }),
-        filterValue: ["ShiftPlanID", "=", $stateParams.id],
+        //filterValue: ["ShiftPlanID", "=", $stateParams.id],
         showBorders: true,
         allowColumnResizing: true,
         columnAutoWidth: true,
@@ -1573,7 +1650,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         //filterPanel: { visible: true },
         //headerFilter: { visible: true },
         grouping: { autoExpandAll: true },
-        searchPanel: { visible: true },
+        //searchPanel: { visible: true },
         //groupPanel: { visible: true },
         editing: {
             allowAdding: true,
@@ -1605,7 +1682,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     itemType: "group",
                     colCount: 6,
                     colSpan: 2,
-                    items: ["D2ShiftStart", "D2ShiftEnd", "D2isOff", { colSpan: 2, dataField: "D2OffTypeID" }, "D2IgnoreOvertime"]
+                    items: ["D3ShiftStart", "D2ShiftEnd", "D2isOff", { colSpan: 2, dataField: "D2OffTypeID" }, "D2IgnoreOvertime"]
                 },
                 {
                     itemType: "group",
@@ -1740,6 +1817,10 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             }
 
                         },
+                        validationRules: [{
+                            type: "required",
+                            message: "Possition is required"
+                        }],
                         calculateSortValue: function (data) {
                             var value = this.calculateCellValue(data);
                             return this.lookup.calculateCellValue(value);
@@ -1747,6 +1828,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     },
                     {
                         dataField: "NGUserID",
+                        name: "NGUserIDHidden",
                         caption: $scope.trNGUser,
                         visible: false,
                         editable: true,
@@ -1773,7 +1855,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return item && item.FullName + ((item.LaborCostType) ? (' (' + item.LaborCostType.Name) + ') ' : '')
                                     + ((item.Store) ? ('[' + item.Store.name + ']') : '');
                             },
-                        }
+                        },
+                        validationRules: [{
+                            type: "required",
+                            message: "Staff is required"
+                        }]
                     },
 
                     {
@@ -1841,6 +1927,13 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return this.lookup.calculateCellValue(value);
                             }
                         },
+                        validationRules: [{
+                            type: "custom",
+                            validationCallback: function (e) {
+                                return (!(e.data.D1isOff && e.value == null));
+                            },
+                            message: "Off Type is expected"
+                        }]
                     },
                     {
                         dataField: "D1ShiftStart",
@@ -1895,6 +1988,13 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return this.lookup.calculateCellValue(value);
                             }
                         },
+                        validationRules: [{
+                            type: "custom",
+                            validationCallback: function (e) {
+                                return (!(e.data.D2isOff && e.value == null));
+                            },
+                            message: "Off Type is expected"
+                        }]
                     },
                     {
                         dataField: "D2ShiftStart",
@@ -1948,6 +2048,13 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return this.lookup.calculateCellValue(value);
                             }
                         },
+                        validationRules: [{
+                            type: "custom",
+                            validationCallback: function (e) {
+                                return (!(e.data.D3isOff && e.value == null));
+                            },
+                            message: "Off Type is expected"
+                        }]
                     },
                     {
                         dataField: "D3ShiftStart",
@@ -2000,6 +2107,13 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return this.lookup.calculateCellValue(value);
                             }
                         },
+                        validationRules: [{
+                            type: "custom",
+                            validationCallback: function (e) {
+                                return (!(e.data.D4isOff && e.value == null));
+                            },
+                            message: "Off Type is expected"
+                        }]
                     },
                     {
                         dataField: "D4ShiftStart",
@@ -2052,6 +2166,13 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return this.lookup.calculateCellValue(value);
                             }
                         },
+                        validationRules: [{
+                            type: "custom",
+                            validationCallback: function (e) {
+                                return (!(e.data.D5isOff && e.value == null));
+                            },
+                            message: "Off Type is expected"
+                        }]
                     },
                     {
                         dataField: "D5ShiftStart",
@@ -2104,6 +2225,13 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return this.lookup.calculateCellValue(value);
                             }
                         },
+                        validationRules: [{
+                            type: "custom",
+                            validationCallback: function (e) {
+                                return (!(e.data.D6isOff && e.value == null));
+                            },
+                            message: "Off Type is expected"
+                        }]
                     },
                     {
                         dataField: "D6ShiftStart",
@@ -2156,6 +2284,13 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 return this.lookup.calculateCellValue(value);
                             }
                         },
+                        validationRules: [{
+                            type: "custom",
+                            validationCallback: function (e) {
+                                return (!(e.data.D7isOff && e.value == null));
+                            },
+                            message: "Off Type is expected"
+                        }]
                     },
                     {
                         dataField: "D7ShiftStart",
@@ -2177,186 +2312,70 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             rowData.D7OffTypeID = null;
                         }
                     },
-                    {
-                        dataField: "D7IgnoreOvertime", caption: $scope.trIgnoreOvertime, visible: false, dataType: "boolean"
-                    },
-                    {
-                        caption: $scope.trD1ShiftStart,
-                        name: "Monday",
-                        visibleIndex: 5,
-                        calculateCellValue: function (data) {
-                            if (data.D1isOff)
-                                return $scope.GetOffTypeName(data.D1OffTypeID);
-                            return [data.D1ShiftStart,
-                            data.D1ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime, data.NGUserID);
-                        }
-                    },
-                    {
-                        caption: $scope.trD2ShiftStart,
-                        name: "Tuesday",
-                        visibleIndex: 6,
-                        calculateCellValue: function (data) {
-                            if (data.D2isOff)
-                                return $scope.GetOffTypeName(data.D2OffTypeID);
-                            return [data.D2ShiftStart,
-                            data.D2ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime, data.NGUserID);
-                        }
-                    },
-                    {
-                        caption: $scope.trD3ShiftStart,
-                        name: "Wednesday",
-                        visibleIndex: 7,
-                        calculateCellValue: function (data) {
-                            if (data.D3isOff)
-                                return $scope.GetOffTypeName(data.D3OffTypeID);
-                            return [data.D3ShiftStart,
-                            data.D3ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime, data.NGUserID);
-                        }
-                    },
-                    {
-                        caption: $scope.trD4ShiftStart,
-                        name: "Thursday",
-                        visibleIndex: 8,
-                        calculateCellValue: function (data) {
-                            if (data.D4isOff)
-                                return $scope.GetOffTypeName(data.D4OffTypeID);
-                            return [data.D4ShiftStart,
-                            data.D4ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime, data.NGUserID);
-                        }
-                    },
-                    {
-                        caption: $scope.trD5ShiftStart,
-                        name: "Friday",
-                        visibleIndex: 9,
-                        calculateCellValue: function (data) {
-                            if (data.D5isOff)
-                                return $scope.GetOffTypeName(data.D5OffTypeID);
-                            return [data.D5ShiftStart,
-                            data.D5ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime, data.NGUserID);
-                        }
-                    },
-                    {
-                        caption: $scope.trD6ShiftStart,
-                        name: "Saturday",
-                        visibleIndex: 10,
-                        calculateCellValue: function (data) {
-                            if (data.D6isOff)
-                                return $scope.GetOffTypeName(data.D6OffTypeID);
-                            return [data.D6ShiftStart,
-                            data.D6ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime, data.NGUserID);
-                        }
-                    },
-                    {
-                        caption: $scope.trD7ShiftStart,
-                        name: "Sunday",
-                        visibleIndex: 11,
-                        calculateCellValue: function (data) {
-                            if (data.D7isOff)
-                                return $scope.GetOffTypeName(data.D7OffTypeID);
-                            return [data.D7ShiftStart,
-                            data.D7ShiftEnd]
-                                .join("-") + " " + SumHoursStr(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime, data.NGUserID);
-                        }
-                    },
+                    { dataField: "D7IgnoreOvertime", caption: $scope.trIgnoreOvertime, visible: false, dataType: "boolean" },
+                    { caption: $scope.trD1ShiftStart, name: "Monday", dataField: "Monday", visibleIndex: 5 },
+                    { caption: $scope.trD2ShiftStart, name: "Tuesday", dataField: "Tuesday", visibleIndex: 6 },
+                    { caption: $scope.trD3ShiftStart, name: "Wednesday", dataField: "Wednesday", visibleIndex: 7 },
+                    { caption: $scope.trD4ShiftStart, name: "Thursday", dataField: "Thursday", visibleIndex: 8 },
+                    { caption: $scope.trD5ShiftStart, name: "Friday", dataField: "Friday", visibleIndex: 9 },
+                    { caption: $scope.trD6ShiftStart, name: "Saturday", dataField: "Saturday", visibleIndex: 10 },
+                    { caption: $scope.trD7ShiftStart, name: "Sunday", dataField: "Sunday", visibleIndex: 11 },
                     {
                         caption: $scope.trTotalHours,
                         name: "NormalHours",
+                        dataField: "NormalHours",
                         visibleIndex: 12,
-                        calculateCellValue: function (data) {
-                            return GetNormalHours(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime, data.NGUserID) +
-                                GetNormalHours(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime, data.NGUserID) +
-                                GetNormalHours(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime, data.NGUserID) +
-                                GetNormalHours(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime, data.NGUserID) +
-                                GetNormalHours(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime, data.NGUserID) +
-                                GetNormalHours(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime, data.NGUserID) +
-                                GetNormalHours(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime, data.NGUserID);
-                        },
                         format: { type: "fixedPoint", precision: 2 }
                     },
-                    // {
-                    //     caption: "PaidoffHours" ,
-                    //     name: "PaidoffHours",
-                    //     visibleIndex: 12,
-                    //     calculateCellValue: function (data) {
-                    //         return GetOffPaidHours(data.NGUserID, data.D1isOff, data.D1OffTypeID)+
-                    //         GetOffPaidHours(data.NGUserID, data.D2isOff, data.D2OffTypeID) +
-                    //         GetOffPaidHours(data.NGUserID, data.D3isOff, data.D3OffTypeID) +
-                    //         GetOffPaidHours(data.NGUserID, data.D4isOff, data.D4OffTypeID) +
-                    //         GetOffPaidHours(data.NGUserID, data.D5isOff, data.D5OffTypeID) +
-                    //         GetOffPaidHours(data.NGUserID, data.D6isOff, data.D6OffTypeID) +
-                    //         GetOffPaidHours(data.NGUserID, data.D7isOff, data.D7OffTypeID) ;
-                    //     },
-                    //     format: { type: "fixedPoint", precision: 2 }
-                    // },
+                    {
+                        caption: "Vacations",
+                        name: "vacations",
+                        columns: [
+                            {
+                                caption: "Paid",
+                                name: "Paid",
+                                dataField: "Paid",
+                                format: { type: "fixedPoint", precision: 2 }
+                            },
+                            {
+                                caption: "Free",
+                                name: "Free",
+                                dataField: "Free",
+                                format: { type: "fixedPoint", precision: 2 }
+                            }]
+                    },
                     //GetOffPaidHours(userID, isOff, StaffOffTypeID)
                     {
                         caption: $scope.trOvertime,
                         name: "OvertimeHours",
-                        visibleIndex: 13,
-                        calculateCellValue: function (data) {
-                            return GetOvertimeHours(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime, data.NGUserID) +
-                                GetOvertimeHours(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime, data.NGUserID) +
-                                GetOvertimeHours(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime, data.NGUserID) +
-                                GetOvertimeHours(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime, data.NGUserID) +
-                                GetOvertimeHours(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime, data.NGUserID) +
-                                GetOvertimeHours(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime, data.NGUserID) +
-                                GetOvertimeHours(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime, data.NGUserID);
-                        },
+                        dataField: "OvertimeHours",
+                        format: { type: "fixedPoint", precision: 2 }
+                    },
+                    {
+                        caption: "Wage",
+                        name: "Wage",
+                        dataField: "Wage",
+                        visible:false,
                         format: { type: "fixedPoint", precision: 2 }
                     },
                     {
                         caption: $scope.trTotalAmount,
                         name: "TotalAmount",
-                        visibleIndex: 14,
-                        calculateCellValue: function (data) {
-                            return LaborCost(data.D1ShiftStart, data.D1ShiftEnd, data.D1isOff, data.D1IgnoreOvertime, data.NGUserID, data.StaffPositionID, data.D1OffTypeID) +
-                                LaborCost(data.D2ShiftStart, data.D2ShiftEnd, data.D2isOff, data.D2IgnoreOvertime, data.NGUserID, data.StaffPositionID, data.D2OffTypeID) +
-                                LaborCost(data.D3ShiftStart, data.D3ShiftEnd, data.D3isOff, data.D3IgnoreOvertime, data.NGUserID, data.StaffPositionID, data.D3OffTypeID) +
-                                LaborCost(data.D4ShiftStart, data.D4ShiftEnd, data.D4isOff, data.D4IgnoreOvertime, data.NGUserID, data.StaffPositionID, data.D4OffTypeID) +
-                                LaborCost(data.D5ShiftStart, data.D5ShiftEnd, data.D5isOff, data.D5IgnoreOvertime, data.NGUserID, data.StaffPositionID, data.D5OffTypeID) +
-                                LaborCost(data.D6ShiftStart, data.D6ShiftEnd, data.D6isOff, data.D6IgnoreOvertime, data.NGUserID, data.StaffPositionID, data.D6OffTypeID) +
-                                LaborCost(data.D7ShiftStart, data.D7ShiftEnd, data.D7isOff, data.D7IgnoreOvertime, data.NGUserID, data.StaffPositionID, data.D7OffTypeID);
-                        },
+                        dataField: "TotalAmount",
                         format: { type: "fixedPoint", precision: 2 }
                     },
+                    
                 ]
             }
         ],
         summary: {
             totalItems: [
-                {
-                    column: "NormalHours",
-                    name: "NormalHours",
-                    summaryType: "sum",
-                    valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}"
-                    //, summaryType: "custom"
-                    //    , valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" 
-                },
-                {
-                    column: "OvertimeHours",
-                    name: "OvertimeHours",
-                    summaryType: "sum",
-                    valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}"
-                    //, summaryType: "custom"
-                    //    , valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" 
-                },
-
-                {
-                    column: "TotalAmount",
-                    name: "TotalAmount",
-                    summaryType: "sum",
-                    valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}"
-                    //, summaryType: "custom"
-                    //    , valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" 
-                },
+                { column: "Paid", name: "paid", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                { column: "Free", name: "free", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                { column: "NormalHours", name: "NormalHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                { column: "OvertimeHours", name: "OvertimeHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                { column: "TotalAmount", name: "TotalAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
                 { name: "GrandTotal", showInColumn: "TotalAmount", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "+TC:{0}" },
-
                 { name: "StaffD1", showInColumn: "Monday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Staff:{0}" },
                 { name: "StaffD2", showInColumn: "Tuesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Staff:{0}" },
                 { name: "StaffD3", showInColumn: "Wednesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Staff:{0}" },
@@ -2384,7 +2403,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                 { name: "TX_4", showInColumn: "Thursday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Del TC:{0}" },
                 { name: "TX_5", showInColumn: "Friday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Del TC:{0}" },
                 { name: "TX_6", showInColumn: "Saturday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Del TC:{0}" },
-                { name: "TX_7", showInColumn: "Sunday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Del TC:{0}" }, 
+                { name: "TX_7", showInColumn: "Sunday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Del TC:{0}" },
                 { name: "LaborD1", showInColumn: "Monday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Cost:{0}" },
                 { name: "LaborD2", showInColumn: "Tuesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Cost:{0}" },
                 { name: "LaborD3", showInColumn: "Wednesday", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "Cost:{0}" },
@@ -2856,16 +2875,18 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             options.totalValue = 0;
                             break;
                         case "calculate":
-                            options.totalValue += (LaborCost(options.value.D1ShiftStart, options.value.D1ShiftEnd, options.value.D1isOff, options.value.D1IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D1OffTypeID) +
-                                LaborCost(options.value.D2ShiftStart, options.value.D2ShiftEnd, options.value.D2isOff, options.value.D2IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D2OffTypeID) +
-                                LaborCost(options.value.D3ShiftStart, options.value.D3ShiftEnd, options.value.D3isOff, options.value.D3IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D3OffTypeID) +
-                                LaborCost(options.value.D4ShiftStart, options.value.D4ShiftEnd, options.value.D4isOff, options.value.D4IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D4OffTypeID) +
-                                LaborCost(options.value.D5ShiftStart, options.value.D5ShiftEnd, options.value.D5isOff, options.value.D5IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D5OffTypeID) +
-                                LaborCost(options.value.D6ShiftStart, options.value.D6ShiftEnd, options.value.D6isOff, options.value.D6IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D6OffTypeID) +
-                                LaborCost(options.value.D7ShiftStart, options.value.D7ShiftEnd, options.value.D7isOff, options.value.D7IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D7OffTypeID));
+                            options.totalValue += options.value.TotalAmount
+                            // (LaborCost(options.value.D1ShiftStart, options.value.D1ShiftEnd, options.value.D1isOff, options.value.D1IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D1OffTypeID) +
+                            // LaborCost(options.value.D2ShiftStart, options.value.D2ShiftEnd, options.value.D2isOff, options.value.D2IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D2OffTypeID) +
+                            // LaborCost(options.value.D3ShiftStart, options.value.D3ShiftEnd, options.value.D3isOff, options.value.D3IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D3OffTypeID) +
+                            // LaborCost(options.value.D4ShiftStart, options.value.D4ShiftEnd, options.value.D4isOff, options.value.D4IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D4OffTypeID) +
+                            // LaborCost(options.value.D5ShiftStart, options.value.D5ShiftEnd, options.value.D5isOff, options.value.D5IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D5OffTypeID) +
+                            // LaborCost(options.value.D6ShiftStart, options.value.D6ShiftEnd, options.value.D6isOff, options.value.D6IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D6OffTypeID) +
+                            // LaborCost(options.value.D7ShiftStart, options.value.D7ShiftEnd, options.value.D7isOff, options.value.D7IgnoreOvertime, options.value.NGUserID, options.value.StaffPositionID, options.value.D7OffTypeID));
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue + (GetTXWage(1) + GetTXWage(2) + GetTXWage(3) + GetTXWage(4) + GetTXWage(5) + GetTXWage(6) + GetTXWage(7))
+                            //options.totalValue =  (GetTXWage(1) + GetTXWage(2) + GetTXWage(3) + GetTXWage(4) + GetTXWage(5) + GetTXWage(6) + GetTXWage(7))
                             break;
                     }
                 }

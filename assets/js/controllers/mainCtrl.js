@@ -351,7 +351,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
         var OrderRefresh = $scope.$on('ServerTime', function (event, data) {
             if ($rootScope.OrderCount > 0)
                 $scope.GetNewOrderCount();
-            if ($rootScope.YSOrderCount > 0 || $rootScope.user.restrictions.ysorder == 'Enable')
+            if ($rootScope.YSOrderCount > 0 && $rootScope.user.restrictions.ysorder == 'Enable')
                 $scope.getNewYSOrder();
         });
         $scope.getNewYSOrder();

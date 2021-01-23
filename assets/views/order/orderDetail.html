@@ -482,7 +482,7 @@
                     </span>
                 </div>
                 <span class="col-lg-8 col-md-9 col-sm-10 col-xs-10">
-                    <span class="text-large pull-right margin-top-15 margin-left-5"> <label translate="main.GRANDTOTAL"></label> : <label class="margin-left-5"> {{ item.Amount | number : 2}} TL</label></span>
+                    <span class="text-large pull-right margin-top-15 margin-left-5"> <label translate="main.GRANDTOTAL"></label> : <label class="margin-left-5"> {{ item.Amount | number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label></span>
                 </span>
             </div>
         </fieldset>
@@ -545,8 +545,8 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize" ng-repeat="payment in item.payments track by payment.id">
                     <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4 text text-bold text-extra-large">{{:: payment.PaymentType}}</span>
                     <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: payment.PaymentDate  | date:'HH:mm:ss dd-MM-yyyy'}}</span>
-                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: payment.Amount | number:2}} TL</span>
-                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4" ng-if="payment.isAutomatic == true"><span class="text-bold">OKC</span></span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4">{{:: payment.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span>
+                    <span class="col-lg-2 col-md-2 col-sm-4 col-xs-4" ng-if="payment.isAutomatic == true"><span class="text-bold">ECR</span></span>
                 </div>
             </div>
         </fieldset>

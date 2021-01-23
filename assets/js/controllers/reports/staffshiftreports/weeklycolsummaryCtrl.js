@@ -44,7 +44,7 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
             value: "startWeek"
         },
         min: 1,
-        max: 52,
+        max: 53,
         showSpinButtons: true
     };
 
@@ -53,7 +53,7 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
             value: "endWeek"
         },
         min: 1,
-        max: 52,
+        max: 53,
         showSpinButtons: true
     };
     $scope.reportButtonOptions = {
@@ -108,7 +108,7 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
         //filterRow: { visible: true },
         //filterPanel: { visible: true },
         headerFilter: { visible: true },
-        grouping: { autoExpandAll: true },
+        grouping: { autoExpandAll: false,contextMenuEnabled: true,expandMode:'rowClick' },
         searchPanel: { visible: true },
         groupPanel: { visible: true },
         columnChooser: { enabled: true },
@@ -423,6 +423,7 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                     { dataField: "DriveCost", caption: "Drive Cost", name: "DriveCost", format: { type: "fixedPoint", precision: 0 } },
                 ]
             },
+            { dataField: "ProjectedPayedOffCOL", caption: "PayedOff COL", name: "PayedOffCOL", format: { type: "fixedPoint", precision: 0 } }
         ],
         summary: {
             totalItems: [{ column: "Store", summaryType: "count", displayFormat: "{0}" },
@@ -441,7 +442,8 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
             //{ column: "TotalActualPercent", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { name: "TotalActualPercent", showInColumn: "TotalActualPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { name: "TotalProjectedPercent", showInColumn: "TotalProjectedPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            { column: "TotalVariancePercent", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+            { name: "TotalVariancePercent", showInColumn: "TotalVariancePercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+            //{ column: "TotalVariancePercent", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { column: "ActualOwertimeCOL", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "ActualOwertimeHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "ProjectedOverTimeCOL", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
@@ -450,6 +452,7 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
             { column: "OvertimeCostVariance", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "DeliveredOrders", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
             { column: "DriveCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
+            { column: "PayedOffCOL", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
             { column: "ProjectedManagerHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "ActualManagerHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "ProjectedTeamMemberHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
@@ -481,7 +484,7 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                 // { column: "TotalProjectedPercent", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { name: "TotalActualPercent", showInColumn: "TotalActualPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { name: "TotalProjectedPercent", showInColumn: "TotalProjectedPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" , alignByColumn: true},
-                { column: "TotalVariancePercent", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "TotalVariancePercent", showInColumn: "TotalVariancePercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" , alignByColumn: true },
                 { column: "ActualOwertimeCOL", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "ActualOwertimeHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "ProjectedOverTimeHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
@@ -490,6 +493,7 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                 { column: "OvertimeCostVariance", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "DeliveredOrders", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "DriveCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "PayedOffCOL", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "ProjectedManagerHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "ActualManagerHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "ProjectedTeamMemberHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
@@ -521,6 +525,22 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                             break;
                     }
                 }
+                if (options.name === "TotalActualPercent") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.TCOL=0;
+                            options.TOTALSALES=0;
+                            break;
+                        case "calculate":
+                            options.TCOL=options.TCOL+options.value.TotalActualCOL;
+                            options.TOTALSALES=options.TOTALSALES+options.value.AcualSales;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.TCOL/options.TOTALSALES;
+                            break;
+                    }
+                }
                 if (options.name === "TotalProjectedPercent") {
                     switch (options.summaryProcess) {
                         case "start":
@@ -530,13 +550,35 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                             break;
                         case "calculate":
                             options.TCOL=options.TCOL+options.value.TotalProjectedCOL;
-                            options.TOTALSALES=options.TOTALSALES+options.value.AcualSales;
+                            options.TOTALSALES=options.TOTALSALES+options.value.ProjectedSales;
                             break;
                         case "finalize":
                             options.totalValue = options.TCOL/options.TOTALSALES;
                             break;
                     }
                 }
+                if (options.name === "TotalVariancePercent") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.TCOL=0;
+                            options.TOTALSALES=0;
+                            options.PTCOL=0;
+                            options.PTOTALSALES=0;
+                            break;
+                        case "calculate":
+                            options.TCOL=options.TCOL+options.value.TotalActualCOL;
+                            options.TOTALSALES=options.TOTALSALES+options.value.AcualSales;
+                            options.PTCOL=options.PTCOL+options.value.TotalProjectedCOL;
+                            options.PTOTALSALES=options.PTOTALSALES+options.value.ProjectedSales;
+                            //(data.TotalActualCOL / data.AcualSales) - (data.TotalProjectedCOL / data.ProjectedSales)
+                            break;
+                        case "finalize":
+                            options.totalValue = (options.TCOL/options.TOTALSALES)-(options.PTCOL/options.PTOTALSALES);
+                            break;
+                    }
+                }
+                //TotalVariancePercent
                 if (options.name === "ProjectedManagerPercent") {
                     switch (options.summaryProcess) {
                         case "start":

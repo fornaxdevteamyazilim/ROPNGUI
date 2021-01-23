@@ -80,7 +80,7 @@
                     </td>
                     <td data-title="trAmount" data-sortable="'Amount'" width="20%">
                         <span editable-number="data.Amount" e-name="Amount" e-form="rowform" e-ng-model="data.Amount" e-style="width:20vw;">
-                            {{  data.Amount  | number : 2 }} TL
+                            {{  data.Amount  | number : 2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                         </span>
                     </td>         
                     <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">

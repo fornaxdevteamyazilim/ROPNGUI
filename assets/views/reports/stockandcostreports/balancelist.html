@@ -203,8 +203,8 @@
                         <th class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><span class="pull-right">{{'main.EXITED' | translate}}</span></th>
                         <th class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><span class="pull-right">{{'main.CALCULATED' | translate}}</span></th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.COUNTED' | translate}}</span></th>
-                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.PRICE' | translate}} (TL)</span></th>
-                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.AMOUNT' | translate}} (TL)</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.PRICE' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.AMOUNT' | translate}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></th>
                     </tr>
                     <tr ng-repeat="data in item.InventoryCompareDatas |orderBy: '+Inventory.name'" style="border-bottom:1px solid; font-size:13px;">
                         <td class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-uppercase">

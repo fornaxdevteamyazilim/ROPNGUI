@@ -35,7 +35,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
             customizeTooltip: function (args) {
                 var valueText = (args.seriesName.indexOf("Total") != -1) ?
                     Globalize.formatCurrency(args.originalValue,
-                        "TL", { maximumFractionDigits: 2 }) :
+                        "", { maximumFractionDigits: 2 }) :
                     args.originalValue;
 
                 return {
