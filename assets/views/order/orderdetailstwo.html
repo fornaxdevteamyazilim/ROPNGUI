@@ -1,0 +1,173 @@
+<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+<div ng-controller="orderdetailsCtrl" class="panel-white col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10">
+            <span class="text-blue">{{Date}}</span><br />
+            <!--<span class="text-bold text-large" ng-if="item.orderInvoice.id">{{::efatura}} ID : {{:: item.orderInvoice.id}}</span>-->
+        </div>
+        <h3>
+            <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-bold margin-top-15 center">{{:: orderdetails}}</span>
+        </h3>
+        <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right col-lg-1 col-md-2 col-sm-2 col-xs-2 visible-lg"
+            ng-click="Back()">
+            <span>{{:: back}}</span>
+        </a>
+        <div class="col-md-1 margin-top-5 pull-right visible-md visible-sm visible-xs">
+            <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+        </div>
+    </div>
+    <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel">
+        <div class="row visible-lg">
+            <div class="dx-viewport demo-container">
+                <div id="form-container">
+                    <div id="form" dx-form="formOptions">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pull-left visible-lg visible-md" ng-if="ButtonPanel == true">
+            <button class="btn btn-wide btn-success margin-top-5" ng-click="SendToFiyuu(item.id)"
+                ng-if="userRestrictions.sendtofiyuu=='Enable'">
+                <span>{{:: sendtofiyuu }}</span>
+            </button>
+            <button class="btn btn-wide btn-success margin-top-5" ng-click="SendGiftPromotions(item.id)"
+                ng-if="userRestrictions.sendgiftpromotions=='Enable'">
+                <span>{{:: sendgifpromotions }}</span>
+            </button>
+            <button class="btn btn-wide btn-primary margin-top-5" ng-click="DeleteYSMaping(item.id)"
+                ng-if="userRestrictions.deleteysmaping=='Enable' && item.OrderSource == 'YemekSepeti'">
+                <span>{{:: deleteysmaping}}</span>
+            </button>
+            <button class="btn btn-wide btn-warning margin-top-5"
+                ng-if="(item.OrderTypeID==2 || item.OrderTypeID==7) && userRestrictions.repeatorder=='Enable'"
+                ng-click="repeatOrder(item.id)">
+                <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true">
+                    {{:: repeatorder}}</span>
+            </button>
+            <button class="btn btn-wide btn-success margin-top-5" ng-click="OrderChange(item)"
+                ng-if="userRestrictions.changeorder=='Enable'">
+                <span>{{:: changetoorder}}</span>
+            </button>
+            <button class="btn btn-wide btn-warning margin-top-5" ng-click="CheckCode(item,'CancelOrder')"
+                ng-if="userRestrictions.cancelorder=='Enable'">
+                <span>{{:: canceltoorder}}</span>
+            </button>
+            <button class="btn btn-wide btn-primary margin-top-5" ng-click="SelectPromotions(item)"
+                ng-if="userRestrictions.addpromotion=='Enable'">
+                <span>{{:: addpromotion}}</span>
+            </button>
+            <button class="btn btn-wide btn-success margin-top-5" ng-click="RePrintOrder(item.id)"
+                ng-if="userRestrictions.reprintorder=='Enable'">
+                <span>{{:: reprint}}</span>
+            </button>
+            <button class="btn btn-wide btn-warning margin-top-5" ng-click="CheckCode(item,'OrderPaymentDeteails')"
+                ng-if="userRestrictions.changeorderpayment=='Enable'">
+                <span>{{:: changetopaymenttype}}</span>
+            </button>
+            <div ng-if="item.OrderStateID==20">
+                <button class="btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="AwaitingCCAutorization(item)"
+                    ng-if="userRestrictions.webacceptbutton=='Enable'">
+                    <span>{{:: acceptorder}}</span>
+                </button>
+            </div>
+            <div class="pull-right" ng-if="item.OrderStateID==6">
+                <button class="btn btn-wide btn-primary margin-top-5 margin-left-5"
+                    ng-click="RevertToPrevState(item.id)" ng-if="userRestrictions.reverttoprevstate=='Enable'">
+                    <span>{{:: reverttoprevstate}} !</span>
+                </button>
+            </div>
+            <button class="btn btn-o btn-danger margin-top-5" ng-click="UpdateOrderStateChoose(item)"
+                ng-if="userRestrictions.chooseorderstate=='Enable'">
+                <span>{{:: chooseorderstate}} !</span>
+            </button>
+            <button class="btn btn-o btn-danger margin-top-5 margin-left-5"
+                ng-click="UpdateOrderPaymentStatusChoose(item.id)" ng-if="userRestrictions.closeorderpayment=='Enable'">
+                <span>{{:: closeorderpayment}} !</span>
+            </button>
+            <button class="btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="UpdateOrderStatusAdmin(item.id)"
+                ng-if="userRestrictions.canceltoorder=='Enable'">
+                <span>{{:: canceltoorder}} !</span>
+            </button>
+            <button class="btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="UpdateCode()"
+                ng-if="userRestrictions.updatecode=='Enable'">
+                <span>{{:: updatecode}} !</span>
+            </button>
+            <button class="btn btn-o btn-danger margin-top-5 margin-left-5" ng-click="RefreshOrder(item.id)"
+                ng-if="userRestrictions.refreshorderamount=='Enable'">
+                <span>{{:: refreshorderamount}} !</span>
+            </button>
+        </div>
+        {{message}}
+    </fieldset>
+    <div id="report" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive"
+        ng-hide="isWaiting==true">
+        <!--<div id="sales-chart" dx-chart="chartOptions"></div>-->
+        <!--<div dx-button="resetButtonOptions"></div>-->
+        <tabset justified="true" class="tabbable">
+            <tab heading="{{'main.ORDERINFORMATION' | translate}}">
+                <div class="dx-viewport demo-container">
+                    <div id="form-container">
+                        <div id="form2" dx-form="formOptionsss">
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'main.ADDRESSINFO' | translate}}">
+                <div class="dx-viewport demo-container">
+                    <div id="form-container">
+                        <div id="form1" dx-form="formOptionss">
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+
+        <tabset justified="true" class="tabbable">
+            <tab heading="{{'main.ORDERITEMDETAILS' | translate}}">
+                <div class="panel-body">
+                    <div id="gridContainerorder" dx-data-grid="dataGridOptionsorder">
+
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'main.SATATES' | translate}}">
+                <div class="panel-body">
+                    <div id="gridContainerstate" dx-data-grid="dataGridOptionsstate">
+
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'main.PROMOTIONS' | translate}}">
+                <div class="panel-body">
+                    <div id="gridContainerpromoti" dx-data-grid="dataGridOptionspromoti">
+
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'main.PAYMENT' | translate}}">
+                <div class="panel-body">
+                    <div id="gridContainerpayment" dx-data-grid="dataGridOptionspayment">
+
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'main.STOREDETAILS' | translate}}">
+                <div class="panel-body">
+                    <div id="storegridContainer" dx-data-grid="storedataGridOptions">
+
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+
+    </div>
+
+</div>
