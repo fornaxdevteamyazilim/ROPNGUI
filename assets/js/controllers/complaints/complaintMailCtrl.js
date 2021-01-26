@@ -19,7 +19,7 @@ function complaintMailCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
              params.total(items.paging.totalRecordCount);
              $defer.resolve(items);
          }, function (response) {
-             toaster.pop('warning', "Server Error", response.response.data.ExceptionMessage);
+             toaster.pop('warning',$translate.instant('Server.ServerError'), response.response.data.ExceptionMessage);
          });
      }
  });

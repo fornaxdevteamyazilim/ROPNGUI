@@ -36,9 +36,9 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
         rowform.$cancel();
         if (!ip.tableParams.data[ip.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ip.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.BuildSearchString = function (src) {
@@ -81,7 +81,7 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
                 $scope.SelectedItem = (items[0]) ? items[0].id : null;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error', "Server Error", response);
+                toaster.pop('error',$translate.instant('Server.ServerError'), response);
             });
         }
     });
@@ -129,7 +129,7 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -138,7 +138,7 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -169,13 +169,13 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
                         InventoryPurchaseApprovalID: items[0].id,
                         toState: 1
                     }).then(function (restresult) {
-                        toaster.pop('success', "Saved.");
+                        toaster.pop('success', $translate.instant('invantories.Saved'));
                         ip.tableParams.reload();
                     }, function (response) {
                         toaster.pop('warning', response.data.ExceptionMessage);
                     });
                 }, function (response) {
-                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         }

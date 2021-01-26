@@ -65,7 +65,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
             seconds.toString().padStart(2, '0');
         return (cellInfo.value) ? timeString : "-";
     };
-    var store = new DevExpress.data.CustomStore({ 
+    var store = new DevExpress.data.CustomStore({
         key: "StoreID",
         load: function (loadOptions) {
             var params = {
@@ -116,27 +116,27 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
             //{ dataField: "id", dataType: "number", visible: false },
             { dataField: "Region", dataType: "string", visible: false },
             { dataField: "Store", dataType: "string", fixed: true, groupIndex: 0 },
-            { caption: "Net Sales", dataField: "Sales", dataType: "number", format: "#,##0.00₺" },
-            { caption: "StoreType", dataField: "StoreFilterType", dataType: "string", visible: false },// fixed: true ,groupIndex: 0 },
-            { caption: "RealToTheoric", dataField: "RealToTheoricUsage", dataType: "boolean", visible: false },
-            { caption: "ItemCode", dataField: "ItemCode", dataType: "string", fixed: true },
-            { caption: "Name", dataField: "InventoryUnitName", dataType: "string", fixed: true },
-            { caption: "BaseUnit", dataField: "BaseUnit", dataType: "string" },
-            { caption: "Group", dataField: "InventoryGroup", dataType: "string" },
-            { caption: "CountType", dataField: "CountType", dataType: "string" },
-            { caption: "CostType", dataField: "CostType", dataType: "string",groupIndex: 1 },
-            { caption: "Beg.Inv.", dataField: "FistCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "Purchase", dataField: "DeliveredUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "TransferIn", dataField: "InTransferUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "Sold", dataField: "SouldUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "TransferOut", dataField: "OutTransferUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "RawWaste", dataField: "RawWasteUntis", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "AutoWaste", dataField: "AutoWasteUsageCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "ItemWaste", dataField: "WasteUsageCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "End.Inv.", dataField: "LasCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "Availible(Theoric)", dataField: "TheoricAvailible", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "Unit Cost", dataField: "Price", dataType: "number", format: "#,##0.00₺" },
-            { caption: "Cost", dataField: "Amount", dataType: "number", format: "#,##0.00₺" },
+            { caption: $translate.instant('actualvstheoritical.NetSales'), dataField: "Sales", dataType: "number", format: "#,##0.00₺" },
+            { caption: $translate.instant('actualvstheoritical.StoreType'), dataField: "StoreFilterType", dataType: "string", visible: false },// fixed: true ,groupIndex: 0 },
+            { caption: $translate.instant('actualvstheoritical.RealToTheoric'), dataField: "RealToTheoricUsage", dataType: "boolean", visible: false },
+            { caption: $translate.instant('actualvstheoritical.ItemCode'), dataField: "ItemCode", dataType: "string", fixed: true },
+            { caption: $translate.instant('actualvstheoritical.Name'), dataField: "InventoryUnitName", dataType: "string", fixed: true },
+            { caption: $translate.instant('actualvstheoritical.BaseUnit'), dataField: "BaseUnit", dataType: "string" },
+            { caption: $translate.instant('actualvstheoritical.Group'), dataField: "InventoryGroup", dataType: "string" },
+            { caption: $translate.instant('actualvstheoritical.CountType'), dataField: "CountType", dataType: "string" },
+            { caption: $translate.instant('actualvstheoritical.CostType'), dataField: "CostType", dataType: "string", groupIndex: 1 },
+            { caption: $translate.instant('actualvstheoritical.Beg.Inv.'), dataField: "FistCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('actualvstheoritical.Purchase'), dataField: "DeliveredUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('actualvstheoritical.TransferIn'), dataField: "InTransferUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('actualvstheoritical.Sold'), dataField: "SouldUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('actualvstheoritical.TransferOut'), dataField: "OutTransferUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('actualvstheoritical.RawWaste'), dataField: "RawWasteUntis", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('actualvstheoritical.AutoWaste'), dataField: "AutoWasteUsageCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('actualvstheoritical.ItemWaste'), dataField: "WasteUsageCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('actualvstheoritical.End.Inv.'), dataField: "LasCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('actualvstheoritical.Availible(Theoric)'), dataField: "TheoricAvailible", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('actualvstheoritical.UnitCost'), dataField: "Price", dataType: "number", format: "#,##0.00₺" },
+            { caption: $translate.instant('actualvstheoritical.Cost'), dataField: "Amount", dataType: "number", format: "#,##0.00₺" },
             {
                 caption: "Usage (Units)",
                 columns: [
@@ -168,17 +168,17 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
         summary: {
             totalItems: [{ column: "ItemCode", summaryType: "count", displayFormat: "{0}" },
             { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
-                { column: "RealUsageAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
+            { column: "RealUsageAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
             { column: "TheoriticalUsageAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
-                { column: "TheoriticalAndWasteAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
+            { column: "TheoriticalAndWasteAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
             { column: "DeltaAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
             { column: "RealUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "TheoriticalUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
-                { column: "TheoriticalAndWasteUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "TheoriticalAndWasteUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "DeltaUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "RealUsagePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 4 }, displayFormat: "{0}" },
             { column: "TheoriticalUsagePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 4 }, displayFormat: "{0}" },
-                { column: "TheoriticalAndWastePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 4 }, displayFormat: "{0}" },
+            { column: "TheoriticalAndWastePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 4 }, displayFormat: "{0}" },
             { column: "DeltaPercent", summaryType: "sum", valueFormat: { type: "percent", precision: 4 }, displayFormat: "{0}" },
             ],
             groupItems: [
@@ -187,15 +187,15 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 { column: "RealUsageAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺", alignByColumn: true },
                 { column: "TheoriticalUsageAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺", alignByColumn: true },
                 { column: "TheoriticalAndWasteAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺", alignByColumn: true },
-             { column: "DeltaAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "RealUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "TheoriticalUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "DeltaAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "RealUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "TheoriticalUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TheoriticalAndWasteUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "DeltaUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "RealUsagePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "TheoriticalUsagePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "DeltaUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "RealUsagePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "TheoriticalUsagePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TheoriticalAndWastePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "DeltaPercent", summaryType: "sum", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "DeltaPercent", summaryType: "sum", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             ],
         },
         onCellPrepared: function (e) {
@@ -210,7 +210,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
                     e.cellElement.addClass('clsPercent');
                 }
 
-                if (e.data.LasCount==null) {
+                if (e.data.LasCount == null) {
                     if (e.column.dataField === 'LasCount') {
                         e.cellElement.css({ 'background-color': '#FF6161', color: '#000000' });//({ 'font-weight': 'bold' });#FFBB00
                     }
@@ -221,7 +221,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 if (e.data.FistCount == null) {
                     if (e.column.dataField === 'FistCount') {
                         e.cellElement.css({ 'background-color': '#FF6161', color: '#000000' });
-                    }                    
+                    }
                 }
                 if (e.data.LasCount == null || e.data.FistCount == null) {
                     if (e.column.dataField === 'RealUsage') {
@@ -252,7 +252,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
                     }
                     if (gridCell.column.dataField == 'RealUsagePercent' || gridCell.column.dataField == 'TheoriticalUsagePercent' || gridCell.column.dataField == 'TheoriticalAndWastePercent' || gridCell.column.dataField == 'DeltaPercent') {
                         options.backgroundColor = '#40E0D0';
-                    }   
+                    }
                     if (gridCell.data.LasCount == null)
                         if (gridCell.column.dataField === 'LasCount') {
                             options.backgroundColor = '#FF6161';

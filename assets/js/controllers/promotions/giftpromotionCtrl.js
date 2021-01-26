@@ -36,7 +36,7 @@ function giftpromotionCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         });
@@ -44,14 +44,14 @@ function giftpromotionCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 gpro.tableParams.reload();
-                toaster.pop('success', $translate.instant('difinitions.Updated'), 'Updated.');
+                toaster.pop('success', $translate.instant('difinitions.Updated'),$translate.instant('difinitions.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'promotion')
             data.post().then(function (res) {
                 gpro.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
+                toaster.pop('success',$translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
             });
 
         }
@@ -70,9 +70,9 @@ function giftpromotionCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
         rowform.$cancel();
         if (!gpro.tableParams.data[gpro.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(gpro.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         }
     };
     $scope.removeItem = function (index) {
@@ -125,7 +125,7 @@ function giftpromotionCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -134,7 +134,7 @@ function giftpromotionCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };

@@ -33,7 +33,7 @@ function paymentmatchingCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
              params.total(items.paging.totalRecordCount);
              $defer.resolve(items);
          }, function (response) {
-             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+             toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
          });
      }
  });
@@ -43,14 +43,14 @@ function paymentmatchingCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 pm.tableParams.reload();
-                toaster.pop('success', $translate.instant('difinitions.Updated'), 'Updated.');
+                toaster.pop('success', $translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'externalobjectmap')
             data.post().then(function (res) {
                 pm.tableParams.reload();
-                toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
             });
             data.get();
         }
@@ -68,9 +68,9 @@ function paymentmatchingCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
         rowform.$cancel();
         if (!pm.tableParams.data[pm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled') );
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled') );
         }
     };
     $scope.removeItem = function (index) {
@@ -118,7 +118,7 @@ function paymentmatchingCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

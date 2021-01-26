@@ -74,9 +74,9 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             $scope.tool = { icon: 'assets/images/InStore.png' };
         }, function (response) {
             if (response.data && response.data.ExceptionMessage)
-                toaster.pop('error', "Server error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             else
-                toaster.pop('error', "Server error", "Error loading data!");
+                toaster.pop('error', $translate.instant('Server.ServerError'), $translate.instant('Server.Errorloadingdata'));
             //$scope.isWaiting = false;
         });
     };
@@ -170,10 +170,10 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
                 order.put().then(function (resp) {
                     //$scope.LoadStoreTablePlans();
                     $scope.ShowObject = true;
-                    toaster.pop('success', "Order Closed !");
+                    toaster.pop('success', $translate.instant('orderfile.OrderClosed'));
                 }, function (response) {
                     $scope.ShowObject = true;
-                    toaster.pop('error', "Order Cannot Close !", response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('orderfile.OrderCannotClose'), response.data.ExceptionMessage);
                 });
             }
         } else {
@@ -203,7 +203,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
                 })
             }, function (response) {
                 $scope.ShowObject = true;
-                toaster.pop('error', "Server error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -289,7 +289,7 @@ function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, 
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }
@@ -317,7 +317,7 @@ function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, 
                 },
                     function (resp) {
                         $scope.isWaiting = true;
-                        toaster.pop('error', resp.data.ExceptionMessage, "Failed to Create New Order !");
+                        toaster.pop('error', resp.data.ExceptionMessage, $translate.instant('margeaddress.FailedtoCreateNewOrder'));
                     });
             } else {
                 //TODO Swet Alert

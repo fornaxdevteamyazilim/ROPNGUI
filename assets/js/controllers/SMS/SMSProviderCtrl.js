@@ -33,7 +33,7 @@ function SMSProviderCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restan
              params.total(items.paging.totalRecordCount);
              $defer.resolve(items);
          }, function (response) {
-             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+             toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
          });
      }
  });
@@ -41,14 +41,14 @@ function SMSProviderCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restan
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 smsp.tableParams.reload();
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'SMSProvider')
             data.post().then(function (res) {
                 smsp.tableParams.reload();
-                toaster.pop('success', "Saved.", 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             data.get();
         }
@@ -66,9 +66,9 @@ function SMSProviderCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restan
         rowform.$cancel();
         if (!smsp.tableParams.data[smsp.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(smsp.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.removeItem = function (index) {

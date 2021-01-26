@@ -33,9 +33,9 @@ function productprototypelistCtrl($scope, $log, $modal, Restangular, ngTablePara
         rowform.$cancel();
         if (!pr.tableParams.data[pr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('personfile.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('personfile.Editcancelled'));
         }
     };
     pr.tableParams = new ngTableParams({
@@ -58,7 +58,7 @@ function productprototypelistCtrl($scope, $log, $modal, Restangular, ngTablePara
                     $scope.SelectedItem = items[0].id;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -77,7 +77,7 @@ function productprototypelistCtrl($scope, $log, $modal, Restangular, ngTablePara
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

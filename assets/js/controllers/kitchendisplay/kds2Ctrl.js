@@ -90,7 +90,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restang
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {
             $scope.inProgress = false;
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.LoadOrderItemStates();

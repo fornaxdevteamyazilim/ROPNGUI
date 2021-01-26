@@ -72,10 +72,10 @@ function shiftplanactualeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope.storeUsers = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }, function (restresult) {
-            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             swal("Hata!", "Warning");
         })
     }
@@ -121,9 +121,9 @@ function shiftplanactualeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
         rowform.$cancel();
         if (!spai.tableParams.data[spai.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(spai.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.cancelremove = function (index) {
@@ -146,7 +146,7 @@ function shiftplanactualeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
         });
@@ -166,7 +166,7 @@ function shiftplanactualeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
         Restangular.restangularizeElement('', item, 'ShiftActualItem')
         item.post().then(function (resp) {
             spai.tableParams.reload();
-            toaster.pop("success", "Updated.", "Updated");
+            toaster.pop("success", $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
             spai.tableParams.reload();
         });
     };
@@ -222,7 +222,7 @@ function shiftplanactualeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -231,7 +231,7 @@ function shiftplanactualeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -248,22 +248,22 @@ function shiftplanactualeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
     $scope.saveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                swal($translate.instant('orderfile.Updated'), "Updated.", "success");
+                swal($translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'), "success");
                 $rootScope.ShiftActualID = resp.id;
                 $scope.$broadcast('ShiftActual', resp);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
         else {
             Restangular.restangularizeElement('', $scope.item, 'ShiftActual')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
-                swal($translate.instant('orderfile.Saved'), "Saved.", "success");
+                swal($translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'), "success");
                 $rootScope.ShiftActualID = resp.id;
                 $scope.$broadcast('ShiftActual', resp);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
 
         }
@@ -273,14 +273,14 @@ function shiftplanactualeditCtrl($scope, $log, $filter, SweetAlert, Restangular,
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 spai.tableParams.reload();
-                toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'ShiftActualItem')
             this.item.post().then(function (res) {
                 spai.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             });
             this.item.get();
         }

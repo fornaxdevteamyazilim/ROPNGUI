@@ -28,7 +28,7 @@ function userstoregroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     });
@@ -36,14 +36,14 @@ function userstoregroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 usg.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
+                toaster.pop('success', $translate.instant('userfile.Updated'), $translate.instant('userfile.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'userstoregroup')
             data.post().then(function (res) {
                 usg.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('userfile.Saved'), $translate.instant('userfile.Saved'));
             });
             data.get();
         }
@@ -82,9 +82,9 @@ function userstoregroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
         rowform.$cancel();
         if (!usg.tableParams.data[usg.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(usg.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('userfile.Cancelled'),  $translate.instant('userfile.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('userfile.Cancelled'),  $translate.instant('userfile.Editcancelled'));
         }
     };
     $scope.removeItem = function (index) {
@@ -104,7 +104,7 @@ function userstoregroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
                     usg.tableParams.data[index].remove();
                 }
                 usg.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+                toaster.pop("error", $translate.instant('userfile.Attention'),$translate.instant('userfile.RecordDeleted'));
             }
         });
     };

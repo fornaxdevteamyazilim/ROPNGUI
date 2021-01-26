@@ -40,10 +40,10 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
             data.put().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', "Updated", 'Updated.');
+                    toaster.pop('success', $translate.instant('margeaddress.Updated'), $translate.instant('margeaddress.Updated'));
                 },
                  function (response) {
-                     toaster.pop('error', "Failed to Update !", response.data.ExceptionMessage);
+                     toaster.pop('error', $translate.instant('margeaddress.FailedtoUpdate'), response.data.ExceptionMessage);
                  }
                  );
         }
@@ -52,10 +52,10 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
             data.post().then(
                 function (res) {
                     vm.tableParams.reload();
-                    toaster.pop('success', "Added.", 'Saved.');
+                    toaster.pop('success',$translate.instant('margeaddress.Added'), $translate.instant('margeaddress.Saved'));
                 },
                  function (response) {
-                     toaster.pop('error', "Not Saved !", response.data.ExceptionMessage);
+                     toaster.pop('error', $translate.instant('margeaddress.NotSaved'), response.data.ExceptionMessage);
                  }
                 );
             data.get();
@@ -74,9 +74,9 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('margeaddress.Cancelled'), $translate.instant('margeaddress.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('margeaddress.Cancelled'), $translate.instant('margeaddress.Editcancelled'));
         }
     };
     $scope.LoadSubcities = function (TownID) {
@@ -87,7 +87,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         }).then(function (result) {
             angular.copy(result, $scope.subcities);
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.LoadQuarters = function (QuarterID) {
@@ -98,7 +98,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         }).then(function (result) {
             angular.copy(result, $scope.quarters);
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.SelcetQuarter = function (QuarterID) {
@@ -132,7 +132,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
                 $scope.SelectedItem = (items[0]) ? items[0].id : null;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -149,7 +149,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
                 $scope.addresstype = result;
             },
             function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -171,7 +171,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
             }).then(function (result) {
                 $scope.quarters = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -184,7 +184,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -222,7 +222,7 @@ function streetaddressCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
                     vm.tableParams.data[index].remove();
                 }
                 vm.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+                toaster.pop("error", $translate.instant('margeaddress.Attention'),$translate.instant('margeaddress.RecordDeleted'));
             }
         });
     };

@@ -47,7 +47,7 @@ function changeysorderstoreCtrl($rootScope, $translate, $scope, $modalInstance, 
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

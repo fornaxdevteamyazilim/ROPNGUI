@@ -16,7 +16,7 @@ function auditmediaoutputtemplatesCtrl($rootScope, $scope, $log, $modal, $filter
             this.item.put().then(function (res) {
                 samot.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'),$translate.instant('difinitions.Updated'));
             });
         }
         else {
@@ -24,7 +24,7 @@ function auditmediaoutputtemplatesCtrl($rootScope, $scope, $log, $modal, $filter
             this.item.post().then(function (res) {
                 samot.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('difinitions.Saved'),  $translate.instant('difinitions.Saved'));
             });
             this.item.get();
         }
@@ -42,9 +42,9 @@ function auditmediaoutputtemplatesCtrl($rootScope, $scope, $log, $modal, $filter
         rowform.$cancel();
         if (!samot.tableParams.data[samot.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(samot.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
         }
     };
     samot.tableParams = new ngTableParams({
@@ -64,7 +64,7 @@ function auditmediaoutputtemplatesCtrl($rootScope, $scope, $log, $modal, $filter
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });

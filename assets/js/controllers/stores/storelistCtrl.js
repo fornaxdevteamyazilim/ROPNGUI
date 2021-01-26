@@ -24,7 +24,7 @@ function storelistCtrl($scope, $log, $filter, $modal, Restangular, ngTableParams
             if ($rootScope.user.restrictions.storeedit == 'Enable') {
                 location.href = '#/app/store/store/edit/' + $scope.SelectedItem;
             } else {
-                toaster.pop('warning', "Unauthorized Access Request.");
+                toaster.pop('warning', $translate.instant('userfile.UnauthorizedAccessRequest'));
             }
         }
     };
@@ -32,9 +32,9 @@ function storelistCtrl($scope, $log, $filter, $modal, Restangular, ngTableParams
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', "It is cancelled !", 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', "It is cancelled !", 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.BuildSearchString = function () {
@@ -67,8 +67,8 @@ function storelistCtrl($scope, $log, $filter, $modal, Restangular, ngTableParams
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('error', "Server Error", response);
-                SweetAlert.swal("Server Error!", angular.toJson(response, false), "error");
+                toaster.pop('error', $translate.instant('Server.ServerError'), response);
+                SweetAlert.swal($translate.instant('Server.ServerError'), angular.toJson(response, false), "error");
             });
         }
     });
@@ -87,7 +87,7 @@ function storelistCtrl($scope, $log, $filter, $modal, Restangular, ngTableParams
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

@@ -40,7 +40,7 @@ function driverslistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     });

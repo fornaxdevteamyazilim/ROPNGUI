@@ -130,31 +130,31 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                 // we know we have set a preferred one in app.config
                 $scope.language.selected = $scope.language.available[(proposedLanguage || preferredLanguage)];
                 if (proposedLanguage == "en") {
-                    $rootScope.locale="en-US";
+                    $rootScope.locale = "en-US";
                     Restangular.setDefaultHeaders({ "Accept-Language": "en-US" });
                     $http.defaults.headers.common["Accept-Language"] = "en-US";
                     DevExpress.localization.locale("en");
                 }
                 else {
-                    $rootScope.locale="tr-TR";
+                    $rootScope.locale = "tr-TR";
                     Restangular.setDefaultHeaders({ "Accept-Language": "tr-TR" });
                     $http.defaults.headers.common["Accept-Language"] = "tr-TR";
-                    DevExpress.localization.locale("tr"); 
+                    DevExpress.localization.locale("tr");
                 }
-                
+
             },
             set: function (localeId, ev) {
                 $translate.use(localeId);
                 $scope.language.selected = $scope.language.available[localeId];
                 $scope.language.listIsOpen = !$scope.language.listIsOpen;
                 if (localeId == "en") {
-                    $rootScope.locale="en-US";
+                    $rootScope.locale = "en-US";
                     Restangular.setDefaultHeaders({ "Accept-Language": "en-US" });
                     $http.defaults.headers.common["Accept-Language"] = "en-US";
                     DevExpress.localization.locale("en");
                 }
                 else {
-                    $rootScope.locale="tr-TR";
+                    $rootScope.locale = "tr-TR";
                     Restangular.setDefaultHeaders({ "Accept-Language": "tr-TR" });
                     $http.defaults.headers.common["Accept-Language"] = "tr-TR";
                     DevExpress.localization.locale("tr");
@@ -256,7 +256,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
 
         $scope.ChangeExtensionNumber = function () {
             if ($rootScope.user && $rootScope.user.UserRole) {
-                if ($rootScope.user.restrictions.ClientName=='Enable') {
+                if ($rootScope.user.restrictions.ClientName == 'Enable') {
                     var modalInstance = $modal.open({
                         templateUrl: 'assets/views/mainscreen/acentextension.html',
                         controller: 'acentextensionCtrl',
@@ -343,7 +343,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                             $scope.audio.pause();
                         $rootScope.YSOrderCount = angular.copy(result.length);
                     }, function (response) {
-                        toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                        toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                     });
                 }
             }

@@ -16,14 +16,14 @@ function userextensionCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         if (data.restangularized) {
             data.put().then(function (res) {
                 ue.tableParams.reload();
-                toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('userfile.Updated'), $translate.instant('userfile.Saved'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'userextension')
             data.post().then(function (res) {
                 ue.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('userfile.Saved'), $translate.instant('userfile.Saved'));
             });
             data.get();
         }
@@ -41,9 +41,9 @@ function userextensionCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
         rowform.$cancel();
         if (!ue.tableParams.data[ue.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ue.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('userfile.Cancelled'), $translate.instant('userfile.Insertcancelled') );
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('userfile.Cancelled'), $translate.instant('userfile.Editcancelled') );
         }
     };
     ue.tableParams = new ngTableParams({
@@ -62,7 +62,7 @@ function userextensionCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response);
             });
         }
     });
@@ -83,7 +83,7 @@ function userextensionCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert
                     ue.tableParams.data[index].remove();
                 }
                 ue.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+                toaster.pop("error", $translate.instant('userfile.Attention'),$translate.instant('userfile.RecordDeleted'));
             }
         });
     };

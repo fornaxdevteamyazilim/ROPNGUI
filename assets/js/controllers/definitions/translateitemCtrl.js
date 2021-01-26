@@ -16,11 +16,11 @@ function translateitemCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
     });
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success', $translate.instant('difinitions.Updated'), 'Updated.'); });
+            data.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success', $translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated')); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.'); });
+            data.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', $translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved')); });
             data.get();
         }
     }
@@ -39,9 +39,9 @@ function translateitemCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
         rowform.$cancel();
         if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     vm.tableParams = new ngTableParams({
@@ -63,7 +63,7 @@ function translateitemCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
                 $scope.SelectedItem = items[0].id;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -132,7 +132,7 @@ function translateitemCtrl($rootScope, $scope, $log, $modal, Restangular, ngTabl
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

@@ -2594,7 +2594,7 @@ h1.text-extra-large {
 }
 
 .text-white {
-  color: #ffffff;
+  color: #8e8e93;
 }
 
 a.text-white {
@@ -6804,8 +6804,8 @@ input[type="radio"], input[type="checkbox"] {
   color: #ffffff;
 }
 .btn-red:active, .btn-red.active, .btn-red.active:focus, .btn-red:active:focus, .btn-red:active:hover, .btn-red.dropdown-toggle:active:hover {
-  background-color: #b32925 !important;
-  border-color: #b32925;
+  background-color: #ffffff !important;
+  border-color: #c8c7cc;
 }
 .btn-red:focus {
   background-color: #de635f;

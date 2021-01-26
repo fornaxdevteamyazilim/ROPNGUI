@@ -73,7 +73,7 @@ function inventorysaleeditCtrl($scope, $filter, SweetAlert, Restangular, ngTable
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                         swal("Updated.", "Updated.", "success");
+                         swal($translate.instant('invantories.Updated'), "Update$translate.instant('invantories.Updated')d.", "success");
                 $location.path('app/inventory/inventorysale/list');
             }, function (response) {
                 toaster.pop('warning', "Error!!!", response.data.ExceptionMessage);
@@ -110,7 +110,7 @@ function inventorysaleeditCtrl($scope, $filter, SweetAlert, Restangular, ngTable
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     }
@@ -142,7 +142,7 @@ function inventorysaleeditCtrl($scope, $filter, SweetAlert, Restangular, ngTable
                     }
                 }
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -158,7 +158,7 @@ function inventorysaleeditCtrl($scope, $filter, SweetAlert, Restangular, ngTable
             }).then(function (result) {
                 $scope.company = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -261,7 +261,7 @@ function inventorysaleitemCtrl($scope, $modal, $filter, SweetAlert, Restangular,
                     $scope.item.Discount += items[i].Discount;
                 }
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
         });
@@ -285,7 +285,7 @@ function inventorysaleitemCtrl($scope, $modal, $filter, SweetAlert, Restangular,
                 else
                     item.UnitPrice = 0;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         })
     };
@@ -308,7 +308,7 @@ function inventorysaleitemCtrl($scope, $modal, $filter, SweetAlert, Restangular,
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -321,7 +321,7 @@ function inventorysaleitemCtrl($scope, $modal, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -339,7 +339,7 @@ function inventorysaleitemCtrl($scope, $modal, $filter, SweetAlert, Restangular,
                 }
                 //$scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -383,9 +383,9 @@ function inventorysaleitemCtrl($scope, $modal, $filter, SweetAlert, Restangular,
         rowform.$cancel();
         if (!isi.tableParams.data[isi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(isi.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'),$translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.removeItem = function (index) {

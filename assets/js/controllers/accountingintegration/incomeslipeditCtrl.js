@@ -172,7 +172,7 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -196,10 +196,10 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
             AccountingIncomeSlipID: $stateParams.id,
         }).then(function (result) {
             $scope.isSpinner = false;
-            toaster.pop('success', translate="accounting.Transferred", '');
+            toaster.pop('success',$translate.instant('accounting.Transferred'), '');
         }, function (response) {
             $scope.isSpinner = false;
-            toaster.pop('Warning', translate="accounting.ThereProblem" , response.data.ExceptionMessage);
+            toaster.pop('Warning', $translate.instant('accounting.ThereProblem') , response.data.ExceptionMessage);
         });
     };
     $scope.$on('$destroy', function () {

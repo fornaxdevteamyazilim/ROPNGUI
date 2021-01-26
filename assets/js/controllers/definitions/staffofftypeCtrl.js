@@ -6,7 +6,6 @@ function staffofftypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
         $scope.trDescription = $translate.instant('main.DESCRIPTION');
         $scope.trName = $translate.instant('main.NAME');
         $scope.trisPaid = $translate.instant('main.ISPAID');
-        $scope.trisDefault = $translate.instant('main.ISDEFAULT');
         $scope.trCommands = $translate.instant('main.COMMANDS');
     }
     $scope.translate();
@@ -17,14 +16,14 @@ function staffofftypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 sot.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'staffofftype')
             data.post().then(function (res) {
                 sot.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
+                toaster.pop('success',$translate.instant('difinitions.Saved'),$translate.instant('difinitions.Saved'));
             });
             data.get();
         }
@@ -42,9 +41,9 @@ function staffofftypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
         rowform.$cancel();
         if (!sot.tableParams.data[sot.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sot.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         }
     };
     sot.tableParams = new ngTableParams({
@@ -65,7 +64,7 @@ function staffofftypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });

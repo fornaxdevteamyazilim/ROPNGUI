@@ -11,7 +11,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
         }).then(function (result) {
             $scope.orders = angular.copy(result);
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.getYSorder();
@@ -26,8 +26,8 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
             }
             },
                 function (restresult) {
-                    toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
-                    swal("Error!", "Data Error!", "Warning");
+                    toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled') );
+                    swal("Error!", $translate.instant('Server.DataError'), "Warning");
                 });
         
     };
@@ -134,7 +134,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
                     toaster.pop('error', resp.data.ExceptionMessage, "error");
                 });
         } else {
-            toaster.pop('warning',$translate.instant('orderfile.PleaseTryAgain'), "error");
+            toaster.pop('warning',$translate.instant('yemeksepetifile.PleaseTryAgain'), "error");
         }
     };
     $scope.SelectPerson = function (order) {
@@ -143,7 +143,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
         }).then(function (result) {
             $scope.HandledYSOrder(order, result[0]);
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.ProcessOrder = function (ysom) {
@@ -152,7 +152,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
         }).then(function (_orderItems) {
             toaster.pop('success', $translate.instant('orderfile.Ordertransferprocessinitiated '));
         }, function (response) {
-            toaster.pop('error', "Server Error", response);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response);
         });
     };
     $scope.$on('$destroy', function () {        

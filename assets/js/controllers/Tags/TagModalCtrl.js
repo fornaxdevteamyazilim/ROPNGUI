@@ -16,10 +16,10 @@ function TagModalCtrl($rootScope, $scope, $translate, $modalInstance, ObjectID, 
         Object.post().then(
             function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('margeaddress.Saved'),  $translate.instant('margeaddress.Saved'));
             },
                 function (response) {
-                    toaster.pop('error', "Not Saved !", response.data.ExceptionMessage);
+                    toaster.pop('error',$translate.instant('margeaddress.NotSaved'), response.data.ExceptionMessage);
                 }
         );
     };
@@ -38,7 +38,7 @@ function TagModalCtrl($rootScope, $scope, $translate, $modalInstance, ObjectID, 
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -73,7 +73,7 @@ function TagModalCtrl($rootScope, $scope, $translate, $modalInstance, ObjectID, 
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -88,7 +88,7 @@ function TagModalCtrl($rootScope, $scope, $translate, $modalInstance, ObjectID, 
     $scope.removeItem = function (index) {
         if ($scope.tableParams.data[index].fromServer) {
             $scope.tableParams.data[index].remove();
-            toaster.pop("error", "Attention !", "Record Deleted !");
+            toaster.pop("error", $translate.instant('margeaddress.Attention'),$translate.instant('margeaddress.RecordDeleted'));
         }
         $scope.tableParams.data.splice(index, 1);
     };

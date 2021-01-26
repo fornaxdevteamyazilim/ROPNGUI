@@ -32,7 +32,7 @@ function productionpointsCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
              $defer.resolve(items);
              $scope.DriverVehicle = items;
          }, function (response) {
-             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+             toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
          });
      }
  });
@@ -40,14 +40,14 @@ function productionpointsCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 pp.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'productionpoint')
             data.post().then(function (res) {
                 pp.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
+                toaster.pop('success',$translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
             });
             data.get();
         }
@@ -65,9 +65,9 @@ function productionpointsCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         rowform.$cancel();
         if (!pp.tableParams.data[pp.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(pp.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.removeItem = function (index) {
@@ -120,7 +120,7 @@ function productionpointsCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

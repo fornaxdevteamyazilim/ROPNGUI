@@ -17,7 +17,7 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
             this.item.put().then(function (res) {
                 ngur.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
             });
         }
         else {
@@ -25,7 +25,7 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
             this.item.post().then(function (res) {
                 ngur.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success',$translate.instant('difinitions.Saved'), 'Saved.');
+                toaster.pop('success',$translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
             });
             this.item.get();
         }
@@ -43,9 +43,9 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
         rowform.$cancel();
         if (!ngur.tableParams.data[ngur.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ngur.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('difinitions.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
         }
     };
     ngur.tableParams = new ngTableParams({
@@ -66,7 +66,7 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -120,7 +120,7 @@ function nguserrestrictionCtrl($rootScope, $scope, $log, $modal, $filter, SweetA
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

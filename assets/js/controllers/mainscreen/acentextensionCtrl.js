@@ -16,7 +16,7 @@ function acentextensionCtrl($scope, $modalInstance, $log, $translate, $rootScope
             if (data.clientname)
             callsService.SetClientName(data.clientname);
             $modalInstance.close();
-            toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
+            toaster.pop('success', $translate.instant('difinitions.Saved'),$translate.instant('difinitions.Saved'));
         }else
         toaster.pop('warning', $translate.instant('difinitions.Authority'), ); 
     };

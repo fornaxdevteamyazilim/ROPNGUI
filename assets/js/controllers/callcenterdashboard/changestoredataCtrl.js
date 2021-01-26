@@ -8,7 +8,7 @@ function changestoredataCtrl($rootScope, $scope,$translate, $modalInstance, item
                  $scope.StoreTKWServicesTime = angular.copy(restresult.ServiceTimeTKW);
                  $scope.StoreNote = angular.copy(restresult.notes);
              },function (restresult) {
-                swal("Error!", "Data Error!", restresult.data.ExceptionMessage);
+                swal("Error!",$translate.instant('Server.DataError'), restresult.data.ExceptionMessage);
             });
     }
     $scope.SaveData = function (StoreNote, StoreServicesTime, StoreTKWServicesTime) {
@@ -18,10 +18,10 @@ function changestoredataCtrl($rootScope, $scope,$translate, $modalInstance, item
         Restangular.restangularizeElement('', item.Store, 'store');
         if (item.Store.restangularized && item.Store.id) {
             item.Store.put().then(function (resp) {
-                toaster.pop('success', "Updated.", 'Updated.');
+                toaster.pop('success', $translate.instant('accounting.Updated'), $translate.instant('accounting.Updated'));
                 $scope.ok();
             },function (restresult) {
-                swal("Error!", "Data Error!", restresult.data.ExceptionMessage);
+                swal("Error!", $translate.instant('Server.DataError'), restresult.data.ExceptionMessage);
             });
         }
     };

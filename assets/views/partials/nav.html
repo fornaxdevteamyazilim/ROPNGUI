@@ -1553,6 +1553,13 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
+                        <a ui-sref="app.reports.callcenterreports.marketingpermissions"
+                            ng-if="user.restrictions.kvkok=='Enable'">
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.MARKETINGPERMISSIONS">Marketing Permissions</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
                         <a ui-sref="app.reports.callcenterreports.poductsalesccoreboard">
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.PRODUCTSALESSCOREBOARD">Call Center Product Sales
@@ -1832,7 +1839,8 @@
                             <i class="ti-pencil-alt"></i>
                         </div>
                         <div class="item-inner">
-                            <span class="title" translate="sidebar.nav.reports.LOYALTYREPORTS">Loyalty Reports</span><i class="icon-arrow"></i>
+                            <span class="title" translate="sidebar.nav.reports.LOYALTYREPORTS">Loyalty Reports</span><i
+                                class="icon-arrow"></i>
                         </div>
                     </div>
                 </a>
@@ -1843,21 +1851,20 @@
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.PUNCHCARDTRANSACTIONS">PunchCard Transactions</span>
                         </a>
-                    </li>     
+                    </li>
                     <li ui-sref-active="active">
                         <a ui-sref="app.reports.loyalty.bonustransactions"
-                        ng-if="user.restrictions.bonustransactions=='Enable'">
+                            ng-if="user.restrictions.bonustransactions=='Enable'">
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.BONUSTRANSACTIONS">Bonus Transactions</span>
                         </a>
-                    </li>      
+                    </li>
                     <li ui-sref-active="active">
-                        <a ui-sref="app.reports.loyalty.bonusstats"
-                        ng-if="user.restrictions.bonusstats=='Enable'">
-                            <i class="ti-files"></i><span class="title"
-                                translate="sidebar.nav.reports.BONUSSTATS">Bonus Stats</span>
+                        <a ui-sref="app.reports.loyalty.bonusstats" ng-if="user.restrictions.bonusstats=='Enable'">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.BONUSSTATS">Bonus
+                                Stats</span>
                         </a>
-                    </li>                    
+                    </li>
                 </ul>
             </li>
             <li ng-if="user.restrictions.webreports=='Enable'">
@@ -1867,18 +1874,18 @@
                             <i class="ti-pencil-alt"></i>
                         </div>
                         <div class="item-inner">
-                            <span class="title" translate="sidebar.nav.reports.WEBREPORTS">Web</span><i class="icon-arrow"></i>
+                            <span class="title" translate="sidebar.nav.reports.WEBREPORTS">Web</span><i
+                                class="icon-arrow"></i>
                         </div>
                     </div>
                 </a>
                 <ul class="sub-menu">
                     <li ui-sref-active="active">
-                        <a ui-sref="app.reports.web.webusers"
-                            ng-if="user.restrictions.webusersreport=='Enable'">
+                        <a ui-sref="app.reports.web.webusers" ng-if="user.restrictions.webusersreport=='Enable'">
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.WEBUSERS">PunchCard Transactions</span>
                         </a>
-                    </li>                         
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -1941,7 +1948,7 @@
                     <i class="ti-location-pin"></i> <span class="title"
                         translate="sidebar.nav.aggregator.orders">Orders</span>
                 </a>
-            </li>            
+            </li>
         </ul>
         <ul class="sub-menu">
             <li ui-sref-active="active" ng-if="user.restrictions.aggregatorsmapping=='Enable'">
@@ -1949,7 +1956,7 @@
                     <i class="ti-location-pin"></i> <span class="title"
                         translate="sidebar.nav.aggregator.mapping">Mapping</span>
                 </a>
-            </li>            
+            </li>
         </ul>
     </li>
     <li ng-class="{'active open':$state.includes('app.mergeaddresses')}"

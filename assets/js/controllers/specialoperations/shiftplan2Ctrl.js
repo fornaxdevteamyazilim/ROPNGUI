@@ -44,7 +44,7 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
             value: "startWeek"
         },
         min: 1,
-        max: 53,
+        max: 52,
         showSpinButtons: true
     };
     $scope.endYearButton = {
@@ -60,7 +60,7 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
             value: "endWeek"
         },
         min: 1,
-        max: 53,
+        max: 52,
         showSpinButtons: true
     };
     $scope.addNewButtonOptions = {
@@ -87,9 +87,7 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
         // January 4 is always in week 1.
         var week1 = new Date(date.getFullYear(), 0, 4);
         // Adjust to Thursday in week 1 and count number of weeks from date to week1.
-        var result= 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
-        return result>52?0:result;
-        //return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+        return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
     }
 
     function getDateRangeOfWeek(weekNo, y) {
@@ -208,7 +206,7 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                 caption: $translate.instant('main.FROMDATE'),
                 calculateCellValue: function (data) {
                     return DevExpress.localization.formatDate(getStaratOfWeek(data.PeriodWeek, data.PeriodYear), "dd.MM.yyyy");
-                    //return getDateRangeOfWeek(data.PeriodWeek,data.PeriodYear);
+                    //getDateRangeOfWeek(data.PeriodWeek,data.PeriodYear);
                 },
                 //sortOrder: "asc"
             }
@@ -268,7 +266,7 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
         item.post().then(function (resp) {
             location.href = '#/app/specialoperations/shiftplanedit2/' + resp.id;
         }, function (response) {
-            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
 

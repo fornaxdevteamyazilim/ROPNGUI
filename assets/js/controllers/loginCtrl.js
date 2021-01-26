@@ -80,7 +80,7 @@ app.controller('loginCtrl', ['$scope', '$location', 'authService', 'ngAuthSettin
                 //userService.landingPage(false);
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Server Error", response);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response);
             });
         }
         if ($stateParams.command && $stateParams.command == 'logout') {

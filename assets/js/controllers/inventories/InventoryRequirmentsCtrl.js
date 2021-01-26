@@ -28,7 +28,7 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                 location.href = '#/app/inventory/inventoryrequirments/edit/' + result.id;
                 $scope.isWaiting = false;
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 $scope.isWaiting = false;
             });
         });
@@ -43,7 +43,7 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             $location.path('app/inventory/inventoryrequirments/edit/' + resp.id);
             $scope.$broadcast('newRequirmentData', resp);
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.translate = function () {
@@ -86,7 +86,7 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                     $scope.SelectedItem = items[0].id;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -122,7 +122,7 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -131,7 +131,7 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };

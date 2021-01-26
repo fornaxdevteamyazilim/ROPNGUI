@@ -306,8 +306,8 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
                   $scope.isSearching(false);
                   $scope.isPhoneLength(false);
               }, function (response) {
-                  toaster.pop('error', "Server Error", response);
-                  SweetAlert.swal("Server Error!", angular.toJson(response, false), "error");
+                  toaster.pop('error', $translate.instant('Server.ServerError'), response);
+                  SweetAlert.swal($translate.instant('Server.ServerError'), angular.toJson(response, false), "error");
               });
           }
       });
@@ -577,7 +577,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                     }
 
                 }, function (response) {
-                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
         }
     };
@@ -634,7 +634,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                 }
                 $scope.isWait(false);
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         } else {
             $scope.PersonAddresses = null;
@@ -654,7 +654,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                 $scope.PersonOrders = angular.copy(result);
                 $scope.isPersonOrderButton(false);
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         } else {
             $scope.PersonOrders = null;
@@ -718,13 +718,13 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
         Restangular.restangularizeElement('', data, 'MarketingPermission');
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
-                toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated!');
+                toaster.pop('success',$translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
             });
         }
         else {
             data.PersonID = $scope.Person.id;
             data.post().then(function (resp) {
-                toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved!');
+                toaster.pop('success', $translate.instant('orderfile.Saved'),$translate.instant('orderfile.Saved'));
             });
         }
     };
@@ -759,7 +759,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                    }
                },
                function (restresult) {
-                   toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                   toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                })
         } else {
             $scope.Person = null;

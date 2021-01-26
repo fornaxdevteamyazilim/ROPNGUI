@@ -374,6 +374,7 @@
     "SALESBYSOURCE": "{{appName}} - Sales By Source",
     "CLOCKINOUTREPORT": "{{appName}} - ClockInOut Report",
     "CALLCENTERORDERS": "{{appName}} - Callcenter Orders Report",
+    "MARKETINGPERMISSIONS": "{{appName}} - Marketing Permissions",
     "ACTUALVSTHEORITICAL": "{{appName}} - Actual vs Theoric",
     "DIFFBYHOURREQ": "{{appName}} - Requirement By Hour",
     "ACCOUNTTOOLS": "{{appName}} - Accounting Transfers",
@@ -386,8 +387,8 @@
     "WEBUSERS": "{{appName}} - Web Users Report"
   },
   "main": {
-    "CURRENCY_SYMBOL":"DH",
-    "MONEY_CHANGE":"Change",
+    "CURRENCY_SYMBOL": "DH",
+    "MONEY_CHANGE": "Change",
     "RETURNREASON": "Return Reason",
     "WASTEUSAGE": "Waste Usage",
     "APPERTMENTNAME": "Appertment",
@@ -2013,7 +2014,7 @@
     "SHIFTSDELTAD7": "Su",
     "STAFFSHIFTDIFF": "Staff Shift Diff",
     "WEEKLYCOLREPORT": "Weekly COL Report",
-    "WEEKLYCOLSUMMARYREPORT":"Weekly COL Summary Report",
+    "WEEKLYCOLSUMMARYREPORT": "Weekly COL Summary Report",
     "STAFFCOSTREPORT": "Staff Cost Report",
     "STAFFCOSTDETAILREPORT": "Staff Cost Detail Report",
     "STAFFSHIFTREPORT": "Staff Shift Report",
@@ -2341,6 +2342,7 @@
     "COOKING": "Cooking",
     "WAITING": "Prepared/Waiting",
     "CALLCENTERORDERS": "CallCenter Orders",
+    "MARKETINGPERMISSIONS": "Marketing Permissions",
     "ACTUALVSTHEORITICAL": "Actual vs Theoric",
     "THEORICTOACTUAL": "Theoric to Actual",
     "ACTUALTOTHEORIC": "Actual to Theoric",
@@ -2354,7 +2356,6 @@
     "BONUSSTATS": "Bonus Stats Report",
     "LOYALTYREPORTS": "Loyalty",
     "WEBUSERS": "{{appName}} - Web Users Report"
-    
   },
   "topbar": {
     "messages": {
@@ -2675,7 +2676,7 @@
         "UNPAIDDELIVERIESREPORT": "UnPaid Deliveries",
         "STAFFSHIFTDIFF": "Staff Shift Diff",
         "WEEKLYCOLREPORT": "Weekly COL Report",
-        "WEEKLYCOLSUMMARYREPORT":"Weekly COL Summary Report",
+        "WEEKLYCOLSUMMARYREPORT": "Weekly COL Summary Report",
         "STAFFCOSTREPORT": "Staff Cost Report",
         "STAFFCOSTDETAILREPORT": "Staff Cost Detail Report",
         "STAFFSHIFTREPORTS": "Staff Shift Report",
@@ -2715,6 +2716,7 @@
         "CLOCKINOUTSTATS": "ClockInOut Stats",
         "VOIDORDERSREPORT": "Void Orders Report",
         "CALLCENTERORDERS": "CallCenter Orders",
+        "MARKETINGPERMISSIONS": "Marketing Permissions",
         "PRODUCTSALESSCOREBOARD": "Product Sales ScoreBoard",
         "DIFFBYHOURREQ": "Requirement By Hour",
         "PROMOTIONANALISYS": "Promotion Analisys Report",
@@ -2722,7 +2724,7 @@
         "PUNCHCARDTRANSACTIONS": "Punch Card Transactions Report",
         "BONUSTRANSACTIONS": "Bonus Transactions Report",
         "BONUSSTATS": "Bonus Stats Report",
-        "WEBREPORTS":"Web",
+        "WEBREPORTS": "Web",
         "WEBUSERS": "Web Users Report"
       },
       "addresses": {
@@ -3130,14 +3132,17 @@
     "REQUIREDFIELDS": "FILL OUT THE REQUIRED FIELDS !",
     "PlugsCreated": "Plugs Created!",
     "CreatedTransferred": "Plugs Created and Transferred !",
-    "RegistrationRealized": "Registration Realized !"
+    "RegistrationRealized": "Registration Realized !",
+    "InvalidRegistration": "Invalid Registration !",
+    "Insertcancelled": "Insert cancelled !",
+    "Editcancelled": "Edit cancelled !"
   },
   "callcenterdash": {
-    "PreparingChanging ": "Order Status 'Preparing' Changing to ! Are you sure ?",
-    "OrderStatus ": " Order Status 'Preparing' Saved as.",
+    "PreparingChanging": "Order Status 'Preparing' Changing to ! Are you sure ?",
+    "OrderStatus": "Order Status 'Preparing' Saved as.",
     "confirmButtonText": "Yes,Change!"
   },
-  "callrouth": {
+  "callmonitor": {
     "Updated": "Updated.",
     "Saved": "Saved.",
     "Cancelled": "It is cancelled !",
@@ -3148,15 +3153,16 @@
     "cancelButtonText": "No, delete !",
     "RecordDeleted": "Record Deleted.",
     "Deleted": "Deleted.",
-    "Attention": "Attention"
+    "Attention": "Attention",
+    "Insertcancelled": "Insert cancelled !",
+    "Editcancelled": "Edit cancelled !"
   },
   "clockiout": {
     "Started": "Started",
-    "EnrollFingerprint":"Enroll FingerPrint",
     "FingerPrint": "FingerPrint enroll process started...",
-    "Fingerreading": "Biometric scan for Clock Out",
-    "Fingerentry": "Biometric scan for Clock In",
-    "FINGERPRINTSFIRST": "!!! REGISTER FINGERPRINTS FIRST !!! "
+    "Fingerreading": "Finger reading for shift output",
+    "Fingerentry": "Finger reading for shift entry",
+    "FINGERPRINTSFIRST": "!!! INTRODUCE FINGERPRINTS FIRST !!! "
   },
   "difinitions": {
     "Updated": "Updated.",
@@ -3182,7 +3188,9 @@
     "PrescriptionsCopied": "Prescriptions Copied!",
     "UpdatedFailed": "Update Failed!",
     "InsertFailed": "Data Insert Failed!",
-    "Clonerestrictions": "Role Copied!"
+    "Clonerestrictions": "Role Copied!",
+    "Insertcancelled": "Insert cancelled !",
+    "Editcancelled": "Edit cancelled !"
   },
   "dispatcherfile": {
     "Drivechanged": "Drive changed !",
@@ -3213,7 +3221,9 @@
     "ProblemOccurred": "Problem Occurred !",
     "SuccessfullySaved": "Data Successfully Saved!",
     "DataAdded": "Data Added",
-    "DataSaved": "Data Saved"
+    "DataSaved": "Data Saved",
+    "DataSuccessfullySaved": "Data Successfully Saved!",
+    "NoDepartment": "No Department"
   },
   "kitchendisplayf": {
     "PleaseWait": "Please Wait !",
@@ -3227,8 +3237,10 @@
     "Seleccancellation": "Select cause of cancellation",
     "OrderStatusUpdated": "Order Status Updated.",
     "OrderDenied": "Order Denied",
+    "yes": "Yes",
+    "no": "No",
     "StatusOrderChanged": "Status Of Order Changed!!",
-    "Havewedeliveredorder": "Mark order as delivered?",
+    "Havewedeliveredorder": "Have we delivered the order ?",
     "NoDepartment": "No Department",
     "Ordersectionupdatefailed": "Order section update failed!",
     "Ingredientupdatefailed": "Ingredient update failed",
@@ -3263,6 +3275,9 @@
     "Cancelled": "It is cancelled !",
     "Updated": "Updated.",
     "Saved": "Saved.",
+    "Attention": "Attention",
+    "DataAdded": "Data Added",
+    "Saveddata": "Saved data",
     "Sure": "ARE YOU SURE ?",
     "SureRecord": "Are you sure you want to delete the record ?",
     "DeletionCanceled": "Deletion Canceled !",
@@ -3280,22 +3295,18 @@
     "PAYMENTTYPECHANGED": "PAYMENT TYPE CHANGED.",
     "Confirmed": "Confirmed.",
     "Added": "Added.",
-    "Notrecorded": "Not recorded !",
-    "Couldnotupdated": "Could not be updated !",
     "YourOrderMarkedNonPayment": "Your Order Is Marked As Non-Payment",
     "Insufficient Limit": "Insufficient Limit!",
     "BillOff": "Bill's Off!",
     "MistakeFailedCloseBill": "Mistake! Failed To Close The Bill!",
     "NewPrototypeCreated": "New Prototype Created.",
     "OperationFailed": "Operation Failed!",
-    "PleaseTryAgain": "Please Try Again!",
     "Ordertransferprocessinitiated": "Order transfer process initiated.",
     "DepartmentsNull": "Departments Null",
     "PairingSaved": "Pairing Saved!",
     "PairingNotSaved": "Pairing Not Saved!",
     "OrderConfirmed.": "Order Confirmed.",
     "NotSaved": "Not Saved !",
-    "ServerConnectionError": "Server Connection Error",
     "Youwillnotbeablerecoverthisrecord": "You will not be able to recover this record!",
     "ACCOUNTCLOSED": "ACCOUNT CLOSED",
     "UNABLERECEIVEPAYMENT": "UNABLE RECEIVE PAYMENT !",
@@ -3303,16 +3314,41 @@
     "NEWPAYMENTRECORDED": "NEW PAYMENT RECORDED !",
     "PasswordIncorrect": "Password Incorrect!",
     "YOURENOTAUTHORIZEDTODOTHAT": "YOU'RE NOT AUTHORIZED TO DO THAT !",
-    "ALLACCOUNTSHAVEBEENCLOSED": "ALL ACCOUNTS HAVE BEEN CLOSED."
+    "ALLACCOUNTSHAVEBEENCLOSED": "ALL ACCOUNTS HAVE BEEN CLOSED.",
+    "Couldnotcreateneworder": "Could not create new order !",
+    "Personupdatefailed": "Person update failed!",
+    "Orderfailedtoload": "Order failed to load",
+    "OrderFailed": "Order Failed",
+    "Paymenttypesfailedtoload": "Payment types failed to load",
+    "PersonAssigned": "Person Assigned.",
+    "InvalidDate": "Invalid Date !",
+    "ChangeOrderStatus": "Change Order Status !",
+    "OrderCannotBeChanged": "Order Cannot Be Changed !",
+    "OrderCreated": "Order Created.",
+    "YSOrderCustomerMappingDeleted": "YS Order Customer Mapping Deleted!",
+    "AddressChanged": "Address Changed.",
+    "RecordingTookPlace": "Recording Took Place.",
+    "AddressCannotChanged": "Address Cannot Changed !",
+    "PromotionAdded": "Promotion Added.",
+    "CannotAddPromotion": "Cannot Add Promotion !",
+    "PaymentTypeOrderChanged": "Payment Type Order Changed!!",
+    "NEWPAYMENTNOTSAVED": "NEW PAYMENT NOT SAVED !",
+    "OrderClosed": "Order Closed !",
+    "OrderCannotClose": "Order Cannot Close !"
   },
   "yemeksepetifile": {
+    "Cancelled": "It is cancelled !",
+    "Updated": "Updated.",
+    "Saved": "Saved.",
+    "Attention": "Attention",
+    "RecordDeleted": "Record Deleted.",
     "Updatefailed": "Update failed !",
     "UnabletoloadYemekSepetistatisticsi": "Unable to load YemekSepeti statisticsi",
     "TwinningSaved": "Twinning Saved!",
     "Selectaddress": "Select address!",
     "Areyousureyouwanttoconfirmtheorder": "Are you sure you want to confirm the order ?",
     "Yes": "Yes",
-    "OrderConfirmed": " Order Confirmed.",
+    "OrderConfirmed": "Order Confirmed.",
     "OrderCannotBeChanged": "Order Cannot Be Changed !",
     "PrintedAgain": "Printed Again.",
     "OrderFiyuutransmissioninitiated": "Order Fiyuu transmission initiated.",
@@ -3332,12 +3368,27 @@
     "YOUARENOTAUTHORIZEDFORTHISPROCEDURE": "YOU ARE NOT AUTHORIZED FOR THIS PROCEDURE. !",
     "OrderItemAdded": "Order Item Added",
     "UpdatedOrderItem": "Updated Order Item.",
-    "UnableToAddOrderItem": "Unable To Add Order Item !"
+    "UnableToAddOrderItem": "Unable To Add Order Item !",
+    "YSRestaurantStatusChanged": "YS Restaurant Status Changed !",
+    "Editcancelled": "Edit cancelled !",
+    "Insertcancelled": "Insert cancelled !",
+    "PleaseTryAgain": "Please Try Again!"
   },
   "storefile": {
     "SelectPod": "Select Pod !",
     "PodAdded": "Pod Added.",
     "Saveddatatoserver": "Saved data to server."
+  },
+  "Server": {
+    "ServerError": "Server Error",
+    "DataError": "Data Error!",
+    "UnknownError": "Unknown Error !",
+    "Return failed": "Return failed",
+    "Uploaderror": "Upload error",
+    "Serverconnectionerror": "Server connection error",
+    "Errorloadingdata": "Error loading data!",
+    "PasswordError": "Password Error!",
+    "DataLoadingError": "Data Loading Error"
   },
   "personfile": {
     "EnterPhoneNumber": "Enter Phone Number !",
@@ -3358,6 +3409,12 @@
     "AproblemhasoccurredTryAgain": "A problem has occurred. Try Again!"
   },
   "margeaddress": {
+    "Cancelled": "It is cancelled !",
+    "Updated": "Updated.",
+    "Saved": "Saved.",
+    "Attention": "Attention",
+    "RecordDeleted": "Record Deleted.",
+    "Deleted": "Deleted.",
     "BemergedNeighborhood": "Be merged Neighborhood...",
     "WilluniteNeighborhood": "Will unite Neighborhood...",
     "DoYouConfirmThisTransaction": "Do You Confirm This Transaction !",
@@ -3380,9 +3437,28 @@
     "Willmergewiththecity": "' Will merge with the city",
     "Mergedwiththecity": "Merged with the city.",
     "CityToBeMerged": "City To Be Merged",
-    "UnitedCity": "United City"
+    "UnitedCity": "United City",
+    "Editcancelled": "Edit cancelled !",
+    "Insertcancelled": "Insert cancelled !",
+    "Couldnotupdated": "Could not updated",
+    "FailedtoUpdate": "Failed to Update",
+    "NotSaved": "Not Saved",
+    "PleaseTryAgain": "Please Try Again!",
+    "Failedupdate": "Failed Update",
+    "ChangesNotSaved": "Changes Not Saved !",
+    "SelectedPersonPaymentUnrealizable": "Selected Person Payment Unrealizable!",
+    "PleaseSelectPerson": "Please Select Person!",
+    "PayableAmount": "Payable Amount: 0 !",
+    "FailedtoCreateNewOrder": "Failed to Create New Order !"
   },
   "userfile": {
+    "Cancelled": "It is cancelled !",
+    "Updated": "Updated.",
+    "Saved": "Saved.",
+    "Attention": "Attention",
+    "RecordDeleted": "Record Deleted.",
+    "Deleted": "Deleted.",
+    "DeletionCanceled": "Deletion Canceled !",
     "YourPasswordHasChangedPleaseloginagain": "Your Password Has Changed. Please log in again!",
     "TheValuesEnteredNotMatchPleaseEnterAgain": "The Values Entered Do Not Match! Please Enter Again!",
     "OrderOut": "Order Out!",
@@ -3391,7 +3467,9 @@
     "Youdonothavepermittion": "You do not have permition  !!!",
     "Sorry": "Sorry",
     "UnauthorizedAccessRequest": "Unauthorized Access Request.",
-    "EnterPassword": "Enter Password !"
+    "EnterPassword": "Enter Password !",
+    "Editcancelled": "Edit cancelled !",
+    "Insertcancelled": "Insert cancelled !"
   },
   "reportspage": {
     "INFORMATION": "INFORMATION",
@@ -3459,7 +3537,7 @@
     "UNPAIDDELIVERIES": "It is the report that lists the unpaid invoices for the selected restaurant.",
     "STAFFSHIFTDIFF": "Returns the scheduled, realized shift hours and difference based on the user roles of the selected week.",
     "WEEKLYCOLREPORT": "Weekly COL Report",
-    "WEEKLYCOLSUMMARYREPORT":"Weekly COL Summary Report",
+    "WEEKLYCOLSUMMARYREPORT": "Weekly COL Summary Report",
     "STAFFCOSTREPORT": "Staff Cost Report",
     "STAFFCOSTDETAILREPORT": "Staff Cost Detail Report",
     "DIFFBYHOUR": "The report gives an average of 13 weeks for the days of the selected week, indicating the total need.",
@@ -3533,7 +3611,7 @@
     "SHIFTPERSONTOTALS": "Fields written in dark and with * next to them are mandatory! It is the report that gives you the number of days and hours of the user's shift based on the given date range.",
     "STAFFSHIFTDIFF": "Fields written in dark and with * next to them are mandatory! Returns the scheduled, realized shift hours and difference based on the user roles of the selected week.",
     "WEEKLYCOLREPORT": "Weekly COL Report",
-    "WEEKLYCOLSUMMARYREPORT":"Weekly COL Summary Report",
+    "WEEKLYCOLSUMMARYREPORT": "Weekly COL Summary Report",
     "STAFFCOSTREPORT": "Staff Cost Report",
     "STAFFCOSTDETAILREPORT": "Staff Cost Detail Report",
     "WEEKLYANALYSIS": "Fields written in dark and with * next to them are mandatory! It is the report that gives the difference and need on a daily and hourly basis of the selected week and restaurant.",
@@ -3597,6 +3675,50 @@
     "Staff": "Staff",
     "Mall": "Mall",
     "InStore": "Dine In",
-    "PickUp":"PickUp"
+    "PickUp": "PickUp"
+  },
+  "MarketingPermissions": {
+    "PersonID": "Person Id",
+    "PersonName": "Person Name",
+    "Phone": "Phone",
+    "DeliveredOrders": "Delivered Orders",
+    "FirstDeliveredOrder": "First Delivered Order",
+    "DeliveredOrdersAmount": "Delivered Orders Amount",
+    "TotalOrders": "Total Orders",
+    "FirstOrder": "First Order",
+    "LastOrder": "Last Order",
+    "SMSOk": "SMSOk",
+    "EmailOk": "EmailOk",
+    "KVKKOk": "KVKKOk",
+    "PromotionsOk": "PromotionsOk"
+  },
+  "actualvstheoritical": {
+    "NetSales": "Net Sales",
+    "StoreType": "Store Type",
+    "RealToTheoric": "Real ToTheoric",
+    "ItemCode": "Item Code",
+    "Name": "Name",
+    "BaseUnit": "Base Unit",
+    "Group": "Group",
+    "CountType": "Count Type",
+    "CostType": "Cost Type",
+    "Beg.Inv.": "Beg. Inv.",
+    "Purchase": "Purchase",
+    "TransferIn": "Transfer In",
+    "Sold": "Sold",
+    "TransferOut": "Transfer Out",
+    "RawWaste": "Raw Waste",
+    "AutoWaste": "Auto Waste",
+    "ItemWaste": "Item Waste",
+    "End.Inv.": "End. Inv.",
+    "Availible(Theoric)": "Availible(Theoric)",
+    "Unit Cost": "Unit Cost",
+    "Cost": "Cost",
+    "Usage (Units)": "Usage (Units)",
+    "Actual": "Actual",
+    "Theory": "Theory",
+    "TheoryWaste": "Theory+Waste",
+    "Variance": "Variance",
+    "Usage(%)": "Usage (%)"
   }
 }

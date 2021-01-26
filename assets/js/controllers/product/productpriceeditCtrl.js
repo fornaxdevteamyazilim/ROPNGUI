@@ -59,7 +59,7 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.ShowObject = true;
             $scope.item.put().then(function (resp) {
-                toaster.pop('success', "Updated.", 'Saved data to server.');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('storefile.Saveddatatoserver'));
                 $location.path('/app/product/product/productprice/list');
                 $scope.ShowObject = false;
             }, function (response) {
@@ -71,7 +71,7 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             $scope.ShowObject = true;
             Restangular.restangularizeElement('', $scope.item, 'ProductPriceList')
             $scope.item.post().then(function (resp) {
-                toaster.pop('success', "Saved.", 'Saved data to server.');
+                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('storefile.Saveddatatoserver'));
                 $scope.Showtable = true;
                 $scope.item = {};
                 $scope.item = Restangular.copy(resp);
@@ -105,9 +105,9 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         rowform.$cancel();
         if (!idi.tableParams.data[idi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(idi.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('personfile.Insertcancelled') );
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !' );
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('personfile.Editcancelled'));
         }
     };
     $scope.removedata = function (SelectItem) {
@@ -150,7 +150,7 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -159,7 +159,7 @@ function productpriceeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };

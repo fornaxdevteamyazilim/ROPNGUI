@@ -39,7 +39,7 @@ app.constant('ngAuthSettings', {
     apiServiceBaseUri: 'http://192.168.9.40:9065/',//PH
     //apiServiceBaseUri: 'http://10.0.0.245:9065/',//MAROCCO
     //apiServiceBaseUri: 'http://localhost:9065/',//localhost
-    
+
     clientId: 'ropNGui',
     secret: 'Ab1234'
 });
@@ -531,11 +531,11 @@ app.constant('JS_REQUIRES', {
         'SearchAddressSelectorCtrl': 'assets/js/controllers/streetaddress/SearchAddressSelectorCtrl.js?v=0651',
         "PodsReportCtrl": "assets/js/controllers/reports/management/PodsReportCtrl.js?v=0651",
         "ProductWastesReportCtrl": "assets/js/controllers/reports/management/ProductWastesReportCtrl.js?v=0651",
-        "clockinoutreportCtrl":"assets/js/controllers/reports/staffshiftreports/clockinoutreportCtrl.js?v=0651",
-        "punchcardtransactionsCtrl":"assets/js/controllers/reports/loyalty/punchcardtransactionsCtrl.js?v=0651",
-        "bonustransactionsCtrl":"assets/js/controllers/reports/loyalty/bonustransactionsCtrl.js?v=0651",
-        "bonusstatsCtrl":"assets/js/controllers/reports/loyalty/bonusstatsCtrl.js?v=0651",
-        "webusersCtrl":"assets/js/controllers/reports/web/webusersCtrl.js?v=0651",
+        "clockinoutreportCtrl": "assets/js/controllers/reports/staffshiftreports/clockinoutreportCtrl.js?v=0651",
+        "punchcardtransactionsCtrl": "assets/js/controllers/reports/loyalty/punchcardtransactionsCtrl.js?v=0651",
+        "bonustransactionsCtrl": "assets/js/controllers/reports/loyalty/bonustransactionsCtrl.js?v=0651",
+        "bonusstatsCtrl": "assets/js/controllers/reports/loyalty/bonusstatsCtrl.js?v=0651",
+        "webusersCtrl": "assets/js/controllers/reports/web/webusersCtrl.js?v=0651",
         "VoidOrdersCtrl": "assets/js/controllers/reports/ordersreports/VoidOrdersCtrl.js?v=0651",
         'newpersonGetirCtrl': 'assets/js/controllers/person/newpersonGetirCtrl.js?v=0651',
         'scoreCardCtrl': 'assets/js/controllers/reports/giroreports/scoreCardCtrl.js?v=0651',
@@ -543,6 +543,7 @@ app.constant('JS_REQUIRES', {
         'drivethruCtrl': 'assets/js/controllers/order/drivethruCtrl.js?v=0651',
 
         'callcenterordersCtrl': 'assets/js/controllers/reports/callcenterreports/callcenterordersCtrl.js?v=0651',
+        'marketingpermissionsCtrl': 'assets/js/controllers/reports/callcenterreports/marketingpermissionsCtrl.js?v=0651',
         "poductsalesccoreboardCtrl": "assets/js/controllers/reports/callcenterreports/poductsalesccoreboardCtrl.js?v=0651",
         "actualvstheoriticalCtrl": "assets/js/controllers/reports/stockandcostreports/actualvstheoriticalCtrl.js?v=0651",
         'usertransferCtrl': 'assets/js/controllers/definitions/usertransferCtrl.js?v=0651',

@@ -2359,6 +2359,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'callcenterorders'
             }
+        }).state('app.reports.callcenterreports.marketingpermissions', {
+            url: '/marketingpermissions',
+            templateUrl: "assets/views/reports/callcenterreports/marketingpermissions.html",
+            resolve: loadSequence('marketingpermissionsCtrl'),
+            title: 'Marketing Permissions',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'marketingpermissions'
+            }
         }).state('app.reports.callcenterreports.poductsalesccoreboard', {
             url: '/poductsalesccoreboard',
             templateUrl: "assets/views/reports/callcenterreports/poductsalesccoreboard.html",

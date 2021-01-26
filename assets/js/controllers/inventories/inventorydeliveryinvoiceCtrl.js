@@ -41,9 +41,9 @@ function inventorydeliveryinvoiceCtrl($scope, $log, $modal, Restangular, ngTable
         rowform.$cancel();
         if (!idi.tableParams.data[idi.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(idi.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     idi.tableParams = new ngTableParams({
@@ -60,7 +60,7 @@ function inventorydeliveryinvoiceCtrl($scope, $log, $modal, Restangular, ngTable
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         }
@@ -80,7 +80,7 @@ function inventorydeliveryinvoiceCtrl($scope, $log, $modal, Restangular, ngTable
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };

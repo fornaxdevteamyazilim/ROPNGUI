@@ -80,7 +80,7 @@ function drivethruCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
                 $scope.loadOrders();
             })
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.CopyOrder = function (order) {
@@ -121,10 +121,10 @@ function drivethruCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
                     newSatus: 10,
                 }
             ).then(function (result) {
-                toaster.pop('success', "Updated", 'Updated!');
+                toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
                 $scope.loadOrders();
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         });
     };
@@ -159,7 +159,7 @@ function drivethruCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {
             $scope.ShowObject = false;
-            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();
@@ -198,7 +198,7 @@ function drivethruCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }

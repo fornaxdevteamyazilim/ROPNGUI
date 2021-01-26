@@ -37,7 +37,7 @@ function callrouteCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Re
              params.total(items.paging.totalRecordCount);
              $defer.resolve(items);
          }, function (response) {
-             toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+             toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
          });
      }
  });
@@ -45,18 +45,18 @@ function callrouteCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Re
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 sr.tableParams.reload();
-                toaster.pop('success',  translate="callmonitor.Updated", 'Updated.');
+                toaster.pop('success', $translate.instant('callmonitor.Updated'), $translate.instant('callmonitor.Updated'));
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'callroute')
             data.post().then(function (res) {
                 sr.tableParams.reload();
-                toaster.pop('success', translate="callmonitor.Saved", 'Saved.');
+                toaster.pop('success', $translate.instant('callmonitor.Saved'), $translate.instant('callmonitor.Saved'));
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
             data.get();
         }
@@ -74,9 +74,9 @@ function callrouteCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Re
         rowform.$cancel();
         if (!sr.tableParams.data[sr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(sr.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('callmonitor.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('callmonitor.Cancelled'), $translate.instant('callmonitor.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('callmonitor.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('callmonitor.Cancelled'), $translate.instant('callmonitor.Editcancelled'));
         }
     };
     $scope.removeItem = function (index) {
@@ -126,7 +126,7 @@ function callrouteCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Re
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

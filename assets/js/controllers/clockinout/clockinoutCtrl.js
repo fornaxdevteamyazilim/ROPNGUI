@@ -32,7 +32,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
             }
             
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.Back = function () {
@@ -65,7 +65,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
             toaster.pop('success', $translate.instant('clockiout.Started'),$translate.instant('clockiout.FingerPrint') );
             //deferred.resolve(response);
         }).error(function (err, status) {
-            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             //deferred.reject(err);
         });
         //return deferred.promise;

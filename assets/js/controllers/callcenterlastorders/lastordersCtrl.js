@@ -40,7 +40,7 @@ function lastordersCtrl($rootScope, $scope, $log, $interval, $timeout, $filter, 
                 params.total(items.paging);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });

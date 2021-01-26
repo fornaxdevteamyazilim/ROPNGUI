@@ -16,7 +16,7 @@ function yemeksepetirejectreasonCtrl($rootScope, $scope, $log, $modal, $filter, 
             this.item.put().then(function (res) {
                 yrr.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success',$translate.instant('difinitions.Updated') , 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated') ,$translate.instant('difinitions.Updated'));
             });
         }
         else {
@@ -24,7 +24,7 @@ function yemeksepetirejectreasonCtrl($rootScope, $scope, $log, $modal, $filter, 
             this.item.post().then(function (res) {
                 yrr.tableParams.reload();
                 $scope.$emit('LoadUserRestrictions', "ReloadUserRestrictions");
-                toaster.pop('success', $translate.instant('difinitions.Saved') , 'Saved.');
+                toaster.pop('success', $translate.instant('difinitions.Saved') ,$translate.instant('difinitions.Saved'));
             });
             this.item.get();
         }
@@ -42,9 +42,9 @@ function yemeksepetirejectreasonCtrl($rootScope, $scope, $log, $modal, $filter, 
         rowform.$cancel();
         if (!yrr.tableParams.data[yrr.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(yrr.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('difinitions.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     yrr.tableParams = new ngTableParams({
@@ -63,7 +63,7 @@ function yemeksepetirejectreasonCtrl($rootScope, $scope, $log, $modal, $filter, 
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error ", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });

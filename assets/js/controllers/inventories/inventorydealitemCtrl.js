@@ -91,9 +91,9 @@ function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
         rowform.$cancel();
         if (!ideali.tableParams.data[ideali.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ideali.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning',$translate.instant('invantories.Cancelled'),$translate.instant('difinitions.Editcancelled'));
         }
     };
     $scope.removedata = function (SelectItem) {
@@ -161,7 +161,7 @@ function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -177,7 +177,7 @@ function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                 }
                 $scope[Container] = resresult;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

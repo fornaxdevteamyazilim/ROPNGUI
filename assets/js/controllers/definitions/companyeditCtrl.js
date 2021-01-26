@@ -26,7 +26,7 @@ function companyeditCtrl($rootScope, $scope, $log, $modal, $location, Restangula
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
-                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
             }, function (response) {
                 toaster.pop('warning',$translate.instant('difinitions.OperationFailed'), response.data.ExceptionMessage);
             });
@@ -34,7 +34,7 @@ function companyeditCtrl($rootScope, $scope, $log, $modal, $location, Restangula
         else {
             Restangular.restangularizeElement('', data, 'company')
             data.post().then(function (res) {
-                toaster.pop('success',  $translate.instant('difinitions.Saved') , 'Saved.');
+                toaster.pop('success',  $translate.instant('difinitions.Saved') , $translate.instant('difinitions.Saved'));
             }, function (response) {
                 toaster.pop('warning',$translate.instant('difinitions.OperationFailed'), response.data.ExceptionMessage);
             });
@@ -47,8 +47,8 @@ function companyeditCtrl($rootScope, $scope, $log, $modal, $location, Restangula
                 $scope.item = Restangular.copy(restresult);
             },
            function (restresult) {
-               toaster.pop('warning',$translate.instant('difinitions.Cancelled'), 'Edit Cancelled.');
-               swal("Error!", "Data Error!", "Warning");
+               toaster.pop('warning',$translate.instant('difinitions.Cancelled'),   $translate.instant('difinitions.Editcancelled'));
+               swal("Error!", $translate.instant('Server.DataError'), "Warning");
            }
            )
     }
@@ -69,7 +69,7 @@ function companyeditCtrl($rootScope, $scope, $log, $modal, $location, Restangula
                     SweetAlert.swal( $translate.instant('difinitions.Deleted'),  $translate.instant('difinitions.RecordDeleted'), "success");
                     $location.path('app/definitions/companies');
                 }, function (response) {
-                    toaster.pop('warning',  translate="difinitions.OperationFailed", response.data.ExceptionMessage);
+                    toaster.pop('warning', $translate.instant('difinitions.OperationFailed') , response.data.ExceptionMessage);
                 });
             }
             else {
@@ -93,7 +93,7 @@ function companyeditCtrl($rootScope, $scope, $log, $modal, $location, Restangula
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -118,14 +118,14 @@ function companyaccountCtrl($rootScope, $scope, $modal, $log, Restangular, $stat
         }).then(function (result) {
             $scope.CompanyAccount = result;
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.GetCompanyAccount();
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
-                toaster.pop('success',$translate.instant('difinitions.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
             });
         }
         else {
@@ -133,7 +133,7 @@ function companyaccountCtrl($rootScope, $scope, $modal, $log, Restangular, $stat
                 data.CompanyID = $stateParams.id;
                 Restangular.restangularizeElement('', data, 'companyaccount')
                 data.post().then(function (res) {
-                    toaster.pop('success', $translate.instant('difinitions.Saved'), 'Saved.');
+                    toaster.pop('success', $translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
                 });
 
             } else
@@ -155,7 +155,7 @@ function companyaccountCtrl($rootScope, $scope, $modal, $log, Restangular, $stat
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

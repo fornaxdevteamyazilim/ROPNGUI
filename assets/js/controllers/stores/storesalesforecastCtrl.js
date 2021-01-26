@@ -34,11 +34,11 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
     };
     $scope.saveData = function (data) {
         if (data.restangularized) {
-            data.put().then(function (res) { ssc.tableParams.reload(); toaster.pop('success', "Updated.", 'Updated.'); });
+            data.put().then(function (res) { ssc.tableParams.reload(); toaster.pop('success',$translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated')); });
         }
         else {
             Restangular.restangularizeElement('', data, $scope.objectType)
-            data.post().then(function (res) { ssc.tableParams.reload(); toaster.pop('success', "Saved.", 'Saved.'); });
+            data.post().then(function (res) { ssc.tableParams.reload(); toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved')); });
         }
         data.get();
     }
@@ -61,9 +61,9 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
         rowform.$cancel();
         if (!ssc.tableParams.data[ssc.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ssc.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('orderfile.Cancelled'),  $translate.instant('difinitions.Editcancelled'));
         }
     };
     ssc.tableParams = new ngTableParams({
@@ -81,7 +81,7 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
                 $scope.SelectedItem = (items && items.length > 0) ? items[0].id : null;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
         });
@@ -174,7 +174,7 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -183,7 +183,7 @@ function storesalesforecastCtrl($rootScope, $scope, $log, $modal, Restangular, n
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

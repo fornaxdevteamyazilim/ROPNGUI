@@ -36,7 +36,7 @@ function schedulelistCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
                     $scope.SelectedItem = items[0].id;
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
