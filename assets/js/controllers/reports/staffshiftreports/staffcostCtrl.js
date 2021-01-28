@@ -43,7 +43,7 @@ function staffcostCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
     };
     $scope.VeiwHeader = {};
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var pivot = $("#sales").dxPivotGrid('instance');
             var pivotDS = pivot.getDataSource();

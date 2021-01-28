@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('inventorytransactionsCtrl', inventorytransactionsCtrl);
-function inventorytransactionsCtrl($scope,  $filter,  $window, $stateParams, $rootScope, $translate, userService, ngnotifyService, $element, NG_SETTING, $http, $q) {
+function inventorytransactionsCtrl($scope, $filter, $window, $stateParams, $rootScope, $translate, userService, ngnotifyService, $element, NG_SETTING, $http, $q) {
     $rootScope.uService.EnterController("inventorytransactionsCtrl");
     $scope.Time = ngnotifyService.ServerTime();
 
@@ -41,7 +41,7 @@ function inventorytransactionsCtrl($scope,  $filter,  $window, $stateParams, $ro
     };
     $scope.VeiwHeader = {};
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.refresh();

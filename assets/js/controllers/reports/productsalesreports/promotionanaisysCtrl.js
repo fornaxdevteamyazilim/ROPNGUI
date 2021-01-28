@@ -38,7 +38,7 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
     };
     $scope.VeiwHeader = {};
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.refresh();

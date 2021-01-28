@@ -4,7 +4,7 @@ function punchcardtransactionsCtrl($scope, $filter, $modal, $log, Restangular, S
     var ctrl = this;
     $scope.VeiwHeader = {};
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.refresh();

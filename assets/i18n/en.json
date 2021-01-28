@@ -3088,7 +3088,13 @@
   },
   "reportparameters": {
     "FromDate": "From Date",
-    "ToDate": "To Date"
+    "ToDate": "To Date",
+    "Firstyear": "First Year",
+    "Firstweek": "First Week",
+    "Secondyear": "Second Year",
+    "Secondweek": "Second Week",
+    "Week": "Week",
+    "Year": "Year"
   },
   "systemmessages": {
     "BrowseDisabledShort": "Browse Disabled",

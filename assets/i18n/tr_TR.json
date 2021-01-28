@@ -3098,7 +3098,13 @@
   },
   "reportparameters": {
     "FromDate": "Başlangıç",
-    "ToDate": "Bitiş"
+    "ToDate": "Bitiş",
+    "Firstyear": "Başlangıç Yılı",
+    "Firstweek": "Başlangıç Haftası",
+    "Secondyear": "Bitiş Yılı",
+    "Secondweek": "Bitiş Haftası",
+    "Week": "Hafta",
+    "Year": "Yıl"
   },
   "systemmessages": {
     "BrowseDisabledShort": "Geçiş yapılamaz",
