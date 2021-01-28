@@ -108,7 +108,7 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
         //filterRow: { visible: true },
         //filterPanel: { visible: true },
         headerFilter: { visible: true },
-        grouping: { autoExpandAll: false,contextMenuEnabled: true,expandMode:'rowClick' },
+        grouping: { autoExpandAll: false, contextMenuEnabled: true, expandMode: 'rowClick' },
         searchPanel: { visible: true },
         groupPanel: { visible: true },
         columnChooser: { enabled: true },
@@ -126,9 +126,9 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
         //     storageKey: "dx-weeklycolGrid"
         // },
         columns: [
-            { dataField: "Store", caption: $translate.instant('trends.Store'), visibleIndex: 0, fixed: true, dataType: "string", sortIndex: 0, sortOrder: "asc", groupIndex: 0 },
+            { dataField: "Store", caption: $translate.instant('weeklycolsummary.Store'), visibleIndex: 0, fixed: true, dataType: "string", sortIndex: 0, sortOrder: "asc", groupIndex: 0 },
             {
-                dataField: "WeekDay", caption: "Week Day", fixed: true, dataType: "string", sortIndex: 0, sortOrder: "asc",
+                dataField: "WeekDay", caption: $translate.instant('weeklycolsummary.WeekDay'), fixed: true, dataType: "string", sortIndex: 0, sortOrder: "asc",
                 sortingMethod: function (a, b) {
                     var txtindex1 = 0;
                     var txtindex2 = 0;
@@ -231,14 +231,14 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
 
                 },
             },
-            { dataField: "RegionManager", caption: $translate.instant('trends.Region'), fixed: true, dataType: "string", visible: false },
+            { dataField: "RegionManager", caption: $translate.instant('weeklycolsummary.Region'), fixed: true, dataType: "string", visible: false },
             {
-                caption: "Sales", name: "Sales",
+                caption: $translate.instant('weeklycolsummary.Sales'), name: "Sales",
                 columns: [
-                    { dataField: "ProjectedSales", dataType: "number", caption: "Projected", name: "ProjectedSales", format: { type: "fixedPoint", precision: 0 } },
-                    { dataField: "AcualSales", dataType: "number", caption: "Actual", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "ProjectedSales", dataType: "number", caption: $translate.instant('weeklycolsummary.Projected'), name: "ProjectedSales", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "AcualSales", dataType: "number", caption: $translate.instant('weeklycolsummary.Actual'), format: { type: "fixedPoint", precision: 0 } },
                     {
-                        caption: "Variance",
+                        caption: $translate.instant('weeklycolsummary.Variance'),
                         name: "SalesVariance", dataType: "number",
                         //visibleIndex: 12,
                         calculateCellValue: function (data) {
@@ -249,12 +249,12 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                 ]
             },
             {
-                caption: "Total COL", name: "TotalCOL",
+                caption: $translate.instant('weeklycolsummary.TotalCOL'), name: "TotalCOL",
                 columns: [
-                    { dataField: "TotalProjectedCOL", caption: "Projected", format: { type: "fixedPoint", precision: 0 } },
-                    { dataField: "TotalActualCOL", caption: "Actual", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "TotalProjectedCOL", caption: $translate.instant('weeklycolsummary.Projected'), format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "TotalActualCOL", caption: $translate.instant('weeklycolsummary.Actual'), format: { type: "fixedPoint", precision: 0 } },
                     {
-                        caption: "Variance",
+                        caption: $translate.instant('weeklycolsummary.Variance'),
                         name: "TotalCOLVariance",
                         calculateCellValue: function (data) {
                             return data.TotalActualCOL - data.TotalProjectedCOL;
@@ -264,10 +264,10 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                 ]
             },
             {
-                caption: "Total COL %",
+                caption: $translate.instant('weeklycolsummary.TotalCOL%'),
                 columns: [
                     {
-                        caption: "Projected",
+                        caption: $translate.instant('weeklycolsummary.Projected'),
                         name: "TotalProjectedPercent",
                         calculateCellValue: function (data) {
                             return data.TotalProjectedCOL / data.ProjectedSales;
@@ -275,7 +275,7 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                         format: { type: "percent", precision: 2 }
                     },
                     {
-                        caption: "Actual",
+                        caption: $translate.instant('weeklycolsummary.Actual'),
                         name: "TotalActualPercent",
                         calculateCellValue: function (data) {
                             return data.TotalActualCOL / data.AcualSales;
@@ -283,7 +283,7 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                         format: { type: "percent", precision: 2 }
                     },
                     {
-                        caption: "Variance",
+                        caption: $translate.instant('weeklycolsummary.Variance'),
                         name: "TotalVariancePercent",
                         calculateCellValue: function (data) {
                             return (data.TotalActualCOL / data.AcualSales) - (data.TotalProjectedCOL / data.ProjectedSales);
@@ -293,42 +293,42 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                 ]
             },
             {
-                caption: "COL %", name: "COLPercent",
-                columns: [                                     
+                caption: $translate.instant('weeklycolsummary.COL%'), name: "COLPercent",
+                columns: [
                     {
-                        caption: "Manager", name: "ManagerPercent",
+                        caption: $translate.instant('weeklycolsummary.Manager'), name: "ManagerPercent",
                         columns: [
                             {
-                                caption: "Projected",
+                                caption: $translate.instant('weeklycolsummary.Projected'),
                                 name: "ProjectedManagerPercent",
                                 calculateCellValue: function (data) {
                                     return data.ProjectedManagerCost / data.ProjectedSales;
                                 },
                                 format: { type: "percent", precision: 2 }
-                            },  
+                            },
                             {
-                                caption: "Actual",
+                                caption: $translate.instant('weeklycolsummary.Actual'),
                                 name: "ActualManagerPercent",
                                 calculateCellValue: function (data) {
                                     return data.ActualManagerCost / data.AcualSales;
                                 },
                                 format: { type: "percent", precision: 2 }
-                            },                               
+                            },
                         ]
                     },
                     {
-                        caption: "Team Member", name: "TeamMemberPercent",
+                        caption: $translate.instant('weeklycolsummary.TeamMember'), name: "TeamMemberPercent",
                         columns: [
                             {
-                                caption: "Projected",
+                                caption: $translate.instant('weeklycolsummary.Projected'),
                                 name: "ProjectedTeamMemberPercent",
                                 calculateCellValue: function (data) {
                                     return data.ProjectedTeamMemberCost / data.ProjectedSales;
                                 },
                                 format: { type: "percent", precision: 2 }
-                            },  
+                            },
                             {
-                                caption: "Actual",
+                                caption: $translate.instant('weeklycolsummary.Actual'),
                                 name: "ActualTeamMemberPercent",
                                 calculateCellValue: function (data) {
                                     return data.ActualTeamMemberCost / data.AcualSales;
@@ -338,35 +338,35 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                         ]
                     },
                     {
-                        caption: "Driver", name: "DriverPercent",
+                        caption: $translate.instant('weeklycolsummary.Driver'), name: "DriverPercent",
                         columns: [
                             {
-                                caption: "Projected",
+                                caption: $translate.instant('weeklycolsummary.Projected'),
                                 name: "ProjectedDriverPercent",
                                 calculateCellValue: function (data) {
                                     return data.ProjectedDriverCost / data.ProjectedSales;
                                 },
                                 format: { type: "percent", precision: 2 }
-                            },  
+                            },
                             {
-                                caption: "Actual",
+                                caption: $translate.instant('weeklycolsummary.Actual'),
                                 name: "ActualDriverPercent",
                                 calculateCellValue: function (data) {
                                     return data.ActualDriverCost / data.AcualSales;
                                 },
                                 format: { type: "percent", precision: 2 }
-                            },                           
+                            },
                         ]
                     },
                 ]
             },
             {
-                caption: "OverTime Hours", name: "OverTimeHours",
+                caption: $translate.instant('weeklycolsummary.OverTimeHours'), name: "OverTimeHours",
                 columns: [
-                    { dataField: "ProjectedOverTimeHours", caption: "Projected", format: { type: "fixedPoint", precision: 2 } },
-                    { dataField: "ActualOwertimeHours", caption: "Actual", format: { type: "fixedPoint", precision: 2 } },
+                    { dataField: "ProjectedOverTimeHours", caption: $translate.instant('weeklycolsummary.Projected'), format: { type: "fixedPoint", precision: 2 } },
+                    { dataField: "ActualOwertimeHours", caption: $translate.instant('weeklycolsummary.Actual'), format: { type: "fixedPoint", precision: 2 } },
                     {
-                        caption: "Variance",
+                        caption: $translate.instant('weeklycolsummary.Variance'),
                         name: "OvertimeVariance",
                         calculateCellValue: function (data) {
                             return data.ActualOwertimeHours - data.ProjectedOverTimeHours;
@@ -376,38 +376,38 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                 ]
             },
             {
-                caption: "Working Hours", name: "WorkingHours",
-                columns: [                    
+                caption: $translate.instant('weeklycolsummary.WorkingHours'), name: "WorkingHours",
+                columns: [
                     {
-                        caption: "Manager", name: "ManagerHours",
+                        caption: $translate.instant('weeklycolsummary.Manager'), name: "ManagerHours",
                         columns: [
-                            { dataField: "ProjectedManagerHours", caption: "Projected", format: { type: "fixedPoint", precision: 2 } },
-                            { dataField: "ActualManagerHours", caption: "Actual", format: { type: "fixedPoint", precision: 2 } },
+                            { dataField: "ProjectedManagerHours", caption: $translate.instant('weeklycolsummary.Projected'), format: { type: "fixedPoint", precision: 2 } },
+                            { dataField: "ActualManagerHours", caption: $translate.instant('weeklycolsummary.Actual'), format: { type: "fixedPoint", precision: 2 } },
                         ]
                     },
                     {
-                        caption: "Team Member", name: "TeamMemberHours",
+                        caption: $translate.instant('weeklycolsummary.TeamMember'), name: "TeamMemberHours",
                         columns: [
-                            { dataField: "ProjectedTeamMemberHours", caption: "Projected", format: { type: "fixedPoint", precision: 2 } },                            
-                            { dataField: "ActualTeamMemberHours", caption: "Actual", format: { type: "fixedPoint", precision: 2 } },                            
+                            { dataField: "ProjectedTeamMemberHours", caption: $translate.instant('weeklycolsummary.Projected'), format: { type: "fixedPoint", precision: 2 } },
+                            { dataField: "ActualTeamMemberHours", caption: $translate.instant('weeklycolsummary.Actual'), format: { type: "fixedPoint", precision: 2 } },
                         ]
                     },
                     {
-                        caption: "Driver", name: "DriverHours",
+                        caption: $translate.instant('weeklycolsummary.Driver'), name: "DriverHours",
                         columns: [
-                            { dataField: "ProjectedDriverHours", caption: "Projected", format: { type: "fixedPoint", precision: 2 } },                            
-                            { dataField: "ActualDriverHours", caption: "Actual", format: { type: "fixedPoint", precision: 2 } },                            
+                            { dataField: "ProjectedDriverHours", caption: $translate.instant('weeklycolsummary.Projected'), format: { type: "fixedPoint", precision: 2 } },
+                            { dataField: "ActualDriverHours", caption: $translate.instant('weeklycolsummary.Actual'), format: { type: "fixedPoint", precision: 2 } },
                         ]
                     },
                 ]
             },
             {
-                caption: "OverTime Cost", name: "OverTimeCost",
+                caption: $translate.instant('weeklycolsummary.OverTimeCost'), name: "OverTimeCost",
                 columns: [
-                    { dataField: "ProjectedOverTimeCOL", caption: "Projected", format: { type: "fixedPoint", precision: 2 } },
-                    { dataField: "ActualOwertimeCOL", caption: "Actual", format: { type: "fixedPoint", precision: 2 } },
+                    { dataField: "ProjectedOverTimeCOL", caption: $translate.instant('weeklycolsummary.Projected'), format: { type: "fixedPoint", precision: 2 } },
+                    { dataField: "ActualOwertimeCOL", caption: $translate.instant('weeklycolsummary.Actual'), format: { type: "fixedPoint", precision: 2 } },
                     {
-                        caption: "Variance",
+                        caption: $translate.instant('weeklycolsummary.Variance'),
                         name: "OvertimeCostVariance",
                         calculateCellValue: function (data) {
                             return data.ActualOwertimeCOL - data.ProjectedOverTimeCOL;
@@ -417,13 +417,13 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                 ]
             },
             {
-                caption: "Delivery", name: "Delivery",
+                caption: $translate.instant('weeklycolsummary.Delivery'), name: "Delivery",
                 columns: [
-                    { dataField: "DeliveredOrders", caption: "Orders", format: { type: "fixedPoint", precision: 0 } },
-                    { dataField: "DriveCost", caption: "Drive Cost", name: "DriveCost", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "DeliveredOrders", caption: $translate.instant('weeklycolsummary.Orders'), format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "DriveCost", caption: $translate.instant('weeklycolsummary.DriveCost'), name: "DriveCost", format: { type: "fixedPoint", precision: 0 } },
                 ]
             },
-            { dataField: "ProjectedPayedOffCOL", caption: "PayedOff COL", name: "PayedOffCOL", format: { type: "fixedPoint", precision: 0 } }
+            { dataField: "ProjectedPayedOffCOL", caption: $translate.instant('weeklycolsummary.PayedOffCOL'), name: "PayedOffCOL", format: { type: "fixedPoint", precision: 0 } }
         ],
         summary: {
             totalItems: [{ column: "Store", summaryType: "count", displayFormat: "{0}" },
@@ -483,8 +483,8 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                 // { column: "TotalActualPercent", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 // { column: "TotalProjectedPercent", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { name: "TotalActualPercent", showInColumn: "TotalActualPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-                { name: "TotalProjectedPercent", showInColumn: "TotalProjectedPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" , alignByColumn: true},
-                { name: "TotalVariancePercent", showInColumn: "TotalVariancePercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" , alignByColumn: true },
+                { name: "TotalProjectedPercent", showInColumn: "TotalProjectedPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "TotalVariancePercent", showInColumn: "TotalVariancePercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "ActualOwertimeCOL", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "ActualOwertimeHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "ProjectedOverTimeHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
@@ -500,28 +500,28 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                 { column: "ActualTeamMemberHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "ProjectedDriverHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "ActualDriverHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-                { name: "ProjectedManagerPercent", showInColumn: "ProjectedManagerPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" , alignByColumn: true},
-                { name: "ActualManagerPercent", showInColumn: "ActualManagerPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" , alignByColumn: true},
-                { name: "ProjectedTeamMemberPercent", showInColumn: "ProjectedTeamMemberPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" , alignByColumn: true},
-                { name: "ActualTeamMemberPercent", showInColumn: "ActualTeamMemberPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" , alignByColumn: true},
-                { name: "ProjectedDriverPercent", showInColumn: "ProjectedDriverPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" , alignByColumn: true},
-                { name: "ActualDriverPercent", showInColumn: "ActualDriverPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" , alignByColumn: true},
-                
+                { name: "ProjectedManagerPercent", showInColumn: "ProjectedManagerPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "ActualManagerPercent", showInColumn: "ActualManagerPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "ProjectedTeamMemberPercent", showInColumn: "ProjectedTeamMemberPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "ActualTeamMemberPercent", showInColumn: "ActualTeamMemberPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "ProjectedDriverPercent", showInColumn: "ProjectedDriverPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "ActualDriverPercent", showInColumn: "ActualDriverPercent", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+
             ],
             calculateCustomSummary: function (options) {
                 if (options.name === "TotalActualPercent") {
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.TCOL=0;
-                            options.TOTALSALES=0;
+                            options.TCOL = 0;
+                            options.TOTALSALES = 0;
                             break;
                         case "calculate":
-                            options.TCOL=options.TCOL+options.value.TotalActualCOL;
-                            options.TOTALSALES=options.TOTALSALES+options.value.AcualSales;
+                            options.TCOL = options.TCOL + options.value.TotalActualCOL;
+                            options.TOTALSALES = options.TOTALSALES + options.value.AcualSales;
                             break;
                         case "finalize":
-                            options.totalValue = options.TCOL/options.TOTALSALES;
+                            options.totalValue = options.TCOL / options.TOTALSALES;
                             break;
                     }
                 }
@@ -529,15 +529,15 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.TCOL=0;
-                            options.TOTALSALES=0;
+                            options.TCOL = 0;
+                            options.TOTALSALES = 0;
                             break;
                         case "calculate":
-                            options.TCOL=options.TCOL+options.value.TotalActualCOL;
-                            options.TOTALSALES=options.TOTALSALES+options.value.AcualSales;
+                            options.TCOL = options.TCOL + options.value.TotalActualCOL;
+                            options.TOTALSALES = options.TOTALSALES + options.value.AcualSales;
                             break;
                         case "finalize":
-                            options.totalValue = options.TCOL/options.TOTALSALES;
+                            options.totalValue = options.TCOL / options.TOTALSALES;
                             break;
                     }
                 }
@@ -545,15 +545,15 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.TCOL=0;
-                            options.TOTALSALES=0;
+                            options.TCOL = 0;
+                            options.TOTALSALES = 0;
                             break;
                         case "calculate":
-                            options.TCOL=options.TCOL+options.value.TotalProjectedCOL;
-                            options.TOTALSALES=options.TOTALSALES+options.value.ProjectedSales;
+                            options.TCOL = options.TCOL + options.value.TotalProjectedCOL;
+                            options.TOTALSALES = options.TOTALSALES + options.value.ProjectedSales;
                             break;
                         case "finalize":
-                            options.totalValue = options.TCOL/options.TOTALSALES;
+                            options.totalValue = options.TCOL / options.TOTALSALES;
                             break;
                     }
                 }
@@ -561,20 +561,20 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.TCOL=0;
-                            options.TOTALSALES=0;
-                            options.PTCOL=0;
-                            options.PTOTALSALES=0;
+                            options.TCOL = 0;
+                            options.TOTALSALES = 0;
+                            options.PTCOL = 0;
+                            options.PTOTALSALES = 0;
                             break;
                         case "calculate":
-                            options.TCOL=options.TCOL+options.value.TotalActualCOL;
-                            options.TOTALSALES=options.TOTALSALES+options.value.AcualSales;
-                            options.PTCOL=options.PTCOL+options.value.TotalProjectedCOL;
-                            options.PTOTALSALES=options.PTOTALSALES+options.value.ProjectedSales;
+                            options.TCOL = options.TCOL + options.value.TotalActualCOL;
+                            options.TOTALSALES = options.TOTALSALES + options.value.AcualSales;
+                            options.PTCOL = options.PTCOL + options.value.TotalProjectedCOL;
+                            options.PTOTALSALES = options.PTOTALSALES + options.value.ProjectedSales;
                             //(data.TotalActualCOL / data.AcualSales) - (data.TotalProjectedCOL / data.ProjectedSales)
                             break;
                         case "finalize":
-                            options.totalValue = (options.TCOL/options.TOTALSALES)-(options.PTCOL/options.PTOTALSALES);
+                            options.totalValue = (options.TCOL / options.TOTALSALES) - (options.PTCOL / options.PTOTALSALES);
                             break;
                     }
                 }
@@ -583,15 +583,15 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.TCOL=0;
-                            options.TOTALSALES=0;
+                            options.TCOL = 0;
+                            options.TOTALSALES = 0;
                             break;
                         case "calculate":
-                            options.TCOL=options.TCOL+options.value.ProjectedManagerCost;
-                            options.TOTALSALES=options.TOTALSALES+options.value.ProjectedSales;
+                            options.TCOL = options.TCOL + options.value.ProjectedManagerCost;
+                            options.TOTALSALES = options.TOTALSALES + options.value.ProjectedSales;
                             break;
                         case "finalize":
-                            options.totalValue = options.TCOL/options.TOTALSALES;
+                            options.totalValue = options.TCOL / options.TOTALSALES;
                             break;
                     }
                 }
@@ -599,15 +599,15 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.TCOL=0;
-                            options.TOTALSALES=0;
+                            options.TCOL = 0;
+                            options.TOTALSALES = 0;
                             break;
                         case "calculate":
-                            options.TCOL=options.TCOL+options.value.ActualManagerCost;
-                            options.TOTALSALES=options.TOTALSALES+options.value.AcualSales;
+                            options.TCOL = options.TCOL + options.value.ActualManagerCost;
+                            options.TOTALSALES = options.TOTALSALES + options.value.AcualSales;
                             break;
                         case "finalize":
-                            options.totalValue = options.TCOL/options.TOTALSALES;
+                            options.totalValue = options.TCOL / options.TOTALSALES;
                             break;
                     }
                 }
@@ -615,15 +615,15 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.TCOL=0;
-                            options.TOTALSALES=0;
+                            options.TCOL = 0;
+                            options.TOTALSALES = 0;
                             break;
                         case "calculate":
-                            options.TCOL=options.TCOL+options.value.ProjectedTeamMemberCost;
-                            options.TOTALSALES=options.TOTALSALES+options.value.ProjectedSales;
+                            options.TCOL = options.TCOL + options.value.ProjectedTeamMemberCost;
+                            options.TOTALSALES = options.TOTALSALES + options.value.ProjectedSales;
                             break;
                         case "finalize":
-                            options.totalValue = options.TCOL/options.TOTALSALES;
+                            options.totalValue = options.TCOL / options.TOTALSALES;
                             break;
                     }
                 }
@@ -631,15 +631,15 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.TCOL=0;
-                            options.TOTALSALES=0;
+                            options.TCOL = 0;
+                            options.TOTALSALES = 0;
                             break;
                         case "calculate":
-                            options.TCOL=options.TCOL+options.value.ActualTeamMemberCost;
-                            options.TOTALSALES=options.TOTALSALES+options.value.AcualSales;
+                            options.TCOL = options.TCOL + options.value.ActualTeamMemberCost;
+                            options.TOTALSALES = options.TOTALSALES + options.value.AcualSales;
                             break;
                         case "finalize":
-                            options.totalValue = options.TCOL/options.TOTALSALES;
+                            options.totalValue = options.TCOL / options.TOTALSALES;
                             break;
                     }
                 }
@@ -647,15 +647,15 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.TCOL=0;
-                            options.TOTALSALES=0;
+                            options.TCOL = 0;
+                            options.TOTALSALES = 0;
                             break;
                         case "calculate":
-                            options.TCOL=options.TCOL+options.value.ProjectedDriverCost;
-                            options.TOTALSALES=options.TOTALSALES+options.value.AcualSales;
+                            options.TCOL = options.TCOL + options.value.ProjectedDriverCost;
+                            options.TOTALSALES = options.TOTALSALES + options.value.AcualSales;
                             break;
                         case "finalize":
-                            options.totalValue = options.TCOL/options.TOTALSALES;
+                            options.totalValue = options.TCOL / options.TOTALSALES;
                             break;
                     }
                 }
@@ -663,23 +663,23 @@ function weeklycolsummaryCtrl($scope, Restangular, toaster, $interval, $http, NG
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.TCOL=0;
-                            options.TOTALSALES=0;
+                            options.TCOL = 0;
+                            options.TOTALSALES = 0;
                             break;
                         case "calculate":
-                            options.TCOL=options.TCOL+options.value.ActualDriverCost;
-                            options.TOTALSALES=options.TOTALSALES+options.value.AcualSales;
+                            options.TCOL = options.TCOL + options.value.ActualDriverCost;
+                            options.TOTALSALES = options.TOTALSALES + options.value.AcualSales;
                             break;
                         case "finalize":
-                            options.totalValue = options.TCOL/options.TOTALSALES;
+                            options.totalValue = options.TCOL / options.TOTALSALES;
                             break;
                     }
                 }
-                
-                
+
+
             },
         },
-        
+
         onCellPrepared: function (options) {
             if (options.rowType == 'data') {
                 var fieldData = options.value;

@@ -12,8 +12,8 @@ function staffcostCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
     var tranlatelistener = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
         $scope.translate();
     });
-    Date.prototype.addDays = Date.prototype.addDays || function( days ) {
-        return this.setTime( 864E5 * days + this.valueOf() ) && this;
+    Date.prototype.addDays = Date.prototype.addDays || function (days) {
+        return this.setTime(864E5 * days + this.valueOf()) && this;
     };
     $scope.DateRange = {
         fromDate: {
@@ -25,7 +25,7 @@ function staffcostCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
             },
             value: (new Date()).addDays(-8),
             labelLocation: "top", // or "left" | "right"  
-            
+
         },
         toDate: {
             max: new Date(),
@@ -106,17 +106,17 @@ function staffcostCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
         dataSource: {
             remoteOperations: true,
             fields: [
-                { dataField: "StaffPossition", area: "column", area: "row", area: "filter"   },
-                { caption: "Store", width: 120, dataField: "Store", area: "row" },
-                { caption: "Year",dataField: "OperationDate", dataType: "date", groupInterval:"year", area: "filter"  },
-                { caption: "Month",dataField: "OperationDate", dataType: "date", groupInterval:"month", area: "filter"  },
-                { caption: "Day",dataField: "OperationDate", dataType: "date", groupInterval:"day",area: "column"  },
-                { caption: "TotalCost", dataField: "TotalCost", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
-                { caption: "Cost", dataField: "Cost", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2 , area: "filter"},
-                { caption: "OvertimeCost", dataField: "OvertimeCost", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2, area: "filter" },
-                { caption: "WorkingHours", dataField: "WorkingHours", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 0, area: "filter" },
-                { caption: "ActualWorkingHours", dataField: "ActualWorkingHours", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 0, area: "filter" },
-                { caption: "OvertimeHours", dataField: "OvertimeHours", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 0, area: "filter" },
+                { dataField: "StaffPossition", area: "column", area: "row", area: "filter" },
+                { caption: $translate.instant('staffcost.Store'), width: 120, dataField: "Store", area: "row" },
+                { caption: $translate.instant('staffcost.Year'), dataField: "OperationDate", dataType: "date", groupInterval: "year", area: "filter" },
+                { caption: $translate.instant('staffcost.Month'), dataField: "OperationDate", dataType: "date", groupInterval: "month", area: "filter" },
+                { caption: $translate.instant('staffcost.Day'), dataField: "OperationDate", dataType: "date", groupInterval: "day", area: "column" },
+                { caption: $translate.instant('staffcost.TotalCost'), dataField: "TotalCost", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
+                { caption: $translate.instant('staffcost.Cost'), dataField: "Cost", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2, area: "filter" },
+                { caption: $translate.instant('staffcost.OvertimeCost'), dataField: "OvertimeCost", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2, area: "filter" },
+                { caption: $translate.instant('staffcost.WorkingHours'), dataField: "WorkingHours", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 0, area: "filter" },
+                { caption: $translate.instant('staffcost.ActualWorkingHours'), dataField: "ActualWorkingHours", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 0, area: "filter" },
+                { caption: $translate.instant('staffcost.OvertimeHours'), dataField: "OvertimeHours", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 0, area: "filter" },
 
             ],
             store: DevExpress.data.AspNet.createStore({
@@ -159,16 +159,16 @@ function staffcostCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
         return result;
     };
     function getFilter() { //"and",["!",["OrderType","=",""]]
-    var fdate = new Date($scope.DateRange.fromDate.value.getFullYear(), $scope.DateRange.fromDate.value.getMonth(), $scope.DateRange.fromDate.value.getDate());
-    var tdate = new Date($scope.DateRange.toDate.value.getFullYear(), $scope.DateRange.toDate.value.getMonth(), $scope.DateRange.toDate.value.getDate());
-        
+        var fdate = new Date($scope.DateRange.fromDate.value.getFullYear(), $scope.DateRange.fromDate.value.getMonth(), $scope.DateRange.fromDate.value.getDate());
+        var tdate = new Date($scope.DateRange.toDate.value.getFullYear(), $scope.DateRange.toDate.value.getMonth(), $scope.DateRange.toDate.value.getDate());
+
         if ($scope.StoreID) {
             return [[["OperationDate", ">=", fdate], "and", ["OperationDate", "<=", tdate]], "and", ["StoreID", "=", $scope.StoreID]];
         }
         else {
             var s = BuildUserStoresArray($rootScope.user.userstores);
             if (s)
-                return [["OperationDate", ">=",fdate], "and", ["OperationDate", "<=", tdate], [s]];
+                return [["OperationDate", ">=", fdate], "and", ["OperationDate", "<=", tdate], [s]];
             else
                 return [["OperationDate", ">=", fdate], "and", ["OperationDate", "<=", tdate]];
         }

@@ -46,7 +46,7 @@ function clockinoutreportCtrl($scope, $filter, $modal, $log, Restangular, SweetA
         return value !== undefined && value !== null && value !== "";
     };
     function formatTime(cellInfo) {
-        var sec = cellInfo.value * 60 * 1000*60;
+        var sec = cellInfo.value * 60 * 1000 * 60;
         var dateObj = new Date(sec);
         var hours = dateObj.getUTCHours();
         var minutes = dateObj.getUTCMinutes();
@@ -70,16 +70,16 @@ function clockinoutreportCtrl($scope, $filter, $modal, $log, Restangular, SweetA
         return result;
     }
     function getFilter() { //"and",["!",["OrderType","=",""]]
-        
-            var s = BuildUserStoresArray($rootScope.user.userstores);
+
+        var s = BuildUserStoresArray($rootScope.user.userstores);
         if (s)
             return [["OperationDate", ">=", $scope.DateRange.fromDate.value], "and", ["OperationDate", "<=", $scope.DateRange.toDate.value], [s]];
         else
             return "";
-                //return [["OperationDate", ">=", $scope.DateRange.fromDate.value], "and", ["OperationDate", "<=", $scope.DateRange.toDate.value ], [s]];
-            //else
-            //    return [["OperationDate", ">=", $scope.DateRange.fromDate.value], "and", ["OperationDate", "<=", $scope.DateRange.toDate.value ],["isActive","=","1"]];
-        
+        //return [["OperationDate", ">=", $scope.DateRange.fromDate.value], "and", ["OperationDate", "<=", $scope.DateRange.toDate.value ], [s]];
+        //else
+        //    return [["OperationDate", ">=", $scope.DateRange.fromDate.value], "and", ["OperationDate", "<=", $scope.DateRange.toDate.value ],["isActive","=","1"]];
+
     }
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
@@ -129,7 +129,7 @@ function clockinoutreportCtrl($scope, $filter, $modal, $log, Restangular, SweetA
         remoteOperations: true,
         columns: [
             {
-                dataField: "StoreID", caption: "Store",
+                dataField: "StoreID", caption: $translate.instant('clockinoutreport.Store'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -153,7 +153,7 @@ function clockinoutreportCtrl($scope, $filter, $modal, $log, Restangular, SweetA
                 //groupIndex: 0
             },
             {
-                dataField: "NGUserID", caption: "User",
+                dataField: "NGUserID", caption: $translate.instant('clockinoutreport.User'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "FullName",
@@ -176,21 +176,21 @@ function clockinoutreportCtrl($scope, $filter, $modal, $log, Restangular, SweetA
                 fixed: true,
                 //groupIndex: 1
             },
-            { dataField: "OperationDate", dataType: "date", format: 'dd.MM.yyyy', fixed: true },
-            { dataField: "WorkingHours", dataType: "number", customizeText: formatTime },
-            { dataField: "InTime", dataType: "datetime", format: 'HH:mm', sortOrder: "desc" },
-            { dataField: "OutTime", dataType: "datetime", format: 'HH:mm' },
-            "InIPAddress",
-            "OutIPAddress",
-            "isActive"
+            { caption: $translate.instant('clockinoutreport.OperationDate'), dataField: "OperationDate", dataType: "date", format: 'dd.MM.yyyy', fixed: true },
+            { caption: $translate.instant('clockinoutreport.WorkingHours'), dataField: "WorkingHours", dataType: "number", customizeText: formatTime },
+            { caption: $translate.instant('clockinoutreport.InTime'), dataField: "InTime", dataType: "datetime", format: 'HH:mm', sortOrder: "desc" },
+            { caption: $translate.instant('clockinoutreport.OutTime'), dataField: "OutTime", dataType: "datetime", format: 'HH:mm' },
+            { caption: $translate.instant('clockinoutreport.InIPAddress'), dataField: "InIPAddress" },
+            { caption: $translate.instant('clockinoutreport.OutIPAddress'), dataField: "OutIPAddress" },
+            { caption: $translate.instant('clockinoutreport.isActive'), dataField: "isActive" }
         ],
         summary: {
             totalItems: [{ column: "NGUserID", summaryType: "count", displayFormat: "{0}" },
-                { column: "InTime", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
-                { column: "WorkingHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }],
+            { column: "InTime", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
+            { column: "WorkingHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }],
             groupItems: [{ column: "NGUserID", summaryType: "count", displayFormat: "{0}" },
-                { column: "InTime", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
-                { column: "WorkingHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true}]
+            { column: "InTime", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
+            { column: "WorkingHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }]
         },
         //columns: [
         //    { dataField: "RegionManager", dataType: "string", width: 230, fixed: true },

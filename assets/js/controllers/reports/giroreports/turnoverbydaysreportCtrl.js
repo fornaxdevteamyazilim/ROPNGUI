@@ -14,7 +14,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
     $scope.VeiwHeader = {};
     if (!$rootScope.user || !$rootScope.user.UserRole || !$rootScope.user.UserRole.Name) {
         $location.path('/login/signin');
-    } 
+    }
     $scope.SetStoreTypeID = function (FromValue) {
         $scope.StoreTypeID = FromValue;
         $scope.selectedStoreType = $filter('filter')($scope.storetypes, { id: FromValue });
@@ -68,7 +68,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
         showColumnFields: true,
         showFilterFields: true,
         allowFieldDragging: true,
-        rowHeaderLayout:'tree',
+        rowHeaderLayout: 'tree',
         //showColumnTotals: false,
         showTotalsPrior: "rows",
         visible: true,
@@ -80,7 +80,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
         "export": {
             enabled: true,
             fileName: "Günlere Göre Ciro"
-        },        
+        },
         scrolling: {
             mode: "virtual"
         },
@@ -101,23 +101,24 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
         dataSource: {
             remoteOperations: true,
             fields: [
-                { caption: "Region", width: 120, dataField: "RegionManager", area: "row" },
-                { caption: "Store", width: 120, dataField: "Store", area: "row" },
-                { dataField: "Year", dataType: "number", area: "column" },
-                { dataField: "MonthNumber", dataType: "number", area: "column" },
-                { dataField: "Day", dataType: "number", area: "column" },
-                { caption: "Sales", dataField: "Amount", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
-                { caption: "GrossSales", dataField: "GrossSales", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2 },
+                { caption: $translate.instant('turnoverbydaysreport.Region'), width: 120, dataField: "RegionManager", area: "row" },
+                { caption: $translate.instant('turnoverbydaysreport.Store'), width: 120, dataField: "Store", area: "row" },
+                { caption: $translate.instant('turnoverbydaysreport.Year'), dataField: "Year", dataType: "number", area: "column" },
+                { caption: $translate.instant('turnoverbydaysreport.MonthNumber'), dataField: "MonthNumber", dataType: "number", area: "column" },
+                { caption: $translate.instant('turnoverbydaysreport.Day'), dataField: "Day", dataType: "number", area: "column" },
+                { caption: $translate.instant('turnoverbydaysreport.Amount'), dataField: "Amount", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
+                { caption: $translate.instant('turnoverbydaysreport.GrossSales'), dataField: "GrossSales", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2 },
                 { caption: "TC", dataField: "id", dataType: "number", summaryType: "count", area: "data" },
                 { caption: "VAT", dataField: "VAT", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
-                {caption: "AC", dataField: "Amount", dataType: "number", summaryType: "avg", area: "data",
+                {
+                    caption: "AC", dataField: "Amount", dataType: "number", summaryType: "avg", area: "data",
                     format: {
                         type: "fixedPoint",
                         precision: 2
                     }
                 },
-                { caption: "AmountWithVAT", dataField: "AmountWithVAT", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
-                
+                { caption: $translate.instant('turnoverbydaysreport.AmountWithVAT'), dataField: "AmountWithVAT", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
+
             ],
             store: DevExpress.data.AspNet.createStore({
                 key: "id",
@@ -170,7 +171,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
                 return [["OperationDate", ">=", $rootScope.ReportParameters.StartDate], "and", ["OperationDate", "<=", $rootScope.ReportParameters.EndDate]];
         }
     }
-    
+
     $scope.StoreTypeID = -1;
     $scope.LoadData = function () {
         var pivot = $("#sales").dxPivotGrid('instance');
@@ -184,7 +185,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
         pivotDS.reload();
         //$('#sales').dxPivotGrid('instance').getDataSource().reload();
     };
-    
+
     $scope.FromDate = function (item) {
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/Tools/date.html',

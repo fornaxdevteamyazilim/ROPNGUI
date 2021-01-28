@@ -12,7 +12,7 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
     $scope.Time = ngnotifyService.ServerTime();
     function ISO8601_week_no(dt) {
         var tdt = new Date(dt.valueOf());
-        var dayn = (dt.getDay() + 6) % 7; 
+        var dayn = (dt.getDay() + 6) % 7;
         tdt.setDate(tdt.getDate() - dayn + 3);
         var firstThursday = tdt.valueOf();
         tdt.setMonth(0, 1);
@@ -121,59 +121,59 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
             mode: "none"
         },
         columns: [
-            { dataField: "Area", dataType: "string", width: 180, fixed: true, },
-            { dataField: "Store", dataType: "string", width: 180, fixed: true, },
-            { dataField: "Week", dataType: "number", fixed: true, },
-            { dataField: "Sales", dataType: "number", format: { type: "fixedPoint", precision: 0 }, fixed: true },
-            { dataField: "x", caption:"",dataType: "string", width: 10, allowFiltering: false },
+            { caption: $translate.instant('fsractualtheoretical.Area'), dataField: "Area", dataType: "string", width: 180, fixed: true, },
+            { caption: $translate.instant('fsractualtheoretical.Store'), dataField: "Store", dataType: "string", width: 180, fixed: true, },
+            { caption: $translate.instant('fsractualtheoretical.Week'), dataField: "Week", dataType: "number", fixed: true, },
+            { caption: $translate.instant('fsractualtheoretical.Sales'), dataField: "Sales", dataType: "number", format: { type: "fixedPoint", precision: 0 }, fixed: true },
+            { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
             {
-                caption: "Food",
+                caption: $translate.instant('fsractualtheoretical.Food'),
                 columns: [
-                    { caption: "Actual", dataField: "YiyecekMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: $translate.instant('fsractualtheoretical.Actual'), dataField: "YiyecekMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "YiyecekMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "Theoretical", dataField: "YiyecekMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "YiyecekMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "YiyecekMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
             },
-            { dataField: "x",caption:"", dataType: "string", width: 10, allowFiltering: false },
+            { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
             {
-                caption: "Beverages",
+                caption: $translate.instant('fsractualtheoretical.Beverages'),
                 columns: [
-                    { caption: "Actual", dataField: "IcecekMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: $translate.instant('fsractualtheoretical.Actual'), dataField: "IcecekMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "IcecekMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "Theoretical", dataField: "IcecekMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "IcecekMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "IcecekMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
             },
-            { dataField: "x",caption:"", dataType: "string", width: 10, allowFiltering: false },
+            { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
             {
-                caption: "Packaging",
+                caption: $translate.instant('fsractualtheoretical.Packaging'),
                 columns: [
-                    { caption: "Actual", dataField: "AmbalajMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: $translate.instant('fsractualtheoretical.Actual'), dataField: "AmbalajMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "AmbalajMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "Theoretical", dataField: "AmbalajMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "AmbalajMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "AmbalajMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
             },
-            { dataField: "x",caption:"", dataType: "string", width: 10, allowFiltering: false },
+            { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
             {
-                caption: "Total Materials",
+                caption: $translate.instant('fsractualtheoretical.TotalMaterials'),
                 name: "MaterialsTotal",
                 columns: [
-                    { caption: "Actual", dataField: "Total_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: $translate.instant('fsractualtheoretical.Actual'), dataField: "Total_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "Total_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "Theoretical", dataField: "Total_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "Total_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "Total_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
             },
-            { dataField: "x",caption:"", dataType: "string", width: 10, allowFiltering: false },
+            { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
             {
-                caption: "Labor Costs",
+                caption: $translate.instant('fsractualtheoretical.LaborCosts'),
                 columns: [
-                    { caption: "Actual Col", dataField: "Total_Actual_COL", dataType: "number", format: { type: "fixedPoint", precision: 0 }, },
+                    { caption: $translate.instant('fsractualtheoretical.ActualCol'), dataField: "Total_Actual_COL", dataType: "number", format: { type: "fixedPoint", precision: 0 }, },
                     { caption: "%", dataField: "Total_Actual_COL_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "4 Week Sales AVG", dataField: "StoreSales4Weeks", dataType: "number", format: { type: "fixedPoint", precision: 0 }, },
-                    { caption: "Projection COL", dataField: "Projection_COL", dataType: "number", format: { type: "fixedPoint", precision: 0 }, },
+                    { caption: $translate.instant('fsractualtheoretical.4WeekSalesAVG'), dataField: "StoreSales4Weeks", dataType: "number", format: { type: "fixedPoint", precision: 0 }, },
+                    { caption: $translate.instant('fsractualtheoretical.ProjectionCOL'), dataField: "Projection_COL", dataType: "number", format: { type: "fixedPoint", precision: 0 }, },
                     { caption: "%", dataField: "Projection_COL_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: "Var %", dataField: "Labor_Variance", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
@@ -196,10 +196,10 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                     options.cellElement.css({ 'color': '#f00' });
                 else
                     options.cellElement.css({ 'color': '#2ab71b' });
-                
+
             }
             if (options.column.dataField === 'x') {
-                options.cellElement.css({ 'background-color': '#DCDCDC' });  
+                options.cellElement.css({ 'background-color': '#DCDCDC' });
             }
 
         },
@@ -225,7 +225,7 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                         options.font.bold = true;
                         options.backgroundColor = '#DCDCDC';
                     }
-                    
+
                 }
                 if (gridCell.column.dataField === 'x') {
                     options.backgroundColor = '#000000';

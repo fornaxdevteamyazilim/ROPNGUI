@@ -20,7 +20,7 @@ function punchcardtransactionsCtrl($scope, $filter, $modal, $log, Restangular, S
     function isNotEmpty(value) {
         return value !== undefined && value !== null && value !== "";
     };
-    Date.prototype.addDays = function(days) {
+    Date.prototype.addDays = function (days) {
         var date = new Date(this.valueOf());
         date.setDate(date.getDate() + days);
         return date;
@@ -79,7 +79,7 @@ function punchcardtransactionsCtrl($scope, $filter, $modal, $log, Restangular, S
                     };
                 }
             }
-        }),        
+        }),
         remoteOperations: { groupPaging: true },
         //filterValue: getFilter(),
         showBorders: true,
@@ -115,41 +115,43 @@ function punchcardtransactionsCtrl($scope, $filter, $modal, $log, Restangular, S
         remoteOperations: true,
         columns: [
             { dataField: "id" },
-            "PersonName",
-            "RuleName",
-            { dataField: "TransactionDate", caption: "TransactionDate", dataType: "date", format: 'dd.MM.yyyy' },
-            { dataField: "Earned", dataType: "number", caption: "Earned",  format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "Spended", dataType: "number", caption: "Spended",  format: { type: "fixedPoint", precision: 2 } },
-            "Store",
-            "StoreType",
-            { dataField: "OrderAmount", dataType: "number", caption: "OrderAmount",  format: { type: "fixedPoint", precision: 2 } },
-            "OrderID",
-            "OrderType",
-            "OrderNumber",
-            "OrderSource",
-            "Confirmed"
+            { caption: $translate.instant('punchcardtransactions.PersonName'), dataField: "PersonName" },
+            { caption: $translate.instant('punchcardtransactions.RuleName'), dataField: "RuleName" },
+            { dataField: "TransactionDate", caption: $translate.instant('punchcardtransactions.TransactionDate'), dataType: "date", format: 'dd.MM.yyyy' },
+            { dataField: "Earned", dataType: "number", caption: $translate.instant('punchcardtransactions.Earned'), format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "Spended", dataType: "number", caption: $translate.instant('punchcardtransactions.Spended'), format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('punchcardtransactions.Store'), dataField: "Store" },
+            { caption: $translate.instant('punchcardtransactions.StoreType'), dataField: "StoreType" },
+            { dataField: "OrderAmount", dataType: "number", caption: $translate.instant('punchcardtransactions.OrderAmount'), format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('punchcardtransactions.OrderID'), dataField: "OrderID" },
+            { caption: $translate.instant('punchcardtransactions.OrderType'), dataField: "OrderType" },
+            { caption: $translate.instant('punchcardtransactions.OrderNumber'), dataField: "OrderNumber" },
+            { caption: $translate.instant('punchcardtransactions.OrderSource'), dataField: "OrderSource" },
+            { caption: $translate.instant('punchcardtransactions.Confirmed'), dataField: "Confirmed" },
+
+
         ],
         summary: {
             totalItems: [{ column: "id", summaryType: "count", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
-             { column: "Earned", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-             { column: "Spended", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-             { column: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-             { column: "OrderAmount", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }
-               // { column: "InTime", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
-               // { column: "WorkingHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }
+            { column: "Earned", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "Spended", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "OrderAmount", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }
+                // { column: "InTime", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
+                // { column: "WorkingHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }
             ],
             groupItems: [
                 { column: "id", summaryType: "count", displayFormat: "{0}" },
-                { column: "Earned", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
-                { column: "Spended", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
-                { column: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
-                { column: "OrderAmount", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true}
+                { column: "Earned", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "Spended", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "OrderAmount", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }
                 //{ column: "InTime", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
                 //{ column: "WorkingHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true}
             ]
         },
-        
-        
+
+
         onRowPrepared: function (e) {
             if (e.rowType === 'data') {
                 if (e.data.Delta === true) {

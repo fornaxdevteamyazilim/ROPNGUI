@@ -14,7 +14,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
     }
     if (!$rootScope.user || !$rootScope.user.UserRole || !$rootScope.user.UserRole.Name) {
         $location.path('/login/signin');
-    } 
+    }
     if (userService.userIsInRole("Admin") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("LC") || userService.userIsInRole("AREAMANAGER") || userService.userIsInRole("ACCOUNTING") || userService.userIsInRole("PH") || userService.userIsInRole("MarketingDepartment") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("FinanceDepartment")) {
         $scope.StoreID = '';
         $scope.ShowStores = true;
@@ -125,21 +125,21 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
             remoteOperations: true,
             store: DevExpress.data.AspNet.createStore({
                 key: "id",
-                loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxProductSales", 
+                loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxProductSales",
             }),
             filter: getFilter(),
             fields: [
-                { caption: "Category", dataField: "ProductCategory", width: 250, expanded: true, sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", area: "row" },
-                { caption: "Product", dataField: "name", area: "row", sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", width: 250 },
-                { caption: "Parent", dataField: "ParentName", area: "row", sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", width: 250 },
+                { caption: $translate.instant('productsalesstatistics.Category'), dataField: "ProductCategory", width: 250, expanded: true, sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", area: "row" },
+                { caption: $translate.instant('productsalesstatistics.Product'), dataField: "name", area: "row", sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", width: 250 },
+                { caption: $translate.instant('productsalesstatistics.Parent'), dataField: "ParentName", area: "row", sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", width: 250 },
                 //{ caption: "Date", dataField: "OperationDate", dataType: "date", area: "column" },
-                { dataField: "Year", dataType: "number", area: "column" },
-                { dataField: "MonthNumber", dataType: "number", area: "column" },
-                { dataField: "Day", dataType: "number", area: "column" },
-                { caption: "Quantity", dataField: "Quantity", summaryType: "sum", area: "data"},
-                { caption: "Amount", dataField: "Amount", summaryType: "sum", format: "fixedPoint", area: "data" },
-                { caption: "Cost", dataField: "Cost", summaryType: "sum", format: "fixedPoint", area: "data" },
-                { caption: "Store", dataField: "Store" }
+                { caption: $translate.instant('productsalesstatistics.Year'), dataField: "Year", dataType: "number", area: "column" },
+                { caption: $translate.instant('productsalesstatistics.MonthNumber'), dataField: "MonthNumber", dataType: "number", area: "column" },
+                { caption: $translate.instant('productsalesstatistics.Day'), dataField: "Day", dataType: "number", area: "column" },
+                { caption: $translate.instant('productsalesstatistics.Quantity'), dataField: "Quantity", summaryType: "sum", area: "data" },
+                { caption: $translate.instant('productsalesstatistics.Amount'), dataField: "Amount", summaryType: "sum", format: "fixedPoint", area: "data" },
+                { caption: $translate.instant('productsalesstatistics.Cost'), dataField: "Cost", summaryType: "sum", format: "fixedPoint", area: "data" },
+                { caption: $translate.instant('productsalesstatistics.Store'), dataField: "Store" }
             ]
         }
     };
@@ -156,20 +156,20 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
         else
             return null;
         return result;
-    }  
+    }
     function getFilter() {
         if ($scope.StoreID) {
-            return [[["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.DateToDate]], "and",["StoreID", "=", $scope.StoreID]];
+            return [[["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.DateToDate]], "and", ["StoreID", "=", $scope.StoreID]];
         }
         else {
             var s = BuildUserStoresArray($rootScope.user.userstores);
             if (s)
                 return [["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.DateToDate], [s]];
-            else 
+            else
                 return [["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.DateToDate]];
         }
     }
-    
+
 
     $scope.LoadData = function () {
         var pivot = $("#sales").dxPivotGrid('instance');
@@ -179,11 +179,11 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
         }
         else {
             pivotDS.filter(getFilter());
-        }        
+        }
         pivotDS.reload();
         //$('#sales').dxPivotGrid('instance').getDataSource().reload();
     };
-    
+
     $scope.ProductSalesApiExcel = function () {
         location.href = NG_SETTING.apiServiceBaseUri + '/api/extendedreports/productstatisticsxls?fromDate=' + $scope.DateFromDate + '&toDate=' + $scope.DateToDate + '&StoreID=' + $scope.StoreID;
     };
@@ -277,7 +277,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
         $window.history.back();
     };
 
-        $scope.$on('$destroy', function () {
+    $scope.$on('$destroy', function () {
         $element.remove();
     });
 };

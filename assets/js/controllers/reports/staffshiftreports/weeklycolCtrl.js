@@ -126,15 +126,15 @@ function weeklycolCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
         //     storageKey: "dx-weeklycolGrid"
         // },
         columns: [
-            { dataField: "Store", caption: $translate.instant('trends.Store'), visibleIndex: 0, fixed: true, dataType: "string", sortIndex: 0, sortOrder: "asc" },
-            { dataField: "RegionManager", caption: $translate.instant('trends.Region'), fixed: true, dataType: "string" },
+            { dataField: "Store", caption: $translate.instant('weeklycol.Store'), visibleIndex: 0, fixed: true, dataType: "string", sortIndex: 0, sortOrder: "asc" },
+            { dataField: "RegionManager", caption: $translate.instant('weeklycol.RegionManager'), fixed: true, dataType: "string" },
             {
-                caption: "Sales", name: "Sales",
+                caption: $translate.instant('weeklycol.Sales'), name: "Sales",
                 columns: [
-                    { dataField: "ProjectedSales", dataType: "number", caption: "Projected", name: "ProjectedSales", format: { type: "fixedPoint", precision: 0 } },
-                    { dataField: "AcualSales", caption: "Acual", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "ProjectedSales", dataType: "number", caption: $translate.instant('weeklycol.ProjectedSales'), name: "ProjectedSales", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "AcualSales", caption: $translate.instant('weeklycol.Actual'), format: { type: "fixedPoint", precision: 0 } },
                     {
-                        caption: "Variance",
+                        caption: $translate.instant('weeklycol.Variance'),
                         name: "SalesVariance",
                         //visibleIndex: 12,
                         calculateCellValue: function (data) {
@@ -145,25 +145,25 @@ function weeklycolCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
                 ]
             },
             {
-                caption: "Total COL", name: "TotalCOL",
+                caption: $translate.instant('weeklycol.TotalCOL'), name: "TotalCOL",
                 columns: [
-                    { dataField: "TotalProjectedCOL", caption: "Projected", format: { type: "fixedPoint", precision: 0 } },
-                    { dataField: "TotalActualCOL", caption: "Actual", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "TotalProjectedCOL", caption: $translate.instant('weeklycol.Projected'), format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "TotalActualCOL", caption: $translate.instant('weeklycol.Actual'), format: { type: "fixedPoint", precision: 0 } },
                     {
-                        caption: "Variance",
+                        caption: $translate.instant('weeklycol.Variance'),
                         name: "TotalCOLVariance",
                         calculateCellValue: function (data) {
                             return data.TotalActualCOL / data.TotalProjectedCOL - 1;
                         },
                         format: "percent"
-                    },                    
+                    },
                 ]
             },
             {
-                caption: "Total COL %",
+                caption: $translate.instant('weeklycol.TotalCOL%'),
                 columns: [
                     {
-                        caption: "Projected",
+                        caption: $translate.instant('weeklycol.Projected'),
                         name: "TotalProjectedPercent",
                         calculateCellValue: function (data) {
                             return data.TotalProjectedCOL / data.ProjectedSales;
@@ -171,7 +171,7 @@ function weeklycolCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
                         format: "percent"
                     },
                     {
-                        caption: "Actual",
+                        caption: $translate.instant('weeklycol.Actual'),
                         name: "TotalActualPercent",
                         calculateCellValue: function (data) {
                             return data.TotalActualCOL / data.AcualSales;
@@ -179,7 +179,7 @@ function weeklycolCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
                         format: "percent"
                     },
                     {
-                        caption: "Variance",
+                        caption: $translate.instant('weeklycol.Variance'),
                         name: "TotalVariancePercent",
                         calculateCellValue: function (data) {
                             return (data.TotalActualCOL / data.AcualSales) - (data.TotalProjectedCOL / data.ProjectedSales);
@@ -189,12 +189,12 @@ function weeklycolCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
                 ]
             },
             {
-                caption: "OverTime", name: "OverTimeHours",
+                caption: $translate.instant('weeklycol.OverTime'), name: "OverTimeHours",
                 columns: [
-                    { dataField: "ActualOwertimeHours", caption: "Hours", format: { type: "fixedPoint", precision: 0 } },
-                    { dataField: "ActualOwertimeCOL", caption: "Cost", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "ActualOwertimeHours", caption: $translate.instant('weeklycol.Hours'), format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "ActualOwertimeCOL", caption: $translate.instant('weeklycol.Cost'), format: { type: "fixedPoint", precision: 0 } },
                     {
-                        caption: "Variance",
+                        caption: $translate.instant('weeklycol.Variance'),
                         name: "OvertimeVariance",
                         calculateCellValue: function (data) {
                             return data.ActualOwertimeCOL / data.AcualSales;
@@ -204,10 +204,10 @@ function weeklycolCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
                 ]
             },
             {
-                caption: "Delivery", name: "Delivery",
+                caption: $translate.instant('weeklycol.Delivery'), name: "Delivery",
                 columns: [
-                    { dataField: "DeliveredOrders", caption: "Orders", format: { type: "fixedPoint", precision: 0 } },
-                    { dataField: "DriveCost", caption: "Drive Cost",name: "DriveCost", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "DeliveredOrders", caption: $translate.instant('weeklycol.Orders'), format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "DriveCost", caption: $translate.instant('weeklycol.DriveCost'), name: "DriveCost", format: { type: "fixedPoint", precision: 0 } },
                 ]
             },
         ],
@@ -255,7 +255,7 @@ function weeklycolCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
                 { column: "ActualOwertimeHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "OvertimeVariance", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "DeliveredOrders", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "DriveCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },                
+                { column: "DriveCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
             ],
         },
         onCellPrepared: function (options) {

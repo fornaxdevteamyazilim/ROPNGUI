@@ -112,26 +112,26 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
         columnFixing: { enabled: true },
         columnChooser: { enabled: true, mode: "dragAndDrop" },
         columns: [
-            { caption: "Region", dataField: "RegionManager", dataType: "string", visible: false },
-            { dataField: "Store", dataType: "string", fixed: true },
+            { caption: $translate.instant('promotionanaisys.Region'), dataField: "RegionManager", dataType: "string", visible: false },
+            { caption: $translate.instant('promotionanaisys.Store'), dataField: "Store", dataType: "string", fixed: true },
             //{ caption: "Net Sales", dataField: "Sales", dataType: "number", format: "#,##0.00₺" },
-            { caption: "StoreType", dataField: "StoreType", dataType: "string", visible: false },// fixed: true ,groupIndex: 0 },
-            { caption: "StoreFilter", dataField: "StoreFilterType", dataType: "string", visible: false },// fixed: true ,groupIndex: 0 },
-            { caption: "SalesNoDiscount", dataField: "TotalSalesNoDiscount", dataType: "number", format: { type: "fixedPoint", precision: 2 }, visible: false },// fixed: true ,groupIndex: 0 },
-            { caption: "TotalSales", dataField: "TotalSales", dataType: "number", format: { type: "fixedPoint", precision: 2 }, visible: false },// fixed: true ,groupIndex: 0 },
-            { caption: "TotalNetSales", dataField: "TotalNetSales", dataType: "number", format: { type: "fixedPoint", precision: 2 }, visible: false },// fixed: true ,groupIndex: 0 },
-            { caption: "OrderType", dataField: "OrderType", dataType: "string" },
-            { caption: "OrderSource", dataField: "OrderSource", dataType: "string" },
-            { caption: "ProductName", dataField: "ProductName", dataType: "string" },
-            { caption: "ChildName", dataField: "ChildName", dataType: "string" },
-            { caption: "Category", dataField: "ProductCategory", dataType: "string" },
-            { caption: "Count", dataField: "ItemCount", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
-            { caption: "TotalNetAmount", dataField: "TotalAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "Cost", dataField: "Cost", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "TotalQuantity", dataField: "TotalQuantity", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
-            { caption: "TotalCost", dataField: "TotalCost", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "Ratio", dataField: "Ratio", dataType: "number", format: { type: "percent", precision: 2 } },
-            { caption: "OrdersCount", dataField: "OrdersCount", dataType: "number", format: { type: "fixedPoint", precision: 0 } },            
+            { caption: $translate.instant('promotionanaisys.StoreType'), dataField: "StoreType", dataType: "string", visible: false },// fixed: true ,groupIndex: 0 },
+            { caption: $translate.instant('promotionanaisys.StoreFilter'), dataField: "StoreFilterType", dataType: "string", visible: false },// fixed: true ,groupIndex: 0 },
+            { caption: $translate.instant('promotionanaisys.SalesNoDiscount'), dataField: "TotalSalesNoDiscount", dataType: "number", format: { type: "fixedPoint", precision: 2 }, visible: false },// fixed: true ,groupIndex: 0 },
+            { caption: $translate.instant('promotionanaisys.TotalSales'), dataField: "TotalSales", dataType: "number", format: { type: "fixedPoint", precision: 2 }, visible: false },// fixed: true ,groupIndex: 0 },
+            { caption: $translate.instant('promotionanaisys.TotalNetSales'), dataField: "TotalNetSales", dataType: "number", format: { type: "fixedPoint", precision: 2 }, visible: false },// fixed: true ,groupIndex: 0 },
+            { caption: $translate.instant('promotionanaisys.OrderType'), dataField: "OrderType", dataType: "string" },
+            { caption: $translate.instant('promotionanaisys.OrderSource'), dataField: "OrderSource", dataType: "string" },
+            { caption: $translate.instant('promotionanaisys.ProductName'), dataField: "ProductName", dataType: "string" },
+            { caption: $translate.instant('promotionanaisys.ChildName'), dataField: "ChildName", dataType: "string" },
+            { caption: $translate.instant('promotionanaisys.Category'), dataField: "ProductCategory", dataType: "string" },
+            { caption: $translate.instant('promotionanaisys.Count'), dataField: "ItemCount", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
+            { caption: $translate.instant('promotionanaisys.TotalNetAmount'), dataField: "TotalAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('promotionanaisys.Cost'), dataField: "Cost", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('promotionanaisys.TotalQuantity'), dataField: "TotalQuantity", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
+            { caption: $translate.instant('promotionanaisys.TotalCost'), dataField: "TotalCost", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('promotionanaisys.Ratio'), dataField: "Ratio", dataType: "number", format: { type: "percent", precision: 2 } },
+            { caption: $translate.instant('promotionanaisys.OrdersCount'), dataField: "OrdersCount", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
         ],
         summary: {
             totalItems: [{ column: "StoreID", summaryType: "count", displayFormat: "{0}" },
@@ -154,7 +154,7 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
                 { column: "TotalQuantity", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TotalCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺", alignByColumn: true },
                 { name: "Ratio", showInColumn: "Ratio", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "OrdersCount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },                
+                { column: "OrdersCount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             ],
             calculateCustomSummary: function (options) {
                 if (options.name === "Ratio") {
@@ -189,14 +189,14 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
                 }
             },
         },
-        
+
         export: {
             enabled: true,
             fileName: "promotionanalisys",
         },
         scrolling: { mode: "virtual" },
         height: 600
-    }        
+    }
 
     $scope.LoadData = function () {
         var dataGrid = $('#gridContainer').dxDataGrid('instance');

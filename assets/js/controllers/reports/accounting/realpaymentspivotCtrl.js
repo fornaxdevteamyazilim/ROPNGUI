@@ -15,7 +15,7 @@ function realpaymentspivotCtrl($scope, $filter, $modal, $log, Restangular, ngTab
         $location.path('/login/signin');
     };
     $scope.StoreTypeID = -1;
-    
+
     $scope.FromDate = function (item) {
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/Tools/date.html',
@@ -103,14 +103,14 @@ function realpaymentspivotCtrl($scope, $filter, $modal, $log, Restangular, ngTab
         dataSource: {
             remoteOperations: true,
             fields: [
-                { caption: "Store", width: 120, dataField: "Store", area: "row" },
-                { dataField: "Year", dataType: "number", area: "column" },
-                { dataField: "MonthNumber", dataType: "number", area: "column" },
-                { dataField: "Day", dataType: "number", area: "column" },
-                { caption: "GrossAmount", dataField: "AmountWithVAT", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
-                { caption: "Amount", dataField: "Amount", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2 },
-                { caption: "Count", dataField: "id", dataType: "number", summaryType: "count", area: "data" },
-                
+                { caption: $translate.instant('realpaymentspivot.Store'), width: 120, dataField: "Store", area: "row" },
+                { caption: $translate.instant('realpaymentspivot.Year'), dataField: "Year", dataType: "number", area: "column" },
+                { caption: $translate.instant('realpaymentspivot.MonthNumber'), dataField: "MonthNumber", dataType: "number", area: "column" },
+                { caption: $translate.instant('realpaymentspivot.Day'), dataField: "Day", dataType: "number", area: "column" },
+                { caption: $translate.instant('realpaymentspivot.GrossAmount'), dataField: "AmountWithVAT", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
+                { caption: $translate.instant('realpaymentspivot.Amount'), dataField: "Amount", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2 },
+                { caption: $translate.instant('realpaymentspivot.Count'), dataField: "id", dataType: "number", summaryType: "count", area: "data" },
+
             ],
             store: DevExpress.data.AspNet.createStore({
                 key: "id",
@@ -176,7 +176,7 @@ function realpaymentspivotCtrl($scope, $filter, $modal, $log, Restangular, ngTab
         }
         pivotDS.reload();
         //$('#sales').dxPivotGrid('instance').getDataSource().reload();
-    }; 
+    };
     $scope.$on('$destroy', function () {
         $element.remove();
         $rootScope.uService.ExitController("realpaymentspivotCtrl");

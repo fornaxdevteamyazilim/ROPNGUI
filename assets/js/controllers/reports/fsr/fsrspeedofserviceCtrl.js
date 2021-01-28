@@ -28,7 +28,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
     var maxYear = parseInt(cYeaar);
     var vNumber = ISO8601_week_no((new Date()));
     $scope.startWeek = parseInt(vNumber - 2);
-    $scope.endWeek = parseInt(vNumber- 1);
+    $scope.endWeek = parseInt(vNumber - 1);
     $scope.VeiwHeader = {};
     $scope.startYearButton = {
         bindingOptions: {
@@ -138,8 +138,8 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         columnFixing: { enabled: true },
         scrolling: { mode: "virtual" },
         columns: [
-            { dataField: "Store", caption: "MGT Turkey", dataType: "string", width: 230, fixed: true },
-            { dataField: "RegionManager", caption: "Area", dataType: "string", width: 230, fixed: true },
+            { dataField: "Store", caption: $translate.instant('fsrspeedofservice.MGTTurkey'), dataType: "string", width: 230, fixed: true },
+            { dataField: "RegionManager", caption: $translate.instant('fsrspeedofservice.Area'), dataType: "string", width: 230, fixed: true },
             {
                 caption: "YemekSepeti",
                 columns: [
@@ -147,47 +147,48 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                         caption: $scope.weekCaption1,
                         name: "week1ys",
                         columns: [
-                            { caption: "Time", dataField: "YSserviceTime", dataType: "number", format: "fixedPoint", },
-                            { caption: "Score", dataField: "YS", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                            { caption: "Speed", dataField: "YS_Speed", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                            { caption: "Service", dataField: "YS_Serving", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                            { caption: "Taste", dataField: "YS_Flavor", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                            { caption: $translate.instant('fsrspeedofservice.Time'), dataField: "YSserviceTime", dataType: "number", format: "fixedPoint", },
+                            { caption: $translate.instant('fsrspeedofservice.Score'), dataField: "YS", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                            { caption: $translate.instant('fsrspeedofservice.Speed'), dataField: "YS_Speed", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                            { caption: $translate.instant('fsrspeedofservice.Service'), dataField: "YS_Serving", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                            { caption: $translate.instant('fsrspeedofservice.Taste'), dataField: "YS_Flavor", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                         ]
                     },
                     {
                         caption: $scope.weekCaption2,
                         name: "week2ys",
                         columns: [
-                            { caption: "Time", dataField: "YSserviceTime2", dataType: "number", format: "fixedPoint", },
-                            { caption: "Score", dataField: "YS2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                            { caption: "Speed", dataField: "YS_Speed2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                            { caption: "Service", dataField: "YS_Serving2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                            { caption: "Taste", dataField: "YS_Flavor2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                            { caption: $translate.instant('fsrspeedofservice.Time'), dataField: "YSserviceTime2", dataType: "number", format: "fixedPoint", },
+                            { caption: $translate.instant('fsrspeedofservice.Score'), dataField: "YS2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                            { caption: $translate.instant('fsrspeedofservice.Speed'), dataField: "YS_Speed2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                            { caption: $translate.instant('fsrspeedofservice.Service'), dataField: "YS_Serving2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                            { caption: $translate.instant('fsrspeedofservice.Taste'), dataField: "YS_Flavor2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                         ]
                     }],
                 fixed: true
             },
             {
-                caption: "Bump Time",
+                caption: $translate.instant('fsrspeedofservice.BumpTime'),
                 columns: [
                     {
                         caption: $scope.weekCaption1,
                         name: "week1bump",
                         columns: [
-                            { caption: "Make Table", dataField: "AvgMakeTable", dataType: "number", customizeText: formatTime },
-                            { caption: "Cut Table", dataField: "AvgCutTable", dataType: "number", customizeText: formatTime },
-                            { caption: "Dispatch", dataField: "AvgDispatchTime", dataType: "number", customizeText: formatTime },
-                            { caption: "Delivery", dataField: "AvgDeliveryTime", dataType: "number", customizeText: formatTime },
-                            { caption: "U30", dataField: "DeliveryU30", dataType: "number", format: { type: "percent", precision: 2 } },]
+                            { caption: $translate.instant('fsrspeedofservice.MakeTable'), dataField: "AvgMakeTable", dataType: "number", customizeText: formatTime },
+                            { caption: $translate.instant('fsrspeedofservice.CutTable'), dataField: "AvgCutTable", dataType: "number", customizeText: formatTime },
+                            { caption: $translate.instant('fsrspeedofservice.Dispatch'), dataField: "AvgDispatchTime", dataType: "number", customizeText: formatTime },
+                            { caption: $translate.instant('fsrspeedofservice.Delivery'), dataField: "AvgDeliveryTime", dataType: "number", customizeText: formatTime },
+                            { caption: "U30", dataField: "DeliveryU30", dataType: "number", format: { type: "percent", precision: 2 } },
+                        ]
                     },
                     {
                         caption: $scope.weekCaption2,
                         name: "week2bump",
                         columns: [
-                            { caption: "Make Table", dataField: "AvgMakeTable2", dataType: "number", customizeText: formatTime },
-                            { caption: "Cut Table", dataField: "AvgCutTable2", dataType: "number", customizeText: formatTime },
-                            { caption: "Dispatch", dataField: "AvgDispatchTime2", dataType: "number", customizeText: formatTime },
-                            { caption: "Delivery", dataField: "AvgDeliveryTime2", dataType: "number", customizeText: formatTime },
+                            { caption: $translate.instant('fsrspeedofservice.MakeTable'), dataField: "AvgMakeTable2", dataType: "number", customizeText: formatTime },
+                            { caption: $translate.instant('fsrspeedofservice.CutTable'), dataField: "AvgCutTable2", dataType: "number", customizeText: formatTime },
+                            { caption: $translate.instant('fsrspeedofservice.Dispatch'), dataField: "AvgDispatchTime2", dataType: "number", customizeText: formatTime },
+                            { caption: $translate.instant('fsrspeedofservice.Delivery'), dataField: "AvgDeliveryTime2", dataType: "number", customizeText: formatTime },
                             { caption: "U30", dataField: "DeliveryU302", dataType: "number", format: { type: "percent", precision: 2 } },
                         ]
                     }],
@@ -210,16 +211,16 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             var fieldData = options.value;
             var ColoredFileds = ["YS2","YS_Speed2","YS_Serving2","YS_Flavor2","DeliveryU302"];
             if (fieldData && ColoredFileds.indexOf(options.column.dataField) > -1) {
-                if (options.value != options.row.data[options.column.dataField.substring(0, options.column.dataField.length-1)])
-                    if (options.value < options.row.data[options.column.dataField.substring(0, options.column.dataField.length-1)])
+                if (options.value != options.row.data[options.column.dataField.substring(0, options.column.dataField.length - 1)])
+                    if (options.value < options.row.data[options.column.dataField.substring(0, options.column.dataField.length - 1)])
                         options.cellElement.css({ 'color': '#f00' });
                     else
                         options.cellElement.css({ 'color': '#2ab71b' });
             }
-            var ColoredFiledsInvert = ["YSserviceTime2","AvgMakeTable2","AvgCutTable2","AvgDispatchTime2","AvgDeliveryTime2"];
+            var ColoredFiledsInvert = ["YSserviceTime2", "AvgMakeTable2", "AvgCutTable2", "AvgDispatchTime2", "AvgDeliveryTime2"];
             if (fieldData && ColoredFiledsInvert.indexOf(options.column.dataField) > -1) {
-                if (options.value != options.row.data[options.column.dataField.substring(0, options.column.dataField.length-1)])
-                    if (options.value > options.row.data[options.column.dataField.substring(0, options.column.dataField.length-1)])
+                if (options.value != options.row.data[options.column.dataField.substring(0, options.column.dataField.length - 1)])
+                    if (options.value > options.row.data[options.column.dataField.substring(0, options.column.dataField.length - 1)])
                         options.cellElement.css({ 'color': '#f00' });
                     else
                         options.cellElement.css({ 'color': '#2ab71b' });
@@ -241,11 +242,11 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                         else
                             options.font.color = '#008000';
                 }
-                var ColoredFiledsInvert = ["YSserviceTime2","AvgMakeTable2","AvgCutTable2","AvgDispatchTime2","AvgDeliveryTime2"];
-                if (ColoredFiledsInvert.indexOf(gridCell.column.dataField)>-1) {
-                    if (gridCell.data && gridCell.data[gridCell.column.dataField]!=gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
-                        if (gridCell.data[gridCell.column.dataField] > gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
-                        options.font.color = '#FF0000';
+                var ColoredFiledsInvert = ["YSserviceTime2", "AvgMakeTable2", "AvgCutTable2", "AvgDispatchTime2", "AvgDeliveryTime2"];
+                if (ColoredFiledsInvert.indexOf(gridCell.column.dataField) > -1) {
+                    if (gridCell.data && gridCell.data[gridCell.column.dataField] != gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length - 1)])
+                        if (gridCell.data[gridCell.column.dataField] > gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length - 1)])
+                            options.font.color = '#FF0000';
                         else
                             options.font.color = '#008000';
                 }

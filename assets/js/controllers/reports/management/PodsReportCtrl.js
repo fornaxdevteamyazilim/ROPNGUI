@@ -29,89 +29,89 @@ function PodsReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
         },
         height: 600,
         showBorders: true,
-        columns: [ {
+        columns: [{
             dataField: "name",
             caption: "POD",
-            }, {
-                dataField: "StoreID",
-                caption: "Store",                
-                lookup: {
-                    valueExpr: "id",
-                    displayExpr: "name",
-                    dataSource: {                        
-                        store: DevExpress.data.AspNet.createStore({
-                            key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
-                            onBeforeSend: function (method, ajaxOptions) {
-                                var authData = localStorageService.get('authorizationData');
-                                if (authData) {
+        }, {
+            dataField: "StoreID",
+            caption: $translate.instant('podsreport.Store'),
+            lookup: {
+                valueExpr: "id",
+                displayExpr: "name",
+                dataSource: {
+                    store: DevExpress.data.AspNet.createStore({
+                        key: "id",
+                        loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                        onBeforeSend: function (method, ajaxOptions) {
+                            var authData = localStorageService.get('authorizationData');
+                            if (authData) {
 
-                                    ajaxOptions.headers = {
-                                        Authorization: 'Bearer ' + authData.token
-                                    };
-                                }
+                                ajaxOptions.headers = {
+                                    Authorization: 'Bearer ' + authData.token
+                                };
                             }
-                        })
-                    }
-                }
-            }, {
-                dataField: "RoutedToStoreID",
-                caption: "RoutedTo",
-                lookup: {
-                    valueExpr: "id",
-                    displayExpr: "name",
-                    dataSource: {
-                        store: DevExpress.data.AspNet.createStore({
-                            key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
-                            onBeforeSend: function (method, ajaxOptions) {
-                                var authData = localStorageService.get('authorizationData');
-                                if (authData) {
-
-                                    ajaxOptions.headers = {
-                                        Authorization: 'Bearer ' + authData.token
-                                    };
-                                }
-                            }
-                        })
-                    }
-                }
-            }, {
-                dataField: "isActive",
-                caption: "Active",
-            }, {
-                dataField: "DeliveryTime",
-                caption: "Delivery Time",
-            }, {
-                dataField: "MinAmount",
-                caption: "MinAmount",
-            },
-            { dataField: "StartTime", alignment: "right", dataType: "datetime", format: 'HH:mm' },
-            { dataField: "EndTime", alignment: "right", dataType: "datetime", format: 'HH:mm' },
-            {
-                dataField: "StoreRoutingTypeID",
-                caption: "RoutingType",
-                lookup: {
-                    valueExpr: "Value",
-                    displayExpr: "Name",
-                    dataSource: {
-                        store: DevExpress.data.AspNet.createStore({
-                            key: "Value",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/enums/StoreRoutingType",
-                            onBeforeSend: function (method, ajaxOptions) {
-                                var authData = localStorageService.get('authorizationData');
-                                if (authData) {
-
-                                    ajaxOptions.headers = {
-                                        Authorization: 'Bearer ' + authData.token
-                                    };
-                                }
-                            }
-                        })
-                    }
+                        }
+                    })
                 }
             }
-        ]        
+        }, {
+            dataField: "RoutedToStoreID",
+            caption: $translate.instant('podsreport.RoutedTo'),
+            lookup: {
+                valueExpr: "id",
+                displayExpr: "name",
+                dataSource: {
+                    store: DevExpress.data.AspNet.createStore({
+                        key: "id",
+                        loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                        onBeforeSend: function (method, ajaxOptions) {
+                            var authData = localStorageService.get('authorizationData');
+                            if (authData) {
+
+                                ajaxOptions.headers = {
+                                    Authorization: 'Bearer ' + authData.token
+                                };
+                            }
+                        }
+                    })
+                }
+            }
+        }, {
+            dataField: "isActive",
+            caption: $translate.instant('podsreport.Active'),
+        }, {
+            dataField: "DeliveryTime",
+            caption: $translate.instant('podsreport.DeliveryTime'),
+        }, {
+            dataField: "MinAmount",
+            caption: $translate.instant('podsreport.MinAmount'),
+        },
+        { caption: $translate.instant('podsreport.StartTime'), dataField: "StartTime", alignment: "right", dataType: "datetime", format: 'HH:mm' },
+        { caption: $translate.instant('podsreport.EndTime'), dataField: "EndTime", alignment: "right", dataType: "datetime", format: 'HH:mm' },
+        {
+            dataField: "StoreRoutingTypeID",
+            caption: $translate.instant('podsreport.RoutingType'),
+            lookup: {
+                valueExpr: "Value",
+                displayExpr: "Name",
+                dataSource: {
+                    store: DevExpress.data.AspNet.createStore({
+                        key: "Value",
+                        loadUrl: NG_SETTING.apiServiceBaseUri + "/api/enums/StoreRoutingType",
+                        onBeforeSend: function (method, ajaxOptions) {
+                            var authData = localStorageService.get('authorizationData');
+                            if (authData) {
+
+                                ajaxOptions.headers = {
+                                    Authorization: 'Bearer ' + authData.token
+                                };
+                            }
+                        }
+                    })
+                }
+            }
+        }
+        ]
     };
 
     $scope.getMasterDetailGridSettings = function (order) {

@@ -15,7 +15,7 @@ function poductsalesccoreboardCtrl($scope, $filter, $modal, $log, Restangular, S
     if (!$rootScope.user || !$rootScope.user.UserRole || !$rootScope.user.UserRole.Name) {
         $location.path('/login/signin');
     }
-    
+
     $scope.resetlayout = $translate.instant('main.RESETLAYOUT');
     $scope.resetButtonOptions = {
         text: $scope.resetlayout,
@@ -98,17 +98,17 @@ function poductsalesccoreboardCtrl($scope, $filter, $modal, $log, Restangular, S
         dataSource: {
             remoteOperations: true,
             fields: [
-                { caption: "Agent", dataField: "Agent", area: "row" },
-                { caption: "ProductGroup", dataField: "ProductGroup", area: "column" },
-                { caption: "Product", dataField: "Product", area: "column" },
-                { caption: "Quantity", dataField: "Quantity", dataType: "number", summaryType: "sum", area: "data" },
-                { dataField: "OperationDate", dataType: "date" },
+                { caption: $translate.instant('poductsalesccoreboard.Agent'), dataField: "Agent", area: "row" },
+                { caption: $translate.instant('poductsalesccoreboard.ProductGroup'), dataField: "ProductGroup", area: "column" },
+                { caption: $translate.instant('poductsalesccoreboard.Product'), dataField: "Product", area: "column" },
+                { caption: $translate.instant('poductsalesccoreboard.Quantity'), dataField: "Quantity", dataType: "number", summaryType: "sum", area: "data" },
+                { caption: $translate.instant('poductsalesccoreboard.OperationDate'), dataField: "OperationDate", dataType: "date" },
                 //{ groupName: 'OperationDate', groupInterval: 'month', },
                 //{ groupName: 'OperationDate', groupInterval: 'quarter' },
                 //{ groupName: 'OperationDate', groupInterval: 'day', },
                 //{ groupName: 'OperationDate', groupInterval: 'dayOfWeek' }
 
-                
+
             ],
             store: DevExpress.data.AspNet.createStore({
                 key: "id",
@@ -229,7 +229,7 @@ function poductsalesccoreboardCtrl($scope, $filter, $modal, $log, Restangular, S
             });
         }
     };
-    
+
     $scope.Back = function () {
         $window.history.back();
     };
