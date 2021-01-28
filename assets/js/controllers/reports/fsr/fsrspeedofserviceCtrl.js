@@ -177,7 +177,8 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                             { caption: "Make Table", dataField: "AvgMakeTable", dataType: "number", customizeText: formatTime },
                             { caption: "Cut Table", dataField: "AvgCutTable", dataType: "number", customizeText: formatTime },
                             { caption: "Dispatch", dataField: "AvgDispatchTime", dataType: "number", customizeText: formatTime },
-                            { caption: "Delivery", dataField: "AvgDeliveryTime", dataType: "number", customizeText: formatTime },]
+                            { caption: "Delivery", dataField: "AvgDeliveryTime", dataType: "number", customizeText: formatTime },
+                            { caption: "U30", dataField: "DeliveryU30", dataType: "number", format: { type: "percent", precision: 2 } },]
                     },
                     {
                         caption: $scope.weekCaption2,
@@ -187,6 +188,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                             { caption: "Cut Table", dataField: "AvgCutTable2", dataType: "number", customizeText: formatTime },
                             { caption: "Dispatch", dataField: "AvgDispatchTime2", dataType: "number", customizeText: formatTime },
                             { caption: "Delivery", dataField: "AvgDeliveryTime2", dataType: "number", customizeText: formatTime },
+                            { caption: "U30", dataField: "DeliveryU302", dataType: "number", format: { type: "percent", precision: 2 } },
                         ]
                     }],
                 fixed: true
@@ -206,7 +208,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         },
         onCellPrepared: function (options) {
             var fieldData = options.value;
-            var ColoredFileds = ["YS2","YS_Speed2","YS_Serving2","YS_Flavor2"];
+            var ColoredFileds = ["YS2","YS_Speed2","YS_Serving2","YS_Flavor2","DeliveryU302"];
             if (fieldData && ColoredFileds.indexOf(options.column.dataField) > -1) {
                 if (options.value != options.row.data[options.column.dataField.substring(0, options.column.dataField.length-1)])
                     if (options.value < options.row.data[options.column.dataField.substring(0, options.column.dataField.length-1)])
@@ -231,7 +233,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                 if (!gridCell) {
                     return;
                 }
-                var ColoredFileds = ["YS2","YS_Speed2","YS_Serving2","YS_Flavor2"];
+                var ColoredFileds = ["YS2","YS_Speed2","YS_Serving2","YS_Flavor2","DeliveryU302"];
                 if (ColoredFileds.indexOf(gridCell.column.dataField)>-1) {
                     if (gridCell.data && gridCell.data[gridCell.column.dataField]!=gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
                         if (gridCell.data[gridCell.column.dataField] < gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
