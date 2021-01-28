@@ -113,7 +113,7 @@ function callcenterordersCtrl($scope, $filter, $modal, $log, Restangular, SweetA
         //remoteOperations: true,
         columns: [
             {
-                dataField: "StoreID", caption: "Store",
+                dataField: "StoreID", caption: $translate.instant('callcenterorders.Store'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -127,22 +127,22 @@ function callcenterordersCtrl($scope, $filter, $modal, $log, Restangular, SweetA
                 fixed: true,
                 //groupIndex: 0
             },
-            { dataField: "OperationDate", dataType: "date", format: 'dd.MM.yyyy', fixed: true },
-            "OrderNumber",
-            { dataField: "Amount", alignment: "right", format: { type: "fixedPoint", precision: 2 } },
-            "Phone",
-            "Agent",
-            "Person",
-            "Products"
+            { caption: $translate.instant('callcenterorders.OperationDate'), dataField: "OperationDate", dataType: "date", format: 'dd.MM.yyyy', fixed: true },
+            { caption: $translate.instant('callcenterorders.OrderNumber'), dataField: "OrderNumber" },
+            { caption: $translate.instant('callcenterorders.Amount'), dataField: "Amount", alignment: "right", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('callcenterorders.Phone'), dataField: "Phone" },
+            { caption: $translate.instant('callcenterorders.Agent'), dataField: "Agent" },
+            { caption: $translate.instant('callcenterorders.Person'), dataField: "Person" },
+            { caption: $translate.instant('callcenterorders.Products'), dataField: "Products" },
         ],
         summary: {
             totalItems: [{ column: "id", summaryType: "count", displayFormat: "{0}" },
-                { column: "OrderNumber", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
-                { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }
+            { column: "OrderNumber", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
+            { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }
             ],
             groupItems: [{ column: "id", summaryType: "count", displayFormat: "{0}" },
             { column: "OrderNumber", summaryType: "count", displayFormat: "{0}", alignByColumn: true },
-                { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }
+            { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true }
             ]
         },
 

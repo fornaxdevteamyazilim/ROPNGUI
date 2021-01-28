@@ -10,7 +10,7 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
     $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;
     $scope.Time = ngnotifyService.ServerTime();
-    function ISO8601_week_no(dt) { 
+    function ISO8601_week_no(dt) {
         var tdt = new Date(dt.valueOf());
         var dayn = (dt.getDay() + 6) % 7;
         tdt.setDate(tdt.getDate() - dayn + 3);
@@ -28,7 +28,7 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
     var maxYear = parseInt(cYeaar);
     var vNumber = ISO8601_week_no((new Date()));
     $scope.startWeek = parseInt(vNumber - 2);
-    $scope.endWeek = parseInt(vNumber-1);
+    $scope.endWeek = parseInt(vNumber - 1);
     $scope.VeiwHeader = {};
     $scope.startYearButton = {
         bindingOptions: {
@@ -113,15 +113,15 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
             enabled: true
         },
         columns: [
-            { dataField: "Area", dataType: "string", width: 230, fixed: true, },
-            { dataField: "Year", dataType: "number", fixed: true, },
-            { dataField: "Week", dataType: "number", fixed: true, },
-            { dataField: "Sales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "HDSSales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('transactions.Area'), dataField: "Area", dataType: "string", width: 230, fixed: true, },
+            { caption: $translate.instant('transactions.Year'), dataField: "Year", dataType: "number", fixed: true, },
+            { caption: $translate.instant('transactions.Week'), dataField: "Week", dataType: "number", fixed: true, },
+            { caption: $translate.instant('transactions.Sales'), dataField: "Sales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('transactions.HDSSales'), dataField: "HDSSales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "HDS %", dataField: "HDSSalesPercent", dataType: "number", format: { type: "percent", precision: 2 } },
-            { dataField: "DINSales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('transactions.DINSales'), dataField: "DINSales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "DIN %", dataField: "DINSalesPercent", dataType: "number", format: { type: "percent", precision: 2 } },
-            { dataField: "COSales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('transactions.COSales'), dataField: "COSales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "CO %", dataField: "COSalesPercent", dataType: "number", format: { type: "percent", precision: 2 } },
             { caption: "HDS Trx", dataField: "HDSTrx", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "HDS Tx %", dataField: "HDSTrxPercent", dataType: "number", format: { type: "percent", precision: 2 } },
@@ -143,9 +143,9 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
         },
         onCellPrepared: function (options) {
             var fieldData = options.value;
-            var ColoredFileds = ["Sales","HDSSales","HDSSalesPercent","DINSales","DINSalesPercent","COSales","COSalesPercent","HDSTrx","HDSTrxPercent","DINTrx","DINTrxPercent",
-            "COTrx","COTrxPercent","AvgGC","HDSAvgGC","DINAvgGC","COAvgGC"];
-            if (fieldData && options.row.data.Delta === true && ColoredFileds.indexOf(options.column.dataField)>-1) {
+            var ColoredFileds = ["Sales", "HDSSales", "HDSSalesPercent", "DINSales", "DINSalesPercent", "COSales", "COSalesPercent", "HDSTrx", "HDSTrxPercent", "DINTrx", "DINTrxPercent",
+                "COTrx", "COTrxPercent", "AvgGC", "HDSAvgGC", "DINAvgGC", "COAvgGC"];
+            if (fieldData && options.row.data.Delta === true && ColoredFileds.indexOf(options.column.dataField) > -1) {
                 if (options.value < 0)
                     options.cellElement.css({ 'color': '#f00' });
                 else
@@ -160,9 +160,9 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
                 if (!gridCell) {
                     return;
                 }
-                var ColoredFileds = ["Sales","HDSSales","HDSSalesPercent","DINSales","DINSalesPercent","COSales","COSalesPercent","HDSTrx","HDSTrxPercent","DINTrx","DINTrxPercent",
-                "COTrx","COTrxPercent","AvgGC","HDSAvgGC","DINAvgGC","COAvgGC"];
-                if (ColoredFileds.indexOf(gridCell.column.dataField)>-1) {
+                var ColoredFileds = ["Sales", "HDSSales", "HDSSalesPercent", "DINSales", "DINSalesPercent", "COSales", "COSalesPercent", "HDSTrx", "HDSTrxPercent", "DINTrx", "DINTrxPercent",
+                    "COTrx", "COTrxPercent", "AvgGC", "HDSAvgGC", "DINAvgGC", "COAvgGC"];
+                if (ColoredFileds.indexOf(gridCell.column.dataField) > -1) {
                     if (gridCell.data && gridCell.data.Delta === true)
                         if (gridCell.data[gridCell.column.dataField] > 0)
                             options.font.color = '#008000';

@@ -103,19 +103,19 @@ function staffcostdetailCtrl($scope, NG_SETTING, $rootScope, $translate, $elemen
         //     storageKey: "dx-weeklycolGrid"
         // },
         columns: [
-            { dataField: "Store", caption: $translate.instant('trends.Store'), visibleIndex: 0, fixed: true, dataType: "string" },            
-            { dataField: "UserName", dataType: "string", fixed: true },
-            { dataField: "RegionManager", caption: $translate.instant('trends.Region'), fixed: true, dataType: "string" },
-            { dataField: "StaffPossition", caption: "StaffPossition", fixed: true, dataType: "string" },
-            { dataField: "OperationDate", caption: "OperationDate", dataType: "date", format: 'dd.MM.yyyy' },
-            { dataField: "StoreID", caption: "StoreID", dataType: "string", visible: false },
-            { dataField: "WorkingHours", dataType: "number", caption: "WorkingHours", name: "WorkingHours", format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "OvertimeHours", dataType: "number", caption: "OvertimeHours", name: "OvertimeHours", format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "ActualWorkingHours", dataType: "number", caption: "TotalHours", name: "ActualWorkingHours", format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "Wage", dataType: "number", caption: "Wage", name: "Wage", format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "Cost", dataType: "number", caption: "Cost", name: "Cost", format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "OvertimeCost", dataType: "number", caption: "OvertimeCost", name: "OvertimeCost", format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "TotalCost", dataType: "number", caption: "TotalCost", name: "TotalCost", format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "Store", caption: $translate.instant('staffcostdetail.Store'), visibleIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "UserName", caption: $translate.instant('staffcostdetail.UserName'), dataType: "string", fixed: true },
+            { dataField: "RegionManager", caption: $translate.instant('staffcostdetail.Region'), fixed: true, dataType: "string" },
+            { dataField: "StaffPossition", caption: $translate.instant('staffcostdetail.StaffPossition'), fixed: true, dataType: "string" },
+            { dataField: "OperationDate", caption: $translate.instant('staffcostdetail.OperationDate'), dataType: "date", format: 'dd.MM.yyyy' },
+            { dataField: "StoreID", caption: $translate.instant('staffcostdetail.StoreID'), dataType: "string", visible: false },
+            { dataField: "WorkingHours", dataType: "number", caption: $translate.instant('staffcostdetail.WorkingHours'), name: "WorkingHours", format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "OvertimeHours", dataType: "number", caption: $translate.instant('staffcostdetail.OvertimeHours'), name: "OvertimeHours", format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "ActualWorkingHours", dataType: "number", caption: $translate.instant('staffcostdetail.TotalHours'), name: "ActualWorkingHours", format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "Wage", dataType: "number", caption: $translate.instant('staffcostdetail.Wage'), name: "Wage", format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "Cost", dataType: "number", caption: $translate.instant('staffcostdetail.Cost'), name: "Cost", format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "OvertimeCost", dataType: "number", caption: $translate.instant('staffcostdetail.OvertimeCost'), name: "OvertimeCost", format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "TotalCost", dataType: "number", caption: $translate.instant('staffcostdetail.TotalCost'), name: "TotalCost", format: { type: "fixedPoint", precision: 2 } },
 
 
         ],
@@ -138,13 +138,13 @@ function staffcostdetailCtrl($scope, NG_SETTING, $rootScope, $translate, $elemen
                 { column: "TotalCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
 
             ],
-        },        
+        },
         onDataErrorOccurred: function (e) {
             console.log(e.error);
         },
         export: {
             enabled: true,
-            fileName: "Staff Cost Details Report",       
+            fileName: "Staff Cost Details Report",
         },
         scrolling: { mode: "virtual" },
         //height: 600

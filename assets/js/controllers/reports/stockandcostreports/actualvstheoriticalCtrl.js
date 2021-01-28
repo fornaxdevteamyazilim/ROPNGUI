@@ -114,13 +114,13 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
         columnChooser: { enabled: true, mode: "dragAndDrop" },
         columns: [
             //{ dataField: "id", dataType: "number", visible: false },
-            { dataField: "Region", dataType: "string", visible: false },
-            { dataField: "Store", dataType: "string", fixed: true, groupIndex: 0 },
+            { caption: $translate.instant('actualvstheoritical.Region'), dataField: "Region", dataType: "string", visible: false },
+            { caption: $translate.instant('actualvstheoritical.Store'), dataField: "Store", dataType: "string", fixed: true, groupIndex: 0 },
             { caption: $translate.instant('actualvstheoritical.NetSales'), dataField: "Sales", dataType: "number", format: "#,##0.00₺" },
             { caption: $translate.instant('actualvstheoritical.StoreType'), dataField: "StoreFilterType", dataType: "string", visible: false },// fixed: true ,groupIndex: 0 },
             { caption: $translate.instant('actualvstheoritical.RealToTheoric'), dataField: "RealToTheoricUsage", dataType: "boolean", visible: false },
             { caption: $translate.instant('actualvstheoritical.ItemCode'), dataField: "ItemCode", dataType: "string", fixed: true },
-            { caption: $translate.instant('actualvstheoritical.Name'), dataField: "InventoryUnitName", dataType: "string", fixed: true },
+            { caption: $translate.instant('c.Name'), dataField: "InventoryUnitName", dataType: "string", fixed: true },
             { caption: $translate.instant('actualvstheoritical.BaseUnit'), dataField: "BaseUnit", dataType: "string" },
             { caption: $translate.instant('actualvstheoritical.Group'), dataField: "InventoryGroup", dataType: "string" },
             { caption: $translate.instant('actualvstheoritical.CountType'), dataField: "CountType", dataType: "string" },
@@ -138,30 +138,30 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
             { caption: $translate.instant('actualvstheoritical.UnitCost'), dataField: "Price", dataType: "number", format: "#,##0.00₺" },
             { caption: $translate.instant('actualvstheoritical.Cost'), dataField: "Amount", dataType: "number", format: "#,##0.00₺" },
             {
-                caption: "Usage (Units)",
+                caption: $translate.instant('actualvstheoritical.Usage(Units)'),
                 columns: [
-                    { caption: "Actual", dataField: "RealUsage", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-                    { caption: "Theory", dataField: "TheoriticalUsage", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-                    { caption: "Theory+Waste", dataField: "TheoriticalAndWasteUsage", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-                    { caption: "Variance", dataField: "DeltaUsage", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+                    { caption: $translate.instant('actualvstheoritical.Actual'), dataField: "RealUsage", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+                    { caption: $translate.instant('actualvstheoritical.Theory'), dataField: "TheoriticalUsage", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+                    { caption: $translate.instant('actualvstheoritical.TheoryWaste'), dataField: "TheoriticalAndWasteUsage", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+                    { caption: $translate.instant('actualvstheoritical.Variance'), dataField: "DeltaUsage", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
                 ]
             },
             {
-                caption: "Usage (Amount)",
+                caption: $translate.instant('actualvstheoritical.Usage(Amount)'),
                 columns: [
-                    { caption: "Actual", dataField: "RealUsageAmount", dataType: "number", format: "#,##0.00₺" },
-                    { caption: "Theory", dataField: "TheoriticalUsageAmount", dataType: "number", format: "#,##0.00₺" },
-                    { caption: "Theory+Waste", dataField: "TheoriticalAndWasteAmount", dataType: "number", format: "#,##0.00₺" },
-                    { caption: "Variance", dataField: "DeltaAmount", dataType: "number", format: "#,##0.00₺" },
+                    { caption: $translate.instant('actualvstheoritical.Actual'), dataField: "RealUsageAmount", dataType: "number", format: "#,##0.00₺" },
+                    { caption: $translate.instant('actualvstheoritical.Theory'), dataField: "TheoriticalUsageAmount", dataType: "number", format: "#,##0.00₺" },
+                    { caption: $translate.instant('actualvstheoritical.TheoryWaste'), dataField: "TheoriticalAndWasteAmount", dataType: "number", format: "#,##0.00₺" },
+                    { caption: $translate.instant('actualvstheoritical.Variance'), dataField: "DeltaAmount", dataType: "number", format: "#,##0.00₺" },
                 ]
             },
             {
-                caption: "Usage (%)",
+                caption: $translate.instant('actualvstheoritical.Usage(%)'),
                 columns: [
-                    { caption: "Actual", dataField: "RealUsagePercent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "Theory", dataField: "TheoriticalUsagePercent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "Theory+Waste", dataField: "TheoriticalAndWastePercent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "Variance", dataField: "DeltaPercent", dataType: "number", format: { type: "percent", precision: 2 } },
+                    { caption: $translate.instant('actualvstheoritical.Actual'), dataField: "RealUsagePercent", dataType: "number", format: { type: "percent", precision: 2 } },
+                    { caption: $translate.instant('actualvstheoritical.Theory'), dataField: "TheoriticalUsagePercent", dataType: "number", format: { type: "percent", precision: 2 } },
+                    { caption: $translate.instant('actualvstheoritical.TheoryWaste'), dataField: "TheoriticalAndWastePercent", dataType: "number", format: { type: "percent", precision: 2 } },
+                    { caption: $translate.instant('actualvstheoritical.Variance'), dataField: "DeltaPercent", dataType: "number", format: { type: "percent", precision: 2 } },
                 ]
             },
         ],

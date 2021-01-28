@@ -20,7 +20,7 @@ function bonusstatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
     function isNotEmpty(value) {
         return value !== undefined && value !== null && value !== "";
     };
-    Date.prototype.addDays = function(days) {
+    Date.prototype.addDays = function (days) {
         var date = new Date(this.valueOf());
         date.setDate(date.getDate() + days);
         return date;
@@ -79,7 +79,7 @@ function bonusstatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                     };
                 }
             }
-        }),        
+        }),
         keyExpr: "PeronID",
         remoteOperations: { groupPaging: true },
         //filterValue: getFilter(),
@@ -119,37 +119,37 @@ function bonusstatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
             template: "detail"
         },
         columns: [
-            { dataField: "PersonID" },
-            "PersonName",
-            "Phone",
-            { dataField: "EarnedBonus", dataType: "number", caption: "Earned",  format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "SpendedBonus", dataType: "number", caption: "Spended",  format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "TotalBonus", dataType: "number", caption: "TotalBonus",  format: { type: "fixedPoint", precision: 2 } } ,
-            { dataField: "NonConfirmedBonus", dataType: "number", caption: "NonConfirmedBonus",  format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "AvailableBonus", dataType: "number", caption: "AvailableBonus",  format: { type: "fixedPoint", precision: 2 } }             
+            { caption: $translate.instant('bonusstats.PersonID'), dataField: "PersonID" },
+            { caption: $translate.instant('bonusstats.PersonName'), dataField: "PersonName" },
+            { caption: $translate.instant('bonusstats.Phone'), dataField: "Phone" },
+            { dataField: "EarnedBonus", dataType: "number", caption: $translate.instant('bonusstats.Earned'), format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "SpendedBonus", dataType: "number", caption: $translate.instant('bonusstats.Spended'), format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "TotalBonus", dataType: "number", caption: $translate.instant('bonusstats.TotalBonus'), format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "NonConfirmedBonus", dataType: "number", caption: $translate.instant('bonusstats.NonConfirmedBonus'), format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "AvailableBonus", dataType: "number", caption: $translate.instant('bonusstats.AvailableBonus'), format: { type: "fixedPoint", precision: 2 } }
         ],
         summary: {
             totalItems: [{ column: "PersonID", summaryType: "count", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
             { column: "PersonName", summaryType: "count", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
-             { column: "EarnedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-             { column: "SpendedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-             { column: "TotalBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-             { column: "NonConfirmedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-             { column: "AvailableBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-             
+            { column: "EarnedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "SpendedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "TotalBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "NonConfirmedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "AvailableBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+
             ],
             groupItems: [
                 { column: "PersonID", summaryType: "count", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "PersonName", summaryType: "count", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "EarnedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
-                { column: "SpendedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
-                { column: "TotalBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
-                { column: "NonConfirmedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
-                { column: "AvailableBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true},                
+                { column: "EarnedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "SpendedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "TotalBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "NonConfirmedBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "AvailableBonus", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             ]
         },
-        
-        
+
+
         // onRowPrepared: function (e) {
         //     if (e.rowType === 'data') {
         //         if (e.data.Delta === true) {
@@ -196,7 +196,7 @@ function bonusstatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                 onBeforeSend: function (method, ajaxOptions) {
                     var authData = localStorageService.get('authorizationData');
                     if (authData) {
-    
+
                         ajaxOptions.headers = {
                             Authorization: 'Bearer ' + authData.token
                         };
@@ -204,30 +204,30 @@ function bonusstatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                 },
                 loadParams: { filter: JSON.stringify(["PersonID", "=", key]) },
                 //filter: ["PersonID", "=", key]
-            }),  
-            remoteOperations: true,  
+            }),
+            remoteOperations: true,
             columnAutoWidth: true,
             showBorders: true,
             scrolling: {
                 mode: "virtual"
-            },            
-        allowColumnResizing: true,
-        columnAutoWidth: true,
-        showColumnLines: false,
-        showRowLines: true,
-        rowAlternationEnabled: true,
-        showBorders: true,
-        allowColumnReordering: true,
+            },
+            allowColumnResizing: true,
+            columnAutoWidth: true,
+            showColumnLines: false,
+            showRowLines: true,
+            rowAlternationEnabled: true,
+            showBorders: true,
+            allowColumnReordering: true,
             columns: [
-                { dataField: "PersonID",visible:false },
+                { dataField: "PersonID", visible: false },
                 "PersonName",
                 "RuleName",
-                { dataField: "TransactionDate", caption: "TransactionDate", dataType: "date", format: 'dd.MM.yyyy',sortOrder: "asc" },
-                { dataField: "Earned", dataType: "number", caption: "Earned",  format: { type: "fixedPoint", precision: 2 } },
-                { dataField: "Spended", dataType: "number", caption: "Spended",  format: { type: "fixedPoint", precision: 2 } },
+                { dataField: "TransactionDate", caption: "TransactionDate", dataType: "date", format: 'dd.MM.yyyy', sortOrder: "asc" },
+                { dataField: "Earned", dataType: "number", caption: "Earned", format: { type: "fixedPoint", precision: 2 } },
+                { dataField: "Spended", dataType: "number", caption: "Spended", format: { type: "fixedPoint", precision: 2 } },
                 "Store",
                 "StoreType",
-                { dataField: "OrderAmount", dataType: "number", caption: "OrderAmount",  format: { type: "fixedPoint", precision: 2 } },
+                { dataField: "OrderAmount", dataType: "number", caption: "OrderAmount", format: { type: "fixedPoint", precision: 2 } },
                 //{ dataField: "OrderAmount", dataType: "number", name:"AvgOrderAmount", caption: "AvgOrderAmount",  format: { type: "fixedPoint", precision: 2 } },
                 "OrderID",
                 "OrderType",
