@@ -43,7 +43,7 @@ function staffcostdetailCtrl($scope, NG_SETTING, $rootScope, $translate, $elemen
     };
     $scope.VeiwHeader = {};
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#advgridContainer').dxDataGrid('instance');
             var filtr = getFilter();

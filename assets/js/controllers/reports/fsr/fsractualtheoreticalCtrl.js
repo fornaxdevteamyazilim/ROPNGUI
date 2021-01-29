@@ -63,7 +63,7 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
         showSpinButtons: true
     };
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.refresh();

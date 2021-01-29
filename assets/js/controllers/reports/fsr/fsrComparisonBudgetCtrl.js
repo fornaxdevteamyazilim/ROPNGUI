@@ -56,7 +56,7 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
         showSpinButtons: true
     };
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.refresh();

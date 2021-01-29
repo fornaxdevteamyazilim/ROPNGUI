@@ -38,7 +38,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
     };
     $scope.VeiwHeader = {};
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.refresh();

@@ -57,7 +57,7 @@ function weeklycolCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
         showSpinButtons: true
     };
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#advgridContainer').dxDataGrid('instance');
             dataGrid.refresh();

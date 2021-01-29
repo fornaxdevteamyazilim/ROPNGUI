@@ -29,7 +29,7 @@ function VoidOrdersCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
     };
     $scope.VeiwHeader = {};
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.refresh();
@@ -115,24 +115,24 @@ function VoidOrdersCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
             "UserRole",
             "Description",
             "OrderNote",
-            { dataField: "OrderDate", dataType: "date", format: 'dd.MM.yyyy HH:mm'},
+            { dataField: "OrderDate", dataType: "date", format: 'dd.MM.yyyy HH:mm' },
             "MakeTableOk",
             "CutTableOk"
-        
+
         ],
         summary: {
             totalItems: [{ column: "OrderNumber", summaryType: "count", displayFormat: "{0}" },
-                { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },       
+            { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             ],
-                groupItems: [{ column: "OrderNumber", summaryType: "count", displayFormat: "{0}" },
-                    { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            groupItems: [{ column: "OrderNumber", summaryType: "count", displayFormat: "{0}" },
+            { column: "Amount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             ]
         },
         onRowPrepared: function (e) {
             if (e.rowType === 'data') {
                 if (e.data.OrderState === 'Cancel') {
                     //e.rowElement.addClass('place');
-                    e.rowElement.css({  'color': 'red' });
+                    e.rowElement.css({ 'color': 'red' });
                 }
                 //else {
                 //    e.data.place = "";
