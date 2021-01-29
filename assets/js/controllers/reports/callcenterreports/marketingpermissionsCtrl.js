@@ -80,51 +80,21 @@ function marketingpermissionsCtrl($scope, $filter, $modal, $log, Restangular, Sw
         columnChooser: { enabled: true },
         columnFixing: { enabled: true },
         remoteOperations: true,
-        columns: [{
-            dataField: "PersonID",
-            caption: $translate.instant('MarketingPermissions.PersonID'),
-        }, {
-            dataField: "PersonName",
-            caption: $translate.instant('MarketingPermissions.PersonName'),
-            width: 150
-
-        }, {
-            dataField: "Phone",
-            caption: $translate.instant('MarketingPermissions.Phone'),
-        }, {
-            dataField: "DeliveredOrders",
-            caption: $translate.instant('MarketingPermissions.DeliveredOrders'),
-        }, {
-            dataField: "FirstDeliveredOrder",
-            caption: $translate.instant('MarketingPermissions.FirstDeliveredOrder'),
-        }, {
-            dataField: "LastDeliveredOrder",
-            caption: $translate.instant('MarketingPermissions.LastDeliveredOrder'),
-        }, {
-            dataField: "DeliveredOrdersAmount",
-            caption: $translate.instant('MarketingPermissions.DeliveredOrdersAmount'),
-        }, {
-            dataField: "TotalOrders",
-            caption: $translate.instant('MarketingPermissions.TotalOrders'),
-        }, {
-            dataField: "FirstOrder",
-            caption: $translate.instant('MarketingPermissions.FirstOrder'),
-        }, {
-            dataField: "LastOrder",
-            caption: $translate.instant('MarketingPermissions.LastOrder'),
-        }, {
-            dataField: "SMSOk",
-            caption: $translate.instant('MarketingPermissions.SMSOk'),
-        }, {
-            dataField: "EmailOk",
-            caption: $translate.instant('MarketingPermissions.EmailOk'),
-        }, {
-            dataField: "KVKKOk",
-            caption: $translate.instant('MarketingPermissions.KVKKOk'),
-        }, {
-            dataField: "PromotionsOk",
-            caption: $translate.instant('MarketingPermissions.PromotionsOk'),
-        },
+        columns: [{ dataField: "PersonID", caption: $translate.instant('MarketingPermissions.PersonID'), },
+        { dataField: "PersonName", caption: $translate.instant('MarketingPermissions.PersonName'), width: 150 },
+        { dataField: "Phone", caption: $translate.instant('MarketingPermissions.Phone'), },
+        { dataField: "SMSOk", caption: $translate.instant('MarketingPermissions.SMSOk'), },
+        { dataField: "EmailOk", caption: $translate.instant('MarketingPermissions.EmailOk'), },
+        { dataField: "KVKKOk", caption: $translate.instant('MarketingPermissions.KVKKOk'), },
+        { dataField: "PromotionsOk", caption: $translate.instant('MarketingPermissions.PromotionsOk'), },
+        { dataField: "DeliveredOrders", caption: $translate.instant('MarketingPermissions.DeliveredOrders'),dataType: "number",format: { type: "fixedPoint", precision: 0 },visible:false },
+        { dataField: "FirstDeliveredOrder", caption: $translate.instant('MarketingPermissions.FirstDeliveredOrder'),dataType: "date", format: 'dd.MM.yyyy' ,visible:false},
+        { dataField: "LastDeliveredOrder", caption: $translate.instant('MarketingPermissions.LastDeliveredOrder'),dataType: "date", format: 'dd.MM.yyyy',visible:false },
+        { dataField: "DeliveredOrdersAmount", caption: $translate.instant('MarketingPermissions.DeliveredOrdersAmount'),dataType: "number",format: { type: "fixedPoint", precision: 2 },visible:false },
+        { dataField: "TotalOrders", caption: $translate.instant('MarketingPermissions.TotalOrders'),dataType: "number",format: { type: "fixedPoint", precision: 0 } ,visible:false},
+        { dataField: "FirstOrder", caption: $translate.instant('MarketingPermissions.FirstOrder'),dataType: "date", format: 'dd.MM.yyyy',visible:false },
+        { dataField: "LastOrder", caption: $translate.instant('MarketingPermissions.LastOrder'),dataType: "date", format: 'dd.MM.yyyy',visible:false },
+        
         ], summary: {
             totalItems: [
                 { column: "PersonID", summaryType: "count", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
