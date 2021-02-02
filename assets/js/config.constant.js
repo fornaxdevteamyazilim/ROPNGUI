@@ -22,40 +22,6 @@ app.value('ngAuthSettings', {
     clientId: 'ropNGui',
     secret: 'Ab1234'
 });
-app.constant('NG_SETTING', {
-    virtualKeybord: true,
-
-    //apiServiceBaseUri: 'http://10.101.252.150:9065',//Little Caesars 150
-    //apiServiceBaseUri: 'http://10.101.252.152:9065',//Little Caesars 152
-    //apiServiceBaseUri: 'http://85.111.42.134:9000',//Little Caesars
-    //apiServiceBaseUri: 'http://85.111.42.134:9065/',//Little Caesars Alonet
-    //apiServiceBaseUri: 'http://fornax.yazilimocagi.net:9069', // FORNAX
-    //apiServiceBaseUri: 'http://demo.yazilimocagi.net:9067', // demo
-    //apiServiceBaseUri: 'http://10.101.252.150:9077',//Little Caesars 9077
-    //apiServiceBaseUri: 'http://10.101.252.150:9067',//Little Caesars 9067
-    //apiServiceBaseUri: 'http://pizzahut.ropng.site:9075',//PH - Test
-    apiServiceBaseUri: 'http://192.168.9.40:9065',//PH
-    //apiServiceBaseUri: 'http://10.0.0.245:9065',//MAROCCO
-    //apiServiceBaseUri: 'http://localhost:9065',//localhost
-});
-app.constant('ngAuthSettings', {
-
-    //apiServiceBaseUri: 'http://10.101.252.150:9065/', //Little Caesars 150    
-    //apiServiceBaseUri: 'http://10.101.252.152:9065/', //Little Caesars 152
-    //apiServiceBaseUri: 'http://85.111.42.134:9000/',//Little Caesars
-    //apiServiceBaseUri: 'http://85.111.42.134:9065/',//Little Caesars Alonet
-    //apiServiceBaseUri: 'http://fornax.yazilimocagi.net:9069/', //FORNAX
-    //apiServiceBaseUri: 'http://demo.yazilimocagi.net:9067/', //demo
-    //apiServiceBaseUri: 'http://10.101.252.150:9077/', //Little Caesars 9077
-    //apiServiceBaseUri: 'http://10.101.252.150:9067/', //Little Caesars 9067
-    //apiServiceBaseUri: 'http://pizzahut.ropng.site:9075/', //PH - Test
-    apiServiceBaseUri: 'http://192.168.9.40:9065/',//PH
-    //apiServiceBaseUri: 'http://10.0.0.245:9065/',//MAROCCO
-    //apiServiceBaseUri: 'http://localhost:9065/',//localhost
-
-    clientId: 'ropNGui',
-    secret: 'Ab1234'
-});
 app.constant('JS_REQUIRES', {
     //*** Scripts
     scripts: {
