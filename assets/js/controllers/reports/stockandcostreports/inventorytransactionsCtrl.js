@@ -109,15 +109,15 @@ function inventorytransactionsCtrl($scope, $filter, $window, $stateParams, $root
         columnChooser: { enabled: true, mode: "dragAndDrop" },
         columns: [
             //{ dataField: "id", dataType: "number"},
-            { dataField: "TransactionDate", dataType: "Date" },
-            { dataField: "Inventory.ItemCode", caption: "Code", dataType: "string" },
-            { dataField: "Inventory.name", caption: "Inventory", dataType: "string" },
-            { dataField: "InventoryUnit.name", caption: "UnitName", dataType: "string" },
-            { caption: "Units", dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 4 } },
-            { caption: "Price", dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "Amount", dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "Repository", dataType: "string" },
-            { dataField: "Store", dataType: "string" },
+            { dataField: "TransactionDate", caption : $translate.instant('inventorytransactions.TransactionDate'),dataType: "Date" },
+            { dataField: "Inventory.ItemCode", caption: $translate.instant('inventorytransactions.Code'), dataType: "string" },
+            { dataField: "Inventory.name", caption: $translate.instant('inventorytransactions.Inventory'), dataType: "string" },
+            { dataField: "InventoryUnit.name", caption: $translate.instant('inventorytransactions.UnitName'), dataType: "string" },
+            { caption: $translate.instant('inventorytransactions.Units'), dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 4 } },
+            { caption: $translate.instant('inventorytransactions.Price'), dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('inventorytransactions.Amount'), dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('inventorytransactions.Repository'),dataField: "Repository", dataType: "string" },
+            { caption: $translate.instant('inventorytransactions.Store'),dataField: "Store", dataType: "string" },
             /* {
                 dataField: "StoreID", caption: "Store",
                 lookup: {
@@ -146,10 +146,10 @@ function inventorytransactionsCtrl($scope, $filter, $window, $stateParams, $root
                     }
                 },
             }, */
-            { dataField: "StoreType", caption: "StoreType" },
-            { dataField: "TransactionType", dataType: "string" },
-            { dataField: "TransactionDetail", dataType: "string" },
-            { dataField: "InventoryGroup", dataType: "string" },
+            { caption: $translate.instant('inventorytransactions.StoreType'),dataField: "StoreType"},
+            { caption: $translate.instant('inventorytransactions.TransactionType'),dataField: "TransactionType", dataType: "string" },
+            { caption: $translate.instant('inventorytransactions.TransactionDetail'),dataField: "TransactionDetail", dataType: "string" },
+            { caption: $translate.instant('inventorytransactions.InventoryGroup'),dataField: "InventoryGroup", dataType: "string" },
         ],
         summary: {
             totalItems: [

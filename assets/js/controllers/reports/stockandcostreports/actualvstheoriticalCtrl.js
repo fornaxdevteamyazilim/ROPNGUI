@@ -120,7 +120,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
             { caption: $translate.instant('actualvstheoritical.StoreType'), dataField: "StoreFilterType", dataType: "string", visible: false },// fixed: true ,groupIndex: 0 },
             { caption: $translate.instant('actualvstheoritical.RealToTheoric'), dataField: "RealToTheoricUsage", dataType: "boolean", visible: false },
             { caption: $translate.instant('actualvstheoritical.ItemCode'), dataField: "ItemCode", dataType: "string", fixed: true },
-            { caption: $translate.instant('c.Name'), dataField: "InventoryUnitName", dataType: "string", fixed: true },
+            { caption: $translate.instant('actualvstheoritical.c.Name'), dataField: "InventoryUnitName", dataType: "string", fixed: true },
             { caption: $translate.instant('actualvstheoritical.BaseUnit'), dataField: "BaseUnit", dataType: "string" },
             { caption: $translate.instant('actualvstheoritical.Group'), dataField: "InventoryGroup", dataType: "string" },
             { caption: $translate.instant('actualvstheoritical.CountType'), dataField: "CountType", dataType: "string" },

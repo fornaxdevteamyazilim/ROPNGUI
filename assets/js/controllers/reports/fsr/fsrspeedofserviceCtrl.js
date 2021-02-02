@@ -38,8 +38,8 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         max: maxYear,
         showSpinButtons: true
     };
-    $scope.weekCaption1 = "Week " + $scope.startWeek;
-    $scope.weekCaption2 = "Week " + $scope.endWeek;
+    $scope.weekCaption1 = $translate.instant('fsrspeedofservice.Week') +" "+ $scope.startWeek;
+    $scope.weekCaption2 = $translate.instant('fsrspeedofservice.Week') +" "+ $scope.endWeek;
     $scope.startWeekButton = {
         bindingOptions: {
             value: "startWeek"

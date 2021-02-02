@@ -136,7 +136,7 @@ function trendsCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTING, 
                 caption: $translate.instant('trends.trends'), name: "Trends",
                 columns: [
                     { dataField: "IncomeTrend", caption: $translate.instant('trends.sales'), format: { type: "fixedPoint", precision: 0 } },
-                    { dataField: "SalesTarget", caption: "Sales Target", format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "SalesTarget", caption: $translate.instant('trends.SalesTarget'), format: { type: "fixedPoint", precision: 0 } },
                     { dataField: "TCTrend", caption: $translate.instant('trends.TC'), format: { type: "fixedPoint", precision: 0 }, visible: false },
                     { dataField: "TCTarget", caption: "TC Target", format: { type: "fixedPoint", precision: 0 }, visible: false },
                     { dataField: "HitRate", caption: "Hit %", name: "HitRate", format: { type: "fixedPoint", precision: 2 }, },

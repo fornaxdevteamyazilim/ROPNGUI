@@ -43,6 +43,16 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         $scope.trTotalAmount = $translate.instant('main.TOTALAMOUNT');
         $scope.trShowAll = $translate.instant('main.SHOWALL');
         $scope.trTotal = $translate.instant('main.TOTAL');
+        $scope.Vacations = $translate.instant('main.VACATIONS');
+        $scope.Paid = $translate.instant('main.PAID');
+        $scope.Free = $translate.instant('main.FREE');
+        $scope.Required = $translate.instant('main.REQUIRED');
+        $scope.Plan = $translate.instant('main.PLAN');
+        $scope.Status = $translate.instant('main.STATUS');
+        $scope.Position = $translate.instant('main.POSITION');
+        $scope.WeekDay = $translate.instant('main.WEEKDAY');
+        $scope.OrderType = $translate.instant('main.ORDERTYPE');
+        $scope.Hour = $translate.instant('main.HOUR');
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
@@ -520,14 +530,14 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         dataGrid.option("dataSource",
             {
                 fields: [{
-                    caption: "Position",
+                    caption: $scope.Position,
                     width: 120,
                     dataField: "Position",
                     area: "row",
                     autoExpandGroup: true,
                     allowExpandAll: true
                 }, {
-                    caption: "WeekDay",
+                    caption: $scope.WeekDay,
                     dataField: "WeekDay",
                     width: 150,
                     area: "row",
@@ -633,7 +643,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
 
                     },
                 }, {
-                    caption: "Hour",
+                    caption: $scope.Hour,
                     dataField: "Hour",
                     area: "column",
                     allowSorting: false,
@@ -655,21 +665,21 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     },
                     autoExpandGroup: true
                 }, {
-                    caption: "Required",
+                    caption: $scope.Required,
                     dataField: "Req",
                     dataType: "number",
                     summaryType: "sum",
                     area: "data"
                 },
                 {
-                    caption: "Plan",
+                    caption: $scope.Plan,
                     dataField: "Plan",
                     dataType: "number",
                     summaryType: "sum",
                     area: "data"
                 },
                 {
-                    caption: "Status",
+                    caption: $scope.Status,
                     dataField: "Status",
                     dataType: "number",
                     summaryType: "sum",
@@ -816,8 +826,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         highlightChanges: true,
         twoWayBindingEnabled: false,
         columns: [
-            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
-            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { dataField: "Position", caption: $scope.Position, visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: $scope.WeekDay, visibleIndex: 1, fixed: true, dataType: "string" },
             { name: "Status_08", dataField: "Status_08", caption: "08", dataType: "number" },
             { name: "Status_09", dataField: "Status_09", caption: "09", dataType: "number" },
             { name: "Status_10", dataField: "Status_10", caption: "10", dataType: "number" },
@@ -886,8 +896,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         highlightChanges: true,
         twoWayBindingEnabled: false,
         columns: [
-            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
-            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { dataField: "Position", caption: $scope.Position, visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: $scope.WeekDay, visibleIndex: 1, fixed: true, dataType: "string" },
             { name: "Plan_08", dataField: "Plan_08", caption: "08", dataType: "number" },
             { name: "Plan_09", dataField: "Plan_09", caption: "09", dataType: "number" },
             { name: "Plan_10", dataField: "Plan_10", caption: "10", dataType: "number" },
@@ -957,8 +967,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         highlightChanges: true,
         twoWayBindingEnabled: false,
         columns: [
-            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
-            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { dataField: "Position", caption: $scope.Position, visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: $scope.WeekDay, visibleIndex: 1, fixed: true, dataType: "string" },
             { name: "CostPlan_08", dataField: "CostPlan_08", caption: "08", format: { type: "fixedPoint", precision: 2 } },
             { name: "CostPlan_09", dataField: "CostPlan_09", caption: "09", format: { type: "fixedPoint", precision: 2 } },
             { name: "CostPlan_10", dataField: "CostPlan_10", caption: "10", format: { type: "fixedPoint", precision: 2 } },
@@ -1064,8 +1074,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         highlightChanges: true,
         twoWayBindingEnabled: false,
         columns: [
-            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
-            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { dataField: "Position", caption: $scope.Position, visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: $scope.WeekDay, visibleIndex: 1, fixed: true, dataType: "string" },
             { name: "AvgFPSales_08", dataField: "AvgFPSales_08", caption: "08", format: { type: "fixedPoint", precision: 0 } },
             { name: "AvgFPSales_09", dataField: "AvgFPSales_09", caption: "09", format: { type: "fixedPoint", precision: 0 } },
             { name: "AvgFPSales_10", dataField: "AvgFPSales_10", caption: "10", format: { type: "fixedPoint", precision: 0 } },
@@ -1171,8 +1181,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         highlightChanges: true,
         twoWayBindingEnabled: false,
         columns: [
-            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
-            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { dataField: "Position", caption: $scope.Position, visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: $scope.WeekDay, visibleIndex: 1, fixed: true, dataType: "string" },
             { name: "Req_08", dataField: "Req_08", caption: "08", dataType: "number" },
             { name: "Req_09", dataField: "Req_09", caption: "09", dataType: "number" },
             { name: "Req_10", dataField: "Req_10", caption: "10", dataType: "number" },
@@ -1243,8 +1253,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         highlightChanges: true,
         twoWayBindingEnabled: false,
         columns: [
-            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
-            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { dataField: "Position", caption: $scope.Position, visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: $scope.WeekDay, visibleIndex: 1, fixed: true, dataType: "string" },
             { name: "Status_08", dataField: "AvgTC_08", caption: "08", format: { type: "fixedPoint", precision: 2 } },
             { name: "Status_09", dataField: "AvgTC_09", caption: "09", format: { type: "fixedPoint", precision: 2 } },
             { name: "Status_10", dataField: "AvgTC_10", caption: "10", format: { type: "fixedPoint", precision: 2 } },
@@ -1350,8 +1360,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         highlightChanges: true,
         twoWayBindingEnabled: false,
         columns: [
-            { dataField: "Position", caption: "Position", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
-            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { dataField: "Position", caption: $scope.Position, visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: $scope.WeekDay, visibleIndex: 1, fixed: true, dataType: "string" },
             { name: "Status_08", dataField: "AvgSales_08", caption: "08", format: { type: "fixedPoint", precision: 2 } },
             { name: "Status_09", dataField: "AvgSales_09", caption: "09", format: { type: "fixedPoint", precision: 2 } },
             { name: "Status_10", dataField: "AvgSales_10", caption: "10", format: { type: "fixedPoint", precision: 2 } },
@@ -1457,8 +1467,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         highlightChanges: true,
         twoWayBindingEnabled: false,
         columns: [
-            { dataField: "OrderType", caption: "OrderType", visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
-            { dataField: "WeekDay", caption: "WeekDay", visibleIndex: 1, fixed: true, dataType: "string" },
+            { dataField: "OrderType", caption: $scope.OrderType, visibleIndex: 0, groupIndex: 0, fixed: true, dataType: "string" },
+            { dataField: "WeekDay", caption: $scope.WeekDay, visibleIndex: 1, fixed: true, dataType: "string" },
             { name: "AvgTC_08", dataField: "AvgTC_08", caption: "08", format: { type: "fixedPoint", precision: 2 } },
             { name: "AvgTC_09", dataField: "AvgTC_09", caption: "09", format: { type: "fixedPoint", precision: 2 } },
             { name: "AvgTC_10", dataField: "AvgTC_10", caption: "10", format: { type: "fixedPoint", precision: 2 } },
@@ -1682,7 +1692,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     itemType: "group",
                     colCount: 6,
                     colSpan: 2,
-                    items: ["D3ShiftStart", "D2ShiftEnd", "D2isOff", { colSpan: 2, dataField: "D2OffTypeID" }, "D2IgnoreOvertime"]
+                    items: ["D2ShiftStart", "D2ShiftEnd", "D2isOff", { colSpan: 2, dataField: "D2OffTypeID" }, "D2IgnoreOvertime"]
                 },
                 {
                     itemType: "group",
@@ -2328,17 +2338,17 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                         format: { type: "fixedPoint", precision: 2 }
                     },
                     {
-                        caption: "Vacations",
+                        caption: $scope.Vacations,
                         name: "vacations",
                         columns: [
                             {
-                                caption: "Paid",
+                                caption: $scope.Paid,
                                 name: "Paid",
                                 dataField: "Paid",
                                 format: { type: "fixedPoint", precision: 2 }
                             },
                             {
-                                caption: "Free",
+                                caption: $scope.Free,
                                 name: "Free",
                                 dataField: "Free",
                                 format: { type: "fixedPoint", precision: 2 }
@@ -2370,8 +2380,8 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         ],
         summary: {
             totalItems: [
-                { column: "Paid", name: "paid", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
-                { column: "Free", name: "free", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                { column: $scope.Paid, name: "paid", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                { column: $scope.Free, name: "free", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
                 { column: "NormalHours", name: "NormalHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
                 { column: "OvertimeHours", name: "OvertimeHours", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
                 { column: "TotalAmount", name: "TotalAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },

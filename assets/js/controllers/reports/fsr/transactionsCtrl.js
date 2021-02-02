@@ -129,10 +129,10 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
             { caption: "DIN Tx %", dataField: "DINTrxPercent", dataType: "number", format: { type: "percent", precision: 2 } },
             { caption: "CO Trx", dataField: "COTrx", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "CO Tx %", dataField: "COTrxPercent", dataType: "number", format: { type: "percent", precision: 2 } },
-            { caption: "Avg GC", dataField: "AvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "HDS Avg GC", dataField: "HDSAvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "DIN Avg GC", dataField: "DINAvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: "CO Avg GC", dataField: "COAvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } }
+            { caption: $translate.instant('transactions.AvgGC'), dataField: "AvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('transactions.HDSAvgGC'), dataField: "HDSAvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('transactions.DINAvgGC'), dataField: "DINAvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('transactions.COAvgGC'), dataField: "COAvgGC", dataType: "number", format: { type: "fixedPoint", precision: 2 } }
         ],
         onRowPrepared: function (e) {
             if (e.rowType === 'data') {

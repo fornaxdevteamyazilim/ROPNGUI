@@ -8,6 +8,10 @@ function hourlywagesCtrl($rootScope, $scope, NG_SETTING, $translate, $element, l
         $scope.trUserRole = $translate.instant('main.USERROLE');
         $scope.trUserRestriction = $translate.instant('main.USERRESTRICTIONS');
         $scope.trCommands = $translate.instant('main.COMMANDS');
+        $scope.Position = $translate.instant('main.POSITION');
+        $scope.ValidFrom = $translate.instant('main.VALIDFROM');
+        $scope.Price = $translate.instant('main.PRICE');
+        $scope.OrderDeliveryPrice = $translate.instant('main.ORDERDELIVERYPRICE');
     }
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
@@ -76,7 +80,7 @@ function hourlywagesCtrl($rootScope, $scope, NG_SETTING, $translate, $element, l
         remoteOperations: true,
         columns: [
             {
-                dataField: "StaffPositionID", caption: "Position",
+                dataField: "StaffPositionID", caption: $scope.Position,
                 visibleIndex: 0,
                 sortIndex:1, 
                 sortOrder:"asc",
@@ -115,10 +119,10 @@ function hourlywagesCtrl($rootScope, $scope, NG_SETTING, $translate, $element, l
                     return this.lookup.calculateCellValue(value);
                 }
             },
-            { dataField: "ValidFrom", alignment: "right", dataType: "date", format: 'dd.MM.yyyy',sortIndex:0, 
+            { dataField: "ValidFrom", caption: $scope.ValidFrom, alignment: "right", dataType: "date", format: 'dd.MM.yyyy',sortIndex:0, 
             sortOrder:"asc" },
-            { dataField: "Price", alignment: "right", dataType: "money",format: { type: "fixedPoint", precision: 4 } },
-            { dataField: "OrderDeliveryPrice", alignment: "right", dataType: "money" ,format: { type: "fixedPoint", precision: 4 }}
+            { dataField: "Price", caption: $scope.Price, alignment: "right", dataType: "money",format: { type: "fixedPoint", precision: 4 } },
+            { dataField: "OrderDeliveryPrice", caption: $scope.OrderDeliveryPrice, alignment: "right", dataType: "money" ,format: { type: "fixedPoint", precision: 4 }}
         ],
         onInitNewRow: function(e) {
             e.data.InTime = new Date();

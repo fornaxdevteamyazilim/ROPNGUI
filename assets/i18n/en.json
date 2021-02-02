@@ -556,6 +556,7 @@
     "BRANDNAME": "Brand Name",
     "CHASSISNUMBER": "Chassis Number",
     "COMMANDS": "Commands",
+    "ORDERDELIVERYPRICE": "Order delivery price",
     "COMPANY": "Company",
     "COMPANYCONTACTPERSON": "Company Contact Person",
     "COMPANYEMAIL": "Company E-Mail",
@@ -1911,6 +1912,13 @@
     "SHIFTS": "Shifts",
     "ISOFFDAY": "is Off",
     "IGNOREOVERTIME": "Ignore Overtime",
+    "VACATIONS": "Vacations",
+    "PAID": "Paid",
+    "FREE": "Free",
+    "PLAN": "Plan",
+    "POSITION": "Position",
+    "WEEKDAY": "Weekday",
+    "HOUR": "Hour",
     "SHOWALL": "Show All",
     "EDITSHIFTS": "Edit Staff Shifts",
     "MINPERSONSPERSTORE": "Min Staff Count",
@@ -3730,7 +3738,8 @@
     "TheoryWaste": "Theory+Waste",
     "Variance": "Variance",
     "UnitCost": "Unit Cost",
-    "Usage(%)": "Usage (%)"
+    "Usage(%)": "Usage (%)",
+    "c.name":"c.name"
   },
   "weeklycolsummary": {
     "Store": "Store",
@@ -3804,7 +3813,11 @@
     "Sales": "Sales",
     "HDSSales": "HDS Sales",
     "DINSales": "DIN Sales,",
-    "COSales": "CO Sales"
+    "COSales": "CO Sales",
+    "Avg GC":"Avg GC",
+    "HDS Avg GC":"HDS Avg GC",
+    "DIN Avg GC":"DIN Avg GC",
+    "CO Avg GC":"CO Avg GC"
   },
   "fsrspeedofservice": {
     "MGTTurkey": "MGT Turkey",
@@ -3819,7 +3832,9 @@
     "MakeTable": "Make Table",
     "CutTable": "Cut Table",
     "Dispatch": "Dispatch",
-    "Delivery": "Delivery"
+    "Delivery": "Delivery",
+    "U30":"U30",
+    "Week": "Week"  
   },
   "fsractualtheoretical": {
     "Area": "Area",
@@ -3969,9 +3984,9 @@
     "DriveCost": "Drive Cost"
   },
   "weeklycolsummary ": {
-    "$translate.instant('trends.Store')": "$translate.instant('trends.Store')",
+    "Store": "Store",
     "WeekDay": "Week Day",
-    "$translate.instant('trends.Region')": "$translate.instant('trends.Region')",
+    "Region": "Region",
     "Sales": "Sales",
     "Projected": "Projected",
     "Actual": "Actual",
@@ -4002,8 +4017,8 @@
     "OvertimeHours": "Overtime Hours"
   },
   "staffcostdetail ": {
-    "$translate.instant('trends.Store')": "$translate.instant('trends.Store')",
-    "$translate.instant('trends.Region')": "$translate.instant('trends.Region')",
+    "Store": "Store",
+    "Region": "Region",
     "StaffPossition": "Staff Possition",
     "OperationDate": "Operation Date",
     "StoreID": "Store ID",
