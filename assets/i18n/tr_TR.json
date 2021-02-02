@@ -3186,7 +3186,8 @@
     "FingerPrint": "Parmak İzi kayıt işlemi başladı...",
     "Fingerreading": "Vardiya çıkışı için parmak okutunuz",
     "Fingerentry": "'Vardiya girişi için parmak okutunuz'",
-    "FINGERPRINTSFIRST": "!!! ÖNCE PARMAK İZİ TANITINIZ !!! "
+    "FINGERPRINTSFIRST": "!!! ÖNCE PARMAK İZİ TANITINIZ !!! ",
+    "EnrollFingerprint":"Parmak İzi Kaydı"
   },
   "difinitions": {
     "Updated": "Güncellendi.",

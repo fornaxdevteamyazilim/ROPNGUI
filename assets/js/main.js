@@ -144,19 +144,10 @@ app.run(['authService', function (authService) {
     authService.fillAuthData();
 }]);
 app.run(['userService', function (userService) { }]);
-//app.value('signalRServer', 'http://10.101.252.150:9065');//Little Caesars 150
-//app.value('signalRServer', 'http://10.101.252.152:9065');//Little Caesars 152
-//app.value('signalRServer', 'http://85.111.42.134:9000');//Little Caesars
-//app.value('signalRServer', 'http://85.111.42.134:9065');//Little Caesars Alonet
-//app.value('signalRServer', 'http://fornax.yazilimocagi.net:9069'), // FORNAX
-//app.value('signalRServer', 'http://demo.yazilimocagi.net:9067'), // demo
-//app.value('signalRServer', 'http://10.101.252.150:9077');//Little Caesars 9077
-//app.value('signalRServer', 'http://10.101.252.150:9067');//Little Caesars 9067
-//app.value('signalRServer', 'http://pizzahut.ropng.site:9075');//PH - Test
+//app.value('signalRServer', 'http://10.101.252.149:9065');//Little Caesars
 app.value('signalRServer', 'http://192.168.9.40:9065');//PH
 //app.value('signalRServer', 'http://10.0.0.245:9065');//MAROCCO
 //app.value('signalRServer', 'http://localhost:9065');//localhost
-
 app.run(['callsService', function (callsService) { }]);
 app.run(['ngnotifyService', function (ngnotifyService) { }]);
 // translate config

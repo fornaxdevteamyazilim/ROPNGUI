@@ -3176,7 +3176,8 @@
     "FingerPrint": "FingerPrint enroll process started...",
     "Fingerreading": "Finger reading for shift output",
     "Fingerentry": "Finger reading for shift entry",
-    "FINGERPRINTSFIRST": "!!! INTRODUCE FINGERPRINTS FIRST !!! "
+    "FINGERPRINTSFIRST": "!!! INTRODUCE FINGERPRINTS FIRST !!! ",
+    "EnrollFingerprint":"Enroll Finger print"
   },
   "difinitions": {
     "Updated": "Updated.",

@@ -1,11 +1,12 @@
-﻿app.factory('ngnotifyService', ['$http', '$rootScope', '$location', '$timeout', 'ngAuthSettings', 'signalRServer', 'signalRHubProxy', 'localStorageService', 'toaster', '$translate', ngnotifyService]);
-function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings, signalRServer, signalRHubProxy, localStorageService, toaster, $translate) {
+﻿app.factory('ngnotifyService', ['$http', '$rootScope', '$location', '$timeout', 'ngAuthSettings', 'signalRServer', 'signalRHubProxy', 'localStorageService', 'toaster', '$translate','Restangular','NG_SETTING', ngnotifyService]);
+function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings, signalRServer, signalRHubProxy, localStorageService, toaster, $translate,Restangular,NG_SETTING) {
     var ngnotifyServiceFactory = {};
     var _serverDate = new Date();
     var _groups = [];
     var _timeDelta = 0;
     var _storeID = "";
     var ngnotifyHubProxy = signalRHubProxy(signalRServer, 'NGNotifyHub');
+    //var ngnotifyHubProxy = signalRHubProxy($location.host()+':9065', 'NGNotifyHub');
     _setStoreID = function (groupName) {
         if (groupName) {
             localStorageService.set('StoreID', groupName);
@@ -75,6 +76,13 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
         var serverdate = new Date(data);
         _timeDelta = now - serverdate;
         $rootScope.$broadcast('ServerTime', data);
+    });
+    ngnotifyHubProxy.on('setApiUrl', function (apiUrl) {
+        console.log('setApiUrl message Recieved:'+apiUrl);
+        toaster.pop('Warning', 'setApiUrl message Recieved', apiUrl);
+        Restangular.setBaseUrl(apiUrl+'/api/');
+        ngAuthSettings.apiServiceBaseUri=apiUrl+'/';
+        NG_SETTING.apiServiceBaseUri=apiUrl;
     });
     ngnotifyHubProxy.on('NewOrder', function (data) {
         //string id,Enums.OrderStatus oldStatus, Enums.OrderStatus newStatus,string storeID

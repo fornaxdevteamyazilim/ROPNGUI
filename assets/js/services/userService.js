@@ -2,7 +2,6 @@
 app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSettings', 'authService', '$timeout', '$filter', '$rootScope', '$location', 'NG_SETTING', '$window', 
     function ($http, $q, localStorageService, ngAuthSettings, authService, $timeout, $filter, $rootScope, $location, NG_SETTING, $window, $localStorage) {
         var userServiceFactory = {};
-        var serviceBase = ngAuthSettings.apiServiceBaseUri;
         var LogutTimeOut;
         var ReportParameters = [];
         var userRestirctions = null;
@@ -75,7 +74,7 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         };
         var _refreshUserData = function (skipLandigRoute) {
             _resetUserData();
-            $http.get(serviceBase + 'api/user', { params: { id: 'CurrentUser' } }).success(function (response) {
+            $http.get(ngAuthSettings.apiServiceBaseUri + 'api/user', { params: { id: 'CurrentUser' } }).success(function (response) {
                 $rootScope.user = response;
                 $rootScope.user.UserExtensionNumber = localStorageService.get('ExtensionNumber');
                 $rootScope.user.ClientName = localStorageService.get('ClientName');
@@ -95,7 +94,7 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         var _getRestrictions = function () {
             $rootScope.user.restrictions = {};
             //if (!userRestirctions) {
-            $http.get(serviceBase + 'api/restriction', { params: { id: 'CurrentUser' } }).success(function (response) {
+            $http.get(ngAuthSettings.apiServiceBaseUri + 'api/restriction', { params: { id: 'CurrentUser' } }).success(function (response) {
                 userRestirctions = response;
                 if (response.restrictions && response.restrictions.length) {
                     var restrictions = {};
@@ -126,7 +125,7 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         };
         var _getPreferences = function (PreferenceName) {
             if (!userPreferences) {
-                $http.get(serviceBase + 'api/preferences', { params: { id: 'CurrentUser' } }).success(function (response) {
+                $http.get(ngAuthSettings.apiServiceBaseUri + 'api/preferences', { params: { id: 'CurrentUser' } }).success(function (response) {
                     userPreferences = response;
                     if (userPreferences.preferences && userPreferences.preferences.length) {
                         var preferences = {};
@@ -149,7 +148,7 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         };
         var _GetPreferenceValue = function (PreferenceName) {
             //    if (!userPreferences) {
-            //        $http.get(serviceBase + 'api/preferences', { params: { id: 'CurrentUser' } }).success(function (response) {
+            //        $http.get(ngAuthSettings.apiServiceBaseUri + 'api/preferences', { params: { id: 'CurrentUser' } }).success(function (response) {
             //            userPreferences = response;
             //            return (_PreferenceValue(PreferenceName, userPreferences))
             //        }).error(function (err, status) {
