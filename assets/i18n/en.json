@@ -3964,8 +3964,8 @@
     "WeekDay": "Week Day",
     "RegionManager": "Region Manager",
     "Sales": "Sales",
-    "ProjectedSales": "ProjectedSales",
-    "Projected": "Projected",
+    "ProjectedSales": "Projected Sales(4 Week Ave.)",
+    "Projected": "Projected % (4 Week Ave.)",
     "Actual": "Actual",
     "Variance": "Variance",
     "TotalCOL": "Total COL",
@@ -3982,7 +3982,8 @@
     "OverTime": "Over Time",
     "Hours": "Hours",
     "Cost": "Cost",
-    "DriveCost": "Drive Cost"
+    "DriveCost": "Drive Cost",
+    "TotalActualPercent":"Actual %"
   },
   "weeklycolsummary ": {
     "Store": "Store",

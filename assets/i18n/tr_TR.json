@@ -3776,7 +3776,7 @@
     "OverTimeCost": "Fazla Mesai Maliyeti",
     "Delivery": " Adisyon Primi",
     "Orders": "Sipariş",
-    "DriveCost": "Sürücü Maliyeti",
+    "DriveCost": "Adisyon Maliyeti",
     "PayedOffCOL": "Ödeme Durumu kapalı",
     "Driver": "Sürücü"
   },
@@ -3995,8 +3995,8 @@
     "RegionManager": "Bölge Müdürü",
     "Sales": "Satış",
     "ProjectedSales": "Tahmini Satış (4 Hafta Ort.)",
-    "Projected": "Tahmini COL (4 Hafta Ort.)",
-    "Actual": "Gerçekleşen Satış",
+    "Projected": "Tahmini COL % (4 Hafta Ort.)",
+    "Actual": "Gerçekleşen COL",
     "Variance": "Varyans",
     "TotalCOL": "Toplam COL",
     "TotalCOL%": "Toplam COL %",
@@ -4012,7 +4012,8 @@
     "Hours": "Saatlik",
     "Orders": "Sipariş",
     "Cost": "Maliyet",
-    "DriveCost": "Sürücü Maliyeti"
+    "DriveCost": "Sürücü Adisyon Maliyeti",
+    "TotalActualPercent":"Gerçekleşen COL %"
   },
   "weeklycolsummary ": {
     "Store": "Restoran",
@@ -4033,7 +4034,7 @@
     "OverTimeCost": "Fazla Mesai Maliyeti",
     "Delivery": "Teslim",
     "Orders": "Sipariş",
-    "DriveCost": "Sürücü Maliyeti"
+    "DriveCost": "Sürücü Adisyon Maliyeti"
   },
   "staffcost ": {
     "Store": "Mağaza",

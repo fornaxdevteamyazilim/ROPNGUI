@@ -171,7 +171,7 @@ function weeklycolCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
                         format: "percent"
                     },
                     {
-                        caption: $translate.instant('weeklycol.Actual'),
+                        caption: $translate.instant('weeklycol.TotalActualPercent'),
                         name: "TotalActualPercent",
                         calculateCellValue: function (data) {
                             return data.TotalActualCOL / data.AcualSales;
