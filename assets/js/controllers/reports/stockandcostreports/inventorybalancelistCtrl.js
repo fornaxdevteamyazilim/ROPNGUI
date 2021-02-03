@@ -71,7 +71,7 @@ function inventorybalancelistCtrl($scope, $filter, $modal, $log, Restangular, ng
         Restangular.all('report').getList().then(function (result) {
             $scope.VeiwHeader = result[0];
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     }
     if (!$rootScope.ReportParameters.ForDate) {
@@ -104,7 +104,7 @@ function inventorybalancelistCtrl($scope, $filter, $modal, $log, Restangular, ng
                     $scope.ShowReport();
                 }, function (response) {
                     $scope.isWaiting = false;
-                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
     };
     ctrl.table = {
@@ -172,7 +172,7 @@ function inventorybalancelistCtrl($scope, $filter, $modal, $log, Restangular, ng
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -181,7 +181,7 @@ function inventorybalancelistCtrl($scope, $filter, $modal, $log, Restangular, ng
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

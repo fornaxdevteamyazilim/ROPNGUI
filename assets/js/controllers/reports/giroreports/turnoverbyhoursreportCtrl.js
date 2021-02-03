@@ -96,7 +96,7 @@ function turnoverbyhoursreportCtrl($scope, $filter, $modal, $log, Restangular, n
       $scope.VeiwHeader = result[0];
       $scope.GetLayout(result[0].id)
   }, function (response) {
-      toaster.pop('error', "Server error", response.data.ExceptionMessage);
+      toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
   });
         if ($rootScope.user.UserRole.Name == "Admin" || $rootScope.user.UserRole.Name == "CCMANAGER" || $rootScope.user.UserRole.Name == "LC" || $rootScope.user.UserRole.Name == "AREAMANAGER" || $rootScope.user.UserRole.Name == "ACCOUNTING" || $rootScope.user.UserRole.Name == "PH") {
             $scope.StoreID = '';
@@ -128,7 +128,7 @@ function turnoverbyhoursreportCtrl($scope, $filter, $modal, $log, Restangular, n
             $scope.LoadPivotData();
         }
     }, function (response) {
-        toaster.pop('error', "Server error", response);
+        toaster.pop('error', $translate.instant('Server.ServerError'), response);
     });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -185,7 +185,7 @@ function turnoverbyhoursreportCtrl($scope, $filter, $modal, $log, Restangular, n
                 $scope.ShowReport();
                 $scope.isWaiting = false;
             }, function (response) {
-                toaster.pop('error', "Server error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 $scope.isWaiting = false;
             });
     };
@@ -253,7 +253,7 @@ function turnoverbyhoursreportCtrl($scope, $filter, $modal, $log, Restangular, n
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

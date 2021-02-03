@@ -70,7 +70,7 @@ function pickupCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTa
                 $scope.loadOrders();
             })
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.CopyOrder = function (order) {
@@ -116,7 +116,7 @@ function pickupCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTa
           toaster.pop('success', "Updated", 'Updated!');
           $scope.loadOrders();
       }, function (response) {
-          toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+          toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
       });
         });
     };
@@ -153,7 +153,7 @@ function pickupCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTa
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {
             $scope.ShowObject = false;
-            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();
@@ -238,7 +238,7 @@ function pickupCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTa
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

@@ -16,10 +16,10 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
         $scope.isWaiting = true;
         Restangular.one('inventory/startnewperiod').get({}).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', $translate.instant('difinitions.NewActive '));
+            toaster.pop('success', $translate.instant('difinitions.NewActive'));
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
         });
     };
     $scope.CopyRecipes = function (FromPeriodID, ToPeriodID) {
@@ -29,10 +29,10 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             ToPeriodID: ToPeriodID,
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', $translate.instant('difinitions.PrescriptionsCopied '));
+            toaster.pop('success', $translate.instant('difinitions.PrescriptionsCopied'));
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
         });
     };
     $scope.UpdateInventoryPrice = function (PeriodID) {
@@ -41,10 +41,10 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             PeriodID: PeriodID,
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', $translate.instant('difinitions.PricesUpdated '));
+            toaster.pop('success', $translate.instant('difinitions.PricesUpdated'));
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
         });
     };
     $scope.SaveConsuption = function (StoreID) {
@@ -56,10 +56,10 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             StoreType: $scope.StoreTypeID
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', $translate.instant('difinitions.PrescriptionUpdated '));
+            toaster.pop('success', $translate.instant('difinitions.PrescriptionUpdated'));
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
         });
     };
 
@@ -70,10 +70,10 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             ToRoleName: ToRoleName,
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', $translate.instant('difinitions.Clonerestrictions '));
+            toaster.pop('success', $translate.instant('difinitions.Clonerestrictions'));
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
         });
     };
     $scope.correctopdates = function () {
@@ -86,14 +86,12 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             toDate: toDate,
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', $translate.instant('difinitions.OrderDatesUpdated '));
+            toaster.pop('success', $translate.instant('difinitions.OrderDatesUpdated'));
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', $translate.instant('difinitions.OperationPerformed '), response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
         });
     };
-
-
     $scope.DateRange = {
         fromDate: {
             max: new Date(),
@@ -114,41 +112,18 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             value: new Date()
         }
     };
-    /* $scope.createprices = function () {
-        $scope.isWaiting = true;
-        Restangular.one('inventory/createprices').get({
-            fromDate:$scope.DateRange.fromDate,
-            toDate: $scope.DateRange.toDate          
-        }).then(function (result) {
-            $scope.isWaiting = false;
-            toaster.pop('success', "Sipariş Tarihleri Güncellendi!");
-        }, function (response) {
-            $scope.isWaiting = false;
-            toaster.pop('error', "İşleminiz Gerçekleştirilemedi!", response.data.ExceptionMessage);
-        });        
-    };
-    $scope.DateRange = {
-        fromDate: {         
-            max: new Date(),
-            min: new Date(2020, 0, 1),
-            displayFormat: 'yyyy.MM.dd',
-            bindingOptions: {
-                value:new Date(),
-            },          
-        },
-        toDate: {           
-            max: new Date(),
-            min: new Date(2020, 0, 1),
-            displayFormat: 'yyyy.MM.dd',
-            bindingOptions: {
-                value:new Date(),
-            },        
-        }
-    };
- */
-
-
-
+    // $scope.CalculateProductCosts = function () {
+    //     $scope.isWaiting = true;
+    //     Restangular.one('inventory/CalculateProductCosts').get({
+    //         PeriodID:PeriodID
+    //     }).then(function (result) {
+    //         $scope.isWaiting = false;
+    //         toaster.pop('success', $translate.instant('difinitions.CalculateProductCosts '));
+    //     }, function (response) {
+    //         $scope.isWaiting = false;
+    //         toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
+    //     });
+    // };
     $scope.SetStoreTypeID = function (FromValue) {
         $scope.StoreTypeID = FromValue;
         $scope.selectedStoreType = $filter('filter')($scope.storetypes, { id: FromValue });
@@ -169,7 +144,7 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -178,7 +153,7 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

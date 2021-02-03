@@ -92,7 +92,7 @@ function turnoverbydaysCtrl($scope, $filter, $modal, $log, Restangular, ngTableP
                 ctrl.table.data = orders;
                 $scope.ShowReport();
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
     };
     ctrl.table = {
@@ -138,7 +138,7 @@ function turnoverbydaysCtrl($scope, $filter, $modal, $log, Restangular, ngTableP
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

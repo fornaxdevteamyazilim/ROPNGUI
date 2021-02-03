@@ -220,7 +220,7 @@ function customerconsuptionreportCtrl($scope, $rootScope, $modal, $filter, Sweet
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -229,7 +229,7 @@ function customerconsuptionreportCtrl($scope, $rootScope, $modal, $filter, Sweet
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

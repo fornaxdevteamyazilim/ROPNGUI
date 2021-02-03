@@ -8,7 +8,7 @@ function inventorycostsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangul
        }).then(function (result) {
            $scope.VeiwHeader = result[0];
        }, function (response) {
-           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
        });
     }
     $scope.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
@@ -28,7 +28,7 @@ function inventorycostsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangul
                 $scope.resresult = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
     };
     $scope.LoadResults();
@@ -53,7 +53,7 @@ function inventorycostsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangul
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

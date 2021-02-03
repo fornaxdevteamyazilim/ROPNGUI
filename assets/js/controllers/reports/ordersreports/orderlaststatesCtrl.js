@@ -95,7 +95,7 @@ function orderlaststatesCtrl($scope, $filter, $modal, $log, Restangular, ngTable
            $scope.VeiwHeader = result[0];
            $scope.GetLayout(result[0].id)
        }, function (response) {
-           toaster.pop('error', "Server error", response);
+           toaster.pop('error', $translate.instant('Server.ServerError'), response);
        });
     }
     $scope.GetLayout = function (ReportID) {
@@ -113,7 +113,7 @@ function orderlaststatesCtrl($scope, $filter, $modal, $log, Restangular, ngTable
                $scope.LoadPivotData();
            }
        }, function (response) {
-           toaster.pop('error', "Server error", response.data.ExceptionMessage);
+           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
        });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -169,7 +169,7 @@ function orderlaststatesCtrl($scope, $filter, $modal, $log, Restangular, ngTable
             $scope.LoadPivotData();
         }
     }, function (response) {
-        toaster.pop('error', "Server error", response.data.ExceptionMessage);
+        toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
     });
     };
     $scope.NewLayoutData = function (configdata) {
@@ -223,7 +223,7 @@ function orderlaststatesCtrl($scope, $filter, $modal, $log, Restangular, ngTable
             $scope.isWaiting = false;
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Server error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.exportToExcel = function (tableId) { // ex: '#my-table'
@@ -332,7 +332,7 @@ function orderlaststatesCtrl($scope, $filter, $modal, $log, Restangular, ngTable
             Restangular.all(EntityType).getList().then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', "Server error", response.data.ExceptionMessage);
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -341,7 +341,7 @@ function orderlaststatesCtrl($scope, $filter, $modal, $log, Restangular, ngTable
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };

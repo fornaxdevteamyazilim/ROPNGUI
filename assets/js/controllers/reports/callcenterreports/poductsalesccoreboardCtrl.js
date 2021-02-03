@@ -130,7 +130,7 @@ function poductsalesccoreboardCtrl($scope, $filter, $modal, $log, Restangular, S
             //        d.resolve(orders.plain());                    
             //    }, function (response) {
             //        d.reject;
-            //        toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            //        toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             //    });
             //    return d.promise();
             //}
@@ -225,7 +225,7 @@ function poductsalesccoreboardCtrl($scope, $filter, $modal, $log, Restangular, S
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

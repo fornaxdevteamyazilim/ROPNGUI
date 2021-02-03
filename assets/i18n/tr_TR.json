@@ -1768,6 +1768,9 @@
     "SAVECONSUPTIONS": "Tüketim Fişleri Yazdırma",
     "COPYFROMPERIOD": "Kopyalama Yapılacak Dönem",
     "COPYTOPERIOD": "Kopyalanacak Dönem",
+    "ORDERSREFERENCES": "Sipariş Taşıma",
+    "COPYTOROLE":"Role Kopyalama",
+    "CALCULATEPRODUCTCOSTS":"Ürün Maliyetlerini Hesaplama",
     "START": "Başlat",
     "TAGORDERINDEX": "Sipariş İndeksi",
     "ADDDEFAULTS": "Default Ekle",
@@ -3215,7 +3218,8 @@
     "Insertfailed": "Veri Ekleme Başarısız Oldu!",
     "Clonerestrictions": "Role Kopyalandı!",
     "Insertcancelled": "Ekleme iptal edildi!",
-    "Editcancelled": "Düzenleme iptal edildi !"
+    "Editcancelled": "Düzenleme iptal edildi !",
+    "CalculateProductCosts":"Ürün Maliyetleri Hesaplandı"
   },
   "dispatcherfile": {
     "Drivechanged": "Sürücü değişti !",

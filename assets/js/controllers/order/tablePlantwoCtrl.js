@@ -70,7 +70,7 @@ function tablePlantwoCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert
                 $scope.loadOrders();
             })
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.CopyOrder = function (order) {
@@ -114,7 +114,7 @@ function tablePlantwoCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert
           toaster.pop('success', "Updated", 'Updated!');
           $scope.loadOrders();
       }, function (response) {
-          toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+          toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
       });
         });
     };
@@ -148,7 +148,7 @@ function tablePlantwoCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {
             $scope.ShowObject = false;
-            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();

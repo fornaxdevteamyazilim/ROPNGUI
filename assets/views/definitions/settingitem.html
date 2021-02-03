@@ -226,8 +226,8 @@
                                                 <span class="day text-bold">05</span>
                                             </div>
                                             <div class="inline-block">
-                                                <span class="block week-day text-extra-large text-uppercase">Sipariş
-                                                    Taşıma</span>
+                                                <span class="block week-day text-extra-large text-uppercase">{{'main.ORDERSREFERENCES'
+                                                    | translate}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -281,8 +281,8 @@
                                                 <span class="day text-bold">06</span>
                                             </div>
                                             <div class="inline-block">
-                                                <span class="block week-day text-extra-large text-uppercase">Role
-                                                    Kopyalama</span>
+                                                <span class="block week-day text-extra-large text-uppercase">{{'main.COPYTOROLE'
+                                                    | translate}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -327,11 +327,8 @@
                                                             <div ng-model="ToRoleName" dx-text-box="ToRoleName"></div>
                                                         </div>
                                                     </div>
-
                                                 </div>
-
                                             </div>
-
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="readmore">
@@ -346,9 +343,76 @@
                                     </div>
                                 </div>
                             </li>
+                           
+                            <!-- <li>
+                                <div class="timeline_element partition-white">
+                                    <div class="timeline_date">
+                                        <div>
+                                            <div class="inline-block">
+                                                <span class="day text-bold">07</span>
+                                            </div>
+                                            <div class="inline-block">
+                                                <span class="block week-day text-extra-large text-uppercase">{{'main.CALCULATEPRODUCTCOSTS'
+                                                    | translate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline_content">
+                                        <b>Ürün Maliyetlerini Hesaplama </b> için kullanılır.Role kopyalama
+                                        için kullanılır.Role secilir , yeni açılan Role seçirler. Ve "Başlat" butonuna
+                                        tıklanır.
+                                    </div>
+                                    <div class="readmore"> -->
+                                        <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 readmore">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                <span class="text-bold pull-left" >From Role Name</span><br />
+                                                <select class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" ng-options="q.id as q.name for q in dxUserRole | orderBy:'-StartDate'" ng-model="FromRoleName" ng-change="GetPeriods(FromRoleName)"></select>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                <span class="text-bold pull-left" >To Role Name</span><br />
+                                                <select class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" ng-options="q.id as q.name for q in dxUserRole | orderBy:'-StartDate'" ng-model="ToRoleName" ng-change="GetPeriods(ToRoleName)"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="margin-top-5 pull-right">
+                                                <button class="btn btn-primary btn-o btn-wide" ng-click="CopyRecipes(FromRoleName, ToRoleName)" ng-if="FromRoleName && ToRoleName">
+                                                    <span class='fa fa-spin fa-spinner' ng-if='isWaiting == true'></span>
+                                                    <span ng-if="isWaiting != true"> {{'main.START' | translate}}  <i class="fa fa-arrow-circle-right"></i></span>
+                                                </button>
+                                            </div>
+                                        </div> -->
+                                        <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="dx-viewport demo-container"> -->
+                                                <!-- <div class="dx-fieldset">
+                                                    <div class="dx-field pull-left">
+                                                        <div class="dx-field-label">From Role Name</div>
+                                                        <div class="dx-field-value">
+                                                            <div ng-model="FromRoleName" dx-text-box="FromRoleName">
+                                                            </div>
 
-
-
+                                                        </div>
+                                                    </div>
+                                                    <div class="dx-field pull-left">
+                                                        <div class="dx-field-label">To Role Name</div>
+                                                        <div class="dx-field-value">
+                                                            <div ng-model="ToRoleName" dx-text-box="ToRoleName"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        <!-- </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="readmore">
+                                                <button class="btn btn-primary btn-o btn-wide"
+                                                    ng-click="CalculateProductCosts()">
+                                                    <span ng-if="isWaiting != true">{{'main.START' | translate}} <i
+                                                            class="fa fa-arrow-circle-right"></i></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> -->
                         </ul>
                     </div>
                 </div>

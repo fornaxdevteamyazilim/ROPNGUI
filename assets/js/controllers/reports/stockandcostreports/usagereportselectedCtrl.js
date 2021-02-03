@@ -27,7 +27,7 @@ function usagereportselectedCtrl($scope, $filter, Restangular, item, StartDate, 
             }
         }, function (response) {
             $scope.isWaiting = false;
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     $scope.ShowTime = function () {
         return $scope.Time = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd HH:mm:ss');

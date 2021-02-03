@@ -80,7 +80,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
                 $scope.loadOrders();
             })
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.CopyOrder = function (order) {
@@ -124,7 +124,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
           toaster.pop('success', "Updated", 'Updated!');
           $scope.loadOrders();
       }, function (response) {
-          toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+          toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
       });
         });
     };
@@ -159,7 +159,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {
             $scope.ShowObject = false;
-            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.loadOrders();

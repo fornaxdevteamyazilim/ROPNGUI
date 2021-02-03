@@ -99,7 +99,7 @@ function productsalesbyhoursCtrl($scope, $filter, $modal, $log, Restangular, ngT
                     $scope.ShowReport();
                 }, function (response) {
                     $scope.isWaiting = false;
-                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
     };
     ctrl.table = {
@@ -154,7 +154,7 @@ function productsalesbyhoursCtrl($scope, $filter, $modal, $log, Restangular, ngT
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

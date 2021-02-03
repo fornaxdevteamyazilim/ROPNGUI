@@ -132,7 +132,7 @@ function aggregatorcustomerCtrl($rootScope, $scope, $http,NG_SETTING,$filter, $m
                 $scope.filterAddress(result);
                 //$scope.personAddresses = angular.copy(result);
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError '), response.data.ExceptionMessage);
             });
         } else {
             $scope.personAddresses = null;

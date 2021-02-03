@@ -130,7 +130,7 @@ function orderlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
                     $scope.$broadcast('$$rebind::refresh');
                     $scope.ShowObject = false;
                 }, function (response) {
-                    toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                     $scope.ShowObject = false;
                 });
             }
@@ -151,7 +151,7 @@ function orderlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             }).then(function (result) {
                 Container = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };

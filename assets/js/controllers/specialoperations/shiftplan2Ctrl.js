@@ -268,7 +268,7 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
         item.post().then(function (resp) {
             location.href = '#/app/specialoperations/shiftplanedit2/' + resp.id;
         }, function (response) {
-            toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
 

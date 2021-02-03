@@ -139,7 +139,7 @@ function staffcostCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
             //        d.resolve(orders.plain());                    
             //    }, function (response) {
             //        d.reject;
-            //        toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+            //        toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             //    });
             //    return d.promise();
             //}

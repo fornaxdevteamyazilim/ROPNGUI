@@ -336,12 +336,12 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
     }).then(function (result) {
         OffTypes = result;
     }, function (response) {
-        toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+        toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
     });
     Restangular.all('cache/LaborCostTypes').getList().then(function (result) {
         LaborCostTypes = result;
     }, function (response) {
-        toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+        toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
     });
     Restangular.all('cache/StaffPositions').getList().then(function (result) {
         Possitions = result;
@@ -351,7 +351,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         }
 
     }, function (response) {
-        toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+        toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
     });
 
     var wages = [];
@@ -374,7 +374,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             txWage = wages[i].OrderDeliveryPrice;
                     }
                 }, function (response) {
-                    toaster.pop('warning', "Server Error", "Data Loading Error");
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), "Data Loading Error");
                 });
 
 
@@ -394,7 +394,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     dataGrid.columnOption("main", 'caption', $translate.instant('main.SHIFTPLAN') + " [" + $scope.item.Store + "] " + $translate.instant('main.WEEK') + ": [" + $scope.item.PeriodWeek + "] " + $translate.instant('main.YEAR') + ": [" + $scope.item.PeriodYear + "]  (" + $scope.item.DateRange + ")");
                     dataGrid.refresh();
                 }, function (response) {
-                    toaster.pop('warning', "Server Error", "Data Loading Error");
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), "Data Loading Error");
                 });
 
 
@@ -407,7 +407,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             //     .then(function (response) {
             //         LaborCostTypes = response.data.Items;
             //     }, function (response) {
-            //         toaster.pop('warning', "Server Error", "Data Loading Error");
+            //         toaster.pop('warning', $translate.instant('Server.ServerError'), "Data Loading Error");
             //     });
 
             var dataGrid = $('#costgridContainer').dxDataGrid('instance');
@@ -514,11 +514,11 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
 
 
         }, function (restresult) {
-            toaster.pop('warning', "Server Error", restresult.data.ExceptionMessage);
+            toaster.pop('warning', $translate.instant('Server.ServerError'), restresult.data.ExceptionMessage);
 
         })
     }, function (response) {
-        toaster.pop('warning', "Server Error", response.data.ExceptionMessage);
+        toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
     });
     var hstep = ['-', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
         '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00',

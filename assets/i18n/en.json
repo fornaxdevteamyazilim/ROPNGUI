@@ -1751,6 +1751,9 @@
     "COPYRECIPES": "Copy Recipes",
     "UPDATEINVENTORYPRICES": "Update Inventory Prices",
     "SAVECONSUPTIONS": "Save Consuptions",
+    "ORDERSREFERENCES":"Orders References",
+    "COPYTOROLE":"Copy To Role",
+    "CALCULATEPRODUCTCOSTS":"Calculating Product Costs",
     "COPYFROMPERIOD": "Copy From Period",
     "COPYTOPERIOD": "Copy To Period",
     "START": "Start",
@@ -3205,7 +3208,9 @@
     "InsertFailed": "Data Insert Failed!",
     "Clonerestrictions": "Role Copied!",
     "Insertcancelled": "Insert cancelled !",
-    "Editcancelled": "Edit cancelled !"
+    "Editcancelled": "Edit cancelled !",
+    "CalculateProductCosts":"Calculate Product Costs",
+    "OrdersReferences":"Orders References"
   },
   "dispatcherfile": {
     "Drivechanged": "Drive changed !",

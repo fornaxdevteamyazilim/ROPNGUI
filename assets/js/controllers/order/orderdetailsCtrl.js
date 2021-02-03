@@ -164,7 +164,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         }).then(function (_orderItems) {
             $scope.orderItems = angular.copy(_orderItems);
         }, function (response) {
-            toaster.pop('error', "Server Error", response.data.ExceptionMessage);;
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);;
         });
     };
     $scope.CopyOrder = function (order) {
@@ -208,7 +208,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                            $scope.getOrder();
                            swal("Updated.", $translate.instant('yemeksepetifile.OrderConfirmed'), "success");
                        }, function (response) {
-                           toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                        });
                    }
                })
@@ -223,7 +223,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         }).then(function (_orderItems) {
             toaster.pop('success', $translate.instant('yemeksepetifile.PrintedAgain'));
         }, function (response) {
-            toaster.pop('error', "Server Error", response);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response);
         });
     };
     $scope.SendToFiyuu = function (OrderID) {
@@ -232,7 +232,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         }).then(function (_orderItems) {
             toaster.pop('success', $translate.instant('yemeksepetifile.OrderFiyuutransmissioninitiated'));
         }, function (response) {
-            toaster.pop('error', "Server Error", response);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response);
         });
     };
     $scope.Date = $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss dd-MM-yyyy')

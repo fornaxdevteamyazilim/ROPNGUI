@@ -9,7 +9,7 @@ function balancelistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope.VeiwHeader = result[0];
             }, function (response) {
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
     }
     $scope.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
@@ -93,7 +93,7 @@ function balancelistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
                 }
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
     };
     $scope.exportToExcel = function (tableId) {
@@ -117,7 +117,7 @@ function balancelistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
             $scope.RepositoryID = result[0].id;
             $scope.StoreID = result[0].name;
         }, function (response) {
-            toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     if ($rootScope.user.userstores && $rootScope.user.userstores.length > 1) {
@@ -140,7 +140,7 @@ function balancelistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -218,7 +218,7 @@ function balancelistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular,
                 }
             }
         }, function (response) {
-            toaster.pop('error', "Server Error", response);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response);
         });
     };
     $scope.selectedTag = function (data) {

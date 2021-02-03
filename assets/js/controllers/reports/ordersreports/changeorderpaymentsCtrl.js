@@ -11,7 +11,7 @@ function changeorderpaymentsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
    ).then(function (result) {
        $scope.VeiwHeader = result[0];
    }, function (response) {
-       toaster.pop('error', "Server Error", response);
+       toaster.pop('error', $translate.instant('Server.ServerError'), response);
    });
     }
     if (!$scope.StartDate) {
@@ -40,7 +40,7 @@ function changeorderpaymentsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                 $scope.ReportList = result;
             }, function (response) {
                 $scope.isWaiting = false;
-                toaster.pop('error', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
     };
     $scope.sumColumnJS = function sumColumnJS(array, col) {
@@ -112,7 +112,7 @@ function changeorderpaymentsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -121,7 +121,7 @@ function changeorderpaymentsCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', "Server Error", response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
