@@ -130,6 +130,7 @@ function bonustransactionsCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             { caption: $translate.instant('bonustransactions.OrderNumber'), dataField: "OrderNumber" },
             { caption: $translate.instant('bonustransactions.OrderSource'), dataField: "OrderSource" },
             { caption: $translate.instant('bonustransactions.Confirmed'), dataField: "Confirmed" },
+            { caption: $translate.instant('bonustransactions.Notes'), dataField: "Notes" },
 
         ],
         summary: {

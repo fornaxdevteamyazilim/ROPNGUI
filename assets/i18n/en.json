@@ -4109,7 +4109,8 @@
     "OrderType": "Order Type",
     "OrderNumber": "Order Number",
     "OrderSource": "Order Source",
-    "Confirmed": "Confirmed."
+    "Confirmed": "Confirmed.",
+    "Notes":"Notes"
   },
   "bonusstats": {
     "PersonID": "Person Id",

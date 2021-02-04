@@ -4138,7 +4138,8 @@
     "OrderType": "Sipariş Tipi",
     "OrderNumber": "Sipariş Numarası",
     "OrderSource": "Sipariş Kaynağı",
-    "Confirmed": "Onaylı."
+    "Confirmed": "Onaylı.",
+    "Notes":"Not"
   },
   "bonusstats": {
     "PersonID": "Kişi İd",
