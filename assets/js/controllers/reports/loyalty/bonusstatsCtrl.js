@@ -2,6 +2,78 @@
 app.controller('bonusstatsCtrl', bonusstatsCtrl);
 function bonusstatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING, $http, $q, localStorageService) {
     var ctrl = this;
+    $scope.focusedRowKey = null;
+    $scope.AddCustomBonusEnable= ($rootScope.user && $rootScope.user.restrictions && $rootScope.user.restrictions.addcustombonus == 'Enable');
+    $scope.PersonName = "";
+    $scope.focusedRowKeyOptions = { step: 0, bindingOptions: { value: 'focusedRowKey' }, readOnly: true };
+    $scope.PersonNameOptions = { bindingOptions: { value: 'PersonName' }, readOnly: true, };
+    $scope.Amount = 10;
+    $scope.AmountOptions = {
+        value: 10, min: 1, max: 100, showSpinButtons: true, step: 5, bindingOptions: { value: 'Amount' },
+        onValueChanged: function (data) {
+            $scope.Amount = data.value;
+        }
+    };
+    $scope.rule = null;
+    $scope.notes = null;
+    $scope.notesOptions = {
+        bindingOptions: { value: 'notes' }, placeholder: "Enter notes...",
+        onValueChanged: function (data) {
+            $scope.notes = data.value;
+        }
+    };
+    $scope.AddCustomButtonOptions = {
+        text: 'Add Bonus',
+        onClick: function () {
+            if (!$scope.rule)
+                {
+                    toaster.pop('error', "Select Rule!!!", "error");
+                    return;
+                }
+            var data = {
+                PersonID: $scope.focusedRowKey,
+                BonusTransactionTypeID: 0,
+                Amount: $scope.Amount,
+                BounsRuleID: $scope.rule,
+                TransactionDate: new Date(),
+                Confirmed: true,
+                Notes: $scope.notes
+            }
+            $http.post(NG_SETTING.apiServiceBaseUri + "/api/BonusTransaction", JSON.stringify(data)).then(function (response) {
+                toaster.pop("success", "PointsAdded", "successfull");
+                $('#gridContainer').dxDataGrid('instance').refresh();
+            }, function (response) { toaster.pop('error', "Error", "error"); });
+        }
+    };
+    $http.get(NG_SETTING.apiServiceBaseUri + "/api/dxBonusRules", { params: {} })
+        .then(function (response) {
+            $scope.rule = response.data[0];
+        }, function (response) {
+            return $q.reject("dxBonusRules Loading Error");
+        });
+    $scope.ruleOptions = {
+        dataSource: new DevExpress.data.CustomStore({
+            key: "id",
+            load: function (loadOptions) {
+                var params = {};
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/dxBonusRules", { params: params })
+                    .then(function (response) {
+                        return response.data;
+
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        }),
+        displayExpr: "name",
+        valueExpr: "id",
+        //value: products[0].ID,
+        bindingOptions: { value: 'rule' },
+        onValueChanged: function (data) {
+            $scope.rule = data.value;
+        }
+
+    };
     $scope.VeiwHeader = {};
     $scope.reportButtonOptions = {
         text: "Get Data",
@@ -10,6 +82,7 @@ function bonusstatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
             dataGrid.refresh();
         }
     };
+
     $scope.resetlayout = $translate.instant('main.RESETLAYOUT');
     $scope.resetButtonOptions = {
         text: $scope.resetlayout,
@@ -80,7 +153,39 @@ function bonusstatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                 }
             }
         }),
-        keyExpr: "PeronID",
+        onFocusedRowChanging: function (e) {
+            var rowsCount = e.component.getVisibleRows().length,
+                pageCount = e.component.pageCount(),
+                pageIndex = e.component.pageIndex(),
+                key = e.event && e.event.key;
+
+            if (key && e.prevRowIndex === e.newRowIndex) {
+                if (e.newRowIndex === rowsCount - 1 && pageIndex < pageCount - 1) {
+                    e.component.pageIndex(pageIndex + 1).done(function () {
+                        e.component.option("focusedRowIndex", 0);
+                    });
+                } else if (e.newRowIndex === 0 && pageIndex > 0) {
+                    e.component.pageIndex(pageIndex - 1).done(function () {
+                        e.component.option("focusedRowIndex", rowsCount - 1);
+                    });
+                }
+            }
+        },
+        onFocusedRowChanged: function (e) {
+            var rowData = e.row && e.row.data;
+            if (rowData) {
+                $scope.PersonName = rowData.PersonName;
+                // $scope.taskDetailsHtml = rowData.Task_Description;
+                // $scope.taskStatus = rowData.Task_Status;
+                // $scope.taskProgress = rowData.Task_Completion ? rowData.Task_Completion + "%" : "";
+            }
+        },
+        bindingOptions: {
+            focusedRowKey: 'focusedRowKey',
+            //autoNavigateToFocusedRow: 'autoNavigateToFocusedRow'
+        },
+        focusedRowEnabled: true,
+        //keyExpr: "PeronID",
         remoteOperations: { groupPaging: true },
         //filterValue: getFilter(),
         showBorders: true,
@@ -233,6 +338,7 @@ function bonusstatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
                 "OrderType",
                 "OrderNumber",
                 "OrderSource",
+                { caption: $translate.instant('bonustransactions.Notes'), dataField: "Notes" },
                 "Confirmed"
             ],
             export: {

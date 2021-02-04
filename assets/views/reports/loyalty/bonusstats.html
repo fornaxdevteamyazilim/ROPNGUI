@@ -27,8 +27,16 @@
                 <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
             </div>
         </div>
-
-
+        <div ng-if=focusedRowKey class="col-lg-12">
+            <span class="col-lg-12">Add custom bouns</span>
+            <!-- <div dx-number-box="focusedRowKeyOptions" class="col-lg-1"></div> -->
+            <div dx-text-box="PersonNameOptions" class="col-lg-2"></div>
+            <div dx-select-box="ruleOptions" class="col-lg-2"></div>
+            <div dx-number-box="AmountOptions" class="col-lg-1"></div>
+            <div dx-text-box="notesOptions" class="col-lg-2"></div>
+            <div dx-button="AddCustomButtonOptions" class="col-lg-1"></div>
+        </div>
+        
         
     </div>
     <div id="report" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive" ng-hide="isWaiting==true">
