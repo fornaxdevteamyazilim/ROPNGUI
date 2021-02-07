@@ -1,5 +1,5 @@
 app.controller('bonusearningruleCtrl', bonusearningruleCtrl);
-function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService,$http) {
+function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService, $http) {
     $rootScope.uService.EnterController("bonusearningruleCtrl");
     var ngurr = this;
     $scope.NGUserRoleID = '';
@@ -17,25 +17,45 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
         store: new DevExpress.data.CustomStore({
             key: "id",
             //loadMode: "raw",
-            load: function() {
+            load: function () {
+                // Returns an array of objects that have the following structure:
+                // { id: 1, name: "John Doe" }
+                //return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
                 return $http.get(NG_SETTING.apiServiceBaseUri + "/api/ordersource")
-                                    .then(function (response) {
-                                        return {
-                                            data: response.data,
-                                            totalCount: 10
-                                        };
-                                    }, function (response) {
-                                        return $q.reject("Data Loading Error");
-                                    });
+                    .then(function (response) {
+                        return {
+                            data: response.data.Items,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
             }
         }),
         sort: "name"
+    }
+    var BonusTransactionEventDS = {
+        store: new DevExpress.data.CustomStore({
+            key: "Value",
+            load: function () {
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/BonusTransactionEvent")
+                    .then(function (response) {
+                        return {
+                            data: response.data,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        }),
+        sort: "Value"
     }
     var lookupDataSource2 = {
         store: new DevExpress.data.CustomStore({
             key: "id",
             loadMode: "raw",
-            load: function() {
+            load: function () {
                 // Returns an array of objects that have the following structure:
                 // { id: 1, name: "John Doe" }
                 return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
@@ -102,10 +122,10 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            { dataField: "name", caption: "Name", allowEditing: true },
-            { dataField: "description", caption: "Description", allowEditing: true },
+            { dataField: "name", caption: $translate.instant('bonusearningrule.Name'), allowEditing: true },
+            { dataField: "description", caption: $translate.instant('bonusearningrule.Description'), allowEditing: true },
             {
-                dataField: "BonusSettingID", caption: "Bonus Setting",
+                dataField: "BonusSettingID", caption: $translate.instant('bonusearningrule.BonusSettingID'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -118,7 +138,7 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                                 if (authData) {
                                     ajaxOptions.headers = {
                                         Authorization: 'Bearer ' + authData.token,
-                                        
+
                                     };
                                 }
                             }
@@ -133,7 +153,7 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                 },
             },
             {
-                dataField: "isActiveFilter", caption: "Filter",
+                dataField: "isActiveFilter", caption: $translate.instant('bonusearningrule.isActiveFilter'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "Name",
@@ -145,7 +165,7 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                                 var authData = localStorageService.get('authorizationData');
                                 if (authData) {
                                     ajaxOptions.headers = {
-                                        Authorization: 'Bearer ' + authData.token,                                        
+                                        Authorization: 'Bearer ' + authData.token,
                                     };
                                 }
                             }
@@ -159,23 +179,31 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                     }
                 },
             },
-            { dataField: "fk_ObjectUpdate_id", caption: "DokumanNummer"  },
-            { dataField: "isActiveValue", caption: "ActiveValue"  },
-            { dataField: "ConfirmImmediately", caption: "ConfirmImmediately"  },
-            { dataField: "Multiplier", caption: "Multiplier"  },
-            { dataField: "BonusTransactionEventID", caption: "BonusTransaction"  },
-             {
-                dataField: "OrderSourceID", caption: "Order Source",
+            // { dataField: "fk_ObjectUpdate_id", caption: "DokumanNummer"  },
+            // { dataField: "isActiveValue", caption: "ActiveValue" },
+            { dataField: "ConfirmImmediately", caption: $translate.instant('bonusearningrule.ConfirmImmediately') },
+            { dataField: "Enabled", caption: $translate.instant('bonusearningrule.Enabled'), dataType: 'boolean' },
+            { dataField: "Multiplier", caption: $translate.instant('bonusearningrule.Multiplier') },
+            {
+                dataField: "BonusTransactionEventID", caption: $translate.instant('bonusearningrule.BonusTransactionEventID'),
+                lookup: {
+                    valueExpr: "Value",
+                    displayExpr: "Name",
+                    dataSource: BonusTransactionEventDS,
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    }
+                }
+            },
+            {
+                dataField: "OrderSourceID", caption: $translate.instant('bonusearningrule.OrderSourceID'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
                     dataSource: OrderSourceDataSource,
                 },
-
-            } ,
-            
-
-
+            },
         ],
         export: { enabled: true, fileName: "bonusearningrulelist", },
         scrolling: { mode: "virtual" },

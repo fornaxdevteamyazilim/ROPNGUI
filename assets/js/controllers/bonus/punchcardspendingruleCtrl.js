@@ -1,5 +1,5 @@
 app.controller('punchcardspendingruleCtrl', punchcardspendingruleCtrl);
-function punchcardspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $element,localStorageService) {
+function punchcardspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $element,localStorageService,$http) {
     $rootScope.uService.EnterController("punchcardspendingruleCtrl");
     var ngurr = this;
     $scope.NGUserRoleID = '';
@@ -13,6 +13,56 @@ function punchcardspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
         $scope.translate();
     });
+    var OrderSourceDataSource = {
+        store: new DevExpress.data.CustomStore({
+            key: "id",
+            //loadMode: "raw",
+            load: function () {
+                // Returns an array of objects that have the following structure:
+                // { id: 1, name: "John Doe" }
+                //return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/ordersource")
+                    .then(function (response) {
+                        return {
+                            data: response.data.Items,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        }),
+        sort: "name"
+    }
+    var BonusTransactionEventDS = {
+        store: new DevExpress.data.CustomStore({
+            key: "Value",
+            load: function () {
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/BonusTransactionEvent")
+                    .then(function (response) {
+                        return {
+                            data: response.data,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        }),
+        sort: "Value"
+    }
+    var lookupDataSource2 = {
+        store: new DevExpress.data.CustomStore({
+            key: "id",
+            loadMode: "raw",
+            load: function () {
+                // Returns an array of objects that have the following structure:
+                // { id: 1, name: "John Doe" }
+                return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
+            }
+        }),
+        sort: "name"
+    }
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
@@ -60,12 +110,12 @@ function punchcardspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            "name","description",
-            "PunchCardTransactionEventID", 
-            "Multiplier",
-            "Amount",
+            { dataField: "name", caption: $translate.instant('punchcardspendingrule.Name'), allowEditing: true },
+            { dataField: "description", caption: $translate.instant('punchcardspendingrule.Description'), allowEditing: true },
+            { dataField: "PunchCardTransactionEventID", caption: $translate.instant('punchcardspendingrule.PunchCardTransactionEventID'), allowEditing: true },
+            { dataField: "Multiplier", caption: $translate.instant('punchcardspendingrule.Multiplier'), allowEditing: true },
             {
-                dataField: "PunchcardSettingID", caption: "PunchcardSetting",
+                dataField: "PunchcardSettingID", caption: $translate.instant('punchcardspendingrule.PunchcardSettingID'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -93,7 +143,7 @@ function punchcardspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $
                 },
             },
             {
-                dataField: "isActiveFilter", caption: "Filter",
+                dataField: "isActiveFilter", caption: $translate.instant('punchcardspendingrule.isActiveFilter'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "Name",
@@ -119,7 +169,16 @@ function punchcardspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $
                         return this.lookup.calculateCellValue(value);
                     }
                 },
-            } 
+            },
+            {
+                dataField: "OrderSourceID", caption: $translate.instant('bonusearningrule.OrderSourceID'),
+                lookup: {
+                    valueExpr: "id",
+                    displayExpr: "name",
+                    dataSource: OrderSourceDataSource,
+                },
+                
+        },
 
                        
         ],

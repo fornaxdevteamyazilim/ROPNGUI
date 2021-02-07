@@ -3939,7 +3939,7 @@
     "Year": "Yıl",
     "MonthNumber": "Ay Sayısı",
     "Day": "Gün",
-    "Amount": "Miktar",
+    "Amount": "Tutar",
     "Cost": "Maliyet",
     "Store": "Depo"
   },
@@ -3986,7 +3986,7 @@
     "Year": "Yıl",
     "MonthNumber": "Ay Sayısı",
     "Day": " Gün",
-    "Name": "Ad",
+    "Name": "İsim",
     "WorkingHours": "Çalışma Saatleri",
     "Count": "Sayım",
     "Cost": "Maliyet",
@@ -4090,7 +4090,7 @@
     "UnitName": "Birim Adı",
     "Units": "Birim",
     "Price": "Fiyat",
-    "Amount": "Miktar",
+    "Amount": "Tutar",
     "Repository": "Depo",
     "Store": "Mağaza",
     "StoreType": "Restoran Tipi",
@@ -4150,5 +4150,46 @@
     "TotalBonus": "Toplam Puan",
     "NonConfirmedBonus": "Onaylanmamış Puan",
     "AvailableBonus": " Mevcut Puan"
+  },
+  "bonussetting": {
+    "Name": "İsim",
+    "isActive": "Aktif",
+    "StartDate": "Başlama Tarihi"
+  },
+  "bonusearningrule": {
+    "Name": "İsim",
+    "Description": "Açıklama",
+    "BonusSettingID": "Puan Ayarı",
+    "isActiveFilter": "Aktif Filtre",
+    "ConfirmImmediately": "Hemen Onaylayın",
+    "Enabled": "Etkin",
+    "Multiplier": "Çarpan",
+    "BonusTransactionEventID": "Puan işlemi",
+    "OrderSourceID": "Sipariş Kaynağı"
+  },
+  "punchcardsetting": {
+    "Name": "İsim",
+    "isActive": "Aktif",
+    "StartDate": "Başlama Tarihi"
+  },
+  "punchcardearningrule": {
+    "Name": "İsim",
+    "Description": "Açıklama",
+    "PunchcardSettingID": "Punchcard Ayarı",
+    "isActiveFilter": "Aktif Filtre",
+    "ConfirmImmediately": "Hemen Onaylayın",
+    "Enabled": "Etkin",
+    "Multiplier": "Çarpan",
+    "PunchcardTransactionEventID": "Punchcard işlemi",
+    "OrderSourceID": "Sipariş Kaynağı"
+  },
+  "punchcardspendingrule": {
+    "Name": "İsim",
+    "Description": "Açıklama",
+    "PunchcardSettingID": "Punchcard Ayarı",
+    "isActiveFilter": "Aktif Filtre",
+    "Multiplier": "Çarpan",
+    "PunchCardTransactionEventID": "Punchcard işlemi",
+    "OrderSourceID": "Sipariş Kaynağı"
   }
 }

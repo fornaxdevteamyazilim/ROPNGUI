@@ -60,10 +60,10 @@ function bonussettingCtrl($rootScope, $scope, NG_SETTING, $translate, $element,l
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            { dataField: "name", caption: "Name"  },
-            { dataField: "isActive", caption: "Active"  },
+            { dataField: "name", caption:  $translate.instant('bonussetting.Name')  },
+            { dataField: "isActive", caption:  $translate.instant('bonussetting.isActive')  },
            
-            { dataField: "StartDate", caption: "StartDate" , dataType: "datetime", format: 'dd.MM.yyyy HH:mm' },
+            { dataField: "StartDate", caption:  $translate.instant('bonussetting.StartDate') , dataType: "datetime", format: 'dd.MM.yyyy HH:mm' },
                        
         ],
         export: { enabled: true, fileName: "bonussettinglist", },

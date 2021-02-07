@@ -30,7 +30,7 @@ function scheduletypeeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             },
            function (restresult) {
                toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
-               swal("Error!", $translate.instant('Server.DataError'), "Warning");
+               swal("error!", $translate.instant('Server.DataError'), "Warning");
            }
            )
     }
@@ -103,7 +103,7 @@ function scheduletypeeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
     });
 };
 app.controller('scheduletypetimerangesCtrl', scheduletypetimerangesCtrl);
-function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, ngnotifyService, $element) {
+function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $translate, $window, $stateParams, $rootScope, $location, ngnotifyService, $element) {
     $rootScope.uService.EnterController("scheduletypetimerangesCtrl");
     var sttr = this;
     $scope.date = $filter('date')(ngnotifyService.ServerTime(), 'HH:mm');
@@ -166,7 +166,7 @@ function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangul
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                  toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -212,7 +212,7 @@ function scheduletypetimerangesCtrl($scope, $log, $filter, SweetAlert, Restangul
     });
 };
 app.controller('scheduletypeweekdayCtrl', scheduletypeweekdayCtrl);
-function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element) {
+function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular, $translate, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element) {
     $rootScope.uService.EnterController("scheduletypeweekdayCtrl");
     var stw = this;
     $scope.item = {};
@@ -270,7 +270,7 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                  toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });
@@ -289,7 +289,7 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                  toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     }
@@ -337,7 +337,7 @@ function scheduletypeweekdayCtrl($scope, $log, $filter, SweetAlert, Restangular,
     });
 };
 app.controller('scheduletypedaterangeCtrl', scheduletypedaterangeCtrl);
-function scheduletypedaterangeCtrl($scope, $modal, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element) {
+function scheduletypedaterangeCtrl($scope, $modal, $log, $filter, SweetAlert, Restangular, $translate, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element) {
     $rootScope.uService.EnterController("scheduletypedaterangeCtrl");
     var stdr = this;
     $scope.item = {};
@@ -395,7 +395,7 @@ function scheduletypedaterangeCtrl($scope, $modal, $log, $filter, SweetAlert, Re
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
             }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                  toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     });

@@ -145,9 +145,9 @@ app.run(['authService', function (authService) {
 }]);
 app.run(['userService', function (userService) { }]);
 //app.value('signalRServer', 'http://10.101.252.149:9065');//Little Caesars
-//app.value('signalRServer', 'http://192.168.9.40:9065');//PH
+app.value('signalRServer', 'http://192.168.9.40:9065');//PH
 //app.value('signalRServer', 'http://10.0.0.245:9065');//MAROCCO
-app.value('signalRServer', 'http://localhost:9065');//localhost
+//app.value('signalRServer', 'http://localhost:9065');//localhost
 app.run(['callsService', function (callsService) { }]);
 app.run(['ngnotifyService', function (ngnotifyService) { }]);
 // translate config

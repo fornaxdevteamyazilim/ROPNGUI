@@ -60,10 +60,10 @@ function punchcardsettingCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            { dataField: "name", caption: "Name"  },
-            { dataField: "isActive", caption: "Active"  },
+            { dataField: "name", caption: $translate.instant('punchcardsetting.Name')  },
+            { dataField: "isActive", caption:$translate.instant('punchcardsetting.isActive') },
            
-            { dataField: "StartDate", caption: "StartDate" , dataType: "datetime", format: 'dd.MM.yyyy HH:mm' },
+            { dataField: "StartDate", caption: $translate.instant('punchcardsetting.StartDate') , dataType: "datetime", format: 'dd.MM.yyyy HH:mm' },
                        
         ],
         export: { enabled: true, fileName: "punchcardsettinglist", },

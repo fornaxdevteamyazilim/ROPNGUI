@@ -122,10 +122,10 @@ function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $e
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            { dataField: "name", caption: "Name", allowEditing: true },
-            { dataField: "description", caption: "Description", allowEditing: true },
+            { dataField: "name", caption:  $translate.instant('punchcardearningrule.Name'), allowEditing: true },
+            { dataField: "description", caption: $translate.instant('punchcardearningrule.Description'), allowEditing: true },
             {
-                dataField: "PunchcardSettingID", caption: "Punchcard Setting",
+                dataField: "PunchcardSettingID", caption: $translate.instant('punchcardearningrule.PunchcardSettingID'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -153,7 +153,7 @@ function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $e
                 },
             },
             {
-                dataField: "isActiveFilter", caption: "Filter",
+                dataField: "isActiveFilter", caption: $translate.instant('punchcardearningrule.isActiveFilter'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "Name",
@@ -180,11 +180,11 @@ function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $e
                 },
             },
             //{ dataField: "isActiveValue", caption: "ActiveValue" },
-            { dataField: "ConfirmImmediately", caption: "ConfirmImmediately",dataType: 'boolean' },
-            { dataField: "Enabled", caption: "Enabled",dataType: 'boolean' },
-            { dataField: "Multiplier", caption: "Multiplier" },
+            { dataField: "ConfirmImmediately", caption: $translate.instant('punchcardearningrule.ConfirmImmediately'),dataType: 'boolean' },
+            { dataField: "Enabled", caption: $translate.instant('punchcardearningrule.Enabled'),dataType: 'boolean' },
+            { dataField: "Multiplier", caption: $translate.instant('punchcardearningrule.Multiplier') },
             {
-                dataField: "PunchcardTransactionEventID", caption: "PunchcardTransaction",
+                dataField: "PunchcardTransactionEventID", caption: $translate.instant('punchcardearningrule.PunchcardTransactionEventID'),
                 lookup: {
                     valueExpr: "Value",
                     displayExpr: "Name",
@@ -196,7 +196,7 @@ function punchcardearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $e
                 }
             },
             {
-                dataField: "OrderSourceID", caption: "Order Source",
+                dataField: "OrderSourceID", caption: $translate.instant('punchcardearningrule.OrderSourceID'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",

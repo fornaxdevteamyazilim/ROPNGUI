@@ -4121,5 +4121,47 @@
     "TotalBonus": "Total Bonus",
     "NonConfirmedBonus": "Non Confirmed Bonus",
     "AvailableBonus": "AvailableBonus"
+  },
+  "bonussetting": {
+    "Name": "Name",
+    "isActive": "Active",
+    "StartDate": "Start Date"
+  },
+  "bonusearningrule": {
+    "Name": "Name",
+    "Description": "Description",
+    "BonusSettingID": "Bonus Setting",
+    "isActiveFilter": "Filter",
+    "ConfirmImmediately": "Confirm Immediately",
+    "Enabled": "Enabled",
+    "Multiplier": "Multiplier",
+    "BonusTransactionEventID": "Bonus Transaction",
+    "OrderSourceID": "Order Source"
+  },
+  "punchcardsetting": {
+   "Name": "Name",
+    "isActive": "Active",
+    "StartDate": "Start Date"
+  },
+  "punchcardearningrule": {
+    "Name": "Name",
+    "Description": "Description",
+    "PunchcardSettingID": "Punchcard Setting",
+    "isActiveFilter": "Filter",
+    "ConfirmImmediately": "Confirm Immediately",
+    "Enabled": "Enabled",
+    "Multiplier": "Multiplier",
+    "PunchcardTransactionEventID": "Punchcard Transaction",
+    "OrderSourceID": "Order Source"
+  },
+  "punchcardspendingrule": {
+    "Name": "Name",
+    "Description": "Description",
+    "PunchcardSettingID": "Punchcard Setting",
+    "isActiveFilter": "Filter",
+    "Enabled": "Enabled",
+    "Multiplier": "Multiplier",
+    "PunchCardTransactionEventID": "Punchcard Transaction",
+    "OrderSourceID": "Order Source"
   }
 }
