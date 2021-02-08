@@ -183,7 +183,8 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
             // { dataField: "isActiveValue", caption: "ActiveValue" },
             { dataField: "ConfirmImmediately", caption: $translate.instant('bonusearningrule.ConfirmImmediately') },
             { dataField: "Enabled", caption: $translate.instant('bonusearningrule.Enabled'), dataType: 'boolean' },
-            { dataField: "Multiplier", caption: $translate.instant('bonusearningrule.Multiplier') },
+            { dataField: "Multiplier", caption: $translate.instant('bonusearningrule.Multiplier'),format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "Amount", caption: $translate.instant('main.AMOUNT'),format: { type: "fixedPoint", precision: 2 } },
             {
                 dataField: "BonusTransactionEventID", caption: $translate.instant('bonusearningrule.BonusTransactionEventID'),
                 lookup: {
