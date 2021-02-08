@@ -184,7 +184,7 @@ function bonusstatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
             focusedRowKey: 'focusedRowKey',
             //autoNavigateToFocusedRow: 'autoNavigateToFocusedRow'
         },
-        focusedRowEnabled: true,
+        focusedRowEnabled: ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.restrictions.CustomBonusAdding == 'Enable' ),
         //keyExpr: "PeronID",
         remoteOperations: { groupPaging: true },
         //filterValue: getFilter(),
