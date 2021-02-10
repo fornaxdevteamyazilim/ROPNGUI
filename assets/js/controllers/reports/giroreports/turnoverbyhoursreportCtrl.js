@@ -65,7 +65,7 @@
 }]);
 'use strict';
 app.controller('turnoverbyhoursreportCtrl', turnoverbyhoursreportCtrl);
-function turnoverbyhoursreportCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $compile, Excel, $timeout, userService, ngnotifyService, $element) {
+function turnoverbyhoursreportCtrl($scope, $filter, $modal, $log, Restangular, $translate, ngTableParams, SweetAlert, toaster, $window, $rootScope, $compile, Excel, $timeout, userService, ngnotifyService, $element) {
            $rootScope.uService.EnterController("turnoverbyhoursreportCtrl");
 
    $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
@@ -143,7 +143,7 @@ function turnoverbyhoursreportCtrl($scope, $filter, $modal, $log, Restangular, n
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved.');
+            toaster.pop('success',$translate.instant('orderfile.Saved'),$translate.instant('orderfile.Saved'));
         });
     };
     $scope.EditLayoutData = function (configdata) {
@@ -157,7 +157,7 @@ function turnoverbyhoursreportCtrl($scope, $filter, $modal, $log, Restangular, n
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
+            toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {

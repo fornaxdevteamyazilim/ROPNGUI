@@ -1,5 +1,5 @@
 ﻿app.controller('deletedorderitemsdetailsCtrl', deletedorderitemsdetailsCtrl);
-function deletedorderitemsdetailsCtrl($scope, OrderID, $modalInstance, Restangular, $stateParams, toaster, $window, $rootScope) {
+function deletedorderitemsdetailsCtrl($scope, OrderID, $modalInstance, Restangular, $stateParams, toaster, $window,  $translate, $rootScope) {
     $rootScope.uService.EnterController("deletedorderitemsdetailsCtrl");
     $scope.StoreData = {};
     $scope.getOrder = function () {

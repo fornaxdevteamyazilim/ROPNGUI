@@ -143,7 +143,7 @@ $scope.SetStoreID = function (FromValue) {
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+            toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
         });
     };
     $scope.EditLayoutData = function (configdata) {
@@ -157,7 +157,7 @@ $scope.SetStoreID = function (FromValue) {
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
+            toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {

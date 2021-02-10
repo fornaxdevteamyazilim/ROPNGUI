@@ -52,7 +52,7 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
             data.put().then(function (res) {
                 $scope.CallReason(4);
                 ca.tableParams.reload();
-                toaster.pop('success', $translate.instant('accounting.Updated'), 'Updated.');
+                toaster.pop('success', $translate.instant('accounting.Updated'), $translate.instant('accounting.Updated'));
             }, function (response) {
                 toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
@@ -62,7 +62,7 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
             data.post().then(function (res) {
                 $scope.CallReason(4);
                 ca.tableParams.reload();
-                toaster.pop('success',$translate.instant('accounting.Saved'), 'Saved.');
+                toaster.pop('success',$translate.instant('accounting.Saved'), $translate.instant('accounting.Saved'));
             }, function (response) {
                 toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });

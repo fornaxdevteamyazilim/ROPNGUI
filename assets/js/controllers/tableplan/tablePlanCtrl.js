@@ -9,7 +9,7 @@
     }
 });
 app.controller('tablePlanCtrl', tablePlanCtrl);
-function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $filter, $window, $rootScope, $location, userService, $element, ngnotifyService) {
+function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $translate, $filter, $window, $rootScope, $location, userService, $element, ngnotifyService) {
     $rootScope.uService.EnterController("tablePlanCtrl");
     $scope.tableplans = [];
     $scope.PersonCount = [];
@@ -239,7 +239,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
     });
 };
 app.controller('SelectPersoncountCtrl', SelectPersoncountCtrl);
-function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, $modal, tableID, SweetAlert, toaster, $window) {
+function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, $modal, tableID,$translate, SweetAlert, toaster, $window) {
     $rootScope.uService.EnterController("SelectPersoncountCtrl");
     $scope.isWaiting = true;
     $scope.Departments = [];

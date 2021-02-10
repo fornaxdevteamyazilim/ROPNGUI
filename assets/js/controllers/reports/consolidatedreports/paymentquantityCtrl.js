@@ -65,7 +65,7 @@
 }]);
 'use strict';
 app.controller('paymentquantityCtrl', paymentquantityCtrl);
-function paymentquantityCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $compile, ngnotifyService, $rootScope, $element) {
+function paymentquantityCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, $translate, SweetAlert, toaster, $window, $compile, ngnotifyService, $rootScope, $element) {
     $rootScope.uService.EnterController("paymentquantityCtrl");
     $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;

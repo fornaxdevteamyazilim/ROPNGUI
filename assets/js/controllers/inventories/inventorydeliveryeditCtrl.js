@@ -385,8 +385,7 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
         if (data.restangularized) {
             data.put().then(function (res) {
                 $scope.$emit('UpdateInventoryDelivery', $scope.item);
-                toaster.pop('success', $translate.instant('invantories.Updated')
-,translate="invantories.Updatedapplied");
+                toaster.pop('success', $translate.instant('invantories.Updated'),$translate.instant('invantories.Updatedapplied'));
             });
         } else {
             Restangular.restangularizeElement('', data, 'inventorydeliveryitem')

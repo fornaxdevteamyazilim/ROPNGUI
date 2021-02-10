@@ -64,7 +64,7 @@
 }]);
 'use strict';
 app.controller('productsalesstatisticsCtrl', productsalesstatisticsCtrl);
-function productsalesstatisticsCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $compile, Excel, $timeout, $location, userService, ngnotifyService, $element, NG_SETTING) {
+function productsalesstatisticsCtrl($scope, $filter, $modal, $log, Restangular,$translate, ngTableParams, SweetAlert, toaster, $window, $rootScope, $compile, Excel, $timeout, $location, userService, ngnotifyService, $element, NG_SETTING) {
     $rootScope.uService.EnterController("productsalesstatisticsCtrl");
     $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;
@@ -146,7 +146,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, Restangular, 
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved.');
+            toaster.pop('success',$translate.instant('orderfile.Saved'),$translate.instant('orderfile.Saved'));
         });
     };
     $scope.EditLayoutData = function (configdata) {
@@ -160,7 +160,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, Restangular, 
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated.');
+            toaster.pop('success',$translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {

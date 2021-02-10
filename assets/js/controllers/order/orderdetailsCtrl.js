@@ -118,12 +118,12 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
             $scope.DeletePromotion(result[0].id);
         },
       function (response) {
-          toaster.pop('error', "Server Connection Error", response.data.ExceptionMessage);
+          toaster.pop('error', $translate.instant('Server.ServerError') , response.data.ExceptionMessage);
       });
     };
     $scope.DeletePromotion = function (ID) {
         Restangular.one("orderpromotion", ID).remove().then(function () {
-            toaster.pop("error", "Deleted.", "Promotion Deleted !");
+            toaster.pop("error",  $translate.instant('orderfile.Deleted'), $translate.instant('orderfile.PromotionDeleted'));
             $scope.getOrder();
             $scope.RefreshOrder($stateParams.id)
         });
@@ -279,7 +279,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + item.id;
                 } else {
-                    toaster.pop('warning', "Change Order Status !", "");
+                    toaster.pop('warning',  $translate.instant('orderfile.OrderCannotBeChanged'), "");
                 }
             } else {
                 if (item.OrderStateID == 5 && $rootScope.user.restrictions.changeorder == 'Enable') {
@@ -300,7 +300,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                 }
                 if (item.OrderStateID == 5 || item.OrderStateID == 6 || item.OrderStateID == 7 || item.OrderStateID == 10 || item.OrderStateID == 9 || item.OrderStateID == 8) {
                     if ($rootScope.user.restrictions.changeorder != 'Enable')
-                        toaster.pop('warning', "Order Cannot Be Changed!", "");
+                        toaster.pop('warning',  $translate.instant('orderfile.OrderCannotBeChanged'), "");
                 } else {
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage == 'Enable') {
                         if (item.OrderTypeID == 0)
@@ -319,7 +319,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                 }
             }
         } else {
-            toaster.pop('warning', "Order Cannot Be Changed!", "");
+            toaster.pop('warning',  $translate.instant('orderfile.OrderCannotBeChanged'), "");
         }
     };
     $scope.UpdateOrderStatusAdmin = function (itemID) {
@@ -562,7 +562,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                 location.href = '#/app/orders/orderStore/' + result.id;
             if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                 location.href = '#/app/orders/order/' + result.id;
-            toaster.pop("success", "Order Created.");
+            toaster.pop("success", $translate.instant('orderfile.OrderCreated'));
             $scope.isSpinner = false;
         }, function (response) {
             toaster.pop('error', "error!", response.data.ExceptionMessage);
@@ -574,7 +574,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         Restangular.one('yemekSepetiCustomerMap/deletemap').get({
             OrderID: OrderID,
         }).then(function (result) {
-            toaster.pop("success", "YS Order Customer Mapping Deleted!");
+            toaster.pop("success", $translate.instant('orderfile.YSOrderCustomerMappingDeleted'));
             $scope.isSpinner = false;
         }, function (response) {
             toaster.pop('error', "error!", response.data.Message);

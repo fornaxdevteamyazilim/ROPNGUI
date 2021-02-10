@@ -14,7 +14,7 @@ function addcashCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $wi
 
             }
         ).then(function (result) {
-            toaster.pop('success', $translate.instant('orderfile.Saved'), 'SAVED');
+            toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
             $scope.ok();
             return $scope.AddCash = result;
         }, function (response) {

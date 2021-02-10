@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     app.controller('systemsCtrl', systemsCtrl);
-    function systemsCtrl($scope, Restangular, ngTableParams, toaster, SweetAlert, $window) {
+    function systemsCtrl($scope, Restangular, ngTableParams, toaster, $translate, SweetAlert, $window) {
         var vm = this;
         $scope.SelectedItem = null;
         $scope.objectType = 'brand';
@@ -11,11 +11,11 @@
         };
         $scope.saveData = function (data) {
             if (data.restangularized) {
-                data.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success',$translate.instant('orderfile.Updated'), 'Updated.'); });
+                data.put().then(function (res) { vm.tableParams.reload(); toaster.pop('success',$translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated')); });
             }
             else {
                 Restangular.restangularizeElement('', data, $scope.objectType)
-                data.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.'); });
+                data.post().then(function (res) { vm.tableParams.reload(); toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Updated')); });
                 data.get();
             }
         }
@@ -34,9 +34,9 @@
             rowform.$cancel();
             if (!vm.tableParams.data[vm.tableParams.data.length - 1].restangularized) {
                 $scope.cancelremove(vm.tableParams.data.length - 1, 1);
-                toaster.pop('warning',$translate.instant('orderfile.Cancelled'), 'Insert cancelled !' );
+                toaster.pop('warning',$translate.instant('orderfile.Cancelled'), $translate.instant('orderfile.Insertcancelled'));
             } else {
-                toaster.pop('warning', $translate.instant('orderfile.Cancelled'), 'Edit cancelled !');
+                toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('orderfile.Editcancelled'));
             }
         };
         //$scope.cancelForm = function (rowform) {

@@ -1,5 +1,5 @@
 ﻿app.controller('orderlistreportCtrl', orderlistreportCtrl);
-function orderlistreportCtrl($scope, $modal, $filter, SweetAlert, Restangular, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $http, $element) {
+function orderlistreportCtrl($scope, $modal, $filter, SweetAlert,$translate, Restangular, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $http, $element) {
             $rootScope.uService.EnterController("orderlistreportCtrl");
     userService.userAuthorizated();
     $scope.OrderStateID = '';

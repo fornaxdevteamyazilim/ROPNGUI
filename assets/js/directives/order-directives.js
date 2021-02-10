@@ -33,7 +33,7 @@ function orderable($compile, $modal,$translate) {
             "<div class='no-margin fade-in' id='details'>" +
             "<button ng-if='item.isOrderItem' class='col-lg-3 col-md-3 col-sm-4 col-xs-6 btn-red btn-md tooltips radius-3 pull-right' style='height:33px' ng-hide='!item.canSave' ng-click='SaveToOrder(item)'ng-disabled='ButtonActive == false'><label class='fa fa-spin fa-spinner' ng-if='ButtonActive == false'></label><span> {{:: 'main.SAVE' | translate}} </span></button>",
 
-        controller: function ($scope, $element, $attrs, $transclude, $rootScope, $modal, Restangular, toaster) {
+        controller: function ($scope, $element, $attrs, $transclude, $rootScope, $translate, $modal, Restangular, toaster) {
             $scope.itemPrice = 0;
             $scope.itemAmount = 0;
             $scope.OrderableID = $attrs.item;
@@ -63,7 +63,7 @@ function orderable($compile, $modal,$translate) {
                             }
                     }
                 }, function (response) {
-                    toaster.pop('Warning', "Sunucu bağlantı hatası", "Uyarı!");
+                    toaster.pop('Warning', $translate.instant('Server.ServerError'), "Warning!");
                 });
             };
             $scope.LoadOptionItem = function (Option) {
@@ -89,7 +89,7 @@ function orderable($compile, $modal,$translate) {
                             }
                     }
                 }, function (response) {
-                    toaster.pop('Warning', "Sunucu bağlantı hatası", "Uyarı!");
+                    toaster.pop('Warning', $translate.instant('Server.ServerError'), "Warning!");
                 });
             };
             $scope.DisableWatch = $scope.$watch(watchItem, function () {
@@ -1176,11 +1176,11 @@ function addsplitbutton(Restangular, toaster) {
                 var ordersplit = { OrderID: scope._order.id, SplitIndex: scope._order.splits.length + 1 };
                 Restangular.restangularizeElement('', ordersplit, 'ordersplit');
                 ordersplit.post().then(function (resp) {
-                    toaster.pop("success", "Split Added.");
+                    toaster.pop("success", $translate.instant('orderfile.SplitAdded'));
                     scope._order.splits.push(resp);
                 },
                     function (resp) {
-                        toaster.pop('error', "Could not create new split !", "error");
+                        toaster.pop('error', $translate.instant('orderfile.Couldnotcreatenewsplit'), "error");
                     });
             });
         }
@@ -1195,11 +1195,11 @@ function addpersonbutton(Restangular, toaster) {
                 var orderperson = { OrderID: scope._order.id, PersonIndex: scope._order.persons.length + 1 };
                 Restangular.restangularizeElement('', orderperson, 'orderperson');
                 orderperson.post().then(function (resp) {
-                    toaster.pop("success", "People Added.");
+                    toaster.pop("success", $translate.instant('orderfile.PeopleAdded'));
                     scope._order.persons.push(resp);
                 },
                     function (resp) {
-                        toaster.pop('error', "Could not create new contact !", "error");
+                        toaster.pop('error', $translate.instant('orderfile.Couldnotcreatenewcontact'), "error");
                     });
             });
         }

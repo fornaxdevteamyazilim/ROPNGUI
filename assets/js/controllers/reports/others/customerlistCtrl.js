@@ -11,7 +11,7 @@ function customerlistCtrl($scope, $rootScope, $modal, $filter, Restangular, toas
     $scope.BuildSearchString = function (src) {
         var result = [];
         if (src == 1) {
-            toaster.pop('warning', "Lütfen Restoran Seçiniz!");
+            toaster.pop('warning',  $translate.instant('orderfile.PleaseChooseARestaurant'));
         } else {
             result.push("Orders.StoreID='" + src + "'");
         }

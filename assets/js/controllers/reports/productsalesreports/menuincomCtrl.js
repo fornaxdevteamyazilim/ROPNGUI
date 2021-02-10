@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('menuincomCtrl', menuincomCtrl);
-function menuincomCtrl($scope, $modal, $filter, SweetAlert, Restangular, toaster, $window, Excel, $timeout, $stateParams, $rootScope, $location, userService, ngnotifyService, $element) {
+function menuincomCtrl($scope, $modal, $filter, SweetAlert,$translate, Restangular, toaster, $window, Excel, $timeout, $stateParams, $rootScope, $location, userService, ngnotifyService, $element) {
     $rootScope.uService.EnterController("menuincomCtrl");
     if (userService.userAuthorizated()) {
         Restangular.all('report').getList().then(function (result) {

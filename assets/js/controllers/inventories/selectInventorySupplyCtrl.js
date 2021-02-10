@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('selectInventorySupplyCtrl', selectInventorySupplyCtrl);
-function selectInventorySupplyCtrl($rootScope, $scope, $modalInstance, Restangular, $window, toaster, $translate) {
+function selectInventorySupplyCtrl($rootScope, $scope, $modalInstance, Restangular, $translate, $window, toaster, $translate) {
     $rootScope.uService.EnterController("selectInventorySupplyCtrl");
     $scope.translate = function () {
         $scope.traddnewrquirment = $translate.instant('main.ADDNEWREQUIRMENT');

@@ -311,14 +311,14 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
         if (this.item.restangularized) {
             this.item.put().then(function (res) {
                 iro.tableParams.reload();
-                toaster.pop('success',$translate.instant('invantories.Updated'), 'Updated.');
+                toaster.pop('success',$translate.instant('invantories.Updated'),  $translate.instant('invantories.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', this.item, 'inventoryrecipeoutputitem')
             this.item.post().then(function (res) {
                 iro.tableParams.reload();
-                toaster.pop('success', $translate.instant('invantories.Saved'), 'Saved.');
+                toaster.pop('success', $translate.instant('invantories.Saved'), $translate.instant('invantories.Saved'));
             });
             this.item.get();
         }
@@ -336,9 +336,9 @@ function inventoryrecipeoutputitemCtrl($scope, $log, $modal, Restangular, ngTabl
         rowform.$cancel();
         if (!iro.tableParams.data[iro.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(iro.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('invantories.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
     iro.tableParams = new ngTableParams({

@@ -65,7 +65,7 @@
 }]);
 'use strict';
 app.controller('turnoverbyhoursCtrl', turnoverbyhoursCtrl);
-function turnoverbyhoursCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $compile, ngnotifyService,$rootScope, $element) {
+function turnoverbyhoursCtrl($scope, $filter, $modal, $log, Restangular, $translate, ngTableParams, SweetAlert, toaster, $window, $compile, ngnotifyService,$rootScope, $element) {
         $rootScope.uService.EnterController("turnoverbyhoursCtrl");
     $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;

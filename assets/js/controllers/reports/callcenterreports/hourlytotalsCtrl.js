@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('hourlytotalsCtrl', hourlytotalsCtrl);
-function hourlytotalsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $interval, ngTableParams, toaster, $window, $stateParams, $location, Excel, $timeout, NG_SETTING, ngnotifyService, $rootScope, $element) {
+function hourlytotalsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $interval, $translate, ngTableParams, toaster, $window, $stateParams, $location, Excel, $timeout, NG_SETTING, ngnotifyService, $rootScope, $element) {
     $rootScope.uService.EnterController("hourlytotalsCtrl");
     if (!$scope.StartDate) {
         $scope.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');

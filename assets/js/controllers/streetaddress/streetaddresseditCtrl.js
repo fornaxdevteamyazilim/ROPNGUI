@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     app.controller('streetaddresseditCtrl', streetaddresseditCtrl);
-    function streetaddresseditCtrl($rootScope, $scope, $modalInstance, Restangular, item, $filter, $log, $window, toaster, ngnotifyService) {
+    function streetaddresseditCtrl($rootScope, $scope, $modalInstance, $translate, Restangular, item, $filter, $log, $window, toaster, ngnotifyService) {
         $rootScope.uService.EnterController("streetaddresseditCtrl");
         $scope.item = item;
         $scope.subcities = [];

@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     app.controller('deliverytimeCtrl', deliverytimeCtrl);
-    function deliverytimeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $interval, ngTableParams, toaster, $window, $stateParams, $rootScope, $location) {
+    function deliverytimeCtrl($scope, $log, $modal, $filter,$translate, SweetAlert, Restangular, $interval, ngTableParams, toaster, $window, $stateParams, $rootScope, $location) {
 
         if (!$scope.StartDate) {
             $scope.StartDate = $filter('date')(new Date(), 'yyyy-MM-dd ');

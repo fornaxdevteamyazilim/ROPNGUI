@@ -151,7 +151,7 @@ function orderdisplayCtrl($scope, $log, $modal, $interval, Restangular, ngTableP
         Restangular.one('yemekSepetiCustomerMap/deletemap').get({
             OrderID: OrderID,
         }).then(function (result) {
-            toaster.pop("success", "YS Order Customer Matching Deleted!");
+            toaster.pop("success",$translate.instant('orderfile.YSOrderCustomerMatchingDeleted '));
             $scope.isSpinner = false;
             location.href = '#/app/mainscreen';
         }, function (response) {

@@ -10,7 +10,7 @@ function orderpaymenttypesCtrl($scope, $translate, $rootScope, $modalInstance, i
             toaster.pop("success", $translate.instant('orderfile.PAYMENTTYPECHANGED'));
             $scope.ok();
         }, function (response) {
-            toaster.pop('error', "SServer Error", response.data.ExceptionMessage);
+            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.paymenttypes = [];

@@ -158,7 +158,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                                         };
                                         Restangular.restangularizeElement('', payment, 'orderpayment');
                                         payment.post().then(function (resp) {
-                                            toaster.pop("success", "'" + Payment.name + "All Accounts Will Be Closed.");
+                                            toaster.pop("success", "'" + Payment.name + $translate.instant('orderfile.AllAccountsWillBeClosed'));
                                             Restangular.one('ordertools/updateorderascharged').get({ OrderID: resp.OrderID }).then
                                                 (function (restresult) {
                                                     toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));

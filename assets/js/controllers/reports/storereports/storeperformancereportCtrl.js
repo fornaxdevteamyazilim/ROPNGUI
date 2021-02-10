@@ -1,5 +1,5 @@
 ﻿app.controller('storeperformancereportCtrl', storeperformancereportCtrl);
-function storeperformancereportCtrl($scope, $modal, $filter, SweetAlert, Restangular, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $element) {
+function storeperformancereportCtrl($scope, $modal, $filter, SweetAlert, Restangular, $translate,toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $element) {
         $rootScope.uService.EnterController("storeperformancereportCtrl");   
 userService.userAuthorizated();
     if (!$rootScope.ReportParameters.StartDate) {

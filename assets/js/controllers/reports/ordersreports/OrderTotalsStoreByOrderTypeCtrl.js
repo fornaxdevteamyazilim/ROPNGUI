@@ -64,7 +64,7 @@
 }]);
 'use strict';
 app.controller('OrderTotalsStoreByOrderTypeCtrl', OrderTotalsStoreByOrderTypeCtrl);
-function OrderTotalsStoreByOrderTypeCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $compile, Excel, $timeout, $location, userService, ngnotifyService, $element) {
+function OrderTotalsStoreByOrderTypeCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, $translate, SweetAlert, toaster, $window, $rootScope, $compile, Excel, $timeout, $location, userService, ngnotifyService, $element) {
         $rootScope.uService.EnterController("OrderTotalsStoreByOrderTypeCtrl");    
 userService.userAuthorizated();
     if (!$scope.StartDate) {
@@ -130,7 +130,7 @@ userService.userAuthorizated();
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved.');
+            toaster.pop('success',$translate.instant('orderfile.Saved'),$translate.instant('orderfile.Saved'));
         });
     };
     $scope.EditLayoutData = function (configdata) {
@@ -144,7 +144,7 @@ userService.userAuthorizated();
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
+            toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {

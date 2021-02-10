@@ -52,7 +52,7 @@ function ngDraggable($document, $rootScope, $window) {
     });
 };
 app.controller('tablePlanEditCtrl', tablePlanEditCtrl);
-function tablePlanEditCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $filter, $window, $rootScope, $location, userService, $element) {
+function tablePlanEditCtrl($scope, $log, $modal, Restangular, ngTableParams, $translate, SweetAlert, toaster, $filter, $window, $rootScope, $location, userService, $element) {
     $rootScope.uService.EnterController("tablePlanEditCtrl");
     $scope.tableplans = [];
     $scope.PersonCount = []; 
@@ -148,7 +148,7 @@ function tablePlanEditCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
     });
 };
 app.controller('addstoretableCtrl', addstoretableCtrl);
-function addstoretableCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, $modalInstance, toaster, $window, $stateParams, $rootScope, $location, $translate) {
+function addstoretableCtrl($scope, $modal, $filter, SweetAlert, Restangular, $translate, ngTableParams, $modalInstance, toaster, $window, $stateParams, $rootScope, $location, $translate) {
     $rootScope.uService.EnterController("addstoretableCtrl");
     $scope.item = {};
     $scope.translate = function () {

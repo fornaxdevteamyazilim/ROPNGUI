@@ -1,5 +1,5 @@
 ﻿app.controller('previousorderCtrl', previousorderCtrl);
-function previousorderCtrl($rootScope, $scope, $modalInstance, $filter, storeID, personID, $log, $window, Restangular) {
+function previousorderCtrl($rootScope, $scope, $modalInstance, $filter, $translate, storeID, personID, $log, $window, Restangular) {
     $rootScope.uService.EnterController("previousorderCtrl");
 var person = personID;
     var store = storeID;

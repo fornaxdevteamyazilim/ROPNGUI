@@ -83,7 +83,7 @@ function productwasteeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableP
                     $location.path('/app/inventory/productwaste/list');
                 });
             } else {
-                SweetAlert.swal($translate.instant('invantories.Cancelled'),  translate="invantories.DeletionCanceled", "error");
+                SweetAlert.swal($translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled'), "error");
             }
         });
     };
@@ -172,7 +172,7 @@ function productwasteeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableP
     });
 };
 app.controller('productwasteitemCtrl', productwasteitemCtrl);
-function productwasteitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
+function productwasteitemCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window,$translate, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("productwasteitemCtrl");
     var pwi = this;
     $scope.item = {};

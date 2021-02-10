@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('complaintlistreportsCtrl', complaintlistreportsCtrl);
-function complaintlistreportsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $interval, ngTableParams, toaster, $window, $stateParams, $location, Excel, $timeout, NG_SETTING, ngnotifyService, $rootScope, $element) {
+function complaintlistreportsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $interval, $translate, ngTableParams, toaster, $window, $stateParams, $location, Excel, $timeout, NG_SETTING, ngnotifyService, $rootScope, $element) {
     $rootScope.uService.EnterController("complaintlistreportsCtrl");
 
     if (!$scope.StartDate) {

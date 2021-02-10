@@ -68,7 +68,7 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 $scope.isSpinner = false
             });
         } else {
-            toaster.pop('Warning', translate="$translate.instant('accounting.REQUIREDFIELDS')");
+            toaster.pop('Warning', $translate.instant('accounting.REQUIREDFIELDS'));
             $scope.isSpinner = false
         }
     };
@@ -88,7 +88,7 @@ function materialslipCtrl($scope, $log, $modal, Restangular, ngTableParams, Swee
                 $scope.isSpinner = false
             });
         } else {
-            toaster.pop('Warning',translate="$translate.instant('accounting.REQUIREDFIELDS')");
+            toaster.pop('Warning',$translate.instant('accounting.REQUIREDFIELDS'));
             $scope.isSpinner = false
         }
     };

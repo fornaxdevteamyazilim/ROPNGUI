@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('ysstoreeditCtrl', ysstoreeditCtrl);
-function ysstoreeditCtrl($scope, $modalInstance, $log, $rootScope, toaster, Restangular, $window, $location, callsService, localStorageService, userService, ngTableParams, $translate) {
+function ysstoreeditCtrl($scope, $modalInstance, $log, $rootScope,$translate, toaster, Restangular, $window, $location, callsService, localStorageService, userService, ngTableParams, $translate) {
     $rootScope.uService.EnterController("ysstoreeditCtrl");
         var ysse = this;
     $scope.item = {};

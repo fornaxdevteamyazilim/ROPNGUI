@@ -85,13 +85,13 @@ function ingredientsCtrl($scope, $log, $modal, Restangular, ngTableParams, Sweet
     }
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: translate="difinitions.Sure" ,
-            text:  translate="difinitions.SureRecord",
+            title: $translate.instant('difinitions.Sure') ,
+            text:  $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText:   translate="difinitions.confirmButtonText",
-            cancelButtonText:  translate="difinitions.cancelButtonText",
+            confirmButtonText:   $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText:  $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -100,7 +100,7 @@ function ingredientsCtrl($scope, $log, $modal, Restangular, ngTableParams, Sweet
                     ing.tableParams.data[index].remove();
                 }
                 ing.tableParams.data.splice(index, 1);
-                toaster.pop("error",translate="difinitions.Attention",translate="difinitions.RecordDeleted");
+                toaster.pop("error",$translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
             }
         });
     };

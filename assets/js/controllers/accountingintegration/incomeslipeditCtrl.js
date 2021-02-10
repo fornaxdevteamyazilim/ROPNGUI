@@ -83,9 +83,9 @@ function incomeslipeditCtrl($scope, $filter, SweetAlert, Restangular, ngTablePar
         rowform.$cancel();
         if (!ise.tableParams.data[ise.tableParams.data.length - 1].restangularized) {
             $scope.cancelremove(ise.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('accounting.Cancelled'), 'Insert cancelled !');
+            toaster.pop('warning', $translate.instant('accounting.Cancelled'), $translate.instant('accounting.Insertcancelled'));
         } else {
-            toaster.pop('warning', $translate.instant('accounting.Cancelled'), 'Edit cancelled !');
+            toaster.pop('warning', $translate.instant('accounting.Cancelled'), $translate.instant('accounting.Editcancelled'));
         }
     };
     $scope.removedata = function (SelectItem) {

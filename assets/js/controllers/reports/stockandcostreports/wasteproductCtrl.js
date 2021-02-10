@@ -1,5 +1,5 @@
 ﻿app.controller('wasteproductCtrl', wasteproductCtrl);
-function wasteproductCtrl($scope, $modal, $filter, SweetAlert, Restangular, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $element) {
+function wasteproductCtrl($scope, $modal, $filter, SweetAlert, Restangular,$translate, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $element) {
             $rootScope.uService.EnterController("wasteproductCtrl");
     userService.userAuthorizated();
     var totalProductCount = 0;

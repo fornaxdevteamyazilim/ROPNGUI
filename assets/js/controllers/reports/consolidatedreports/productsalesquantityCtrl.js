@@ -64,7 +64,7 @@
 }]);
 'use strict';
 app.controller('productsalesquantityCtrl', productsalesquantityCtrl);
-function productsalesquantityCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $compile, ngnotifyService, $rootScope, $element) {
+function productsalesquantityCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, $translate, toaster, $window, $compile, ngnotifyService, $rootScope, $element) {
             $rootScope.uService.EnterController("productsalesquantityCtrl");
     $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;

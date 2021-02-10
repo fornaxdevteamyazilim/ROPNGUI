@@ -1,5 +1,5 @@
 ﻿app.controller('accountbalancereportCtrl', accountbalancereportCtrl);
-function accountbalancereportCtrl($scope, $modal, $filter, SweetAlert, Restangular, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService,$rootScope, $element) {
+function accountbalancereportCtrl($scope, $modal, $filter, SweetAlert, Restangular, toaster,  $translate,$window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService,$rootScope, $element) {
     $rootScope.uService.EnterController("accountbalancereportCtrl");
     userService.userAuthorizated();
     var Total = 0;

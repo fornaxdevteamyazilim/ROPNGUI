@@ -90,13 +90,13 @@ function InventorySupplyApprovalsCtrl($scope, $log, $modal, $filter, SweetAlert,
     $scope.loadEntities('enums/inventorysupplymethod', 'inventorySupplyMethod');
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title: translate="invantories.Sure" ,
-            text:  translate="invantories.SureRecord",
+            title:$translate.instant('invantories.Sure') ,
+            text:  $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText:   translate="invantories.confirmButtonText",
-            cancelButtonText:  translate="invantories.cancelButtonText",
+            confirmButtonText:  $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:    $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -105,7 +105,8 @@ function InventorySupplyApprovalsCtrl($scope, $log, $modal, $filter, SweetAlert,
                     isa.tableParams.data[index].remove();
                 }
                 isa.tableParams.data.splice(index, 1);
-                toaster.pop("error",translate="invantories.Attention",translate="invantories.RecordDeleted");
+                toaster.pop("error",$translate.instant('invantories.Attention'),$translate.instant('invantories.RecordDeleted')
+                );
             }
         });
     };

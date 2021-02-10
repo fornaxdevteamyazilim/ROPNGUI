@@ -11,7 +11,7 @@ function notpaidCtrl($scope, $log, $modal, Restangular, SweetAlert, ngTableParam
                    PersonID: data.persons[0].PersonID,                      
                }
            ).then(function (result) {
-               toaster.pop('success', $translate.instant('orderfile.Saved'), 'SAVED');
+               toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
                SweetAlert.swal("Success", $translate.instant('orderfile.YourOrderMarkedNonPayment') , "success");
                $scope.ok();
            }, function (response) {

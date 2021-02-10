@@ -145,7 +145,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
             Restangular.restangularizeElement('', ordertosave, 'order');
             if (ordertosave.restangularized && ordertosave.id) {
                 ordertosave.put().then(function (resp) {
-                    toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated!');
+                    toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
                     $scope.ok();
                 }, function (response) {
                     toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);

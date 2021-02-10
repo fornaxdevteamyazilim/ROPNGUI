@@ -82,7 +82,7 @@ function stafforderCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, 
               newSatus: 10,
           }
       ).then(function (result) {
-          toaster.pop('success', "Updated", 'Updated!');
+          toaster.pop('success',  $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
           $scope.loadOrders();
       }, function (response) {
           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
@@ -153,7 +153,7 @@ function stafforderCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, 
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }
@@ -174,7 +174,7 @@ function stafforderCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, 
                 location.href = '#/app/orders/orderStoreTable/' + resp.id;
             },
             function (resp) {
-                toaster.pop('error', "Could Not Create New Order !", resp.data.ExceptionMessage);
+                toaster.pop('error',  $translate.instant('orderfile.Couldnotcreateneworder'), resp.data.ExceptionMessage);
             });
         } else {
         }

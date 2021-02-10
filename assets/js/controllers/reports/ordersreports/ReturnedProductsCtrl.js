@@ -139,7 +139,7 @@ function ReturnedProductCtrl($scope, $filter, $modal, $log, Restangular, ngTable
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+            toaster.pop('success', $translate.instant('orderfile.Saved'),  $translate.instant('orderfile.Saved'));
         });
     };
     $scope.EditLayoutData = function (configdata) {

@@ -63,7 +63,7 @@
 }]);
 'use strict';
 app.controller('InventoryUsagesCtrl', InventoryUsagesCtrl);
-function InventoryUsagesCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $compile, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $element) {
+function InventoryUsagesCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $compile, $location, Excel, $timeout, NG_SETTING,  $translate, userService, ngnotifyService, $element) {
     $rootScope.uService.EnterController("InventoryUsagesCtrl");
     $scope.StoreID = '';
     $scope.SourceID = '';
@@ -141,7 +141,7 @@ function InventoryUsagesCtrl($scope, $filter, $modal, $log, Restangular, ngTable
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success',$translate.instant('orderfile.Saved'), 'Saved.');
+            toaster.pop('success',$translate.instant('orderfile.Saved'),$translate.instant('orderfile.Saved'));
         });
     };
     $scope.EditLayoutData = function (configdata) {
@@ -155,7 +155,7 @@ function InventoryUsagesCtrl($scope, $filter, $modal, $log, Restangular, ngTable
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
+            toaster.pop('success', $translate.instant('orderfile.Updated'),$translate.instant('orderfile.Updated'));
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {

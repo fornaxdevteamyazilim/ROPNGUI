@@ -213,7 +213,7 @@ function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, 
     });
 };
 app.controller('storePaymentTypeCtrl', storePaymentTypeCtrl);
-function storePaymentTypeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
+function storePaymentTypeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $translate, $location, $element) {
     $rootScope.uService.EnterController("storePaymentTypeCtrl");
     var vm = this;
     $scope.item = {};
@@ -360,7 +360,7 @@ function storePaymentTypeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, R
     });
 };
 app.controller('storeordertypeCtrl', storeordertypeCtrl);
-function storeordertypeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
+function storeordertypeCtrl($rootScope, $scope, $modal, $filter,  $translate,SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("storeordertypeCtrl");
     var vm = this;
     $scope.item = {};
@@ -506,7 +506,7 @@ function storeordertypeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
     });
 };
 app.controller('vehicleCtrl', vehicleCtrl);
-function vehicleCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
+function vehicleCtrl($rootScope, $scope, $modal, $filter,  $translate,SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("vehicleCtrl");
     var vm = this;
     $scope.item = {};
@@ -682,7 +682,7 @@ function vehicleCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangula
     });
 };
 app.controller('storestreetaddressCtrl', storestreetaddressCtrl);
-function storestreetaddressCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $element) {
+function storestreetaddressCtrl($rootScope, $scope, $modal, $filter, $translate, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $element) {
     $rootScope.uService.EnterController("storestreetaddressCtrl");
     var ssa = this;
     $scope.SelectedItem = null;
@@ -930,7 +930,7 @@ function storestreetaddressCtrl($rootScope, $scope, $modal, $filter, SweetAlert,
     });
 };
 app.controller('podCtrl', podCtrl);
-function podCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
+function podCtrl($rootScope, $scope, $modal, $filter, SweetAlert, $translate, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("podCtrl");
     var vm = this;
     $scope.saveData = function (data) {
@@ -1090,7 +1090,7 @@ function podCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, n
     });
 };
 app.controller('repositoryCtrl', repositoryCtrl);
-function repositoryCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
+function repositoryCtrl($rootScope, $scope, $modal, $filter, SweetAlert, $translate, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("repositoryCtrl");
     var vm = this;
     $scope.item = {};
@@ -1622,7 +1622,7 @@ function drivervehicleCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Rest
     });
 };
 app.controller('storetableCtrl', storetableCtrl);
-function storetableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
+function storetableCtrl($rootScope, $scope, $modal, $filter,$translate, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("storetableCtrl");
     var stable = this;
     $scope.item = {};
@@ -1747,7 +1747,7 @@ function storetableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restang
     });
 };
 app.controller('storetableplanCtrl', storetableplanCtrl);
-function storetableplanCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
+function storetableplanCtrl($rootScope, $scope, $modal, $filter,  $translate,SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("storetableplanCtrl");
     var stableplan = this;
     $scope.item = {};
@@ -1868,7 +1868,7 @@ function storetableplanCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
     });
 };
 app.controller('storeproductionCtrl', storeproductionCtrl);
-function storeproductionCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
+function storeproductionCtrl($rootScope, $scope, $modal, $filter, $translate, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("storeproductionCtrl");
     var sp = this;
     $scope.item = {};
@@ -2199,7 +2199,7 @@ function storeauditmediaCtrl($rootScope, $scope, $modal, $modalInstance, $filter
     });
 };
 app.controller('storelocationCtrl', storelocationCtrl);
-function storelocationCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
+function storelocationCtrl($rootScope, $scope, $modal, $filter, SweetAlert, $translate, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $element) {
     $rootScope.uService.EnterController("storelocationCtrl");
     var sl = this;
     $scope.item = {};
@@ -2328,7 +2328,7 @@ function storelocationCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Rest
 
 };
 app.controller('storeworkingtimesCtrl', storeworkingtimesCtrl);
-function storeworkingtimesCtrl($rootScope, $scope, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $modal, $element) {
+function storeworkingtimesCtrl($rootScope, $scope, $filter, SweetAlert, $translate,Restangular, ngTableParams, toaster, $window, $stateParams, $modal, $element) {
     $rootScope.uService.EnterController("storeworkingtimesCtrl");
     var swt = this;
     $scope.StoreID = $stateParams.id;

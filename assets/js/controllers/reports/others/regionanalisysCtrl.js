@@ -1,5 +1,5 @@
 ﻿app.controller('regionanalisysCtrl', regionanalisysCtrl);
-function regionanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $element) {
+function regionanalisysCtrl($scope, $modal, $filter, $translate, SweetAlert, Restangular, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $element) {
             $rootScope.uService.EnterController("regionanalisysCtrl");
     userService.userAuthorizated();
 

@@ -383,7 +383,7 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
     });
 };
 app.controller('backDriverCtrl', backDriverCtrl);
-function backDriverCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParams, Order, SweetAlert, toaster, Restangular, $filter, $log, $window, userService, ngnotifyService) {
+function backDriverCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParams, Order, SweetAlert, toaster, Restangular, $filter, $log, $window,$translate, userService, ngnotifyService) {
     $rootScope.uService.EnterController("backDriverCtrl");
     $scope.order = Order;
     $scope.driver = {};

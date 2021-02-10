@@ -168,7 +168,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
                         }
                     }
                 }, function (response) {
-                    toaster.pop('error',$translate.instant('mainscreen.ServerError '), response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         }
@@ -189,7 +189,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
                         $scope.audio.pause();
                     $rootScope.YSOrderCount = angular.copy(result.length);
                 }, function (response) {
-                    toaster.pop('error', $translate.instant('mainscreen.ServerError '), response.data.ExceptionMessage);
+                    toaster.pop('error',  $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         }
@@ -287,7 +287,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
                     toaster.pop('warrning', err.error, err.error_description);
                 }
                 else {
-                    toaster.pop('warrning', "Error", "Unknown Error!");
+                    toaster.pop('warrning', "Error", $translate.instant('Server.UnknownError'));
                 }
             }
         });
@@ -477,7 +477,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }

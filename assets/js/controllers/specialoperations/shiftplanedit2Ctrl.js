@@ -374,7 +374,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                             txWage = wages[i].OrderDeliveryPrice;
                     }
                 }, function (response) {
-                    toaster.pop('warning', $translate.instant('Server.ServerError'), "Data Loading Error");
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), $translate.instant('Server.DataLoadingError'));
                 });
 
 
@@ -394,7 +394,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                     dataGrid.columnOption("main", 'caption', $translate.instant('main.SHIFTPLAN') + " [" + $scope.item.Store + "] " + $translate.instant('main.WEEK') + ": [" + $scope.item.PeriodWeek + "] " + $translate.instant('main.YEAR') + ": [" + $scope.item.PeriodYear + "]  (" + $scope.item.DateRange + ")");
                     dataGrid.refresh();
                 }, function (response) {
-                    toaster.pop('warning', $translate.instant('Server.ServerError'), "Data Loading Error");
+                    toaster.pop('warning', $translate.instant('Server.ServerError'),$translate.instant('Server.DataLoadingError'));
                 });
 
 
@@ -407,7 +407,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
             //     .then(function (response) {
             //         LaborCostTypes = response.data.Items;
             //     }, function (response) {
-            //         toaster.pop('warning', $translate.instant('Server.ServerError'), "Data Loading Error");
+            //         toaster.pop('warning', $translate.instant('Server.ServerError'), $translate.instant('Server.DataLoadingError'));
             //     });
 
             var dataGrid = $('#costgridContainer').dxDataGrid('instance');

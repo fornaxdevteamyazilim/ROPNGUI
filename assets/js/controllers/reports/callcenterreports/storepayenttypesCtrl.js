@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('storepayenttypesCtrl', storepayenttypesCtrl);
-function storepayenttypesCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $interval, ngTableParams, toaster, $window, $stateParams, $location, Excel, $timeout, NG_SETTING, ngnotifyService, $rootScope, $element) {
+function storepayenttypesCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $interval, $translate, ngTableParams, toaster, $window, $stateParams, $location, Excel, $timeout, NG_SETTING, ngnotifyService, $rootScope, $element) {
             $rootScope.uService.EnterController("storepayenttypesCtrl");  
     if (!$scope.StartDate) {
         $scope.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');

@@ -63,7 +63,7 @@
 }]);
 'use strict';
 app.controller('hourlyordersCtrl', hourlyordersCtrl);
-function hourlyordersCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $compile, Excel, $timeout, NG_SETTING, ngnotifyService, $rootScope, $element, userService, $location) {
+function hourlyordersCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, $translate, SweetAlert, toaster, $window, $compile, Excel, $timeout, NG_SETTING, ngnotifyService, $rootScope, $element, userService, $location) {
        $rootScope.uService.EnterController("hourlyordersCtrl");
        userService.userAuthorizated();
    $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
@@ -142,7 +142,7 @@ function hourlyordersCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.post().then(function (res) {
             $scope.GetLayout($scope.VeiwHeader.id);
-            toaster.pop('success', $translate.instant('orderfile.Saved'), 'Saved.');
+            toaster.pop('success', $translate.instant('orderfile.Saved'),$translate.instant('orderfile.Saved'));
         });
     };
     $scope.EditLayoutData = function (configdata) {
@@ -156,7 +156,7 @@ function hourlyordersCtrl($scope, $filter, $modal, $log, Restangular, ngTablePar
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success', $translate.instant('orderfile.Updated'), 'Updated.');
+            toaster.pop('success', $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {

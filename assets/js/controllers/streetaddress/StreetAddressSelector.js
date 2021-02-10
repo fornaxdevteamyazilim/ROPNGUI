@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     app.controller('StreetAddressSelectorCtrl', StreetAddressSelectorCtrl);
-    function StreetAddressSelectorCtrl($scope, $modalInstance, StreetAddressID, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window) {
+    function StreetAddressSelectorCtrl($scope, $modalInstance, StreetAddressID, $log, $translate, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window) {
         $scope.StreetAddressID = StreetAddressID;
         $scope.SelectedItem = null;
         $scope.search = '';

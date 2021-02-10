@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     app.controller('allorderitemslistCtrl', allorderitemslistCtrl);
-    function allorderitemslistCtrl($scope, $log, $modal, $filter, Restangular, ngTableParams, toaster,$window, $stateParams, $rootScope) {
+    function allorderitemslistCtrl($scope, $log, $modal, $filter, $translate, Restangular, ngTableParams, toaster,$window, $stateParams, $rootScope) {
         var aoil = this;
         $scope.item = {};
       //  $scope.OrderID = $stateParams.id;

@@ -1,5 +1,5 @@
 ﻿app.controller('selectstoreCtrl', selectstoreCtrl);
-function selectstoreCtrl($rootScope, $scope, $modalInstance, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window) {
+function selectstoreCtrl($rootScope, $scope, $modalInstance, $log, $filter,$translate, SweetAlert, Restangular, ngTableParams, toaster, $window) {
     $rootScope.uService.EnterController("selectstoreCtrl");
     $scope.SaveSelcetedStore = function (data) {
         $scope.StoreID = data;

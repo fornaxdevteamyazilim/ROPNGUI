@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('dailytotalsCtrl', dailytotalsCtrl);
-function dailytotalsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $interval, ngTableParams, toaster, $window, $stateParams, $location, Excel, $timeout, NG_SETTING, ngnotifyService, $rootScope, $element) {
+function dailytotalsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, $interval, $translate, ngTableParams, toaster, $window, $stateParams, $location, Excel, $timeout, NG_SETTING, ngnotifyService, $rootScope, $element) {
     $rootScope.uService.EnterController("dailytotalsCtrl");
 
     if (!$scope.StartDate) {

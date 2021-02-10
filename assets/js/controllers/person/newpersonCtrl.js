@@ -108,7 +108,7 @@ function newpersonCtrl($scope, Restangular, item, $modal, ngTableParams, toaster
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Order Created.");
+                    toaster.pop("success", $translate.instant('personfile.OrderCreated'));
                 },
                     function (resp) {
                         toaster.pop('error', resp.data.ExceptionMessage, "error");
@@ -260,7 +260,7 @@ function newpersonCtrl($scope, Restangular, item, $modal, ngTableParams, toaster
                         location.href = '#/app/orders/orderStore/' + resp.id;
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + resp.id;
-                    toaster.pop("success", "Order Created.");
+                    toaster.pop("success", $translate.instant('personfile.OrderCreated'));
                 },
                 function (resp) {
                     toaster.pop('error', resp.data.ExceptionMessage, "error");

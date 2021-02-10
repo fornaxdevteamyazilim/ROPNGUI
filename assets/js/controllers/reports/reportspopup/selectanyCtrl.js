@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('selectanyCtrl', selectanyCtrl);
-function selectanyCtrl($scope, $log, $modal, $filter, Restangular, Value, SweetAlert, $interval, toaster, $window, $stateParams, $rootScope, $location, $modalInstance) {
+function selectanyCtrl($scope, $log, $modal, $filter, Restangular, Value, SweetAlert,$translate, $interval, toaster, $window, $stateParams, $rootScope, $location, $modalInstance) {
     $scope.Value = Value;
     $scope.inventorycounts = [];
     $scope.loadInventoryCounts = function () {

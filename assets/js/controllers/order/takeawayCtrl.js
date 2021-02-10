@@ -107,12 +107,12 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
     };
     $scope.SaveOpenOrders = function (data) {
         swal({
-            title: "Mark order as delivered?",
+            title: $translate.instant('orderfile.Markorderasdelivered'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes",
-            cancelButtonText: "No",
+            confirmButtonText: $translate.instant('orderfile.Yes'),
+            cancelButtonText: $translate.instant('orderfile.No'),
             closeOnConfirm: true
         }, function () {
             Restangular.all('ordertools/updateorderstatus').getList(
@@ -121,7 +121,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
               newSatus: 10,
           }
       ).then(function (result) {
-          toaster.pop('success', "Updated", 'Updated!');
+          toaster.pop('success',$translate.instant('orderfile.Updated'),$translate.instant('orderfile.Updated'));
           $scope.loadOrders();
       }, function (response) {
           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
@@ -201,7 +201,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
                     return $rootScope.user.UserRole.OrderSource.Department;
                 },
                     function (resp) {
-                        toaster.pop('error', "No Department", "error");
+                        toaster.pop('error', $translate.instant('orderfile.NoDepartment'), "error");
                     });
             }
         }
@@ -221,7 +221,7 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
                 location.href = '#/app/orders/orderStoreTable/' + resp.id;
             },
             function (resp) {
-                toaster.pop('error', resp.data.ExceptionMessage, "Could Not Create New Order !");
+                toaster.pop('error', resp.data.ExceptionMessage, $translate.instant('orderfile.Couldnotcreateneworder'));
             });
         } else {
         }

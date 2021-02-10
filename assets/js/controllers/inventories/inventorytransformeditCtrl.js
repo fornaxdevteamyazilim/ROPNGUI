@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('inventorytransformeditCtrl', inventorytransformeditCtrl);
-function inventorytransformeditCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, ngnotifyService, $element) {
+function inventorytransformeditCtrl($scope, $log, $modal, $filter, SweetAlert, $translate, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, ngnotifyService, $element) {
     $rootScope.uService.EnterController("inventorytransformeditCtrl");
     var ite = this;
     $scope.item = {};
@@ -116,24 +116,24 @@ function inventorytransformeditCtrl($scope, $log, $modal, $filter, SweetAlert, R
     $scope.loadEntities('inventoryrecipe', 'inventoryrecipes');
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title: translate="invantories.Sure" ,
-            text:  translate="invantories.SureRecord",
+            title: $translate.instant('invantories.Sure') ,
+            text: $translate.instant('invantories.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText:   translate="invantories.confirmButtonText",
-            cancelButtonText:  translate="invantories.cancelButtonText",
+            confirmButtonText:  $translate.instant('invantories.confirmButtonText'),
+            cancelButtonText:  $translate.instant('invantories.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal(translate="invantories.Deleted",  translate="invantories.RecordDeleted", "success");
+                    SweetAlert.swal( $translate.instant('invantories.Deleted'), $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('app/inventory/inventorytransform/list');
                 });
             }
             else {
-                SweetAlert.swal($translate.instant('invantories.Cancelled'),  translate="invantories.DeletionCanceled", "error");
+                SweetAlert.swal($translate.instant('invantories.Cancelled'), $translate.instant('invantories.DeletionCanceled'), "error");
             }
         });
     };

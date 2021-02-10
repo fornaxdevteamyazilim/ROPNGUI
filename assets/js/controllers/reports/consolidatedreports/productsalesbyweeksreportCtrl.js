@@ -65,7 +65,7 @@
 }]);
 'use strict';
 app.controller('productsalesbyweeksCtrl', productsalesbyweeksCtrl);
-function productsalesbyweeksCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $compile, ngnotifyService, $rootScope, $element) {
+function productsalesbyweeksCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, $translate, SweetAlert, toaster, $window, $compile, ngnotifyService, $rootScope, $element) {
            $rootScope.uService.EnterController("productsalesbyweeksCtrl");
 
    $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');

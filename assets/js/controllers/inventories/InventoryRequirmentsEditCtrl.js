@@ -191,7 +191,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
         }, function (response) {
             $scope.isSpinner = false;
             $scope.$emit('isSipnner', $scope.isSpinner);
-            toaster.pop('warning', "Not Saved!", response.data.ExceptionMessage);
+            toaster.pop('warning',$translate.instant('invantories.NotSaved') , response.data.ExceptionMessage);
         });
     };
     iri.tableParams = new ngTableParams({

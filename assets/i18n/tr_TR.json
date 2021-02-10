@@ -3252,7 +3252,9 @@
     "DataAdded": "Veri Eklendi",
     "DataSaved": "Veriler Kaydedildi",
     "DataSuccessfullySaved": "Veri Başarıyla Kaydedildi!",
-    "NoDepartment": "Bölüm Yok"
+    "NoDepartment": "Bölüm Yok",
+    "NotSaved": "Kaydedilmedi",
+    "DataRemove": "Veri Silme"
   },
   "kitchendisplayf": {
     "PleaseWait": "Lütfen Bekleyin !",
@@ -3361,7 +3363,16 @@
     "CannotAddPromotion": "Promosyon Ekleyemezsiniz !",
     "PaymentTypeOrderChanged": "Ödeme Türü Sipariş Değişti!!",
     "NEWPAYMENTNOTSAVED": "YENİ ÖDEME KAYDEDİLMEDİ !",
-    "OrderClosed": "Sipariş Kapalı !"
+    "OrderClosed": "Sipariş Kapalı !",
+    "Couldnotcreatenewsplit":"Yeni bir bölünme oluşturulamadı !",
+    "SplitAdded": "Split Eklendi.",
+    "PeopleAdded": "Kişiler Ekledi.",
+    "Couldnotcreatenewcontact": "Yeni bir kişi oluşturulamadı !",
+    "AllAccountsWillBeClosed": "Tüm Hesaplar Kapatılacak.",
+    "PleaseChooseARestaurant": "Lütfen Restoran Seçiniz!",
+    "Recordlocked": "Kayıt kilitli",
+    "YSOrderCustomerMatchingDeleted": "YS sipariş Müşteri eşleştirme silindi!",
+    "Markorderasdelivered": "Siparişi teslim edildi olarak işaretle"
   },
   "yemeksepetifile": {
     "Cancelled": "İptal edildi !",
@@ -3724,7 +3735,8 @@
     "SMSOk": "SMSOk",
     "EmailOk": "EmailOk",
     "KVKKOk": "KVKKOk",
-    "PromotionsOk": "PromotionsOk"
+    "PromotionsOk": "PromotionsOk",
+    "MarketingPermissionType": "Promosyon Tipi"
   },
   "actualvstheoritical": {
     "Region": "Bölge",

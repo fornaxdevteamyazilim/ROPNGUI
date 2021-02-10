@@ -18,28 +18,28 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
     $scope.saveData = function (data) {
         if (data.restangularized && data.id) {
             data.put().then(function (resp) {
-                toaster.pop('success', translate="invantories.Updated",translate="invantories.Updatedapplied");
+                toaster.pop('success',  $translate.instant('invantories.Updated'), $translate.instant('invantories.Updatedapplied'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'inventorypurchase')
             data.post().then(function (resp) {
                 location.href = '#/app/inventory/inventorypurchase/edit/' + resp.id;
-                toaster.pop('success', translate="invantories.Saved",  translate="invantories.Savedserver");
+                toaster.pop('success', $translate.instant('invantories.Saved'),    $translate.instant('invantories.Savedserver'));
             });
         }
     };
     $scope.saveItem = function (data) {
         if (data.restangularized) {
             data.put().then(function (resp) {
-                toaster.pop('success',  translate="invantories.Updated",translate="invantories.Updatedapplied");
+                toaster.pop('success',   $translate.instant('invantories.Updated'), $translate.instant('invantories.Updatedapplied'));
             });
         }
         else {
             data.InventoryPurchaseID= $scope.InventoryPurchaseID
             Restangular.restangularizeElement('', data, 'inventorypurchaseitem')
             data.post().then(function (resp) {
-                toaster.pop('success', translate="invantories.Saved",  translate="invantories.Savedserver");
+                toaster.pop('success', $translate.instant('invantories.Saved'),    $translate.instant('invantories.Savedserver'));
             });
         }
     };
@@ -65,7 +65,7 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
         Restangular.one('InventorySupply/createdelivery').get({
             InventoryPurchaseID: $stateParams.id
         }).then(function (restresult) {
-            toaster.pop('success', translate="invantories.Saved");
+            toaster.pop('success', $translate.instant('invantories.Saved'));
             location.href = '#/app/inventory/inventorydeliveries/edit/' + restresult.id;
         }, function (response) {
             toaster.pop('warning', "warning...", response.data.ExceptionMessage);
@@ -76,7 +76,7 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
             InventoryPurchaseApprovalID: itemID,
             toState: State
         }).then(function (restresult) {
-            toaster.pop('success', translate="invantories.Saved");
+            toaster.pop('success', $translate.instant('invantories.Saved'));
             $scope.tableParams.reload();
             $location.path('app/inventory/inventorypurchase/list');
         }, function (response) {

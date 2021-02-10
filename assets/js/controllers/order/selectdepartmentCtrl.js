@@ -1,5 +1,5 @@
 ﻿app.controller('selectdepartmentCtrl', selectdepartmentCtrl);
-function selectdepartmentCtrl($scope, $modal, $modalInstance, Restangular, toaster, $window, $rootScope, $translate) {
+function selectdepartmentCtrl($scope, $modal, $modalInstance, Restangular, $translate,toaster, $window, $rootScope, $translate) {
     $rootScope.uService.EnterController("selectdepartmentCtrl");
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
         for (var i = 0; i < $scope[Container].length; i++) {

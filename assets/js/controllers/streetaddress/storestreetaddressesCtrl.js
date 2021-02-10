@@ -45,7 +45,7 @@ function storestreetaddressesCtrl($rootScope, $scope, $translate, $modalInstance
             Restangular.restangularizeElement('', data, 'storestreetaddress')
             data.post().then(function (res) {
                 $scope.tableParams.reload();
-                toaster.pop('success', "Added.", $translate.instant('margeaddress.Saved'));
+                toaster.pop('success',$translate.instant('margeaddress.Added'), $translate.instant('margeaddress.Saved'));
             }, function (response) {
                 toaster.pop('error',$translate.instant('margeaddress.NotSaved'), response.data.ExceptionMessage);
             });

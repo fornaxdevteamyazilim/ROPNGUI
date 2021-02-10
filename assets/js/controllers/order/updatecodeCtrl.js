@@ -1,5 +1,5 @@
 ﻿app.controller('updatecodeCtrl', updatecodeCtrl);
-function updatecodeCtrl($rootScope, $scope, $modalInstance, Restangular, toaster, $window, $translate) {
+function updatecodeCtrl($rootScope, $scope, $modalInstance, $translate, Restangular, toaster, $window, $translate) {
     $rootScope.uService.EnterController("updatecodeCtrl");
     $scope.SaveData = function (data) {
         Restangular.all('tools/freepdscode').getList(

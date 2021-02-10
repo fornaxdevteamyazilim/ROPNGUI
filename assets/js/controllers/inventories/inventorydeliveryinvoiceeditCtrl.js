@@ -55,7 +55,7 @@ function inventorydeliveryinvoiceeditCtrl($scope, $filter, SweetAlert, Restangul
             InventoryDeliveryInvoiceID: $stateParams.id,
         }).then(function (result) {
             $scope.isSpinner = false;
-            toaster.pop('success', translate="invantories.BillTransferred", '');
+            toaster.pop('success',  $translate.instant('invantories.BillTransferred'), '');
             $location.path('app/accountingintegration/inventorydeliveries/list');
             //$location.path('app/inventory/inventorydeliveryinvoice/edit/' + $stateParams.id);
         }, function (response) {
@@ -238,7 +238,7 @@ function inventorydeliveryinvoiceeditCtrl($scope, $filter, SweetAlert, Restangul
         SelectItem.remove().then(function () {
             idr.tableParams.reload();
             $scope.$broadcast('inventorydeliveryinvoiceItemreload', "Remove");
-            toaster.pop('error', "Data Remove");
+            toaster.pop('error', $translate.instant('invantories.DataRemove'));
         }, function (response) {
             toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });

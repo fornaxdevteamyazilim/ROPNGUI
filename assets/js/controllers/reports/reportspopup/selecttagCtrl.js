@@ -40,7 +40,7 @@ function selecttagCtrl($scope, $modal, Restangular, $modalInstance, toaster, $wi
     $scope.LoadTags(20);
     $scope.saveData = function (data) {
         Restangular.restangularizeElement('', data, 'tag/array')
-        toaster.pop('success', "Kaydedildi.", 'Saved.');
+        toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
     };
     $scope.ok = function () {
         $modalInstance.close($scope.selected);

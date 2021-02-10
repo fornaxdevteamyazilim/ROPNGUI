@@ -1,5 +1,5 @@
 ﻿app.controller('billboardCtrl', billboardCtrl);
-function billboardCtrl($rootScope, $scope, Restangular, toaster, $element) {
+function billboardCtrl($rootScope, $scope, Restangular, toaster,$translate, $element) {
     $rootScope.uService.EnterController("billboardCtrl");
     $scope.items = [];
     $scope.GetLayout = function () {
