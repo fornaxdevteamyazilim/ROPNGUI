@@ -3946,14 +3946,14 @@
   "productsalesstatistics": {
     "Category": "Kategori",
     "Product": "Ürün",
-    "Parent": "Üst",
+    "Parent": "Alt Ürün",
     "Quantity": "Miktar",
     "Year": "Yıl",
     "MonthNumber": "Ay Sayısı",
     "Day": "Gün",
     "Amount": "Tutar",
     "Cost": "Maliyet",
-    "Store": "Depo"
+    "Store": "Restoran"
   },
   "promotionanaisys": {
     "Store": "Restoran",

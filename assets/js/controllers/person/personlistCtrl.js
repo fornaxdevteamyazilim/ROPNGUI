@@ -803,7 +803,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
     });
 };
 app.controller('personorderitemsCtrl', personorderitemsCtrl);
-function personorderitemsCtrl($rootScope, $scope, $modalInstance, Order, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $translate, $window, $translate) {
+function personorderitemsCtrl($rootScope, $scope, $modalInstance, Order, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $translate, $window, ) {
     $rootScope.uService.EnterController("personorderitemsCtrl");
     $scope.OrderNumber = Order.id;
     $scope.item = [];

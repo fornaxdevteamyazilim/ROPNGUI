@@ -11,6 +11,7 @@ function filterlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetA
         $scope.trSchedule = $translate.instant('main.SCHEDULE');
         $scope.trFilterLevel = $translate.instant('main.FILTERLEVEL');
         $scope.trFilterType = $translate.instant('main.FILTERTYPE');
+        $scope.trActive = $translate.instant('main.ACTIVE');
         $scope.trCommands = $translate.instant('main.COMMANDS');
     }
     $scope.translate();

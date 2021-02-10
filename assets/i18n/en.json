@@ -3725,7 +3725,7 @@
     "EmailOk": "EmailOk",
     "KVKKOk": "KVKKOk",
     "PromotionsOk": "PromotionsOk",
-    "MarketingPermissionType": "Marketing Permission Type"
+    "MarketingPermissionType": "Marketing Permission Type",
   },
   "actualvstheoritical": {
     "Region": "Region",
@@ -4181,4 +4181,5 @@
   "bonusspendingrule":{
     "BonusSetting":"Bonus Setting",
     "BonusTransaction":"Bonus Transaction"
+}
 }

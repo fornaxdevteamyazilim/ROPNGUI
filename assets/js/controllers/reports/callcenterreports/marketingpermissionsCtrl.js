@@ -51,6 +51,23 @@ function marketingpermissionsCtrl($scope, $filter, $modal, $log, Restangular, Sw
                 return [["TransactionDate", ">=", fdate], "and", ["TransactionDate", "<=", tdate]];
         }
     };
+    var BonusTransactionEventDS = {
+        store: new DevExpress.data.CustomStore({
+            key: "Value",
+            load: function () {
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/MarketingPermissionType")
+                    .then(function (response) {
+                        return {
+                            data: response.data,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        }),
+        sort: "Value"
+    }
     $scope.gridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "PersonID",
@@ -94,7 +111,19 @@ function marketingpermissionsCtrl($scope, $filter, $modal, $log, Restangular, Sw
         { dataField: "TotalOrders", caption: $translate.instant('MarketingPermissions.TotalOrders'),dataType: "number",format: { type: "fixedPoint", precision: 0 } ,visible:false},
         { dataField: "FirstOrder", caption: $translate.instant('MarketingPermissions.FirstOrder'),dataType: "date", format: 'dd.MM.yyyy',visible:false },
         { dataField: "LastOrder", caption: $translate.instant('MarketingPermissions.LastOrder'),dataType: "date", format: 'dd.MM.yyyy',visible:false },
-        
+        {
+            dataField: "MarketingPermissionTypeID",caption: $translate.instant('MarketingPermissions.MarketingPermissionType'),visible:false , 
+            lookup: {
+                valueExpr: "Value",
+                displayExpr: "Name",
+                dataSource: BonusTransactionEventDS,
+                calculateSortValue: function (data) {
+                    var value = this.calculateCellValue(data);
+                    return this.lookup.calculateCellValue(value);
+                }
+            }
+            
+        },
         ], summary: {
             totalItems: [
                 { column: "PersonID", summaryType: "count", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
@@ -108,6 +137,7 @@ function marketingpermissionsCtrl($scope, $filter, $modal, $log, Restangular, Sw
                 { column: "DeliveredOrders", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "DeliveredOrdersAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TotalOrders", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "MarketingPermissionTypeID", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             ]
         }, onRowPrepared: function (e) {
             if (e.rowType === 'data') {

@@ -49,9 +49,16 @@
                         {{ ShowObject('schedules','id',item.ScheduleID,'name') }}
                     </span>
                 </td>
-                <td data-title="trFilterLevel" data-sortable="'FilterLevelID'" style="width:20%">
+                <td data-title="trFilterLevel" data-sortable="'FilterLevelID'" style="width:15%">
                     <span editable-text="item.FilterLevelID" e-name="FilterLevelID" e-form="rowform" e-ng-model="item.FilterLevelID" e-required e-style="width: 20vw;">
                         {{ item.FilterLevel }}
+                    </span>
+                </td>
+                <td data-title="trActive" data-sortable="'Active'" style="width:15%">
+                    <span editable-checkbox="item.Active" e-form="rowform" e-ng-model="item.Active" e-required
+                          e-ng-true-value="true"
+                          e-ng-false-value="false">
+                        {{ item.Active && "Active" || "Passive" }}
                     </span>
                 </td>
                 <td data-title="trFilterType" data-sortable="'FilterTypeID'" style="width:15%">

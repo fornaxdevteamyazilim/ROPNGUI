@@ -142,7 +142,7 @@
                                 {{ :: item.Description  }}
                             </span>
                         </td>
-                        <td data-title="trOrderDate" data-sortable="'OrderDate'" width="13%">
+                        <td data-title="trOrderDate" data-sortable="'OrderDate'" width="10%">
                             {{ :: item.OrderDateTXT}}
                         </td>
                         <td class="text-capitalize" data-title="trOrderState" data-sortable="'OrderStateID'" width="10%">
@@ -151,7 +151,10 @@
                         <td class="text-capitalize" data-title="trStore" data-sortable="'StoreID'" width="10%" ng-click="orderStatus(item)">
                             {{ :: item.Store }}
                         </td>
-                        <td class="text-uppercase " data-title="trPerson" data-sortable="'PersonID'" width="12%">
+                        <td data-title="trOrderSource" width="10%">
+                            {{:: item.OrderSource}}
+                        </td>
+                        <td class="text-uppercase " data-title="trPerson" data-sortable="'PersonID'" width="10%">
                             {{ :: item.persons[0].Person }} <span ng-if="::item.Alias">({{::item.Alias}})</span>
                         </td>
                         <td class="text-capitalize" data-title="trAddressType" data-sortable="'AddressID'" width="10%">
