@@ -1,5 +1,5 @@
 app.controller('bonusspendingruleCtrl', bonusspendingruleCtrl);
-function bonusspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $element,localStorageService) {
+function bonusspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate,$http, $element,localStorageService) {
     $rootScope.uService.EnterController("bonusspendingruleCtrl");
     var ngurr = this;
     $scope.NGUserRoleID = '';
@@ -13,6 +13,56 @@ function bonusspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
         $scope.translate();
     });
+     var OrderSourceDataSource = {
+        store: new DevExpress.data.CustomStore({
+            key: "id",
+            //loadMode: "raw",
+            load: function () {
+                // Returns an array of objects that have the following structure:
+                // { id: 1, name: "John Doe" }
+                //return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/ordersource")
+                    .then(function (response) {
+                        return {
+                            data: response.data.Items,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        }),
+        sort: "name"
+    }
+    var BonusTransactionEventDS = {
+        store: new DevExpress.data.CustomStore({
+            key: "Value",
+            load: function () {
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/BonusTransactionEvent")
+                    .then(function (response) {
+                        return {
+                            data: response.data,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        }),
+        sort: "Value"
+    }
+    var lookupDataSource2 = {
+        store: new DevExpress.data.CustomStore({
+            key: "id",
+            loadMode: "raw",
+            load: function () {
+                // Returns an array of objects that have the following structure:
+                // { id: 1, name: "John Doe" }
+                return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
+            }
+        }),
+        sort: "name"
+    }
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
@@ -60,9 +110,8 @@ function bonusspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            { dataField: "fk_ObjectUpdate_id", caption: "fk_ObjectUpdate_id", allowEditing: true  },
             {
-                dataField: "BonusSettingID", caption: "BonusSetting",
+                dataField: "BonusSettingID", caption:$translate.instant('bonusspendingrule.BonusSetting'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -90,7 +139,7 @@ function bonusspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
                 },
             },
             {
-                dataField: "BonusFilterID", caption: "Filter",
+                dataField: "isActiveFilter", caption: $translate.instant('punchcardearningrule.isActiveFilter'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "Name",
@@ -116,8 +165,28 @@ function bonusspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
                         return this.lookup.calculateCellValue(value);
                     }
                 },
-            } 
+            } ,
+            {
+                dataField: "BonusTransactionEventID", caption: $translate.instant('bonusspendingrule.BonusTransaction'),
+                lookup: {
+                    valueExpr: "Value",
+                    displayExpr: "Name",
+                    dataSource: BonusTransactionEventDS,
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    }
+                }
+            },
+            {
+                dataField: "OrderSourceID", caption: $translate.instant('punchcardearningrule.OrderSourceID'),
+                lookup: {
+                    valueExpr: "id",
+                    displayExpr: "name",
+                    dataSource: OrderSourceDataSource,
+                },
 
+            },
                        
         ],
         export: { enabled: true, fileName: "bonusspendingrulelist", },

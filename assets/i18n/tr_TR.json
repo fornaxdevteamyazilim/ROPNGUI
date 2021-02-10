@@ -4203,5 +4203,10 @@
     "Multiplier": "Çarpan",
     "PunchCardTransactionEventID": "Punchcard işlemi",
     "OrderSourceID": "Sipariş Kaynağı"
+  },
+    "bonusspendingrule":{
+    "BonusSetting":"Bonus Ayarı",
+    "BonusTransaction":"Bonus İşlemi"
+
   }
 }

@@ -4177,5 +4177,8 @@
     "Multiplier": "Multiplier",
     "PunchCardTransactionEventID": "Punchcard Transaction",
     "OrderSourceID": "Order Source"
-  }
+  },
+  "bonusspendingrule":{
+    "BonusSetting":"Bonus Setting",
+    "BonusTransaction":"Bonus Transaction"
 }
