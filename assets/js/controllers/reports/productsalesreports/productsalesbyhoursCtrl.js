@@ -65,7 +65,7 @@
 }]);
 'use strict';
 app.controller('productsalesbyhoursCtrl', productsalesbyhoursCtrl);
-function productsalesbyhoursCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $compile, Excel, $timeout, ngnotifyService, $element) {
+function productsalesbyhoursCtrl($scope, $filter, $modal, $log, $translate, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $compile, Excel, $timeout, ngnotifyService, $element) {
             $rootScope.uService.EnterController("productsalesbyhoursCtrl");
     $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;

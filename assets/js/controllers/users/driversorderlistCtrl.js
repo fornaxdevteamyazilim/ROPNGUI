@@ -93,7 +93,7 @@ function driverordersCtrl($scope, $log, $interval, $timeout, amMoment, $filter, 
     });
 };
 app.controller('driverorderlistCtrl', driverorderlistCtrl);
-function driverorderlistCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $modal, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, ngnotifyService, $element) {
+function driverorderlistCtrl($scope, $log, $interval, $timeout, amMoment, $filter,$translate, $modal, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, ngnotifyService, $element) {
     $rootScope.uService.EnterController("driverorderlistCtrl");
     $scope.orders = [];
     var OrderRefreshTimeOut;
@@ -217,7 +217,7 @@ function driverorderlistCtrl($scope, $log, $interval, $timeout, amMoment, $filte
     });
 };
 app.controller('driverbackCtrl', driverbackCtrl);
-function driverbackCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParams, Order, $stateParams, SweetAlert, toaster, Restangular, $filter, $log, $window, ngnotifyService) {
+function driverbackCtrl($rootScope, $scope, $modalInstance,$translate, $modal, ngTableParams, Order, $stateParams, SweetAlert, toaster, Restangular, $filter, $log, $window, ngnotifyService) {
     $rootScope.uService.EnterController("driverbackCtrl");
     $scope.order = Order;
     $scope.driver = {};

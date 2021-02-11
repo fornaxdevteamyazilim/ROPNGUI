@@ -1168,7 +1168,7 @@ function detailorderItem($compile) {
     };
 }
 app.directive("addsplitbutton", addsplitbutton);
-function addsplitbutton(Restangular, toaster) {
+function addsplitbutton(Restangular,$translate, toaster) {
     return {
         restrict: 'A',
         link: function (scope, element, attr) {
@@ -1187,7 +1187,7 @@ function addsplitbutton(Restangular, toaster) {
     }
 }
 app.directive("addpersonbutton", addpersonbutton);
-function addpersonbutton(Restangular, toaster) {
+function addpersonbutton(Restangular,$translate, toaster) {
     return {
         restrict: 'A',
         link: function (scope, element, attr) {

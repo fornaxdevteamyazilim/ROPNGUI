@@ -1,4 +1,4 @@
-﻿app.directive('autoFocus', function ($timeout) {
+﻿app.directive('autoFocus', function ($timeout,$translate) {
     return {
         restrict: 'AC',
         link: function (_scope, _element) {

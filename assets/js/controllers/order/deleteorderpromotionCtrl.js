@@ -1,5 +1,5 @@
 ﻿app.controller('deleteorderpromotionCtrl', deleteorderpromotionCtrl);
-function deleteorderpromotionCtrl($scope, $rootScope, $translate, $modalInstance, Order, Restangular, toaster, $window, $translate) {
+function deleteorderpromotionCtrl($scope, $rootScope, $translate, $modalInstance, Order, Restangular, toaster, $window) {
     $rootScope.uService.EnterController("deleteorderpromotionCtrl");
     $scope.OrderNo = Order;
     $scope.delete = function (idx) {

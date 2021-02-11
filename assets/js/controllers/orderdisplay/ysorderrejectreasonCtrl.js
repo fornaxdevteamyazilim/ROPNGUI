@@ -1,5 +1,5 @@
 ﻿app.controller('ysorderrejectreasonCtrl', ysorderrejectreasonCtrl);
-function ysorderrejectreasonCtrl($rootScope, $translate, $scope, $modalInstance, order, Restangular, toaster, $window, $translate) {
+function ysorderrejectreasonCtrl($rootScope, $translate, $scope, $modalInstance, order, Restangular, toaster, $window) {
     $rootScope.uService.EnterController("ysorderrejectreasonCtrl");
     $scope.translate = function () {
         $scope.trrefusedYSOrderNote = $translate.instant('main.REFUSEDYSORDER');

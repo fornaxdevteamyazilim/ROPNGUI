@@ -1,5 +1,5 @@
 ﻿app.controller('storeanalisysCtrl', storeanalisysCtrl);
-function storeanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $element) {
+function storeanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular,$translate, toaster, $window, $rootScope, $location, Excel, $timeout, NG_SETTING, userService, ngnotifyService, $element) {
     $rootScope.uService.EnterController("storeanalisysCtrl");
     userService.userAuthorizated();
     if (!$rootScope.ReportParameters.StartDate) {

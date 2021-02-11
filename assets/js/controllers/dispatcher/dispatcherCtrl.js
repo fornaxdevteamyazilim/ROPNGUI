@@ -437,7 +437,7 @@ function backDriverCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParam
     });
 };
 app.controller('AccordionDemoCtrl', AccordionDemoCtrl);
-function AccordionDemoCtrl($rootScope, $scope) {
+function AccordionDemoCtrl($rootScope, $scope,$translate) {
     $rootScope.uService.EnterController("townCtrl");
     $scope.oneAtATime = true;
     $scope.groups = [{

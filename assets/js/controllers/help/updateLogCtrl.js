@@ -1,5 +1,5 @@
 ﻿app.controller('updateLogCtrl', updateLogCtrl);
-function updateLogCtrl($rootScope, $scope, Restangular, $location, $window, $element) {
+function updateLogCtrl($rootScope,$translate, $scope, Restangular, $location, $window, $element) {
     $rootScope.uService.EnterController("updateLogCtrl");
     var upl = this;
     $scope.Back = function () {

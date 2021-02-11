@@ -1104,7 +1104,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
     });
 };
 app.controller('orderItemDiscountCtrl', orderItemDiscountCtrl);
-function orderItemDiscountCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParams, Order, SweetAlert, toaster, Restangular, $filter, $log, $window, $element) {
+function orderItemDiscountCtrl($rootScope, $scope,$translate, $modalInstance, $modal, ngTableParams, Order, SweetAlert, toaster, Restangular, $filter, $log, $window, $element) {
     var od = this;
     $rootScope.uService.EnterController("orderItemDiscountCtrl");
     angular.copy(Order, $scope.orders);
@@ -1131,7 +1131,7 @@ function orderItemDiscountCtrl($rootScope, $scope, $modalInstance, $modal, ngTab
     });
 };
 app.controller('orderDateCtrl', orderDateCtrl);
-function orderDateCtrl($rootScope, $scope, $modalInstance, $filter, DateTime, $log, toaster, $window, ngnotifyService) {
+function orderDateCtrl($rootScope, $scope,$translate, $modalInstance, $filter, DateTime, $log, toaster, $window, ngnotifyService) {
     $rootScope.uService.EnterController("orderDateCtrl");
     $scope.DateTime = $filter('date')(ngnotifyService, 'yyyy-MM-dd HH:mm:ss');
     $scope.hstep = 1;
@@ -1162,7 +1162,7 @@ function orderDateCtrl($rootScope, $scope, $modalInstance, $filter, DateTime, $l
     });
 };
 app.controller('selectPersonCtrl', selectPersonCtrl);
-function selectPersonCtrl($rootScope, $scope, $modalInstance, Restangular, ngTableParams, $filter, searchname, toaster, searchphone, $log, $window) {
+function selectPersonCtrl($rootScope, $scope,$translate, $modalInstance, Restangular, ngTableParams, $filter, searchname, toaster, searchphone, $log, $window) {
     $rootScope.uService.EnterController("selectPersonCtrl");
     $scope.SelectedItem = null;
     $scope.ShowDetail = false;

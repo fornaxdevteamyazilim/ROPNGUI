@@ -65,7 +65,7 @@
 }]);
 'use strict';
 app.controller('inventorybalancelistCtrl', inventorybalancelistCtrl);
-function inventorybalancelistCtrl($scope, $filter, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $compile, Excel, $location, $timeout, NG_SETTING, userService, ngnotifyService, $element) {
+function inventorybalancelistCtrl($scope, $filter, $modal, $log, Restangular,$translate, ngTableParams, SweetAlert, toaster, $window, $rootScope, $compile, Excel, $location, $timeout, NG_SETTING, userService, ngnotifyService, $element) {
     $rootScope.uService.EnterController("inventorybalancelistCtrl");
     if (userService.userAuthorizated()) {
         Restangular.all('report').getList().then(function (result) {

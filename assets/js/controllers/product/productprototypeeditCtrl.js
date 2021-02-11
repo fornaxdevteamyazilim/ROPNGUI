@@ -341,8 +341,7 @@ function productpriceCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
     });
 };
 app.controller('productCtrl', productCtrl);
-function productCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location,
-    $translate, $element) {
+function productCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location,  $translate, $element) {
     $rootScope.uService.EnterController("productCtrl");
     var ps = this;
     $scope.item = {};

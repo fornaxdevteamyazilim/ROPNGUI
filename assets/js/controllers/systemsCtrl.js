@@ -136,7 +136,7 @@
 
     };
     app.controller('systemsEditCtrl', systemsEditCtrl);
-    function systemsEditCtrl($scope, $stateParams, $location, Restangular, SweetAlert) {
+    function systemsEditCtrl($scope, $stateParams, $translate,$location, Restangular, SweetAlert) {
         var vm = this;
         $scope.objectType = 'brand';
         if ($stateParams.id != 'new')

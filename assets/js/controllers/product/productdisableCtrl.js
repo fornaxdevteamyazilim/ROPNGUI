@@ -179,7 +179,7 @@ function productdisableCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
     });
 };
 app.controller('StoreRoutingDateCtrl', StoreRoutingDateCtrl);
-function StoreRoutingDateCtrl($rootScope, $scope, $modalInstance, $filter, DateTime, $log, toaster, $window, ngnotifyService) {
+function StoreRoutingDateCtrl($rootScope, $scope,$translate, $modalInstance, $filter, DateTime, $log, toaster, $window, ngnotifyService) {
     $rootScope.uService.EnterController("StoreRoutingDateCtrl");
     $scope.DateTime = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd HH:mm:ss');
     $scope.Time = ngnotifyService.ServerTime(DateTime);

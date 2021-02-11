@@ -1,5 +1,5 @@
 ﻿app.controller('kds2Ctrl', kds2Ctrl);
-function kds2Ctrl($rootScope, $scope, $log, $modal, $interval, $timeout, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $location, $filter, localStorageService, $translate, ngnotifyService, userService, ngAudio, $element, $localStorage) {
+function kds2Ctrl($rootScope, $scope, $log, $modal,$translate, $interval, $timeout, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $location, $filter, localStorageService, $translate, ngnotifyService, userService, ngAudio, $element, $localStorage) {
     $rootScope.uService.EnterController("kds2Ctrl");
     $scope.item = {};
     $scope.audio = ngAudio.load('assets/sound/ringin.mp3');

@@ -1,5 +1,5 @@
 ﻿app.controller('orderproductitemsCtrl', orderproductitemsCtrl);
-function orderproductitemsCtrl($rootScope, $scope, $modalInstance, $compile, ObjectID, OrderID, CurrentPersonID, CurrentSplitID, $modal, $filter, Restangular) {
+function orderproductitemsCtrl($rootScope,$translate, $scope, $modalInstance, $compile, ObjectID, OrderID, CurrentPersonID, CurrentSplitID, $modal, $filter, Restangular) {
     $rootScope.uService.EnterController("orderproductitemsCtrl");
     $scope.item = {};
     $scope.ObjectID = ObjectID;

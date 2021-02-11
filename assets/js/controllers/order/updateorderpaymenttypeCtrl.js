@@ -1,5 +1,5 @@
 ﻿app.controller('updateorderpaymenttypeCtrl', updateorderpaymenttypeCtrl);
-function updateorderpaymenttypeCtrl($scope, $translate, $rootScope, $modalInstance, Orderid, Restangular, toaster, $window, $translate) {
+function updateorderpaymenttypeCtrl($scope, $translate, $rootScope, $modalInstance, Orderid, Restangular, toaster, $window) {
     $rootScope.uService.EnterController("updateorderpaymenttypeCtrl");
     $scope.OrderNo = Orderid;
     $scope.translate = function () {

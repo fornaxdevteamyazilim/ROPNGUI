@@ -250,7 +250,7 @@ function inventorydeliveryinvoiceeditCtrl($scope, $filter, SweetAlert, Restangul
     });
 };
 app.controller('inventorydeliveryinvoiceitemCtrl', inventorydeliveryinvoiceitemCtrl);
-function inventorydeliveryinvoiceitemCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element) {
+function inventorydeliveryinvoiceitemCtrl($scope, $modal, $filter, SweetAlert,$translate, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element) {
     $rootScope.uService.EnterController("inventorydeliveryinvoiceitemCtrl");
     var idii = this;
     $scope.RelatedItems = [];

@@ -233,7 +233,7 @@ function inventorysaleeditCtrl($scope, $filter, SweetAlert, Restangular, ngTable
     });
 };
 app.controller('inventorysaleitemCtrl', inventorysaleitemCtrl);
-function inventorysaleitemCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element) {
+function inventorysaleitemCtrl($scope, $modal, $filter, SweetAlert,$translate,  Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element) {
     $rootScope.uService.EnterController("inventorysaleitemCtrl");
     var isi = this;
     $scope.item = {};
@@ -454,7 +454,7 @@ function inventorysaleitemCtrl($scope, $modal, $filter, SweetAlert, Restangular,
 app.directive('replacecomma', function () {
     return {
         require: 'ngModel',
-        link: function (scope, element, attrs, ngModelCtrl) {
+        link: function (scope,$translate, element, attrs, ngModelCtrl) {
             scope.$watch(attrs.ngModel, function (newVal) {
                 if (newVal !== undefined && newVal !== null) {
                     ngModelCtrl.$setViewValue(String(newVal).replace(/,/g, '.'));

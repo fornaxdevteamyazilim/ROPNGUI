@@ -1,5 +1,5 @@
 ﻿app.controller('documentsCtrl', documentsCtrl);
-function documentsCtrl($rootScope, $scope, Restangular, $location, $window, $element) {
+function documentsCtrl($rootScope,$translate, $scope, Restangular, $location, $window, $element) {
     $rootScope.uService.EnterController("documentsCtrl");
     var dc = this;
     $scope.Back = function () {

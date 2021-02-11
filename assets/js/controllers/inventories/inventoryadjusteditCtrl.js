@@ -295,7 +295,7 @@ function inventoryadjusteditCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
 app.directive('replacecomma', function () {
     return {
         require: 'ngModel',
-        link: function (scope, element, attrs, ngModelCtrl) {
+        link: function (scope, element,$translate, attrs, ngModelCtrl) {
             scope.$watch(attrs.ngModel, function (newVal) {
                 if (newVal !== undefined && newVal !== null) {
                     ngModelCtrl.$setViewValue(String(newVal).replace(/,/g, '.'));

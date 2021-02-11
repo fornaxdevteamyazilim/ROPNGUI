@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('orderinvoiceCtrl', orderinvoiceCtrl);
-function orderinvoiceCtrl($rootScope, $scope, $translate, $modalInstance, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $translate) {
+function orderinvoiceCtrl($rootScope, $scope, $translate, $modalInstance, $log, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window) {
     var oin = this;
     $rootScope.uService.EnterController("orderinvoiceCtrl");
     $scope.item = {};
