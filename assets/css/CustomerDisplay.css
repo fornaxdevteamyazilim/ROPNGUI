@@ -39,6 +39,12 @@ body {
     background-size: cover;
     background-position: center center;
 }
+.hutla-katla {
+    height: 100%;
+    background-image: url('../images/cdisplay_PH_Hutlakatla.jpg');
+    background-size: cover;
+    background-position: center center;
+}
 .sosyal-mesafe {
     height: 100%;
     background-image: url('../images/SOSYAL MESAFE.jpg');
