@@ -35,7 +35,7 @@ function productsalespochetteCtrl($scope, $log, $modal, $filter, SweetAlert, Res
                 StartDate: $scope.StartDate,
                 EndDate: $scope.EndDate,
                 //ProductPrototypeID: $scope.ProductPrototypeID,
-                ProductPrototypeID: ($scope.ProductPrototypeID) ? $scope.ProductPrototypeID : 200068815104,
+                ProductPrototypeID: ($scope.ProductPrototypeID) ? $scope.ProductPrototypeID : 300000257353,
                 StoreTypeID: $scope.StoreTypeID
             }).then(function (result) {
                 $scope.isWaiting = false;
