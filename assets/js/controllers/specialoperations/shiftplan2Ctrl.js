@@ -145,6 +145,7 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
             },
 
         }),
+        remoteOperations:true,
         showBorders: true,
         showRowLines: true,
         rowAlternationEnabled: true,
