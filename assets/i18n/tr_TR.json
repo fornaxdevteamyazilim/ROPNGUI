@@ -172,6 +172,7 @@
     "METERIALMOVEMENTREPORT": "{{appName}} - Malzeme Hareket Raporu",
     "METERIALUSAGEREPORT": "{{appName}} - Kullanılan Malzeme Raporu",
     "ACTUALCALCULATEREMAINDERLIST": "{{appName}} - Gerçekleşen Maliyet",
+    "INVENTORYCONSUPTIONTRANSACTIONS":"{{appName}} - Stok Tüketim İşlemleri",
     "ACTUALCALCULATED": "{{appName}} - Gerçek/Hesaplanan Bakiye Listesi",
     "BALANCELIST": "{{appName}} - Bakiye Listesi",
     "CASHREPORT": "{{appName}} - Kasa Raporu",
@@ -2587,6 +2588,7 @@
         "METERIALMOVEMENTREPORT": "Malzeme Hareket Raporu",
         "METERIALUSAGEREPORT": "Kullanılan Malzeme Raporu",
         "ACTUALCALCULATEREMAINDERLIST": "Gerçekleşen Maliyet",
+        "INVENTORYCONSUPTIONTRANSACTIONS":"Stok Tüketim İşlemleri",
         "BALANCELIST": "Bakiye Listesi",
         "PRODUCTIONCONTROL": "Üretim Kontrol",
         "GIROANALYSIS": "Günlere Göre Ürün Satış Dağılımı (Tutar)",
@@ -4208,5 +4210,18 @@
     "BonusSetting":"Bonus Ayarı",
     "BonusTransaction":"Bonus İşlemi"
 
+  },
+  "InventoryConsuptionTransactions": {
+    "TransactionDate": "İşlem Tarihi",
+    "InventoryID": "Envanter",
+    "InventoryUnitID": "Stok Birimi",
+    "RepositoryID": "Restoran",
+    "InventoryConsuptionTypeID": "Stok Tüketim Türü",
+    "UnitCount": "Birim Sayısı",
+    "UnitPrice": "Birim Fiyat",
+    "OrderType": "Sipariş Türü",
+    "OrderTypeID": "Sipariş Türü",
+    "PromotionFiterID": "Promosyon Filtresi",
+    "OrderSourceID": "Sipariş Kaynağı"
   }
 }

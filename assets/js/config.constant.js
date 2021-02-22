@@ -525,6 +525,7 @@ app.constant('JS_REQUIRES', {
         'marketingpermissionsCtrl': 'assets/js/controllers/reports/callcenterreports/marketingpermissionsCtrl.js?v=0655',
         "poductsalesccoreboardCtrl": "assets/js/controllers/reports/callcenterreports/poductsalesccoreboardCtrl.js?v=0655",
         "actualvstheoriticalCtrl": "assets/js/controllers/reports/stockandcostreports/actualvstheoriticalCtrl.js?v=0655",
+        "inventoryconsuptiontransactionsCtrl": "assets/js/controllers/reports/stockandcostreports/inventoryconsuptiontransactionsCtrl.js?v=0655",
         'usertransferCtrl': 'assets/js/controllers/definitions/usertransferCtrl.js?v=0655',
         'ClockInOutStatsCtrl': 'assets/js/controllers/clockinout/ClockInOutStatsCtrl.js?v=0655',
         'promotionanaisysCtrl': 'assets/js/controllers/reports/productsalesreports/promotionanaisysCtrl.js?v=0655',

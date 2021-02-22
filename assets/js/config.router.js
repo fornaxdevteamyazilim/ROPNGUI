@@ -1805,6 +1805,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'actualvstheoritical'
             }
+        }).state('app.reports.stockandcostreports.inventoryconsuptiontransactions', {
+            url: '/inventoryconsuptiontransactions',
+            templateUrl: "assets/views/reports/stockandcostreports/inventoryconsuptiontransactions.html",
+            resolve: loadSequence('inventoryconsuptiontransactionsCtrl'),
+            title: 'inventoryconsuptiontransactionsCtrl',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'inventoryconsuptiontransactionsCtrl'
+            }
         }).state('app.reports.giroreports', {
             url: '/giroreports',
             template: '<div ui-view class="fade-in-up"></div>',

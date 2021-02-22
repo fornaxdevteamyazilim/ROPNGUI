@@ -170,6 +170,7 @@
     "METERIALMOVEMENTREPORT": "{{appName}} - Inventory Transactions",
     "METERIALUSAGEREPORT": "{{appName}} - Inventory Consuptions",
     "ACTUALCALCULATEREMAINDERLIST": "{{appName}} - Inventory Productivity Report",
+    "INVENTORYCONSUPTIONTRANSACTIONS": "{{appName}} - Inventory Consuption Transactions Report",
     "BALANCELIST": "{{appName}} - Balance List",
     "CASHREPORT": "{{appName}} - Cash Report",
     "HOURLYDAILYTOTALS": "{{appName}} - Daily Totals By Hourly",
@@ -1751,9 +1752,9 @@
     "COPYRECIPES": "Copy Recipes",
     "UPDATEINVENTORYPRICES": "Update Inventory Prices",
     "SAVECONSUPTIONS": "Save Consuptions",
-    "ORDERSREFERENCES":"Orders References",
-    "COPYTOROLE":"Copy To Role",
-    "CALCULATEPRODUCTCOSTS":"Calculating Product Costs",
+    "ORDERSREFERENCES": "Orders References",
+    "COPYTOROLE": "Copy To Role",
+    "CALCULATEPRODUCTCOSTS": "Calculating Product Costs",
     "COPYFROMPERIOD": "Copy From Period",
     "COPYTOPERIOD": "Copy To Period",
     "START": "Start",
@@ -2583,6 +2584,7 @@
         "METERIALMOVEMENTREPORT": "Inventory Transactions",
         "METERIALUSAGEREPORT": "Inventory Consuptions",
         "ACTUALCALCULATEREMAINDERLIST": "Inventory Productivity Report",
+        "INVENTORYCONSUPTIONTRANSACTIONS": "Inventory Consuption Transactions Report",
         "BALANCELIST": "Balance List",
         "PRODUCTIONCONTROL": "Production Control",
         "GIROANALYSIS": "Product Sales By Days (Amount)",
@@ -3180,7 +3182,7 @@
     "Fingerreading": "Finger reading for shift output",
     "Fingerentry": "Finger reading for shift entry",
     "FINGERPRINTSFIRST": "!!! INTRODUCE FINGERPRINTS FIRST !!! ",
-    "EnrollFingerprint":"Enroll Finger print"
+    "EnrollFingerprint": "Enroll Finger print"
   },
   "difinitions": {
     "Updated": "Updated.",
@@ -3209,8 +3211,8 @@
     "Clonerestrictions": "Role Copied!",
     "Insertcancelled": "Insert cancelled !",
     "Editcancelled": "Edit cancelled !",
-    "CalculateProductCosts":"Calculate Product Costs",
-    "OrdersReferences":"Orders References"
+    "CalculateProductCosts": "Calculate Product Costs",
+    "OrdersReferences": "Orders References"
   },
   "dispatcherfile": {
     "Drivechanged": "Drive changed !",
@@ -3360,7 +3362,7 @@
     "Couldnotcreatenewsplit": "Could not create new split !",
     "SplitAdded": "Split Added.",
     "PeopleAdded": "People Added.",
-    "Couldnotcreatenewcontact":"Could not create new contact !",
+    "Couldnotcreatenewcontact": "Could not create new contact !",
     "AllAccountsWillBeClosed": "All Accounts Will Be Closed.",
     "PleaseChooseARestaurant": "Please Choose A Restaurant!",
     "Recordlocked": "Record locked",
@@ -3482,7 +3484,6 @@
     "PleaseSelectPerson": "Please Select Person!",
     "PayableAmount": "Payable Amount: 0 !",
     "FailedtoCreateNewOrder": "Failed to Create New Order !"
-   
   },
   "userfile": {
     "Cancelled": "It is cancelled !",
@@ -3725,7 +3726,7 @@
     "EmailOk": "EmailOk",
     "KVKKOk": "KVKKOk",
     "PromotionsOk": "PromotionsOk",
-    "MarketingPermissionType": "Marketing Permission Type",
+    "MarketingPermissionType": "Marketing Permission Type"
   },
   "actualvstheoritical": {
     "Region": "Region",
@@ -3759,7 +3760,7 @@
     "Variance": "Variance",
     "UnitCost": "Unit Cost",
     "Usage(%)": "Usage (%)",
-    "c.name":"c.name"
+    "c.name": "c.name"
   },
   "weeklycolsummary": {
     "Store": "Store",
@@ -3834,10 +3835,10 @@
     "HDSSales": "HDS Sales",
     "DINSales": "DIN Sales,",
     "COSales": "CO Sales",
-    "Avg GC":"Avg GC",
-    "HDS Avg GC":"HDS Avg GC",
-    "DIN Avg GC":"DIN Avg GC",
-    "CO Avg GC":"CO Avg GC"
+    "Avg GC": "Avg GC",
+    "HDS Avg GC": "HDS Avg GC",
+    "DIN Avg GC": "DIN Avg GC",
+    "CO Avg GC": "CO Avg GC"
   },
   "fsrspeedofservice": {
     "MGTTurkey": "MGT Turkey",
@@ -3853,8 +3854,8 @@
     "CutTable": "Cut Table",
     "Dispatch": "Dispatch",
     "Delivery": "Delivery",
-    "U30":"U30",
-    "Week": "Week"  
+    "U30": "U30",
+    "Week": "Week"
   },
   "fsractualtheoretical": {
     "Area": "Area",
@@ -4002,7 +4003,7 @@
     "Hours": "Hours",
     "Cost": "Cost",
     "DriveCost": "Drive Cost",
-    "TotalActualPercent":"Actual %"
+    "TotalActualPercent": "Actual %"
   },
   "weeklycolsummary ": {
     "Store": "Store",
@@ -4124,7 +4125,7 @@
     "OrderNumber": "Order Number",
     "OrderSource": "Order Source",
     "Confirmed": "Confirmed.",
-    "Notes":"Notes"
+    "Notes": "Notes"
   },
   "bonusstats": {
     "PersonID": "Person Id",
@@ -4153,7 +4154,7 @@
     "OrderSourceID": "Order Source"
   },
   "punchcardsetting": {
-   "Name": "Name",
+    "Name": "Name",
     "isActive": "Active",
     "StartDate": "Start Date"
   },
@@ -4178,8 +4179,21 @@
     "PunchCardTransactionEventID": "Punchcard Transaction",
     "OrderSourceID": "Order Source"
   },
-  "bonusspendingrule":{
-    "BonusSetting":"Bonus Setting",
-    "BonusTransaction":"Bonus Transaction"
-}
+  "bonusspendingrule": {
+    "BonusSetting": "Bonus Setting",
+    "BonusTransaction": "Bonus Transaction"
+  },
+  "InventoryConsuptionTransactions": {
+    "TransactionDate": "Transaction Date",
+    "InventoryID": "Inventory",
+    "InventoryUnitID": "Inventory Unit",
+    "RepositoryID": "Repository",
+    "InventoryConsuptionTypeID": "Inventory Consuption Type",
+    "UnitCount": "Unit Count",
+    "UnitPrice": "Unit Price",
+    "OrderType": "Order Type",
+    "OrderTypeID": "Order Type",
+    "PromotionFiterID": "Promotion Fiter",
+    "OrderSourceID": "Order Source"
+  }
 }
