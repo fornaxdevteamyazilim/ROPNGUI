@@ -132,7 +132,7 @@ app.config(function ($httpProvider) {
                 if (request.url.endsWith(".html") && !request.url.includes("tabset.html")) {
                     if ($templateCache.get(request.url) === undefined) { // cache miss
                         // Item is not in $templateCache so add our query string
-                        request.url = request.url + '?v=0658';
+                        request.url = request.url + '?v=0659';
                     }
                 }
                 return request;

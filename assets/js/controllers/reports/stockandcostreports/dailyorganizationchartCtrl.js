@@ -157,7 +157,7 @@ function dailyorganizationchartCtrl($scope, $filter, $modal, $log, Restangular, 
         var data = { id: $scope.BindLayoutData.id, ReportID: $scope.BindLayoutData.ReportID, name: $scope.BindLayoutData.name, LayoutData: dataconfig }
         Restangular.restangularizeElement('', data, 'reportlayout')
         data.put().then(function (res) {
-            toaster.pop('success',  $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated');
+            toaster.pop('success',  $translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'));
         });
     };
     $scope.ChangeLayout = function (SelectedTemplateID) {
