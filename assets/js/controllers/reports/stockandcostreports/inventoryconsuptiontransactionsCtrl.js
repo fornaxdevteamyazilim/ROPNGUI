@@ -65,40 +65,6 @@ function inventoryconsuptiontransactionsCtrl($scope, $filter, $modal, $log, Rest
                 return [["TransactionDate", ">=", fdate], "and", ["TransactionDate", "<=", tdate]];
         }
     };
-    var InventoryConsuptionPromotionFiters = {
-        store: new DevExpress.data.CustomStore({
-            key: "Value",
-            load: function () {
-                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/InventoryConsuptionPromotionFiter")
-                    .then(function (response) {
-                        return {
-                            data: response.data,
-                            totalCount: 10
-                        };
-                    }, function (response) {
-                        return $q.reject("Data Loading Error");
-                    });
-            }
-        }),
-        sort: "Value"
-    }
-    var OrderTypes = {
-        store: new DevExpress.data.CustomStore({
-            key: "Value",
-            load: function () {
-                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/OrderType")
-                    .then(function (response) {
-                        return {
-                            data: response.data,
-                            totalCount: 10
-                        };
-                    }, function (response) {
-                        return $q.reject("Data Loading Error");
-                    });
-            }
-        }),
-        sort: "Value"
-    }
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
@@ -238,7 +204,23 @@ function inventoryconsuptiontransactionsCtrl($scope, $filter, $modal, $log, Rest
                 lookup: {
                     valueExpr: "Value",
                     displayExpr: "Name",
-                    dataSource: InventoryConsuptionPromotionFiters,
+                    dataSource: {
+                        store: new DevExpress.data.CustomStore({
+                            key: "Value",
+                            load: function () {
+                                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/InventoryConsuptionType")
+                                    .then(function (response) {
+                                        return {
+                                            data: response.data,
+                                            totalCount: 10
+                                        };
+                                    }, function (response) {
+                                        return $q.reject("Data Loading Error");
+                                    });
+                            }
+                        }),
+                        sort: "Value"
+                    },
                     calculateSortValue: function (data) {
                         var value = this.calculateCellValue(data);
                         return this.lookup.calculateCellValue(value);
@@ -246,13 +228,29 @@ function inventoryconsuptiontransactionsCtrl($scope, $filter, $modal, $log, Rest
                 }
             },
             { dataField: "UnitCount", dataType: "number", caption: $translate.instant('InventoryConsuptionTransactions.UnitCount '), format: { type: "fixedPoint", precision: 2 } },
-            { dataField: "UnitPrice ", dataType: "number", caption: $translate.instant('InventoryConsuptionTransactions.UnitPrice '), format: { type: "fixedPoint", precision: 2 } },
+            { dataField: "UnitPrice", dataType: "number", caption: $translate.instant('InventoryConsuptionTransactions.UnitPrice '), format: { type: "fixedPoint", precision: 2 } },
             {
-                dataField: "OrderType", dataType: "number", caption: $translate.instant('InventoryConsuptionTransactions.OrderType '), format: { type: "fixedPoint", precision: 2 },
+                dataField: "OrderTypeID", dataType: "number", caption: $translate.instant('InventoryConsuptionTransactions.OrderType '), format: { type: "fixedPoint", precision: 2 },
                 lookup: {
                     valueExpr: "Value",
                     displayExpr: "Name",
-                    dataSource: OrderTypes,
+                    dataSource: {
+                        store: new DevExpress.data.CustomStore({
+                            key: "Value",
+                            load: function () {
+                                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/OrderType")
+                                    .then(function (response) {
+                                        return {
+                                            data: response.data,
+                                            totalCount: 10
+                                        };
+                                    }, function (response) {
+                                        return $q.reject("Data Loading Error");
+                                    });
+                            }
+                        }),
+                        sort: "Value"
+                    },
                     calculateSortValue: function (data) {
                         var value = this.calculateCellValue(data);
                         return this.lookup.calculateCellValue(value);
@@ -276,7 +274,23 @@ function inventoryconsuptiontransactionsCtrl($scope, $filter, $modal, $log, Rest
                 lookup: {
                     valueExpr: "Value",
                     displayExpr: "Name",
-                    dataSource: InventoryConsuptionPromotionFiters,
+                    dataSource: {
+                        store: new DevExpress.data.CustomStore({
+                            key: "Value",
+                            load: function () {
+                                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/InventoryConsuptionPromotionFiter")
+                                    .then(function (response) {
+                                        return {
+                                            data: response.data,
+                                            totalCount: 10
+                                        };
+                                    }, function (response) {
+                                        return $q.reject("Data Loading Error");
+                                    });
+                            }
+                        }),
+                        sort: "Value"
+                    },
                     calculateSortValue: function (data) {
                         var value = this.calculateCellValue(data);
                         return this.lookup.calculateCellValue(value);
@@ -286,9 +300,29 @@ function inventoryconsuptiontransactionsCtrl($scope, $filter, $modal, $log, Rest
             {
                 dataField: "OrderSourceID", dataType: "number", caption: $translate.instant('InventoryConsuptionTransactions.OrderSourceID '), format: { type: "fixedPoint", precision: 2 },
                 lookup: {
-                    valueExpr: "Value",
-                    displayExpr: "Name",
-                    dataSource: OrderTypes,
+                    valueExpr: "id",
+                    displayExpr: "name",
+                    dataSource: {
+                        store: new DevExpress.data.CustomStore({
+                            key: "id",
+                            //loadMode: "raw",
+                            load: function () {
+                                // Returns an array of objects that have the following structure:
+                                // { id: 1, name: "John Doe" }
+                                //return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
+                                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/ordersource")
+                                    .then(function (response) {
+                                        return {
+                                            data: response.data.Items,
+                                            totalCount: 10
+                                        };
+                                    }, function (response) {
+                                        return $q.reject("Data Loading Error");
+                                    });
+                            }
+                        }),
+                        sort: "name"
+                    },
                     calculateSortValue: function (data) {
                         var value = this.calculateCellValue(data);
                         return this.lookup.calculateCellValue(value);
