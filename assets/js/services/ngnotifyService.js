@@ -82,6 +82,7 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
         toaster.pop('Warning', 'setApiUrl message Recieved', apiUrl);
         Restangular.setBaseUrl(apiUrl+'/api/');
         ngAuthSettings.apiServiceBaseUri=apiUrl+'/';
+        ngAuthSettings.apiAsiggned=true;
         NG_SETTING.apiServiceBaseUri=apiUrl;
     });
     ngnotifyHubProxy.on('NewOrder', function (data) {
@@ -158,6 +159,7 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
         $rootScope.$broadcast('KDSUpdate', data);
     });
     ngnotifyHubProxy.connection.start().done(function () {
+        ngAuthSettings.connected=true;
         _JoinGroup("ServerTime");
         var _storeID = localStorageService.get('StoreID');
         if (_storeID) {
@@ -175,17 +177,18 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
         //toaster.pop('warning', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionSlow'));
         DevExpress.ui.notify($translate.instant('SignalR.ConnectionSlow'), 'warning',3000);
     });
-    ngnotifyHubProxy.connection.disconnected(function () {
-        if (ngnotifyHubProxy.connection.lastError) {
-            //toaster.pop('error', $translate.instant('SignalR.ConnectionLost'), ngnotifyHubProxy.connection.lastError.message);
-            DevExpress.ui.notify($translate.instant('SignalR.ConnectionLost'), 'error',3000);
-            DevExpress.ui.notify(ngnotifyHubProxy.connection.lastError.message, 'error',3000);
-            //alert("Disconnected. Reason: " + ngnotifyHubProxy.connection.lastError.message);
-        }
-        else
-            DevExpress.ui.notify($translate.instant('SignalR.ConnectionLost'), 'error',3000);
-        //toaster.pop('error', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionLost'));
-    });
+    // ngnotifyHubProxy.connection.disconnected(function () {
+    //     ngAuthSettings.connected=false;
+    //     if (ngnotifyHubProxy.connection.lastError) {
+    //         //toaster.pop('error', $translate.instant('SignalR.ConnectionLost'), ngnotifyHubProxy.connection.lastError.message);
+    //         DevExpress.ui.notify($translate.instant('SignalR.ConnectionLost'), 'error',3000);
+    //         DevExpress.ui.notify(ngnotifyHubProxy.connection.lastError.message, 'error',3000);
+    //         //alert("Disconnected. Reason: " + ngnotifyHubProxy.connection.lastError.message);
+    //     }
+    //     else
+    //         DevExpress.ui.notify($translate.instant('SignalR.ConnectionLost'), 'error',3000);
+    //     //toaster.pop('error', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionLost'));
+    // });
     ngnotifyHubProxy.connection.error(function (error) {
         //toaster.pop('error', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionError'));
         DevExpress.ui.notify($translate.instant('SignalR.ConnectionError'), 'error',3000);
@@ -198,10 +201,12 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
         DevExpress.ui.notify($translate.instant('SignalR.Reconnecting'), 'warning',3000);
     });
     ngnotifyHubProxy.connection.disconnected(function () {
+        ngAuthSettings.connected=false;
         setTimeout(function () {
             //toaster.pop('warning', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.Reconnecting'));
             DevExpress.ui.notify($translate.instant('SignalR.Reconnecting'), 'warning',3000);
             ngnotifyHubProxy.connection.start().done(function () {
+                ngAuthSettings.connected=true;
                 _reJoinToGroups();
                 //toaster.pop('success', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionOk'));
                 DevExpress.ui.notify($translate.instant('SignalR.ConnectionOk'), 'success',3000);

@@ -105,7 +105,8 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                 firstYear: $scope.startYear,
                 firstWeek: $scope.startWeek,
                 secondYear: $scope.endYear,
-                secondWeek: $scope.endWeek
+                secondWeek: $scope.endWeek,
+                IncludeTotals:false
             };
 
             return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/speedofservice", { params: params })
