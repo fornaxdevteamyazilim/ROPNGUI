@@ -38,8 +38,8 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         max: maxYear,
         showSpinButtons: true
     };
-    $scope.weekCaption1 = $translate.instant('fsrspeedofservice.Week') +" "+ $scope.startWeek;
-    $scope.weekCaption2 = $translate.instant('fsrspeedofservice.Week') +" "+ $scope.endWeek;
+    $scope.weekCaption1 = $translate.instant('fsrspeedofservice.Week') + " " + $scope.startWeek;
+    $scope.weekCaption2 = $translate.instant('fsrspeedofservice.Week') + " " + $scope.endWeek;
     $scope.startWeekButton = {
         bindingOptions: {
             value: "startWeek"
@@ -138,9 +138,11 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         columnChooser: { enabled: false },
         columnFixing: { enabled: true },
         scrolling: { mode: "virtual" },
+        
         columns: [
-            { dataField: "Store", caption: $translate.instant('fsrspeedofservice.MGTTurkey'), dataType: "string", width: 230, fixed: true },
-            { dataField: "RegionManager", caption: $translate.instant('fsrspeedofservice.Area'), dataType: "string", width: 230, fixed: true },
+            { caption: $translate.instant('fsrspeedofservice.StoreFilterType'), dataField: "StoreFilterType", dataType: "string", fixed: true, groupIndex: 0 },
+            { dataField: "Store", caption: $translate.instant('fsrspeedofservice.Store'), dataType: "string", width: 230, fixed: true },
+            { dataField: "RegionManager", caption: $translate.instant('fsrspeedofservice.RegionManager'), dataType: "string", width: 230, fixed: true },
             {
                 caption: "YemekSepeti",
                 columns: [
@@ -166,7 +168,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                             { caption: $translate.instant('fsrspeedofservice.Taste'), dataField: "YS_Flavor2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                         ]
                     }],
-                fixed: true
+                fixed: false
             },
             {
                 caption: $translate.instant('fsrspeedofservice.BumpTime'),
@@ -193,7 +195,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                             { caption: "U30", dataField: "DeliveryU302", dataType: "number", format: { type: "percent", precision: 2 } },
                         ]
                     }],
-                fixed: true
+                fixed: false
             },
 
         ],
@@ -210,7 +212,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         },
         onCellPrepared: function (options) {
             var fieldData = options.value;
-            var ColoredFileds = ["YS2","YS_Speed2","YS_Serving2","YS_Flavor2","DeliveryU302"];
+            var ColoredFileds = ["YS2", "YS_Speed2", "YS_Serving2", "YS_Flavor2", "DeliveryU302"];
             if (fieldData && ColoredFileds.indexOf(options.column.dataField) > -1) {
                 if (options.value != options.row.data[options.column.dataField.substring(0, options.column.dataField.length - 1)])
                     if (options.value < options.row.data[options.column.dataField.substring(0, options.column.dataField.length - 1)])
@@ -235,10 +237,10 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                 if (!gridCell) {
                     return;
                 }
-                var ColoredFileds = ["YS2","YS_Speed2","YS_Serving2","YS_Flavor2","DeliveryU302"];
-                if (ColoredFileds.indexOf(gridCell.column.dataField)>-1) {
-                    if (gridCell.data && gridCell.data[gridCell.column.dataField]!=gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
-                        if (gridCell.data[gridCell.column.dataField] < gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length-1)])
+                var ColoredFileds = ["YS2", "YS_Speed2", "YS_Serving2", "YS_Flavor2", "DeliveryU302"];
+                if (ColoredFileds.indexOf(gridCell.column.dataField) > -1) {
+                    if (gridCell.data && gridCell.data[gridCell.column.dataField] != gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length - 1)])
+                        if (gridCell.data[gridCell.column.dataField] < gridCell.data[gridCell.column.dataField.substring(0, gridCell.column.dataField.length - 1)])
                             options.font.color = '#FF0000';
                         else
                             options.font.color = '#008000';
