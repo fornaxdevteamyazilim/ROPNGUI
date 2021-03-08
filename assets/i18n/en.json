@@ -3841,8 +3841,8 @@
     "CO Avg GC": "CO Avg GC"
   },
   "fsrspeedofservice": {
-    "MGTTurkey": "MGT Turkey",
-    "Area": "Area",
+    "Store": "Store",
+    "RegionManager": "Region Manager",
     "YemekSepeti": "Yemek Sepeti",
     "Time": "Time",
     "Score": "Score",
@@ -3855,7 +3855,8 @@
     "Dispatch": "Dispatch",
     "Delivery": "Delivery",
     "U30": "U30",
-    "Week": "Week"
+    "Week": "Week",
+    "StoreFilterType": "Store Filter Type"
   },
   "fsractualtheoretical": {
     "Area": "Area",

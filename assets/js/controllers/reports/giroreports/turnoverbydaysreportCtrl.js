@@ -109,7 +109,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
                 { caption: $translate.instant('turnoverbydaysreport.Amount'), dataField: "Amount", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
                 { caption: $translate.instant('turnoverbydaysreport.GrossSales'), dataField: "GrossSales", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2 },
                 { caption: "TC", dataField: "id", dataType: "number", summaryType: "count", area: "data" },
-                { caption: "VAT", dataField: "VAT", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
+                { caption: $translate.instant('turnoverbydaysreport.VAT'), dataField: "VAT", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
                 {
                     caption: "AC", dataField: "Amount", dataType: "number", summaryType: "avg", area: "data",
                     format: {

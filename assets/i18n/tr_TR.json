@@ -3868,8 +3868,8 @@
     "CO": "CO"
   },
   "fsrspeedofservice": {
-    "MGTTurkey": "Restoran",
-    "Area": "Bölge",
+    "Store": "Restoran",
+    "RegionManager": "Bölge Müdürü",
     "YemekSepeti": "Yemek Sepeti",
     "Time": "Süre",
     "Score": "Puan",
@@ -3882,7 +3882,8 @@
     "Dispatch": "Çıkış",
     "Delivery": "Teslim",
     "U30":" u30 %",
-    "Week": "Hafta"  
+    "Week": "Hafta",
+    "StoreFilterType": "Restoran Filtre Tipi"
   },
   "fsractualtheoretical": {
     "Area": "Bölge",
@@ -3941,9 +3942,9 @@
     "Amount": "Tutar",
     "GrossSales": "Brüt Satışlar",
     "TC": "TC",
-    "VAT": "VAT",
+    "VAT": "KDV",
     "AC": "AC",
-    "AmountWithVAT": "VAT Miktarı  "
+    "AmountWithVAT": "KDV Miktarı"
   },
   "productsalesstatistics": {
     "Category": "Kategori",
