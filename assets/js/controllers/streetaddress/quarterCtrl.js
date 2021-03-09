@@ -21,6 +21,7 @@ function quarteryCtrl($rootScope, $scope, $log, $modal, Restangular, SweetAlert,
         $scope.search = $translate.instant('main.SEARCH');
         $scope.selecttown = $translate.instant('main.SELECTTOWN');
         $scope.selectsubcity = $translate.instant('main.SELECTSUBCITY');
+        $scope.trminamount = $translate.instant('main.MINAMOUNT');
 
     };
     $scope.translate();

@@ -172,7 +172,7 @@
     "METERIALMOVEMENTREPORT": "{{appName}} - Malzeme Hareket Raporu",
     "METERIALUSAGEREPORT": "{{appName}} - Kullanılan Malzeme Raporu",
     "ACTUALCALCULATEREMAINDERLIST": "{{appName}} - Gerçekleşen Maliyet",
-    "INVENTORYCONSUPTIONTRANSACTIONS":"{{appName}} - Stok Tüketim İşlemleri",
+    "INVENTORYCONSUPTIONTRANSACTIONS": "{{appName}} - Stok Tüketim İşlemleri",
     "ACTUALCALCULATED": "{{appName}} - Gerçek/Hesaplanan Bakiye Listesi",
     "BALANCELIST": "{{appName}} - Bakiye Listesi",
     "CASHREPORT": "{{appName}} - Kasa Raporu",
@@ -1770,8 +1770,8 @@
     "COPYFROMPERIOD": "Kopyalama Yapılacak Dönem",
     "COPYTOPERIOD": "Kopyalanacak Dönem",
     "ORDERSREFERENCES": "Sipariş Taşıma",
-    "COPYTOROLE":"Role Kopyalama",
-    "CALCULATEPRODUCTCOSTS":"Ürün Maliyetlerini Hesaplama",
+    "COPYTOROLE": "Role Kopyalama",
+    "CALCULATEPRODUCTCOSTS": "Ürün Maliyetlerini Hesaplama",
     "START": "Başlat",
     "TAGORDERINDEX": "Sipariş İndeksi",
     "ADDDEFAULTS": "Default Ekle",
@@ -2588,7 +2588,7 @@
         "METERIALMOVEMENTREPORT": "Malzeme Hareket Raporu",
         "METERIALUSAGEREPORT": "Kullanılan Malzeme Raporu",
         "ACTUALCALCULATEREMAINDERLIST": "Gerçekleşen Maliyet",
-        "INVENTORYCONSUPTIONTRANSACTIONS":"Stok Tüketim İşlemleri",
+        "INVENTORYCONSUPTIONTRANSACTIONS": "Stok Tüketim İşlemleri",
         "BALANCELIST": "Bakiye Listesi",
         "PRODUCTIONCONTROL": "Üretim Kontrol",
         "GIROANALYSIS": "Günlere Göre Ürün Satış Dağılımı (Tutar)",
@@ -3192,7 +3192,7 @@
     "Fingerreading": "Vardiya çıkışı için parmak okutunuz",
     "Fingerentry": "'Vardiya girişi için parmak okutunuz'",
     "FINGERPRINTSFIRST": "!!! ÖNCE PARMAK İZİ TANITINIZ !!! ",
-    "EnrollFingerprint":"Parmak İzi Kaydı"
+    "EnrollFingerprint": "Parmak İzi Kaydı"
   },
   "difinitions": {
     "Updated": "Güncellendi.",
@@ -3221,7 +3221,7 @@
     "Clonerestrictions": "Role Kopyalandı!",
     "Insertcancelled": "Ekleme iptal edildi!",
     "Editcancelled": "Düzenleme iptal edildi !",
-    "CalculateProductCosts":"Ürün Maliyetleri Hesaplandı"
+    "CalculateProductCosts": "Ürün Maliyetleri Hesaplandı"
   },
   "dispatcherfile": {
     "Drivechanged": "Sürücü değişti !",
@@ -3366,7 +3366,7 @@
     "PaymentTypeOrderChanged": "Ödeme Türü Sipariş Değişti!!",
     "NEWPAYMENTNOTSAVED": "YENİ ÖDEME KAYDEDİLMEDİ !",
     "OrderClosed": "Sipariş Kapalı !",
-    "Couldnotcreatenewsplit":"Yeni bir bölünme oluşturulamadı !",
+    "Couldnotcreatenewsplit": "Yeni bir bölünme oluşturulamadı !",
     "SplitAdded": "Split Eklendi.",
     "PeopleAdded": "Kişiler Ekledi.",
     "Couldnotcreatenewcontact": "Yeni bir kişi oluşturulamadı !",
@@ -3494,7 +3494,7 @@
     "SelectedPersonPaymentUnrealizable": "Seçilen Kişi Ödeme Gerçekleşemez!",
     "PleaseSelectPerson": "Lütfen Kişiyi Seçin!",
     "PayableAmount": "Ödenecek Tutar: 0 !",
-    "FailedtoCreateNewOrder": "Yeni bir düzen oluşturulamadı !"
+    "FailedtoCreateNewOrder": "Sipariş oluşturulamadı !"
   },
   "userfile": {
     "Cancelled": "İptal edildi !",
@@ -3744,7 +3744,7 @@
     "Region": "Bölge",
     "Store": "Restoran",
     "NetSales": "Net satış",
-    "StoreType": "Mağaza Tipi",
+    "StoreType": "Restoran Tipi",
     "RealToTheoric": " Gerçek = Teorik",
     "ItemCode": "Ürün Kodu",
     "Name": "İsim",
@@ -3772,8 +3772,7 @@
     "Variance": "Varyans",
     "UnitCost": "Birim Maliyet",
     "Usage(%)": "Kullanım (% Şeklinde)",
-    "c.Name":"Ürün Adı"
-
+    "c.Name": "Ürün Adı"
   },
   "weeklycolsummary": {
     "Store": "Restoran",
@@ -3792,14 +3791,14 @@
     "WorkingHours": "Çalışma Saatleri",
     "Team Member": "Sürücü",
     "OverTimeCost": "Fazla Mesai Maliyeti",
-    "Delivery": " Adisyon Primi",
+    "Delivery": "Adisyon Primi",
     "Orders": "Sipariş",
     "DriveCost": "Adisyon Maliyeti",
     "PayedOffCOL": "Ödeme Durumu kapalı",
     "Driver": "Sürücü"
   },
   "staffcost": {
-    "Store": "Mağaza",
+    "Store": "Restoran",
     "Year": "Yıl",
     "Month": "Ay",
     "Day": "Gün",
@@ -3825,7 +3824,7 @@
     "OvertimeCost": "Fazla Mesai Maliyeti",
     "TotalCost": "Toplam Maliyet"
   },
- "transactions": {
+  "transactions": {
     "Area": "Bölge ve Restoran",
     "Year": "Yıl",
     "Week": "Hafta",
@@ -3833,10 +3832,10 @@
     "HDSSales": "HDS Satışlar",
     "DINSales": "DIN Satışlar",
     "COSales": "CO Satışlar",
-    "AvgGC":"Ort. GC",
-    "HDSAvgGC":"HDS Ort. GC",
-    "DINAvgGC":"DIN Ort. GC",
-    "COAvgGC":"CO Ort. GC"
+    "AvgGC": "Ort. GC",
+    "HDSAvgGC": "HDS Ort. GC",
+    "DINAvgGC": "DIN Ort. GC",
+    "COAvgGC": "CO Ort. GC"
   },
   "fsrtransactions": {
     "Food": "Yiyecek",
@@ -3858,8 +3857,8 @@
     "Week": "Hafta",
     "Total": "Toplam",
     "Sales": "Satış",
-    "$scope.startYear": "$kapsam başlangıç yılı",
-    "$scope.startYear - 1": "$kapsama.başlangıç yılı-1",
+    "StartYear": "Kapsam başlangıç yılı",
+    "StartYear1": "Kapsama başlangıç yılı -1",
     "Chg%": "Chg%",
     "Budget": "Bütçe",
     "TRX": "TRX",
@@ -3881,7 +3880,7 @@
     "CutTable": "Cut Table",
     "Dispatch": "Çıkış",
     "Delivery": "Teslim",
-    "U30":" u30 %",
+    "U30": " u30 %",
     "Week": "Hafta",
     "StoreFilterType": "Restoran Filtre Tipi"
   },
@@ -3961,8 +3960,8 @@
   "promotionanaisys": {
     "Store": "Restoran",
     "Region": "Bölge",
-    "StoreType": "Mağaza Tipi",
-    "StoreFilter": "Mağaza Filtresi",
+    "StoreType": "Restoran Tipi",
+    "StoreFilter": "Restoran Filtresi",
     "SalesNoDiscount": "İndirim Olmadan Satış",
     "TotalSales": "Toplam Satışlar",
     "TotalNetSales": "Toplam Net Satışlar",
@@ -3977,7 +3976,7 @@
     "TotalCost": "Toplam Maliyet",
     "Ratio": "Maliyet %",
     "OrdersCount": "Sipariş Sayısı",
-    "OrderType":"Sipariş Tipi"
+    "OrderType": "Sipariş Tipi"
   },
   "callcenterorders": {
     "Store": "Restoran",
@@ -4032,7 +4031,7 @@
     "Orders": "Sipariş",
     "Cost": "Maliyet",
     "DriveCost": "Sürücü Adisyon Maliyeti",
-    "TotalActualPercent":"Gerçekleşen COL %"
+    "TotalActualPercent": "Gerçekleşen COL %"
   },
   "weeklycolsummary ": {
     "Store": "Restoran",
@@ -4056,7 +4055,7 @@
     "DriveCost": "Sürücü Adisyon Maliyeti"
   },
   "staffcost ": {
-    "Store": "Mağaza",
+    "Store": "Restoran",
     "Year": "Yıl",
     "Month": "Ay",
     "Day": "Gün",
@@ -4072,7 +4071,7 @@
     "Region": "Bölge",
     "StaffPossition": "Personel Pozisyonu",
     "OperationDate": "Çalışma Tarihi",
-    "StoreID": "Mağaza ID",
+    "StoreID": "Restoran ID",
     "WorkingHours": "Çalışma Saatleri",
     "OvertimeHours": "Fazla Mesai Saatleri",
     "TotalHours": "Toplam Saat",
@@ -4107,14 +4106,14 @@
     "Price": "Fiyat",
     "Amount": "Tutar",
     "Repository": "Depo",
-    "Store": "Mağaza",
+    "Store": "Restoran",
     "StoreType": "Restoran Tipi",
     "TransactionType": "İşlem Türü",
     "TransactionDetail": "İşlem Detay",
     "InventoryGroup": "Stok Grubu"
   },
   "clockinoutreport": {
-    "Store": "Mağaza",
+    "Store": "Restoran",
     "User": "Kullanıcı",
     "OperationDate": "Çalışma Tarihi",
     "WorkingHours": "Çalışma Saatleri",
@@ -4154,7 +4153,7 @@
     "OrderNumber": "Sipariş Numarası",
     "OrderSource": "Sipariş Kaynağı",
     "Confirmed": "Onaylı.",
-    "Notes":"Not"
+    "Notes": "Not"
   },
   "bonusstats": {
     "PersonID": "Kişi İd",
@@ -4207,10 +4206,9 @@
     "PunchCardTransactionEventID": "Punchcard işlemi",
     "OrderSourceID": "Sipariş Kaynağı"
   },
-    "bonusspendingrule":{
-    "BonusSetting":"Bonus Ayarı",
-    "BonusTransaction":"Bonus İşlemi"
-
+  "bonusspendingrule": {
+    "BonusSetting": "Bonus Ayarı",
+    "BonusTransaction": "Bonus İşlemi"
   },
   "InventoryConsuptionTransactions": {
     "TransactionDate": "İşlem Tarihi",

@@ -139,7 +139,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         scrolling: { mode: "virtual" },
         
         columns: [
-            { caption: $translate.instant('fsrspeedofservice.StoreFilterType'), dataField: "StoreFilterType", dataType: "string", fixed: true, groupIndex: 0 },
+            { caption: $translate.instant('fsrspeedofservice.StoreFilterType'), dataField: "StoreFilterType", dataType: "string", fixed: true },
             { dataField: "Store", caption: $translate.instant('fsrspeedofservice.Store'), dataType: "string", width: 230, fixed: true },
             { dataField: "RegionManager", caption: $translate.instant('fsrspeedofservice.RegionManager'), dataType: "string", width: 230, fixed: true },
             {

@@ -140,8 +140,8 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 {
                     caption: $translate.instant('fsrcomparisonbudget.Sales'),
                     columns: [
-                        { name: "Year1", caption: $scope.startYear, dataField: "Sales", dataType: "number", format: "fixedPoint", },
-                        { name: "PrevYear1", caption: $scope.startYear - 1, dataField: "SalesPrev", dataType: "number", format: "fixedPoint" },
+                        { name: "Year1", caption: $translate.instant('fsrcomparisonbudget.StartYear'), dataField: "Sales", dataType: "number", format: "fixedPoint", },
+                        { name: "PrevYear1", caption: $translate.instant('fsrcomparisonbudget.StartYear1'), dataField: "SalesPrev", dataType: "number", format: "fixedPoint" },
                         { caption: "Chg%", dataField: "ChgPercent", dataType: "number", format: { type: "percent", precision: 2 }, },
                         { caption: $translate.instant('fsrcomparisonbudget.Budget'), dataField: "SalesBudget", dataType: "number", format: "fixedPoint", },
                         { caption: "Chg%", dataField: "ChgBudgetPercent", dataType: "number", format: { type: "percent", precision: 2 } }
@@ -149,8 +149,8 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 }, {
                     caption: "TRX",
                     columns: [
-                        { name: "Year2", caption: $scope.startYear, dataField: "Trx", dataType: "number", format: "fixedPoint", },
-                        { name: "PrevYear2", caption: $scope.startYear - 1, dataField: "TrxPrev", dataType: "number", format: "fixedPoint" },
+                        { name: "Year2", caption: $translate.instant('fsrcomparisonbudget.StartYear'), dataField: "Trx", dataType: "number", format: "fixedPoint", },
+                        { name: "PrevYear2",caption: $translate.instant('fsrcomparisonbudget.StartYear1'), dataField: "TrxPrev", dataType: "number", format: "fixedPoint" },
                         { caption: "Chg%", dataField: "ChgPercentTrx", dataType: "number", format: { type: "percent", precision: 2 }, },
                         { caption: $translate.instant('fsrcomparisonbudget.Budget'), dataField: "TCBudget", dataType: "number", format: "fixedPoint", },
                         { caption: "Chg%", dataField: "ChgBudgetPercentTrx", dataType: "number", format: { type: "percent", precision: 2 } }
@@ -164,8 +164,8 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 {
                     caption: $translate.instant('fsrcomparisonbudget.Sales'),
                     columns: [
-                        { name: "Year3", caption: $scope.startYear, dataField: "HDSSales", dataType: "number", format: "fixedPoint", },
-                        { name: "PrevYear3", caption: $scope.startYear - 1, dataField: "HDSSalesPrev", dataType: "number", format: "fixedPoint" },
+                        { name: "Year3", caption: $translate.instant('fsrcomparisonbudget.StartYear'), dataField: "HDSSales", dataType: "number", format: "fixedPoint", },
+                        { name: "PrevYear3",caption: $translate.instant('fsrcomparisonbudget.StartYear1'), dataField: "HDSSalesPrev", dataType: "number", format: "fixedPoint" },
                         { caption: "Chg%", dataField: "HDSChgPercent", dataType: "number", format: { type: "percent", precision: 2 }, },
                         { caption: $translate.instant('fsrcomparisonbudget.Budget'), dataField: "SalesDeliveryBudget", dataType: "number", format: "fixedPoint", },
                         { caption: "Chg%", dataField: "HDSChgBudgetPercent", dataType: "number", format: { type: "percent", precision: 2 } }
@@ -173,8 +173,8 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 }, {
                     caption: "TRX",
                     columns: [
-                        { name: "Year4", caption: $scope.startYear, dataField: "HDSTrx", dataType: "number", format: "fixedPoint", },
-                        { name: "PrevYear4", caption: $scope.startYear - 1, dataField: "HDSTrxPrev", dataType: "number", format: "fixedPoint" },
+                        { name: "Year4", caption: $translate.instant('fsrcomparisonbudget.StartYear'), dataField: "HDSTrx", dataType: "number", format: "fixedPoint", },
+                        { name: "PrevYear4", caption: $translate.instant('fsrcomparisonbudget.StartYear1'), dataField: "HDSTrxPrev", dataType: "number", format: "fixedPoint" },
                         { caption: "Chg%", dataField: "HDSChgPercentTrx", dataType: "number", format: { type: "percent", precision: 2 }, },
                         { caption: $translate.instant('fsrcomparisonbudget.Budget'), dataField: "TCDeliveryBudget", dataType: "number", format: "fixedPoint", },
                         { caption: "Chg%", dataField: "HDSChgBudgetPercentTrx", dataType: "number", format: { type: "percent", precision: 2 } }
@@ -187,8 +187,8 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 {
                     caption: $translate.instant('fsrcomparisonbudget.Sales'),
                     columns: [
-                        { name: "Year5", caption: $scope.startYear, dataField: "DINSales", dataType: "number", format: "fixedPoint", },
-                        { name: "PrevYear5", caption: $scope.startYear - 1, dataField: "DINSalesPrev", dataType: "number", format: "fixedPoint" },
+                        { name: "Year5", caption: $translate.instant('fsrcomparisonbudget.StartYear'), dataField: "DINSales", dataType: "number", format: "fixedPoint", },
+                        { name: "PrevYear5", caption: $translate.instant('fsrcomparisonbudget.StartYear1'), dataField: "DINSalesPrev", dataType: "number", format: "fixedPoint" },
                         { caption: "Chg%", dataField: "DINChgPercent", dataType: "number", format: { type: "percent", precision: 2 }, },
                         { caption: $translate.instant('fsrcomparisonbudget.Budget'), dataField: "SalesInStoreBudget", dataType: "number", format: "fixedPoint", },
                         { caption: "Chg%", dataField: "DINChgBudgetPercent", dataType: "number", format: { type: "percent", precision: 2 } }
@@ -196,8 +196,8 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 }, {
                     caption: "TRX",
                     columns: [
-                        { name: "Year6", caption: $scope.startYear, dataField: "DINTrx", dataType: "number", format: "fixedPoint", },
-                        { name: "PrevYear6", caption: $scope.startYear - 1, dataField: "DINTrxPrev", dataType: "number", format: "fixedPoint" },
+                        { name: "Year6", caption: $translate.instant('fsrcomparisonbudget.StartYear'), dataField: "DINTrx", dataType: "number", format: "fixedPoint", },
+                        { name: "PrevYear6", caption: $translate.instant('fsrcomparisonbudget.StartYear1'), dataField: "DINTrxPrev", dataType: "number", format: "fixedPoint" },
                         { caption: "Chg%", dataField: "DINChgPercentTrx", dataType: "number", format: { type: "percent", precision: 2 }, },
                         { caption: $translate.instant('fsrcomparisonbudget.Budget'), dataField: "TCInStoreBudget", dataType: "number", format: "fixedPoint", },
                         { caption: "Chg%", dataField: "DINChgBudgetPercentTrx", dataType: "number", format: { type: "percent", precision: 2 } }
@@ -210,8 +210,8 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 {
                     caption: $translate.instant('fsrcomparisonbudget.Sales'),
                     columns: [
-                        { name: "Year7", caption: $scope.startYear, dataField: "COSales", dataType: "number", format: "fixedPoint", },
-                        { name: "PrevYear7", caption: $scope.startYear - 1, dataField: "COSalesPrev", dataType: "number", format: "fixedPoint" },
+                        { name: "Year7", caption: $translate.instant('fsrcomparisonbudget.StartYear'), dataField: "COSales", dataType: "number", format: "fixedPoint", },
+                        { name: "PrevYear7", caption: $translate.instant('fsrcomparisonbudget.StartYear1'), dataField: "COSalesPrev", dataType: "number", format: "fixedPoint" },
                         { caption: "Chg%", dataField: "COChgPercent", dataType: "number", format: { type: "percent", precision: 2 }, },
                         { caption: $translate.instant('fsrcomparisonbudget.Budget'), dataField: "SalesTakeAwayBudget", dataType: "number", format: "fixedPoint", },
                         { caption: "Chg%", dataField: "COChgBudgetPercent", dataType: "number", format: { type: "percent", precision: 2 } }
@@ -219,8 +219,8 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 }, {
                     caption: "TRX",
                     columns: [
-                        { name: "Year8", caption: $scope.startYear, dataField: "COTrx", dataType: "number", format: "fixedPoint", },
-                        { name: "PrevYear8", caption: $scope.startYear - 1, dataField: "COTrxPrev", dataType: "number", format: "fixedPoint" },
+                        { name: "Year8", caption: $translate.instant('fsrcomparisonbudget.StartYear'), dataField: "COTrx", dataType: "number", format: "fixedPoint", },
+                        { name: "PrevYear8", caption: $translate.instant('fsrcomparisonbudget.StartYear1'), dataField: "COTrxPrev", dataType: "number", format: "fixedPoint" },
                         { caption: "Chg%", dataField: "COChgPercentTrx", dataType: "number", format: { type: "percent", precision: 2 }, },
                         { caption: $translate.instant('fsrcomparisonbudget.Budget'), dataField: "TCTakeAwayBudget", dataType: "number", format: "fixedPoint", },
                         { caption: "Chg%", dataField: "COChgBudgetPercentTrx", dataType: "number", format: { type: "percent", precision: 2 } }
