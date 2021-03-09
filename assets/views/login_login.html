@@ -17,8 +17,12 @@
         </div>
         <!-- start: LOGIN BOX -->
         <div class="box-login" ng-controller="loginCtrl">
-            <div>
-                <form class="form-login">
+            <!-- <div>{{ConnStatus()}}</div> -->
+            <div ng-show="!ConnStatus()">
+                Connection to ROPNG API service not availible!
+            </div>
+            <div ng-show="ConnStatus()">
+                <form class="form-login" >
                     <fieldset>
                         <legend>
                             {{:: signintoyouraccount}}

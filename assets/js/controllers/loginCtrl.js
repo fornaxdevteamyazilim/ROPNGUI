@@ -11,6 +11,10 @@
 app.controller('loginCtrl', ['$scope', '$location', 'authService', 'ngAuthSettings', 'Restangular', '$rootScope', 'userService', 'toaster', '$translate', 'NG_SETTING', 'ngnotifyService', '$element','$stateParams','localStorageService','callsService',
     function ($scope, $location, authService, ngAuthSettings, Restangular, $rootScope, userService, toaster, $translate, NG_SETTING, ngnotifyService, $element, $stateParams,localStorageService,callsService) {
         $rootScope.uService.EnterController("loginCtrl");
+        $scope.ngAuthSettings=ngAuthSettings;
+        $scope.ConnStatus=function () {
+            return ngAuthSettings.connected;
+        }
         $scope.loginData = {
             userName: "",
             password: "",
