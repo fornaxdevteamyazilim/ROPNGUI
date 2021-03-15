@@ -147,7 +147,8 @@ function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
     };
     $scope.addItem = function (item) {
         $scope.newItem = true;
-        ideali.tableParams.data.push({ InventoryDealID: $stateParams.id, InventoryUnitID: '', InventoryUnit: '', CompanyID: (item.CompanyID) ? item.CompanyID : '', Company: (item.Company) ? item.Company : '', Price: 0, MinUnits: 0, MaxUnits: 0, DeliveryDays: 0, PaymentTerm: 0, ValidFrom: item.ValidFrom, Multipliyer: 0});
+        $scope.item.items.push({ InventoryDealID: $stateParams.id, InventoryUnitID: '', InventoryUnit: '', CompanyID: (item.CompanyID) ? item.CompanyID : '', Company: (item.Company) ? item.Company : '', Price: 0, MinUnits: 0, MaxUnits: 0, DeliveryDays: 0, PaymentTerm: 0, ValidFrom: item.ValidFrom, Multipliyer: 0});
+        ideali.tableParams.reload();
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
         for (var i = 0; i < $scope[Container].length; i++) {
@@ -172,7 +173,7 @@ function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
             }).then(function (result) {
                 resresult = [];
                 for (var i = 0; i < result.length; i++) {
-                    if (result[i].factor == 1)
+                    //if (result[i].factor == 1)
                         resresult.push(result[i])
                 }
                 $scope[Container] = resresult;

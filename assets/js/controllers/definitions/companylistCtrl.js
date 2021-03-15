@@ -15,9 +15,8 @@ function companyCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableParam
         $scope.trCompanyFax = $translate.instant('main.COMPANYFAX');
         $scope.trCompanyEmail = $translate.instant('main.COMPANYEMAIL');
         $scope.trCommands = $translate.instant('main.COMMANDS');
-                $scope.trCompanyItemCode = $translate.instant('main.COMPANYITEMCODE');
-                                $scope.trisActiveValue = $translate.instant('main.COMPANYSTATE');
-
+        $scope.trCompanyItemCode = $translate.instant('main.COMPANYITEMCODE');
+        $scope.trisActiveValue = $translate.instant('main.COMPANYSTATE');
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED

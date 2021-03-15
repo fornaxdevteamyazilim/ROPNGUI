@@ -178,7 +178,7 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
             Restangular.all(EntityType).getList({
                 pageNo: 1,
                 pageSize: 1000,
-                search: "factor = 1",
+                //search: "factor = 1",
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
