@@ -56,6 +56,10 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
         $scope.trApproveDate = $translate.instant('main.DATE');
         $scope.trOrderIndex = $translate.instant('main.ORDERINDEX');
         $scope.inventorypurchaseitem = $translate.instant('main.INVENTORYPURCHASEITEM');
+        $scope.trEmailConfirmed = $translate.instant('main.EMAILCONFIRMED');
+        $scope.trYes = $translate.instant('main.YES');
+        $scope.trNo = $translate.instant('main.NO');
+        $scope.trInventorySupplyState = $translate.instant('main.INVENTORYSUPPLYSTATE');
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
@@ -69,6 +73,40 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
             location.href = '#/app/inventory/inventorydeliveries/edit/' + restresult.id;
         }, function (response) {
             toaster.pop('warning', "warning...", response.data.ExceptionMessage);
+        });
+    };
+    $scope.RepeatOrder = function () {
+        Restangular.one('InventorySupply/sendinventorypurchase').get({
+            InventoryPurchaseID: $stateParams.id
+        }).then(function (restresult) {
+            toaster.pop('success', $translate.instant('invantories.SENDAGAIN'));     
+        }, function (response) {
+            toaster.pop('warning', "warning...", response.data.ExceptionMessage);
+        });
+    };
+
+
+    $scope.CancelOrder = function (itemID) {
+        SweetAlert.swal({
+            title:$translate.instant('yemeksepetifile.CANCELORDER'),
+            text: $translate.instant('yemeksepetifile.Areyousureyouwantcanceltheorder'),
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: $translate.instant('yemeksepetifile.YesCanceled'),
+            cancelButtonText: $translate.instant('yemeksepetifile.NoDontCancel'),
+            closeOnConfirm: true,
+            closeOnCancel: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+                Restangular.one('InventorySupply/cancelinventorypurchase').get({
+                    InventoryPurchaseID: $stateParams.id
+                }).then(function (restresult) {
+                    toaster.pop('success', "Sipariş iptal edildi");     
+                }, function (response) {
+                    toaster.pop('warning', "warning...", response.data.ExceptionMessage);
+                });
+            }
         });
     };
     $scope.checkInventoryDemandApproval = function (itemID, State) {
@@ -107,6 +145,10 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
     if ($stateParams.id != 'new') {
         Restangular.one('inventorypurchase', $stateParams.id).get().then(function (restresult) {
             $scope.original = restresult;
+            if (restresult.EmailConfirmed == true)
+                restresult.EmailConfirmed = $scope.trYes;
+            if (restresult.EmailConfirmed == false)
+                restresult.EmailConfirmed = $scope.trNo;
             $scope.item = Restangular.copy(restresult);
         })
         $scope.getInventoryPurchaseApprovals()

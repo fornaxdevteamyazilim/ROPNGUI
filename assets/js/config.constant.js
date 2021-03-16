@@ -11,15 +11,15 @@ app.constant('APP_MEDIAQUERY', {
 });
 app.value('NG_SETTING', {
     virtualKeybord: true,
-    //apiServiceBaseUri: 'http://192.168.9.40:9065',//PH
+    apiServiceBaseUri: 'http://192.168.9.40:9065',//PH
     //apiServiceBaseUri: 'http://10.0.0.245:9065',//MAROCCO
-    apiServiceBaseUri: 'http://localhost:9065',//localhost
+    //apiServiceBaseUri: 'http://localhost:9065',//localhost
 });
 app.value('ngAuthSettings', {    
-    //apiServiceBaseUri: 'http://192.168.9.40:9065/',//PH
+    apiServiceBaseUri: 'http://192.168.9.40:9065/',//PH
     //apiServiceBaseUri: 'http://78.135.103.74:9065/',//ROPNGTEST
     //apiServiceBaseUri: 'http://10.0.0.245:9065/',//MAROCCO
-    apiServiceBaseUri: 'http://localhost:9065/',//localhost
+    //apiServiceBaseUri: 'http://localhost:9065/',//localhost
     clientId: 'ropNGui',
     secret: 'Ab1234',
     apiAsiggned:false,

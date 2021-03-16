@@ -45,16 +45,17 @@
             <td class="text-capitalize" data-title="trDescription" data-sortable="'Description'" width="10%">
                 {{ item.Description }}
             </td>
-            <td class="text-capitalize" data-title="trEmailConfirmed" data-sortable="'EmailConfirmed'" width="5%">
-                {{ item.EmailConfirmed}}
+            <td data-title="trEmailConfirmed" data-sortable="'EmailConfirmed'" style="width:7%">
+                <span editable-checkbox="item.EmailConfirmed" e-form="rowform" e-ng-model="item.EmailConfirmed"
+                      e-ng-true-value="true"
+                      e-ng-false-value="false" e-style="width:5vw;">
+                    {{ item.EmailConfirmed && "Evet" || "Hayır" }}
+                </span>
             </td>
             <td data-title="'Notes'" data-sortable="trNotes" width="10%">
                 {{ item.Notes }}
                 <div class="buttons pull-right">
-                    <div class="buttons pull-right" ng-show="!rowform.$visible">
-                        <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" href="#/app/inventory/inventorypurchase/edit/{{item.id}}"></a>
-                        <a class="btn btn-transparent btn-sm tooltips ti-alert hidden-sm hidden-xs" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>
-                    </div>
+                    
                     <div class="visible-xs visible-sm hidden-md hidden-lg">
                         <div class="btn-group" dropdown is-open="status.isopen">
                             <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
@@ -70,6 +71,13 @@
                             </ul>
                         </div>
                     </div>
+                </div>
+              
+            </td>
+            <td class="text-capitalize" data-title="trCommands" width="10%">
+                <div class="buttons pull-right" ng-show="!rowform.$visible">
+                    <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" href="#/app/inventory/inventorypurchase/edit/{{item.id}}"></a>
+                    <a class="btn btn-transparent btn-sm tooltips ti-alert hidden-sm hidden-xs" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>
                 </div>
             </td>
         </tr>

@@ -40,6 +40,13 @@
                 <td data-title="trInventorySupplyState" data-sortable="'InventorySupplyState'" width="10%">
                     {{ ShowObject('InventorySupplyStates','Value',item.InventorySupplyState,'Name') }}
                 </td>
+                 <td data-title="trisSended" data-sortable="'isSended'" style="width:7%">
+                    <span editable-checkbox="item.isSended" e-form="rowform" e-ng-model="item.isSended"
+                          e-ng-true-value="true"
+                          e-ng-false-value="false" e-style="width:5vw;">
+                        {{ item.isSended && "Evet" || "Hayır" }}
+                    </span>
+                </td>
                 <td class="text-capitalize" data-title="trCommands" width="10%">
                     <div class="buttons pull-right">
                         <div class="buttons pull-right" ng-show="!rowform.$visible">

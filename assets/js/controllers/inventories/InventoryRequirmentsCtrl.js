@@ -55,6 +55,8 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         $scope.trInventorySupplyState = $translate.instant('main.INVENTORYSUPPLYSTATE');
         $scope.trisProcesseed = $translate.instant('main.STATE');
         $scope.trCommands = $translate.instant('main.COMMANDS');
+        $scope.trEmailConfirmed = $translate.instant('main.EMAILCONFIRMED');
+        $scope.trisSended = $translate.instant('main.REQUIRMENTSISSENDED'); 
     }
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {

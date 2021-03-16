@@ -1423,6 +1423,7 @@
     "SELECTCOMPANY": "Firma Seçimi",
     "SHOWINVOICES": "Malzeme Girşlerini Göster",
     "SELECTINVENTORYGROUP": "Malzeme Grubu Seçimi",
+    "PLEASEWAITFORTHEPRODUCTSLOADING": "Lütfen Bekleyin  Ürünler Yükleniyor !",
     "DIFFERENCEAMOUNT": "Fark Tut.",
     "ADDNEWPRODUCTWASTE": "Pişmiş Atık Ekle",
     "ADDPRODUCTWASTEITEM": "Pişmiş Atık Kalemi Ekle",
@@ -1569,6 +1570,8 @@
     "ORDERAMOUNTBETWEENTWODATE": "Sip. Tut. Verilen Tarih Arasında",
     "QUARTERR": "Mahalle",
     "CREATDELIVERY": "İrsaliyeye Dönüştür",
+    "SENDAGAIN": "Tekrar Gönder",
+    "CANCELORDER":"Siparişi İptal Et !",
     "APPROVE": "Onay",
     "APPROVED": "Onaylanan",
     "UNAPPROVED": "Onaylanmayan",
@@ -1732,6 +1735,10 @@
     "INVENTORYDELIVERY": "İlgili İrsaliyeler!",
     "ASSIGNTOINVOICE": "Faturaya Dönüştür!",
     "EMAILCONFIRMED": "E-mail Onayı!",
+    "PROCESSED": "İşlendi",
+    "PROCESS": "işleniyor",
+    "YES":"Evet",
+    "NO":"Hayır",
     "ORDERSOURCENAME": "Sipariş Kaynağı İsmi",
     "ADDCODE": "Kod Ekle",
     "YSPAYMENTTYPENAME": "Ys Ödeme Tipi",
@@ -2235,6 +2242,7 @@
     "SENDDATE": "Sms Gönderim Zamanı",
     "SENDEDTO": "Sms Numarası",
     "ISSENDED": "Sms Gönderildi mi ?",
+    "REQUIRMENTSISSENDED": "Gönderildi mi ?",
     "SEARCHBYGIFTPROMOTIONCODE": "Hediye Promosyon Koduna Göre Ara!",
     "GIFTPROMOTIONORDERSOURCE": "Hediye Promosyon Sipariş Kaynağı",
     "SEARCHBYGIFTCODESOURCENAME": "Hediye Promosyon Kod Kaynağına Göre Ara!",
@@ -3256,7 +3264,9 @@
     "DataSuccessfullySaved": "Veri Başarıyla Kaydedildi!",
     "NoDepartment": "Bölüm Yok",
     "NotSaved": "Kaydedilmedi",
-    "DataRemove": "Veri Silme"
+    "DataRemove": "Veri Silme",
+    "SENDAGAIN": "Tekrar Gönder"
+
   },
   "kitchendisplayf": {
     "PleaseWait": "Lütfen Bekleyin !",

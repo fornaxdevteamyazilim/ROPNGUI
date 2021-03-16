@@ -30,6 +30,22 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
         $scope.trSupplyDescription = $translate.instant('main.DESCRIPTION');
         $scope.edit = $translate.instant('main.EDIT');
         $scope.selectinventorygroup = $translate.instant('main.SELECTINVENTORYGROUP');
+        $scope.amount = $translate.instant('main.AMOUNT₺');
+        $scope.vat = $translate.instant('main.VAT₺');
+        $scope.vatdiscount = $translate.instant('main.VATDISCOUNT%');
+        $scope.discount = $translate.instant('main.DISCOUNT₺');
+        $scope.grandtotal = $translate.instant('main.GRANDTOTAL');
+        $scope.assigntoinvoice = $translate.instant('main.ASSIGNTOINVOICE');
+        $scope.send = $translate.instant('main.SEND'); 
+        $scope.ispaid = $translate.instant('main.ISPAID');
+        $scope.trVATRatio = $translate.instant('main.VATRATIO');
+        $scope.trVat = $translate.instant('main.VAT');
+        $scope.trAmount = $translate.instant('main.AMOUNT'); 
+        $scope.Processed = $translate.instant('main.PROCESSED');
+        $scope.Process = $translate.instant('main.PROCESS'); 
+        $scope.trfactor = $translate.instant('main.FACTOR');
+        $scope.trBaseUnit = $translate.instant('actualvstheoritical.BaseUnit');
+       
     };
     $scope.translate();
     var deregistration1 = $scope.$on('$translateChangeSuccess', function (event, data) {
@@ -40,9 +56,9 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
         Restangular.one('InventoryRequirment', $stateParams.id).get().then(function (restresult) {
             $scope.original = restresult;
             if (restresult.isProcesseed == true)
-                restresult.isProcesseed = 'Processed';
+                restresult.isProcesseed = $scope.Processed;
             if (restresult.isProcesseed == false)
-                restresult.isProcesseed = 'Process';
+                restresult.isProcesseed = $scope.Process;
             $scope.item = Restangular.copy(restresult);
             $location.path('app/inventory/inventoryrequirments/edit/' + restresult.id);
             $scope.$broadcast('newRequirmentData', restresult);

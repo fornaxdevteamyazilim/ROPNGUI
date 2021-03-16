@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('inventorypurchaselistCtrl', inventorypurchaselistCtrl);
-function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $translate, $element, userService) {
+function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $translate, $element, userService ,$filter,  $stateParams, $location) {
     $rootScope.uService.EnterController("inventorypurchaselistCtrl");
     userService.userAuthorizated();
     var ip = this;
@@ -27,6 +27,9 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
         $scope.trInventorySupplyState = $translate.instant('main.INVENTORYSUPPLYSTATE')
         $scope.trDateTime = $translate.instant('main.DATETIME');
         $scope.trEmailConfirmed = $translate.instant('main.EMAILCONFIRMED');
+        $scope.trYes = $translate.instant('main.YES');
+        $scope.trNo = $translate.instant('main.NO');
+        $scope.trCommands = $translate.instant('main.COMMANDS');
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
