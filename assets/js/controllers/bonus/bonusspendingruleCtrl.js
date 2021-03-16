@@ -110,6 +110,7 @@ function bonusspendingruleCtrl($rootScope, $scope, NG_SETTING, $translate,$http,
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
+            { dataField: "name", caption: $translate.instant('bonusearningrule.Name'), allowEditing: true },
             {
                 dataField: "BonusSettingID", caption:$translate.instant('bonusspendingrule.BonusSetting'),
                 lookup: {

@@ -232,11 +232,11 @@ function shiftplanactualCtrl($scope, $filter, $modal, $log, Restangular, SweetAl
         },
         onRowDblClick: function (e) {
             if (!e.isNewRow)
-                location.href = '#/app/specialoperations/shiftplanedit2/' + e.key;
+                location.href = '#/app/specialoperations/shiftplanactualedit/' + e.key;
         },
         onRowClick: function (rowInfo) {
             if (!rowInfo.isNewRow)
-                location.href = '#/app/specialoperations/shiftplanedit2/' + rowInfo.key;
+                location.href = '#/app/specialoperations/shiftplanactualedit/' + rowInfo.key;
             //rowInfo.component.editRow(rowInfo.rowIndex);  
         },
     };
