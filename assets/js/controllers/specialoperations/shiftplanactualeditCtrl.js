@@ -387,222 +387,7 @@ function shiftplanactualeditCtrl($rootScope, $scope, NG_SETTING, $translate, $el
         '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30',
         '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00', '00:30',
         '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30'];
-    $scope.summaryTabSelected = function () {
-        var dataGrid = $('#advPivotContainer').dxPivotGrid('instance');
-        dataGrid.option("dataSource",
-            {
-                fields: [{
-                    caption: $scope.Position,
-                    width: 120,
-                    dataField: "Position",
-                    area: "row",
-                    autoExpandGroup: true,
-                    allowExpandAll: true
-                }, {
-                    caption: $scope.WeekDay,
-                    dataField: "WeekDay",
-                    width: 150,
-                    area: "row",
-                    autoExpandGroup: true,
-                    allowExpandAll: true,
-                    sortingMethod: function (a, b) {
-                        var txt1 = a.value;
-                        var txt2 = b.value;
-                        switch (txt1) {
-                            case "Monday":
-                                txtindex1 = 1;
-                                break;
-                            case "Pazartesi":
-                                txtindex1 = 1;
-                                break;
-                            case "Tuesday":
-                                txtindex1 = 2;
-                                break;
-                            case "Salı":
-                                txtindex1 = 2;
-                                break;
-                            case "Wednesday":
-                                txtindex1 = 3;
-                                break;
-                            case "Çarşamba":
-                                txtindex1 = 3;
-                                break;
-                            case "Thursday":
-                                txtindex1 = 4;
-                                break;
-                            case "Perşembe":
-                                txtindex1 = 4;
-                                break;
-                            case "Friday":
-                                txtindex1 = 5;
-                                break;
-                            case "Cuma":
-                                txtindex1 = 5;
-                                break;
-                            case "Saturday":
-                                txtindex1 = 6;
-                                break;
-                            case "Cumartesi":
-                                txtindex1 = 6;
-                                break;
-                            case "Sunday":
-                                txtindex1 = 7;
-                                break;
-                            case "Pazar":
-                                txtindex1 = 7;
-                                break;
-                        }
-                        switch (txt2) {
-                            case "Monday":
-                                txtindex2 = 1;
-                                break;
-                            case "Pazartesi":
-                                txtindex2 = 1;
-                                break;
-                            case "Tuesday":
-                                txtindex2 = 2;
-                                break;
-                            case "Salı":
-                                txtindex2 = 2;
-                                break;
-                            case "Wednesday":
-                                txtindex2 = 3;
-                                break;
-                            case "Çarşamba":
-                                txtindex2 = 3;
-                                break;
-                            case "Thursday":
-                                txtindex2 = 4;
-                                break;
-                            case "Perşembe":
-                                txtindex2 = 4;
-                                break;
-                            case "Friday":
-                                txtindex2 = 5;
-                                break;
-                            case "Cuma":
-                                txtindex2 = 5;
-                                break;
-                            case "Saturday":
-                                txtindex2 = 6;
-                                break;
-                            case "Cumartesi":
-                                txtindex2 = 6;
-                                break;
-                            case "Sunday":
-                                txtindex2 = 7;
-                                break;
-                            case "Pazar":
-                                txtindex2 = 7;
-                                break;
-                        }
-                        if (txtindex1 < txtindex2)
-                            return -1;
-                        else if (txtindex1 > txtindex2)
-                            return 1;
-                        else
-                            return 0;
-
-                    },
-                }, {
-                    caption: $scope.Hour,
-                    dataField: "Hour",
-                    area: "column",
-                    allowSorting: false,
-                    allowExpandAll: true,
-                    sortingMethod: function (a, b) {
-                        var txtindex1 = a.value;
-                        var txtindex2 = b.value;
-                        if (txtindex1 < 4)
-                            txtindex1 += 24;
-                        if (txtindex2 < 4)
-                            txtindex2 += 24;
-                        if (txtindex1 < txtindex2)
-                            return -1;
-                        else if (txtindex1 > txtindex2)
-                            return 1;
-                        else
-                            return 0;
-
-                    },
-                    autoExpandGroup: true
-                }, {
-                    caption: $scope.Required,
-                    dataField: "Req",
-                    dataType: "number",
-                    summaryType: "sum",
-                    area: "data"
-                },
-                {
-                    caption: $scope.Plan,
-                    dataField: "Plan",
-                    dataType: "number",
-                    summaryType: "sum",
-                    area: "data"
-                },
-                {
-                    caption: $scope.Status,
-                    dataField: "Status",
-                    dataType: "number",
-                    summaryType: "sum",
-                    area: "data"
-                },
-                    // {
-                    //     caption: "CostReq", dataField: "CostReq", dataType: "number", summaryType: "sum", area: "filter",
-                    //     format: {
-                    //         type: "fixedPoint",
-                    //         precision: 2
-                    //     }
-                    // },
-                    // {
-                    //     caption: "CostPlan", dataField: "CostPlan", dataType: "number", summaryType: "sum", area: "filter",
-                    //     format: {
-                    //         type: "fixedPoint",
-                    //         precision: 2
-                    //     }
-                    // },
-                ],
-                store: DevExpress.data.AspNet.createStore({
-                    key: "id",
-                    loadUrl: NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceDatav2",
-                    loadParams: {
-                        StoreID: $scope.item.StoreID,
-                        theYear: $scope.item.PeriodYear,
-                        theWeek: $scope.item.PeriodWeek,
-                        AllPositions: false,
-                        ProductRelated: true,
-                        ShowHourly: true
-                    },
-                    onBeforeSend: function (method, ajaxOptions) {
-                        var authData = localStorageService.get('authorizationData');
-                        if (authData) {
-                            ajaxOptions.headers = {
-                                Authorization: 'Bearer ' + authData.token,
-                                "Accept-Language": $rootScope.locale
-                            };
-                        }
-                    }
-                })
-                /* stroe: DevExpress.data.CustomStore({
-                    load: function (loadOptions) {
-                        var params = {
-                            StoreID: $scope.item.StoreID,
-                            theYear: $scope.item.PeriodYear,
-                            theWeek: $scope.item.PeriodWeek
-                        };
-                        return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/ShiftAdviceDatav2", { params: params })
-                            .then(function (response) {
-                                return {
-                                    data: response
-                                };
-                            }, function (response) {
-                                return $q.reject("Data Loading Error");
-                            });
-                    }
-                }) */
-            });
-        dataGrid.getDataSource().expandAll("Position");
-    }
+    
 
     $scope.tabPanelOptions = {
         height: 260,
@@ -669,15 +454,15 @@ function shiftplanactualeditCtrl($rootScope, $scope, NG_SETTING, $translate, $el
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftPlanItems",
-            loadParams: { ShiftPlanID: $stateParams.id },
-            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftPlanItems",
-            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftPlanItems",
-            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftPlanItems",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftActualItems",
+            loadParams: { ShiftActualID: $stateParams.id },
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftActualItems",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftActualItems",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxShiftActualItems",
             onBeforeSend: function (method, ajaxOptions) {
                 var authData = localStorageService.get('authorizationData');
                 if (authData) {
-                    ajaxOptions.headers = { Authorization: 'Bearer ' + authData.token, "Accept-Language": "tr-TR" };
+                    ajaxOptions.headers = { Authorization: 'Bearer ' + authData.token};//, "Accept-Language": "tr-TR" };
                 }
             },
             onLoaded: function (result) {
@@ -736,7 +521,7 @@ function shiftplanactualeditCtrl($rootScope, $scope, NG_SETTING, $translate, $el
                 }
 
             },
-            loadParams: { filter: JSON.stringify(["ShiftPlanID", "=", $stateParams.id]) },
+            loadParams: { filter: JSON.stringify(["ShiftActualID", "=", $stateParams.id]) },
             // errorHandler: function(e) {
             //     console.log('hit');
             // },
@@ -838,7 +623,7 @@ function shiftplanactualeditCtrl($rootScope, $scope, NG_SETTING, $translate, $el
         //         rowInfo.component.editRow(rowInfo.rowIndex);
         // },
         onInitNewRow: function (e) {
-            e.data.ShiftPlanID = $scope.item.id;
+            e.data.ShiftActualID = $scope.item.id;
         },
         onRowInserted: function (e) {
             // var dataGrid = $('#advgridContainer').dxDataGrid('instance');
@@ -891,7 +676,7 @@ function shiftplanactualeditCtrl($rootScope, $scope, NG_SETTING, $translate, $el
                             //rowData.NGUserID = null;
                         },
                     },
-                    { dataField: "ShiftPlanID", caption: "Name", visible: false, formItem: { visible: false } },
+                    { dataField: "ShiftActualID", caption: "Name", visible: false, formItem: { visible: false } },
                     {
                         dataField: "StaffPositionID", caption: $scope.trStaffPosition,
                         visibleIndex: 0,
