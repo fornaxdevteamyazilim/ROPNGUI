@@ -97,15 +97,11 @@
                                 {{ item.SupplyDescription}}
                             </td>
                             <td data-title="trDemandCount" width="13%">
-                                <span><input class="inputs" type="number" ng-model="item.UnitCustom" /></span>
+                                <span><input class="inputs" type="number" ng-model="item.UnitCustom" ng-change="ReCalculateTotal()" /></span>
                             </td>
                                <td data-title="trUnitPrice" data-sortable="'UnitPrice'" width="13%">
-                            <span e-name="UnitPrice" e-ng-model="data.UnitPrice" e-form="rowform" e-style="width: 13vw;" ng-hide="EditableInventoryUnitPrice == true">
-                                {{ item.UnitPrice  | number : 4 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
-                            </span>
-                            <span editable-number="data.UnitPrice" e-name="UnitPrice" e-ng-model="data.UnitPrice" e-form="rowform" e-style="width: 13vw;" ng-if="EditableInventoryUnitPrice == true">
-                                {{ item.UnitPrice  | number : 4 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
-                            </span>
+                                {{ item.UnitPrice  | number : 4 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}                            
+                            
                         </td>
                         <!-- <td data-title="trVATRatio" data-sortable="'VATRatio'" width="13%">
                             <span e-name="VATRatio" e-ng-model="data.VATRatio" e-form="rowform" e-style="width: 13vw;">
@@ -120,7 +116,7 @@
                         -->
                         <td data-title="trRequirment" data-sortable="'factor'" width="13%">
                             <span e-name="factor" e-form="rowform" e-ng-model="data.factor" e-style="width: 13vw;">
-                                {{(item.factor) |number:4 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
+                                {{(item.factor) |number:4 }} 
                             </span>
                         </td>
                          <!-- <td data-title="trBaseUnit" data-sortable="'BaseUnit'" width="13%">
@@ -137,12 +133,7 @@
                             <span e-name="Amount" e-form="rowform" e-ng-model="data.Amount" e-style="width: 13vw;">
                                 {{(item.UnitCustom*item.UnitPrice) |number:4 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                             </span>
-                        </td>
-                            <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
-                                <div class="buttons" ng-if="!rowform.$visible">
-                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
-                                </div>
-                            </td>
+                        
                         </tr>
                     </table>
                 </div>
@@ -189,7 +180,7 @@
                                 <td class="col-sm-12 col-lg-6 col-md-6 col-xs-12">
                                     <div class="form-group">
                                         <label class="h3 text-bold">{{:: grandtotal}}</label> <br />
-                                         <label ng-model="item.GrandTotal" ng-value="ShowGrantTotal()" class="h3">{{item.GrandTotal | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
+                                         <label ng-model="item.GrandTotal"  class="h3">{{requirmentItem.Total | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                                     </div>
                                 </td>
                             </tr>

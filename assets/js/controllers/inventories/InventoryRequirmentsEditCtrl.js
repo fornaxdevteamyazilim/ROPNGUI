@@ -249,6 +249,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
                 InventoryRequirmentID: $stateParams.id
             }).then(function (items) {
                 $scope.requirmentItem = items;
+                $scope.requirmentItem.Total = $scope.calculateTotal($scope.requirmentItem );
                 params.total($scope.requirmentItem);
                 $defer.resolve($scope.requirmentItem);
                 $scope.ShowSpinnerObject = false;
@@ -379,32 +380,22 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
             $scope.cancelForm(rowform);
         }
     };
-    $scope.GetShowGrantTotal = function ($defer, params) {
-        Restangular.all('InventoryRequirmentItem').getList({
-            pageNo: params.page(),
-            pageSize: params.count(),
-            sort: params.orderBy(),
-            search: "InventoryRequirmentID='" + $scope.InventoryRequirmentID + "'"
-        }).then(function (items) {
-            params.total(items.paging.totalRecordCount);
-            $defer.resolve(items);
-            $scope.item.Amount = 0;
-            $scope.item.UnitPrice = 0;
-            $scope.item.UnitCount = 0;
-            for (var i = 0; i < items.length; i++) {
-                $scope.item.Amount += items[i].Amount;
-                $scope.item.UnitPrice += items[i].UnitPrice;
-                $scope.item.UnitCount += items[i].UnitCount;
-            }
-        }, function (response) {
-            toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+    $scope.ReCalculateTotal = function () {
+        $scope.requirmentItem.Total = $scope.calculateTotal($scope.requirmentItem);
+    }
+    $scope.calculateTotal = function (itemsArray) {
+        var result = 0;
+        itemsArray.forEach(element => {
+            result += (element.UnitCustom * element.UnitPrice);
         });
-    };
-    $scope.ShowGrantTotal = function () {
-        $scope.item.GrandTotal = $scope.item.Amount + $scope.item.UnitCustom * $scope.item.UnitPrice;
-        return $scope.item.GrandTotal = $scope.item.Amount + $scope.item.UnitCustom * $scope.item.UnitPrice;
-        $scope.item.Amount + $scope.item.Amount - $scope.item.Discount;
-    };
+        return result;
+    }
+    // $scope.$watchCollection('requirmentItem', function (requirmentItemArray) {
+    //     $scope.requirmentItem.Total = 0;
+    //     requirmentItemArray.forEach(element => {
+    //         $scope.requirmentItem.Total += (element.UnitCustom * element.UnitPrice);
+    //     });
+    // });
     $scope.$on('$destroy', function () {
         deregistration();
         $element.remove();
