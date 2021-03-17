@@ -3,6 +3,9 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
     $rootScope.uService.EnterController("inventorypurchaseeditCtrl");
     var ipi = this;
     $scope.item = {};
+    $scope.item.GrandTotal = 0;
+    $scope.item.UnitPrice = 0;
+    $scope.item.UnitCount = 0;
     if (userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("DRIVER") || userService.userIsInRole("STOREKITCHENUSER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STOREUSER")) {
         $scope.addnewPurchaseItem = false;
     } else {
@@ -60,6 +63,7 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
         $scope.trYes = $translate.instant('main.YES');
         $scope.trNo = $translate.instant('main.NO');
         $scope.trInventorySupplyState = $translate.instant('main.INVENTORYSUPPLYSTATE');
+        $scope.grandtotal = $translate.instant('main.GRANDTOTAL');
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
@@ -190,6 +194,14 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
             }).then(function (items) {
                 params.total(items.paging.totalRecordCount);
                 $defer.resolve(items);
+                $scope.item.Amount = 0;
+                $scope.item.UnitPrice = 0;
+                $scope.item.UnitCount = 0;
+                for (var i = 0; i < items.length; i++) {
+                    $scope.item.Amount += items[i].Amount;
+                    $scope.item.UnitPrice += items[i].UnitPrice;
+                    $scope.item.UnitCount += items[i].UnitCount;
+                }
             }, function (response) {
                 toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
@@ -236,6 +248,11 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
                 toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
             });
         }
+    };
+    $scope.ShowGrantTotal = function () {
+        $scope.item.GrandTotal = $scope.item.UnitPrice * $scope.item.UnitCount;
+        return $scope.item.GrandTotal = $scope.item.UnitPrice * $scope.item.UnitCount;
+        $scope.item.UnitPrice + $scope.item.UnitPrice - $scope.item.UnitCount;
     };
     $scope.stores = [];
     $scope.loadEntitiesCache('cache/store', 'stores');

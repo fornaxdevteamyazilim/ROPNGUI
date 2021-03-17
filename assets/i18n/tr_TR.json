@@ -777,6 +777,8 @@
     "UNIT": "Birim",
     "BRAND": "Marka",
     "FACTOR": "Çarpan",
+    "REQUIRMENTFACTOR": "Birim",
+    "BASEUNIT":"Birim Tipi",
     "ISCOUNT": "Sayım",
     "ISRECIPE": "Reçete",
     "ISREPORTUNIT": "Rapor Birimi",

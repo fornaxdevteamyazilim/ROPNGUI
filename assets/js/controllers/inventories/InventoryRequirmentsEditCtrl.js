@@ -3,6 +3,10 @@ app.controller('InventoryRequirmentsEditCtrl', InventoryRequirmentsEditCtrl);
 function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, userService, $element) {
     $rootScope.uService.EnterController("InventoryRequirmentsEditCtrl");
     $scope.item = {};
+    $scope.item.Amount = 0;
+    $scope.item.UnitCustom = 0;
+    $scope.item.UnitPrice = 0;
+    $scope.item.GrandTotal = 0;
     userService.userAuthorizated();
     $scope.Back = function () {
         $location.path('app/inventory/inventoryrequirments/list');
@@ -44,8 +48,9 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
         $scope.Processed = $translate.instant('main.PROCESSED');
         $scope.Process = $translate.instant('main.PROCESS'); 
         $scope.trfactor = $translate.instant('main.FACTOR');
-        $scope.trBaseUnit = $translate.instant('actualvstheoritical.BaseUnit');
-       
+        $scope.trBaseUnit = $translate.instant('main.BASEUNIT');
+        $scope.trRequirment = $translate.instant('main.REQUIRMENTFACTOR');
+        
     };
     $scope.translate();
     var deregistration1 = $scope.$on('$translateChangeSuccess', function (event, data) {
@@ -172,6 +177,25 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             });
         }
     };
+    // $scope.ShowGrantTotal = function ($defer, params) {
+    //     Restangular.one('InventoryRequirmentItem').get({
+    //         pageNo: params.page(),
+    //         pageSize: params.count(),
+    //         sort: params.orderBy(),
+    //         search: "InventoryRequirmentID='" + $scope.InventoryRequirmentID + "'"
+    //     }).then(function (items) {
+    //         params.total(items.paging.totalRecordCount);
+    //         $defer.resolve(items);
+           
+    //     }, function (response) {
+    //         toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+    //     });
+    // };
+    $scope.ShowGrantTotal = function () {
+        $scope.item.GrandTotal = $scope.item.UnitCustom * $scope.item.UnitPrice;
+        return $scope.item.GrandTotal = $scope.item.UnitCustom * $scope.item.UnitPrice;
+        $scope.item.UnitCustom + $scope.item.UnitCustom - $scope.item.UnitPrice;
+    };
     $scope.stores = [];
     $scope.loadEntitiesCache('cache/store', 'stores');
     $scope.$on('$destroy', function () {
@@ -190,6 +214,11 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
     $scope.groupItem = [];
     $scope.requirment = [];
     $scope.requirmentItem = [];
+    $scope.item = {};
+    $scope.item.Amount = 0;
+    $scope.item.UnitCustom = 0;
+    $scope.item.UnitPrice = 0;
+    $scope.item.GrandTotal = 0;
     var deregistration = $scope.$on('newRequirmentData', function (event, data) {
         $scope.requirmentData = data;
     });
@@ -349,6 +378,32 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
             $scope.requirmentItem.push(data)
             $scope.cancelForm(rowform);
         }
+    };
+    $scope.GetShowGrantTotal = function ($defer, params) {
+        Restangular.all('InventoryRequirmentItem').getList({
+            pageNo: params.page(),
+            pageSize: params.count(),
+            sort: params.orderBy(),
+            search: "InventoryRequirmentID='" + $scope.InventoryRequirmentID + "'"
+        }).then(function (items) {
+            params.total(items.paging.totalRecordCount);
+            $defer.resolve(items);
+            $scope.item.Amount = 0;
+            $scope.item.UnitPrice = 0;
+            $scope.item.UnitCount = 0;
+            for (var i = 0; i < items.length; i++) {
+                $scope.item.Amount += items[i].Amount;
+                $scope.item.UnitPrice += items[i].UnitPrice;
+                $scope.item.UnitCount += items[i].UnitCount;
+            }
+        }, function (response) {
+            toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+        });
+    };
+    $scope.ShowGrantTotal = function () {
+        $scope.item.GrandTotal = $scope.item.Amount + $scope.item.UnitCustom * $scope.item.UnitPrice;
+        return $scope.item.GrandTotal = $scope.item.Amount + $scope.item.UnitCustom * $scope.item.UnitPrice;
+        $scope.item.Amount + $scope.item.Amount - $scope.item.Discount;
     };
     $scope.$on('$destroy', function () {
         deregistration();

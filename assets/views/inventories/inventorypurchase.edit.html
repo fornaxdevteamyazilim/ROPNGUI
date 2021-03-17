@@ -82,9 +82,12 @@
                             <span translate="main.SAVE">Delete Purchase</span>
                         </button>
                         <div print-remove class="form-group col-sm-6 col-lg-3 col-md-4 col-xs-12 pull-left">
-                            <label data-title="trTotal" data-sortable="''">
-                                {{ (item.UnitPrice * item.UnitCount) | number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}
-                            </label><br />
+                            <td data-title="trTotal" data-sortable="''" width="17%">
+                                <span e-form="rowform">
+                                    <label class="h5 text-bold">{{:: grandtotal}}</label> <br />
+                                    <label ng-model="item.GrandTotal" ng-value="ShowGrantTotal()" class="h4">{{item.GrandTotal | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
+                                </span>
+                            </td>
                         </div>
                     </div>
                 </form>
