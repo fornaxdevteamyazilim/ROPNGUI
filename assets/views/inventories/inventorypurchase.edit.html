@@ -66,7 +66,7 @@
                         <input id="Date" type="text" class="form-control ng" ng-model="item.EmailConfirmed" readonly>
                     </div>
                     <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
-                        <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-click="removedata(item.id)">
+                        <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-click="removedata(item.id)" ng-if="user.restrictions.purchasedelete =='Enable'">
                             <span translate="main.DELETE">Delete Purchase</span>
                         </button>
                         <button class="btn btn-o btn-success btn-wide btn-scroll btn-scroll-left fa fa-list-alt pull-right" ng-click="creatDelivery()">
@@ -112,8 +112,8 @@
                         <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                             <div class="buttons pull-right">
                                 <div class="buttons pull-right" ng-show="!rowform.$visible">
-                                    <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.ISPREJECT' |translate}}" tooltip-placement="top" ng-click="checkInventoryDemandApproval(item.id, 2)"></a>
-                                    <a class="btn btn-transparent btn-sm tooltips ti-check hidden-sm hidden-xs" tooltip="{{'main.ISPCHECK' |translate}}" tooltip-placement="top" ng-click="checkInventoryDemandApproval(item.id, 1)"></a>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.ISPREJECT' |translate}}" tooltip-placement="top" ng-click="checkInventoryDemandApproval(item.id, 2)" ng-if="user.restrictions.commandspurchdelt =='Enable'"></a>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-check hidden-sm hidden-xs" tooltip="{{'main.ISPCHECK' |translate}}" tooltip-placement="top" ng-click="checkInventoryDemandApproval(item.id, 1)"ng-if="user.restrictions.commandspurchsaves =='Enable'"></a>
                                 </div>
                                 <div class="visible-xs visible-sm hidden-md hidden-lg">
                                     <div class="btn-group" dropdown is-open="status.isopen">
