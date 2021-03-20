@@ -293,7 +293,7 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
         }
     };
     $scope.inventoryunits = [];
-    $scope.loadEntities2('inventoryunit', 'inventoryunits');
+    //$scope.loadEntities2('inventoryunit', 'inventoryunits');
     $scope.GetInventoryUnitPrice = function (rowform, item) {
         Restangular.one('InventoryRequirment', $stateParams.id).get().then(function (restresult) {
             Restangular.one('InventoryUnit/price').get({

@@ -166,7 +166,8 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
         for (var i = 0; i < $scope.InventoryPurchaseApprovalData.length; i++) {
             if ($scope.InventoryPurchaseApprovalData[i].itemID) {
                 Restangular.all('InventoryPurchaseApproval').getList({
-                    search: "InventoryPurchaseID='" + $scope.InventoryPurchaseApprovalData[i].itemID + "'"
+                    search: "InventoryPurchaseID='" + $scope.InventoryPurchaseApprovalData[i].itemID + "'and ApproveState=0",
+                    sort:"OrderIndex"
                 }).then(function (items) {
                     Restangular.one('InventorySupply/approvepurchase').get({
                         InventoryPurchaseApprovalID: items[0].id,

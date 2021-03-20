@@ -117,6 +117,7 @@ function bonustransactionsCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             { dataField: "id" },
             { caption: $translate.instant('bonustransactions.PersonID'), dataField: "PersonID" },
             { caption: $translate.instant('bonustransactions.PersonName'), dataField: "PersonName" },
+            { caption: $translate.instant('bonustransactions.PersonPhone'), dataField: "PersonPhone" },
             { caption: $translate.instant('bonustransactions.RuleName'), dataField: "RuleName" },
             { dataField: "TransactionDate", caption: $translate.instant('bonustransactions.TransactionDate'), dataType: "date", format: 'dd.MM.yyyy' },
             { dataField: "Earned", dataType: "number", caption: $translate.instant('bonustransactions.Earned'), format: { type: "fixedPoint", precision: 2 } },

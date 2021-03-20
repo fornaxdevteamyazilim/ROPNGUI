@@ -7,6 +7,7 @@ function staffofftypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
         $scope.trName = $translate.instant('main.NAME');
         $scope.trisPaid = $translate.instant('main.ISPAID');
         $scope.trCommands = $translate.instant('main.COMMANDS');
+        $scope.trisDefault = $translate.instant('main.Default');
     }
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
@@ -16,14 +17,14 @@ function staffofftypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
         if (data.restangularized && data.id) {
             data.put().then(function (res) {
                 sot.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
+                toaster.pop('success', $translate.instant('difinitions.Updated'), $translate.instant('difinitions.Updated'));
             });
         }
         else {
             Restangular.restangularizeElement('', data, 'staffofftype')
             data.post().then(function (res) {
                 sot.tableParams.reload();
-                toaster.pop('success',$translate.instant('difinitions.Saved'),$translate.instant('difinitions.Saved'));
+                toaster.pop('success', $translate.instant('difinitions.Saved'), $translate.instant('difinitions.Saved'));
             });
             data.get();
         }
@@ -53,30 +54,30 @@ function staffofftypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
             Name: 'asc'
         }
     },
-    {
-        getData: function ($defer, params) {
-            Restangular.all('staffofftype').getList({
-                pageNo: params.page(),
-                pageSize: params.count(),
-                sort: params.orderBy(),
-                search: (sot.search) ? "Name  like '%" + sot.search + "%'" : ""
-            }).then(function (items) {
-                params.total(items.paging.totalRecordCount);
-                $defer.resolve(items);
-            }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            });
-        }
-    });
+        {
+            getData: function ($defer, params) {
+                Restangular.all('staffofftype').getList({
+                    pageNo: params.page(),
+                    pageSize: params.count(),
+                    sort: params.orderBy(),
+                    search: (sot.search) ? "Name  like '%" + sot.search + "%'" : ""
+                }).then(function (items) {
+                    params.total(items.paging.totalRecordCount);
+                    $defer.resolve(items);
+                }, function (response) {
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                });
+            }
+        });
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title:  $translate.instant('difinitions.Sure') ,
-            text:  $translate.instant('difinitions.SureRecord'),
+            title: $translate.instant('difinitions.Sure'),
+            text: $translate.instant('difinitions.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText:    $translate.instant('difinitions.confirmButtonText'),
-            cancelButtonText:   $translate.instant('difinitions.cancelButtonText'),
+            confirmButtonText: $translate.instant('difinitions.confirmButtonText'),
+            cancelButtonText: $translate.instant('difinitions.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -86,7 +87,7 @@ function staffofftypeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular
                     $scope.$emit('DeleteUserRoles', "ReloadUserRoles");
                 }
                 sot.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
+                toaster.pop("error", $translate.instant('difinitions.Attention'), $translate.instant('difinitions.RecordDeleted'));
             }
         });
     };
