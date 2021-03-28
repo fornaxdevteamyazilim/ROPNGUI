@@ -763,7 +763,7 @@
     "BRAND": "Brand",
     "FACTOR": "Factor",
     "REQUIRMENTFACTOR": "Factor",
-    "BASEUNIT":"Unit Type",
+    "BASEUNIT": "Unit Type",
     "ISCOUNT": "Count",
     "ISRECIPE": "Recipe",
     "ISREPORTUNIT": "Report Unit",
@@ -1402,7 +1402,7 @@
     "SELECTCOMPANY": "Select Company",
     "SHOWINVOICES": "Show Invoices",
     "SELECTINVENTORYGROUP": "Select Inventory Group",
-    "PLEASEWAITFORTHEPRODUCTSLOADING":"Please Wait For The Products Loading !",
+    "PLEASEWAITFORTHEPRODUCTSLOADING": "Please Wait For The Products Loading !",
     "DIFFERENCEAMOUNT": "Difference Amount",
     "ADDNEWPRODUCTWASTE": "Add Product Waste",
     "ADDPRODUCTWASTEITEM": "Add Product Waste Item",
@@ -1561,7 +1561,7 @@
     "QUARTERR": "Quarter",
     "CREATDELIVERY": "Creat Delivery",
     "SENDAGAIN": "Send Again",
-    "CANCELORDER":"Siparişi İptal Et !",
+    "CANCELORDER": "Siparişi İptal Et !",
     "APPROVE": "Approve",
     "APPROVED": "Approved",
     "UNAPPROVED": "Unaproved",
@@ -1722,8 +1722,8 @@
     "EMAILCONFIRMED": "E-mail Confirmed!",
     "PROCESSED": "Processed",
     "PROCESS": "Process",
-    "YES":"Yes",
-    "NO":"No",
+    "YES": "Yes",
+    "NO": "No",
     "ORDERSOURCENAME": "Order Source Name",
     "ADDCODE": "Add Code",
     "YSPAYMENTTYPENAME": "Ys Payment Type",
@@ -4207,5 +4207,15 @@
     "OrderTypeID": "Order Type",
     "PromotionFiterID": "Promotion Fiter",
     "OrderSourceID": "Order Source"
+  },
+  "InventoryRequirmentItem": {
+    "InventoryUnit": "Inventory Unit",
+    "UnitCount": "Unit Count",
+    "SupplyDescription": "Supply Description",
+    "UnitCustom": "Unit Custom",
+    "UnitPrice": "Unit Price",
+    "factor": "factor",
+    "BaseUnit": "Base Unit",
+    "GrandTotal": "Grand Total"
   }
 }

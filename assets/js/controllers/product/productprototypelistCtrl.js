@@ -81,6 +81,19 @@ function productprototypelistCtrl($scope, $log, $modal, Restangular, ngTablePara
             });
         }
     };
+    $scope.getproductctrl = function () {
+        Restangular.all('product').getList({
+            pageNo: params.page(),
+            pageSize: params.count(),
+            sort: params.orderBy(),
+            search: "ProductPrototypeID='" + $scope.ProductPrototypeID + "'"
+        }).then(function (items) {
+            params.total(items.paging.totalRecordCount);
+            $defer.resolve(items);
+        }, function (response) {
+            toaster.pop('warning', $translate.instant('Server.ServerError'), response);
+        });
+    }
     $scope.members = [];
     $scope.loadEntities('member', 'members');
     $scope.filters = [];
@@ -121,3 +134,4 @@ function productprototypelistCtrl($scope, $log, $modal, Restangular, ngTablePara
         $rootScope.uService.ExitController("productrecipeitemCtrl");
     });
 };
+

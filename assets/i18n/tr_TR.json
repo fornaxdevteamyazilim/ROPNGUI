@@ -4235,4 +4235,15 @@
     "PromotionFiterID": "Promosyon Filtresi",
     "OrderSourceID": "Sipariş Kaynağı"
   }
+  ,
+  "InventoryRequirmentItem": {
+    "InventoryUnit": "Malzeme Birimi",
+    "UnitCount": "Birim Sayısı",
+    "SupplyDescription": "Tedarikçi",
+    "UnitCustom": "Talep Edilen Miktar",
+    "UnitPrice":  "Birim Fiyat",
+    "factor": "Birim",
+    "BaseUnit": "Birim Tipi",
+    "GrandTotal": "Toplam Tutar"
+  }
 }

@@ -1,5 +1,5 @@
 ﻿app.controller('inventorydeliverylistCtrl', inventorydeliverylistCtrl);
-function inventorydeliverylistCtrl($scope, $log, $modal,$translate, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $filter, ngnotifyService, $element, $location, userService, $timeout, $translate, NG_SETTING, $http, $q) {
+function inventorydeliverylistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $filter, ngnotifyService, $element, $location, userService, $timeout, $translate, NG_SETTING, $http, $q) {
     $rootScope.uService.EnterController("inventorydeliverylistCtrl");
     var id = this;
     id.search = '';

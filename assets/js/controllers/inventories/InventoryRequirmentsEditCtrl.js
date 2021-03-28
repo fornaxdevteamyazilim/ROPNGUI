@@ -146,6 +146,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
         });
         modalInstance.result.then(function (item) {
             $scope.item.Date = item;
+            
         })
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
@@ -177,20 +178,6 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             });
         }
     };
-    // $scope.ShowGrantTotal = function ($defer, params) {
-    //     Restangular.one('InventoryRequirmentItem').get({
-    //         pageNo: params.page(),
-    //         pageSize: params.count(),
-    //         sort: params.orderBy(),
-    //         search: "InventoryRequirmentID='" + $scope.InventoryRequirmentID + "'"
-    //     }).then(function (items) {
-    //         params.total(items.paging.totalRecordCount);
-    //         $defer.resolve(items);
-           
-    //     }, function (response) {
-    //         toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-    //     });
-    // };
     $scope.ShowGrantTotal = function () {
         $scope.item.GrandTotal = $scope.item.UnitCustom * $scope.item.UnitPrice;
         return $scope.item.GrandTotal = $scope.item.UnitCustom * $scope.item.UnitPrice;
@@ -207,7 +194,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
 };
 'use strict';
 app.controller('InventoryRequirmentItemsCtrl', InventoryRequirmentItemsCtrl);
-function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, $element) {
+function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, $element,userService, $timeout,  NG_SETTING, $http, $q) {
     $rootScope.uService.EnterController("InventoryRequirmentItemsCtrl");
     var iri = this;
     $scope.dataitem = {};
@@ -239,163 +226,137 @@ function InventoryRequirmentItemsCtrl($scope, $log, $modal, $filter, SweetAlert,
             toaster.pop('warning',$translate.instant('invantories.NotSaved') , response.data.ExceptionMessage);
         });
     };
-    iri.tableParams = new ngTableParams({
-        page: 1,
-        count: 10,
-    },{
-        getData: function ($defer, params) {
-            $scope.ShowSpinnerObject = true;
-            Restangular.all('InventoryRequirmentItem/defaultitems').getList({
-                InventoryRequirmentID: $stateParams.id
-            }).then(function (items) {
-                $scope.requirmentItem = items;
-                $scope.requirmentItem.Total = $scope.calculateTotal($scope.requirmentItem );
-                params.total($scope.requirmentItem);
-                $defer.resolve($scope.requirmentItem);
-                $scope.ShowSpinnerObject = false;
-            }, function (response) {
-             $scope.ShowSpinnerObject = false;
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            });
-        }
-    });
-    $scope.ShowObject = function (Container, idName, idvalue, resName) {
-        for (var i = 0; i < $scope[Container].length; i++) {
-            if ($scope[Container][i][idName] == idvalue)
-                return $scope[Container][i][resName];
-        }
-        return idvalue || 'Not set';
-    };
-    $scope.loadEntities = function (EntityType, Container, filter) {
-        if (!$scope[Container].length) {
-            Restangular.all(EntityType).getList({
-                pageNo: 1,
-                pageSize: 1000,
-                search: filter,
-            }).then(function (result) {
-                $scope[Container] = result;
-            }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            });
-        }
-    };
-    $scope.loadEntities2 = function (EntityType, Container, filter) {
-        if (!$scope[Container].length) {
-            Restangular.all(EntityType).getList({
-                pageNo: 1,
-                pageSize: 1000,
-                search: "factor = 1",
-            }).then(function (result) {
-                $scope[Container] = result;
-            }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            });
-        }
-    };
-    $scope.inventoryunits = [];
-    //$scope.loadEntities2('inventoryunit', 'inventoryunits');
-    $scope.GetInventoryUnitPrice = function (rowform, item) {
-        Restangular.one('InventoryRequirment', $stateParams.id).get().then(function (restresult) {
-            Restangular.one('InventoryUnit/price').get({
-                InventoryUnitID: rowform.$data.InventoryUnitID,
-                StoreID: $rootScope.user.StoreID,
-                ForDate: restresult.Date
-            }).then(function (result) {
-                if (result && result)
-                    item.UnitPrice = result;
-                else
-                    item.UnitPrice = 0;
-            }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            });
-        })
-    };
-    $scope.LoadTags = function (data) {
-        Restangular.all('tag/array').getList({
-            id: data
-        }).then(function (result) {
-            $scope.tags = Restangular.copy(result[0].item);
-            $scope.groupItem.push({ name: '*Tümü', id: 1 });
-            for (var i = 0; i < $scope.tags.children.length; i++) {
-                $scope.groupItem.push({ name: $scope.tags.children[i].name, id: $scope.tags.children[i].id })
-                if ($scope.tags.children[i].children) {
-                    for (var j = 0; j < $scope.tags.children[i].children.length; j++) {
-                        $scope.groupItem.push({ name: $scope.tags.children[i].children[j].name, id: $scope.tags.children[i].children[j].id })
-                        if ($scope.tags.children[i].children[j].children) {
-                            for (var k = 0; k < $scope.tags.children[i].children[j].children.length; k++) {
-                                $scope.groupItem.push({ name: $scope.tags.children[i].children[j].children[k].name, id: $scope.tags.children[i].children[j].children[k].id })
-                                if ($scope.tags.children[i].children[j].children) {
-                                    for (var l = 0; l < $scope.tags.children[i].children[j].children[k].children.length; l++) {
-                                        $scope.groupItem.push({ name: $scope.tags.children[i].children[j].children[k].children[l].name, id: $scope.tags.children[i].children[j].children[k].children[l].id })
-                                    }
+    // var InventoryUnits = {
+    //     store: new DevExpress.data.CustomStore({
+    //         key: "id",
+    //         //loadMode: "raw",
+    //         load: function () {
+    //             // Returns an array of objects that have the following structure:
+    //             // { id: 1, name: "John Doe" }
+    //             //return $.getJSON(NG_SETTING.apiServiceBaseUri + "/api/ordersource");
+    //             return $http.get(NG_SETTING.apiServiceBaseUri + "/api/Inventory")
+    //                 .then(function (response) {
+    //                     return {
+    //                         data: response.data.Items,
+    //                         totalCount: 10
+    //                     };
+    //                 }, function (response) {
+    //                     return $q.reject("Data Loading Error");
+    //                 });
+    //         }
+    //     }),
+    //     sort: "name"
+    // }
+    // var store = new DevExpress.data.CustomStore({
+    //     // key: "id",
+    //      load: function (loadOptions) {
+    //          var params = {
+    //            InventoryRequirmentID: $stateParams.id,
+    //            pageSize: 100000,
+    //            pageNo: 1,
+    //          };
+    //          return $http.get(NG_SETTING.apiServiceBaseUri + "/api/InventoryRequirmentItem/defaultitems", { params: params})
+    //              .then(function (response) {
+    //                  return {
+    //                      data: response.data.Items,
+    //                      totalCount: 10
+    //                  };
+    //              }, function (response) {
+    //                  return $q.reject("Data Loading Error");
+    //              });
+    //      }
+    //  });
+     $scope.dataGridOptions = {
+        dataSource: new DevExpress.data.DataSource({
+            store: new DevExpress.data.CustomStore({
+                //key: "$stateParams.id",
+                load: function (loadOptions) {
+                    var params = {
+                        pageSize: 100000,
+                        pageNo: 1,
+                        search: "InventoryRequirmentID= '" +  $stateParams.id + "'"
+                    };
+                    return $http.get(NG_SETTING.apiServiceBaseUri + "/api/InventoryRequirmentItem", { params: params })
+                        .then(function (response) {
+                            return {
+                                data: response.data.Items,
+                                totalCount: 10
+                            };
+                        }, function (response) {
+                            return $q.reject("Data Loading Error");
+                        });
+                }
+            })
+        }),
+            showBorders: true,
+            allowColumnResizing: true,
+            columnAutoWidth: true,
+            showColumnLines: true,
+            showRowLines: true,
+            rowAlternationEnabled: true,
+            //keyExpr: "id",
+            showBorders: true,
+            hoverStateEnabled: true,
+            allowColumnReordering: true,
+            filterRow: { visible: true },
+            headerFilter: { visible: true },
+            searchPanel: { visible: true },
+            showBorders: true,
+            paging: {
+                enabled: false
+            },
+            editing: {
+                mode: "row",
+                allowUpdating: true,
+                allowDeleting: false,
+                allowAdding: true
+                
+            }, 
+            columns: [
+        { caption: $translate.instant('InventoryRequirmentItem.InventoryUnit'), dataField: "InventoryUnit", dataType: "string", allowEditing: false},
+        { caption: $translate.instant('InventoryRequirmentItem.UnitCount'),  dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: false },
+        { caption: $translate.instant('InventoryRequirmentItem.SupplyDescription'), dataField: "SupplyDescription", dataType: "string" },
+        { caption: $translate.instant('InventoryRequirmentItem.UnitCustom'), dataField: "UnitCustom", dataType: "string" },
+        { caption: $translate.instant('InventoryRequirmentItem.UnitPrice'), dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 }, allowEditing: false },
+        { caption: $translate.instant('InventoryRequirmentItem.factor'),dataField: "factor", dataType: "number", allowEditing: false },
+        { caption: $translate.instant('InventoryRequirmentItem.BaseUnit'),dataField: "BaseUnit", dataType: "string", allowEditing: false },
+            ],
+            summary: {
+                totalItems: [
+                { column: "UnitPrice", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                //{ name: "UnitCustom", showInColumn: "UnitCustom", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                ],
+                groupItems: [
+                //{ name: "UnitCustom", showInColumn: "UnitCustom", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "TotalUnitPrice", showInColumn: "UnitPrice", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                ],
+                calculateCustomSummary: function (options) {
+                    if (options.name === "TotalUnitPrice") {
+                        switch (options.summaryProcess) {
+                            case "start":
+                                options.totalValue = 0;
+                                options.ids = [];
+                                break;
+                            case "calculate":
+                                if (options.ids.indexOf(options.value.OrderID) == -1) {
+                                    options.totalValue = options.UnitCustom * options.value.UnitPrice;
+                                    options.ids.push(options.value.OrderID);
                                 }
-                            }
+                                break;
+                            case "finalize":
+                                //options.totalValue = options.totalValue / options.dg;
+                                break;
                         }
                     }
-                }
-            }
-            for (var m = 0; m < $scope.groupItem.length; m++) {
-                if ($scope.groupItem[m].name == 'Haftalık' || $scope.groupItem[m].name == 'Günlük') {
-                    $scope.groupItem.splice(m, 1);
-                    $scope.groupItem.splice(m, 1);
-                }
-            }
-        }, function (response) {
-            toaster.pop('error',$translate.instant('Server.ServerError'), response);
-        });
+                },
+            },   
+        };
+      
+     $scope.LoadData = function () {
+        var dataGrid = $('#gridContainer').dxDataGrid('instance');
+        dataGrid.refresh();
     };
-    $scope.LoadTags(20);
-    $scope.getListGroup = function (dataID) {
-        if (dataID == 1) {
-            $scope.TagName = Restangular.copy({ name: '' });
-        } else {
-            var data = $filter('filter')($scope.groupItem, { id: dataID });
-            $scope.TagName = Restangular.copy(data[0]);
-        }
-    };
-    $scope.isClean = function () {
-        return angular.equals($scope.original, $scope.item);
-    }
-    $scope.FormKeyPress = function (event, rowform, data, index) {
-        $('.inputs').keydown(function (e) {
-            if (e.which === 107) {
-                var index = $('.inputs').index(this) - 1;
-                $('.inputs').eq(index).focus().select();
-            }
-            if (e.which === 13) {
-                var index = $('.inputs').index(this) + 1;
-                $('.inputs').eq(index).focus().select();
-            }
-            if (e.which === 37) {
-                var index = $('.inputs').index(this) - 1;
-                $('.inputs').eq(index).focus().select();
-            }
-            if (e.which === 39) {
-                var index = $('.inputs').index(this) + 1;
-                $('.inputs').eq(index).focus().select();
-            }
-        });
-        if (event.keyCode === 27 && rowform.$visible) {
-            $scope.requirmentItem.push(data)
-            $scope.cancelForm(rowform);
-        }
-    };
-    $scope.ReCalculateTotal = function () {
-        $scope.requirmentItem.Total = $scope.calculateTotal($scope.requirmentItem);
-    }
-    $scope.calculateTotal = function (itemsArray) {
-        var result = 0;
-        itemsArray.forEach(element => {
-            result += (element.UnitCustom * element.UnitPrice);
-        });
-        return result;
-    }
-    // $scope.$watchCollection('requirmentItem', function (requirmentItemArray) {
-    //     $scope.requirmentItem.Total = 0;
-    //     requirmentItemArray.forEach(element => {
-    //         $scope.requirmentItem.Total += (element.UnitCustom * element.UnitPrice);
-    //     });
-    // });
+ 
     $scope.$on('$destroy', function () {
         deregistration();
         $element.remove();
