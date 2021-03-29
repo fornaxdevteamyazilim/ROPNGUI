@@ -4209,6 +4209,7 @@
     "OrderSourceID": "Order Source"
   },
   "InventoryRequirmentItem": {
+    "Inventory":"Inventory",
     "InventoryUnit": "Inventory Unit",
     "UnitCount": "Unit Count",
     "SupplyDescription": "Supply Description",
@@ -4216,6 +4217,10 @@
     "UnitPrice": "Unit Price",
     "factor": "factor",
     "BaseUnit": "Base Unit",
-    "GrandTotal": "Grand Total"
+    "GrandTotal": "Grand Total",
+    "Calculatingrequirments":  "Calculating Requirments",
+    "Requirment": "Requirment",
+    "InventoryUnitID": "Inventory Unit",
+    "Total": "Total"
   }
 }

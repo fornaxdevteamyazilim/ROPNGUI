@@ -4238,13 +4238,17 @@
   ,
   "InventoryRequirmentItem": {
     "Inventory": "Malzeme",
-    "InventoryUnit": "Adi",
+    "InventoryUnit": "Malzeme Adi",
     "UnitCount": "Hesaplanan",
     "SupplyDescription": "Tedarikçi",
     "UnitCustom": "Talep",
     "UnitPrice":  "Fiyat",
     "factor": "Birim",
     "BaseUnit": "Birim Tipi",
-    "GrandTotal": "Toplam Tutar"
+    "GrandTotal": "Toplam Tutar",
+    "Calculatingrequirments": "Lütfen Bekleyin. Talepleriniz Hesaplanıyor...",
+    "Requirment": "İhtiyaç",
+    "InventoryUnitID": "Stok Birimi",
+    "Total": "Toplam"
   }
 }
