@@ -39,34 +39,34 @@
                     </div>
                     <div print-remove class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label>{{:: note}}</label><br />
-                        <textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.Notes" placeholder=""></textarea>
+                        <textarea type="text" style='max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.Notes" placeholder=""></textarea>
                     </div>
-                    <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12 pull-right">
-                        <button class="btn btn-o btn-success btn-wide btn-scroll btn-scroll-left fa fa-check margin-top-25 pull-right" ng-click="processrequirment()" ng-disabled="item.isProcesseed == true || isSpinner == true" ng-if="InventoryRequirmentID != 'new'">
+                    
+                    <div print-remove class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                        <button class="btn btn-o btn-success btn-wide btn-scroll btn-scroll-left fa fa-check" ng-click="processrequirment()" ng-disabled="item.isProcesseed == true || isSpinner == true" ng-if="InventoryRequirmentID != 'new'">
                             <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span translate="main.ISPROCESS" ng-if="isSpinner != true">{{:: save}}</span>
-                        </button>
-                    </div>
-                    <div print-remove class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
-                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-click="SaveData()" ng-if="InventoryRequirmentID == 'new'" ng-disabled="isSpinner == true">
-                            <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true">{{:: save}}</span>
                         </button>
                         <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-click="removedata(item.id)" ng-disabled="isSpinner == true" ng-if="user.restrictions.requirmentsdeletes =='Enable'">
                             <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true">{{:: delete}}</span>
                         </button>
+                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-click="SaveData()" ng-disabled="isSpinner == true">
+                            <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true">{{:: save}}</span>
+                        </button>
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="panel panel-white col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="InventoryRequirmentID != 'new'" ng-controller="InventoryRequirmentItemsCtrl as iri" ng-hide="ShowObject==true">
-            <br />
-            <div class="panel panel-white col-lg-12 col-md-12 col-sm-12 col-xs-12">
-         
-                <div class="table-responsive">
-                    <div class="demo-container" >
-                        <div id="gridContainer" dx-data-grid="dataGridOptions"></div>
+            <div class="panel panel-white col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="InventoryRequirmentID != 'new'" ng-hide="ShowObject==true">
+                <br />
+                <div class="panel panel-white col-lg-12 col-md-12 col-sm-12 col-xs-12">
+             
+                    <div class="table-responsive">
+                        <div class="demo-container" >
+                            <div id="gridContainer" dx-data-grid="dataGridOptions"></div>
+                        </div>
                     </div>
-                </div>
-          
-           
+              
+               
+            </div>
         </div>
+        
     </div>

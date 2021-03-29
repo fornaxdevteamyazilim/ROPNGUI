@@ -4237,11 +4237,12 @@
   }
   ,
   "InventoryRequirmentItem": {
-    "InventoryUnit": "Malzeme Birimi",
-    "UnitCount": "Birim Sayısı",
+    "Inventory": "Malzeme",
+    "InventoryUnit": "Adi",
+    "UnitCount": "Hesaplanan",
     "SupplyDescription": "Tedarikçi",
-    "UnitCustom": "Talep Edilen Miktar",
-    "UnitPrice":  "Birim Fiyat",
+    "UnitCustom": "Talep",
+    "UnitPrice":  "Fiyat",
     "factor": "Birim",
     "BaseUnit": "Birim Tipi",
     "GrandTotal": "Toplam Tutar"
