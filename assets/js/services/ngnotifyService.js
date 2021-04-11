@@ -101,6 +101,15 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
     ngnotifyHubProxy.on('YSOrderUpdate', function (data) {
         $rootScope.$broadcast('YSOrderUpdate', data);
     });
+    ngnotifyHubProxy.on('AggregatorOrder', function (data) {
+        $rootScope.$broadcast('AggregatorOrder', data);
+    });
+    ngnotifyHubProxy.on('AggregatorStatUpdate', function (data) {
+        $rootScope.$broadcast('AggregatorStatUpdate', data);
+    });
+    ngnotifyHubProxy.on('AggregatorOrderUpdate', function (data) {
+        $rootScope.$broadcast('AggregatorOrderUpdate', data);
+    });
     ngnotifyHubProxy.on('OrderChange', function (data) {
         //string id,Enums.OrderStatus oldStatus, Enums.OrderStatus newStatus,string storeID
         $rootScope.$broadcast('OrderChange', data);

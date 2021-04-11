@@ -1,9 +1,9 @@
 ﻿app.controller('inventorypurchaseeditCtrl', inventorypurchaseeditCtrl);
-function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $translate, $element, userService) {
+function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $location, $translate, $element, userService, NG_SETTING, $http) {
     $rootScope.uService.EnterController("inventorypurchaseeditCtrl");
     var ipi = this;
     $scope.item = {};
-    $scope.item.GrandTotal = 0;    
+    $scope.item.GrandTotal = 0;
     if (userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("DRIVER") || userService.userIsInRole("STOREKITCHENUSER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STOREUSER")) {
         $scope.addnewPurchaseItem = false;
     } else {
@@ -179,28 +179,137 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
             toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
         }
     };
-    ipi.tableParams = new ngTableParams({
+
+    var params = {
         page: 1,
-        count: 10,
-    }, {
-        getData: function ($defer, params) {
-            Restangular.all('inventorypurchaseitem').getList({
-                pageNo: params.page(),
-                pageSize: params.count(),
-                sort: params.orderBy(),
-                search: "InventoryPurchaseID='" + $scope.InventoryPurchaseID + "'"
-            }).then(function (items) {
-                params.total(items.paging.totalRecordCount);
-                $scope.item.GrandTotal = 0;
-                items.forEach(element => {
-                    $scope.item.GrandTotal += (element.UnitCustom * element.UnitPrice);
-                });
-                $defer.resolve(items);
-            }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            });
-        }
-    });
+        count: 10000,
+        search: "InventoryPurchaseID='" + $scope.InventoryPurchaseID + "'"
+    };
+    $http.get(NG_SETTING.apiServiceBaseUri + "/api/InventoryPurchaseItem", { params: params })
+        .then(function (result) {
+            $scope.item.items = result.data.Items;
+            var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            dataGrid.option("dataSource", $scope.item.items);
+        }, function (response) {
+            return $q.reject("Data Loading Error");
+        });
+    GetInventoryUnitPrice = function (inventoryUnitID,rowData) {
+        Restangular.one('inventoryunit/price').get({
+            InventoryUnitID: inventoryUnitID,
+            StoreID: $scope.item.StoreID,
+            ForDate: $scope.item.DateTime
+        }).then(function (result) {
+            if (result && result){
+                console.log("GetInventoryUnitPrice result:"+result);
+                rowData.UnitPrice=result;
+            }
+            else{
+                console.log("GetInventoryUnitPrice result not found!");
+                rowData.UnitPrice=0;
+            }
+        }, function (response) {
+            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+        });
+    };
+
+    $scope.dataGridOptions = {
+        dataSource: $scope.item.items,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        //keyExpr: "id",
+        showBorders: true,
+        hoverStateEnabled: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        headerFilter: { visible: true },
+        searchPanel: { visible: true },
+        showBorders: true,
+        //noDataText:  $translate.instant('InventoryRequirmentItem.Calculatingrequirments'),
+        paging: {
+            enabled: false
+        },
+        editing: {
+            mode: "cell",
+            allowAdding: ($rootScope.user.restrictions.InventoryPurchaseItem_add == 'Enable' ), //InventoryPurchaseItem_add
+            allowUpdating: ($rootScope.user.restrictions.InventoryPurchaseItem_update == 'Enable' ), //InventoryPurchaseItem_update
+            allowDeleting: ($rootScope.user.restrictions.InventoryPurchaseItem_delete == 'Enable' ), //InventoryPurchaseItem_delete
+            allowInserting: ($rootScope.user.restrictions.InventoryPurchaseItem_insert == 'Enable' ) //InventoryPurchaseItem_insert
+        },
+        columns: [
+
+            //{ caption: $translate.instant('inventorydeliveriesedit.InventoryUnit'), dataField: "InventoryUnit", dataType: "string", allowEditing: false, visibleIndex: 1 },
+            {
+                dataField: "InventoryUnitID", caption: $translate.instant('inventorydeliveriesedit.InventoryUnit'), //fixed: true,width: 200,    
+                lookup: {
+                    valueExpr: "InventoryUnitID",
+                    displayExpr: "InventoryUnitName",
+                    searchMode: "contains",
+                    dataSource: {
+                        store: DevExpress.data.AspNet.createStore({
+                            key: "InventoryUnitID",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxInventoryUnits"
+                        }),
+                        sort: "InventoryUnitName",
+                        headerFilter: { allowSearch: true }
+                    },
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    },
+                    
+                },
+                setCellValue: function (rowData, value) {
+                    return Restangular.one('inventoryunit/price').get({
+                        InventoryUnitID: value,
+                        StoreID: $scope.item.StoreID,
+                        ForDate: $scope.item.DateTime
+                    }).then(function (result) {
+                        rowData.InventoryUnitID = value;
+                        if (result && result){
+                            console.log("GetInventoryUnitPrice result:"+result);
+                            rowData.UnitPrice=result;
+                        }
+                        else{
+                            console.log("GetInventoryUnitPrice result not found!");
+                            rowData.UnitPrice=0;
+                        }
+                    }, function (response) {
+                        toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    });
+                   
+                },
+            },
+            { caption: $translate.instant('inventorydeliveriesedit.UnitCount'), dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 2 ,
+            setCellValue: function (rowData, value,oldrow) {
+                rowData.UnitCount = value;
+                rowData.Total=rowData.UnitCount * oldrow.UnitPrice;
+            },},
+            { caption: $translate.instant('inventorydeliveriesedit.UnitPrice'), dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 }, allowEditing: false, visibleIndex: 3, },
+            { caption: $translate.instant('inventorydeliveriesedit.Total'), dataField: "Total", calculateCellValue: function (data) { return data.UnitCount * data.UnitPrice; }, visibleIndex: 4 },
+            // { caption: $translate.instant('inventorydeliveriesedit.InventoryUnitID'), dataField: "InventoryUnitID", dataType: "number", allowEditing: false, visible: false,  visible: false,visibleIndex: 7 },
+            //{ caption: $translate.instant('inventorydeliveriesedit.SupplyDescription'), dataField: "SupplyDescription", dataType: "string", allowEditing: false, visibleIndex: 8 }, //Tedarik edilecek yer
+
+
+
+        ],
+        summary: {
+            totalItems: [
+                { column: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                //{ name: "UnitCustom", showInColumn: "UnitCustom", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            ],
+            groupItems: [
+                //{ name: "UnitCustom", showInColumn: "UnitCustom", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "Total", showInColumn: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            ],
+        },
+        // onContentReady(e) {
+        //     document.querySelector('.dx-datagrid-rowsview').before(document.querySelector('.dx-datagrid-total-footer'));
+        //     }
+    };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
         for (var i = 0; i < $scope[Container].length; i++) {
             if ($scope[Container][i][idName] == idvalue)
@@ -283,27 +392,7 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
             }
         });
     };
-    $scope.removeItem = function (index) {
-        SweetAlert.swal({
-            title: $translate.instant('invantories.Sure'),
-            text: $translate.instant('invantories.SureRecord'),
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: $translate.instant('invantories.confirmButtonText'),
-            cancelButtonText: $translate.instant('invantories.cancelButtonText'),
-            closeOnConfirm: true,
-            closeOnCancel: true
-        }, function (isConfirm) {
-            if (isConfirm) {
-                if (ipi.tableParams.data[index].fromServer) {
-                    ipi.tableParams.data[index].remove();
-                }
-                ipi.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('invantories.Attention'), $translate.instant('invantories.RecordDeleted'));
-            }
-        });
-    };
+
     $scope.cancelremove = function (index) {
         if (ipi.tableParams.data[index].fromServer) {
             ipi.tableParams.data[index].remove();

@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('inventorypurchaselistCtrl', inventorypurchaselistCtrl);
-function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $translate, $element, userService ,$filter,  $stateParams, $location) {
+function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $translate, $element, userService ,$filter,  $stateParams, $location, NG_SETTING, $http, localStorageService) {
     $rootScope.uService.EnterController("inventorypurchaselistCtrl");
     userService.userAuthorizated();
     var ip = this;
@@ -30,6 +30,7 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
         $scope.trYes = $translate.instant('main.YES');
         $scope.trNo = $translate.instant('main.NO');
         $scope.trCommands = $translate.instant('main.COMMANDS');
+        $scope.trisSended = $translate.instant('main.PURCHASEISSENDED');
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
@@ -42,6 +43,15 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
             toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
         } else {
             toaster.pop('warning', $translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
+        }
+    };
+    $scope.loadEntitiesCache = function (EntityType, Container) {
+        if (!$scope[Container].length) {
+            Restangular.all(EntityType).getList({Calculate:false}).then(function (result) {
+                $scope[Container] = result;
+            }, function (response) {
+                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+            });
         }
     };
     $scope.BuildSearchString = function (src) {
@@ -66,127 +76,133 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
         }
         return result;
     };
-    ip.tableParams = new ngTableParams({
-        page: 1,
-        count: 10,
-        sorting: {
-            DateTime: 'desc'
-        }
-    }, {
-        getData: function ($defer, params) {
-            Restangular.all($scope.objectType).getList({
-                pageNo: params.page(),
-                pageSize: params.count(),
-                search: $scope.BuildSearchString(),
-                sort: params.orderBy()
-            }).then(function (items) {
-                params.total(items.paging.totalRecordCount);
-                $scope.SelectedItem = (items[0]) ? items[0].id : null;
-                $defer.resolve(items);
-            }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response);
-            });
-        }
-    });
-    $scope.cancelremove = function (index) {
-        if (ip.tableParams.data[index].fromServer) {
-            ip.tableParams.data[index].remove();
-        }
-        ip.tableParams.data.splice(index, 1);
-    };
+    var InventorySupplyStates = {
+        store: new DevExpress.data.CustomStore({
+            key: "Value",
+            load: function () {
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/InventorySupplyState")
+                    .then(function (response) {
+                        return {
+                            data: response.data,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        }),
+        sort: "Value"
+    }
+    $scope.dataGridOptions = {
+        dataSource: DevExpress.data.AspNet.createStore({
+            key: "id",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxInventoryPurchases",
+            onBeforeSend: function (method, ajaxOptions) {
+                var authData = localStorageService.get('authorizationData');
+                if (authData) {
 
-    var deregistration1 = $scope.$watch(angular.bind(ip, function () {
-        return ip.search;
-    }), function (value) {
-        ip.tableParams.reload();
-    });
-    $scope.open = function (ObjectID) {
-        var modalInstance = $modal.open({
-            templateUrl: 'assets/views/Tags/ObjectTagEditModalContent.html',
-            controller: 'TagModalCtrl',
-            size: '',
-            backdrop: '',
-            resolve: {
-                ObjectID: function () {
-                    return ObjectID;
+                    ajaxOptions.headers = {
+                        Authorization: 'Bearer ' + authData.token
+                    };
                 }
             }
-        });
-        modalInstance.result.then(function (selectedItem) {
-            $scope.result = selectedItem;
-        });
-    };
-    $scope.ShowObject = function (Container, idName, idvalue, resName) {
-        for (var i = 0; i < $scope[Container].length; i++) {
-            if ($scope[Container][i][idName] == idvalue)
-                return $scope[Container][i][resName];
-        }
-        return idvalue || 'Not set';
-    };
-    $scope.loadEntities = function (EntityType, Container, filter) {
-        if (!$scope[Container].length) {
-            Restangular.all(EntityType).getList({
-                pageNo: 1,
-                pageSize: 1000,
-                search: filter,
-            }).then(function (result) {
-                $scope[Container] = result;
-            }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            });
-        }
-    };
-    $scope.loadEntitiesCache = function (EntityType, Container) {
-        if (!$scope[Container].length) {
-            Restangular.all(EntityType).getList({}).then(function (result) {
-                $scope[Container] = result;
-            }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
-            });
-        }
-    };
-    $scope.stores = [];
-    $scope.loadEntitiesCache('cache/store', 'stores');
-    $scope.companies = [];
-    $scope.loadEntitiesCache('cache/company', 'companies');
-    $scope.InventorySupplyStates = [];
-    $scope.loadEntities('enums/InventorySupplyState', 'InventorySupplyStates');
-    $scope.checkedData = function (data, itemID) {
-        if (data.isSelected == true) {
-            $scope.InventoryPurchaseApprovalData.push({ isSelected: data.isSelected, itemID: itemID })
-        }
-        if (data.isSelected == false) {
-            for (var i = 0; i < $scope.InventoryPurchaseApprovalData.length; i++) {
-                if ($scope.InventoryPurchaseApprovalData[i].itemID == itemID)
-                    $scope.InventoryPurchaseApprovalData.splice($scope.InventoryPurchaseApprovalData[i], 1);
+        }),
+ 
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        keyExpr: "id",
+        showBorders: true,
+        hoverStateEnabled: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        headerFilter: { visible: true },
+        searchPanel: { visible: true },
+        // stateStoring: {
+        //     enabled: true,
+        //     type: "custom",
+        //     customLoad: function () {
+        //         return $scope.params.gridState;
+        //     },
+        //     customSave: function (state) {
+        //         $scope.params.gridState = state;
+        //     }
+        // },
+        stateStoring: {
+           enabled: true,
+           type: "localStorage",
+           storageKey: "storage"
+        },
+        columns: [
+            { type: "buttons", width: 50, buttons: [{ hint: "edit", icon: "edit", onClick: function (e) { location.href = '#/app/inventory/inventorypurchase/edit/' + e.row.data.id; } }] },
+            { dataField: "id", dataType: "number", visible: false },
+            { caption: $translate.instant('inventorypurchase.CompanyID'), dataField: "CompanyID", dataType: "string" },
+            { caption: $translate.instant('inventorypurchase.StoreID'), dataField: "StoreID", dataType: "string" ,
+            lookup: {
+                valueExpr: "id",
+                displayExpr: "name",
+                dataSource: {
+                    store: DevExpress.data.AspNet.createStore({
+                        key: "id",
+                        loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                        onBeforeSend: function (method, ajaxOptions) {
+                            var authData = localStorageService.get('authorizationData');
+                            if (authData) {
+
+                                ajaxOptions.headers = {
+                                    Authorization: 'Bearer ' + authData.token
+                                };
+                            }
+                        }
+                    })
+                }
+            }},
+            { caption: $translate.instant('inventorypurchase.DateTime'), dataField: "DateTime", alignment: "right", dataType: "date", format: 'dd.MM.yyyy' },
+            { caption: $translate.instant('inventorypurchase.DeliveryDate'), dataField: "DeliveryDate", alignment: "right", dataType: "date",  format: 'dd.MM.yyyy' },
+            { caption: $translate.instant('inventorypurchase.Amount'), dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('inventorypurchase.InventorySupplyState'), dataField: "InventorySupplyState", dataType: "string" ,
+            lookup: {
+                valueExpr: "Value",
+                displayExpr: "Name",
+                dataSource: InventorySupplyStates,
+                calculateSortValue: function (data) {
+                    var value = this.calculateCellValue(data);
+                    return this.lookup.calculateCellValue(value);
+                }
+            }},
+            { caption: $translate.instant('inventorypurchase.Description'), dataField: "Description", dataType: "string" },
+            { caption: $translate.instant('inventorypurchase.isSended'), dataField: "isSended", dataType: "string" },
+            { caption: $translate.instant('inventorypurchase.Notes'), dataField: "Notes", dataType: "string" },
+
+
+        ],
+        export: {
+            enabled: true,
+            fileName: "inventorypurchase",
+            customizeExcelCell: (options) => {
+                var gridCell = options.gridCell;
+                if (!gridCell) {
+                    return;
+                }
+                if (gridCell.rowType === 'data') {
+                    if (gridCell.data.Delta === true) {
+                        options.font.bold = true;
+                        options.backgroundColor = '#FFBB00';
+                    }
+                }
             }
-        }
-    };
-    $scope.checkInventoryDemandApproval = function () {
-        for (var i = 0; i < $scope.InventoryPurchaseApprovalData.length; i++) {
-            if ($scope.InventoryPurchaseApprovalData[i].itemID) {
-                Restangular.all('InventoryPurchaseApproval').getList({
-                    search: "InventoryPurchaseID='" + $scope.InventoryPurchaseApprovalData[i].itemID + "'and ApproveState=0",
-                    sort:"OrderIndex"
-                }).then(function (items) {
-                    Restangular.one('InventorySupply/approvepurchase').get({
-                        InventoryPurchaseApprovalID: items[0].id,
-                        toState: 1
-                    }).then(function (restresult) {
-                        toaster.pop('success', $translate.instant('invantories.Saved'));
-                        ip.tableParams.reload();
-                    }, function (response) {
-                        toaster.pop('warning', response.data.ExceptionMessage);
-                    });
-                }, function (response) {
-                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-                });
-            }
-        }
+        },
+        scrolling: { mode: "virtual" },
+        height: 600,
+        paging: {
+            enabled: true
+        },
     };
     $scope.$on('$destroy', function () {
         deregistration();
-        deregistration1();
         $element.remove();
         $rootScope.uService.ExitController("inventorypurchaselistCtrl");
     });

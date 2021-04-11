@@ -426,6 +426,17 @@
                                 class="pull-right">{{'main.SIDESAMOUNT' | translate}}</span></th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
                                 class="pull-right">{{'main.SIDESAMOUNTPERCENT' | translate}}</span></th>
+                        ,
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.U30'
+                                | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
+                                class="pull-right">{{'main.FLAVOUR' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
+                                class="pull-right">{{'main.SPEED' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
+                                class="pull-right">{{'main.SCORE' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
+                                class="pull-right">{{'main.DURATIONN' | translate}}</span></th>
                         <!-- <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.NEFISKENARPRODUCTCOUNT' | translate}}</span></th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.NEFISKENARTCCOUNT' | translate}}</span></th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.NEFISKENARTCPERCENT' | translate}}</span></th>
@@ -433,9 +444,6 @@
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.NEFISKENARAMOUNTPERCENT' | translate}}</span></th> -->
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.LSM'
                                 | translate}}</span></th>
-
-
-
                     </tr>
                 </thead>
 
@@ -764,6 +772,22 @@
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <span class="pull-right">{{(item.Sides_AmountPercent)*100 |number:2}}</span>
                         </td>
+
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{U30}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{flavour}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{speed}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{score}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{(durationn)}}</span>
+                        </td>
                         <!-- <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <span class="pull-right">{{item.NefisKenarYanUrun_ProductCount}}</span>
                         </td>
@@ -942,6 +966,16 @@
                                 class="pull-right">{{totalSideTC}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
                                 class="pull-right">{{totalSideAmount|number:2}}</span></td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
+                                class="pull-right">{{U30}}</span></td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
+                                class="pull-right">{{FLAVOUR}}</span></td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
+                                class="pull-right">{{SPEED}}</span></td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
+                                class="pull-right">{{SCORE}}</span></td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
+                                class="pull-right">{{DURATIONN}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>
                         <!-- <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span class="pull-right">{{totalNefisKenarCount}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span class="pull-right">{{totalNefisKenarTC}}</span></td>

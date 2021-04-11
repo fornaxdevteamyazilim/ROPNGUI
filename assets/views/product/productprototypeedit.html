@@ -115,14 +115,6 @@
                         <label translate="main.NEWPROTOTYPENAME"></label>
                         <input id="id" type="text" class="form-control" ng-model="NewPrototypeName" placeholder="" ng-minlength="1" required>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-3 col-xs-12">
-                        <label translate="main.PLUNAME"></label>
-                        <input id="id" type="text" class="form-control"  placeholder="" ng-minlength="1" required>
-                    </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-3 col-xs-12">
-                        <label translate="main.EXTNAME"></label>
-                        <input id="id" type="text" class="form-control" placeholder="" ng-minlength="1" required>
-                    </div>
                     <div class="form-group col-sm-6 col-lg-2 col-md-3 col-xs-12 margin-top-25">
                         <button class="btn btn-purple btn-wide btn-scroll btn-scroll-left fa fa-copy pull-right" ng-click="copyPrototype()">
                             <span>{{:: copyprototype}}</span>
@@ -190,12 +182,6 @@
                                                 {{ ShowObject('productoptiontypes','Value',item.ProductOptionTypeID,'Name') }}
                                             </span>
                                         </td>
-                                        <td   data-title="trpluname" style="width:6%">
-                                          <span editable-text="item.PLUNAME" e-name="pluname"
-                                                  e-form="rowform" e-ng-model="item.PLUNAME">
-                                                {{ :: item.PLUNAME }}
-                                            </span>
-                                        </td>
                                         <td data-title="trRelatedOption" style="width:6%" class="ng">
                                             <span class="text-capitalize" editable-select="item.RelatedOpiton" e-name="RelatedOpiton" e-ng-options="q.id as q.name for q in productoptions | orderBy:'+name'"
                                                   e-form="rowform" e-ng-model="item.RelatedOpiton">
@@ -205,12 +191,6 @@
                                         <td data-title="trMinCount" style="width:6%">
                                             <span editable-number="item.MinCount" e-min="0" e-name="MinCount" e-form="rowform" e-ng-model="item.MinCount">
                                                 {{ :: item.MinCount  }}
-                                            </span>
-                                        </td>
-                                        <td  data-title="trextname" style="width:6%">
-                                            <span editable-text="item.EXTNAME" e-name="extname"
-                                                  e-form="rowform" e-ng-model="item.EXTNAME">
-                                                {{ :: item.EXTNAME }}
                                             </span>
                                         </td>
                                         <td data-title="trMaxCount" style="width:6%">
@@ -297,6 +277,18 @@
                                                 {{ :: item.name }}
                                             </span>
                                         </td>
+
+                                        <td data-title="trpluname" data-sortable="'PLUname'" width="8%">
+                                            <span editable-text="item.ItemPLUnameCode" e-name="PLUname" e-form="rowform" e-ng-model="item.PLUname">
+                                                {{ :: item.PLUname }}
+                                            </span>
+                                        </td>
+                                        <td data-title="trextname" data-sortable="'extname'" width="8%">
+                                            <span editable-text="item.extname" e-name="extname" e-form="rowform" e-ng-model="item.extname">
+                                                {{ :: item.extname }}
+                                            </span>
+                                        </td>
+
                                         <td data-title="trProductItemCode" data-sortable="'ItemCode'" width="8%">
                                             <span editable-text="item.ItemCode" e-name="name" e-form="rowform" e-ng-model="item.ItemCode">
                                                 {{ :: item.ItemCode }}

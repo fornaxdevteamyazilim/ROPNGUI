@@ -155,7 +155,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         Restangular.all('ordertools/PrintLabels').getList({
             OrderID: OrderID
         }).then(function (_orderItems) {
-            toaster.pop('success', $translate.instant('invantories.LabelPrintingAgain'));
+            toaster.pop('success', $translate.instant('dispatcherfile.LabelPrintingAgain'));
         }, function (response) {
             toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });

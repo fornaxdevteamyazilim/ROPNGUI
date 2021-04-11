@@ -195,6 +195,30 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         }
     };
     $scope.getNewYSOrder(); 
+    var NewAggregatorOrderfresh = $scope.$on('AggregatorOrder', function (event, data) {
+        $scope.getNewwAggregatorOrder();
+    });
+    $scope.getNewwAggregatorOrder = function () {
+        if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
+            if ($rootScope.user.restrictions.aggregatorcustomermapping == 'Enable') {
+                Restangular.all('aggregator/unmappedorders').getList({
+                    StoreID: $rootScope.user.StoreID ? $rootScope.user.StoreID : ''
+                }).then(function (result) {
+                    $scope.audio.muting = !(result.length > 0);
+                    if (result.length > 0) {
+                        if (!($rootScope.user.restrictions.ysnosound == 'Enable'))
+                            $scope.audio.play();
+                        $rootScope.AggregatorOrderCount = angular.copy(result.length);
+                    } else
+                        $scope.audio.pause();
+                    $rootScope.AggregatorOrderCount = angular.copy(result.length);
+                }, function (response) {
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                });
+            }
+        }
+    };
+    $scope.getNewwAggregatorOrder();
     $scope.Preference = function () {
         var data = $rootScope.user;
     };
@@ -539,6 +563,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         $scope.audio.pause();
         $timeout.cancel(OrderRefreshTimeOut);
         NewOrderfresh();
+        NewAggregatorOrderfresh();
         StoreStatsRefresh();
         userService.stopTimeout();
         deregistration1();

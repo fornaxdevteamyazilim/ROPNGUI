@@ -37,10 +37,10 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
             }, function (response) {
                 toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
-            Restangular.all('YemekSepetiRejectReason').getList({   
-                search: "isActive=1",             
+            Restangular.all('YemekSepetiRejectReason').getList({
+                search: "isActive=1",
             }).then(function (items) {
-                angular.copy(items, $scope.YemekSepetiRejectReasons);                
+                angular.copy(items, $scope.YemekSepetiRejectReasons);
             }, function (response) {
                 toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
@@ -57,12 +57,12 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
     }
     $scope.LoadOrder = function () {
         Restangular.one('order', item.id).get().then
-             (function (restresult) {
-                 angular.copy(restresult, $scope.order);
-             },
-            function (restresult) {
-                toaster.pop('error', $translate.instant('Server.ServerError'), restresult.data.ExceptionMessage);
-            })
+            (function (restresult) {
+                angular.copy(restresult, $scope.order);
+            },
+                function (restresult) {
+                    toaster.pop('error', $translate.instant('Server.ServerError'), restresult.data.ExceptionMessage);
+                })
     };
 
     $scope.CopyOrder = function (order) {
@@ -89,14 +89,14 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
     $scope.SaveData = function (data) {
         if (!data.OrderReasonID) {
             toaster.pop('error', $translate.instant('orderfile.ChoosReason'), $translate.instant('orderfile.Seleccancellation'));
-        }else if (item.root == 'orderdetail') {
+        } else if (item.root == 'orderdetail') {
             if (data.value == true) {
                 Restangular.all('ordertools/updateorderstatus').getList({
                     OrderID: $scope.order.id,
                     newSatus: 7,
                     OrderReasonID: data.OrderReasonID,
                     OrderNote: data.Note,
-                    YemekSepetiRejectReasonID:data.YemekSepetiRejectReasonID,
+                    YemekSepetiRejectReasonID: data.YemekSepetiRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
                     toaster.pop('success', $translate.instant('orderfile.OrderStatusUpdated'));
@@ -111,7 +111,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     newSatus: 8,
                     OrderReasonID: data.OrderReasonID,
                     OrderNote: data.Note,
-                     YemekSepetiRejectReasonID:data.YemekSepetiRejectReasonID,
+                    YemekSepetiRejectReasonID: data.YemekSepetiRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
                     toaster.pop('success', $translate.instant('orderfile.OrderStatusUpdated'));
@@ -155,26 +155,26 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
     };
 
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
-                    for (var i = 0; i < $scope[Container].length; i++) {
-                        if ($scope[Container][i][idName] == idvalue)
-                            return $scope[Container][i][resName];
-                    }
-                    return idvalue || 'Not set';
-                };
-            $scope.loadEntities = function (EntityType, Container) {
-                if (!$scope[Container].length) {
-                    Restangular.all(EntityType).getList({
-                        pageNo: 1,
-                        pageSize: 1000,
-                    }).then(function (result) {
-                        $scope[Container] = result;
-                    }, function (response) {
-                        toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-                    });
-                }
-            };
-            $scope.yemeksepetirejectreasons = [];
-            $scope.loadEntities('cache/yemeksepetirejectreasons', 'yemeksepetirejectreasons');
+        for (var i = 0; i < $scope[Container].length; i++) {
+            if ($scope[Container][i][idName] == idvalue)
+                return $scope[Container][i][resName];
+        }
+        return idvalue || 'Not set';
+    };
+    $scope.loadEntities = function (EntityType, Container) {
+        if (!$scope[Container].length) {
+            Restangular.all(EntityType).getList({
+                pageNo: 1,
+                pageSize: 1000,
+            }).then(function (result) {
+                $scope[Container] = result;
+            }, function (response) {
+                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            });
+        }
+    };
+    $scope.yemeksepetirejectreasons = [];
+    $scope.loadEntities('cache/yemeksepetirejectreasons', 'yemeksepetirejectreasons');
 
     $scope.ok = function () {
         $modalInstance.close('result');

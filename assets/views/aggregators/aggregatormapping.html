@@ -5,7 +5,7 @@
             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
                     <span class="mainTitle text-dark text-uppercase" style="font-size:25px;"
-                        translate="tittle.AGGREGATORMAP"
+                        translate="aggregatormapping.TITLE"
                         translate-values="{ appName: app.name }">{{ mainTitle }}</span><br /><br />
                 </div>
             </div>
@@ -26,7 +26,7 @@
     <div id="report" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive"
         ng-hide="isWaiting==true">
         <tabset justified="true" class="tabbable">
-            <tab heading="{{'main.AGGREGATORPRODUCTMAP' | translate}}">
+            <tab heading="{{'aggregatormapping.productmap' | translate}}">
                 <div class="panel panel-white">
                     <div class="panel-body">
                         <div id="productContainer" dx-data-grid="productGridOptions" dx-item-alias="PrductMaps">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </tab>
-            <tab heading="{{'main.AGGREGATORPAYMENTMAP' | translate}}">
+            <tab heading="{{'aggregatormapping.paymentmapping' | translate}}">
                 <div class="panel panel-white">
                     <div class="panel-body">
                         <div id="paymentContainer" dx-data-grid="paymentaGridOptions" dx-item-alias="PaymentTypes">

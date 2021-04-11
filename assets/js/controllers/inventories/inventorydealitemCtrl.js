@@ -1,5 +1,5 @@
 ﻿app.controller('inventorydealitemCtrl', inventorydealitemCtrl);
-function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, userService, $element) {
+function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, userService, $element, $http, NG_SETTING) {
     $rootScope.uService.EnterController("inventorydealitemCtrl");
     var ideali = this;
     $scope.item = {};
@@ -31,25 +31,17 @@ function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
     if ($stateParams.id != 'new') {
         Restangular.one('inventorydeal', $stateParams.id).get().then(function (restresult) {
             $scope.Showtable = true;
-            $scope.item = Restangular.copy(restresult);            
+            $scope.item = Restangular.copy(restresult);       
             $scope.loadEntities3('SuppliyerInventoryUnits', 'inventoryunits', restresult.CompanyID);
             if ($scope.item.items.length > 0) {
-                ideali.tableParams.reload();
+                //ideali.tableParams.reload();
+         
             }
         })
     } else {
         $scope.Showtable = false;
         $scope.item = {};
-    }
-    ideali.tableParams = new ngTableParams({
-        page: 1,
-        count: 10,
-    },{
-        getData: function ($defer, params) {
-            if ($scope.item.items && $scope.item.items.length > 0)
-                $defer.resolve($scope.item.items);
-        }
-    });
+    };
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.ShowSpinnerObject = true;
@@ -76,7 +68,84 @@ function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
                 toaster.pop('error', "Error!", response.data.ExceptionMessage);
             });
         }
+    }; 
+    var params = {
+        InventoryDealID: $stateParams.id
+     
     };
+    $http.get(NG_SETTING.apiServiceBaseUri + "/api/inventorydeal", { params: params })
+        .then(function (response) {
+            $scope.CompanyID.items= response.item;
+           
+            var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            dataGrid.option("dataSource", $scope.item.items);
+        }, function (response) {
+            return $q.reject("Data Loading Error");
+        });
+
+$scope.dataGridOptions = {
+    dataSource: $scope.item.items,
+    showBorders: true,
+    allowColumnResizing: true,
+    columnAutoWidth: true,
+    showColumnLines: true,
+    showRowLines: true,
+    rowAlternationEnabled: true,
+    //keyExpr: "id",
+    showBorders: true,
+    hoverStateEnabled: true,
+    allowColumnReordering: true,
+    filterRow: { visible: true },
+    headerFilter: { visible: true },
+    searchPanel: { visible: true },
+    showBorders: true,
+    paging: {
+        enabled: false
+    },
+    editing: {
+        mode: "cell",
+        allowAdding: true,    //($rootScope.user.restrictions.inventorydealItem_add == 'Enable' ), //inventorydealItem_add
+        allowUpdating: true,  // ($rootScope.user.restrictions.inventorydealItem_update == 'Enable' ), //inventorydealItem_update
+        allowDeleting: true,  //($rootScope.user.restrictions.inventorydealItem_delete == 'Enable' ), //inventorydealItem_delete
+        allowInserting: true, //($rootScope.user.restrictions.inventorydealItem_insert == 'Enable' ) //inventorydealItem_insert
+         
+    },   
+       
+    columns: [
+     
+        {
+            dataField: "InventoryUnitID", caption: $translate.instant('inventorydealItem.InventoryUnit'), //fixed: true,width: 200,    
+            lookup: {
+                valueExpr: "InventoryUnitID",
+                displayExpr: "InventoryUnitName",
+                searchMode: "contains",
+                dataSource: {
+                    store: DevExpress.data.AspNet.createStore({
+                        key: "InventoryUnitID",
+                        loadUrl: NG_SETTING.apiServiceBaseUri + "/api/inventorydeal"
+                    }),
+                    sort: "InventoryUnitName",
+                    headerFilter: { allowSearch: true }
+                },
+                calculateSortValue: function (data) {
+                    var value = this.calculateCellValue(data);
+                    return this.lookup.calculateCellValue(value);
+                },
+                
+            },
+        },
+        { caption: $translate.instant('inventorydealItem.Price'), dataField: "Price", dataType: "number", allowEditing: true, visibleIndex: 2 },
+        { caption: $translate.instant('inventorydealItem.MinUnits'), dataField: "MinUnits", dataType: "string", allowEditing: true, visibleIndex: 3 },
+        { caption: $translate.instant('inventorydealItem.MaxUnits'), dataField: "MaxUnits", dataType: "number", allowEditing: true, visibleIndex: 4 },
+        { caption: $translate.instant('inventorydealItem.DeliveryDays'), dataField: "DeliveryDays", dataType: "string", allowEditing: true, visibleIndex: 5 },
+        { caption: $translate.instant('inventorydealItem.Discount'), dataField: "Discount", dataType: "number", format: { type: "fixedPoint", precision: 2 }, allowEditing: true, visibleIndex: 6 },
+        { caption: $translate.instant('inventorydealItem.Multipliyer'), dataField: "Multipliyer", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 7 },
+        { caption: $translate.instant('inventorydealItem.PaymentTerm'), dataField: "PaymentTerm", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 8 },
+        { caption: $translate.instant('inventorydealItem.Notes'), dataField: "Notes", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 9 },
+
+    ]
+
+}; 
     ideali.search = '';
     $scope.FormKeyPress = function (event, rowform, data, index) {
         if (event.keyCode === 13 && rowform.$visible) {

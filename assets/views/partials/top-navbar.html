@@ -101,6 +101,11 @@
                 <i class="ti-layout-media-right" style="font-size:xx-large;"><span class="badge text-extra-large" ng-if="YSOrderCount > 0">{{YSOrderCount}}</span></i>
             </a>
         </li>
+        <li ng-if="user.restrictions.aggregatorcustomermapping=='Enable' &&  AggregatorOrderCount > 0" class="dropdown" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" href="#/app/aggregators/orders">
+                <i class="ti-layout-media-right" style="font-size:xx-large;"><span class="badge text-extra-large" ng-if="AggregatorOrderCount > 0">{{AggregatorOrderCount}}</span></i>
+            </a>
+        </li>
         <li ng-if="user.restrictions.upnavmainscreen=='Enable'" class="dropdown" dropdown on-toggle="toggled(open)">
             <a class="dropdown-toggle margin-top-10" href="#/app/mainscreen">
                 <!--<i class="ti-home" style="font-size:x-large;" ng-if="user.UserRole.OrderSource.Department.Member.id == 106851154380"></i>-->

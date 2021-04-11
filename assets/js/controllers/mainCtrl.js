@@ -348,12 +348,39 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                 }
             }
         };
+        var NewAggregatorOrderfresh = $scope.$on('AggregatorOrder', function (event, data) {
+            $scope.getNewwAggregatorOrder();
+        });
+        $scope.getNewwAggregatorOrder = function () {
+            if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
+                if ($rootScope.user.restrictions.aggregatorcustomermapping == 'Enable') {
+                    Restangular.all('aggregator/unmappedorders').getList({
+                        StoreID: $rootScope.user.StoreID ? $rootScope.user.StoreID : ''
+                    }).then(function (result) {
+                        $scope.audio.muting = !(result.length > 0);
+                        if (result.length > 0) {
+                            if (!($rootScope.user.restrictions.ysnosound == 'Enable'))
+                                $scope.audio.play();
+                            $rootScope.AggregatorOrderCount = angular.copy(result.length);
+                        } else
+                            $scope.audio.pause();
+                        $rootScope.AggregatorOrderCount = angular.copy(result.length);
+                    }, function (response) {
+                        toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    });
+                }
+            }
+        };
+        $scope.getNewwAggregatorOrder();
         var OrderRefresh = $scope.$on('ServerTime', function (event, data) {
             if ($rootScope.OrderCount > 0)
                 $scope.GetNewOrderCount();
             if ($rootScope.YSOrderCount > 0 && $rootScope.user.restrictions.ysorder == 'Enable')
                 $scope.getNewYSOrder();
+            if ($rootScope.AggregatorOrderCount > 0 && $rootScope.user.restrictions.aggregatorcustomermapping == 'Enable')
+                $scope.getNewwAggregatorOrder();
         });
+        
         $scope.getNewYSOrder();
         $scope.uistatusdisplay = function () {
             var modalInstance = $modal.open({
@@ -433,6 +460,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
             deregistration4();
             deregistration5();
             deregistration6();
+            NewAggregatorOrderfresh();
             $timeout.cancel(stopTime);
             CustomerArrivedEvent();
             screenWatch();

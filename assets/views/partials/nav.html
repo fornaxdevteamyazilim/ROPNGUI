@@ -1956,8 +1956,6 @@
                         translate="sidebar.nav.aggregator.orders">Orders</span>
                 </a>
             </li>
-        </ul>
-        <ul class="sub-menu">
             <li ui-sref-active="active" ng-if="user.restrictions.aggregatorsmapping=='Enable'">
                 <a ui-sref="app.aggregators.mapping">
                     <i class="ti-location-pin"></i> <span class="title"
@@ -1965,6 +1963,7 @@
                 </a>
             </li>
         </ul>
+        
     </li>
     <li ng-class="{'active open':$state.includes('app.mergeaddresses')}"
         ng-if="user.restrictions.mergeaddressese=='Enable'">

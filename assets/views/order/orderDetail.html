@@ -368,7 +368,7 @@
             <button class="btn btn-wide btn-success margin-top-5" ng-click="SendGiftPromotions(item.id)" ng-if="userRestrictions.sendgiftpromotions=='Enable'">
                 <span>{{:: sendgifpromotions }}</span>
             </button>
-            <button class="btn btn-wide btn-primary margin-top-5" ng-click="DeleteYSMaping(item.id)" ng-if="userRestrictions.deleteysmaping=='Enable' && item.OrderSource == 'YemekSepeti'">
+            <button class="btn btn-wide btn-primary margin-top-5" ng-click="DeleteYSMaping(item.id)" ng-if="userRestrictions.deleteysmaping=='Enable' && (item.OrderSource == 'YemekSepeti' ||item.OrderSource == 'Getir')">
                 <span>{{:: deleteysmaping}}</span>
             </button>
             <button class="btn btn-wide btn-warning margin-top-5" ng-if="(item.OrderTypeID==2 || item.OrderTypeID==7) && userRestrictions.repeatorder=='Enable'" ng-click="repeatOrder(item.id)">

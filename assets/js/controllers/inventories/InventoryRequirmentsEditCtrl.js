@@ -171,7 +171,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
     };
     $scope.loadEntitiesCache = function (EntityType, Container) {
         if (!$scope[Container].length) {
-            Restangular.all(EntityType).getList({}).then(function (result) {
+            Restangular.all(EntityType).getList({Calculate:false}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
                 toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
@@ -228,8 +228,9 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
         filterRow: { visible: true },
         headerFilter: { visible: true },
         searchPanel: { visible: true },
+        groupPanel: { visible: true },
         showBorders: true,
-        noDataText:  $translate.instant('InventoryRequirmentItem.Calculatingrequirments'),
+        noDataText: $translate.instant('InventoryRequirmentItem.Calculatingrequirments'),
         paging: {
             enabled: false
         },
@@ -250,14 +251,14 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
                 ]
             },
             {
-                caption:$translate.instant('InventoryRequirmentItem.Requirment'), name: "İhtiyaç", //İhtiyaç
+                caption: $translate.instant('InventoryRequirmentItem.Requirment'), name: "İhtiyaç", //İhtiyaç
                 columns: [
                     { caption: $translate.instant('InventoryRequirmentItem.UnitCount'), dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: false, visibleIndex: 6 },
                     { caption: $translate.instant('InventoryRequirmentItem.UnitCustom'), dataField: "UnitCustom", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 7 },
-                    { caption: $translate.instant('InventoryRequirmentItem.Total'), calculateCellValue: function (data) { return data.UnitCustom * data.UnitPrice; }, visibleIndex: 8 },
+                    { name: "Total", caption: $translate.instant('InventoryRequirmentItem.Total'), calculateCellValue: function (data) { return data.UnitCustom * data.UnitPrice; }, visibleIndex: 8 },
                 ]
             },
-            { caption: $translate.instant('InventoryRequirmentItem.InventoryUnitID'), dataField: "InventoryUnitID", dataType: "number", allowEditing: false, visible: false,  visible: false,visibleIndex: 9 },
+            { caption: $translate.instant('InventoryRequirmentItem.InventoryUnitID'), dataField: "InventoryUnitID", dataType: "number", allowEditing: false, visible: false, visible: false, visibleIndex: 9 },
             { caption: $translate.instant('InventoryRequirmentItem.SupplyDescription'), dataField: "SupplyDescription", dataType: "string", allowEditing: false, visibleIndex: 10 }, //Tedarik edilecek yer
 
         ],

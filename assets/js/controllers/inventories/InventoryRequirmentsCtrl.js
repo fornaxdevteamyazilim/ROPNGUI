@@ -130,7 +130,7 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
     };
     $scope.loadEntitiesCache = function (EntityType, Container) {
         if (!$scope[Container].length) {
-            Restangular.all(EntityType).getList({}).then(function (result) {
+            Restangular.all(EntityType).getList({Calculate:false}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
                 toaster.pop('Warning',$translate.instant('Server.ServerError'), response);

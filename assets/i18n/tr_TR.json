@@ -1891,6 +1891,7 @@
     "CITIZENSHIPID": "Vatandaşlık Numarası (TC Kimlik No)",
     "USERPOSITION": "Kullanıcı Pozisyonu",
     "USERISACTIVE": "Kullanıcı Durumu (Aktif)",
+    "USERFINGER": "Parmak İzi",
     "STAFFPOSITION": "Personel Pozisyonları",
     "TRAININGTYPE": "Eğitim Tipi",
     "TRAININGLOCATION": "Eğitim Yeri",
@@ -2148,6 +2149,8 @@
     "SIDESTCPERCENT": "Yan Urun TC %",
     "SIDESAMOUNT": "Yan Urun TL",
     "SIDESAMOUNTPERCENT": "Yan Urun TL %",
+    "SCORE": "Puan",
+    "U30": " U30 %",
     "NEFISKENARPRODUCTCOUNT": "Nefis Kenar Adet",
     "NEFISKENARTCCOUNT": "Nefis Kenar TC",
     "NEFISKENARTCPERCENT": "Nefis Kenar TC %",
@@ -2245,6 +2248,7 @@
     "SENDEDTO": "Sms Numarası",
     "ISSENDED": "Sms Gönderildi mi ?",
     "REQUIRMENTSISSENDED": "Gönderildi mi ?",
+	  "PURCHASEISSENDED": "İletildi!",
     "SEARCHBYGIFTPROMOTIONCODE": "Hediye Promosyon Koduna Göre Ara!",
     "GIFTPROMOTIONORDERSOURCE": "Hediye Promosyon Sipariş Kaynağı",
     "SEARCHBYGIFTCODESOURCENAME": "Hediye Promosyon Kod Kaynağına Göre Ara!",
@@ -4250,5 +4254,49 @@
     "Requirment": "İhtiyaç",
     "InventoryUnitID": "Stok Birimi",
     "Total": "Toplam"
+  },
+  "inventorypurchase": {
+    "CompanyID": "Firma",
+    "StoreID": "Restoran",
+    "DateTime": "Sipariş Tarihi",
+    "DeliveryDate": "Teslim Tarihi",
+    "Amount": "Tutar",
+    "InventorySupplyState": "Durum",
+    "Description": "Açıklama",
+    "isSended": "İletildi",
+    "Notes": "Notes"
+  },
+  "inventorydeliveries": {
+    "DocumentNumber": "Döküman Numarası",
+    "DocumentType": "Döküman Tipi",
+    "Company": "Firma",
+    "Repository": "Depo",
+    "DeliveryDate": "Teslim Tarihi",
+    "VAT": "KDV",
+    "Amount": "Tutar",
+    "GrandTotal": "Toplam Tutar",
+    "Description": "Açıklama"
+ 
+  },
+  "inventorydeliveriesedit": {
+    "InventoryUnit": "Malzeme birimi",
+    "UnitCount": "Miktar",
+    "UnitPrice": "Birim Fiyatı",
+    "VATRatio": "KDV Oranı",
+    "VAT": "KDV",
+    "Total": "Toplam",
+    "Calculatingrequirments":"Lütfen Bekleyin. Talepleriniz Hesaplanıyor..."
+  },
+  "inventorydealItem": {
+    "InventoryUnit": "Malzeme birimi",
+    "Price": "Fiyat",
+    "MinUnits": "Min Birim",
+    "MaxUnits": "Max Birim",
+    "DeliveryDays": "Teslimat Günü",
+    "Discount": "İndirim",
+    "Multipliyer": "Çarpan",
+    "PaymentTerm": "Vade",
+    "Notes": "Notlar",
+    "Calculatingrequirments":"Lütfen Bekleyin. Talepleriniz Hesaplanıyor..."
   }
 }

@@ -5,26 +5,8 @@ function aggregatororderlistCtrl($scope, Restangular, toaster, $interval, $http,
     //  userService.userAuthorizated();
     var promise;
 
-    $scope.translate = function () {
-        $scope.trREPORT = $translate.instant('main.REPORT');
-        $scope.trEXCEL = $translate.instant('main.EXCEL');
-        $scope.trPRINT = $translate.instant('main.PRINT');
-        $scope.trTODAYINCOME = $translate.instant('main.TODAYINCOME');
-        $scope.trTODAYTC = $translate.instant('main.TODAYTC');
-        $scope.trPREWEEKINCOME = $translate.instant('main.PREWEEKINCOME');
-        $scope.trPREWEEKTC = $translate.instant('main.PREWEEKTC');
-        $scope.trPREWEEKAC = $translate.instant('main.PREWEEKAC');
-        $scope.SALESTARGET = $translate.instant('main.PREWEEKAC');
-        $scope.TCTARGET = $translate.instant('main.PREWEEKAC');
-        $scope.ACTARGET = $translate.instant('main.PREWEEKAC');
+    $scope.translate = function () {        
 
-    };
-    $scope.selectedStore = function (StoreID, Store) {
-        var data = {};
-        data.id = StoreID;
-        data.name = Store;
-        $rootScope.SelectedData = data;
-        $location.path('/app/dashboard');
     };
     $scope.translate();
     var tranlatelistener = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
@@ -238,18 +220,31 @@ function aggregatororderlistCtrl($scope, Restangular, toaster, $interval, $http,
         var dataGrid = $('#advgridContainer').dxDataGrid('instance');
         dataGrid.refresh();
     }
-    $scope.start = function () {
-        $scope.stop();
-        promise = $interval(refreshData, 30000);
-    };
+    var onAggregatorOrder = (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CCBACKOFFICE")) ?
+    $scope.$on('AggregatorOrderUpdate', function (event, data) { 
+        refreshData(); 
+    }) : 
+    $scope.$on('AggregatorOrder', function (event, data) { 
+        refreshData(); 
+    });
+    
+    // var onAggregatorOrder = $scope.$on('AggregatorOrder', function (event, data) {
+    //    refreshData();
+    // });
+    // $scope.start = function () {
+    //     $scope.stop();
+    //     promise = $interval(refreshData, 30000);
+    // };
 
-    $scope.stop = function () {
-        $interval.cancel(promise);
-    };
-    $scope.start();
+    // $scope.stop = function () {
+    //     $interval.cancel(promise);
+    // };
+    // $scope.start();
 
     $scope.$on('$destroy', function () {
-        $scope.stop();
+        //$scope.stop();
+        onAggregatorOrder();
+        //NewAggregatorOrderfresh();
         tranlatelistener();
         $element.remove();
         $rootScope.uService.ExitController("aggregatororderlistCtrl");

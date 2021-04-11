@@ -1875,6 +1875,7 @@
     "CITIZENSHIPID": "Citizen Ship ID",
     "USERPOSITION": "User Position",
     "USERISACTIVE": "User State (Active)",
+    "USERFINGER": "User Finger Print",
     "STAFFPOSITION": "Staff Position",
     "TRAININGTYPE": "Training Type",
     "TRAININGLOCATION": "Training Location",
@@ -2140,6 +2141,8 @@
     "SIDESTCPERCENT": "Sides Product TC %",
     "SIDESAMOUNT": "Sides Product Amount",
     "SIDESAMOUNTPERCENT": "Sides Product v %",
+    "SCORE": "SCORE",
+    "U30": " U30 %",
     "NEFISKENARPRODUCTCOUNT": "Special Product Count",
     "NEFISKENARTCCOUNT": "Special Product TC",
     "NEFISKENARTCPERCENT": "Special Product TC %",
@@ -2219,6 +2222,7 @@
     "SENDEDTO": "Sended To",
     "ISSENDED": "is Sended ?",
     "REQUIRMENTSISSENDED": "is Sended ?",
+	  "PURCHASEISSENDED": "is Sended ?",
     "SEARCHBYGIFTPROMOTIONCODE": "Search by Gift Promotion Code!",
     "GIFTPROMOTIONORDERSOURCE": "Gift Promotion Order Source",
     "SEARCHBYGIFTCODESOURCENAME": "Search by Gift Code Source Name!",
@@ -4222,5 +4226,49 @@
     "Requirment": "Requirment",
     "InventoryUnitID": "Inventory Unit",
     "Total": "Total"
+  },
+  "inventorypurchase": {
+    "CompanyID": "Company",
+    "StoreID": "Store",
+    "DateTime": "DateTime",
+    "DeliveryDate": "DeliveryDate",
+    "Amount": "Amount",
+    "InventorySupplyState": "InventorySupplyState",
+    "Description": "Description",
+    "isSended": "Is Sended",
+    "Notes": "Notes"
+  },
+  "inventorydeliveries": {
+    "DocumentNumber": "DocumentNumber",
+    "DocumentType": "DocumentType",
+    "Company": "Company",
+    "Repository": "Repository",
+    "DeliveryDate": "DeliveryDate",
+    "VAT": "VAT",
+    "Amount": "Amount",
+    "GrandTotal": "GrandTotal",
+    "Description": "Description"
+ 
+  },
+  "inventorydeliveriesedit": {
+    "InventoryUnit": "InventoryUnit",
+    "UnitCount": "UnitCount",
+    "UnitPrice": "UnitPrice",
+    "VATRatio": "VATRatio",
+    "VAT": "VAT",
+    "Total": "Total",
+    "Calculatingrequirments": "Calculating Requirments"
+  },
+  "inventorydealItem": {
+    "InventoryUnit": "InventoryUnit",
+    "Price": "Price",
+    "MinUnits": "MinUnits",
+    "MaxUnits": "MaxUnits",
+    "DeliveryDays": "DeliveryDays",
+    "Discount": "Discount",
+    "Multipliyer": "Multipliyer",
+    "PaymentTerm": "PaymentTerm",
+    "Notes": "Notes",
+    "Calculatingrequirments": "Calculating Requirments"
   }
 }

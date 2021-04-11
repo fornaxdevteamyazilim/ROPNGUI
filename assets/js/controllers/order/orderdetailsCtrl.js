@@ -12,8 +12,8 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         $window.history.back();
     };
     $scope.userRestrictions = $rootScope.user.restrictions;
-     $scope.translate = function (StoreOrderTypes) {
-         $scope.orderdetails = $translate.instant('main.ORDERDETAILSS');
+    $scope.translate = function (StoreOrderTypes) {
+        $scope.orderdetails = $translate.instant('main.ORDERDETAILSS');
         $scope.ordernumber = $translate.instant('main.ORDERNUMBER');
         $scope.ordertype = $translate.instant('main.ORDERTYPE');
         $scope.orderno = $translate.instant('main.ORDERNO');
@@ -33,9 +33,9 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         $scope.deliverydate = $translate.instant('main.DELIVERYDATE');
         $scope.agent = $translate.instant('main.AGENT');
         $scope.reprint = $translate.instant('main.REPRINT');
-         $scope.changetoorder = $translate.instant('main.CHANGETOORDER');
-         $scope.sendtofiyuu = $translate.instant('main.SENDTOFIYUU');
-         $scope.sendgifpromotions = $translate.instant('main.SENDGIFTPROMOTIONS');
+        $scope.changetoorder = $translate.instant('main.CHANGETOORDER');
+        $scope.sendtofiyuu = $translate.instant('main.SENDTOFIYUU');
+        $scope.sendgifpromotions = $translate.instant('main.SENDGIFTPROMOTIONS');
         $scope.canceltoorder = $translate.instant('main.CANCELTOORDER');
         $scope.addpromotion = $translate.instant('main.ADDPROMOTION');
         $scope.deleteysmaping = $translate.instant('main.DELETEYSMAPING');
@@ -43,8 +43,8 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         $scope.refreshorder = $translate.instant('main.REFRESHORDER');
         $scope.changetopaymenttype = $translate.instant('main.CHANGETOPAYMENTTYPE');
         $scope.refuseorder = $translate.instant('main.REFUSEDORDER');
-         $scope.chooseorderstate = $translate.instant('main.CHOOSEORDERSTATE');
-         $scope.sendordertofiyuu = $translate.instant('main.SENDORDERTOFIYUU');
+        $scope.chooseorderstate = $translate.instant('main.CHOOSEORDERSTATE');
+        $scope.sendordertofiyuu = $translate.instant('main.SENDORDERTOFIYUU');
         $scope.reverttoprevstate = $translate.instant('main.REVERTTOPREVSTATE');
         $scope.updateorderpaymentstatus = $translate.instant('main.UPDATEORDERPAYMENTSTATUS');
         $scope.updateorderstatusadmin = $translate.instant('main.UPDATEORDERSTATUSADMIN');
@@ -74,19 +74,15 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         $scope.repeatorder = $translate.instant('main.REPEATORDER');
         $scope.isChargedd = $translate.instant('main.ISCHARGEDD');
         $scope.open = $translate.instant('main.OPEN');
-         $scope.close = $translate.instant('main.CLOSE');
-         $scope.efaturadetails = $translate.instant('main.EFATURADETAILS');
-         $scope.invoiceid = $translate.instant('main.ORDERINVOICEID');
-         $scope.phonenumber = $translate.instant('main.PHONENUMBER');
-         $scope.taxnumber = $translate.instant('main.TAXNUMBER');
-         $scope.taxoffice = $translate.instant('main.TAXOFFICE');
-         $scope.title = $translate.instant('main.TITLE');
-         $scope.duration = $translate.instant('main.DURATION');
-         $scope.durationn = $translate.instant('main.DURATIONN');
-
-
-
-
+        $scope.close = $translate.instant('main.CLOSE');
+        $scope.efaturadetails = $translate.instant('main.EFATURADETAILS');
+        $scope.invoiceid = $translate.instant('main.ORDERINVOICEID');
+        $scope.phonenumber = $translate.instant('main.PHONENUMBER');
+        $scope.taxnumber = $translate.instant('main.TAXNUMBER');
+        $scope.taxoffice = $translate.instant('main.TAXOFFICE');
+        $scope.title = $translate.instant('main.TITLE');
+        $scope.duration = $translate.instant('main.DURATION');
+        $scope.durationn = $translate.instant('main.DURATIONN');
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
@@ -117,13 +113,13 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         }).then(function (result) {
             $scope.DeletePromotion(result[0].id);
         },
-      function (response) {
-          toaster.pop('error', $translate.instant('Server.ServerError') , response.data.ExceptionMessage);
-      });
+            function (response) {
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            });
     };
     $scope.DeletePromotion = function (ID) {
         Restangular.one("orderpromotion", ID).remove().then(function () {
-            toaster.pop("error",  $translate.instant('orderfile.Deleted'), $translate.instant('orderfile.PromotionDeleted'));
+            toaster.pop("error", $translate.instant('orderfile.Deleted'), $translate.instant('orderfile.PromotionDeleted'));
             $scope.getOrder();
             $scope.RefreshOrder($stateParams.id)
         });
@@ -143,18 +139,18 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                             }
                     }
                 },
-               function (restresult) {
-                   toaster.pop('warning', $translate.instant('orderfile.Cancelled'), restresult.data.ExceptionMessage);
-               }
-               )
+                    function (restresult) {
+                        toaster.pop('warning', $translate.instant('orderfile.Cancelled'), restresult.data.ExceptionMessage);
+                    }
+                )
         }
     };
-    $scope.getOrder();    
+    $scope.getOrder();
     $scope.GetStore = function (StoreID) {
         Restangular.one('store', StoreID).get().then
-             (function (restresult) {
-                 angular.copy(restresult, $scope.StoreData);
-             })
+            (function (restresult) {
+                angular.copy(restresult, $scope.StoreData);
+            })
     };
     $scope.LoadOrderItems = function () {
         Restangular.all('orderitem').getList({
@@ -199,22 +195,22 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                 closeOnConfirm: false
             }, function () {
                 Restangular.one('order', item.id).get().then
-               (function (restresult) {
-                   var ordertosave = $scope.CopyOrder(restresult);
-                   ordertosave.OrderStateID = 13;
-                   Restangular.restangularizeElement('', ordertosave, 'order');
-                   if (ordertosave.restangularized && ordertosave.id) {
-                       ordertosave.put().then(function (resp) {
-                           $scope.getOrder();
-                           swal("Updated.", $translate.instant('yemeksepetifile.OrderConfirmed'), "success");
-                       }, function (response) {
-                           toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-                       });
-                   }
-               })
+                    (function (restresult) {
+                        var ordertosave = $scope.CopyOrder(restresult);
+                        ordertosave.OrderStateID = 13;
+                        Restangular.restangularizeElement('', ordertosave, 'order');
+                        if (ordertosave.restangularized && ordertosave.id) {
+                            ordertosave.put().then(function (resp) {
+                                $scope.getOrder();
+                                swal("Updated.", $translate.instant('yemeksepetifile.OrderConfirmed'), "success");
+                            }, function (response) {
+                                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                            });
+                        }
+                    })
             });
         } else {
-            toaster.pop('warning',$translate.instant('yemeksepetifile.OrderCannotBeChanged'), "");
+            toaster.pop('warning', $translate.instant('yemeksepetifile.OrderCannotBeChanged'), "");
         }
     };
     $scope.RePrintOrder = function (OrderID) {
@@ -279,7 +275,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
                         location.href = '#/app/orders/order/' + item.id;
                 } else {
-                    toaster.pop('warning',  $translate.instant('orderfile.OrderCannotBeChanged'), "");
+                    toaster.pop('warning', $translate.instant('orderfile.OrderCannotBeChanged'), "");
                 }
             } else {
                 if (item.OrderStateID == 5 && $rootScope.user.restrictions.changeorder == 'Enable') {
@@ -300,7 +296,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                 }
                 if (item.OrderStateID == 5 || item.OrderStateID == 6 || item.OrderStateID == 7 || item.OrderStateID == 10 || item.OrderStateID == 9 || item.OrderStateID == 8) {
                     if ($rootScope.user.restrictions.changeorder != 'Enable')
-                        toaster.pop('warning',  $translate.instant('orderfile.OrderCannotBeChanged'), "");
+                        toaster.pop('warning', $translate.instant('orderfile.OrderCannotBeChanged'), "");
                 } else {
                     if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage == 'Enable') {
                         if (item.OrderTypeID == 0)
@@ -319,12 +315,12 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                 }
             }
         } else {
-            toaster.pop('warning',  $translate.instant('orderfile.OrderCannotBeChanged'), "");
+            toaster.pop('warning', $translate.instant('orderfile.OrderCannotBeChanged'), "");
         }
     };
     $scope.UpdateOrderStatusAdmin = function (itemID) {
         SweetAlert.swal({
-            title:$translate.instant('yemeksepetifile.CANCELORDER'),
+            title: $translate.instant('yemeksepetifile.CANCELORDER'),
             text: $translate.instant('yemeksepetifile.Areyousureyouwantcanceltheorder'),
             type: "warning",
             showCancelButton: true,
@@ -336,22 +332,22 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         }, function (isConfirm) {
             if (isConfirm) {
                 Restangular.all('ordertools/updateorderstatus').getList(
-            {
-                OrderID: itemID,
-                newSatus: 7,
-                OrderReasonID: '100592257695',
-                OrderNote: $translate.instant('yemeksepetifile.AuthorizedUserCanceled')
-            }
-            ).then(function (result) {
-                $scope.getOrder();
-                toaster.pop('success',$translate.instant('yemeksepetifile.OrderStatusUpdated'), "");
-            });
+                    {
+                        OrderID: itemID,
+                        newSatus: 7,
+                        OrderReasonID: '100592257695',
+                        OrderNote: $translate.instant('yemeksepetifile.AuthorizedUserCanceled')
+                    }
+                ).then(function (result) {
+                    $scope.getOrder();
+                    toaster.pop('success', $translate.instant('yemeksepetifile.OrderStatusUpdated'), "");
+                });
             }
         });
     };
     $scope.UpdateOrderStatus = function (item) {
         SweetAlert.swal({
-            title:$translate.instant('yemeksepetifile.CANCELORDER'),
+            title: $translate.instant('yemeksepetifile.CANCELORDER'),
             text: $translate.instant('yemeksepetifile.Areyousureyouwantcanceltheorder'),
             type: "warning",
             showCancelButton: true,
@@ -387,7 +383,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
             OrderID: OrderID,
             newSatus: 1
         }).then(function () {
-            toaster.pop('success',$translate.instant('yemeksepetifile.PaymentOfOrderClosed'), "");
+            toaster.pop('success', $translate.instant('yemeksepetifile.PaymentOfOrderClosed'), "");
             $scope.getOrder();
         }, function (response) {
             toaster.pop('error', "Response", response.data.ExceptionMessage);
@@ -397,7 +393,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         Restangular.one("ordertools/reverttoprevstate").get({
             OrderID: OrderID
         }).then(function () {
-            toaster.pop('success',$translate.instant('yemeksepetifile.OrderRestoredToPreviousState'), "");
+            toaster.pop('success', $translate.instant('yemeksepetifile.OrderRestoredToPreviousState'), "");
             $scope.getOrder();
         }, function (response) {
             toaster.pop('error', "Response", response.data.ExceptionMessage);
@@ -444,7 +440,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
         })
     };
     $scope.CheckCode = function (item, root) {
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCBACKOFFICE") || userService.userIsInRole("CMRESTORANHATTI") ||userService.userIsInRole("CCMANAGER")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCBACKOFFICE") || userService.userIsInRole("CMRESTORANHATTI") || userService.userIsInRole("CCMANAGER")) {
             if (root == 'CancelOrder')
                 $scope.UpdateOrderStatus(item)
         } else {
@@ -457,7 +453,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                 });
                 modalInstance.result.then(function (password) {
                     if (password != "cancel") {
-                        userService.cardLogin(password,true).then(function (response) {
+                        userService.cardLogin(password, true).then(function (response) {
                             userService.stopTimeout();
                             if (root == 'ChangeOrderDriver')
                                 $scope.ChangeOrderDriver(item)
@@ -525,10 +521,10 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
                             $scope.LoadOrderItems();
                             $scope.getOrder();
                         },
-                       function (restresult) {
-                           toaster.pop('warning', $translate.instant('orderfile.Cancelled'), restresult.data.ExceptionMessage);
-                       }
-                       )
+                            function (restresult) {
+                                toaster.pop('warning', $translate.instant('orderfile.Cancelled'), restresult.data.ExceptionMessage);
+                            }
+                        )
                 }
             }
         })
@@ -571,7 +567,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $modal, $interva
     };
     $scope.DeleteYSMaping = function (OrderID) {
         $scope.isSpinner = true;
-        Restangular.one('yemekSepetiCustomerMap/deletemap').get({
+        Restangular.one('aggregator/deletecustomermap').get({
             OrderID: OrderID,
         }).then(function (result) {
             toaster.pop("success", $translate.instant('orderfile.YSOrderCustomerMappingDeleted'));
