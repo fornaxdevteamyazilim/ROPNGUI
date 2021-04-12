@@ -239,7 +239,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
     });
 };
 app.controller('SelectPersoncountCtrl', SelectPersoncountCtrl);
-function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, $modal, tableID,$translate, SweetAlert, toaster, $window) {
+function SelectPersoncountCtrl($scope, $modalInstance, $rootScope, Restangular, $modal, tableID, $translate, SweetAlert, toaster, $window) {
     $rootScope.uService.EnterController("SelectPersoncountCtrl");
     $scope.isWaiting = true;
     $scope.Departments = [];

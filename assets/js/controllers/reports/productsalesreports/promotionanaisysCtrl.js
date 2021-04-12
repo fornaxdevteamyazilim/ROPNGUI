@@ -10,12 +10,11 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
     //Globalize.locale(navigator.language);
     //DevExpress.localization.locale(navigator.language);
     //Globalize.locale('tr');
-    $scope.params = userService.getParameter('inventorydeliverylist',
-        {
-            fromDate: $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd'),
-            toDate: moment().add(1, 'days').format('YYYY-MM-DD')
-        }
-    ).Parameters;
+    Date.prototype.addDays = function (days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    }
     $scope.DateRange = {
         fromDate: {
             max: new Date(),
@@ -24,7 +23,8 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
             bindingOptions: {
                 value: "DateRange.fromDate.value"
             },
-            value: new Date()
+            value: (new Date()).addDays(1)
+           
         },
         toDate: {
             max: new Date(),
@@ -33,7 +33,7 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
             bindingOptions: {
                 value: "DateRange.toDate.value"
             },
-            value: new Date()
+            value: (new Date()).addDays(1)
         }
     };
     $scope.VeiwHeader = {};
@@ -71,6 +71,7 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
             var params = {
                 fromDate: $scope.DateRange.fromDate.value,
                 toDate: $scope.DateRange.toDate.value
+                
             };
             return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/promotionanaisysreport", { params: params })
                 .then(function (response) {
@@ -81,7 +82,8 @@ function promotionanaisysCtrl($scope, $filter, $modal, $log, Restangular, SweetA
                 }, function (response) {
                     return $q.reject("Data Loading Error");
                 });
-        }
+        },
+        
     });
     $scope.dataGridOptions = {
         dataSource: store,

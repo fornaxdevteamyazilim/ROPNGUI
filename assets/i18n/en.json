@@ -4112,6 +4112,7 @@
     "isActive": "isActive"
   },
   "punchcardtransactions": {
+    "PersonID": "Person ID",
     "PersonName": "Person Name",
     "RuleName": "RuleName",
     "TransactionDate": "Transaction Date",
@@ -4124,7 +4125,8 @@
     "OrderType": "Order Type",
     "OrderNumber": "Order Number",
     "OrderSource": "Order Source",
-    "Confirmed": "Confirmed."
+    "Confirmed": "Confirmed.",
+    "PersonPhone": "Person Phone"
   },
   "bonustransactions": {
     "PersonID": "Person Id",
@@ -4141,7 +4143,8 @@
     "OrderNumber": "Order Number",
     "OrderSource": "Order Source",
     "Confirmed": "Confirmed.",
-    "Notes": "Notes"
+    "Notes": "Notes",
+    "PersonPhone": "Person Phone"
   },
   "bonusstats": {
     "PersonID": "Person Id",
@@ -4270,5 +4273,16 @@
     "PaymentTerm": "PaymentTerm",
     "Notes": "Notes",
     "Calculatingrequirments": "Calculating Requirments"
+  },
+  "ClockInOutStats": {
+    "Store": "Store",
+    "UserName": "User Name",
+    "Year": "Year",
+    "MonthNumber": "Month Number",
+    "Day": "Day",
+    "WorkingHours": "Working Hours",
+    "Count": "Count",
+    "Cost": "Cost"
+    
   }
 }

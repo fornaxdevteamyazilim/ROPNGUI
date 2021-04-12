@@ -4140,6 +4140,7 @@
     "isActive": "aktif"
   },
   "punchcardtransactions": {
+    "PersonID":"Kişi Id",
     "PersonName": "Kişi Adı",
     "RuleName": "Kural Adı",
     "TransactionDate": "İşlem Tarihi",
@@ -4152,7 +4153,8 @@
     "OrderType": "Sipariş Tipi",
     "OrderNumber": "Sipariş Numarası",
     "OrderSource": "Sipariş Kaynağı",
-    "Confirmed": "Onaylı."
+    "Confirmed": "Onaylı.",
+    "PersonPhone": "Telefon Numarası"
   },
   "bonustransactions": {
     "PersonID": "Kişi İd",
@@ -4169,12 +4171,13 @@
     "OrderNumber": "Sipariş Numarası",
     "OrderSource": "Sipariş Kaynağı",
     "Confirmed": "Onaylı.",
-    "Notes": "Not"
+    "Notes": "Not",
+    "PersonPhone": "Telefon Numarası"
   },
   "bonusstats": {
     "PersonID": "Kişi İd",
     "PersonName": "Kişi Adı",
-    "Phone": "Telefon",
+    "Phone": "Telefon Numarası",
     "Earned": "Kazanılan Puan",
     "Spended": "Harcanan Puan",
     "TotalBonus": "Toplam Puan",
@@ -4298,5 +4301,16 @@
     "PaymentTerm": "Vade",
     "Notes": "Notlar",
     "Calculatingrequirments":"Lütfen Bekleyin. Talepleriniz Hesaplanıyor..."
+  },
+   "ClockInOutStats": {
+    "Store": "Restoran",
+    "UserName": "Kullanıcı Adı",
+    "Year": "Yıl",
+    "MonthNumber": "Ay Sayısı",
+    "Day": "Gün",
+    "WorkingHours": "Çalışma Saatleri",
+    "Count": "Miktar",
+    "Cost": "Maliyet"
+    
   }
 }

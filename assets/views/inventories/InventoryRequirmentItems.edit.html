@@ -31,7 +31,7 @@
                     </div>
                     <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
                         <label>{{:: datetime}}</label><br />
-                        <input id="Date" type="text" class="form-control ng" ng-model="item.Date" readonly ng-click="datepopup(item.Date)" required>
+                        <input id="Date" type="text" class="form-control ng" disabled="true" ng-model="item.Date" readonly ng-click="datepopup(item.Date)" required>
                     </div>
                     <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12" ng-if="InventoryRequirmentID != 'new'">
                         <label>{{:: trisProcesseed}}</label><br />
