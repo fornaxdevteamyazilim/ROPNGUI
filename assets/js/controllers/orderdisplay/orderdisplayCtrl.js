@@ -127,6 +127,7 @@ function orderdisplayCtrl($scope, $log, $modal, $interval, Restangular, ngTableP
         }
     };
     $scope.changestore = function (order) {
+        
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/orderdisplay/changeysorderstore.html',
             controller: 'changeysorderstoreCtrl',
@@ -148,7 +149,7 @@ function orderdisplayCtrl($scope, $log, $modal, $interval, Restangular, ngTableP
 
       $scope.DeleteYSMaping = function (OrderID) {
         $scope.isSpinner = true;
-        Restangular.one('yemekSepetiCustomerMap/deletemap').get({
+        Restangular.one('aggregator/deletecustomermap').get({
             OrderID: OrderID,
         }).then(function (result) {
             toaster.pop("success",$translate.instant('orderfile.YSOrderCustomerMatchingDeleted '));

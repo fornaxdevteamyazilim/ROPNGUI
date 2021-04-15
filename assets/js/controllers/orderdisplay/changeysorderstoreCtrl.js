@@ -1,5 +1,5 @@
 ﻿app.controller('changeysorderstoreCtrl', changeysorderstoreCtrl);
-function changeysorderstoreCtrl($rootScope, $translate, $scope, $modalInstance, order, Restangular, toaster, $window) {
+function changeysorderstoreCtrl($rootScope, $translate, $scope, $modalInstance, order, Restangular, toaster, $window,$http,NG_SETTING ) {
     $rootScope.uService.EnterController("changeysorderstoreCtrl");
     $scope.translate = function () {
         $scope.trchangeysorderstore = $translate.instant('main.CHANGEYSORDERSTORE');
@@ -12,38 +12,25 @@ function changeysorderstoreCtrl($rootScope, $translate, $scope, $modalInstance, 
     })
     $scope.translate();
     $scope.saveRejectResoan = function (data) {
-        if (order.route == "YemekSepetiOrderMap" ) {
-            if (data.Notes) {
-                order.Notes = data.Notes;
-                order.StoreID = data.StoreID;
-                Restangular.restangularizeElement('', order, 'yemeksepetiordermap');
-                order.put().then(function (resp) {
-                    $scope.ok();
-                    toaster.pop('success', $translate.instant('orderfile.Saved') );
-                }, function (resp) {
-                    toaster.pop('error', $translate.instant('orderfile.NotSaved '), resp.data.ExceptionMessage);
-                });
+        $http.get(NG_SETTING.apiServiceBaseUri + "/api/aggregator/ChangeStore", {
+            params: {
+                OrderID: order.id,
+                ToStoreID:data.StoreID,
+                Notes:data.Notes
             }
-        }
-        if (order.route == "ordertools/NewOrders") {
-            if (data.Notes) {
-                order.OrderNote = data.Notes;
-                order.StoreID = data.StoreID;
-                Restangular.restangularizeElement('', order, 'order');
-                order.put().then(function (resp) {
-                    $scope.ok();
-                    toaster.pop('success', $translate.instant('orderfile.Saved') );
-                }, function (resp) {
-                    toaster.pop('error', $translate.instant('orderfile.NotSaved '), resp.data.ExceptionMessage);
-                });
-            }
-        }
+        })
+            .then(function (response) {
+                //toaster.pop('warning', $translate.instant('Server.ServerError'), $translate.instant('Server.DataLoadingError'));
+            }, function (response) {
+                //toaster.pop('warning', $translate.instant('Server.ServerError'), $translate.instant('Server.DataLoadingError'));
+            });
+        $scope.ok();
     };
     $scope.loadEntities = function (EntityType, Container) {
         if (!$scope[Container].length) {
             Restangular.all(EntityType).getList({
-                pageNo: 1,
-                pageSize: 1000,
+                OrderID:order.id
+                //Calculate:false
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
@@ -52,7 +39,7 @@ function changeysorderstoreCtrl($rootScope, $translate, $scope, $modalInstance, 
         }
     };
     $scope.store = [];
-    $scope.loadEntities('cache/store', 'store');
+    $scope.loadEntities('aggregator/GetAvailibleStoresForTransfer', 'store');
     $scope.ok = function () {
         $modalInstance.close('OK');
     };

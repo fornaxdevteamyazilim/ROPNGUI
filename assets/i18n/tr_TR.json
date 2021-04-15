@@ -2895,6 +2895,11 @@
         "PRODUCTITEMMATCHING": "İstisna Ürün Eşleştirme",
         "PAYMENTMACHING": "Ödeme Tipi Eşleştirme"
       },
+      "aggregator":{
+        "MAIN": "Getir",
+        "orders":"Siparişler",
+        "mapping":"Eşleştirmeler"
+      },
       "specialoperations": {
         "MAIN": "Özel Operasyonlar",
         "ENDOFDAY": "Gün Sonu İşlemleri",
@@ -4241,8 +4246,7 @@
     "OrderTypeID": "Sipariş Türü",
     "PromotionFiterID": "Promosyon Filtresi",
     "OrderSourceID": "Sipariş Kaynağı"
-  }
-  ,
+  },
   "InventoryRequirmentItem": {
     "Inventory": "Malzeme",
     "InventoryUnit": "Malzeme Adi",
@@ -4279,7 +4283,6 @@
     "Amount": "Tutar",
     "GrandTotal": "Toplam Tutar",
     "Description": "Açıklama"
- 
   },
   "inventorydeliveriesedit": {
     "InventoryUnit": "Malzeme birimi",
@@ -4311,6 +4314,14 @@
     "WorkingHours": "Çalışma Saatleri",
     "Count": "Miktar",
     "Cost": "Maliyet"
-    
+  },
+  "aggregatormapping":{
+    "TITLE":"Enterasyon Eşleme",
+    "productmap":"Ürün Eşleme",
+    "paymentmapping":"Ödeme Tipi Eşleme"
+  },
+  "aggregatororderlist":{
+    "MAIN":"Entegrasyon Sipariş Listesi",
+    "INFORMATION":"Entegrasyon Sipariş Listesi"
   }
 }

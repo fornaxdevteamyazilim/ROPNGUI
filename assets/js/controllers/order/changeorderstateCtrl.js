@@ -37,13 +37,20 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
             }, function (response) {
                 toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
-            Restangular.all('YemekSepetiRejectReason').getList({
-                search: "isActive=1",
+            Restangular.all('aggregator/OrderCancelOptions').getList({
+                OrderID: item.id,
             }).then(function (items) {
                 angular.copy(items, $scope.YemekSepetiRejectReasons);
             }, function (response) {
                 toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
+            // Restangular.all('YemekSepetiRejectReason').getList({
+            //     search: "isActive=1",
+            // }).then(function (items) {
+            //     angular.copy(items, $scope.YemekSepetiRejectReasons);
+            // }, function (response) {
+            //     toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            // });
         } else {
             Restangular.all('orderreason').getList({
                 search: "isActive=1",
@@ -97,7 +104,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     OrderReasonID: data.OrderReasonID,
                     OrderNote: data.Note,
                     YemekSepetiRejectReasonID: data.YemekSepetiRejectReasonID,
-                    isCustomerInformed: data.isCustomerInformed
+                    isCustomerInformed: item.isCustomerInformed
                 }).then(function (result) {
                     toaster.pop('success', $translate.instant('orderfile.OrderStatusUpdated'));
                     $scope.ok();
@@ -164,8 +171,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
     $scope.loadEntities = function (EntityType, Container) {
         if (!$scope[Container].length) {
             Restangular.all(EntityType).getList({
-                pageNo: 1,
-                pageSize: 1000,
+                OrderID:item.id
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
@@ -174,7 +180,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
         }
     };
     $scope.yemeksepetirejectreasons = [];
-    $scope.loadEntities('cache/yemeksepetirejectreasons', 'yemeksepetirejectreasons');
+    $scope.loadEntities('aggregator/OrderCancelOptions', 'yemeksepetirejectreasons');
 
     $scope.ok = function () {
         $modalInstance.close('result');

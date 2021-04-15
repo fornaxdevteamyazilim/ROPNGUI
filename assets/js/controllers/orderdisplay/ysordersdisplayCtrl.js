@@ -50,6 +50,7 @@ function ysordersdisplayCtrl($rootScope, $scope, $log, $modal, $interval, Restan
         })
     };
     $scope.changestore = function (order) {
+        order.route = "YemekSepetiOrderMap";
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/orderdisplay/changeysorderstore.html',
             controller: 'changeysorderstoreCtrl',

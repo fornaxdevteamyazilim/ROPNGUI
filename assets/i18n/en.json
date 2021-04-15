@@ -2890,6 +2890,11 @@
         "PRODUCTITEMMATCHING": "Product Item Matching",
         "PAYMENTMACHING": "Payment Type Maching"
       },
+      "aggregator":{
+        "MAIN": "Aggregator",
+        "orders":"Order",
+        "mapping":"Mapping"
+      },
       "specialoperations": {
         "MAIN": "Special Operations",
         "ENDOFDAY": "End Of Day Operations",
@@ -4251,7 +4256,6 @@
     "Amount": "Amount",
     "GrandTotal": "GrandTotal",
     "Description": "Description"
- 
   },
   "inventorydeliveriesedit": {
     "InventoryUnit": "InventoryUnit",
@@ -4282,7 +4286,15 @@
     "Day": "Day",
     "WorkingHours": "Working Hours",
     "Count": "Count",
-    "Cost": "Cost"
-    
+    "Cost": "Cost" 
+  },
+  "aggregatormapping":{
+    "TITLE":"Aggregator Mapping",
+    "productmap":"Product Mapping",
+    "paymentmapping":"Payment Type Mapping"
+  },
+  "aggregatororderlist":{
+    "MAIN":"Aggregator Order List",
+    "INFORMATION":"Aggregator Order List"
   }
 }

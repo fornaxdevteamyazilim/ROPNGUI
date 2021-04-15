@@ -18,8 +18,8 @@ function aggregatorcustomerCtrl($rootScope, $scope, $http,NG_SETTING,$filter, $m
                 $scope.ysitem.Adress = response.data[0].Address + '---(' + response.data[0].AddressDescription + ')---';
                 $scope.ysitem.RestaurantName = response.data[0].Store;
                 $scope.ysitem.AggregatorID = response.data[0].AggregatorID;
-                $scope.ysitem.City ='';
-                $scope.ysitem.Region = '';
+                $scope.ysitem.City =response.data[0].City;
+                $scope.ysitem.Region = response.data[0].District;
                 $scope.yemeksepetiItem = {CustomerId:response.data[0].ClientID,AddressId:response.data[0].AddressID };
             }, function (response) {
                 DevExpress.ui.notify("Order not Found", "error");

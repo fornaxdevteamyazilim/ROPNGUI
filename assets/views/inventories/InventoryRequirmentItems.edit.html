@@ -29,9 +29,13 @@
                         <label>{{:: trStore}}</label><br />
                         <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-options="q.id as q.name for q in stores |orderBy: '+name'" ng-model="item.StoreID" readonly></select>
                     </div>
-                    <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
+                    <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12"ng-if="cdate">
                         <label>{{:: datetime}}</label><br />
-                        <input id="Date" type="text" class="form-control ng" disabled="true" ng-model="item.Date" readonly ng-click="datepopup(item.Date)" required>
+                        <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-options="q.lDATUField as q.lDATUField+'=>'+q.eDATUField for q in deliverydates |orderBy: '+lDATUField'" ng-model="item.Date"></select>
+                    </div>
+                    <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12" ng-if="!cdate">
+                        <label>{{:: datetime}}</label><br />
+                        <input id="Date" type="text" class="form-control ng" ng-model="item.Date" readonly ng-click="datepopup(item.Date)" required>
                     </div>
                     <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12" ng-if="InventoryRequirmentID != 'new'">
                         <label>{{:: trisProcesseed}}</label><br />
@@ -43,13 +47,13 @@
                     </div>
                     
                     <div print-remove class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-3">
-                        <button class="btn btn-o btn-success btn-wide btn-scroll btn-scroll-left fa fa-check" ng-click="processrequirment()" ng-disabled="item.isProcesseed == true || isSpinner == true" ng-if="InventoryRequirmentID != 'new'">
+                        <button class="btn btn-o btn-success btn-wide btn-scroll btn-scroll-left fa fa-check" ng-click="SaveData(true)" ng-disabled="item.isProcesseed == true || isSpinner == true" ng-if="InventoryRequirmentID != 'new'">
                             <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span translate="main.ISPROCESS" ng-if="isSpinner != true">{{:: save}}</span>
                         </button>
                         <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-click="removedata(item.id)" ng-disabled="isSpinner == true" ng-if="user.restrictions.requirmentsdeletes =='Enable'">
                             <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true">{{:: delete}}</span>
                         </button>
-                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-click="SaveData()" ng-disabled="isSpinner == true">
+                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-click="SaveData(false)" ng-disabled="isSpinner == true">
                             <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true">{{:: save}}</span>
                         </button>
                     </div>

@@ -1,6 +1,6 @@
 'use strict';
 app.controller('aggregatororderlistCtrl', aggregatororderlistCtrl);
-function aggregatororderlistCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTING, $q, $rootScope, $location, $translate, $timeout, $element, userService) {
+function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SETTING, $q, $rootScope, $location, $translate, $timeout, $element, userService) {
     $rootScope.uService.EnterController("aggregatororderlistCtrl");
     //  userService.userAuthorizated();
     var promise;
@@ -83,7 +83,7 @@ function aggregatororderlistCtrl($scope, Restangular, toaster, $interval, $http,
             },
             {
                 caption: "Commands",
-                dataField: "Store",
+                //dataField: "Store",
                 type: "buttons",
                 buttons: [{
                     text: "Customer Map",
@@ -98,13 +98,60 @@ function aggregatororderlistCtrl($scope, Restangular, toaster, $interval, $http,
                     }
                 },
                 {
-                    text: "Reject",
-                    icon: "fa fa-home",
-                    //hint: "My Command",
+                    text: "Change Store",
+                    icon: "refresh",
+                    hint: "Change Store",
+                    visible: function (e) {
+                        return !e.row.isEditing && e.row.data.AggregatorOrderStateID == 1;//!e.row.isEditing && !isChief(e.row.data.Position);
+                    },
                     onClick: function (e) {
-                        DevExpress.ui.notify("Reject order", "warning");
-                        //         if (e.rowType == "data" && e.data.AggregatorOrderStateID==1)
-                        // $location.path('/app/yemeksepeti/yemeksepetimerge/' + e.key);
+                        var modalInstance = $modal.open({
+                            templateUrl: 'assets/views/orderdisplay/changeysorderstore.html',
+                            controller: 'changeysorderstoreCtrl',
+                            size: '',
+                            backdrop: '',
+                            resolve: {
+                                order: function () {
+                                    return e.row.data;
+                                },
+                            }
+                        });
+                        modalInstance.result.then(function (result) {
+                            if (result == 'OK') {
+                                refreshData();  
+                            }
+                            else {
+                                refreshData();
+                            }
+                        })
+                    }
+                },
+                {
+                    text: "Reject",
+                    icon: "remove",//"fa fa-home",
+                    hint: "Reject Order",
+                    onClick: function (e) {
+                        //DevExpress.ui.notify("Reject order", "warning");
+                        var modalInstance = $modal.open({
+                            templateUrl: 'assets/views/orderdisplay/ysorderrejectreason.html',
+                            controller: 'ysorderrejectreasonCtrl',
+                            size: '',
+                            backdrop: '',
+                            resolve: {
+                                order: function () {
+                                    return e.row.data;
+                                },
+                            }
+                        });
+                        modalInstance.result.then(function (result) {
+                            if (result == 'OK') {
+                                refreshData();  
+                            }
+                            else {
+                                refreshData();
+                            }
+                        })
+                        
                     },
                 }]
             }
@@ -167,11 +214,8 @@ function aggregatororderlistCtrl($scope, Restangular, toaster, $interval, $http,
             }
         },
         onRowClick: function (rowInfo) {
-            //    location.href = '#/app/specialoperations/shiftplanedit2/' + rowInfo.key;
-            //rowInfo.component.editRow(rowInfo.rowIndex);  
-            //$rootScope.SelectedData = { id: rowInfo.key, name: rowInfo.data.Store };
             if (rowInfo.rowType == "data" && rowInfo.data.AggregatorOrderStateID == 1)
-                $location.path('/app/yemeksepeti/yemeksepetimerge/' + rowInfo.key);
+                $location.path('/app/aggregators/customermap/' + rowInfo.data.id);
             //$location.href = '#/app/dashboard';
         },
         onDataErrorOccurred: function (e) {

@@ -2725,7 +2725,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.aggregators.orders', {
             url: '/orders',
             templateUrl: "assets/views/aggregators/aggregatororderlist.html",
-            resolve: loadSequence('aggregatororderlistCtrl'),
+            resolve: loadSequence('aggregatororderlistCtrl','ysorderrejectreasonCtrl','changeysorderstoreCtrl'),
             title: 'orderlist',
             authenticate: true,
             ncyBreadcrumb: {

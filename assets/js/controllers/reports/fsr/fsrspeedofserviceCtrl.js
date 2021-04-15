@@ -195,8 +195,8 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
                             { caption: $translate.instant('fsrspeedofservice.Dispatch'), dataField: "AvgDispatchTime2", dataType: "number", customizeText: formatTime },
                             { caption: $translate.instant('fsrspeedofservice.Delivery'), dataField: "AvgDeliveryTime2", dataType: "number", customizeText: formatTime },
                             { caption: "U30", dataField: "DeliveryU302", dataType: "number", format: { type: "percent", precision: 2 } },
-                            { caption: "U30Count", dataField: "DeliveryU30Count2", dataType: "number", format: { type: "fixedPoint", precision: 2 },},
-                            { caption: "DeliveryCount", dataField: "DeliveryCount2", dataType: "number", format: { type: "fixedPoint", precision: 2 },},
+                            { caption: "U30Count", dataField: "DeliveryU30Count2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, visible:false},
+                            { caption: "DeliveryCount", dataField: "DeliveryCount2", dataType: "number", format: { type: "fixedPoint", precision: 2 }, visible:false},
                         ]
                     }],
                 fixed: false

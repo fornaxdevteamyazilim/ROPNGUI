@@ -3,6 +3,8 @@ app.controller('InventoryRequirmentsEditCtrl', InventoryRequirmentsEditCtrl);
 function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, userService, $element, $http, NG_SETTING) {
     $rootScope.uService.EnterController("InventoryRequirmentsEditCtrl");
     $scope.item = {};
+    $scope.deliverydates = [];
+    $scope.cdate = false;
     $scope.item.Amount = 0;
     $scope.item.UnitCustom = 0;
     $scope.item.UnitPrice = 0;
@@ -52,14 +54,17 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
         $scope.trRequirment = $translate.instant('main.REQUIRMENTFACTOR');
 
     };
+
     $scope.translate();
     var deregistration1 = $scope.$on('$translateChangeSuccess', function (event, data) {
         $scope.translate();
     });
+
     $scope.InventoryRequirmentID = $stateParams.id;
     if ($stateParams.id != 'new')
         Restangular.one('InventoryRequirment', $stateParams.id).get().then(function (restresult) {
             $scope.original = restresult;
+            //$scope.cdate =!restresult.isProcesseed;
             if (restresult.isProcesseed == true)
                 restresult.isProcesseed = $scope.Processed;
             if (restresult.isProcesseed == false)
@@ -72,10 +77,16 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
         $scope.item = {};
         $scope.item.Date = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     }
-    $scope.SaveData = function () {
+    $scope.SaveData = function (processaftersave) {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                $location.path('app/inventory/inventoryrequirments/list');
+                if (processaftersave)
+                    $scope.processrequirment();
+                else
+                    $location.path('app/inventory/inventoryrequirments/list');
+            }, function (response) {
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                $scope.ShowObject = false;
             });
         } else {
             $scope.ShowObject = true;
@@ -83,7 +94,10 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
                 $scope.InventoryRequirmentID = resp.id;
-                $location.path('app/inventory/inventoryrequirments/edit/' + resp.id);
+                if (processaftersave)
+                    $scope.processrequirment();
+                else
+                    $location.path('app/inventory/inventoryrequirments/edit/' + resp.id);
                 $scope.ShowObject = false;
                 $scope.$broadcast('newRequirmentData', resp);
             }, function (response) {
@@ -125,6 +139,8 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
                 $scope.item.remove().then(function () {
                     SweetAlert.swal($translate.instant('invantories.Deleted'), $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('app/inventory/inventoryrequirments/list');
+                }, function (response) {
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
             else {
@@ -171,7 +187,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
     };
     $scope.loadEntitiesCache = function (EntityType, Container) {
         if (!$scope[Container].length) {
-            Restangular.all(EntityType).getList({Calculate:false}).then(function (result) {
+            Restangular.all(EntityType).getList({ Calculate: false }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
                 toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
@@ -203,6 +219,19 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
     var params = {
         InventoryRequirmentID: $stateParams.id,
     };
+    $http.get(NG_SETTING.apiServiceBaseUri + "/api/InventorySupply/deliverydates", { params: params })
+        .then(function (response) {
+            $scope.deliverydates = response.data;
+            $scope.cdate = (($scope.item.isProcesseed == 0) && ($scope.deliverydates.length > 0));
+            if ($scope.deliverydates.length > 0) {
+                $scope.item.Date = $scope.deliverydates.filter(d => new Date(d.lDATUField) == new Date($scope.item.Date)).length>0?$scope.deliverydates.filter(d => new Date(d.lDATUField) == new Date($scope.item.Date)):null;
+                if (!$scope.item.Date || $scope.item.Date.length==0)
+                    $scope.item.Date = $scope.deliverydates[0].lDATUField;
+                //$scope.item.Date = $scope.item.Date ?? $scope.deliverydates[0].lDATUField;                   
+            }
+        }, function (response) {
+            return $q.reject("Data Loading Error");
+        });
     $http.get(NG_SETTING.apiServiceBaseUri + "/api/InventoryRequirmentItem/defaultitems", { params: params })
         .then(function (response) {
             $scope.item.items = response.data;
@@ -254,7 +283,14 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
                 caption: $translate.instant('InventoryRequirmentItem.Requirment'), name: "İhtiyaç", //İhtiyaç
                 columns: [
                     { caption: $translate.instant('InventoryRequirmentItem.UnitCount'), dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: false, visibleIndex: 6 },
-                    { caption: $translate.instant('InventoryRequirmentItem.UnitCustom'), dataField: "UnitCustom", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 7 },
+                    {
+                        caption: $translate.instant('InventoryRequirmentItem.UnitCustom'), dataField: "UnitCustom", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 7,
+                        validationRules: [{
+                            type: "range",
+                            min: 0,
+                            message: "Minimum value must be 0!"
+                        }]
+                    },
                     { name: "Total", caption: $translate.instant('InventoryRequirmentItem.Total'), calculateCellValue: function (data) { return data.UnitCustom * data.UnitPrice; }, visibleIndex: 8 },
                 ]
             },
@@ -269,12 +305,16 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             ],
             groupItems: [
                 //{ name: "UnitCustom", showInColumn: "UnitCustom", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-                { name: "Total", showInColumn: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "Total", showInColumn: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             ],
         },
         // onContentReady(e) {
         //     document.querySelector('.dx-datagrid-rowsview').before(document.querySelector('.dx-datagrid-total-footer'));
         //     }
+        export: {
+            enabled: true,
+            fileName: "InventoryRequirment",
+        }
     };
 
 

@@ -41,7 +41,7 @@
                             <button type="button" class="btn btn-o btn-primary tooltips btn-lg ti-check" ng-click="CheckOrder(order,1)"></button>
                             <button type="button" class="btn btn-o btn-danger tooltips btn-lg ti-close" ng-click="CheckOrder(order,14)"></button>
                             <button type="button" class="btn btn-o btn-warning tooltips btn-lg ti-share" ng-click="changestore(order)" ng-if="user.Store.MemberID != 300000000000"></button>
-                            <button type="button" class="btn btn-o btn-success tooltips btn-lg ti-alert" ng-click="DeleteYSMaping(order.id)" ng-show="order.OrderSource == 'YemekSepeti'" tooltip-placement="right" tooltip="Müşteri Eşleşmesini Sil !"></button>
+                            <button type="button" class="btn btn-o btn-success tooltips btn-lg ti-alert" ng-click="DeleteYSMaping(order.id)" ng-show="order.OrderSource == 'YemekSepeti' || order.OrderSource == 'Getir'" tooltip-placement="right" tooltip="Müşteri Eşleşmesini Sil !"></button>
                             <!--<button class="btn btn-wide btn-primary margin-top-10" ng-click="DeleteYSMaping(order.id)" ng-show="order.OrderSource == 'YemekSepeti'">
                                 <span>{{'main.DELETECUSTOMERYSMAPING' | translate}}</span>
                             </button>-->
