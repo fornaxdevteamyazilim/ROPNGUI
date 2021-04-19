@@ -174,7 +174,10 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
                 }
             }},
             { caption: $translate.instant('inventorypurchase.Description'), dataField: "Description", dataType: "string" },
-            { caption: $translate.instant('inventorypurchase.isSended'), dataField: "isSended", dataType: "string" },
+            { caption: $translate.instant('inventorypurchase.isSended'), dataField: "isSended", dataType: "string" ,
+            calculateCellValue: function (item) {
+                return (item.isSended && "evet"|| "hayır" )
+            },},
             { caption: $translate.instant('inventorypurchase.Notes'), dataField: "Notes", dataType: "string" },
 
 

@@ -71,12 +71,10 @@ function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
     }; 
     var params = {
         InventoryDealID: $stateParams.id
-     
     };
     $http.get(NG_SETTING.apiServiceBaseUri + "/api/inventorydeal", { params: params })
-        .then(function (response) {
-            $scope.CompanyID.items= response.item;
-           
+        .then(function (resp) {
+            $scope.item.items;          
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.option("dataSource", $scope.item.items);
         }, function (response) {
@@ -103,7 +101,7 @@ $scope.dataGridOptions = {
         enabled: false
     },
     editing: {
-        mode: "cell",
+        mode: "row",
         allowAdding: true,    //($rootScope.user.restrictions.inventorydealItem_add == 'Enable' ), //inventorydealItem_add
         allowUpdating: true,  // ($rootScope.user.restrictions.inventorydealItem_update == 'Enable' ), //inventorydealItem_update
         allowDeleting: true,  //($rootScope.user.restrictions.inventorydealItem_delete == 'Enable' ), //inventorydealItem_delete
@@ -122,7 +120,7 @@ $scope.dataGridOptions = {
                 dataSource: {
                     store: DevExpress.data.AspNet.createStore({
                         key: "InventoryUnitID",
-                        loadUrl: NG_SETTING.apiServiceBaseUri + "/api/inventorydeal"
+                        loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxInventoryUnits"
                     }),
                     sort: "InventoryUnitName",
                     headerFilter: { allowSearch: true }

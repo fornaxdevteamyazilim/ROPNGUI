@@ -309,6 +309,10 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
         // onContentReady(e) {
         //     document.querySelector('.dx-datagrid-rowsview').before(document.querySelector('.dx-datagrid-total-footer'));
         //     }
+        export: {
+            enabled: true,
+            fileName: "InventoryPurchase",
+        }
     };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
         for (var i = 0; i < $scope[Container].length; i++) {

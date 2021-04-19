@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('InventoryRequirmentCtrl', InventoryRequirmentCtrl);
-function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $rootScope, $translate, userService, ngnotifyService, $location, $element) {
+function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $rootScope, $translate, userService, ngnotifyService, $location, $element, NG_SETTING, $http, localStorageService) {
     $rootScope.uService.EnterController("InventoryRequirmentCtrl");
     var ir = this;
     userService.userAuthorizated();
@@ -10,6 +10,12 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         $scope.SelectedItem = id;
         location.href = '#/app/inventory/inventoryrequirments/edit/' + $scope.SelectedItem;
     };
+    $scope.params = userService.getParameter('inventorydeliverylist',
+    {
+        fromDate: $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd'),
+        toDate: moment().add(ngnotifyService.ServerTime(), 'days').format('YYYY-MM-DD')
+    }
+).Parameters;
     $scope.newRequirment = function () {
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/inventories/selectInventorySupply.html',
@@ -92,6 +98,168 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             });
         }
     });
+    var InventorySupplyStates = {
+        store: new DevExpress.data.CustomStore({
+            key: "Value",
+            load: function () {
+                return $http.get(NG_SETTING.apiServiceBaseUri + "/api/enums/InventorySupplyState")
+                    .then(function (response) {
+                        return {
+                            data: response.data,
+                            totalCount: 10
+                        };
+                    }, function (response) {
+                        return $q.reject("Data Loading Error");
+                    });
+            }
+        }),
+        sort: "Value"
+    }
+    var store = new DevExpress.data.CustomStore({
+        key: "id",
+        load: function (loadOptions) {
+            var params = {
+                pageNo: 1,
+                pageSize: 10000,
+               // search: "date between '" + $filter('date')($scope.params.fromDate, 'yyyy-MM-dd') + "' and '" + $filter('date')($scope.params.toDate, 'yyyy-MM-dd') + "'"
+            };
+            return $http.get(NG_SETTING.apiServiceBaseUri + "/api/InventoryRequirment", { params: params })
+                .then(function (response) {
+                    return {
+                        data: response.data.Items,
+                        totalCount: 10
+                    };
+                }, function (response) {
+                    return $q.reject("Data Loading Error");
+                });
+        }
+    });
+    $scope.dataGridOptions = {
+        dataSource: store,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        keyExpr: "id",
+        showBorders: true,
+        hoverStateEnabled: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        headerFilter: { visible: true },
+        searchPanel: { visible: true },
+        // stateStoring: {
+        //     enabled: true,
+        //     type: "custom",
+        //     customLoad: function () {
+        //         return $scope.params.gridState;
+        //     },
+        //     customSave: function (state) {
+        //         $scope.params.gridState = state;
+        //     }
+        // },
+        stateStoring: {
+           enabled: true,
+           type: "localStorage",
+           storageKey: "storage"
+        },
+        columns: [
+            { type: "buttons", width: 50, buttons: [{ hint: "edit", icon: "edit", onClick: function (e) { location.href = '#/app/inventory/inventoryrequirments/edit/' + e.row.data.id; } }] },
+            { dataField: "id", dataType: "number", visible: false },
+            { caption: $translate.instant('inventorypurchase.StoreID'), dataField: "StoreID", dataType: "string" ,
+            lookup: {
+                valueExpr: "id",
+                displayExpr: "name",
+                dataSource: {
+                    store: DevExpress.data.AspNet.createStore({
+                        key: "id",
+                        loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                        onBeforeSend: function (method, ajaxOptions) {
+                            var authData = localStorageService.get('authorizationData');
+                            if (authData) {
+
+                                ajaxOptions.headers = {
+                                    Authorization: 'Bearer ' + authData.token
+                                };
+                            }
+                        }
+                    })
+                }
+            }},
+            { caption: $translate.instant('inventorypurchase.DateTime'), dataField: "Date", alignment: "right", dataType: "date", format: 'dd.MM.yyyy' },
+            //{ caption: $translate.instant('inventorypurchase.DeliveryDate'), dataField: "DeliveryDate", alignment: "right", dataType: "date",  format: 'dd.MM.yyyy' },
+            //{ caption: $translate.instant('inventorypurchase.Amount'), dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('inventorypurchase.Notes'), dataField: "Notes", dataType: "string" },
+            { caption: $translate.instant('inventorypurchase.InventorySupplyState'), dataField: "InventorySupplyState", dataType: "string",
+            lookup: {
+                valueExpr: "Value",
+                displayExpr: "Name",
+                dataSource: InventorySupplyStates,
+                calculateSortValue: function (data) {
+                    var value = this.calculateCellValue(data);
+                    return this.lookup.calculateCellValue(value);
+                }
+            }},
+            { caption: $translate.instant('inventorypurchase.isSended'), dataField: "isProcesseed", dataType: "string" ,
+            calculateCellValue: function (item) {
+                return (item.isProcesseed && "evet"|| "hayır" )
+            },},
+            
+
+
+        ],
+        export: {
+            enabled: true,
+            fileName: "InventoryRequirment",
+            customizeExcelCell: (options) => {
+                var gridCell = options.gridCell;
+                if (!gridCell) {
+                    return;
+                }
+                if (gridCell.rowType === 'data') {
+                    if (gridCell.data.Delta === true) {
+                        options.font.bold = true;
+                        options.backgroundColor = '#FFBB00';
+                    }
+                }
+            }
+        },
+        scrolling: { mode: "virtual" },
+        height: 600,
+        paging: {
+            enabled: true
+        },
+    };
+    $scope.LoadData = function () {
+        var dataGrid = $('#gridContainer').dxDataGrid('instance');
+        dataGrid.refresh();
+    };
+    Date.prototype.addDays = function (days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    }
+    $scope.DateRange = {
+        fromDate: {
+            max: new Date(),
+            min: new Date(2019, 0, 1),
+            displayFormat: 'dd.MM.yyyy',
+            bindingOptions: {
+                value: "params.fromDate"
+            },
+            value: (new Date()).addDays(-1),
+        },
+        toDate: {
+            max: new Date(),
+            min: new Date(2019, 0, 1),
+            displayFormat: 'dd.MM.yyyy',
+            bindingOptions: {
+                value: "params.toDate"
+            },
+            value: (new Date()).addDays(-1),
+        }
+    };
     $scope.open = function (ObjectID) {
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/Tags/ObjectTagEditModalContent.html',

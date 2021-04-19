@@ -222,7 +222,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
     $http.get(NG_SETTING.apiServiceBaseUri + "/api/InventorySupply/deliverydates", { params: params })
         .then(function (response) {
             $scope.deliverydates = response.data;
-            $scope.cdate = (($scope.item.isProcesseed == 0) && ($scope.deliverydates.length > 0));
+            $scope.cdate = (($scope.item.InventorySupplyState == 0) && ($scope.deliverydates.length > 0));
             if ($scope.deliverydates.length > 0) {
                 $scope.item.Date = $scope.deliverydates.filter(d => new Date(d.lDATUField) == new Date($scope.item.Date)).length>0?$scope.deliverydates.filter(d => new Date(d.lDATUField) == new Date($scope.item.Date)):null;
                 if (!$scope.item.Date || $scope.item.Date.length==0)
