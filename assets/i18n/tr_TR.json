@@ -778,7 +778,7 @@
     "BRAND": "Marka",
     "FACTOR": "Çarpan",
     "REQUIRMENTFACTOR": "Birim",
-    "BASEUNIT":"Birim Tipi",
+    "BASEUNIT": "Birim Tipi",
     "ISCOUNT": "Sayım",
     "ISRECIPE": "Reçete",
     "ISREPORTUNIT": "Rapor Birimi",
@@ -1573,7 +1573,7 @@
     "QUARTERR": "Mahalle",
     "CREATDELIVERY": "İrsaliyeye Dönüştür",
     "SENDAGAIN": "Tekrar Gönder",
-    "CANCELORDER":"Siparişi İptal Et !",
+    "CANCELORDER": "Siparişi İptal Et !",
     "APPROVE": "Onay",
     "APPROVED": "Onaylanan",
     "UNAPPROVED": "Onaylanmayan",
@@ -1739,8 +1739,8 @@
     "EMAILCONFIRMED": "E-mail Onayı!",
     "PROCESSED": "İşlendi",
     "PROCESS": "işleniyor",
-    "YES":"Evet",
-    "NO":"Hayır",
+    "YES": "Evet",
+    "NO": "Hayır",
     "ORDERSOURCENAME": "Sipariş Kaynağı İsmi",
     "ADDCODE": "Kod Ekle",
     "YSPAYMENTTYPENAME": "Ys Ödeme Tipi",
@@ -2248,7 +2248,7 @@
     "SENDEDTO": "Sms Numarası",
     "ISSENDED": "Sms Gönderildi mi ?",
     "REQUIRMENTSISSENDED": "Gönderildi mi ?",
-	  "PURCHASEISSENDED": "İletildi!",
+    "PURCHASEISSENDED": "İletildi!",
     "SEARCHBYGIFTPROMOTIONCODE": "Hediye Promosyon Koduna Göre Ara!",
     "GIFTPROMOTIONORDERSOURCE": "Hediye Promosyon Sipariş Kaynağı",
     "SEARCHBYGIFTCODESOURCENAME": "Hediye Promosyon Kod Kaynağına Göre Ara!",
@@ -2895,10 +2895,10 @@
         "PRODUCTITEMMATCHING": "İstisna Ürün Eşleştirme",
         "PAYMENTMACHING": "Ödeme Tipi Eşleştirme"
       },
-      "aggregator":{
+      "aggregator": {
         "MAIN": "Getir",
-        "orders":"Siparişler",
-        "mapping":"Eşleştirmeler"
+        "orders": "Siparişler",
+        "mapping": "Eşleştirmeler"
       },
       "specialoperations": {
         "MAIN": "Özel Operasyonlar",
@@ -3277,7 +3277,6 @@
     "NotSaved": "Kaydedilmedi",
     "DataRemove": "Veri Silme",
     "SENDAGAIN": "Tekrar Gönder"
-
   },
   "kitchendisplayf": {
     "PleaseWait": "Lütfen Bekleyin !",
@@ -3433,7 +3432,8 @@
     "YSRestaurantStatusChanged": "YS restoran durumu değişti !",
     "Editcancelled": "Düzenleme iptal edildi !",
     "Insertcancelled": "Ekleme iptal edildi!",
-    "PleaseTryAgain": "Lütfen Tekrar Deneyin!"
+    "PleaseTryAgain": "Lütfen Tekrar Deneyin!",
+    "CANCELORDERS": "Sipariş iptal edildi"
   },
   "storefile": {
     "SelectPod": "Pod Seçiniz !",
@@ -4145,7 +4145,7 @@
     "isActive": "aktif"
   },
   "punchcardtransactions": {
-    "PersonID":"Kişi Id",
+    "PersonID": "Kişi Id",
     "PersonName": "Kişi Adı",
     "RuleName": "Kural Adı",
     "TransactionDate": "İşlem Tarihi",
@@ -4253,7 +4253,7 @@
     "UnitCount": "Hesaplanan",
     "SupplyDescription": "Tedarikçi",
     "UnitCustom": "Talep",
-    "UnitPrice":  "Fiyat",
+    "UnitPrice": "Fiyat",
     "factor": "Birim",
     "BaseUnit": "Birim Tipi",
     "GrandTotal": "Toplam Tutar",
@@ -4282,7 +4282,11 @@
     "VAT": "KDV",
     "Amount": "Tutar",
     "GrandTotal": "Toplam Tutar",
-    "Description": "Açıklama"
+    "Description": "Açıklama",
+    "UnitCount": "Miktar",
+    "UnitPrice": "Birim Fiyatı",
+    "Discount": "İndirim",
+    "InventoryUnit": "Malzeme Adi"
   },
   "inventorydeliveriesedit": {
     "InventoryUnit": "Malzeme birimi",
@@ -4291,7 +4295,7 @@
     "VATRatio": "KDV Oranı",
     "VAT": "KDV",
     "Total": "Toplam",
-    "Calculatingrequirments":"Lütfen Bekleyin. Talepleriniz Hesaplanıyor..."
+    "Calculatingrequirments": "Lütfen Bekleyin. Talepleriniz Hesaplanıyor..."
   },
   "inventorydealItem": {
     "InventoryUnit": "Malzeme birimi",
@@ -4303,9 +4307,9 @@
     "Multipliyer": "Çarpan",
     "PaymentTerm": "Vade",
     "Notes": "Notlar",
-    "Calculatingrequirments":"Lütfen Bekleyin. Talepleriniz Hesaplanıyor..."
+    "Calculatingrequirments": "Lütfen Bekleyin. Talepleriniz Hesaplanıyor..."
   },
-   "ClockInOutStats": {
+  "ClockInOutStats": {
     "Store": "Restoran",
     "UserName": "Kullanıcı Adı",
     "Year": "Yıl",
@@ -4315,13 +4319,39 @@
     "Count": "Miktar",
     "Cost": "Maliyet"
   },
-  "aggregatormapping":{
-    "TITLE":"Enterasyon Eşleme",
-    "productmap":"Ürün Eşleme",
-    "paymentmapping":"Ödeme Tipi Eşleme"
+  "aggregatormapping": {
+    "TITLE": "Enterasyon Eşleme",
+    "productmap": "Ürün Eşleme",
+    "paymentmapping": "Ödeme Tipi Eşleme"
   },
-  "aggregatororderlist":{
-    "MAIN":"Entegrasyon Sipariş Listesi",
-    "INFORMATION":"Entegrasyon Sipariş Listesi"
+  "aggregatororderlist": {
+    "MAIN": "Entegrasyon Sipariş Listesi",
+    "INFORMATION": "Entegrasyon Sipariş Listesi"
+  },
+  "InventoryPurchaseItem": {
+    "InventoryUnit": "Malzeme birimi",
+    "UnitCount": "Miktar",
+    "UnitPrice": "Birim Fiyatı",
+    "Total": "Toplam"
+  },
+  "InventoryRequirment": {
+    "CompanyID": "Firma",
+    "StoreID": "Restoran",
+    "DateTime": "Sipariş Tarihi",
+    "DeliveryDate": "Teslim Tarihi",
+    "Amount": "Tutar",
+    "InventorySupplyState": "Durum",
+    "Description": "Açıklama",
+    "isSended": "İletildi",
+    "Notes": "Notes"
+  },
+  "inventorydeliveryitem": {
+    "InventoryUnit": "Malzeme birimi",
+    "UnitCount": "Miktar",
+    "UnitPrice": "Birim Fiyatı",
+    "VATRatio": "KDV Oranı",
+    "VAT": "KDV",
+    "Total": "Toplam",
+    "Nots": "Not"
   }
 }

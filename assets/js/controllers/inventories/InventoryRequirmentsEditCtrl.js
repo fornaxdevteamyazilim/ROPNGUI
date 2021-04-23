@@ -291,7 +291,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
                             message: "Minimum value must be 0!"
                         }]
                     },
-                    { name: "Total", caption: $translate.instant('InventoryRequirmentItem.Total'), calculateCellValue: function (data) { return data.UnitCustom * data.UnitPrice; }, visibleIndex: 8 },
+                    { name: "Total", caption: $translate.instant('InventoryRequirmentItem.Total'), calculateCellValue: function (data) { return data.UnitCustom * data.UnitPrice; }, visibleIndex: 8, format: { type: "fixedPoint", precision: 2 } },
                 ]
             },
             { caption: $translate.instant('InventoryRequirmentItem.InventoryUnitID'), dataField: "InventoryUnitID", dataType: "number", allowEditing: false, visible: false, visible: false, visibleIndex: 9 },

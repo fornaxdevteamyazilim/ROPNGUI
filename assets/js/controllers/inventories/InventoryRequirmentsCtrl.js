@@ -162,12 +162,12 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         stateStoring: {
            enabled: true,
            type: "localStorage",
-           storageKey: "storage"
+           storageKey: "inv-req-list-storage"
         },
         columns: [
             { type: "buttons", width: 50, buttons: [{ hint: "edit", icon: "edit", onClick: function (e) { location.href = '#/app/inventory/inventoryrequirments/edit/' + e.row.data.id; } }] },
             { dataField: "id", dataType: "number", visible: false },
-            { caption: $translate.instant('inventorypurchase.StoreID'), dataField: "StoreID", dataType: "string" ,
+            { caption: $translate.instant('InventoryRequirment.StoreID'), dataField: "StoreID", dataType: "string" ,
             lookup: {
                 valueExpr: "id",
                 displayExpr: "name",
@@ -187,11 +187,11 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                     })
                 }
             }},
-            { caption: $translate.instant('inventorypurchase.DateTime'), dataField: "Date", alignment: "right", dataType: "date", format: 'dd.MM.yyyy' },
-            //{ caption: $translate.instant('inventorypurchase.DeliveryDate'), dataField: "DeliveryDate", alignment: "right", dataType: "date",  format: 'dd.MM.yyyy' },
-            //{ caption: $translate.instant('inventorypurchase.Amount'), dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: $translate.instant('inventorypurchase.Notes'), dataField: "Notes", dataType: "string" },
-            { caption: $translate.instant('inventorypurchase.InventorySupplyState'), dataField: "InventorySupplyState", dataType: "string",
+            { caption: $translate.instant('InventoryRequirment.DateTime'), dataField: "Date", alignment: "right", dataType: "date", format: 'dd.MM.yyyy', sortIndex: 0,sortOrder: "desc" },
+            //{ caption: $translate.instant('InventoryRequirment.DeliveryDate'), dataField: "DeliveryDate", alignment: "right", dataType: "date",  format: 'dd.MM.yyyy' },
+            //{ caption: $translate.instant('InventoryRequirment.Amount'), dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('InventoryRequirment.Notes'), dataField: "Notes", dataType: "string" },
+            { caption: $translate.instant('InventoryRequirment.InventorySupplyState'), dataField: "InventorySupplyState", dataType: "string",
             lookup: {
                 valueExpr: "Value",
                 displayExpr: "Name",
@@ -201,7 +201,7 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                     return this.lookup.calculateCellValue(value);
                 }
             }},
-            { caption: $translate.instant('inventorypurchase.isSended'), dataField: "isProcesseed", dataType: "string" ,
+            { caption: $translate.instant('InventoryRequirment.isSended'), dataField: "isProcesseed", dataType: "string" ,
             calculateCellValue: function (item) {
                 return (item.isProcesseed && "evet"|| "hayır" )
             },},

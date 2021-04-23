@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.controller('inventorypurchaselistCtrl', inventorypurchaselistCtrl);
-function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $translate, $element, userService ,$filter,  $stateParams, $location, NG_SETTING, $http, localStorageService) {
+function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular, ngTableParams, SweetAlert, toaster, $window, $translate, $element, userService, $filter, $stateParams, $location, NG_SETTING, $http, localStorageService) {
     $rootScope.uService.EnterController("inventorypurchaselistCtrl");
     userService.userAuthorizated();
     var ip = this;
@@ -47,10 +47,10 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
     };
     $scope.loadEntitiesCache = function (EntityType, Container) {
         if (!$scope[Container].length) {
-            Restangular.all(EntityType).getList({Calculate:false}).then(function (result) {
+            Restangular.all(EntityType).getList({ Calculate: false }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -65,13 +65,13 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
         if (userService.userIsInRole("AREAMANAGER")) {
             var storesID = {}
             for (var i = 0; i < $rootScope.user.userstores.length; i++) {
-                if (storesID.length >0) {
+                if (storesID.length > 0) {
                     storesID = storesID + $rootScope.user.userstores[i].id + ',';
                 } else {
                     storesID = $rootScope.user.userstores[i].id + ',';
                 }
             }
-            var data  = storesID.substring(0, storesID.length - 1);
+            var data = storesID.substring(0, storesID.length - 1);
             result.push("StoreID in (" + data + ")");
         }
         return result;
@@ -107,7 +107,6 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
                 }
             }
         }),
- 
         showBorders: true,
         allowColumnResizing: true,
         columnAutoWidth: true,
@@ -132,53 +131,76 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
         //     }
         // },
         stateStoring: {
-           enabled: true,
-           type: "localStorage",
-           storageKey: "storage"
+            enabled: true,
+            type: "localStorage",
+            storageKey: "Inv-Purc-list-Storage"
         },
         columns: [
             { type: "buttons", width: 50, buttons: [{ hint: "edit", icon: "edit", onClick: function (e) { location.href = '#/app/inventory/inventorypurchase/edit/' + e.row.data.id; } }] },
             { dataField: "id", dataType: "number", visible: false },
-            { caption: $translate.instant('inventorypurchase.CompanyID'), dataField: "CompanyID", dataType: "string" },
-            { caption: $translate.instant('inventorypurchase.StoreID'), dataField: "StoreID", dataType: "string" ,
-            lookup: {
-                valueExpr: "id",
-                displayExpr: "name",
-                dataSource: {
-                    store: DevExpress.data.AspNet.createStore({
-                        key: "id",
-                        loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
-                        onBeforeSend: function (method, ajaxOptions) {
-                            var authData = localStorageService.get('authorizationData');
-                            if (authData) {
+            {
+                caption: $translate.instant('inventorypurchase.CompanyID'), dataField: "CompanyID", dataType: "string",
+                lookup: {
+                    valueExpr: "id",
+                    displayExpr: "Name",
+                    dataSource: {
+                        store: DevExpress.data.AspNet.createStore({
+                            key: "id",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxcompanies"
+                        }),
+                        sort: "Name"
+                    },
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    }
+                }, visibleIndex: 1
+            },
+            {
+                caption: $translate.instant('inventorypurchase.StoreID'), dataField: "StoreID", dataType: "string",
+                lookup: {
+                    valueExpr: "id",
+                    displayExpr: "name",
+                    dataSource: {
+                        store: DevExpress.data.AspNet.createStore({
+                            key: "id",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                            onBeforeSend: function (method, ajaxOptions) {
+                                var authData = localStorageService.get('authorizationData');
+                                if (authData) {
 
-                                ajaxOptions.headers = {
-                                    Authorization: 'Bearer ' + authData.token
-                                };
+                                    ajaxOptions.headers = {
+                                        Authorization: 'Bearer ' + authData.token
+                                    };
+                                }
                             }
-                        }
-                    })
-                }
-            }},
-            { caption: $translate.instant('inventorypurchase.DateTime'), dataField: "DateTime", alignment: "right", dataType: "date", format: 'dd.MM.yyyy' },
-            { caption: $translate.instant('inventorypurchase.DeliveryDate'), dataField: "DeliveryDate", alignment: "right", dataType: "date",  format: 'dd.MM.yyyy' },
-            { caption: $translate.instant('inventorypurchase.Amount'), dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
-            { caption: $translate.instant('inventorypurchase.InventorySupplyState'), dataField: "InventorySupplyState", dataType: "string" ,
-            lookup: {
-                valueExpr: "Value",
-                displayExpr: "Name",
-                dataSource: InventorySupplyStates,
-                calculateSortValue: function (data) {
-                    var value = this.calculateCellValue(data);
-                    return this.lookup.calculateCellValue(value);
-                }
-            }},
-            { caption: $translate.instant('inventorypurchase.Description'), dataField: "Description", dataType: "string" },
-            { caption: $translate.instant('inventorypurchase.isSended'), dataField: "isSended", dataType: "string" ,
-            calculateCellValue: function (item) {
-                return (item.isSended && "evet"|| "hayır" )
-            },},
-            { caption: $translate.instant('inventorypurchase.Notes'), dataField: "Notes", dataType: "string" },
+                        })
+                    }
+                }, visibleIndex: 2
+            },
+            { caption: $translate.instant('inventorypurchase.DateTime'), dataField: "DateTime", alignment: "right", width: 100, dataType: "date", format: 'dd.MM.yyyy', visibleIndex: 3, sortIndex: 0, sortOrder: "desc" },
+            { caption: $translate.instant('inventorypurchase.DeliveryDate'), dataField: "DeliveryDate", alignment: "right", width: 100, dataType: "date", format: 'dd.MM.yyyy', visibleIndex: 4 },
+            { caption: $translate.instant('inventorypurchase.Amount'), dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 }, visibleIndex: 5 },
+            {
+                caption: $translate.instant('inventorypurchase.InventorySupplyState'), dataField: "InventorySupplyState", width: 70, dataType: "string",
+                lookup: {
+                    valueExpr: "Value",
+                    displayExpr: "Name",
+                    dataSource: InventorySupplyStates,
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    }
+                }, visibleIndex: 6
+            },
+            { caption: $translate.instant('inventorypurchase.Description'), dataField: "Description", dataType: "string", visibleIndex: 7 },
+            {
+                caption: $translate.instant('inventorypurchase.isSended'), dataField: "isSended", width: 60, dataType: "string",
+                calculateCellValue: function (item) {
+                    return (item.isSended && "evet" || "hayır")
+                }, visibleIndex: 8
+            },
+            { caption: $translate.instant('inventorypurchase.Notes'), dataField: "Notes", dataType: "string", visibleIndex: 9 },
 
 
         ],

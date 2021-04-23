@@ -118,6 +118,11 @@
                                 {{(data.UnitPrice*data.UnitCount) |number:4 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                             </span>
                         </td>
+                        <td data-title="trNotes" data-sortable="'Notes'" width="13%">
+                            <span editable-text="data.Notes" e-min="0" e-name="Notes" e-form="rowform" e-ng-model="data.Notes" e-style="width: 13vw;" e-ignore-mouse-wheel>
+                                {{ data.Notes }}
+                            </span>
+                        </td>
                         <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                             <form editable-form name="rowform" onaftersave="saveData(data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == data || !data.id">
                                 <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-transparent btn-sm tooltips ti-check"></button>

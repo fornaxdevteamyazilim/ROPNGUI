@@ -49,6 +49,7 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
         $scope.assigntoinvoice = $translate.instant('main.ASSIGNTOINVOICE');
         $scope.send = $translate.instant('main.SEND'); 
         $scope.ispaid = $translate.instant('main.ISPAID'); 
+        $scope.trNotes = $translate.instant('main.NOTE');
 
     };
     $scope.translate();
