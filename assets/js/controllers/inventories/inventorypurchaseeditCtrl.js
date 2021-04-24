@@ -203,7 +203,7 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
         showColumnLines: true,
         showRowLines: true,
         rowAlternationEnabled: true,
-        //keyExpr: "id",
+        keyExpr: "id",
         showBorders: true,
         hoverStateEnabled: true,
         allowColumnReordering: true,
