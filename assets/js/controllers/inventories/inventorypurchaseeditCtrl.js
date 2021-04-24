@@ -216,7 +216,7 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
             enabled: false
         },
         editing: {
-            mode: "cell",
+            mode: "inline",
             allowAdding: ($rootScope.user.restrictions.InventoryPurchaseItem_add == 'Enable'), //InventoryPurchaseItem_add
             allowUpdating: ($rootScope.user.restrictions.InventoryPurchaseItem_update == 'Enable'), //InventoryPurchaseItem_update
             allowDeleting: ($rootScope.user.restrictions.InventoryPurchaseItem_delete == 'Enable'), //InventoryPurchaseItem_delete
@@ -267,14 +267,14 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
                 },
             },
             {
-                caption: $translate.instant('InventoryPurchaseItem.UnitCount'), dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 2,
+                caption: $translate.instant('InventoryPurchaseItem.UnitCount'), dataField: "UnitCustom", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 2,
                 setCellValue: function (rowData, value, oldrow) {
-                    rowData.UnitCount = value;
-                    rowData.Total = rowData.UnitCount * oldrow.UnitPrice;
+                    rowData.UnitCustom = value;
+                    rowData.Total = rowData.UnitCustom * oldrow.UnitPrice;
                 },
             },
             { caption: $translate.instant('InventoryPurchaseItem.UnitPrice'), dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 }, allowEditing: false, visibleIndex: 3, },
-            { caption: $translate.instant('InventoryPurchaseItem.Total'), dataField: "Total", calculateCellValue: function (data) { return data.UnitCount * data.UnitPrice; }, format: { type: "fixedPoint", precision: 2 }, visibleIndex: 4 },
+            { caption: $translate.instant('InventoryPurchaseItem.Total'), dataField: "Total", calculateCellValue: function (data) { return data.UnitCustom * data.UnitPrice; }, format: { type: "fixedPoint", precision: 2 }, visibleIndex: 4 },
         ],
         summary: {
             totalItems: [
@@ -384,7 +384,7 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
         ipi.tableParams.data.splice(index, 1);
     };
     $scope.addItem = function () {
-        ipi.tableParams.data.push({ UnitCount: 1, UnitPrice: 0 });
+        ipi.tableParams.data.push({ UnitCustom: 1, UnitPrice: 0 });
     };
     $scope.open = function (ObjectID) {
         var modalInstance = $modal.open({

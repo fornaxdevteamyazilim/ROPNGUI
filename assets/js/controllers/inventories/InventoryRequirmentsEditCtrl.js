@@ -64,7 +64,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
     if ($stateParams.id != 'new')
         Restangular.one('InventoryRequirment', $stateParams.id).get().then(function (restresult) {
             $scope.original = restresult;
-            //$scope.cdate =!restresult.isProcesseed;
+            $scope.cdate =!restresult.isProcesseed;
             if (restresult.isProcesseed == true)
                 restresult.isProcesseed = $scope.Processed;
             if (restresult.isProcesseed == false)
@@ -222,7 +222,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
     $http.get(NG_SETTING.apiServiceBaseUri + "/api/InventorySupply/deliverydates", { params: params })
         .then(function (response) {
             $scope.deliverydates = response.data;
-            $scope.cdate = (($scope.item.InventorySupplyState == 0) && ($scope.deliverydates.length > 0));
+            //$scope.cdate = (($scope.item.InventorySupplyState == 0) && ($scope.deliverydates.length > 0));
             if ($scope.deliverydates.length > 0) {
                 $scope.item.Date = $scope.deliverydates.filter(d => new Date(d.lDATUField) == new Date($scope.item.Date)).length>0?$scope.deliverydates.filter(d => new Date(d.lDATUField) == new Date($scope.item.Date)):null;
                 if (!$scope.item.Date || $scope.item.Date.length==0)
