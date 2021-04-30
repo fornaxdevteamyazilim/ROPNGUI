@@ -388,7 +388,7 @@
     "WEBUSERS": "{{appName}} - Web Users Report"
   },
   "main": {
-    "CURRENCY_SYMBOL": "DH",
+    "CURRENCY_SYMBOL": "TL",
     "MONEY_CHANGE": "Change",
     "RETURNREASON": "Return Reason",
     "WASTEUSAGE": "Waste Usage",
