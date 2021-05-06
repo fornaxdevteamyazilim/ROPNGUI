@@ -22,7 +22,7 @@
                 <form name="userForm" role="form">
                     <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-6">
                         <label>{{:: date}}</label><br />
-                        <input id="Date" type="text" class="form-control ng" ng-model="item.OperationDate" readonly ng-click="datepopup(item.OperationDate)" required>
+                        <input id="Date" type="text" class="form-control ng" ng-model="item.OperationDate" datepicker-popup="dd-MM-yyyy" readonly ng-click="datepopup(item.OperationDate)" required>
                     </div>
                     <div class="form-group col-sm-6 col-lg-3 col-md-4 col-xs-6">
                         <label class="text-bold">{{:: repository}}</label> &nbsp;<span class="symbol required"></span>

@@ -191,6 +191,7 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             //{ caption: $translate.instant('InventoryRequirment.DeliveryDate'), dataField: "DeliveryDate", alignment: "right", dataType: "date",  format: 'dd.MM.yyyy' },
             //{ caption: $translate.instant('InventoryRequirment.Amount'), dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('InventoryRequirment.Notes'), dataField: "Notes", dataType: "string" },
+            { caption: $translate.instant('inventorypurchase.Amount'), dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 }, visibleIndex: 5 },
             { caption: $translate.instant('InventoryRequirment.InventorySupplyState'), dataField: "InventorySupplyState", dataType: "string",
             lookup: {
                 valueExpr: "Value",

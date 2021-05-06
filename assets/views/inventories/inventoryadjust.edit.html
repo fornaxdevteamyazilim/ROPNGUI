@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-12">
                         <label class="text-bold">{{:: datetime}}</label> &nbsp;<span class="symbol required"></span>
-                        <input id="Date" type="text" class="form-control ng" ng-model="item.AdjustDate" readonly ng-click="datepopup(item.AdjustDate)">
+                        <input id="Date" type="text" class="form-control ng" ng-model="item.AdjustDate" datepicker-popup="dd-MM-yyyy" datepicker-popup="dd-MM-yyyy" readonly ng-click="datepopup(item.AdjustDate)">
                     </div>
                     <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
                         <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !=='new'" ng-click="removedata(item.id)">

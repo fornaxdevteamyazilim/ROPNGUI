@@ -46,7 +46,7 @@
                     </div>
                     <div print-remove class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label>{{:: datetime}}</label><br />
-                        <input id="Date" type="text" class="form-control ng" ng-model="item.TransferDate" readonly ng-click="datepopup(item.TransferDate)" required>
+                        <input id="Date" type="text" class="form-control ng" ng-model="item.TransferDate" datepicker-popup="dd-MM-yyyy" readonly ng-click="datepopup(item.TransferDate)" required>
                     </div>
                     <div print-only class="visible-print hidden col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label class="text-bold">{{:: datetime}}</label>

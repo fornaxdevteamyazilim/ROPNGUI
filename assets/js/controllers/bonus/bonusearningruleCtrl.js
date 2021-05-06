@@ -202,7 +202,22 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
-                    dataSource: OrderSourceDataSource,
+                    dataSource: {
+                        store: DevExpress.data.AspNet.createStore({
+                            key: "id",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxOrdersource",
+                            onBeforeSend: function (method, ajaxOptions) {
+                                var authData = localStorageService.get('authorizationData');
+                                if (authData) {
+                                    ajaxOptions.headers = {
+                                        Authorization: 'Bearer ' + authData.token,
+                                    };
+                                }
+                            }
+                        }),
+                        sort: "Name",
+                        headerFilter: { allowSearch: true }
+                    },
                 },
             },
         ],
