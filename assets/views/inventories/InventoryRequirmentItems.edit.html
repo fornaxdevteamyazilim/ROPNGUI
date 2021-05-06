@@ -50,7 +50,7 @@
                         <button class="btn btn-o btn-success btn-wide btn-scroll btn-scroll-left fa fa-check" ng-click="SaveData(true)" ng-disabled="item.isProcesseed == true || isSpinner == true" ng-if="InventoryRequirmentID != 'new'">
                             <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span translate="main.ISPROCESS" ng-if="isSpinner != true">{{:: save}}</span>
                         </button>
-                        <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-click="removedata(item.id)" ng-disabled="isSpinner == true" ng-if="!item.isProcesseed && user.restrictions.requirmentsdeletes =='Enable'">
+                        <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-click="removedata(item.id)" ng-disabled="isSpinner == true" ng-if="canDelete">
                             <span class='fa fa-spin fa-spinner' ng-if='isSpinner == true'></span><span ng-if="isSpinner != true">{{:: delete}}</span>
                         </button>
                         <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-click="SaveData(false)" ng-disabled="isSpinner == true">

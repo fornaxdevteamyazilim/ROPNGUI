@@ -9,6 +9,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
     $scope.item.UnitCustom = 0;
     $scope.item.UnitPrice = 0;
     $scope.item.GrandTotal = 0;
+    $scope.canDelete=false;
     userService.userAuthorizated();
     $scope.Back = function () {
         $location.path('app/inventory/inventoryrequirments/list');
@@ -64,14 +65,14 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
     if ($stateParams.id != 'new')
         Restangular.one('InventoryRequirment', $stateParams.id).get().then(function (restresult) {
             $scope.original = restresult;
-            
-            $scope.cdate =!restresult.isProcesseed;
+            $scope.canDelete=!restresult.isProcesseed && $rootScope.user.restrictions.requirmentsdeletes == 'Enable';
+            $scope.cdate = !restresult.isProcesseed;
             if (restresult.isProcesseed == true)
                 restresult.isProcesseed = $scope.Processed;
             if (restresult.isProcesseed == false)
                 restresult.isProcesseed = $scope.Process;
             $scope.item = Restangular.copy(restresult);
-            $scope.item.Date =$filter('date')($scope.item.Date, 'yyyy-MM-dd')
+            $scope.item.Date = $filter('date')($scope.item.Date, 'yyyy-MM-dd')
             $location.path('app/inventory/inventoryrequirments/edit/' + restresult.id);
             $scope.$broadcast('newRequirmentData', restresult);
         })
@@ -196,7 +197,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             });
         }
     };
-
+    
     $scope.stores = [];
     $scope.loadEntitiesCache('cache/store', 'stores');
     $scope.saveItem = function () {
@@ -231,8 +232,8 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             // if ($scope.deliverydates.length > 0) {
             //     $scope.item.Date = $scope.deliverydates.filter(d => new Date(d.lDATUField) == new Date($scope.item.Date)).length>0?$scope.deliverydates.filter(d => new Date(d.lDATUField) == new Date($scope.item.Date)):null;
             //     //if (!$scope.item.Date || $scope.item.Date.length==0)
-                  //  $scope.item.Date = $scope.deliverydates[0].lDATUField;
-                //$scope.item.Date = $scope.item.Date ?? $scope.deliverydates[0].lDATUField;                   
+            //  $scope.item.Date = $scope.deliverydates[0].lDATUField;
+            //$scope.item.Date = $scope.item.Date ?? $scope.deliverydates[0].lDATUField;                   
             //}
         }, function (response) {
             return $q.reject("Data Loading Error");
