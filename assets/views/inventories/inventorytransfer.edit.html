@@ -100,32 +100,32 @@
             <br />
             <div class="table-responsive">
                 <table print-remove ng-table="vm.tableParams" class="table table-striped table-hover">
-                    <tr ng-repeat="item in $data"
+                    <tr ng-repeat="data in $data"
                         ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
                         <td data-title="trInventoryUnit" data-sortable="'InventoryUnitID'" width="25%">
-                            <span class="text-uppercase" editable-select="item.InventoryUnitID" e-name="InventoryUnitID" e-ng-model="item.InventoryUnitID" ng-click="rowform.$show()" e-form="rowform" e-ng-blur="GetInventoryUnitPrice(rowform,item)"
+                            <span class="text-uppercase" editable-select="data.InventoryUnitID" e-name="InventoryUnitID" e-ng-model="data.InventoryUnitID"  e-form="rowform" e-ng-blur="GetInventoryUnitPrice(rowform,data)"
                                   e-ng-options="q.id as q.name for q in inventoryunits | orderBy:'+name' | filter: {isActiveValue: 'true'}">
-                                {{ ShowObject('inventoryunits','id',item.InventoryUnitID,'name') }}
+                                {{ ShowObject('inventoryunits','id',data.InventoryUnitID,'name') }}
                             </span>
                         </td>
                         <td data-title="trUnitCount" data-sortable="'UnitCount'" width="25%">
-                            <span editable-number="item.UnitCount" e-min="0" e-name="UnitCount" e-form="rowform" e-ng-model="item.UnitCount">
-                                {{ item.UnitCount }}
+                            <span editable-number="data.UnitCount" e-min="0" e-name="UnitCount" e-form="rowform" e-ng-model="data.UnitCount">
+                                {{ data.UnitCount }}
                             </span>
                         </td>
                         <td data-title="trUnitPrice" data-sortable="'UnitPrice'" width="13%">
-                            <span e-name="UnitPrice" e-ng-model="item.UnitPrice" e-form="rowform" e-style="width: 13vw;">
-                                {{  item.UnitPrice | number : 4 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
+                            <span e-name="UnitPrice" e-ng-model="data.UnitPrice" e-form="rowform" e-style="width: 13vw;">
+                                {{  data.UnitPrice | number : 4 }} {{:: 'main.CURRENCY_SYMBOL' | translate}}
                             </span>
                         </td>
                         <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                             <form editable-form name="rowform" onbeforesave="saveItem($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
-                                  shown="inserted == item|| !item.id">
+                                  shown="inserted == data|| !data.id">
                                 <button type="submit" ng-disabled="rowform.$waiting" ng-click="savetoaster()" class="btn btn-transparent btn-sm tooltips ti-check"></button>
                                 <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
                             </form>
-                            <div class="buttons pull-right" ng-show="!rowform.$visible">
-                                <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                            <div class="buttons pull-right" ng-show="!rowform.$visible"  >
+                                <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" ng-disabled="(item.InventorySupplyState == 3 ||item.InventorySupplyState == 5) || isWaiting == true" tooltip-placement="top" ng-click="rowform.$show()"></a>
                                 <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{:: delete}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
                             </div>
                             <div class="visible-xs visible-sm hidden-md hidden-lg">

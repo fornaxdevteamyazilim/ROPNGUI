@@ -28,11 +28,13 @@ function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
         $scope.translate();
     });
+    $scope.InventoryDealID = $stateParams.id;
     if ($stateParams.id != 'new') {
         Restangular.one('inventorydeal', $stateParams.id).get().then(function (restresult) {
             $scope.Showtable = true;
             $scope.item = Restangular.copy(restresult);       
             $scope.loadEntities3('SuppliyerInventoryUnits', 'inventoryunits', restresult.CompanyID);
+            $scope.$broadcast('newDealData', resp);
             if ($scope.item.items.length > 0) {
                 //ideali.tableParams.reload();
          
@@ -42,33 +44,56 @@ function inventorydealitemCtrl($scope, $log, $modal, $filter, SweetAlert, Restan
         $scope.Showtable = false;
         $scope.item = {};
     };
+    // $scope.SaveData = function () {
+    //     if ($scope.item.restangularized && $scope.item.id) {
+    //         $scope.ShowSpinnerObject = true;
+    //         $scope.item.put().then(function (resp) {
+    //             toaster.pop('success',$translate.instant('invantories.Updated') ,$translate.instant('invantories.Savedserver'));
+    //             $location.path('/app/inventory/inventorydeals/list');
+    //             $scope.ShowSpinnerObject = false;
+    //         }, function (response) {
+    //             $scope.ShowSpinnerObject = false;
+    //             toaster.pop('warning', "Error!", response.data.ExceptionMessage);
+    //         });
+    //     } else {
+    //         $scope.ShowSpinnerObject = true;
+    //         Restangular.restangularizeElement('', $scope.item, 'inventorydeal')
+    //         $scope.item.post().then(function (resp) {
+    //             toaster.pop('success', $translate.instant('invantories.Saved') ,$translate.instant('invantories.Savedserver'));
+    //             $scope.Showtable = true;
+    //             $scope.item = Restangular.copy(resp);
+    //             ideali.tableParams.reload();
+    //             $scope.ShowSpinnerObject = false;
+    //             $scope.loadEntities3('SuppliyerInventoryUnits', 'inventoryunits', resp.CompanyID);
+    //         }, function (response) {
+    //             $scope.ShowSpinnerObject = false;
+    //             toaster.pop('error', "Error!", response.data.ExceptionMessage);
+    //         });
+    //     }
+    // }; 
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
-            $scope.ShowSpinnerObject = true;
-            $scope.item.put().then(function (resp) {
-                toaster.pop('success',$translate.instant('invantories.Updated') ,$translate.instant('invantories.Savedserver'));
-                $location.path('/app/inventory/inventorydeals/list');
-                $scope.ShowSpinnerObject = false;
-            }, function (response) {
-                $scope.ShowSpinnerObject = false;
-                toaster.pop('warning', "Error!", response.data.ExceptionMessage);
+            $scope.item.put().then(function (resp) {  
+              $location.path('app/inventory/inventorydeals/list');
+            },
+             function (response) {
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);   
             });
         } else {
-            $scope.ShowSpinnerObject = true;
+           
             Restangular.restangularizeElement('', $scope.item, 'inventorydeal')
             $scope.item.post().then(function (resp) {
-                toaster.pop('success', $translate.instant('invantories.Saved') ,$translate.instant('invantories.Savedserver'));
-                $scope.Showtable = true;
-                $scope.item = Restangular.copy(resp);
-                ideali.tableParams.reload();
-                $scope.ShowSpinnerObject = false;
-                $scope.loadEntities3('SuppliyerInventoryUnits', 'inventoryunits', resp.CompanyID);
+                // $scope.item.id = resp.id;
+                // $scope.InventoryDealID = resp.id;
+                //$scope.item = Restangular.copy(restresult);     
+                 $location.path('app/inventory/inventorydeals/edit/' + resp.id);
+                 $scope.$broadcast('newDealData', resp);
             }, function (response) {
-                $scope.ShowSpinnerObject = false;
-                toaster.pop('error', "Error!", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+           
             });
         }
-    }; 
+    };
     var params = {
         InventoryDealID: $stateParams.id
     };
@@ -139,7 +164,7 @@ $scope.dataGridOptions = {
         { caption: $translate.instant('inventorydealItem.Discount'), dataField: "Discount", dataType: "number", format: { type: "fixedPoint", precision: 2 }, allowEditing: true, visibleIndex: 6 },
         { caption: $translate.instant('inventorydealItem.Multipliyer'), dataField: "Multipliyer", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 7 },
         { caption: $translate.instant('inventorydealItem.PaymentTerm'), dataField: "PaymentTerm", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 8 },
-        { caption: $translate.instant('inventorydealItem.Notes'), dataField: "Notes", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 9 },
+       // { caption: $translate.instant('inventorydealItem.Notes'), dataField: "Notes", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 9 },
 
     ]
 

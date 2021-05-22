@@ -61,10 +61,10 @@
                         {{ item.Discount}}
                     </td>
                     <td data-title="trValidFrom" data-sortable="'ValidFrom'" style="width:10%">
-                        {{ item.ValidFrom|date:'yyyy-MM-dd' }}
+                        {{ item.ValidFrom|date:'dd.MM.yyyy' }}
                     </td>
                     <td data-title="trValidTo" data-sortable="'ValidTo'" style="width:10%">
-                        {{ item.ValidTo|date:'yyyy-MM-dd' }}
+                        {{ item.ValidTo|date:'dd.MM.yyyy' }}
                     </td>
                     <td data-title="trStore" data-sortable="'StoreID'" style="width:10%" class="ng">
                         <span ng-repeat="store in item.Stores">

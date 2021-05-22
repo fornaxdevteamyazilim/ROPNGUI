@@ -1,5 +1,5 @@
 ﻿app.controller('inventorycounteditCtrl', inventorycounteditCtrl);
-function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, userService, $element, Excel, $timeout, NG_SETTING) {
+function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, userService, $element, Excel, $timeout, NG_SETTING, $http, $q) {
     $rootScope.uService.EnterController("inventorycounteditCtrl");
     var ici = this;
     userService.userAuthorizated();
@@ -43,9 +43,10 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
             (function (restresult) {
                 $scope.Showtable = true;
                 $scope.item = Restangular.copy(restresult);
+                $scope.$broadcast('newCountData', resp);
                 if ($scope.item.items.length > 0) {
                     ici.tableParams.reload();
-                    $rootScope.preventNavigation();
+                    //$rootScope.preventNavigation();
                 }
             })
     } else {
@@ -53,51 +54,113 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
         $scope.item = {};
         $scope.item.InventoryCountTypeID = "0";
     }
-    var searchText = '';
-    var inventoryUnit = function (item) {
-        return item.InventoryUnit;
-    }
-    var InventoryGroup = function (item) {
-        return item.InventoryGroup;
-    };
-    ici.tableParams = new ngTableParams({
-        page: 1,
-        count: 10,
-    }, {
-        getData: function ($defer, params) {
-            if ($scope.item.items.length > 0)
-                $defer.resolve($scope.item.items);
-        }
-    });
-
+    // var searchText = '';
+    // var inventoryUnit = function (item) {
+    //     return item.InventoryUnit;
+    // }
+    // var InventoryGroup = function (item) {
+    //     return item.InventoryGroup;
+    // };
+    // ici.tableParams = new ngTableParams({
+    //     page: 1,
+    //     count: 10,
+    // }, {
+    //     getData: function ($defer, params) {
+    //         if ($scope.item.items.length > 0)
+    //             $defer.resolve($scope.item.items);
+    //     }
+    // });
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
-            $scope.ShowObject = true;
             $scope.item.put().then(function (resp) {
-                toaster.pop('success', $translate.instant('invantories.Updated'), $translate.instant('invantories.Savedserver'));
-                $rootScope.allowNavigation();
-                $location.path('/app/inventory/inventorycount/list');
-                $scope.ShowObject = false;                
-            }, function (response) {
-                $scope.ShowObject = false;
-                toaster.pop('Warning', "Error!", response.data.ExceptionMessage);
-            });
-        }
-        else {
-            $scope.ShowObject = true;
+                // $rootScope.preventNavigation();
+                $location.path('app/inventory/inventorycount/list');
+            },
+                function (response) {
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                });
+        } else {
+
             Restangular.restangularizeElement('', $scope.item, 'inventorycount')
             $scope.item.post().then(function (resp) {
-                toaster.pop('success', $translate.instant('invantories.Saved'), $translate.instant('invantories.Savedserver'));
-                $scope.Showtable = true;
-                $scope.item = {};
-                $scope.item = Restangular.copy(resp);
-                ici.tableParams.reload();
-                $rootScope.preventNavigation();
-                $scope.ShowObject = false;
+                $scope.item.id = resp.id;
+                $scope.inventorycountID = resp.id;
+                //$scope.item = Restangular.copy(restresult);     
+                $location.path('app/inventory/inventorycount/edit/' + resp.id);
+                $scope.$broadcast('newCountData', resp);
+                //$rootScope.preventNavigation();
             }, function (response) {
-                $scope.ShowObject = false;
-                toaster.pop('error',  "Error!", response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+
             });
+        }
+    };
+
+    var params = {
+        InventoryCountID: $stateParams.id,
+    };
+    $http.get(NG_SETTING.apiServiceBaseUri + "/api/inventorycount", { params: params })
+        .then(function (response) {
+            $scope.item.items;
+            var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            dataGrid.option("dataSource", $scope.item.items);
+        }, function (result) {
+            return $q.reject("Data Loading Error");
+        });
+    $scope.dataGridOptions = {
+        dataSource: $scope.item.items,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        //skeyExpr: "id",
+        showBorders: true,
+        hoverStateEnabled: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        headerFilter: { visible: true },
+        searchPanel: { visible: true },
+        showBorders: true,
+        //noDataText:  $translate.instant('InventoryRequirmentItem.Calculatingrequirments'),
+        paging: {
+            enabled: false
+        },
+        editing: {
+            mode: "cell",
+            allowUpdating: true
+        },
+        columns: [
+            { caption: "InventoryGroup", dataField: "InventoryGroup", dataType: "string", allowEditing: false, sortIndex: 0, sortOrder: "desc" },
+            //{ caption: $translate.instant('InventoryPurchaseItem.InventoryUnit'), dataField: "InventoryUnit", dataType: "string", allowEditing: false, visibleIndex: 1 },
+            {
+                dataField: "InventoryUnit", caption: $translate.instant('InventoryPurchaseItem.InventoryUnit'), allowEditing: false, dataType: "string"//fixed: true,width: 200,    
+            },
+            {
+                caption: $translate.instant('InventoryPurchaseItem.UnitCount'), dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 2,
+                setCellValue: function (rowData, value, oldrow) {
+                    rowData.UnitCount = value;
+                    rowData.Total = rowData.UnitCount * oldrow.UnitPrice;
+                },
+            },
+            { caption: $translate.instant('InventoryPurchaseItem.UnitPrice'), dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 }, allowEditing: false, visibleIndex: 3, },
+            { caption: $translate.instant('InventoryPurchaseItem.Total'), dataField: "Total", calculateCellValue: function (data) { return data.UnitCount * data.UnitPrice; }, format: { type: "fixedPoint", precision: 2 }, visibleIndex: 4 },
+        ],
+        summary: {
+            totalItems: [
+                { column: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            ],
+            groupItems: [
+                { name: "Total", showInColumn: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            ],
+        },
+        // onContentReady(e) {
+        //     document.querySelector('.dx-datagrid-rowsview').before(document.querySelector('.dx-datagrid-total-footer'));
+        //     }
+        export: {
+            enabled: true,
+            fileName: "inventorycount",
         }
     };
     $scope.exportToExcel = function (tableId) { // ex: '#my-table'
@@ -147,7 +210,8 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $scope.item.remove().then(function () {
                     SweetAlert.swal($translate.instant('invantories.Deleted'), $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('/app/inventory/inventorycount/list');
-                    $rootScope.allowNavigation();
+                }, function (response) {
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
             else {
@@ -169,7 +233,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                     $scope.item.RepositoryID = result[0].id;
                 }
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -190,7 +254,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
     };
@@ -199,7 +263,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
             });
         }
     };
@@ -256,7 +320,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 }
             }
         }, function (response) {
-            toaster.pop('error',$translate.instant('Server.ServerError'), response);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response);
         });
     };
     $scope.LoadTags(20);
