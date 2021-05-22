@@ -4355,5 +4355,12 @@
     "VAT": "KDV",
     "Total": "Toplam",
     "Nots": "Not"
+  },
+  "inventorycount": {
+    "InventoryUnit": "Malzeme birimi",
+    "UnitCount": "Miktar",
+    "UnitPrice": "Birim Fiyatı",
+    "Total": "Toplam",
+    "InventoryGroup": "Stok Grubu"
   }
 }

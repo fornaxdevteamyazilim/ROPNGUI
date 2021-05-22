@@ -4327,5 +4327,12 @@
     "VAT": "VAT",
     "Total": "Total",
     "Nots": "Nots"
+  },
+  "inventorycount": {
+    "InventoryUnit": "Inventory Unit",
+    "UnitCount": "Unit Count",
+    "UnitPrice": "Unit Price",
+    "Total": "Total",
+    "InventoryGroup":"Inventory Group"
   }
 }

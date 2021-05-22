@@ -132,20 +132,20 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
             allowUpdating: true
         },
         columns: [
-            { caption: "InventoryGroup", dataField: "InventoryGroup", dataType: "string", allowEditing: false, sortIndex: 0, sortOrder: "desc" },
-            //{ caption: $translate.instant('InventoryPurchaseItem.InventoryUnit'), dataField: "InventoryUnit", dataType: "string", allowEditing: false, visibleIndex: 1 },
+            { caption:$translate.instant('inventorycount.InventoryGroup'), dataField: "InventoryGroup", dataType: "string", allowEditing: false, sortIndex: 0, sortOrder: "desc" },
+            //{ caption: $translate.instant('inventorycount.InventoryUnit'), dataField: "InventoryUnit", dataType: "string", allowEditing: false, visibleIndex: 1 },
             {
-                dataField: "InventoryUnit", caption: $translate.instant('InventoryPurchaseItem.InventoryUnit'), allowEditing: false, dataType: "string"//fixed: true,width: 200,    
+                dataField: "InventoryUnit", caption: $translate.instant('inventorycount.InventoryUnit'), allowEditing: false, dataType: "string"//fixed: true,width: 200,    
             },
             {
-                caption: $translate.instant('InventoryPurchaseItem.UnitCount'), dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 2,
+                caption: $translate.instant('inventorycount.UnitCount'), dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 2,
                 setCellValue: function (rowData, value, oldrow) {
                     rowData.UnitCount = value;
                     rowData.Total = rowData.UnitCount * oldrow.UnitPrice;
                 },
             },
-            { caption: $translate.instant('InventoryPurchaseItem.UnitPrice'), dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 }, allowEditing: false, visibleIndex: 3, },
-            { caption: $translate.instant('InventoryPurchaseItem.Total'), dataField: "Total", calculateCellValue: function (data) { return data.UnitCount * data.UnitPrice; }, format: { type: "fixedPoint", precision: 2 }, visibleIndex: 4 },
+            { caption: $translate.instant('inventorycount.UnitPrice'), dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 }, allowEditing: false, visibleIndex: 3, },
+            { caption: $translate.instant('inventorycount.Total'), dataField: "Total", calculateCellValue: function (data) { return data.UnitCount * data.UnitPrice; }, format: { type: "fixedPoint", precision: 2 }, visibleIndex: 4 },
         ],
         summary: {
             totalItems: [
