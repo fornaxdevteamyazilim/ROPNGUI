@@ -6,10 +6,11 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
     $scope.item = {};
     $scope.TagData = { name: '' };
     $scope.groupItem = [];
-    // $scope.Back = function () {
-    //     $window.history.back();
-    //     $rootScope.preventNavigation();
-    // };
+    $scope.Back = function () {
+        $window.history.back();
+        $rootScope.preventNavigation();
+    };
+    $rootScope.preventNavigation();
     $scope.translate = function () {
         $scope.trInventory = $translate.instant('main.INVENTORY');
         $scope.trUnitCount = $translate.instant('main.UNITCOUNT');
@@ -46,7 +47,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $scope.$broadcast('newCountData', resp);
                 if ($scope.item.items.length > 0) {
                     ici.tableParams.reload();
-                    //$rootScope.preventNavigation();
+                    $rootScope.preventNavigation();
                 }
             })
     } else {
@@ -70,26 +71,34 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
     //             $defer.resolve($scope.item.items);
     //     }
     // });
+  
     $scope.SaveData = function () {
+        $scope.isWaiting = true;
         if ($scope.item.restangularized && $scope.item.id) {
+            $scope.ShowObject = true;
             $scope.item.put().then(function (resp) {
-                // $rootScope.preventNavigation();
+                $rootScope.allowNavigation();
                 $location.path('app/inventory/inventorycount/list');
+              
             },
-                function (response) {
+                function (response) {f
+                    $scope.ShowObject = false; 
+                    $scope.isWaiting = false;    
                     toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
         } else {
+            $scope.ShowObject = true;
 
             Restangular.restangularizeElement('', $scope.item, 'inventorycount')
             $scope.item.post().then(function (resp) {
-                $scope.item.id = resp.id;
-                $scope.inventorycountID = resp.id;
+                // $scope.item.id = resp.id;
+                // $scope.inventorycountID = resp.id;
                 //$scope.item = Restangular.copy(restresult);     
                 $location.path('app/inventory/inventorycount/edit/' + resp.id);
-                $scope.$broadcast('newCountData', resp);
-                //$rootScope.preventNavigation();
+                $rootScope.allowNavigation();
             }, function (response) {
+                $scope.ShowObject = false;    
+                $scope.isWaiting = false; 
                 toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
 
             });
@@ -138,7 +147,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 dataField: "InventoryUnit", caption: $translate.instant('inventorycount.InventoryUnit'), allowEditing: false, dataType: "string"//fixed: true,width: 200,    
             },
             {
-                caption: $translate.instant('inventorycount.UnitCount'), dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 2,
+                caption: $translate.instant('inventorycount.UnitCount'), dataField: "UnitCount", allowEditing: true, visibleIndex: 2,
                 setCellValue: function (rowData, value, oldrow) {
                     rowData.UnitCount = value;
                     rowData.Total = rowData.UnitCount * oldrow.UnitPrice;
@@ -208,6 +217,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
+                    $rootScope.allowNavigation();
                     SweetAlert.swal($translate.instant('invantories.Deleted'), $translate.instant('invantories.RecordDeleted'), "success");
                     $location.path('/app/inventory/inventorycount/list');
                 }, function (response) {

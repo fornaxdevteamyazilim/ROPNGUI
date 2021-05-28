@@ -192,7 +192,7 @@
                         {{ item.Store }}
                     </td>
                     <td class="text-capitalize " data-title="trPerson" data-sortable="'PersonID'" ng-model="item.PersonID" width="10%">
-                        {{ item.persons[0].Person.name }}
+                        {{item.Alias}}{{item.persons[0].Person}}
                     </td>
                     <td class="text-capitalize " data-title="trPhone" data-sortable="'PersonID'" ng-model="item.PersonID" width="10%">
                         <label ng-repeat="phone in item.persons[0].Person.PersonPhones">"{{phone.Number}}"</label>
