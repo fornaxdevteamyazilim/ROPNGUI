@@ -9,7 +9,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
     $scope.item.UnitCustom = 0;
     $scope.item.UnitPrice = 0;
     $scope.item.GrandTotal = 0;
-    $scope.canDelete=false;
+    $scope.canDelete = false;
     userService.userAuthorizated();
     $scope.Back = function () {
         $location.path('app/inventory/inventoryrequirments/list');
@@ -65,7 +65,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
     if ($stateParams.id != 'new')
         Restangular.one('InventoryRequirment', $stateParams.id).get().then(function (restresult) {
             $scope.original = restresult;
-            $scope.canDelete=!restresult.isProcesseed && $rootScope.user.restrictions.requirmentsdeletes == 'Enable';
+            $scope.canDelete = !restresult.isProcesseed && $rootScope.user.restrictions.requirmentsdeletes == 'Enable';
             $scope.cdate = !restresult.isProcesseed;
             if (restresult.isProcesseed == true)
                 restresult.isProcesseed = $scope.Processed;
@@ -81,6 +81,7 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
         $scope.item.Date = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     }
     $scope.SaveData = function (processaftersave) {
+
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
                 if (processaftersave)
@@ -108,23 +109,44 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
                 $scope.ShowObject = false;
             });
         }
+
+
     };
     $scope.processrequirment = function () {
-        $scope.isSpinner = true;
-        Restangular.all('InventorySupply/processrequirment').getList({
-            InventoryRequirmentID: $stateParams.id
-        }).then(function (result) {
-            $scope.isSpinner = false;
-            toaster.pop('success', $translate.instant('orderfile.Updated'));
-            Restangular.one('InventoryRequirment', $stateParams.id).get().then(function (restresult) {
-                $location.path('app/inventory/inventoryrequirments/list');
-                $scope.original = restresult;
-                $scope.item = Restangular.copy(restresult);
-            })
-        }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            $scope.isSpinner = false;
-        });
+        SweetAlert.swal({
+            title: $translate.instant('invantories.Sure'),
+            text: $translate.instant('invantories.DoYouWantToProcessTheNeedsList'),
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: $translate.instant('invantories.YesWithWork'),
+            cancelButtonText: $translate.instant('invantories.Nodontprocess'),
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+
+                if (isConfirm) {
+                    $scope.isSpinner = true;
+                    Restangular.all('InventorySupply/processrequirment').getList({
+                        InventoryRequirmentID: $stateParams.id
+                    }).then(function (result) {
+                        $scope.isSpinner = false;
+                        toaster.pop('success', $translate.instant('orderfile.Updated'));
+                        Restangular.one('InventoryRequirment', $stateParams.id).get().then(function (restresult) {
+                            $location.path('app/inventory/inventoryrequirments/list');
+                            $scope.original = restresult;
+                            $scope.item = Restangular.copy(restresult);
+                        })
+                    }, function (response) {
+                        toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                        $scope.isSpinner = false;
+                    });
+                    SweetAlert.swal($translate.instant('invantories.Processed'), $translate.instant('invantories.Yourlistofneedshasbeenprocessed'), "success");
+                } else {
+                    SweetAlert.swal($translate.instant('invantories.Notprocessed'), $translate.instant('invantories.Yourlistofneedshasnotbeenprocessed'), "error");
+                }
+            });
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
@@ -197,7 +219,6 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             });
         }
     };
-    
     $scope.stores = [];
     $scope.loadEntitiesCache('cache/store', 'stores');
     $scope.saveItem = function () {
@@ -217,8 +238,6 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             toaster.pop('warning', $translate.instant('invantories.NotSaved'), response.data.ExceptionMessage);
         });
     };
-
-
     var params = {
         InventoryRequirmentID: $stateParams.id,
     };
@@ -246,8 +265,6 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
         }, function (response) {
             return $q.reject("Data Loading Error");
         });
-
-
     $scope.dataGridOptions = {
         dataSource: $scope.item.items,
         showBorders: true,
@@ -257,14 +274,12 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
         showRowLines: true,
         rowAlternationEnabled: true,
         //keyExpr: "id",
-        showBorders: true,
         hoverStateEnabled: true,
         allowColumnReordering: true,
         filterRow: { visible: true },
         headerFilter: { visible: true },
         searchPanel: { visible: true },
         groupPanel: { visible: true },
-        showBorders: true,
         noDataText: $translate.instant('InventoryRequirmentItem.Calculatingrequirments'),
         paging: {
             enabled: false
@@ -282,7 +297,6 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
                     { caption: $translate.instant('InventoryRequirmentItem.factor'), dataField: "factor", dataType: "number", allowEditing: false, visibleIndex: 3 },
                     { caption: $translate.instant('InventoryRequirmentItem.BaseUnit'), dataField: "BaseUnit", dataType: "string", allowEditing: false, visibleIndex: 4 },
                     { caption: $translate.instant('InventoryRequirmentItem.UnitPrice'), dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 }, allowEditing: false, visibleIndex: 5 },
-
                 ]
             },
             {
@@ -322,10 +336,6 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             fileName: "InventoryRequirment",
         }
     };
-
-
-
-
     $scope.$on('$destroy', function () {
         deregistration();
         deregistration1();

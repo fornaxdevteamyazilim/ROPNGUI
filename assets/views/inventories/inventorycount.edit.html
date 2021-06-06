@@ -36,7 +36,7 @@
                             {{:: description}}
                         </label>
                         <textarea type="text" style='min-height:60px; max-width:340px; max-height:100px'
-                            class="form-control text-uppercase" ng-model="item.Description" placeholder=""></textarea>
+                            class="form-control text-uppercase" ng-model="item.Description" ng-disabled="EditCountDisabled()" placeholder=""></textarea>
                     </div>
                     <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-6">
                         <label>
@@ -44,7 +44,7 @@
                         </label>
                         <select class="form-control text-uppercase ng"
                             data-ng-options="q.id as q.fullname for q in repositories"
-                            data-ng-model="item.RepositoryID"  ng-disabled="!item.RepositoryID || isWaiting ==true"></select>
+                            data-ng-model="item.RepositoryID" ng-disabled="EditCountDisabled()"></select>
                     </div>
                     <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-6">
                         <label>
@@ -52,14 +52,14 @@
                         </label>
                         <select ng-options="q.Value as q.Name for q in counttypes | orderBy:'+Name'"
                             class="form-control text-uppercase ng" ng-model="item.InventoryCountTypeID"
-                            ng-selected="item.InventoryCountTypeID" ng-disabled="(!item.InventoryCountTypeID ) || isWaiting ==true"></select>
+                            ng-selected="item.InventoryCountTypeID" ng-disabled="EditCountDisabled()" ></select>
                     </div>
                     <div class="form-group col-sm-6 col-lg-3 col-md-3 col-xs-6">
                         <label>
                             {{:: datetime}}
                         </label> &nbsp;<span class="symbol required"></span><br />
                         <input id="Date" type="text" class="form-control ng" ng-model="item.CountDate" datepicker-popup="dd-MM-yyyy" readonly
-                            ng-click="datepopup(item.CountDate)"  ng-disabled="item.CountDate || isWaiting ==true" required>
+                            ng-click="datepopup(item.CountDate)" ng-disabled="EditCountDisabled()"   required>
                     </div>
                     <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
                         <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right"

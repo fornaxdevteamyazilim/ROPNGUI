@@ -48,7 +48,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
     $scope.resetButtonOptions = {
         text: $scope.resetlayout,
         onClick: function () {
-            $('#gridContainer').dxDataGrid('instance').getDataSource().state({});
+            $("#gridContainer").dxDataGrid("instance").state({});
         }
     };
     function isNotEmpty(value) {

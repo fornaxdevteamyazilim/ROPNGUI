@@ -39,7 +39,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
     $scope.resetButtonOptions = {
         text: $scope.resetlayout,
         onClick: function () {
-            $("#sales").dxPivotGrid("instance").getDataSource().state({});
+            $("#gridContainer").dxDataGrid("instance").state({});
         }
     };
     function isNotEmpty(value) {
