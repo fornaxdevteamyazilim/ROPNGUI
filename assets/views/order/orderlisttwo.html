@@ -55,7 +55,10 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <span translate="main.ORDERSOURCE">Order Source</span><br />
-                    <select class="form-control" ng-options="q.id as q.name for q in ordersources | orderBy: 'name'" ng-model="params.OrderSourceID"></select>
+                    <select class="form-control" ng-model="params.OrderSourceID" ng-change="GetOrderSourceID(params.OrderSourceID)">
+                        <option value="">Tümü !</option>
+                        <option ng-repeat="params in ordersources | orderBy:'+name'" value="{{params.id}}">{{params.name}}</option>
+                    </select>
                 </div>
             </div>
             <div print-remove class="col-lg-2 col-md-2 col-sm-6 col-xs-6 margin-top-10">

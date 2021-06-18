@@ -22,10 +22,10 @@
                     <div ng-if="user.restrictions.ysstorestatus=='Enable'">
                         <div>
                             <strong class="text-green text-large text-uppercase"
-                                ng-if="yemekSepetiStore.isOpen == true"> {{ open}} <i class="fa fa-check"></i></strong>
-                            <strong class="text-red text-large text-uppercase" ng-if="yemekSepetiStore.isOpen == false">
+                                ng-if="AggregatorStoreStats[0].isActive == true"> {{ open}} <i class="fa fa-check"></i></strong>
+                            <strong class="text-red text-large text-uppercase" ng-if="AggregatorStoreStats[0].isActive == false">
                                 {{ close}} <i class="fa fa-exclamation"></i></strong>
-                            <p>
+                            <p style="font-weight: bold;">
                                 {{'main.YSSTATUS' | translate}}[{{yemekSepetiStore.ServiceTime}}]
                             </p>
                         </div>
@@ -37,6 +37,31 @@
                                 </span><br />
                             </div>
                         </div>
+
+                    </div>
+                </li>
+                <li>
+                    <div ng-if="user.restrictions.ysstorestatus=='Enable'">
+                        <div>
+                            <strong class="text-green text-large text-uppercase"
+                                ng-if="AggregatorStoreStats[1].isActive == true"> {{ open}} 
+                                <i class="fa fa-check"></i></strong>
+                            <strong class="text-red text-large text-uppercase"
+                                ng-if="AggregatorStoreStats[1].isActive == false">
+                                {{ close}} <i class="fa fa-exclamation"></i></strong>
+                            <p style="font-weight: bold;">
+                                {{'main.GETIRSTATUS' | translate}}
+                            </p>
+                        </div>
+                        <div class="pull-left"
+                            ng-if="user.restrictions.changeysstorestatus=='Enable' && user.UserRole.Name == 'PHAdmin'">
+                            <div>
+                                <span class="text-bold text-extra-large" ng-click="ChangeYsStore()">
+                                    GETİR Restoran Durum Değişikliği !
+                                </span><br />
+                            </div>
+                        </div>
+
                     </div>
                 </li>
                 <li>
@@ -134,7 +159,8 @@
                         <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
                     </div>
                     <div class="values">
-                        <strong class="text-dark">{{OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</strong>
+                        <strong class="text-dark">{{OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' |
+                            translate}}</strong>
                         <p>
                             {{:: totalamount }}
                         </p>
@@ -355,7 +381,8 @@
                         <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
                     </div>
                     <div class="values">
-                        <strong class="text-dark">{{OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</strong>
+                        <strong class="text-dark">{{OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' |
+                            translate}}</strong>
                         <p>
                             {{:: totalamount }}
                         </p>
@@ -469,7 +496,8 @@
                             <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
                         </div>
                         <div class="values">
-                            <strong class="text-dark">{{OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</strong>
+                            <strong class="text-dark">{{OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' |
+                                translate}}</strong>
                             <p>
                                 {{:: totalamount }}
                             </p>

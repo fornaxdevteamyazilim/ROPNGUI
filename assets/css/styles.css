@@ -4559,7 +4559,7 @@ textarea, select, input[type="text"], input[type="password"], input[type="dateti
   background-color: #FFFFFF;
   background-image: none;
   border: 1px solid #c8c7cc;
-  border-radius: 0 0 0 0 !important;
+  border-radius: 1 0 0 0 !important;
   color: #5b5b60;
   font-family: inherit;
   font-size: 14px;

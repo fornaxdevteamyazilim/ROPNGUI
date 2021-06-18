@@ -43,10 +43,10 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
         remoteOperations: true,
         columns: [
             { dataField: "id", caption: "id", visible: false },
-            { dataField: "GetirProductID", caption: "GetirProductID", visible: false },
-            { dataField: "GetirProductName", caption: "GetirProductName",visibleIndex: 0,fixed: true },
+            { dataField: "GetirProductID", caption: $translate.instant('dxGetirProduct.GetirProductID'), visible: false },
+            { dataField: "GetirProductName", caption: $translate.instant('dxGetirProduct.GetirProductName'),visibleIndex: 0,fixed: true },
             {
-                dataField: "ProductID", caption: "Product", fixed: true,width: 200,    
+                dataField: "ProductID", caption: $translate.instant('dxGetirProduct.ProductID'), fixed: true,width: 200,    
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -68,13 +68,21 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
                 //fixed: true,
                 //groupIndex: 0
             },
-            "FixedSize",
-            "MapByPrototype",
-            "SkipProduct",
-            "AutoAddProductID",
-            "AutoAddMapToOption",
-            "AutoAddProductQuantity",
-            "AutoAddMapOptionsLevel"
+            { dataField: "FixedSize", caption: $translate.instant('dxGetirProduct.FixedSize') },
+            { dataField: "MapByPrototype", caption: $translate.instant('dxGetirProduct.MapByPrototype') },
+            { dataField: "SkipProduct", caption: $translate.instant('dxGetirProduct.SkipProduct') },
+            { dataField: "AutoAddProductID", caption: $translate.instant('dxGetirProduct.AutoAddProductID') },
+            { dataField: "AutoAddMapToOption", caption: $translate.instant('dxGetirProduct.AutoAddMapToOption') },
+            { dataField: "AutoAddProductQuantity", caption: $translate.instant('dxGetirProduct.AutoAddProductQuantity') },
+            { dataField: "AutoAddMapOptionsLevel", caption: $translate.instant('dxGetirProduct.AutoAddMapOptionsLevel') },
+
+            //"FixedSize",
+            //"MapByPrototype",
+            // "SkipProduct",
+            // "AutoAddProductID",
+            // "AutoAddMapToOption",
+            // "AutoAddProductQuantity",
+            // "AutoAddMapOptionsLevel"
         ],
         onRowClick: function (rowInfo) {
             if (rowInfo.rowType == "data")
@@ -118,7 +126,7 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
         remoteOperations: true,
         columns: [
             {
-                dataField: "MemberID", caption: "Member",
+                dataField: "MemberID", caption:  $translate.instant('dxGetirProduct.AggregatorID') ,
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -140,7 +148,7 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
                 //groupIndex: 0
             },
             {
-                dataField: "AggregatorID", caption: "Aggregator",
+                dataField: "AggregatorID", caption:  $translate.instant('dxGetirProduct.MemberID'),
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "Name",
@@ -161,9 +169,11 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
                 //fixed: true,
                 //groupIndex: 0
             },
-            "type","name",
+            { dataField: "type",   caption: $translate.instant('dxGetirProduct.type'), },
+            { dataField: "Name",   caption: $translate.instant('dxGetirProduct.Name'), },
+           // "type","name",
             {
-                dataField: "PaymentTypeID", caption: "PaymentType",
+                dataField: "PaymentTypeID", caption: $translate.instant('dxGetirProduct.PaymentType'),
                 lookup: {
                     valueExpr: "id", 
                     displayExpr: "name",

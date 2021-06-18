@@ -3870,7 +3870,8 @@
     "Avg GC": "Avg GC",
     "HDS Avg GC": "HDS Avg GC",
     "DIN Avg GC": "DIN Avg GC",
-    "CO Avg GC": "CO Avg GC"
+    "CO Avg GC": "CO Avg GC",
+    "Trx": "Total Trx"
   },
   "fsrspeedofservice": {
     "Store": "Store",
@@ -3888,7 +3889,9 @@
     "Delivery": "Delivery",
     "U30": "U30",
     "Week": "Week",
-    "StoreFilterType": "Store Filter Type"
+    "StoreFilterType": "Store Filter Type",
+    "U30Count": "U30 Count",
+    "DeliveryCount2": "Delivery Count"
   },
   "fsractualtheoretical": {
     "Area": "Area",
@@ -3906,7 +3909,10 @@
     "ActualCol": "Actual Col",
     "4WeekSalesAVG": "4 Week Sales AVG",
     "ProjectionCOL": "Projection COL",
-    "Var%": "Var %"
+    "Var%": "Var %",
+    "Waste": "Waste",
+    "Waste%": "Waste %",
+    "Variance": "Variance"
   },
   "sosreport": {
     "StoreFilterType": "Store Filter Type",
@@ -3924,7 +3930,12 @@
     "YSServing": "YS Serving",
     "YSSpeed": "YS Speed",
     "YSFlavor": "YS Flavor",
-    "YSAvg": "YS Avg"
+    "YSAvg": "YS Avg",
+    "AvgCutToDispatchTime": "AvgCute To Dispatch Time",
+    "AvgDispatchTime": "Avg Dispatch Time",
+    "DispatchU14": "Dispatch U14",
+    "AvgDeliveryTime": "Avg Delivery Time",
+    "AvgDriveTime":"Avg Drive Time"
   },
   "podsreport": {
     "POD": "POD",
@@ -4346,11 +4357,35 @@
     "Total": "Total",
     "InventoryGroup":"Inventory Group"
   },
+   "unmappedorders":{
+    "Aggregator": "Aggregator",
+    "Name": "Name",
+    "Address": "Address",
+    "Notes": "Notes",
+    "OrderDate": "Order Date",
+    "Commands": "Commands"
+  },
+  "dxGetirProduct":{
+    "GetirProductID": "GetirProductID",
+    "GetirProductName": "GetirProductName",
+    "ProductID": "ProductID",
+    "FixedSize": "FixedSize",
+    "MapByPrototype": "MapByPrototype",
+    "SkipProduct": "SkipProduct",
+    "AutoAddProductID": "AutoAddProductID",
+    "AutoAddMapToOption": "AutoAddMapToOption",
+    "AutoAddProductQuantity":"AutoAddProductQuantity",
+    "AutoAddMapOptionsLevel": "AutoAddMapOptionsLevel",
+    "MemberID": "Member",
+    "AggregatorID": "Aggregator",
+    "type": "Type",
+    "PaymentType": "Payment Type",
+    "Name": "Name"
+  },
   "PunchCardStoreCompare": {
     "EarnedFromSameStore":"EarnedFromSameStore",
     "Store":"Store",
     "PersonName":"PersonName",
     "Count":"Count"
-    
-  }
+  } 
 }

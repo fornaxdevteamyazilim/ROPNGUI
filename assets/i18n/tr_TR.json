@@ -1578,6 +1578,7 @@
     "CREATDELIVERY": "İrsaliyeye Dönüştür",
     "SENDAGAIN": "Tekrar Gönder",
     "CANCELORDER": "Siparişi İptal Et !",
+    "CHANGEORDER": "Siparişin Durumunu Değiştir",
     "APPROVE": "Onay",
     "APPROVED": "Onaylanan",
     "UNAPPROVED": "Onaylanmayan",
@@ -2301,7 +2302,8 @@
     "PREPARINGDURATIONCUTTABLE": "Cut Table / Fırında Süresi",
     "MAXITEMCOUNT": "Max Adet",
     "MINITEMCOUNT": "Min Adet",
-    "YSSTATUS": "Ys Durumu",
+    "YSSTATUS": "YEMEK SEPETİ",
+    "GETIRSTATUS": "GETİR",
     "ROPNGTIME": "RopNG Saati",
     "PREWWEEK": "Geçen Hafta",
     "LASTDAY": "Önceki Gün",
@@ -3283,13 +3285,13 @@
     "NotSaved": "Kaydedilmedi",
     "DataRemove": "Veri Silme",
     "SENDAGAIN": "Tekrar Gönder",
-    "DoYouWantToProcessTheNeedsList": "İhtiyaç listesini İşlemek istiyor musunuz!",
-    "YesWithWork": "Evet, İşle!",
-    "Nodontprocess": "Hayır, İşleme!",
-    "Processed": "İşlenmiştir!",
-    "Notprocessed": "İşlenmedi",
-    "Yourlistofneedshasbeenprocessed": "İhtiyaç Listeniz işlenmiştir.",
-    "Yourlistofneedshasnotbeenprocessed": "İhtiyaç listeniz işlenmedi."
+    "DoYouWantToProcessTheNeedsList":"Girilen ihtiyaç listesini ilgili firmaya iletmek istiyor musunuz?",
+    "YesWithWork": "Evet, İlet!",
+    "Nodontprocess": "Hayır, İletme!",
+    "Processed": "İletilmiştir!",
+    "Notprocessed": "İletilmedi",
+    "Yourlistofneedshasbeenprocessed": "İhtiyaç Listeniz firmaya iletilmiştr.",
+    "Yourlistofneedshasnotbeenprocessed": "İhtiyaç listeniz firmaya iletilmedi."
   },
   "kitchendisplayf": {
     "PleaseWait": "Lütfen Bekleyin !",
@@ -3869,7 +3871,8 @@
     "AvgGC": "Ort. GC",
     "HDSAvgGC": "HDS Ort. GC",
     "DINAvgGC": "DIN Ort. GC",
-    "COAvgGC": "CO Ort. GC"
+    "COAvgGC": "CO Ort. GC",
+    "Trx": "Toplam Trx"
   },
   "fsrtransactions": {
     "Food": "Yiyecek",
@@ -3916,7 +3919,9 @@
     "Delivery": "Teslim",
     "U30": " u30 %",
     "Week": "Hafta",
-    "StoreFilterType": "Restoran Filtre Tipi"
+    "StoreFilterType": "Restoran Filtre Tipi",
+    "U30Count": "U30 Sayısı",
+    "DeliveryCount2": "Teslimat Sayısı"
   },
   "fsractualtheoretical": {
     "Area": "Bölge",
@@ -3934,7 +3939,10 @@
     "ActualCol": "Gerçek COL",
     "4WeekSalesAVG": "4 Hafta Satış Ort.",
     "ProjectionCOL": "Projeksiyon COL",
-    "Var%": "Var %"
+    "Var%": "Var %",
+    "Waste": "Atık",
+    "Waste%": "Atık %",
+    "Variance": "Varyans"
   },
   "sosreport": {
     "StoreFilterType": "Restoran Filtre Tipi",
@@ -3944,15 +3952,20 @@
     "OperationDate": "Çalışma Tarihi",
     "StoreType": "Restoran Tipi",
     "AvgBOHTime": "AvgBOH Zaman",
-    "OrdersPerDispach": "Gönderim Başına Siparişler",
-    "SingleDispatch": "Tek Gönderim ",
-    "DoubleDispatch": "Çift Gönderim",
-    "TripleDispatch": "Üçlü Gönderim ",
-    "MoreDispatch": "Daha Fazla Gönderim",
+    "OrdersPerDispach": "Çıkış Başına Siparişler",
+    "SingleDispatch": "Tek Çıkış ",
+    "DoubleDispatch": "Çift Çıkış",
+    "TripleDispatch": "Üçlü Çıkış ",
+    "MoreDispatch": "Daha Fazla Çıkış",
     "YSServing": "YS Hizmet",
     "YSSpeed": "YS Hız",
     "YSFlavor": "YS Lezzet",
-    "YSAvg": "YS Avg"
+    "YSAvg": "YS Avg",
+    "AvgCutToDispatchTime": "Avg Cute Çıkış Süresi",
+    "AvgDispatchTime": "Avg Çıkış Süresi",
+    "DispatchU14": "U14 Çıkış",
+    "AvgDeliveryTime":"Avg Teslim Süresi",
+    "AvgDriveTime": "Avg Sürücü Süresi"
   },
   "podsreport": {
     "POD": "POD",
@@ -4374,11 +4387,35 @@
     "Total": "Toplam",
     "InventoryGroup": "Stok Grubu"
   },
+  "unmappedorders":{
+    "Aggregator": "Kaynak",
+    "Name": "İsim",
+    "Address": "Adres",
+    "Notes": "Not",
+    "OrderDate": "Sipariş Tarihi",
+    "Commands": "İşlemler"
+  },
+  "dxGetirProduct":{
+    "GetirProductID": "Getir Ürün ID",
+    "GetirProductName": "Ürün Adı",
+    "ProductID": "Ürün ID",
+    "FixedSize": "Sabit Boy",
+    "MapByPrototype": "Harita Proto tipi",
+    "SkipProduct": "Ürünü Atla",
+    "AutoAddProductID": "Otomatik Ürün kimliği Ekle",
+    "AutoAddMapToOption": "Haritaya Otomatik Ekleme Seçeneği",
+    "AutoAddProductQuantity": "Otomatik Ürün Miktarı Ekle",
+    "AutoAddMapOptionsLevel": "Otomatik Harita Seçenekleri Seviyesi Ekle",
+    "MemberID": "Kaynak",
+    "AggregatorID": "Firma",
+    "type": "Tipi",
+    "PaymentType": "Ödeme Tipi",
+    "Name": "İsim"
+  },
   "PunchCardStoreCompare": {
     "EarnedFromSameStore":"EarnedFromSameStore",
     "Store":"Store",
     "PersonName":"PersonName",
     "Count":"Count"
-    
   }
 }

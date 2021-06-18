@@ -75,14 +75,23 @@ function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SE
             { dataField: "ClientID", visible: false },
             { dataField: "AddressID", visible: false },
             { dataField: "AggregatorOrderStateID", visible: false },
-            "Aggregator", "Name", "Address", "Notes", //"OrderDate",
+            
+            { dataField: "Aggregator",   caption: $translate.instant('unmappedorders.Aggregator'), },
+            { dataField: "Name",   caption: $translate.instant('unmappedorders.Name'), },
+            { dataField: "Address",  caption: $translate.instant('unmappedorders.Address'), },
+            { dataField: "Notes",   caption: $translate.instant('unmappedorders.Notes'), },
+           // "Aggregator", "Name", "Address", "Notes", //"OrderDate",
             {
+                caption: $translate.instant('unmappedorders.OrderDate'),
                 dataField: "OrderDate",
                 dataType: "date",
-                format: "yyyy-MM-dd HH:mm"//{ year: "2-digit", month: "narrow", day: "2-digit" }
+                format: "yyyy-MM-dd HH:mm",
+               
+                //{ year: "2-digit", month: "narrow", day: "2-digit" }
             },
             {
-                caption: "Commands",
+             
+                caption: $translate.instant('unmappedorders.Commands'),
                 //dataField: "Store",
                 type: "buttons",
                 buttons: [{

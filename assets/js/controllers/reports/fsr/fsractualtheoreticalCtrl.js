@@ -146,8 +146,8 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                     { caption: "%", dataField: "YiyecekMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "YiyecekMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "YiyecekMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "Var", dataField: "YiyecekMaliyet_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                    { caption: "Var%", dataField: "YiyecekMaliyet_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    { caption: $translate.instant('fsractualtheoretical.Variance'), dataField: "YiyecekMaliyet_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: "%", dataField: "YiyecekMaliyet_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
             },
             { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
@@ -158,8 +158,8 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                     { caption: "%", dataField: "IcecekMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "IcecekMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "IcecekMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "Var", dataField: "IcecekMaliyet_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                    { caption: "Var%", dataField: "IcecekMaliyet_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    { caption:  $translate.instant('fsractualtheoretical.Variance'), dataField: "IcecekMaliyet_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: "%", dataField: "IcecekMaliyet_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
             },
             { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
@@ -170,16 +170,16 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                     { caption: "%", dataField: "AmbalajMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "AmbalajMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "AmbalajMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "Var", dataField: "AmbalajMaliyet_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                    { caption: "Var%", dataField: "AmbalajMaliyet_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    { caption:  $translate.instant('fsractualtheoretical.Variance'), dataField: "AmbalajMaliyet_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: "%", dataField: "AmbalajMaliyet_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
             },
             { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
             {
-                caption: "Waste",
+                caption: $translate.instant('fsractualtheoretical.Waste'),
                 columns: [
-                    { caption: "Waste", dataField: "Total_Waste", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                    { caption: "Waste%", dataField: "Total_Waste_Percent", dataType: "number", format: { type: "percent", precision: 2 } },                    
+                    { caption: $translate.instant('fsractualtheoretical.Waste'), dataField: "Total_Waste", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: $translate.instant('fsractualtheoretical.Waste%'), dataField: "Total_Waste_Percent", dataType: "number", format: { type: "percent", precision: 2 } },                    
                 ]
             },
             { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
@@ -191,8 +191,8 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                     { caption: "%", dataField: "Total_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "Total_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "Total_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
-                    { caption: "Var", dataField: "Total_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                    { caption: "Var%", dataField: "Total_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    { caption: $translate.instant('fsractualtheoretical.Variance'), dataField: "Total_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: "%", dataField: "Total_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
             },
             { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },

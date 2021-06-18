@@ -373,6 +373,8 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
                     $scope.MPSMS = result[i];
                 if (result[i].MarketingPermissionType == 1)
                     $scope.MPEMAIL = result[i];
+                    if (result[i].MarketingPermissionType == 2)
+                    $scope.MPKVKK = result[i];
             }
         });
     };
@@ -390,6 +392,12 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
             $scope.MPEMAIL.MarketingPermissionType = Type;
             $scope.MPEMAIL.Approved = Value
             angular.copy($scope.MPEMAIL, $scope.MerketingData);
+            $scope.SaveMarketingData($rootScope.PersonID)
+        }
+        if (Type == 2) {
+            $scope.MPKVKK.MarketingPermissionType = Type;
+            $scope.MPKVKK.Approved = Value
+            angular.copy($scope.MPKVKK, $scope.MerketingData);
             $scope.SaveMarketingData($rootScope.PersonID)
         }
     };
