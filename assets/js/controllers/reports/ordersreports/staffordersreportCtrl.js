@@ -40,7 +40,7 @@ function staffordersreportCtrl($scope, $filter, $modal, $log, Restangular, Sweet
     $scope.resetButtonOptions = {
         text: $scope.resetlayout,
         onClick: function () {
-            $('#gridContainer').dxDataGrid('instance').getDataSource().state({});
+            $('#gridContainer').dxDataGrid('instance').state({});
         }
     };    
     var store = new DevExpress.data.CustomStore({

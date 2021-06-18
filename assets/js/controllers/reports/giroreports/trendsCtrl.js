@@ -38,7 +38,13 @@ function trendsCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTING, 
         });
         return sum;
     }
-
+    $scope.resetlayout = $translate.instant('main.FILTERRESET');
+    $scope.resetButtonOptions = {
+        text: $scope.resetlayout,
+        onClick: function () {
+            $('#advgridContainer').dxDataGrid('instance').state({});
+        }
+    }; 
     $scope.TrendsGridOptions = {
         dataSource: new DevExpress.data.CustomStore({
             key: "StoreID",

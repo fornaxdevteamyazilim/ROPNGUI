@@ -86,7 +86,7 @@
                         <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-disabled="!vm.tableParams.data.length || SaveButtonActive == false || !item.Description || !item.DocumentNumber || !item.ToRepositoryID" ng-click="SaveData()"ng-dblclick="BottonDblcilik()">
                             <span>{{:: save}}</span>
                         </button>
-                        <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="($stateParams.id !== 'new' && item.InventorySupplyState==0 || item.InventorySupplyState==1) || user.isAdmin" ng-click="removedata(item.id)">
+                        <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="($stateParams.id !== 'new' && item.InventorySupplyState==0 || item.InventorySupplyState==1) || user.isAdmin" ng-click="removedata(item.id)" ng-if="user.restrictions.inventorytransfersdelete=='Enable'">
                             <span>{{:: delete}}</span>
                         </button>
                     </div>
@@ -126,7 +126,7 @@
                             </form>
                             <div class="buttons pull-right" ng-show="!rowform.$visible"  >
                                 <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" ng-disabled="(item.InventorySupplyState == 3 ||item.InventorySupplyState == 5) || isWaiting == true" tooltip-placement="top" ng-click="rowform.$show()"></a>
-                                <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{:: delete}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                                <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{:: delete}}" tooltip-placement="top" ng-click="removeItem($index)" ng-if="user.restrictions.inventorytransfersdeletedremow=='Enable'"></a>
                             </div>
                             <div class="visible-xs visible-sm hidden-md hidden-lg">
                                 <div class="btn-group" dropdown is-open="status.isopen">

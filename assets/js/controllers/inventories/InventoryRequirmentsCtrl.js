@@ -98,6 +98,14 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             });
         }
     });
+
+    $scope.resetlayout = $translate.instant('main.FILTERRESET');
+    $scope.resetButtonOptions = {
+        text: $scope.resetlayout,
+        onClick: function () {
+            $('#gridContainer').dxDataGrid('instance').state({});
+        }
+    }; 
     var InventorySupplyStates = {
         store: new DevExpress.data.CustomStore({
             key: "Value",

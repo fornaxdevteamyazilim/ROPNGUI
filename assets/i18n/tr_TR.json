@@ -815,6 +815,7 @@
     "OK": "Tamam",
     "ACCEPT": "Kabul Et",
     "RESETLAYOUT": "Taslağı Sil",
+    "FILTERRESET": "Filtreleri Sil",
     "ACTUALCALCULATEREMAINDERLIST": "Gerçekleşen Maliyet",
     "BALANCELIST": "Bakiye Listesi",
     "ENTRY": "Giren",
@@ -3281,7 +3282,14 @@
     "NoDepartment": "Bölüm Yok",
     "NotSaved": "Kaydedilmedi",
     "DataRemove": "Veri Silme",
-    "SENDAGAIN": "Tekrar Gönder"
+    "SENDAGAIN": "Tekrar Gönder",
+    "DoYouWantToProcessTheNeedsList": "İhtiyaç listesini İşlemek istiyor musunuz!",
+    "YesWithWork": "Evet, İşle!",
+    "Nodontprocess": "Hayır, İşleme!",
+    "Processed": "İşlenmiştir!",
+    "Notprocessed": "İşlenmedi",
+    "Yourlistofneedshasbeenprocessed": "İhtiyaç Listeniz işlenmiştir.",
+    "Yourlistofneedshasnotbeenprocessed": "İhtiyaç listeniz işlenmedi."
   },
   "kitchendisplayf": {
     "PleaseWait": "Lütfen Bekleyin !",

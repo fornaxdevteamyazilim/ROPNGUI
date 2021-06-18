@@ -143,7 +143,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
     }
     $scope.GetNewOrderCount = function () {
         if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
-            if (!userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("MemberAdmin") && !userService.userIsInRole("PHAdmin") && !userService.userIsInRole("STOREADMIN")
+            if (!userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("MemberAdmin") && !userService.userIsInRole("MarketingDepartment")&& !userService.userIsInRole("OperationDepartment") && !userService.userIsInRole("PurchasingDepartment")  && !userService.userIsInRole("FinanceDepartment") && !userService.userIsInRole("STOREADMIN") && !userService.userIsInRole("PH")
             && $rootScope.user.restrictions.NewOrdersCount!='Disable') {
                 Restangular.one('ordertools/NewOrdersCount').get().then(function (result) {
                     if (result.Total > 0) {

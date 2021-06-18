@@ -812,6 +812,7 @@
     "OK": "OK",
     "ACCEPT": "ACCEPT",
     "RESETLAYOUT": "Reset Layout",
+    "FILTERRESET": "Reset Filter",
     "SELECTCATEGORY": "Selected Category",
     "PREFERANCENAME": "Preference Name",
     "PREFERENCEVALUE": "Preference Value",
@@ -3270,7 +3271,14 @@
     "NoDepartment": "No Department",
     "NotSaved": "Not Saved",
     "DataRemove": "Data Remove",
-    "SENDAGAIN": "Send Again"
+    "SENDAGAIN": "Send Again",
+    "DoYouWantToProcessTheNeedsList": "Do you want to process the needs list!",
+    "YesWithWork": "Yes, process!",
+    "Nodontprocess": "No, don't process!",
+    "Processed": "Processed!",
+    "Notprocessed": "Not processed",
+    "Yourlistofneedshasbeenprocessed": "Your list of needs has been processed.",
+    "Yourlistofneedshasnotbeenprocessed": "Your list of needs has not been processed."
   },
   "kitchendisplayf": {
     "PleaseWait": "Please Wait !",
