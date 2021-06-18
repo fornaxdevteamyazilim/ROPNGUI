@@ -103,7 +103,8 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             { caption: $translate.instant('sosreport.OrderSource'), dataField: "OrderSource", dataType: "string", fixed: true },
             { caption: $translate.instant('sosreport.StoreFilterType'), dataField: "StoreFilterType", dataType: "string", fixed: true, groupIndex: 0 },
             { caption: $translate.instant('sosreport.OperationDate'), dataField: "OperationDate", dataType: "date", format: 'dd.MM.yyyy', fixed: true, },
-            { dataField: "GC", dataType: "number" }, { dataField: "MakeU3", dataType: "number", format: { type: "percent", precision: 2 } },
+            { dataField: "GC", dataType: "number" },
+            { dataField: "MakeU3", dataType: "number", format: { type: "percent", precision: 2 } },
             { dataField: "AvgMakeTable", dataType: "number", customizeText: formatTime },
             { dataField: "CutU11", dataType: "number", format: { type: "percent", precision: 2 } },
             { dataField: "AvgCutTable", dataType: "number", customizeText: formatTime },
@@ -147,36 +148,27 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             { column: "AvgBOHTime", summaryType: "avg", customizeText: formatTime },
             { column: "DeliveryGC", summaryType: "sum", displayFormat: "{0}" },
             { column: "DeliveryGCPercent", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            { column: "DispatchU14", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            { column: "AvgDispatchTime", summaryType: "avg", customizeText: formatTime },
-            { column: "AvgCutToDispatchTime", summaryType: "avg", customizeText: formatTime },
-            //{ column: "DeliveryU30", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            { column: "AvgDeliveryTime", summaryType: "avg", customizeText: formatTime },
-            { column: "AvgDriveTime", summaryType: "avg", customizeText: formatTime },
+            { name: "DispatchU14Summary", showInColumn: "DispatchU14", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+            { name: "AvgDispatchTimeSummary", showInColumn: "AvgDispatchTime", summaryType: "custom", customizeText: formatTime },
+            { name: "AvgCutToDispatchTimeSummary", showInColumn: "AvgCutToDispatchTime", summaryType: "custom", customizeText: formatTime },
+            { name: "AvgDeliveryTimeSummary", showInColumn: "AvgDeliveryTime", summaryType: "custom", customizeText: formatTime },
+            { name: "AvgDriveTimeSummary", showInColumn: "AvgDriveTime", summaryType: "custom", customizeText: formatTime },
             { column: "OrderOvelap", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
-            //{ column: "SingleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { name: "SingleDispatchSummary", showInColumn: "SingleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            //{ column: "DoubleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { name: "DoubleDispatchSummary", showInColumn: "DoubleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            //{ column: "TripleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { name: "TripleDispatchSummary", showInColumn: "TripleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            //{ column: "MoreDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { name: "MoreDispatchSummary", showInColumn: "MoreDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { name: "Delivery0_30Summary", showInColumn: "Delivery0_30", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            //{ column: "Delivery0_30", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            { column: "AvgDeliveryTime0_30", summaryType: "avg", customizeText: formatTime },
+            { name: "AvgDeliveryTime0_30Summary", showInColumn: "AvgDeliveryTime0_30", summaryType: "custom", customizeText: formatTime },
             { column: "Delivery0_30GC", summaryType: "sum", displayFormat: "{0}" },
             { name: "Delivery30_40Summary", showInColumn: "Delivery30_40", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            //{ column: "Delivery30_40", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            { column: "AvgDeliveryTime30_40", summaryType: "avg", customizeText: formatTime },
+            { name: "AvgDeliveryTime30_40Summary", showInColumn: "AvgDeliveryTime30_40", summaryType: "custom", customizeText: formatTime },
             { column: "Delivery30_40GC", summaryType: "sum", displayFormat: "{0}" },
             { name: "Delivery40_60Summary", showInColumn: "Delivery40_60", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            //{ column: "Delivery40_60", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            { column: "AvgDeliveryTime40_60", summaryType: "avg", customizeText: formatTime },
+            { name: "AvgDeliveryTime40_60Summary", showInColumn: "AvgDeliveryTime40_60", summaryType: "custom", customizeText: formatTime },
             { column: "Delivery40_60GC", summaryType: "sum", displayFormat: "{0}" },
             { name: "Delivery60_Summary", showInColumn: "Delivery60_", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            //{ column: "Delivery60_", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            { column: "AvgDeliveryTime60_", summaryType: "avg", customizeText: formatTime },
+            { name: "AvgDeliveryTime60_Summary", showInColumn: "AvgDeliveryTime60_", summaryType: "custom", customizeText: formatTime },
             { column: "Delivery60_GC", summaryType: "sum", displayFormat: "{0}" },
             { column: "YS_Serving", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "YS_Speed", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
@@ -191,35 +183,26 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             { column: "AvgBOHTime", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
             { column: "DeliveryGC", summaryType: "sum", displayFormat: "{0}", alignByColumn: true },
             { column: "DeliveryGCPercent", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "DispatchU14", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgDispatchTime", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
-            { column: "AvgCutToDispatchTime", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
-            //{ column: "DeliveryU30", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgDeliveryTime", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
-            { column: "AvgDriveTime", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
-            { column: "OrderOvelap", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            //{ column: "SingleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
+            { name: "DispatchU14Summary", showInColumn: "DispatchU14", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { name: "AvgDispatchTimeSummary", showInColumn: "AvgDispatchTime", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
+            { name: "AvgCutToDispatchTimeSummary", showInColumn: "AvgCutToDispatchTime", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
+            { name: "AvgDeliveryTimeSummary", showInColumn: "AvgDeliveryTime", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
+            { name: "AvgDriveTimeSummary", showInColumn: "AvgDriveTime", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
+            { name: "OrderOvelapSummary", showInColumn: "OrderOvelap", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
             { name: "SingleDispatchSummary", showInColumn: "SingleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            //{ column: "DoubleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
             { name: "DoubleDispatchSummary", showInColumn: "DoubleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            //{ column: "TripleDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true},
             { name: "TripleDispatchSummary", showInColumn: "TripleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            //{ column: "MoreDispatch", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             { name: "MoreDispatchSummary", showInColumn: "MoreDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             { name: "Delivery0_30Summary", showInColumn: "Delivery0_30", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            //{ column: "Delivery0_30", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             { column: "Delivery0_30GC", summaryType: "sum", displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgDeliveryTime0_30", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
+            { name: "AvgDeliveryTime0_30Summary", showInColumn: "AvgDeliveryTime0_30", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
             { name: "Delivery30_40Summary", showInColumn: "Delivery30_40", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            //{ column: "Delivery30_40", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             { column: "Delivery30_40GC", summaryType: "sum", displayFormat: "{0}", alignByColumn: true },
             { column: "AvgDeliveryTime30_40", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
             { name: "Delivery40_60Summary", showInColumn: "Delivery40_60", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            //{ column: "Delivery40_60", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             { column: "Delivery40_60GC", summaryType: "sum", displayFormat: "{0}", alignByColumn: true },
             { column: "AvgDeliveryTime40_60", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
             { name: "Delivery60_Summary", showInColumn: "Delivery60_", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            //{ column: "Delivery60_", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             { column: "Delivery60_GC", summaryType: "sum", displayFormat: "{0}", alignByColumn: true },
             { column: "AvgDeliveryTime60_", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
             { column: "YS_Serving", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
@@ -236,9 +219,62 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.Delivery0_30GC)
+                            if (options.value.Delivery0_30GC && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.Delivery0_30GC;
-                            options.dg = options.dg + options.value.DeliveryGC;
+                                options.dg = options.dg + options.value.DeliveryGC;
+                            }
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "DispatchU14Summary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.DispatchU14 && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.DispatchU14;
+                                options.dg = options.dg + 1;
+                            }
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "AvgDispatchTimeSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.AvgDispatchTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.AvgDispatchTime;
+                                options.dg = options.dg + 1;
+                            }
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+
+                if (options.name === "AvgCutToDispatchTimeSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.AvgCutToDispatchTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.AvgCutToDispatchTime;
+                                options.dg = options.dg + 1;
+                            }
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue / options.dg;
@@ -252,9 +288,10 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.Delivery30_40GC)
+                            if (options.value.Delivery30_40GC && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.Delivery30_40GC;
-                            options.dg = options.dg + options.value.DeliveryGC;
+                                options.dg = options.dg + options.value.DeliveryGC;
+                            }
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue / options.dg;
@@ -268,9 +305,10 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.Delivery40_60GC)
+                            if (options.value.Delivery40_60GC && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.Delivery40_60GC;
-                            options.dg = options.dg + options.value.DeliveryGC;
+                                options.dg = options.dg + options.value.DeliveryGC;
+                            }
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue / options.dg;
@@ -284,9 +322,10 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.Delivery60_GC)
+                            if (options.value.Delivery60_GC && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.Delivery60_GC;
-                            options.dg = options.dg + options.value.DeliveryGC;
+                                options.dg = options.dg + options.value.DeliveryGC;
+                            }
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue / options.dg;
@@ -300,9 +339,10 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.SingleDispatchCount)
+                            if (options.value.SingleDispatchCount && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.SingleDispatchCount;
-                            options.dg = options.dg + options.value.DeliveryGC;
+                                options.dg = options.dg + options.value.DeliveryGC;
+                            }
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue / options.dg;
@@ -316,9 +356,10 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.DoubleDispatchCount)
+                            if (options.value.DoubleDispatchCount && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.DoubleDispatchCount;
-                            options.dg = options.dg + options.value.DeliveryGC;
+                                options.dg = options.dg + options.value.DeliveryGC;
+                            }
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue / options.dg;
@@ -332,9 +373,10 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.TripleDispatchCount)
+                            if (options.value.TripleDispatchCount && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.TripleDispatchCount;
-                            options.dg = options.dg + options.value.DeliveryGC;
+                                options.dg = options.dg + options.value.DeliveryGC;
+                            }
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue / options.dg;
@@ -348,9 +390,112 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.MoreDispatchCount)
+                            if (options.value.MoreDispatchCount && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.MoreDispatchCount;
-                            options.dg = options.dg + options.value.DeliveryGC;
+                                options.dg = options.dg + options.value.DeliveryGC;
+                            }
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "AvgDeliveryTimeSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.AvgDeliveryTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.AvgDeliveryTime;
+                                options.dg = options.dg + 1;
+                            }
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "OrderOvelapSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.OrderOvelap && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.OrderOvelap;
+                                options.dg = options.dg + 1;
+                            }
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "AvgDeliveryTime0_30Summary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.AvgDeliveryTime0_30 && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.AvgDeliveryTime0_30;
+                                options.dg = options.dg + 1;
+                            }
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "AvgDeliveryTime30_40Summary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.AvgDeliveryTime30_40 && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.AvgDeliveryTime30_40;
+                                options.dg = options.dg + 1;
+                            }
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "AvgDeliveryTime40_60Summary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.AvgDeliveryTime40_60 && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.AvgDeliveryTime40_60;
+                                options.dg = options.dg + 1;
+                            }
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "AvgDeliveryTime60_Summary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.AvgDeliveryTime60_ && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.AvgDeliveryTime60_;
+                                options.dg = options.dg + 1;
+                            }
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue / options.dg;

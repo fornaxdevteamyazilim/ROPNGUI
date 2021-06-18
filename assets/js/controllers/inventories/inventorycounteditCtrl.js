@@ -8,9 +8,9 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
     $scope.groupItem = [];
     $scope.Back = function () {
         $window.history.back();
-        $rootScope.preventNavigation();
+        //$rootScope.preventNavigation();
     };
-    $rootScope.preventNavigation();
+    //$rootScope.preventNavigation();
     $scope.translate = function () {
         $scope.trInventory = $translate.instant('main.INVENTORY');
         $scope.trUnitCount = $translate.instant('main.UNITCOUNT');
@@ -40,6 +40,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
         $scope.item.CountDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
     }
     if ($stateParams.id != 'new') {
+        $rootScope.preventNavigation();
         Restangular.one('inventorycount', $stateParams.id).get().then
             (function (restresult) {
                 $scope.Showtable = true;
@@ -47,7 +48,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $scope.$broadcast('newCountData', resp);
                 if ($scope.item.items.length > 0) {
                     ici.tableParams.reload();
-                    $rootScope.preventNavigation();
+                    
                 }
             })
     } else {
@@ -71,7 +72,9 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
     //             $defer.resolve($scope.item.items);
     //     }
     // });
-  
+    $scope.EditCountDisabled = function () {
+        return $stateParams.id != 'new';
+    }
     $scope.SaveData = function () {
         $scope.isWaiting = true;
         if ($scope.item.restangularized && $scope.item.id) {

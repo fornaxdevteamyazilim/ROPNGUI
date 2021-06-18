@@ -1,7 +1,7 @@
-﻿'use strict';
-app.controller('ClockInOutStatsCtrl', ClockInOutStatsCtrl);
-function ClockInOutStatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING) {
-    $rootScope.uService.EnterController("ClockInOutStatsCtrl");
+'use strict';
+app.controller('PunchCardStoreCompareCtrl', PunchCardStoreCompareCtrl);
+function PunchCardStoreCompareCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING) {
+    $rootScope.uService.EnterController("PunchCardStoreCompareCtrl");
     if (!$rootScope.ReportParameters.StartDate) {
         $rootScope.ReportParameters.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
     }
@@ -93,7 +93,10 @@ function ClockInOutStatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAl
         stateStoring: {
             enabled: true,
             type: "localStorage",
-            storageKey: "dx-clockinoutstats-storing"
+            storageKey: "dx-PunchCardStoreCompare-storing"
+        },
+        texts:{
+            grandTotal:"Toplam Kişi Sayısı"
         },
         onInitialized: function (e) {
             e.component.bindChart($scope.chart, {
@@ -101,22 +104,46 @@ function ClockInOutStatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAl
                 alternateDataFields: false
             });
         },
+        onContextMenuPreparing: function (e) {
+            var dataSource = e.component.getDataSource();
+            if (e.field && e.field.dataField === "id") {
+                $.each(summaryDisplayModes, function (_, summaryDisplayMode) {
+                    var summaryDisplayModeValue = summaryDisplayMode.value;
+    
+                    e.items.push({
+                        text: summaryDisplayMode.text,
+                        selected: e.field.summaryDisplayMode === summaryDisplayModeValue,
+                        onItemClick: function () {
+                            var format,
+                                caption = summaryDisplayModeValue === "none" ? "Kişi Sayısı" : "Dilim Oranı";
+                            // if (summaryDisplayModeValue === "none"
+                            //     || summaryDisplayModeValue === "absoluteVariation") {
+                            //     format = "number";
+                            // }
+                            dataSource.field(e.field.index, {
+                                summaryDisplayMode: summaryDisplayModeValue,
+                                format: format,
+                                caption: caption
+                            });
+    
+                            dataSource.load();
+                        }
+                    });
+                });
+            }
+        },
         dataSource: {
             remoteOperations: true,
             fields: [
-                { caption: $translate.instant('ClockInOutStats.Store'), width: 120, dataField: "Store", area: "row" },
-                { caption: $translate.instant('ClockInOutStats.UserName'), width: 120, dataField: "UserName", area: "row" },
-                { caption: $translate.instant('ClockInOutStats.Year'), dataField: "Year", dataType: "number", area: "column" },
-                { caption: $translate.instant('ClockInOutStats.MonthNumber'), dataField: "MonthNumber", dataType: "number", area: "column" },
-                { caption: $translate.instant('ClockInOutStats.Day'), dataField: "Day", dataType: "number", area: "column" },
-                { caption: $translate.instant('ClockInOutStats.WorkingHours'), dataField: "WorkingHours", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2 },
-                { caption: $translate.instant('ClockInOutStats.Count'), dataField: "id", dataType: "number", summaryType: "count", area: "data" },
-                { caption: $translate.instant('ClockInOutStats.Cost'), dataField: "Cost", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 }
-               
+                { caption: $translate.instant('PunchCardStoreCompare.Store'), width: 120, dataField: "Store", area: "row" },
+                { caption: $translate.instant('PunchCardStoreCompare.PersonName'), width: 120, dataField: "PersonName", area: "row" },
+                { caption: $translate.instant('PunchCardStoreCompare.EarnedFromSameStore'), dataField: "EarnedFromSameStore", dataType: "number", area: "column" },
+                { caption: "Kişi Sayısı", dataField: "id", dataType: "number", summaryType: "count", area: "data" },
+                
             ],
             store: DevExpress.data.AspNet.createStore({
                 key: "id",
-                loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxClockInOutStats",
+                loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchCardStoreCompare",
             }),
             filter: getFilter(),
             //load: function (loadOptions) {
@@ -140,6 +167,16 @@ function ClockInOutStatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAl
             //}
         }
     };
+    var summaryDisplayModes = [
+        { text: "Kişi Sayısı", value: "none" },
+        // { text: "Absolute Variation", value: "absoluteVariation" },
+        // { text: "Percent Variation", value: "percentVariation" },
+        // { text: "Percent of Column Total", value: "percentOfColumnTotal" },
+        { text: "Dilim Oranları", value: "percentOfRowTotal" },
+        /* { text: "Percent of Column Grand Total", value: "percentOfColumnGrandTotal" },
+        { text: "Percent of Row Grand Total", value: "percentOfRowGrandTotal" },
+        { text: "Percent of Grand Total", value: "percentOfGrandTotal" } */
+    ];
     function BuildUserStoresArray(src) {
         var result = [];
         if (src) {
@@ -156,9 +193,9 @@ function ClockInOutStatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAl
     function getFilter() { //"and",["!",["OrderType","=",""]]
         var s = BuildUserStoresArray($rootScope.user.userstores);
         if (s)
-            return [["InDate", ">=", $rootScope.ReportParameters.StartDate], "and", ["InDate", "<=", $rootScope.ReportParameters.EndDate], [s]];
+            return [["TransactionDate", ">=", $rootScope.ReportParameters.StartDate], "and", ["TransactionDate", "<=", $rootScope.ReportParameters.EndDate], [s]];
         else
-            return [["InDate", ">=", $rootScope.ReportParameters.StartDate], "and", ["InDate", "<=", $rootScope.ReportParameters.EndDate]];               
+            return [["TransactionDate", ">=", $rootScope.ReportParameters.StartDate], "and", ["TransactionDate", "<=", $rootScope.ReportParameters.EndDate]];               
     }
 
     $scope.StoreTypeID = -1;
@@ -177,6 +214,6 @@ function ClockInOutStatsCtrl($scope, $filter, $modal, $log, Restangular, SweetAl
 
     $scope.$on('$destroy', function () {
         $element.remove();
-        $rootScope.uService.ExitController("ClockInOutStatsCtrl");
+        $rootScope.uService.ExitController("realpaymentspivotCtrl");
     });
 };

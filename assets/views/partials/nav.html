@@ -1872,6 +1872,12 @@
                                 Stats</span>
                         </a>
                     </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.loyalty.punchcardstorecompare" ng-if="user.restrictions.punchcardstorecompare=='Enable'">
+                            <i class="ti-files"></i><span class="title" translate="sidebar.nav.reports.punchcardstorecompare">Bonus
+                                Stats</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li ng-if="user.restrictions.webreports=='Enable'">

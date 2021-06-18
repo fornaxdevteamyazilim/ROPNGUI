@@ -386,7 +386,8 @@
     "PUNCHCARDTRANSACTIONS": "{{appName}} - Dilim Raporu",
     "BONUSTRANSACTIONS": "{{appName}} - Puan Detay Raporu",
     "BONUSSTATS": "{{appName}} - Bonus Durum Raporu",
-    "WEBUSERS": "{{appName}} - Web Kullanıcıları Raporu"
+    "WEBUSERS": "{{appName}} - Web Kullanıcıları Raporu",
+    "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
   },
   "main": {
     "CURRENCY_SYMBOL": "₺",
@@ -2390,7 +2391,8 @@
     "BONUSTRANSACTIONS": "Puan Detay Raporu",
     "BONUSSTATS": "Bonus Durum Raporu",
     "WEBUSERS": "Web Kullanıcıları",
-    "WEBREPORTS": "Web"
+    "WEBREPORTS": "Web",
+    "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
   },
   "topbar": {
     "messages": {
@@ -2758,7 +2760,8 @@
         "BONUSSTATS": "Bonus Durum Raporu",
         "LOYALTYREPORTS": "Sadakat",
         "WEBUSERS": "Web Kullanıcıları",
-        "WEBREPORTS": "Web"
+        "WEBREPORTS": "Web",
+        "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
       },
       "addresses": {
         "MAIN": "Adresler",
@@ -4362,5 +4365,12 @@
     "UnitPrice": "Birim Fiyatı",
     "Total": "Toplam",
     "InventoryGroup": "Stok Grubu"
+  },
+  "PunchCardStoreCompare": {
+    "EarnedFromSameStore":"EarnedFromSameStore",
+    "Store":"Store",
+    "PersonName":"PersonName",
+    "Count":"Count"
+    
   }
 }

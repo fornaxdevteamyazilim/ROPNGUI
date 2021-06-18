@@ -385,7 +385,8 @@
     "PUNCHCARDTRANSACTIONS": "{{appName}} - Punch Card Transactions Report",
     "BONUSTRANSACTIONS": "{{appName}} - Bonus Transactions Report",
     "BONUSSTATS": "{{appName}} - Bonus Stats Report",
-    "WEBUSERS": "{{appName}} - Web Users Report"
+    "WEBUSERS": "{{appName}} - Web Users Report",
+    "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
   },
   "main": {
     "CURRENCY_SYMBOL": "TL",
@@ -2381,7 +2382,8 @@
     "BONUSTRANSACTIONS": "Bonus Transactions Report",
     "BONUSSTATS": "Bonus Stats Report",
     "LOYALTYREPORTS": "Loyalty",
-    "WEBUSERS": "{{appName}} - Web Users Report"
+    "WEBUSERS": "{{appName}} - Web Users Report",
+    "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
   },
   "topbar": {
     "messages": {
@@ -2752,7 +2754,8 @@
         "BONUSTRANSACTIONS": "Bonus Transactions Report",
         "BONUSSTATS": "Bonus Stats Report",
         "WEBREPORTS": "Web",
-        "WEBUSERS": "Web Users Report"
+        "WEBUSERS": "Web Users Report",
+        "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
       },
       "addresses": {
         "MAIN": "Address",
@@ -4334,5 +4337,12 @@
     "UnitPrice": "Unit Price",
     "Total": "Total",
     "InventoryGroup":"Inventory Group"
+  },
+  "PunchCardStoreCompare": {
+    "EarnedFromSameStore":"EarnedFromSameStore",
+    "Store":"Store",
+    "PersonName":"PersonName",
+    "Count":"Count"
+    
   }
 }

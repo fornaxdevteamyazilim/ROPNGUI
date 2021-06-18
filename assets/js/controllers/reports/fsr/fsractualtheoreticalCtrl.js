@@ -91,6 +91,16 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
 
             return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/cosandcol", { params: params })
                 .then(function (response) {
+                    for (var i = 0; i < response.data.length; i++) {
+                        response.data[i]["YiyecekMaliyet_Variance_Percent"]=response.data[i]["YiyecekMaliyet_Theoretical_Percent"]-response.data[i]["YiyecekMaliyet_Actual_Percent"];
+                        response.data[i]["YiyecekMaliyet_Variance"]=response.data[i]["YiyecekMaliyet_Theoretical"]-response.data[i]["YiyecekMaliyet_Actual"];
+                        response.data[i]["IcecekMaliyet_Variance_Percent"]=response.data[i]["IcecekMaliyet_Theoretical_Percent"]-response.data[i]["IcecekMaliyet_Actual_Percent"];
+                        response.data[i]["IcecekMaliyet_Variance"]=response.data[i]["IcecekMaliyet_Theoretical"]-response.data[i]["IcecekMaliyet_Actual"];
+                        response.data[i]["AmbalajMaliyet_Variance_Percent"]=response.data[i]["AmbalajMaliyet_Theoretical_Percent"]-response.data[i]["AmbalajMaliyet_Actual_Percent"];
+                        response.data[i]["AmbalajMaliyet_Variance"]=response.data[i]["AmbalajMaliyet_Theoretical"]-response.data[i]["AmbalajMaliyet_Actual"];
+                        response.data[i]["Total_Variance_Percent"]=response.data[i]["Total_Theoretical_Percent"]-response.data[i]["Total_Actual_Percent"];
+                        response.data[i]["Total_Variance"]=response.data[i]["Total_Theoretical"]-response.data[i]["Total_Actual"];
+                    }
                     return {
                         data: response.data,
                         totalCount: 10
@@ -98,6 +108,9 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                 }, function (response) {
                     return $q.reject("Data Loading Error");
                 });
+        },
+        onLoaded: function (result) {
+            
         }
     });
     $scope.dataGridOptions = {
@@ -132,7 +145,9 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                     { caption: $translate.instant('fsractualtheoretical.Actual'), dataField: "YiyecekMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "YiyecekMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "YiyecekMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                    { caption: "%", dataField: "YiyecekMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    { caption: "%", dataField: "YiyecekMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
+                    { caption: "Var", dataField: "YiyecekMaliyet_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: "Var%", dataField: "YiyecekMaliyet_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
             },
             { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
@@ -142,7 +157,9 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                     { caption: $translate.instant('fsractualtheoretical.Actual'), dataField: "IcecekMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "IcecekMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "IcecekMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                    { caption: "%", dataField: "IcecekMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    { caption: "%", dataField: "IcecekMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
+                    { caption: "Var", dataField: "IcecekMaliyet_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: "Var%", dataField: "IcecekMaliyet_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
             },
             { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
@@ -152,7 +169,17 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                     { caption: $translate.instant('fsractualtheoretical.Actual'), dataField: "AmbalajMaliyet_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "AmbalajMaliyet_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "AmbalajMaliyet_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                    { caption: "%", dataField: "AmbalajMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    { caption: "%", dataField: "AmbalajMaliyet_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
+                    { caption: "Var", dataField: "AmbalajMaliyet_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: "Var%", dataField: "AmbalajMaliyet_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
+                ]
+            },
+            { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
+            {
+                caption: "Waste",
+                columns: [
+                    { caption: "Waste", dataField: "Total_Waste", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: "Waste%", dataField: "Total_Waste_Percent", dataType: "number", format: { type: "percent", precision: 2 } },                    
                 ]
             },
             { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },
@@ -163,7 +190,9 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
                     { caption: $translate.instant('fsractualtheoretical.Actual'), dataField: "Total_Actual", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
                     { caption: "%", dataField: "Total_Actual_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
                     { caption: $translate.instant('fsractualtheoretical.Theoretical'), dataField: "Total_Theoretical", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
-                    { caption: "%", dataField: "Total_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
+                    { caption: "%", dataField: "Total_Theoretical_Percent", dataType: "number", format: { type: "percent", precision: 2 } },
+                    { caption: "Var", dataField: "Total_Variance", dataType: "number", format: { type: "fixedPoint", precision: 2 }, },
+                    { caption: "Var%", dataField: "Total_Variance_Percent", dataType: "number", format: { type: "percent", precision: 2 } }
                 ]
             },
             { dataField: "x", caption: "", dataType: "string", width: 10, allowFiltering: false },

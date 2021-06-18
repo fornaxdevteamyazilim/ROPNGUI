@@ -117,6 +117,7 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
             { caption: $translate.instant('transactions.Year'), dataField: "Year", dataType: "number", fixed: true, },
             { caption: $translate.instant('transactions.Week'), dataField: "Week", dataType: "number", fixed: true, },
             { caption: $translate.instant('transactions.Sales'), dataField: "Sales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('transactions.Trx'), dataField: "Trx", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('transactions.HDSSales'), dataField: "HDSSales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: "HDS %", dataField: "HDSSalesPercent", dataType: "number", format: { type: "percent", precision: 2 } },
             { caption: $translate.instant('transactions.DINSales'), dataField: "DINSales", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
@@ -143,7 +144,7 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
         },
         onCellPrepared: function (options) {
             var fieldData = options.value;
-            var ColoredFileds = ["Sales", "HDSSales", "HDSSalesPercent", "DINSales", "DINSalesPercent", "COSales", "COSalesPercent", "HDSTrx", "HDSTrxPercent", "DINTrx", "DINTrxPercent",
+            var ColoredFileds = ["Sales","Trx", "HDSSales", "HDSSalesPercent", "DINSales", "DINSalesPercent", "COSales", "COSalesPercent", "HDSTrx", "HDSTrxPercent", "DINTrx", "DINTrxPercent",
                 "COTrx", "COTrxPercent", "AvgGC", "HDSAvgGC", "DINAvgGC", "COAvgGC"];
             if (fieldData && options.row.data.Delta === true && ColoredFileds.indexOf(options.column.dataField) > -1) {
                 if (options.value < 0)
@@ -160,7 +161,7 @@ function transactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
                 if (!gridCell) {
                     return;
                 }
-                var ColoredFileds = ["Sales", "HDSSales", "HDSSalesPercent", "DINSales", "DINSalesPercent", "COSales", "COSalesPercent", "HDSTrx", "HDSTrxPercent", "DINTrx", "DINTrxPercent",
+                var ColoredFileds = ["Sales","Trx", "HDSSales", "HDSSalesPercent", "DINSales", "DINSalesPercent", "COSales", "COSalesPercent", "HDSTrx", "HDSTrxPercent", "DINTrx", "DINTrxPercent",
                     "COTrx", "COTrxPercent", "AvgGC", "HDSAvgGC", "DINAvgGC", "COAvgGC"];
                 if (ColoredFileds.indexOf(gridCell.column.dataField) > -1) {
                     if (gridCell.data && gridCell.data.Delta === true)

@@ -2697,6 +2697,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'bonusstats'
             }
+        }).state('app.reports.loyalty.punchcardstorecompare', {
+            url: '/punchcardstorecompare',
+            templateUrl: "assets/views/reports/loyalty/PunchCardStoreCompare.html",
+            resolve: loadSequence('PunchCardStoreCompareCtrl'),
+            title: 'Punch Card Store Compare Report',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'punchcardstorecompare'
+            }
         }).state('app.reports.web', {
             url: '/web',
             template: '<div ui-view class="fade-in-up"></div>',

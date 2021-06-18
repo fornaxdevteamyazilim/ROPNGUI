@@ -532,7 +532,8 @@ app.constant('JS_REQUIRES', {
         'usertransferCtrl': 'assets/js/controllers/definitions/usertransferCtrl.js?v=0667',
         'ClockInOutStatsCtrl': 'assets/js/controllers/clockinout/ClockInOutStatsCtrl.js?v=0667',
         'promotionanaisysCtrl': 'assets/js/controllers/reports/productsalesreports/promotionanaisysCtrl.js?v=0667',
-
+        'PunchCardStoreCompareCtrl': 'assets/js/controllers/reports/loyalty/PunchCardStoreCompareCtrl.js?v=0667',
+        
         //*** Filters
         'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js?v=0667'
     },
