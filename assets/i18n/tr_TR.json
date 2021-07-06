@@ -247,6 +247,7 @@
     "INVENTORYSUPPLIES": "{{appName}} - Şablonlar",
     "INVENTORYSUPPLIESITEM": "{{appName}} - Şablon Detayları",
     "TRENDSREPORT": "{{appName}} - Trend Raporu",
+    "GETIRENTEG": "{{appName}} - Getir Sipariş Entegrasyonu",
     "INVENTORYBALANCELIST": "{{appName}} - Dönem Sonu Bakiye Listesi",
     "AWAITINGSUPPLIES": "{{appName}} - Malzeme Onayları",
     "REGIONANALISYS": "{{appName}} - Bölge Analizi Raporu",
@@ -1280,6 +1281,7 @@
     "TAKEAWAYORDERS": "Gel - Al Siparişler",
     "LANGUAGE": "Language",
     "HDORDERS": "Paket Siparişler ",
+    "NOTACCEPTED":"Kabul Edilmedi",
     "ESTIMATEDDELIVERYTIME": "Tahmini Teslimat Saati ",
     "ASSIGNDRIVER": "Zimmet",
     "ORDERPERIOD": "Sipariş Süresi",
@@ -1563,6 +1565,7 @@
     "INVENTORYSUPPLYMETHOD": "Tedarik Edilecek Yer",
     "ADDSTORE": "Restoran Ekle",
     "TRENDSREPORT": "Trend Raporu",
+    "GETIRENTEG": "Getir Sipariş Entegrasyonu",
     "ADDSUPPLYAPROVE": "Onaylayan Kişi",
     "INVENTORYSUPPLY": "Envanter Şablonu",
     "ISPROCESS": "İşle",
@@ -4346,7 +4349,7 @@
     "Cost": "Maliyet"
   },
   "aggregatormapping": {
-    "TITLE": "Enterasyon Eşleme",
+    "TITLE": "Getir Enterasyon Eşleme",
     "productmap": "Ürün Eşleme",
     "paymentmapping": "Ödeme Tipi Eşleme"
   },

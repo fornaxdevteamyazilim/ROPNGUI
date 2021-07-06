@@ -97,10 +97,16 @@
                             ng-click="CancelOrder()" ng-if="user.restrictions.CancelOrderPursh =='Enable'">
                             <span translate="main.CANCELORDER"></span>
                         </button>
+                        
                         <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa ti-close pull-right"
                             ng-click="saveData()">
                             <span translate="main.SAVE">Delete Purchase</span>
                         </button>
+                        <button
+                        class="btn btn-o btn-warning btn-wide btn-scroll btn-scroll-left fa fa-repeat pull-right"
+                        ng-click="InventorySupplyState(item)" ng-if="user.restrictions.InventorySupplyStatePurchase =='Enable'">
+                        <span translate="main.CHANGEORDER"></span>
+                    </button>
                     </div>
                 </form>
             </div>
@@ -170,5 +176,7 @@
             </fieldset>
             <br />
         </div>
+        
     </div>
+    
 </div>

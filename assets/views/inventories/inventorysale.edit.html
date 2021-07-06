@@ -56,7 +56,7 @@
                             </button>
                         </div>
                         <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4 pull-right">
-                            <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-click="removedata(item.id)">
+                            <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-if="user.restrictions.inventorysaleeditDelete=='Enable'" ng-click="removedata(item.id)">
                                 <span>{{:: delete}}</span>
                             </button>
                         </div>

@@ -57,6 +57,7 @@ function orderlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         $scope.pickuporders = $translate.instant('main.PICKUPORDERS');
         $scope.mallorders = $translate.instant('main.MALLORDERS');
         $scope.trEfatura = $translate.instant('main.EFATURA');
+        $scope.notaccepted = $translate.instant('main.NOTACCEPTED');
 
 
     };

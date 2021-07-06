@@ -1,5 +1,13 @@
-﻿app.controller('orderpaymentCtrl', orderpaymentCtrl);
-function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $location, $translate, userService, ngnotifyService) {
+﻿
+app.factory('PaymentRestangular', function(Restangular) {
+    return Restangular.withConfig(function(RestangularConfigurer) {
+      RestangularConfigurer.setBaseUrl('http://192.168.9.40:9065/api/');
+    });
+  });
+
+
+app.controller('orderpaymentCtrl', orderpaymentCtrl);
+function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, Restangular,PaymentRestangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $location, $translate, userService, ngnotifyService) {
     $rootScope.uService.EnterController("orderpaymentCtrl");
     $scope.order = Order;
     $scope.order.Amount = parseFloat(Math.round($scope.order.Amount * 100) / 100).toFixed(2);
@@ -181,7 +189,7 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
     };
     $scope.SaveECRPayment = function (Type) {
         $scope.Showspinner = true;
-        Restangular.one('ecrprofilo/addprintrequest').withHttpConfig({ timeout: 200000 }).get({
+        PaymentRestangular.one('ecrprofilo/addprintrequest').withHttpConfig({ timeout: 200000 }).get({
             OrderID: $scope.order.id,
             RequestType: Type,
             Kasa: $rootScope.user.ClientName,

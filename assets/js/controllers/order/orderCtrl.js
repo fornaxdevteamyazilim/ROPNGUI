@@ -1,5 +1,13 @@
-﻿app.controller('orderCtrl', orderCtrl);
-function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAlert, Restangular, ngTableParams, $document, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, $compile, callsService, userService, $element, ngnotifyService, $localStorage) {
+﻿
+app.factory('PaymentRestangular', function(Restangular) {
+    return Restangular.withConfig(function(RestangularConfigurer) {
+      RestangularConfigurer.setBaseUrl('http://192.168.9.40:9065/api/');
+    });
+  });
+
+
+app.controller('orderCtrl', orderCtrl);
+function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAlert, Restangular, PaymentRestangular, ngTableParams, $document, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, $compile, callsService, userService, $element, ngnotifyService, $localStorage) {
     var or = this;
     $rootScope.uService.EnterController("orderCtrl");
     $scope.Categories = [];
@@ -442,7 +450,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
         if (PaymentType.PaymentType.PaymentTypeID == 4) {
             var Type = 8
         }
-        Restangular.one('ecrprofilo/addprintrequest').withHttpConfig({ timeout: 200000 }).get({
+        PaymentRestangular.one('ecrprofilo/addprintrequest').withHttpConfig({ timeout: 200000 }).get({
             OrderID: $scope._order.id,
             RequestType: Type,
             Kasa: $rootScope.user.ClientName

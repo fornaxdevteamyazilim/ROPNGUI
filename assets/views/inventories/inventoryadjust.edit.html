@@ -41,7 +41,7 @@
                         <input id="Date" type="text" class="form-control ng" ng-model="item.AdjustDate" datepicker-popup="dd-MM-yyyy" datepicker-popup="dd-MM-yyyy" readonly ng-click="datepopup(item.AdjustDate)">
                     </div>
                     <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
-                        <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !=='new'" ng-click="removedata(item.id)">
+                        <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !=='new'" ng-if="user.restrictions.inventoryadjustDelete=='Enable'" ng-click="removedata(item.id)">
                             <span>{{:: delete}}</span>
                         </button>
                         <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-left " ng-click="SaveData()" ng-disabled="!item.InventoryAdjustTypeID || !item.AdjustDate">
