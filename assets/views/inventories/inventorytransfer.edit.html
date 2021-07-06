@@ -22,7 +22,7 @@
                 <form role="form">
                     <div print-remove class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label>{{:: documentnumber}}</label> &nbsp;<span class="symbol required"></span><br />
-                        <input id="DocumentNumber" type="text" class="form-control text-capitalize" ng-model="item.DocumentNumber" placeholder="" required>
+                        <input id="DocumentNumber" type="text" class="form-control text-capitalize" ng-model="item.DocumentNumber" placeholder="" ng-disabled="(item.InventorySupplyState == 3 ||item.InventorySupplyState == 5) || isWaiting == true" required>
                     </div>
                     <div print-only class="visible-print hidden col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label class="text-bold">{{:: documentnumber}}</label>
@@ -30,7 +30,7 @@
                     </div>
                     <div print-remove class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label>{{:: fromrepository}}</label> &nbsp;<span class="symbol required"></span><br />
-                        <select id="repository" ng-options="q.id as q.fullname for q in repositories | orderBy:'+name'" class="form-control text-uppercase ng" ng-model="item.FromRepositoryID" ng-disabled="!user.isAdmin"></select>
+                        <select id="repository" ng-options="q.id as q.fullname for q in repositories | orderBy:'+name'" class="form-control text-uppercase ng" ng-model="item.FromRepositoryID"  ng-disabled="(item.InventorySupplyState == 3 ||item.InventorySupplyState == 5) || isWaiting == true ||!user.isAdmin" ></select>
                     </div>
                     <div print-only class="visible-print hidden col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label class="text-bold">{{:: fromrepository}}</label>
@@ -38,23 +38,23 @@
                     </div>
                     <div print-remove class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label>{{:: torepository}}</label> &nbsp;<span class="symbol required"></span><br />
-                        <select id="repository" ng-options="q.id as q.fullname for q in repositories | orderBy:'+name'" class="form-control text-uppercase ng" ng-model="item.ToRepositoryID"></select>
+                        <select id="repository" ng-options="q.id as q.fullname for q in repositories | orderBy:'+name'" class="form-control text-uppercase ng" ng-model="item.ToRepositoryID"ng-disabled="(item.InventorySupplyState == 3 ||item.InventorySupplyState == 5) || isWaiting == true" ></select>
                     </div>
-                    <div print-only class="visible-print hidden col-sm-3 col-lg-3 col-md-3 col-xs-12">
+                    <div print-only class="visible-print hidden col-sm-3 col-lg-3 col-md-3 col-xs-12" ng-disabled="EditCountDisabled()">
                         <label class="text-bold">{{:: torepository}}</label>
                         <label>: {{:: item.ToRepositoryID}}</label>
                     </div>
                     <div print-remove class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label>{{:: datetime}}</label><br />
-                        <input id="Date" type="text" class="form-control ng" ng-model="item.TransferDate" datepicker-popup="dd-MM-yyyy" readonly ng-click="datepopup(item.TransferDate)" required>
+                        <input id="Date" type="text" class="form-control ng" ng-model="item.TransferDate" datepicker-popup="dd-MM-yyyy" readonly ng-click="datepopup(item.TransferDate)" ng-disabled="(item.InventorySupplyState == 3 ||item.InventorySupplyState == 5) || isWaiting == true"  required>
                     </div>
-                    <div print-only class="visible-print hidden col-sm-3 col-lg-3 col-md-3 col-xs-12">
+                    <div print-only class="visible-print hidden col-sm-3 col-lg-3 col-md-3 col-xs-12" ng-disabled="EditCountDisabled()">
                         <label class="text-bold">{{:: datetime}}</label>
                         <label>: {{:: item.TransferDate | date:'dd-MM-yyyy'}}</label>
                     </div>
                     <div print-remove class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label>{{:: description}}</label> &nbsp;<span class="symbol required"></span><br />
-                        <textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.Description" placeholder=""></textarea>
+                        <textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.Description" ng-disabled="(item.InventorySupplyState == 3 ||item.InventorySupplyState == 5) || isWaiting == true" placeholder=""></textarea>
                     </div>
                     <div print-only class="visible-print hidden col-sm-3 col-lg-3 col-md-3 col-xs-12" required>
                         <label class="text-bold">{{:: description}}</label>
@@ -62,7 +62,7 @@
                     </div>
                     <div print-remove class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label>{{:: trInventorySupplyState}}</label>
-                        <select id="store" ng-options="q.Value as q.Name for q in inventorysupplystate | orderBy:'+Name'" class="form-control text-capitalize ng" ng-model="item.InventorySupplyState"></select>
+                        <select id="store" ng-options="q.Value as q.Name for q in inventorysupplystate | orderBy:'+Name'" class="form-control text-capitalize ng" ng-model="item.InventorySupplyState" ng-disabled="(item.InventorySupplyState == 3 ||item.InventorySupplyState == 5) || isWaiting == true" ></select>
                     </div>
                     <!--<div print-only class="visible-print hidden col-sm-3 col-lg-3 col-md-3 col-xs-12">
                         <label class="text-bold">{{:: trInventorySupplyState}}</label>
@@ -83,7 +83,7 @@
                         </button>
                     </div>
                     <div print-remove class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
-                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-disabled="!vm.tableParams.data.length || SaveButtonActive == false || !item.Description || !item.DocumentNumber || !item.ToRepositoryID" ng-click="SaveData()"ng-dblclick="BottonDblcilik()">
+                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-disabled="!vm.tableParams.data.length || SaveButtonActive == false || !item.Description || !item.DocumentNumber || !item.ToRepositoryID ||(item.InventorySupplyState == 3 ||item.InventorySupplyState == 5) || isWaiting == true" ng-click="SaveData()"ng-dblclick="BottonDblcilik()">
                             <span>{{:: save}}</span>
                         </button>
                         <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="($stateParams.id !== 'new' && item.InventorySupplyState==0 || item.InventorySupplyState==1) || user.isAdmin" ng-click="removedata(item.id)" ng-if="user.restrictions.inventorytransfersdelete=='Enable'">
@@ -94,7 +94,7 @@
             </div>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel panel-white">
-            <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus margin-top-10 margin-left-10" ng-click="addItem()">
+            <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus margin-top-10 margin-left-10" ng-click="addItem()" ng-disabled="(item.InventorySupplyState == 3 ||item.InventorySupplyState == 5) || isWaiting == true">
                 <span>{{:: addtransferitem}}</span>
             </a>
             <br />
