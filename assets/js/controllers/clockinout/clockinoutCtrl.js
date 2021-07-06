@@ -1,4 +1,4 @@
-﻿app.factory('PaymentRestangular', function(Restangular) {
+﻿app.factory('FingerPrintRestangular', function(Restangular) {
     return Restangular.withConfig(function(RestangularConfigurer) {
       RestangularConfigurer.setBaseUrl('http://192.168.9.40:9065/api/');
     });
@@ -7,7 +7,7 @@
 
 
 app.controller('clockinoutCtrl', clockinoutCtrl);
-function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window,PaymentRestangular, $location, $translate, userService, localStorageService, NG_SETTING, $element, $http) {
+function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window,FingerPrintRestangular, $location, $translate, userService, localStorageService, NG_SETTING, $element, $http) {
     if (!userService.getCurrentUser())
         $location.path('/login/signin');
     $scope.statusmessage = userService.getCurrentUser().ShiftActive ? $translate.instant('clockiout.Fingerreading') : $translate.instant('clockiout.Fingerentry');
@@ -27,7 +27,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window,Paymen
         data.SotreID = localStorageService.get('StoreID');
         data.Client = localStorageService.get('ClientName');
         data.NGUserID = userService.getCurrentUser().id;
-        PaymentRestangular.all('clockinout/do').post(
+        FingerPrintRestangular.all('clockinout/do').post(
             data
         ).then(function (result) {
             $scope.data = result;
