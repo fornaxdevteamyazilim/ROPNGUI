@@ -3281,7 +3281,8 @@
     "Processed": "Processed!",
     "Notprocessed": "Not processed",
     "Yourlistofneedshasbeenprocessed": "Your list of needs has been processed.",
-    "Yourlistofneedshasnotbeenprocessed": "Your list of needs has not been processed."
+    "Yourlistofneedshasnotbeenprocessed": "Your list of needs has not been processed.",
+    "itisapproved": "It Is Approved"
   },
   "kitchendisplayf": {
     "PleaseWait": "Please Wait !",

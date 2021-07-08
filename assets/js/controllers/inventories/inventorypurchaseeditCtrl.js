@@ -87,7 +87,17 @@ function inventorypurchaseeditCtrl($rootScope, $scope, $log, $modal, $filter, Sw
             toaster.pop('warning', "warning...", response.data.ExceptionMessage);
         });
     };
-
+    $scope.InventorySupplyState = function () {
+        Restangular.one('InventorySupply/markpurchaseasundelivered').get({
+            InventoryPurchaseID: $stateParams.id
+        }).then(function (restresult) {
+            toaster.pop('success', $translate.instant('invantories.itisapproved'));
+            location.href = '#/app/inventory/inventorypurchase/list';
+        }, function (response) {
+            toaster.pop('warning', "warning...", response.data.ExceptionMessage);
+        });
+    };
+  
 
     $scope.CancelOrder = function (itemID) {
         SweetAlert.swal({

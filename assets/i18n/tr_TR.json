@@ -3294,7 +3294,8 @@
     "Processed": "İletilmiştir!",
     "Notprocessed": "İletilmedi",
     "Yourlistofneedshasbeenprocessed": "İhtiyaç Listeniz firmaya iletilmiştr.",
-    "Yourlistofneedshasnotbeenprocessed": "İhtiyaç listeniz firmaya iletilmedi."
+    "Yourlistofneedshasnotbeenprocessed": "İhtiyaç listeniz firmaya iletilmedi.",
+    "itisapproved":"Siparişin Durumu Onaylandıya alınmıştır"
   },
   "kitchendisplayf": {
     "PleaseWait": "Lütfen Bekleyin !",
