@@ -263,7 +263,7 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
         var SearchFilter = (vm.searchName && vm.searchName.length > 0) ? "name like  '%" + vm.searchName + "%'" : "";
         if (vm.searchPhone && vm.searchPhone.length > 0) {
             SearchFilter = SearchFilter + ((SearchFilter.length > 0) ? " and " : "");
-            SearchFilter = SearchFilter + "Number like %'" + vm.searchPhone + "%'"
+            SearchFilter = SearchFilter + "Number like '%" + vm.searchPhone + "%'"
         }
         var data = SearchFilter.substring(12);
         var leng = data.length - 2;
