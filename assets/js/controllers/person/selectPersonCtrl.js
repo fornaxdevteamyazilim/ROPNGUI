@@ -14,7 +14,7 @@ function selectPersonCtrl($rootScope, $scope, $modalInstance, $translate, Restan
         var SearchFilter = ($scope.searchName && $scope.searchName.length > 0) ? "name  like '" + $scope.searchName + "%'" : "";
         if ($scope.searchPhone && $scope.searchPhone.length > 0) {
             SearchFilter = SearchFilter + ((SearchFilter.length > 0) ? " and " : "");
-            SearchFilter = SearchFilter + "Number  like '" + $scope.searchPhone + "%'"
+            SearchFilter = SearchFilter + "Number  like '%" + $scope.searchPhone + "%'"
         }
         return SearchFilter;
     }

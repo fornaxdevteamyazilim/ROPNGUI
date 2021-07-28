@@ -225,27 +225,27 @@
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{'main.AC' |
                                 translate}}</span></th>
                         <!--8-16 ARASI-->
-                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
-                                class="pull-right" title="11:00-18:00" >{{'main.FIRSTTIMEZONETL' | translate}}</span></th>
-                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold" ><span
-                                class="pull-right" title="11:00-18:00"  >{{'main.FIRSTTIMEZONETC' | translate}}</span></th>
-                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
-                                class="pull-right" title="11:00-18:00" >{{'main.FIRSTTIMEZONEPERCENT' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right"
+                                title="09:00-15:00">{{'main.FIRSTTIMEZONETL' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right"
+                                title="09:00-15:00">{{'main.FIRSTTIMEZONETC' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right"
+                                title="09:00-15:00">{{'main.FIRSTTIMEZONEPERCENT' | translate}}</span></th>
                         <!--16-24 ARASI-->
-                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
-                                class="pull-right" title="18:00-24:00">{{'main.SECONDTIMEZONETL' | translate}}</span></th>
-                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
-                                class="pull-right" title="18:00-24:00" >{{'main.SECONDTIMEZONETC' | translate}}</span></th>
-                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
-                                class="pull-right" title="18:00-24:00">{{'main.SECONDTIMEZONEPERCENT' | translate}}</span></th>
-                        <!--0-8 ARASI-->        
-                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
-                                class="pull-right" title="24:00-08:00">{{'main.THIRDTIMEZONETL' | translate}}</span></th>                    
-                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
-                                class="pull-right" title="24:00-08:00">{{'main.THIRDTIMEZONETC' | translate}}</span></th>
-                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
-                                class="pull-right" title="24:00-08:00">{{'main.THIRDTIMEZONEPERCENT' | translate}}</span></th>
-                                
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right"
+                                title="15:00-00:00">{{'main.SECONDTIMEZONETL' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right"
+                                title="15:00-00:00">{{'main.SECONDTIMEZONETC' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right"
+                                title="15:00-00:00">{{'main.SECONDTIMEZONEPERCENT' | translate}}</span></th>
+                        <!--0-8 ARASI-->
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right"
+                                title="00:00-09:00">{{'main.THIRDTIMEZONETL' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right"
+                                title="00:00-09:00">{{'main.THIRDTIMEZONETC' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right"
+                                title="00:00-09:00">{{'main.THIRDTIMEZONEPERCENT' | translate}}</span></th>
+
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
                                 class="pull-right">{{'main.HOMEDELIVERYTC' | translate}}</span></th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
@@ -380,7 +380,7 @@
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
                                 class="pull-right">{{'main.NEWPERSONSPERCENT' | translate}}</span></th>
 
-<!-- 
+                        <!-- 
 
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
                                 class="pull-right">{{'main.DISCOUNTSCOUNT' | translate}}</span></th>
@@ -486,31 +486,31 @@
                             <span class="pull-right">{{(item.ThirdTimeZoneSalesPercent)*100 |number:2}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{item.Paket_TC}}</span>
+                            <span class="pull-right">{{item.HomeDelivery_TC}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{item.Paket_Amount|number:2}}</span>
+                            <span class="pull-right">{{item.HomeDelivery_Amount|number:2}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{(item.Paket_Percent)*100 |number:2 }}</span>
+                            <span class="pull-right">{{(item.HomeDelivery_Percent)*100 |number:2 }}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{item.GelAl_Siparis_TC}}</span>
+                            <span class="pull-right">{{item.TakeAway_TC}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{item.GelAl_Siparis_Amount |number:2}}</span>
+                            <span class="pull-right">{{item.TakeAway_Amount |number:2}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right"> {{(item.GelAl_Siparis_Percent)*100 |number:2}}</span>
+                            <span class="pull-right"> {{(item.TakeAway_Percent)*100 |number:2}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{item.Masa_Siparisi_TC}}</span>
+                            <span class="pull-right">{{item.InStore_TC}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{item.Masa_Siparisi_Amount |number:2}}</span>
+                            <span class="pull-right">{{item.InStore_Amount |number:2}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{(item.Masa_Siparisi_Percent)*100 |number:2}}</span>
+                            <span class="pull-right">{{(item.InStore_Percent)*100 |number:2}}</span>
                         </td>
                         <!--<td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                         <span class="pull-right">{{item.HotAndReady_TC}}</span>
@@ -522,13 +522,13 @@
                         <span class="pull-right">{{(item.HotAndReady_Percent)*100 |number:2}}</span>
                         </td>-->
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{item.Personel_TC}}</span>
+                            <span class="pull-right">{{item.Staff_TC}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{item.Personel_Amount |number:2}}</span>
+                            <span class="pull-right">{{item.Staff_Amount |number:2}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{(item.Personel_Percent)*100 |number:2}}</span>
+                            <span class="pull-right">{{(item.Staff_Percent)*100 |number:2}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <span class="pull-right">{{item.AVM_TC}}</span>
@@ -696,7 +696,7 @@
                             <span class="pull-right">{{(item.NewPersonsPercent)*100 |number:2}}</span>
                         </td>
 
-<!-- 
+                        <!-- 
 
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <span class="pull-right">{{item.Discounts_Count}}</span>
@@ -748,7 +748,7 @@
                             <span class="pull-right">{{item.Control_AccountExpencess|number:2}}</span>
                         </td>
 
-<!-- 
+                        <!-- 
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <span class="pull-right">{{item.Sides_ProductCount}}</span>
                         </td>
@@ -766,7 +766,7 @@
                         </td> -->
 
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <span class="pull-right">{{U30}}</span>
+                            <span class="pull-right">{{item.DeliveryU30 |number:2}}</span>
                         </td>
                         <!-- <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <span class="pull-right">{{item.NefisKenarYanUrun_ProductCount}}</span>
@@ -814,24 +814,26 @@
                                 class="pull-right">{{totalThirdTimeTC}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
-                                class="pull-right">{{totalPaketTC}}</span></td>
+                                class="pull-right">{{totalHomeDeliveryTC}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
-                                class="pull-right">{{totalPaketTL|number:2}}</span></td>
+                                class="pull-right">{{totalHomeDeliveryAmount|number:2}}</span></td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
+                                class="pull-right">{{totalHomeDeliveryPercent|number:2}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
-                                class="pull-right">{{totalGelAlTC}}</span></td>
-                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
-                                class="pull-right">{{totalGelAlTL|number:2}}</span></td>
+                                class="pull-right">{{totalTakeAwayTC}}</span></td>
+                        <!-- <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
+                                class="pull-right">{{totalTakeAwayAmount|number:2}}</span></td> -->
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
-                                class="pull-right">{{totalMasaTC}}</span></td>
+                                class="pull-right">{{totalInStoreTC}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
-                                class="pull-right">{{totalMasaTL|number:2}}</span></td>
+                                class="pull-right">{{totalInStoreAmount|number:2}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
-                                class="pull-right">{{totalPersonelTC}}</span></td>
+                                class="pull-right">{{totalStaffTC}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
-                                class="pull-right">{{totalPersonelTL|number:2}}</span></td>
+                                class="pull-right">{{totalStaffAmount|number:2}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
                                 class="pull-right">{{totalAvmTC}}</span></td>
@@ -909,7 +911,7 @@
                                 class="pull-right">{{totalNewCustomer}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
-                                <!-- class="pull-right">{{totalDiscount}}</span></td>
+                                class="pull-right">{{totalDiscount}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
                                 class="pull-right">{{totalDiscountTL|number:2}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
@@ -925,8 +927,8 @@
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
                                 class="pull-right">{{totalOtherDiscountTL|number:2}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
-                                class="pull-right">{{totalReturnTC}}</span></td>
-                       <!--   <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
+                                class="pull-right"></span></td>
+                        <!--   <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
                                 class="pull-right">{{totalReturnTL|number:2}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
                                 class="pull-right">{{totalCancelledTC}}</span></td>
@@ -947,7 +949,7 @@
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
                                 class="pull-right">{{totalSideAmount|number:2}}</span></td> -->
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
-                                class="pull-right">{{U30}}</span></td>
+                                class="pull-right"></span></td>
                         <!-- <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span class="pull-right">{{totalNefisKenarCount}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span class="pull-right">{{totalNefisKenarTC}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>

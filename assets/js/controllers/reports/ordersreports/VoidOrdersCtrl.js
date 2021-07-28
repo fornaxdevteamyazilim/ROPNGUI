@@ -141,7 +141,7 @@ function VoidOrdersCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
         },
         export: {
             enabled: true,
-            fileName: "SpeeOfServiceReport",
+            fileName: $translate.instant('main.VOIDORDERS'),
             customizeExcelCell: (options) => {
                 var gridCell = options.gridCell;
                 if (!gridCell) {

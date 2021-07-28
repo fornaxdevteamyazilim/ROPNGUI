@@ -128,25 +128,27 @@
                         </div>
                     </td>
                     <td class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
-                        <button class="btn btn-o btn-primary pull-right tooltips" ng-click="CloseAcount(orders,$index, item)" ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-check" ng-if="Showspinner != true"></span></button>
-                        <button class="btn btn-o btn-success  pull-right tooltips" ng-click="OrderPaymentDeteails(orders)" ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button>
-                        <button class="btn btn-o btn-default  pull-right tooltips" tooltip="Motorcu Değiştir!" ng-click="CheckCode(orders.id, orders.states)"><span class='ti-reload'></span></button>
+                        <button class="btn btn-o btn-primary pull-right tooltips" ng-click="CloseAcount(orders,$index, item)" ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-check" ng-if="Showspinner != true"></span></button>&nbsp;
+                        <button class="btn btn-o btn-success  pull-center tooltips" ng-click="OrderPaymentDeteails(orders)" style="margin-left: 7px;"ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button>&nbsp;
+                        <button class="btn btn-o btn-default  pull-left tooltips" tooltip="Motorcu Değiştir!" ng-click="CheckCode(orders.id, orders.states)"><span class='ti-reload'></span></button>
                     </td>
                 </tr>
             </table>
             <table class="col-lg-1 col-md-1 col-sm-1"></table>
             <table class="col-lg-3 col-md-3 col-sm-4 col-xs-12 row" style="color:black;">
                 <tr>
-                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bg-grey" style="color:black;">{{:: allpaymenttype}}</th>
-                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bg-grey" style="color:black;">{{:: totalamount}}</th>
-                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bg-grey" style="color:black;">{{:: totalcount}}</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bg-grey text-center" style="color:black;">{{:: allpaymenttype}}</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bg-grey text-center" style="color:black;">{{:: totalamount}}</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bg-grey text-center" style="color:black;">{{:: totalcount}}</th>
+                    <th class="col-sm-3 col-xs-3 bg-grey text-center" style="color:black;"></th>
 
                 </tr>
                 <tr class="margin-top-10" ng-repeat="payments in :refresh:item.payments">
-                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{:: payments.PaymentType.name}}</td>
-                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{:refresh:payments.Amount | number:2}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> {{:: 'main.CURRENCY_SYMBOL' | translate}} </span></td>
-                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{payments.Count}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> Adet</span></td>
-                    <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><button class="btn btn-o btn-warning tooltips" ng-click="CloseSameTypeAcounts(item.orders, payments.PaymentType)" ng-disabled="Showspinner == true"><span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button></td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">{{:: payments.PaymentType.name}}</td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center" style="margin-left: 18px;
+                    ">{{:refresh:payments.Amount | number:2}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center"> {{:: 'main.CURRENCY_SYMBOL' | translate}} </span></td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center">{{payments.Count}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center"> Adet</span></td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center"><button class="btn btn-o btn-warning tooltips text-center" ng-click="CloseSameTypeAcounts(item.orders, payments.PaymentType)" ng-disabled="Showspinner == true"><span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button></td>
                 </tr>
             </table>
         </div>
@@ -205,25 +207,26 @@
                         </div>
                     </td>
                     <td class="col-sm-4 col-xs-4">
-                        <button class="btn btn-o btn-primary pull-right tooltips btn-sm" ng-click="CloseAcount(orders,$index, item)" ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-check" ng-if="Showspinner != true"></span></button>
-                        <button class="btn btn-o btn-success  pull-right tooltips btn-sm" ng-click="OrderPaymentDeteails(orders)" ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button>
-                        <button class="btn btn-o btn-default  pull-right tooltips btn-sm" tooltip="Motorcu Değiştir!" ng-click="CheckCode(orders.id, orders.states)"><span class='ti-reload'></span></button>
+                        <button class="btn btn-o btn-primary pull-right tooltips btn-sm" ng-click="CloseAcount(orders,$index, item)" ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-check" ng-if="Showspinner != true"></span></button>&nbsp;
+                        <button class="btn btn-o btn-success  pull-center tooltips btn-sm" style="margin-left: 7px;"ng-click="OrderPaymentDeteails(orders)" ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button>&nbsp;
+                        <button class="btn btn-o btn-default  pull-left tooltips btn-sm" tooltip="Motorcu Değiştir!" ng-click="CheckCode(orders.id, orders.states)"><span class='ti-reload'></span></button>
                     </td>
                 </tr>
             </table>
             <table class="col-sm-12 col-xs-12 row" style="color:black;">
                 <tr>
-                    <th class="col-sm-3 col-xs-3 bg-grey" style="color:black;">{{:: allpaymenttype}}</th>
-                    <th class="col-sm-3 col-xs-3 bg-grey" style="color:black;">{{:: totalamount}}</th>
-                    <th class="col-sm-3 col-xs-3 bg-grey" style="color:black;">{{:: totalcount}}</th>
-                    <th class="col-sm-3 col-xs-3 bg-grey" style="color:black;"></th>
+                    <th class="col-sm-3 col-xs-3 bg-grey text-center" style="color:black;">{{:: allpaymenttype}}</th>
+                    <th class="col-sm-3 col-xs-3 bg-grey text-center" style="color:black;">{{:: totalamount}}</th>
+                    <th class="col-sm-3 col-xs-3 bg-grey text-center" style="color:black;">{{:: totalcount}}</th>
+                    <th class="col-sm-3 col-xs-3 bg-grey text-center" style="color:black;"></th>
+                 
 
                 </tr>
                 <tr class="margin-top-10" ng-repeat="payments in :refresh:item.payments">
-                    <td class="col-sm-3 col-xs-3">{{:: payments.PaymentType.name}}</td>
-                    <td class="col-sm-3 col-xs-3"><span>{{:refresh:payments.Amount | number:2}}</span> {{:: 'main.CURRENCY_SYMBOL' | translate}}</td>
-                    <td class="col-sm-3 col-xs-3"><span>{{payments.Count}}</span> Adet</td>
-                    <td class="col-sm-3 col-xs-3"><button class="btn btn-o btn-warning tooltips" ng-click="CloseSameTypeAcounts(item.orders, payments.PaymentType)" ng-disabled="Showspinner == true"><span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button></td>
+                    <td class="col-sm-3 col-xs-3 text-center">{{:: payments.PaymentType.name}}</td>
+                    <td class="col-sm-3 col-xs-3 text-center"><span>{{:refresh:payments.Amount | number:2}}</span> {{:: 'main.CURRENCY_SYMBOL' | translate}}</td>
+                    <td class="col-sm-3 col-xs-3 text-center"><span>{{payments.Count}}</span> Adet</td>
+                    <td class="col-sm-3 col-xs-3 text-center"><button class="btn btn-o btn-warning tooltips" ng-click="CloseSameTypeAcounts(item.orders, payments.PaymentType)" ng-disabled="Showspinner == true"><span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button></td>
                 </tr>
             </table>
         </div>
@@ -239,14 +242,15 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="ShowObject==true">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="color:black;">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 bg-grey" style="color:black;">{{:: allpaymenttype}}</span>
-                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 bg-grey" style="color:black;">{{:: totalamount}}</span>
-                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 bg-grey" style="color:black;">{{:: totalcount}}</span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 bg-grey text-center" style="color:black;">{{:: allpaymenttype}}</span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 bg-grey text-center" style="color:black;">{{:: totalamount}}</span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 bg-grey text-center" style="color:black;">{{:: totalcount}}</span>
+                    <th class="col-sm-3 col-xs-3 bg-grey" style="color:black;"></th>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10" ng-repeat="payments in :refresh:item.payments">
-                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{:: payments.PaymentType.name}}</span>
-                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{:refresh:payments.Amount | number:2}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> {{:: 'main.CURRENCY_SYMBOL' | translate}} </span></span>
-                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{payments.Count}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> Adet</span></span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">{{:: payments.PaymentType.name}}</span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center">{{:refresh:payments.Amount | number:2}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> {{:: 'main.CURRENCY_SYMBOL' | translate}} </span></span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"><span class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{payments.Count}}</span><span class="col-lg-1 col-md-1 col-sm-1 col-xs-1"> Adet</span></span>
                 </div>
             </div>
         </div>

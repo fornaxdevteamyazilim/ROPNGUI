@@ -7,7 +7,7 @@
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-10">
             <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pull-right">
-                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" href="#/app/inventory/inventorypurchase/edit/new" ng-if="addnewPurchase == true">
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" href="#/app/inventory/inventorypurchase/edit/new" ng-if="user.restrictions.addnewinventorypurchase =='Enable' && addnewPurchase == true">
                     <span translate="main.ADDNEWPURCHASE"></span>
                 </a>
             </div>

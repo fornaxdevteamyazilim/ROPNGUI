@@ -504,7 +504,7 @@ canvas[tc-chartjs-line], canvas[tc-chartjs-bar], canvas[tc-chartjs-radar] {
 
     .mini-stats li {
         text-align: center;
-        margin: 0 0 0 25px;
+        margin: 0 0 0 17px;
         display: inline-block;
     }
 

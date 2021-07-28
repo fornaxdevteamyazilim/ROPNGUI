@@ -96,6 +96,20 @@ function storeanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular,$tra
         var totalYSDiscountTL = 0;
         var total30DKDiscount = 0;
         var total30DKDiscountTL = 0;
+        var totalStaffAmount = 0;
+        var totalStaffPercent = 0;
+        var totalStaffTC = 0;
+        var totalInStoreAmount = 0;
+        var totalInStorePercent = 0;
+        var totalInStoreTC = 0;
+        var totalTakeAwayAmount = 0;
+        var totalTakeAwayPercent = 0;
+        var totalTakeAwayTC = 0;
+        var totalHomeDeliveryAmount = 0;
+        var totalHomeDeliveryPercent = 0;
+        var totalHomeDeliveryTC = 0;
+        var DeliveryU30 = 0;
+        
 
         $scope.isWaiting = true;
         Restangular.all('StoreReports/StoreAnalisys').getList(

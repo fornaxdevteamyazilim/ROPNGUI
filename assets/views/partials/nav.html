@@ -814,7 +814,7 @@
                     </li>
                     <li ui-sref-active="active">
                         <a ui-sref="app.reports.stockandcostreports.inventoryconsuptiontransactions"
-                          >
+                        ng-if="user.restrictions.inventoryconsuptiontransactions=='Enable'" >
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.INVENTORYCONSUPTIONTRANSACTIONS">STOK TÜKETİM İŞLEMLERİ</span>
                         </a>
