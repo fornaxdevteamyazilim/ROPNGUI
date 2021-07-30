@@ -4323,7 +4323,8 @@
   "aggregatormapping": {
     "TITLE": "Aggregator Mapping",
     "productmap": "Product Mapping",
-    "paymentmapping": "Payment Type Mapping"
+    "paymentmapping": "Payment Type Mapping",
+    "store" : "store"
   },
   "aggregatororderlist": {
     "MAIN": "Aggregator Order List",
@@ -4392,5 +4393,17 @@
     "Store":"Store",
     "PersonName":"PersonName",
     "Count":"Count"
-  } 
+  },
+  "dxGetirStore": {
+    "MemberID": "MemberID",
+    "GetirStoreName": "Getir Store Name",
+    "AggregatorID": "Aggregator ID",
+    "AggregatorStoreID":"Aggregator Store ID",
+    "StoreID": "Store ID",
+    "averagePreparationTime": "Average Preparation Time",
+    "status": "Status",
+    "isCourierAvailable": "Is Courier Available",
+    "restaurantSecretKey":"Restaurant Secret Key",
+    "isActive":"Is Active"
+  }
 }

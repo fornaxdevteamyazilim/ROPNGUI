@@ -4353,7 +4353,8 @@
   "aggregatormapping": {
     "TITLE": "Getir Eşleme Ekranı",
     "productmap": "Ürün Eşleme",
-    "paymentmapping": "Ödeme Tipi Eşleme"
+    "paymentmapping": "Ödeme Tipi Eşleme",
+    "store" : "Restoran Eşleme"
   },
   "aggregatororderlist": {
     "MAIN": "Entegrasyon Sipariş Listesi",
@@ -4422,5 +4423,17 @@
     "Store":"Store",
     "PersonName":"PersonName",
     "Count":"Count"
+  },
+  "dxGetirStore": {
+    "MemberID": "Kaynak",
+    "GetirStoreName": "Getir Restoran Adı",
+    "AggregatorID": "Firma",
+    "AggregatorStoreID": "Firma Restoran ID",
+    "StoreID": "Restoran ID",
+    "averagePreparationTime": "Ortalama Hazırlanma süresi",
+    "status": "Durum",
+    "isCourierAvailable": "Mevcut Kurye",
+    "restaurantSecretKey": "Restoran Güvenlik Anahtarı",
+    "isActive": "Aktif"
   }
 }
