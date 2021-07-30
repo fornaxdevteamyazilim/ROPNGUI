@@ -2909,7 +2909,8 @@
       "aggregator": {
         "MAIN": "Getir",
         "orders": "Siparişler",
-        "mapping": "Eşleştirmeler"
+        "mapping": "Eşleştirmeler",
+        "trendyolmapping": "Trendyol"
       },
       "specialoperations": {
         "MAIN": "Özel Operasyonlar",

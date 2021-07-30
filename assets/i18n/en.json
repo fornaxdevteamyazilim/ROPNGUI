@@ -2900,7 +2900,8 @@
       "aggregator": {
         "MAIN": "Aggregator",
         "orders": "Order",
-        "mapping": "Mapping"
+        "mapping": "Mapping",
+        "trendyolmapping": "Trendyol mapping"
       },
       "specialoperations": {
         "MAIN": "Special Operations",

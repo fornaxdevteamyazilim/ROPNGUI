@@ -1,6 +1,6 @@
-app.controller('aggregatormappingCtrl', aggregatormappingCtrl);
-function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService, $http, $window, $stateParams, Restangular, toaster, $filter) {
-    $rootScope.uService.EnterController("aggregatormappingCtrl");
+app.controller('trendyolmappingCtrl', trendyolmappingCtrl);
+function trendyolmappingCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService, $http, $window, $stateParams, Restangular, toaster, $filter) {
+    $rootScope.uService.EnterController("trendyolmappingCtrl");
     $scope.translate = function () {
         //$scope.trNGUser = $translate.instant('main.USER');
     }
@@ -11,10 +11,10 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
     $scope.storeGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirStore",
-            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirStore",
-            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirStore",
-            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirStore",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolStore",
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolStore",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolStore",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolStore",
         }),
         //filterValue: getFilter(),
         allowColumnResizing: true,
@@ -42,7 +42,7 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
         columns: [
             { dataField: "id", caption: "id", visible: false },
             {
-                dataField: "MemberID", caption: $translate.instant('dxGetirStore.MemberID'), fixed: true,width: 200,   
+                dataField: "MemberID", caption: $translate.instant('dxTrendyolStore.MemberID'), fixed: true,width: 200,   
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -64,9 +64,9 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
                 //fixed: true,
                 //groupIndex: 0
             },
-            { dataField: "name", caption: $translate.instant('dxGetirStore.GetirStoreName'),visibleIndex: 1 },
+            { dataField: "name", caption: $translate.instant('dxTrendyolStore.TrendyolStoreName'),visibleIndex: 1 },
             {
-                dataField: "AggregatorID", caption: $translate.instant('dxGetirStore.AggregatorID'),width: 200,  
+                dataField: "AggregatorID", caption: $translate.instant('dxTrendyolStore.AggregatorID'),width: 200,  
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "Name",
@@ -74,7 +74,7 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
                     dataSource: {
                         store: DevExpress.data.AspNet.createStore({
                             key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirAggregator" 
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolAggregator" 
                         }),
                         sort: "name",
                         headerFilter: { allowSearch: true }
@@ -89,9 +89,9 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
                 //groupIndex: 0
             },
             
-            { dataField: "AggregatorStoreID", caption: $translate.instant('dxGetirStore.AggregatorStoreID') },
+            { dataField: "AggregatorStoreID", caption: $translate.instant('dxTrendyolStore.AggregatorStoreID') },
             {
-                dataField: "StoreID", caption: $translate.instant('dxGetirStore.StoreID'), width: 200,    
+                dataField: "StoreID", caption: $translate.instant('dxTrendyolStore.StoreID'), width: 200,    
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -113,11 +113,11 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
                 //fixed: true,
                 //groupIndex: 0
             },
-            { dataField: "averagePreparationTime", caption: $translate.instant('dxGetirStore.averagePreparationTime') },
-            { dataField: "status", caption: $translate.instant('dxGetirStore.status') },
-            { dataField: "isCourierAvailable", caption: $translate.instant('dxGetirStore.isCourierAvailable') },
-            { dataField: "restaurantSecretKey", caption: $translate.instant('dxGetirStore.restaurantSecretKey') },
-            { dataField: "isActive", caption: $translate.instant('dxGetirStore.isActive') },
+            { dataField: "averagePreparationTime", caption: $translate.instant('dxTrendyolStore.averagePreparationTime') },
+            { dataField: "status", caption: $translate.instant('dxTrendyolStore.status') },
+            { dataField: "isCourierAvailable", caption: $translate.instant('dxTrendyolStore.isCourierAvailable') },
+            { dataField: "restaurantSecretKey", caption: $translate.instant('dxTrendyolStore.restaurantSecretKey') },
+            { dataField: "isActive", caption: $translate.instant('dxTrendyolStore.isActive') },
 
             //"FixedSize",
             //"MapByPrototype",
@@ -131,17 +131,17 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
             if (rowInfo.rowType == "data")
                 rowInfo.component.editRow(rowInfo.rowIndex);
         },
-        export: { enabled: true, fileName: "GetirProducts", },
+        export: { enabled: true, fileName: "TrendyolProducts", },
         scrolling: { mode: "virtual" },
         height: 600
     };
     $scope.productGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirProduct",
-            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirProduct",
-            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirProduct",
-            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirProduct",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolProduct",
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolProduct",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolProduct",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolProduct",
         }),
         //filterValue: getFilter(),
         showBorders: true,
@@ -169,10 +169,10 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
         remoteOperations: true,
         columns: [
             { dataField: "id", caption: "id", visible: false },
-            { dataField: "GetirProductID", caption: $translate.instant('dxGetirProduct.GetirProductID'), visible: false },
-            { dataField: "GetirProductName", caption: $translate.instant('dxGetirProduct.GetirProductName'),visibleIndex: 0,fixed: true },
+            { dataField: "TrendyolProductID", caption: $translate.instant('dxTrendyolProduct.TrendyolProductID'), visible: false },
+            { dataField: "TrendyolProductName", caption: $translate.instant('dxTrendyolProduct.TrendyolProductName'),visibleIndex: 0,fixed: true },
             {
-                dataField: "ProductID", caption: $translate.instant('dxGetirProduct.ProductID'), fixed: true,width: 200,    
+                dataField: "ProductID", caption: $translate.instant('dxTrendyolProduct.ProductID'), fixed: true,width: 200,    
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
@@ -194,13 +194,13 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
                 //fixed: true,
                 //groupIndex: 0
             },
-            { dataField: "FixedSize", caption: $translate.instant('dxGetirProduct.FixedSize') },
-            { dataField: "MapByPrototype", caption: $translate.instant('dxGetirProduct.MapByPrototype') },
-            { dataField: "SkipProduct", caption: $translate.instant('dxGetirProduct.SkipProduct') },
-            { dataField: "AutoAddProductID", caption: $translate.instant('dxGetirProduct.AutoAddProductID') },
-            { dataField: "AutoAddMapToOption", caption: $translate.instant('dxGetirProduct.AutoAddMapToOption') },
-            { dataField: "AutoAddProductQuantity", caption: $translate.instant('dxGetirProduct.AutoAddProductQuantity') },
-            { dataField: "AutoAddMapOptionsLevel", caption: $translate.instant('dxGetirProduct.AutoAddMapOptionsLevel') },
+            { dataField: "FixedSize", caption: $translate.instant('dxTrendyolProduct.FixedSize') },
+            { dataField: "MapByPrototype", caption: $translate.instant('dxTrendyolProduct.MapByPrototype') },
+            { dataField: "SkipProduct", caption: $translate.instant('dxTrendyolProduct.SkipProduct') },
+            { dataField: "AutoAddProductID", caption: $translate.instant('dxTrendyolProduct.AutoAddProductID') },
+            { dataField: "AutoAddMapToOption", caption: $translate.instant('dxTrendyolProduct.AutoAddMapToOption') },
+            { dataField: "AutoAddProductQuantity", caption: $translate.instant('dxTrendyolProduct.AutoAddProductQuantity') },
+            { dataField: "AutoAddMapOptionsLevel", caption: $translate.instant('dxTrendyolProduct.AutoAddMapOptionsLevel') },
 
             //"FixedSize",
             //"MapByPrototype",
@@ -214,17 +214,17 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
             if (rowInfo.rowType == "data")
                 rowInfo.component.editRow(rowInfo.rowIndex);
         },
-        export: { enabled: true, fileName: "GetirProducts", },
+        export: { enabled: true, fileName: "TrendyolProducts", },
         scrolling: { mode: "virtual" },
         height: 600
     };
-    $scope.paymentaGridOptions = {
+    $scope.rejectreasonGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirPaymentType",
-            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirPaymentType",
-            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirPaymentType",
-            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirPaymentType",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolRejectReason",
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolRejectReason",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolRejectReason",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolRejectReason",
         }),
         //filterValue: getFilter(),
         showBorders: true,
@@ -251,83 +251,19 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            {
-                dataField: "MemberID", caption:  $translate.instant('dxGetirProduct.AggregatorID') ,
-                lookup: {
-                    valueExpr: "id",
-                    displayExpr: "name",
-                    dataSource: {
-                        store: DevExpress.data.AspNet.createStore({
-                            key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxMember" 
-                        }),
-                        sort: "name",
-                        headerFilter: { allowSearch: true }
-                    },
-                    calculateSortValue: function (data) {
-                        var value = this.calculateCellValue(data);
-                        return this.lookup.calculateCellValue(value);
-                    }  
-                },
-
-                //fixed: true,
-                //groupIndex: 0
-            },
-            {
-                dataField: "AggregatorID", caption:  $translate.instant('dxGetirProduct.MemberID'),
-                lookup: {
-                    valueExpr: "id",
-                    displayExpr: "Name",
-                    dataSource: {
-                        store: DevExpress.data.AspNet.createStore({
-                            key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirAggregator" 
-                        }),
-                        sort: "Name",
-                        headerFilter: { allowSearch: true }
-                    },
-                    calculateSortValue: function (data) {
-                        var value = this.calculateCellValue(data);
-                        return this.lookup.calculateCellValue(value);
-                    }  
-                },
-
-                //fixed: true,
-                //groupIndex: 0
-            },
-            { dataField: "type",   caption: $translate.instant('dxGetirProduct.type'), },
-            { dataField: "Name",   caption: $translate.instant('dxGetirProduct.Name'), },
-           // "type","name",
-            {
-                dataField: "PaymentTypeID", caption: $translate.instant('dxGetirProduct.PaymentType'),
-                lookup: {
-                    valueExpr: "id", 
-                    displayExpr: "name",
-                    dataSource: {
-                        store: DevExpress.data.AspNet.createStore({
-                            key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPaymentType" 
-                        }),
-                        sort: "name",
-                        headerFilter: { allowSearch: true }
-                    },
-                    calculateSortValue: function (data) {
-                        var value = this.calculateCellValue(data);
-                        return this.lookup.calculateCellValue(value);
-                    }  
-                },
-
-                //fixed: true,
-                //groupIndex: 0
-            }
+            { dataField: "id", caption: "id", visible: false },
+            { dataField: "Code",   caption: $translate.instant('dxTrendyolRejectReason.Code'), },
+            { dataField: "Reason",   caption: $translate.instant('dxTrendyolRejectReason.Reason'), },
+            { dataField: "Description",   caption: $translate.instant('dxTrendyolRejectReason.Description'), },
+            { dataField: "isActive",   caption: $translate.instant('dxTrendyolRejectReason.isActive'), },
         ],
-        export: { enabled: true, fileName: "GetirPaymentTypes", },
+        export: { enabled: true, fileName: "TrendyolRejectReasons", },
         scrolling: { mode: "virtual" },
         height: 600
     };
     $scope.$on('$destroy', function () {
         deregistration();
         $element.remove();
-        $rootScope.uService.ExitController("aggregatormappingCtrl");
+        $rootScope.uService.ExitController("trendyolmappingCtrl");
     });
 }

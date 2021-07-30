@@ -79,6 +79,7 @@ app.constant('JS_REQUIRES', {
         'aggregatororderlistCtrl': 'assets/js/controllers/aggregators/aggregatororderlistCtrl.js?v=0673',
         'aggregatorcustomerCtrl': 'assets/js/controllers/aggregators/aggregatorcustomerCtrl.js?v=0673',
         'aggregatormappingCtrl': 'assets/js/controllers/aggregators/aggregatormappingCtrl.js?v=0673',
+        'trendyolmappingCtrl': 'assets/js/controllers/aggregators/trendyolmappingCtrls.js?v=0673',
         'quarterCtrl': 'assets/js/controllers/streetaddress/quarterCtrl.js?v=0673',
         'subcityCtrl': 'assets/js/controllers/streetaddress/subcityCtrl.js?v=0673',
         'StreetAddressSelectorCtrl': 'assets/js/controllers/streetaddress/StreetAddressSelectorCtrl.js?v=0673',
