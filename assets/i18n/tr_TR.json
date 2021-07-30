@@ -4435,5 +4435,44 @@
     "isCourierAvailable": "Mevcut Kurye",
     "restaurantSecretKey": "Restoran Güvenlik Anahtarı",
     "isActive": "Aktif"
+  },
+  "trendyolmapping":{
+    "TITLE": "Trentyol Eşleme Ekranı",
+    "rejectreason": "Reddetilen Sipariş sebebi"
+  },
+  "dxTrendyolStore": {
+    "MemberID": "Kaynak",
+    "TrendyolStoreName": "Trendyol Restoran Adı",
+    "AggregatorID": "Firma",
+    "AggregatorStoreID": "Firma Restoran ID",
+    "StoreID": "Restoran ID",
+    "averagePreparationTime": "Ortalama Hazırlanma süresi",
+    "status": "Durum",
+    "isCourierAvailable": "Mevcut Kurye",
+    "restaurantSecretKey": "Restoran Güvenlik Anahtarı",
+    "isActive": "Aktif"
+  },
+  "dxTrendyolProduct":{
+    "TrendyolProductID": "Trenyol Ürün ID",
+    "TrendyolProductName": "Ürün Adı",
+    "ProductID": "Ürün ID",
+    "FixedSize": "Sabit Boy",
+    "MapByPrototype": "Harita Proto tipi",
+    "SkipProduct": "Ürünü Atla",
+    "AutoAddProductID": "Otomatik Ürün kimliği Ekle",
+    "AutoAddMapToOption": "Haritaya Otomatik Ekleme Seçeneği",
+    "AutoAddProductQuantity": "Otomatik Ürün Miktarı Ekle",
+    "AutoAddMapOptionsLevel": "Otomatik Harita Seçenekleri Seviyesi Ekle",
+    "MemberID": "Kaynak",
+    "AggregatorID": "Firma",
+    "type": "Tipi",
+    "PaymentType": "Ödeme Tipi",
+    "Name": "İsim"
+  },
+  "dxTrendyolRejectReason":{
+    "Code": "Kod",
+    "Reason": "Sebep",
+    "Description": "Açıklama",
+    "isActive": "Aktif"
   }
 }

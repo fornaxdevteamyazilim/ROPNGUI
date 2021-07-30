@@ -4405,5 +4405,44 @@
     "isCourierAvailable": "Is Courier Available",
     "restaurantSecretKey":"Restaurant Secret Key",
     "isActive":"Is Active"
+  },
+  "trendyolmapping":{
+    "TITLE": "Trentyol Mapping",
+    "rejectreason": "Reason for rejected order"
+  },
+  "dxTrendyolStore": {
+    "MemberID": "Member ID",
+    "TrendyolStoreName": "Trendyol Store Name",
+    "AggregatorID": "Aggregator ID",
+    "AggregatorStoreID": "Aggregator Store ID",
+    "StoreID": "Store ID",
+    "averagePreparationTime": "Average Preparation Time",
+    "status": "Status",
+    "isCourierAvailable": "is Courier Available",
+    "restaurantSecretKey": "Restaurant Secret Key",
+    "isActive": "is Active"
+  },
+  "dxTrendyolProduct":{
+    "TrendyolProductID": "Trendyol Product ID",
+    "TrendyolProductName": "Trendyol Product Name",
+    "ProductID": "Product ID",
+    "FixedSize": "Fixed Size",
+    "MapByPrototype": "Map By Prototype",
+    "SkipProduct": "Skip Product",
+    "AutoAddProductID": "Auto Add Product ID",
+    "AutoAddMapToOption": "Auto Add Map To Option",
+    "AutoAddProductQuantity": "Auto Add Product Quantity",
+    "AutoAddMapOptionsLevel": "Auto Add Map Options Level",
+    "MemberID": "Member ID",
+    "AggregatorID": "Aggregator ID",
+    "type": "Type",
+    "PaymentType": "Payment Type",
+    "Name": "Name"
+  },
+  "dxTrendyolRejectReason":{
+    "Code": "Code",
+    "Reason": "Reason",
+    "Description": "Description",
+    "isActive": "isActive"
   }
 }

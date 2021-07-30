@@ -220,8 +220,10 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             break;
                         case "calculate":
                             if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.Delivery0_30GC;
                                 options.dg = options.dg + options.value.DeliveryGC;
+                            }
+                            if (options.value.Delivery0_30GC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.Delivery0_30GC;
                             }
                             break;
                         case "finalize":
@@ -289,10 +291,9 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             break;
                         case "calculate":
                             if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.Delivery30_40GC;
                                 options.dg = options.dg + options.value.DeliveryGC;
                             }
-                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if ( options.value.Delivery30_40GC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.Delivery30_40GC;
                                 
                             }
@@ -310,10 +311,9 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             break;
                         case "calculate":
                             if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.Delivery40_60GC;
                                 options.dg = options.dg + options.value.DeliveryGC;
                             }
-                            if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if (options.value.Delivery40_60GC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.Delivery40_60GC;
                                
                             }
@@ -331,10 +331,9 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             break;
                         case "calculate":
                             if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.Delivery60_GC;
                                 options.dg = options.dg + options.value.DeliveryGC;
                             }
-                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if ( options.value.Delivery60_GC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.Delivery60_GC;
                              
                             }
@@ -373,10 +372,9 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             break;
                         case "calculate":
                             if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.DoubleDispatchCount;
                                 options.dg = options.dg + options.value.DeliveryGC;
                             }
-                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if ( options.value.DoubleDispatchCount > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.DoubleDispatchCount;
                                 
                             }
@@ -394,10 +392,9 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             break;
                         case "calculate":
                             if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.TripleDispatchCount;
                                 options.dg = options.dg + options.value.DeliveryGC;
                             }
-                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if ( options.value.TripleDispatchCount > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.TripleDispatchCount;
                                 
                             }

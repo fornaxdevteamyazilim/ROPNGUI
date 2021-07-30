@@ -2749,6 +2749,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'aggregatormapping'
             }
+        }).state('app.aggregators.trendyolmapping', {
+            url: '/trendyolmapping',
+            templateUrl: "assets/views/aggregators/trendyolmapping.html",
+            resolve: loadSequence('trendyolmappingCtrl'),
+            title: 'trendyolmapping',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'trendyolmapping'
+            }
         }).state('app.aggregators.customermap', {
             url: '/customermap/:id',
             templateUrl: "assets/views/aggregators/aggregatorcustomer.html",
