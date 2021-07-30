@@ -1627,7 +1627,7 @@
     "FIRSTTIMEZONE": "I. Zaman Aralığı",
     "SECONDTIMEZONE": "II. Zaman Aralığı",
     "THIRDTIMEZONE": "III. Zaman Aralığı",
-    "REALDELIVERYTIME": "Gerçek Teslim Zamanı",
+    "REALDELIVERYTIME": "Entegrasyonla Teslim Edilmiş Sipariş Sayısı",
     "HATCO": "Hatco Süresi",
     "BELOW30": "Teslim Süresi < 30",
     "BEYOND30": "Teslim Süresi > 30",

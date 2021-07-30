@@ -92,14 +92,14 @@ function fsractualtheoreticalCtrl($scope, $filter, $modal, $log, Restangular, Sw
             return $http.get(NG_SETTING.apiServiceBaseUri + "/api/fsr/cosandcol", { params: params })
                 .then(function (response) {
                     for (var i = 0; i < response.data.length; i++) {
-                        response.data[i]["YiyecekMaliyet_Variance_Percent"]=response.data[i]["YiyecekMaliyet_Theoretical_Percent"]-response.data[i]["YiyecekMaliyet_Actual_Percent"];
-                        response.data[i]["YiyecekMaliyet_Variance"]=response.data[i]["YiyecekMaliyet_Theoretical"]-response.data[i]["YiyecekMaliyet_Actual"];
-                        response.data[i]["IcecekMaliyet_Variance_Percent"]=response.data[i]["IcecekMaliyet_Theoretical_Percent"]-response.data[i]["IcecekMaliyet_Actual_Percent"];
-                        response.data[i]["IcecekMaliyet_Variance"]=response.data[i]["IcecekMaliyet_Theoretical"]-response.data[i]["IcecekMaliyet_Actual"];
-                        response.data[i]["AmbalajMaliyet_Variance_Percent"]=response.data[i]["AmbalajMaliyet_Theoretical_Percent"]-response.data[i]["AmbalajMaliyet_Actual_Percent"];
-                        response.data[i]["AmbalajMaliyet_Variance"]=response.data[i]["AmbalajMaliyet_Theoretical"]-response.data[i]["AmbalajMaliyet_Actual"];
-                        response.data[i]["Total_Variance_Percent"]=response.data[i]["Total_Theoretical_Percent"]-response.data[i]["Total_Actual_Percent"];
-                        response.data[i]["Total_Variance"]=response.data[i]["Total_Theoretical"]-response.data[i]["Total_Actual"];
+                        response.data[i]["YiyecekMaliyet_Variance_Percent"]=response.data[i]["YiyecekMaliyet_Actual_Percent"]-response.data[i]["YiyecekMaliyet_Theoretical_Percent"];
+                        response.data[i]["YiyecekMaliyet_Variance"]=response.data[i]["YiyecekMaliyet_Actual"]-response.data[i]["YiyecekMaliyet_Theoretical"];
+                        response.data[i]["IcecekMaliyet_Variance_Percent"]=response.data[i]["IcecekMaliyet_Actual_Percent"]-response.data[i]["IcecekMaliyet_Theoretical_Percent"];
+                        response.data[i]["IcecekMaliyet_Variance"]=response.data[i]["IcecekMaliyet_Actual"]-response.data[i]["IcecekMaliyet_Theoretical"];
+                        response.data[i]["AmbalajMaliyet_Variance_Percent"]=response.data[i]["AmbalajMaliyet_Actual_Percent"]-response.data[i]["AmbalajMaliyet_Theoretical_Percent"];
+                        response.data[i]["AmbalajMaliyet_Variance"]=response.data[i]["AmbalajMaliyet_Actual"]-response.data[i]["AmbalajMaliyet_Theoretical"];
+                        response.data[i]["Total_Variance_Percent"]=response.data[i]["Total_Actual_Percent"]-response.data[i]["Total_Theoretical_Percent"];
+                        response.data[i]["Total_Variance"]=response.data[i]["Total_Actual"]-response.data[i]["Total_Theoretical"];
                     }
                     return {
                         data: response.data,

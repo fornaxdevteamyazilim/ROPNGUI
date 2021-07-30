@@ -219,7 +219,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.Delivery0_30GC && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.Delivery0_30GC;
                                 options.dg = options.dg + options.value.DeliveryGC;
                             }
@@ -288,9 +288,13 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.Delivery30_40GC && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.Delivery30_40GC;
                                 options.dg = options.dg + options.value.DeliveryGC;
+                            }
+                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.Delivery30_40GC;
+                                
                             }
                             break;
                         case "finalize":
@@ -305,9 +309,13 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.Delivery40_60GC && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.Delivery40_60GC;
                                 options.dg = options.dg + options.value.DeliveryGC;
+                            }
+                            if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.Delivery40_60GC;
+                               
                             }
                             break;
                         case "finalize":
@@ -322,9 +330,13 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.Delivery60_GC && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.Delivery60_GC;
                                 options.dg = options.dg + options.value.DeliveryGC;
+                            }
+                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.Delivery60_GC;
+                             
                             }
                             break;
                         case "finalize":
@@ -339,9 +351,13 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.SingleDispatchCount && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.SingleDispatchCount;
                                 options.dg = options.dg + options.value.DeliveryGC;
+                            }
+                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.SingleDispatchCount;
+                                
                             }
                             break;
                         case "finalize":
@@ -356,9 +372,13 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.DoubleDispatchCount && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.DoubleDispatchCount;
                                 options.dg = options.dg + options.value.DeliveryGC;
+                            }
+                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.DoubleDispatchCount;
+                                
                             }
                             break;
                         case "finalize":
@@ -373,9 +393,13 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.TripleDispatchCount && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.TripleDispatchCount;
                                 options.dg = options.dg + options.value.DeliveryGC;
+                            }
+                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.TripleDispatchCount;
+                                
                             }
                             break;
                         case "finalize":
@@ -390,9 +414,13 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.MoreDispatchCount && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.MoreDispatchCount;
                                 options.dg = options.dg + options.value.DeliveryGC;
+                            }
+                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.MoreDispatchCount;
+                              
                             }
                             break;
                         case "finalize":

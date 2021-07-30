@@ -130,7 +130,7 @@
                     <td class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
                         <button class="btn btn-o btn-primary pull-right tooltips" ng-click="CloseAcount(orders,$index, item)" ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-check" ng-if="Showspinner != true"></span></button>&nbsp;
                         <button class="btn btn-o btn-success  pull-center tooltips" ng-click="OrderPaymentDeteails(orders)" style="margin-left: 7px;"ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button>&nbsp;
-                        <button class="btn btn-o btn-default  pull-left tooltips" tooltip="Motorcu Değiştir!" ng-click="CheckCode(orders.id, orders.states)"><span class='ti-reload'></span></button>
+                        <button class="btn btn-o btn-default  pull-left tooltips" ng-if="user.restrictions.CheckCodemotorcycle=='Enable'" tooltip="Motorcu Değiştir!" ng-click="CheckCode(orders.id, orders.states)"><span class='ti-reload'></span></button>
                     </td>
                 </tr>
             </table>
@@ -209,7 +209,7 @@
                     <td class="col-sm-4 col-xs-4">
                         <button class="btn btn-o btn-primary pull-right tooltips btn-sm" ng-click="CloseAcount(orders,$index, item)" ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-check" ng-if="Showspinner != true"></span></button>&nbsp;
                         <button class="btn btn-o btn-success  pull-center tooltips btn-sm" style="margin-left: 7px;"ng-click="OrderPaymentDeteails(orders)" ng-disabled="Showspinner == true"> <span class='fa fa-spin fa-spinner' ng-if='Showspinner == true'></span><span class="ti-credit-card" ng-if="Showspinner != true"></span></button>&nbsp;
-                        <button class="btn btn-o btn-default  pull-left tooltips btn-sm" tooltip="Motorcu Değiştir!" ng-click="CheckCode(orders.id, orders.states)"><span class='ti-reload'></span></button>
+                        <button class="btn btn-o btn-default  pull-left tooltips btn-sm" ng-if="user.restrictions.CheckCodemotorcycle=='Enable'" tooltip="Motorcu Değiştir!" ng-click="CheckCode(orders.id, orders.states)"><span class='ti-reload'></span></button>
                     </td>
                 </tr>
             </table>
