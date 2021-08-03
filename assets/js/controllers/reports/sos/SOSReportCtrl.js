@@ -113,7 +113,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             { caption: "DLV GC %", dataField: "DeliveryGCPercent", dataType: "number", format: { type: "percent", precision: 2 } },
             { caption: $translate.instant('sosreport.DispatchU14'), dataField: "DispatchU14", dataType: "number", format: { type: "percent", precision: 2 } },
             { caption: $translate.instant('sosreport.AvgDispatchTime'), dataField: "AvgDispatchTime", dataType: "number", customizeText: formatTime },
-            { caption: $translate.instant('sosreport.AvgCutToDispatchTime'), dataField: "AvgCutToDispatchTime", dataType: "number", customizeText: formatTime },
+            { caption: "Cut To Dispatch Time", dataField: "AvgCutToDispatchTime", dataType: "number", customizeText: formatTime },
             //{ dataField: "DeliveryU30", dataType: "number", format: { type: "percent", precision: 2 } },
             { caption: $translate.instant('sosreport.AvgDeliveryTime'), dataField: "AvgDeliveryTime", dataType: "number", customizeText: formatTime },
             { caption: $translate.instant('sosreport.AvgDriveTime'), dataField: "AvgDriveTime", dataType: "number", customizeText: formatTime },
@@ -129,7 +129,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             { caption: "DLV >60 GC", dataField: "Delivery60_GC", dataType: "number" },
             { caption: "Avg >60", dataField: "AvgDeliveryTime60_", dataType: "number", customizeText: formatTime },
             { caption: "DLV >60 %", dataField: "Delivery60_", dataType: "number", format: { type: "percent", precision: 2 } },
-            { caption: $translate.instant('sosreport.OrdersPerDispach'), dataField: "OrderOvelap", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: "Orders Per Dispach", dataField: "OrderOvelap", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('sosreport.SingleDispatch'), dataField: "SingleDispatch", dataType: "number", format: { type: "percent", precision: 2 } },
             { caption: $translate.instant('sosreport.DoubleDispatch'), dataField: "DoubleDispatch", dataType: "number", format: { type: "percent", precision: 2 } },
             { caption: $translate.instant('sosreport.TripleDispatch'), dataField: "TripleDispatch", dataType: "number", format: { type: "percent", precision: 2 } },
@@ -188,7 +188,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             { name: "AvgCutToDispatchTimeSummary", showInColumn: "AvgCutToDispatchTime", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
             { name: "AvgDeliveryTimeSummary", showInColumn: "AvgDeliveryTime", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
             { name: "AvgDriveTimeSummary", showInColumn: "AvgDriveTime", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
-            { name: "OrderOvelapSummary", showInColumn: "OrderOvelap", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
+            { name: "OrderOvelapSummary", showInColumn: "OrderOvelap", summaryType: "custom",valueFormat: { type: "fixedPoint", precision: 2 }, alignByColumn: true },
             { name: "SingleDispatchSummary", showInColumn: "SingleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             { name: "DoubleDispatchSummary", showInColumn: "DoubleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             { name: "TripleDispatchSummary", showInColumn: "TripleDispatch", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
@@ -350,13 +350,12 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.SingleDispatchCount;
-                                options.dg = options.dg + options.value.DeliveryGC;
-                            }
-                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if (options.value.SingleDispatchCount > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.SingleDispatchCount;
                                 
+                            }
+                            if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.dg = options.dg + options.value.DeliveryGC;
                             }
                             break;
                         case "finalize":
@@ -371,12 +370,11 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
+                            if (options.value.DoubleDispatchCount  > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.DoubleDispatchCount;                                
+                            }
                             if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.dg = options.dg + options.value.DeliveryGC;
-                            }
-                            if ( options.value.DoubleDispatchCount > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.DoubleDispatchCount;
-                                
                             }
                             break;
                         case "finalize":
@@ -391,12 +389,11 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
+                            if (options.value.TripleDispatchCount  > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.TripleDispatchCount;                                
+                            }
                             if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.dg = options.dg + options.value.DeliveryGC;
-                            }
-                            if ( options.value.TripleDispatchCount > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.TripleDispatchCount;
-                                
                             }
                             break;
                         case "finalize":
@@ -411,13 +408,11 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                            if (options.value.MoreDispatchCount > 0 && options.value.StoreFilterType == "DELIVERY") {
                                 options.totalValue = options.totalValue + options.value.MoreDispatchCount;
-                                options.dg = options.dg + options.value.DeliveryGC;
                             }
-                            if ( options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.MoreDispatchCount;
-                              
+                            if (options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.dg = options.dg + options.value.DeliveryGC;
                             }
                             break;
                         case "finalize":

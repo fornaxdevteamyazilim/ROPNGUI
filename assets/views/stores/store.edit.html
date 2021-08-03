@@ -645,7 +645,7 @@
                     </tab>
                     <tab heading="{{'main.USER' | translate}}" ng-if="user.restrictions.storedriver=='Enable'">
                         <div ng-controller="driverCtrl as dc">
-                            <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-click="addItem()">
+                            <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus" ng-if="user.restrictions.storedriveraddItem=='Enable'" ng-click="addItem()">
                                 <span translate="main.ADDUSER"></span>
                             </a>
                             <br />
@@ -717,9 +717,9 @@
                                             <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
                                         </form>
                                         <div class="buttons pull-right" ng-show="!rowform.$visible">
-                                            <a class="btn btn-transparent btn-sm tooltips ti-plus" tooltip="{{'main.ADD' |translate}}" tooltip-placement="top" ng-click="SelectItem(item.id)"></a>
-                                            <a class="btn btn-transparent btn-sm tooltips ti-pencil" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
-                                            <a class="btn btn-transparent btn-sm tooltips ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                                            <a class="btn btn-transparent btn-sm tooltips ti-plus" ng-if="user.restrictions.Addsstoredriver=='Enable'" tooltip="{{'main.ADD' |translate}}" tooltip-placement="top" ng-click="SelectItem(item.id)"></a>
+                                            <a class="btn btn-transparent btn-sm tooltips ti-pencil" ng-if="user.restrictions.Editsstoredriver=='Enable'" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                                            <a class="btn btn-transparent btn-sm tooltips ti-close" ng-if="user.restrictions.deletesstoredriver=='Enable'" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
                                         </div>
                                         <!--<div class="visible-xs visible-sm hidden-md hidden-lg">
                                             <div class="btn-group" dropdown is-open="status.isopen">
