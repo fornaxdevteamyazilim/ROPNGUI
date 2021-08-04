@@ -89,8 +89,8 @@ function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SE
                
                 //{ year: "2-digit", month: "narrow", day: "2-digit" }
             },
-            {
-             
+            { dataField: "Reservation.NGUser.FullName",   caption: "Reservation", },
+            {             
                 caption: $translate.instant('unmappedorders.Commands'),
                 //dataField: "Store",
                 type: "buttons",
@@ -102,8 +102,12 @@ function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SE
                         return !e.row.isEditing && e.row.data.AggregatorOrderStateID == 1;//!e.row.isEditing && !isChief(e.row.data.Position);
                     },
                     onClick: function (e) {
+                        if (e.row.data.Reservation && e.row.data.Reservation.UserID != $rootScope.user.id) {
+                            toaster.pop('error',  $translate.instant('orderfile.Recordlocked'), e.row.data.Reservation.NGUser.FullName);
+                        } else {
                         if (e.row.data.AggregatorOrderStateID == 1)
                             $location.path('/app/aggregators/customermap/' + e.row.data.id);
+                        }
                     }
                 },
                 {
