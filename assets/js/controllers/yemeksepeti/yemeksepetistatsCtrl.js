@@ -18,6 +18,9 @@ function yemeksepetistatsCtrl($rootScope, $scope, $log, $modal, $interval, Resta
     $scope.GoToOrders = function () {
         $location.path('/app/orderdisplay/ysordersdisplay');
     };
+    $scope.GoToGetirOrders = function () {
+        $location.path('/app/aggregators/orders');
+    };
     $scope.GetYemekSepetiStats();
     //var interval = $interval(function () {
     //    $scope.GetYemekSepetiStats();
