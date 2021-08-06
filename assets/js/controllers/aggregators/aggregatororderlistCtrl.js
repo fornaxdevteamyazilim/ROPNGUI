@@ -280,11 +280,7 @@ function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SE
         var dataGrid = $('#advgridContainer').dxDataGrid('instance');
         dataGrid.refresh();
     }
-    var onAggregatorOrder = (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CCBACKOFFICE")) ?
-    $scope.$on('AggregatorOrderUpdate', function (event, data) { 
-        refreshData(); 
-    }) : 
-    $scope.$on('AggregatorOrder', function (event, data) { 
+    var onAggregatorOrder = $scope.$on('AggregatorOrderUpdate', function (event, data) { 
         refreshData(); 
     });
     
