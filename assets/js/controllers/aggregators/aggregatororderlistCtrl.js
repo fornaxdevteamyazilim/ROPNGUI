@@ -227,9 +227,12 @@ function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SE
             }
         },
         onRowClick: function (rowInfo) {
-            if (rowInfo.rowType == "data" && rowInfo.data.AggregatorOrderStateID == 1)
-                $location.path('/app/aggregators/customermap/' + rowInfo.data.id);
-            //$location.href = '#/app/dashboard';
+            if (rowInfo.data.Reservation && rowInfo.data.Reservation.UserID != $rootScope.user.id) {
+                toaster.pop('error', $translate.instant('orderfile.Recordlocked'), e.row.data.Reservation.NGUser.FullName);
+            } else {
+                if (rowInfo.rowType == "data" && rowInfo.data.AggregatorOrderStateID == 1)
+                    $location.path('/app/aggregators/customermap/' + rowInfo.data.id);
+            }
         },
         onDataErrorOccurred: function (e) {
             console.log(e.error);
