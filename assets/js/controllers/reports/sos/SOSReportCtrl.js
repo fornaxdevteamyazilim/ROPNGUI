@@ -437,6 +437,23 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             break;
                     }
                 }
+                if (options.name === "AvgDriveTimeSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.AvgDriveTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.AvgDriveTime;
+                                options.dg = options.dg + 1;
+                            }
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
                 if (options.name === "OrderOvelapSummary") {
                     switch (options.summaryProcess) {
                         case "start":

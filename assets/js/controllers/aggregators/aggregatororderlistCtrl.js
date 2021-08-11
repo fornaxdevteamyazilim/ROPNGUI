@@ -78,6 +78,7 @@ function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SE
             
             { dataField: "Aggregator",   caption: $translate.instant('unmappedorders.Aggregator'), },
             { dataField: "Name",   caption: $translate.instant('unmappedorders.Name'), },
+            "ClientPhone",
             { dataField: "Address",  caption: $translate.instant('unmappedorders.Address'), },
             { dataField: "Notes",   caption: $translate.instant('unmappedorders.Notes'), },
            // "Aggregator", "Name", "Address", "Notes", //"OrderDate",

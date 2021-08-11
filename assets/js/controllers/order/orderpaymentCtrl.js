@@ -189,7 +189,7 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
     };
     $scope.SaveECRPayment = function (Type) {
         $scope.Showspinner = true;
-        PaymentRestangular.one('ecrprofilo/addprintrequest').withHttpConfig({ timeout: 200000 }).get({
+        PaymentRestangular.one('ecrprofilo/addprintrequest').withHttpConfig({ timeout: 20000 }).get({
             OrderID: $scope.order.id,
             RequestType: Type,
             Kasa: $rootScope.user.ClientName,
