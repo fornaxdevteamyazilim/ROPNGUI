@@ -2389,6 +2389,7 @@
     "ACTUALTOTHEORIC": "Actual to Theoric",
     "PROMOTIONANALISYS": "Promosyon Analizi",
     "PAYMENTORDERSOURCESTATS": "Sipariş Kaynağına Göre Dağılım",
+    "ORDERSOURCETYPESTATS":"Kaynağına ve Tipine Göre Dağılım",
     "STOREROUTINGTYPE": "Yönlendirme Tipi",
     "ORDERPAYMENTSCHECK": "Ödeme Karşılaştırma Raporu",
     "STAFFORDERSREPORT": "Personel Sipariş Raporu",

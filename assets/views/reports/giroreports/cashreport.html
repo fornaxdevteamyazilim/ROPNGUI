@@ -454,6 +454,48 @@
                 </div>
             </div>
         </fieldset>
+        <fieldset class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+            <div translate="main.ORDERSOURCETYPESTATS" class="panel panel-heading center text-bold">Sipariş tipi ve kaynağına göre dağılım</div>
+            <div class="panel-scroll" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true" style="max-height:206px; min-height:206px;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10" ng-repeat="storedata in CashReportResults">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="item in storedata.OrderSourceTypeStats">
+                        <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold text-dark text-uppercase bg-grey"> {{item.OrderType}}</span>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="item2 in item.orderSourceTypeDetail">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-capitalize">
+                                {{item2.OrderSource}}
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-capitalize">
+                                <label class="pull-right"> {{item2.OrdersCount}} </label>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+                                <label class="pull-right">{{item2.OrdersAmount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <hr />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-grey">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <label translate="main.TOTALSALES" class="text-bold" style="color:black;">Toplam</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
+                        <label class="text-bold pull-right" style="color:black;">{{storedata.OrdersCount| number:0}} #</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
+                        <label class="text-bold pull-right" style="color:black;">{{storedata.TotalAmout  | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-grey">
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-8">
+                        <label class="text-bold" style="color:black;"></label>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4 col-xs-4" ng-repeat="storedata in CashReportResults">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
     </div>
 
     <div print-only class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-print" ng-hide="isWaiting==true" id="cashreport">

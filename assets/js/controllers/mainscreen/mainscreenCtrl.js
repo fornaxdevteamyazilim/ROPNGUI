@@ -196,7 +196,10 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         }
     };
     $scope.getNewYSOrder(); 
-    var NewAggregatorOrderfresh = $scope.$on('AggregatorOrder', function (event, data) {
+    var NewAggregatorOrderfresh = ($rootScope.user && $rootScope.user.restrictions.aggregatorcustomermapping == 'Enable')?
+    $scope.$on('AggregatorOrder', function (event, data) {
+        $scope.getNewwAggregatorOrder();
+    }):$scope.$on('AggregatorOrderUpdate', function (event, data) {
         $scope.getNewwAggregatorOrder();
     });
     $scope.getNewwAggregatorOrder = function () {

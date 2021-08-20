@@ -2379,6 +2379,7 @@
     "ACTUALTOTHEORIC": "Actual to Theoric",
     "PROMOTIONANALISYS": "Promotion Analisys",
     "PAYMENTORDERSOURCESTATS": "Payment States by Order Source",
+    "ORDERSOURCETYPESTATS":"Orders by Type and Source",
     "STOREROUTINGTYPE": "Routing Type",
     "ORDERPAYMENTSCHECK": "Payments Check Report",
     "STAFFORDERSREPORT": "Staff  Order Reports",

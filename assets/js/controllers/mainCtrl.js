@@ -311,7 +311,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
         });
         $scope.GetNewOrderCount = function () {
             if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
-                if (!userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("MemberAdmin") 
+                if (!userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("MemberAdmin")
                     && $rootScope.user.restrictions.NewOrdersCount != 'Disable'
                 ) {
                     Restangular.one('ordertools/NewOrdersCount').get().then(function (result) {
@@ -348,9 +348,12 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                 }
             }
         };
-        var NewAggregatorOrderfresh = $scope.$on('AggregatorOrder', function (event, data) {
-            $scope.getNewwAggregatorOrder();
-        });
+        var NewAggregatorOrderfresh = ($rootScope.user && $rootScope.user.restrictions.aggregatorcustomermapping == 'Enable') ?
+            $scope.$on('AggregatorOrder', function (event, data) {
+                $scope.getNewwAggregatorOrder();
+            }) : $scope.$on('AggregatorOrderUpdate', function (event, data) {
+                $scope.getNewwAggregatorOrder();
+            });
         $scope.getNewwAggregatorOrder = function () {
             if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
                 if ($rootScope.user.restrictions.aggregatorcustomermapping == 'Enable') {
@@ -380,7 +383,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
             if ($rootScope.AggregatorOrderCount > 0 && $rootScope.user.restrictions.aggregatorcustomermapping == 'Enable')
                 $scope.getNewwAggregatorOrder();
         });
-        
+
         $scope.getNewYSOrder();
         $scope.uistatusdisplay = function () {
             var modalInstance = $modal.open({

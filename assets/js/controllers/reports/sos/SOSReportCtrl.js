@@ -142,10 +142,10 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
         summary: {
             totalItems: [{ column: "GC", summaryType: "sum", displayFormat: "{0}" },
             { column: "MakeU3", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            { column: "AvgMakeTable", summaryType: "avg", customizeText: formatTime },
+            { name: "AvgMakeTableSummary", showInColumn: "AvgMakeTable", summaryType: "custom", customizeText: formatTime },
             { column: "CutU11", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
-            { column: "AvgCutTable", summaryType: "avg", customizeText: formatTime },
-            { column: "AvgBOHTime", summaryType: "avg", customizeText: formatTime },
+            { name: "AvgCutTableSummary", showInColumn: "AvgCutTable", summaryType: "custom", customizeText: formatTime },
+            { name: "AvgBOHTimeSummary", showInColumn: "AvgBOHTime", summaryType: "custom", customizeText: formatTime },
             { column: "DeliveryGC", summaryType: "sum", displayFormat: "{0}" },
             { column: "DeliveryGCPercent", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { name: "DispatchU14Summary", showInColumn: "DispatchU14", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
@@ -177,10 +177,10 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             ],
             groupItems: [{ column: "GC", summaryType: "sum", displayFormat: "{0}" },
             { column: "MakeU3", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgMakeTable", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
+            { name: "AvgMakeTableSummary", showInColumn: "AvgMakeTable", summaryType: "custom", customizeText: formatTime , alignByColumn: true},
             { column: "CutU11", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-            { column: "AvgCutTable", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
-            { column: "AvgBOHTime", summaryType: "avg", customizeText: formatTime, alignByColumn: true },
+            { name: "AvgCutTableSummary", showInColumn: "AvgCutTable", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
+            { name: "AvgBOHTimeSummary", showInColumn: "AvgBOHTime", summaryType: "custom", customizeText: formatTime, alignByColumn: true },
             { column: "DeliveryGC", summaryType: "sum", displayFormat: "{0}", alignByColumn: true },
             { column: "DeliveryGCPercent", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             { name: "DispatchU14Summary", showInColumn: "DispatchU14", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
@@ -212,6 +212,55 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
 
             ],
             calculateCustomSummary: function (options) {
+                if (options.name === "AvgMakeTableSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                                options.dg = options.dg + options.value.GC;
+                                options.totalValue = options.totalValue + options.value.SumMakeTable;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "AvgCutTableSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                                options.dg = options.dg + options.value.GC;
+                                options.totalValue = options.totalValue + options.value.SumCutTable;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
+                if (options.name === "AvgBOHTimeSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                            if (options.value.GC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.dg = options.dg + options.value.GC;
+                            }
+                            if (options.value.SumBOHTime > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.SumBOHTime;
+                            }
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg;
+                            break;
+                    }
+                }
                 if (options.name === "Delivery0_30Summary") {
                     switch (options.summaryProcess) {
                         case "start":
@@ -255,9 +304,9 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.AvgDispatchTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.AvgDispatchTime;
-                                options.dg = options.dg + 1;
+                            if (options.value.SumDispatchTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.SumDispatchTime;
+                                options.dg = options.dg + options.value.DeliveryGC;
                             }
                             break;
                         case "finalize":
@@ -273,9 +322,9 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.AvgCutToDispatchTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.AvgCutToDispatchTime;
-                                options.dg = options.dg + 1;
+                            if (options.value.SumCutToDispatchTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.SumCutToDispatchTime;
+                                options.dg = options.dg + options.value.DeliveryGC;
                             }
                             break;
                         case "finalize":
@@ -427,9 +476,9 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.AvgDeliveryTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.AvgDeliveryTime;
-                                options.dg = options.dg + 1;
+                            if (options.value.SumDeliveryTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.SumDeliveryTime;
+                                options.dg = options.dg +  options.value.DeliveryGC;
                             }
                             break;
                         case "finalize":
@@ -444,9 +493,9 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
                             options.dg = 0;
                             break;
                         case "calculate":
-                            if (options.value.AvgDriveTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
-                                options.totalValue = options.totalValue + options.value.AvgDriveTime;
-                                options.dg = options.dg + 1;
+                            if (options.value.SumDriveTime && options.value.DeliveryGC > 0 && options.value.StoreFilterType == "DELIVERY") {
+                                options.totalValue = options.totalValue + options.value.SumDriveTime;
+                                options.dg = options.dg + options.value.DeliveryGC;
                             }
                             break;
                         case "finalize":
