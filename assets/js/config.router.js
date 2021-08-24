@@ -251,6 +251,24 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'giftpromotionOrderSource'
             }
+        }).state('app.promotion.promotionearningrule', {
+            url: '/promotionearningrule',
+            templateUrl: "assets/views/promotions/promotionearningrule.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'promotionearningruleCtrl', 'dateCtrl'),
+            title: 'promotionearningrule',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'promotionearningrule'
+            }
+        }).state('app.promotion.promotionsetting', {
+            url: '/promotionsetting',
+            templateUrl: "assets/views/promotions/promotionsetting.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'promotionsettingCtrl', 'dateCtrl'),
+            title: 'promotionsetting',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'promotionsetting'
+            }
         }).state('app.promotion.giftpromotionblacklist', {
             url: '/giftpromotionblacklist',
             templateUrl: "assets/views/promotions/giftpromotionblacklist.html",

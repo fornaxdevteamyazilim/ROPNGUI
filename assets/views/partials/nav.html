@@ -234,6 +234,20 @@
                         translate="sidebar.nav.promotions.GIFTPROMOTIONBLACKLIST">Gift Promotion Black List </span>
                 </a>
             </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.promotion.promotionsetting"
+                >
+                    <i class="ti-world"></i> <span class="title"
+                        translate="sidebar.nav.promotions.PROMOTIONSETTING"> Promotion Setting </span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.promotion.promotionearningrule"
+                >
+                    <i class="ti-world"></i> <span class="title"
+                        translate="sidebar.nav.promotions.PROMOTIONEARNINGRULE">Promotion Earning Rule </span>
+                </a>
+            </li>
             <!--<li ui-sref-active="active">
                 <a ui-sref="app.promotion.promotions.promotionscodevalidators">
                     <i class="ti-world"></i> <span class="title" translate="sidebar.nav.promotions.PROMOTIONSCODEVALIDATORS">Promotions Code Validators</span>
@@ -970,19 +984,21 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
-                        <a ui-sref="app.reports.management.podsreport">
+                        <a ui-sref="app.reports.management.podsreport"
+                        ng-if="user.restrictions.podsreports=='Enable'">
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.PODSREPORT">Podlar</span>
                         </a>
                     </li>
-                    <ul class="sub-menu">
+                    
                         <li ui-sref-active="active">
-                            <a ui-sref="app.reports.management.productwastes">
+                            <a ui-sref="app.reports.management.productwastes"
+                            ng-if="user.restrictions.productwaste=='Enable'">
                                 <i class="ti-files"></i><span class="title"
                                     translate="sidebar.nav.reports.PRODUCTWASTES">Pişmiş Atık</span>
                             </a>
                         </li>
-                    </ul>
+                 
 
 
                 </ul>
@@ -1417,7 +1433,8 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
-                        <a ui-sref="app.reports.ordersreports.staffordersreport">
+                        <a ui-sref="app.reports.ordersreports.staffordersreport"
+                        ng-if="user.restrictions.staffordersreport=='Enable'">
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.STAFFORDERSREPORT">personel sipariş raporu</span>
                         </a>
@@ -1475,13 +1492,15 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
-                        <a ui-sref="app.reports.ordersreports.orderpaymentscheck">
+                        <a ui-sref="app.reports.ordersreports.orderpaymentscheck"
+                        ng-if="user.restrictions.orderpaymentscheck=='Enable'">
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.ORDERPAYMENTSCHECK">Sipariş Ödeme Tipleri</span>
                         </a>
                     </li>
                     <li ui-sref-active="active">
-                        <a ui-sref="app.reports.management.voidorders">
+                        <a ui-sref="app.reports.management.voidorders"
+                        ng-if="user.restrictions.voidorders=='Enable'">
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.VOIDORDERSREPORT">Podlar</span>
                         </a>
@@ -1554,7 +1573,8 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
-                        <a ui-sref="app.reports.callcenterreports.callcenterorders">
+                        <a ui-sref="app.reports.callcenterreports.callcenterorders"
+                        ng-if="user.restrictions.callcenterorders=='Enable'">
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.CALLCENTERORDERS">Call Center Orders</span>
                         </a>
@@ -1567,7 +1587,8 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
-                        <a ui-sref="app.reports.callcenterreports.poductsalesccoreboard">
+                        <a ui-sref="app.reports.callcenterreports.poductsalesccoreboard"
+                        ng-if="user.restrictions.poductsalesccoreboard=='Enable'">
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.PRODUCTSALESSCOREBOARD">Call Center Product Sales
                                 Scoreboard</span>
@@ -1596,7 +1617,8 @@
                         </a>
                     </li>
                     <li ng-class="{'active open':$state.includes('app.reports.yemeksepetistatsdetail')}">
-                        <a ui-sref="app.reports.yemeksepetistatsdetail">
+                        <a ui-sref="app.reports.yemeksepetistatsdetail"
+                        ng-if="user.restrictions.yemeksepetistatsdetail=='Enable'">
                             <i class="ti-unlink"></i>
                             <span class="title" translate="sidebar.nav.reports.YEMEKSEPETISTATSDETAIL">YemekSepeti Stats
                                 Report</span>

@@ -348,6 +348,8 @@ app.constant('JS_REQUIRES', {
         "promotioncodeCtrl": "assets/js/controllers/promotions/promotioncodeCtrl.js?v=0683",
         "promotionscodevalidatorsCtrl": "assets/js/controllers/promotions/promotionscodevalidatorsCtrl.js?v=0683",
         "promotioncodesourceCtrl": "assets/js/controllers/promotions/promotioncodesourceCtrl.js?v=0683",
+        "promotionearningruleCtrl": "assets/js/controllers/promotions/promotionearningruleCtrl.js?v=0683",
+        "promotionsettingCtrl": "assets/js/controllers/promotions/promotionsettingCtrl.js?v=0683",
         "endofdayCtrl": "assets/js/controllers/specialoperations/endofdayCtrl.js?v=0683",
         "transactionaccountsCtrl": "assets/js/controllers/specialoperations/transactionaccountsCtrl.js?v=0683",
         "currentendCtrl": "assets/js/controllers/specialoperations/currentendCtrl.js?v=0683",

@@ -406,6 +406,8 @@
     <Content Include="assets\js\controllers\matching\ropAndRopngCtrl.js" />
     <Content Include="assets\js\controllers\promotions\promotioncodeCtrl.js" />
     <Content Include="assets\js\controllers\promotions\promotioncodesourceCtrl.js" />
+    <Content Include="assets\js\controllers\promotions\promotionearningruleCtrl.js" />
+    <Content Include="assets\js\controllers\promotions\promotionsettingCtrl.js" />
     <Content Include="assets\js\controllers\reports\callcenterreports\agentordersCtrl.js" />
     <Content Include="assets\js\controllers\reports\callcenterreports\agentsalesstatisticsCtrl.js" />
     <Content Include="assets\js\controllers\reports\callcenterreports\dailysalesCtrl.js" />
