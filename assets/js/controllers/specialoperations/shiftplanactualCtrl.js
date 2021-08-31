@@ -166,7 +166,7 @@ function shiftplanactualCtrl($scope, $filter, $modal, $log, Restangular, SweetAl
         },
         editing: {
             allowAdding: true,
-            allowDeleting: true,
+            allowDeleting: ($rootScope.user.restrictions.shiftplanactual_delete == 'Enable'),
             useIcons: true
         },
         columns: [

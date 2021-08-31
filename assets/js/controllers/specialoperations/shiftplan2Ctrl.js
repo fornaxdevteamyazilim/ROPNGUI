@@ -166,7 +166,7 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
         },
         editing: {
             allowAdding: true,
-            allowDeleting: true,
+            allowDeleting:  ($rootScope.user.restrictions.shiftplan2_delete == 'Enable'),
             useIcons: true
         },
         columns: [
