@@ -555,6 +555,7 @@
     <Content Include="assets\js\controllers\yemeksepeti\yemeksepetisettingsCtrl.js" />
     <Content Include="assets\js\controllers\yemeksepeti\yemeksepetistatsCtrl.js" />
     <Content Include="assets\js\controllers\yemeksepeti\yemeksepetistatsdetailCtrl.js" />
+    <Content Include="assets\js\controllers\yemeksepeti\getirstatsdetailCtrl.js" />
     <Content Include="assets\js\controllers\yemeksepeti\yspaymentmergeCtrl.js" />
     <Content Include="assets\js\controllers\yemeksepeti\ysproductmergeCtrl.js" />
     <Content Include="assets\js\controllers\yemeksepeti\ysstoreeditCtrl.js" />
@@ -1109,6 +1110,7 @@
     <Content Include="assets\views\yemeksepeti\yemeksepetisettings.html" />
     <Content Include="assets\views\yemeksepeti\yemeksepetistats.html" />
     <Content Include="assets\views\yemeksepeti\yemeksepetistatsdetail.html" />
+    <Content Include="assets\views\getir\getirstatsdetail.html" />
     <Content Include="assets\views\yemeksepeti\yspaymentmerge.html" />
     <Content Include="assets\views\yemeksepeti\ysproductmerge.html" />
     <Content Include="assets\views\yemeksepeti\ysstoreedit.html" />

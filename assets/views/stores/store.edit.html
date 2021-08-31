@@ -668,13 +668,13 @@
                                     </td>
                                     <td class="text-capitalize" data-title="trUserRole" data-sortable="'UserRoleID'" style="width:15%">
                                         <span editable-select="item.UserRoleID" e-name="UserRoleID" e-ng-model="item.UserRoleID" e-form="rowform"
-                                              e-ng-options="q.id as q.name for q in userroles | orderBy:'+name'">
+                                              e-ng-options="q.id as q.name for q in userroles | orderBy:'+name'| filter: {isActive: 'true'}">
                                             {{ ShowObject('userroles','id',item.UserRoleID,'name') }}
                                         </span>
                                     </td>
                                     <td class="text-capitalize" data-title="trStaffPosition" data-sortable="'StaffPositionID'" style="width:15%">
                                         <span editable-select="item.StaffPositionID" e-name="StaffPositionID" e-ng-model="item.StaffPositionID" e-form="rowform"
-                                              e-ng-options="q.id as q.Name for q in staffpositions | orderBy:'+Name'">
+                                              e-ng-options="q.id as q.Name for q in staffpositions | orderBy:'+Name' | filter: {isActive: 'true'}  ">
                                             {{ ShowObject('staffpositions','id',item.StaffPositionID,'Name') }}
                                         </span>
                                     </td>

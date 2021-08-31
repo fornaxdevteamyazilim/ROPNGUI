@@ -3074,6 +3074,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'yemeksepetistatsdetail'
             }
+        }).state('app.reports.getirstatsdetail', {
+            url: '/getirstatsdetail',
+            templateUrl: "assets/views/yemeksepeti/getirstatsdetail.html",
+            resolve: loadSequence('getirstatsdetailCtrl'),
+            title: 'getirstatsdetail',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'getirstatsdetail'
+            }
         }).state('app.callmonitor.callmonitor', {
             url: '/callmonitor',
             templateUrl: "assets/views/callmonitor/callmonitor.html",

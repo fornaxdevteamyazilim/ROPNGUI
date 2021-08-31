@@ -1406,6 +1406,26 @@ function driverCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular
             });
         }
     };
+    $scope.staffpositions = [
+        {id: 300000014254 ,name:'Kurye',isActive: 'true'},
+        {id: 300087505293 ,name:'ULAK Kurye',isActive: 'true'},
+        {id: 300106395212 ,name:'Getir-Kurye',isActive: 'true'},
+        {id: 300000014776 ,name:'Asistan Müdür',isActive: 'false'},
+        {id: 300000014777 ,name:'Mutfakçi',isActive: 'false'},
+        {id: 300000014778 ,name:'Vardiya Müdürü',isActive: 'false'},
+        {id: 300048516424 ,name:'Team Member',isActive: 'false'},
+        {id: 300087503237 ,name:'Restoran Müdürü – Kidemli',isActive: 'false'},
+       {id: 300087503752, Name: 'Restoran Müdürü – 2.Kademe',isActive: 'false'},
+  {id: 300087503897, Name: 'Restoran Müdürü – 3.Kademe',isActive: 'false'},
+{id: 300087504030, Name: 'Restoran Müdürü – 4.Kademe',isActive: 'false'},
+{id: 300087504398, Name: 'Asistan Müdür – 2.Kademe',isActive: 'false'},
+{id: 300087504536, Name: 'Asistan Müdür – 3.Kademe',isActive: 'false'},
+ {id: 300087504709, Name: 'Asistan Müdür – 4.Kademe',isActive: 'false'},
+ {id: 300087504961, Name: 'Vardiya Müdürü – 2.Kademe',isActive: 'false'},
+{id: 300087505089, Name: 'Vardiya Müdürü – 3.Kademe',isActive: 'false'},
+ {id: 300087505141, Name: 'Vardiya Müdürü – 4.Kademe',isActive: 'false'}
+        
+      ];
 
     $scope.staffpositions = [];
     $scope.loadEntities('staffposition', 'staffpositions');

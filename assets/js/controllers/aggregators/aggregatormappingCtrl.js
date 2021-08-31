@@ -325,6 +325,9 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
         scrolling: { mode: "virtual" },
         height: 600
     };
+    $scope.Back = function () {
+        $window.history.back();
+    };
     $scope.$on('$destroy', function () {
         deregistration();
         $element.remove();

@@ -278,14 +278,14 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
             if (MemberID == 300000000000) { // PH
                 var userroles = [
-                    { id: 106732385859, name: 'Restoran Müdürü' },
-                    { id: 109474168055, name: 'Asistan Müdür' },
-                    { id: 104536896676, name: 'Vardiya Müdürü' },
-                    { id: 300002043374, name: 'Restoran Kullanıcısı' },
-                    { id: 106761563444, name: 'Sürücü' },
-                    { id: 300002043360, name: 'Mutfak Kullanıcısı' },
-                    { id: 300021512530, name: 'Sürücü' },//Bir tane de Fiyuu sürücü
-                    { id: 300021694696, name: 'Sürücü' }
+                    { id: 106732385859, name: 'Restoran Müdürü', isActive: false },
+                    { id: 109474168055, name: 'Asistan Müdür', isActive: false  },
+                    { id: 104536896676, name: 'Vardiya Müdürü', isActive: false },
+                    { id: 300002043374, name: 'Restoran Kullanıcısı', isActive: false },
+                    { id: 106761563444, name: 'Rest. Driver', isActive: true },
+                    { id: 300002043360, name: 'Mutfak Kullanıcısı', isActive: false },
+                    { id: 300021512530, name: 'Fiyuu Driver', isActive: true },//Bir tane de Fiyuu sürücü
+                    { id: 300021694696, name: 'Sürücü', isActive: true }
                 ];
             }
             if (MemberID == 106851154380) { // LC
