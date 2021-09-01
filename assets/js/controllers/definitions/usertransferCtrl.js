@@ -100,13 +100,13 @@ function usertansferCtrl($rootScope, $scope, NG_SETTING, $translate, $element,lo
                             key: "id",
                             loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
                             onBeforeSend: function (method, ajaxOptions) {
-                                var authData = localStorageService.get('authorizationData');
-                                if (authData) {
-                                    ajaxOptions.headers = {
-                                        Authorization: 'Bearer ' + authData.token,
-                                        'Content-type': 'application/json'
-                                    };
-                                }
+                                // var authData = localStorageService.get('authorizationData');
+                                // if (authData) {
+                                //     ajaxOptions.headers = {
+                                //         Authorization: 'Bearer ' + authData.token,
+                                //         'Content-type': 'application/json'
+                                //     };
+                                // }
                             }
                         }),
                         sort: "name",
