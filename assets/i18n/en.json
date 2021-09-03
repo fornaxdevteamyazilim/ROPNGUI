@@ -2464,6 +2464,9 @@
       "yemeksepetistats": {
         "MAIN": "Yemeksepeti Stats"
       },
+      "getirstats": {
+        "MAIN": "Getir Stats"
+      },
       "callroute": {
         "MAIN": "Call Route"
       },

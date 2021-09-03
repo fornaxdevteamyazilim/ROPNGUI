@@ -16,7 +16,7 @@ function usertansferCtrl($rootScope, $scope, NG_SETTING, $translate, $element,lo
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxUser",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxUser/allusers",
             insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxUser",
             updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxUser",
             deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxUser",
@@ -98,15 +98,15 @@ function usertansferCtrl($rootScope, $scope, NG_SETTING, $translate, $element,lo
                     dataSource: {
                         store: DevExpress.data.AspNet.createStore({
                             key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore/allstores",
                             onBeforeSend: function (method, ajaxOptions) {
-                                // var authData = localStorageService.get('authorizationData');
-                                // if (authData) {
-                                //     ajaxOptions.headers = {
-                                //         Authorization: 'Bearer ' + authData.token,
-                                //         'Content-type': 'application/json'
-                                //     };
-                                // }
+                                var authData = localStorageService.get('authorizationData');
+                                if (authData) {
+                                    ajaxOptions.headers = {
+                                        Authorization: 'Bearer ' + authData.token,
+                                        'Content-type': 'application/json'
+                                    };
+                                }
                             }
                         }),
                         sort: "name",

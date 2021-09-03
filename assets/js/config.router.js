@@ -3065,6 +3065,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'yemeksepetistats'
             }
+        }).state('app.getirstats', {
+            url: '/getirstats',
+            templateUrl: "assets/views/yemeksepeti/getirstats.html",
+            resolve: loadSequence('xeditable', 'config-xeditable', 'ngTable', 'getirstatsCtrl'),
+            title: 'getirstats',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'getirstats'
+            }
         }).state('app.reports.yemeksepetistatsdetail', {
             url: '/yemeksepetistatsdetail',
             templateUrl: "assets/views/yemeksepeti/yemeksepetistatsdetail.html",

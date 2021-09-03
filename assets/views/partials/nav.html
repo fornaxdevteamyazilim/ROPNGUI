@@ -103,6 +103,19 @@
             </div>
         </a>
     </li>
+    <li ng-class="{'active open':$state.includes('app.getirstats')}"
+        ng-if="user.restrictions.getirstats=='Enable'">
+        <a ui-sref="app.getirstats">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-unlink"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="sidebar.nav.getirstats.MAIN">Getir Stats</span>
+                </div>
+            </div>
+        </a>
+    </li>
 
     <!--ng-if="user.restrictions.callmonitor=='Enable'"-->
     <li ng-class="{'active open':$state.includes('app.callroute')}" ng-if="user.restrictions.callroute=='Enable'">

@@ -550,7 +550,7 @@ function shiftplanactualeditCtrl($rootScope, $scope, NG_SETTING, $translate, $el
         editing: {
             allowAdding: true,
             allowUpdating: true,
-            allowDeleting: true,
+            allowDeleting: ($rootScope.user.restrictions.shiftplanactualedit_delete == 'Enable'),
             allowInserting: true,
             useIcons: true,
             mode: "popup",

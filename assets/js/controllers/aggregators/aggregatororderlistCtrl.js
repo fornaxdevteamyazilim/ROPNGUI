@@ -71,6 +71,7 @@ function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SE
         columns: [
             { dataField: "Store", caption: $translate.instant('trends.Store'), visibleIndex: 0, fixed: true, dataType: "string", sortIndex: 0, sortOrder: "asc" },
             { dataField: "id", visible: false },
+            { dataField: "Reservation.NGUser.FullName",   caption: "Reservation", },
             { dataField: "AggregatorOrderID", visible: false },
             { dataField: "ClientID", visible: false },
             { dataField: "AddressID", visible: false },
@@ -90,7 +91,7 @@ function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SE
                
                 //{ year: "2-digit", month: "narrow", day: "2-digit" }
             },
-            { dataField: "Reservation.NGUser.FullName",   caption: "Reservation", },
+           
             {             
                 caption: $translate.instant('unmappedorders.Commands'),
                 //dataField: "Store",
@@ -239,7 +240,7 @@ function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SE
             console.log(e.error);
         },
         export: {
-            enabled: true,
+            enabled: ($rootScope.user.restrictions.UnmapedAggregatorOrdesex == 'Enable'),
             fileName: "Unmaped Aggregator Ordes",
             customizeExcelCell: (options) => {
                 var gridCell = options.gridCell;

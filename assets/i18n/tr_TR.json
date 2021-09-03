@@ -1956,7 +1956,7 @@
     "STARTSHIFT": "Başlangıç",
     "SHIFTS": "Vardiyalar",
     "ISOFFDAY": "İzinli",
-    "IGNOREOVERTIME": "Mesai Yok - Mesai verilmeyecektiir",
+    "IGNOREOVERTIME": "Mesai Yok - İşaretlenir ise fazla mesai hesaplanmayacaktır!",
     "VACATIONS": "İzinler",
     "PAID": "Ücretli",
     "FREE": "Ücretsiz",
@@ -2474,6 +2474,9 @@
       },
       "yemeksepetistats": {
         "MAIN": "Yemeksepeti İstatistikleri"
+      },
+      "getirstats": {
+        "MAIN": "Getir İstatistikleri"
       },
       "callroute": {
         "MAIN": "Çağrı Yönlendirme"

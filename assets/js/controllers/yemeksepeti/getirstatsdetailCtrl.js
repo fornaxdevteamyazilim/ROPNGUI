@@ -71,7 +71,7 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         },
         "export": {
             enabled: true,
-            fileName: "YemekSepetiStatDetails",
+            fileName: "GetirStatDetails",
         },
         scrolling: {
             mode: "virtual"
