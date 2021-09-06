@@ -957,6 +957,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'takeaway'
             }
+            }).state('app.orders.WebDineIn', {
+            url: '/WebDineIn',
+            templateUrl: "assets/views/order/WebDineIn.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'touchspin-plugin', 'angular-bootstrap-touchspin', 'WebDineInCtrl', 'orderpaymentCtrl', 'orderinvoiceCtrl'),
+            title: 'WebDineIn',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'WebDineIn'
+            }
             }).state('app.orders.drivethru', {
                 url: '/drivethru',
                 templateUrl: "assets/views/order/drivethru.html",

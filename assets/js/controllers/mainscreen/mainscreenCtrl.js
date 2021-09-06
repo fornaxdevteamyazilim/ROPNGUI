@@ -271,6 +271,8 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
             $scope.login('#/app/orders/pickup');
         if (orderType == 6)
             $scope.login('#/app/orders/mall');
+        if (orderType == 9)
+            $scope.login('#/app/orders/WebDineIn');
     };
     $scope.login = function (path) {
         var data = userService.TimedOut();

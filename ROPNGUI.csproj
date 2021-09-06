@@ -331,6 +331,7 @@
     <Content Include="assets\js\controllers\streetaddress\streetaddresseditCtrl.js" />
     <Content Include="assets\js\controllers\tableplan\splitaccountCtrl.js" />
     <Content Include="assets\js\controllers\order\takeawayCtrl.js" />
+    <Content Include="assets\js\controllers\order\WebDineInCtrl.js" />
     <Content Include="assets\js\controllers\hnr\hnrdataCtrl.js" />
     <Content Include="assets\js\controllers\hnr\hnrgroupCtrl.js" />
     <Content Include="assets\js\controllers\hnr\hnrproductCtrl.js" />
