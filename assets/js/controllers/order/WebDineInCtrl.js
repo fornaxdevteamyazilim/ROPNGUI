@@ -136,7 +136,7 @@ function WebDineInCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
         var opDate = ($rootScope.user && $rootScope.user.Store && $rootScope.user.Store.OperationDate) ? $rootScope.user.Store.OperationDate : $filter('date')(new Date(), 'yyyy-MM-dd');
         result.push("StoreID='" + $rootScope.user.StoreID + "'");
         result.push("OrderDate >'" + opDate + "'");        
-        result.push("((OrderStateID in (2,3,4,5,11,13,14,19,20)) or (OrderStateID =10 and PaymentStatusID=0))");
+        result.push("((OrderStateID in (2,3,4,5,11,12,13,14,19,20)) or (OrderStateID =10 and PaymentStatusID=0))");
         result.push("(OrderTypeID in (9))");
         return result;
     };
@@ -147,7 +147,7 @@ function WebDineInCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
             pageNo: 1,
             pageSize: 1000,
             sort: "substring(OrderNumber,1,1)",
-            sort: "cast(SUBSTRING(OrderNumber,3,len(OrderNumber)-1)as int)",
+            sort: "cast(SUBSTRING(OrderNumber,9,len(OrderNumber)-1)as int)",
             search: $scope.BuildSearchString()
         }).then(function (result) {
             $scope.ShowObject = false;

@@ -93,7 +93,7 @@
                     </form>
                     <div class="buttons pull-right" ng-show="!rowform.$visible">
                         <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{'main.EDIT' |translate}}" tooltip-placement="top" ng-click="rowform.$show()"></a>
-                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
+                        <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-if="user.restrictions.storesalesforecastremoveItem=='Enable'" ng-click="removeItem($index)"></a>
                         <!--<a class="btn btn-transparent btn-sm tooltips ti-alert hidden-sm hidden-xs" tooltip="{{'main.TAG' |translate}}" tooltip-placement="top" ng-click="open(item.id)"></a>-->
                     </div>
                     <div class="visible-xs visible-sm hidden-md hidden-lg">
@@ -109,7 +109,7 @@
                                     <a class="btn btn-transparent btn-sm tooltips ti-alert" ng-click="open(item.id)" translate="main.TAG"> Tag</a>
                                 </li>-->
                                 <li>
-                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-click="removeItem($index)" translate="main.DELETE"> Remove</a>
+                                    <a class="btn btn-transparent btn-sm tooltips ti-close" ng-if="user.restrictions.storesalesforecastremoveItem=='Enable'" ng-click="removeItem($index)" translate="main.DELETE"> Remove</a>
                                 </li>
                             </ul>
                         </div>
