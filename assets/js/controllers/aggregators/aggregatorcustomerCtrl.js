@@ -211,7 +211,13 @@ function aggregatorcustomerCtrl($rootScope, $scope, $http,NG_SETTING,$filter, $m
         })
     };
     $scope.mergePerson = function () {
-        var data = { CustomerID: $scope.yemeksepetiItem.CustomerId, CustomerAddressID: $scope.yemeksepetiItem.AddressId, Person_DeliveryAddressID: $scope.slectedAddress.id,AggregatorID:$scope.ysitem.AggregatorID }
+        var data = { 
+            CustomerID: $scope.yemeksepetiItem.CustomerId
+            , CustomerAddressID: $scope.yemeksepetiItem.AddressId,
+             Person_DeliveryAddressID: $scope.slectedAddress.id,
+             AggregatorID:$scope.ysitem.AggregatorID,
+             Notes:ysitem.Adress
+             }
         // Restangular.restangularizeElement('', data, 'yemeksepeticustomermap');
         // data.post().then(function (resp) {
         //     toaster.pop('success', $translate.instant('yemeksepetifile.TwinningSaved '));

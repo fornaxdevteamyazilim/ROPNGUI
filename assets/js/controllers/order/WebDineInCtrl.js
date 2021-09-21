@@ -83,6 +83,7 @@ function WebDineInCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
             toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
+
     $scope.CopyOrder = function (order) {
         return {
             id: order.id,

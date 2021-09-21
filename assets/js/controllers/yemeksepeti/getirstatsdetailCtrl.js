@@ -11,7 +11,7 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
     $scope.gridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirStats",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxAggregatorOrders",
             //onBeforeSend: function (method, ajaxOptions) {
             //    ajaxOptions.xhrFields = { withCredentials: true };
             //}
