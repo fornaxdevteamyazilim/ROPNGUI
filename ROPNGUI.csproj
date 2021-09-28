@@ -273,6 +273,8 @@
     <Content Include="assets\js\controllers\product\productdisableCtrl.js" />
     <Content Include="assets\js\controllers\product\productrecomendedpromotionCtrl.js" />
     <Content Include="assets\js\controllers\reports\accounting\realpaymentspivotCtrl.js" />
+    <Content Include="assets\js\controllers\reports\accounting\monthlysalesvsbudgetCtrl.js" />
+    <Content Include="assets\js\controllers\reports\accounting\weeklysalescompareCtrl.js" />
     <Content Include="assets\js\controllers\reports\accounting\unpaiddeliveriesCtrl.js" />
     <Content Include="assets\js\controllers\reports\callcenterreports\personsurveyCtrl.js" />
     <Content Include="assets\js\controllers\reports\giroreports\accountbalancereportCtrl.js" />

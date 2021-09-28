@@ -328,6 +328,8 @@
     "CHANGEORDERPAYMENTS": "{{appName}} - Ödeme Tipleri Değişen Siparişler",
     "YSSTORESTATEEDIT": "{{appName}} - Ys Restoran Durum Değişikliği",
     "UNPAIDDELIVERIESREPORT": "{{appName}} - Ödemesi Yapılmamış Faturalar Raporu",
+    "MONTHLYSALESVSBUDGET": "{{appName}} - Aylık Satışlar Vs Bütçe",
+    "WEEKLYSALESCOMPARE": " {{appName}} -Haftalık Satış Karşılaştırması",
     "CUSTOMERSEGMENTATIONREPORT": "{{appName}} - Müşteri Segmantasyon Raporu",
     "SHIFTPLANACTUAL": "{{appName}} - Vardiya Planı Gerçekleşen",
     "SHIFTPLANACTUALITEM": "{{appName}} - Vardiya Planı Gerçekleşen Detayları",
@@ -1795,6 +1797,7 @@
     "COPYFROMPERIOD": "Kopyalama Yapılacak Dönem",
     "COPYTOPERIOD": "Kopyalanacak Dönem",
     "ORDERSREFERENCES": "Sipariş Taşıma",
+    "PRODUCTCOSTCALCULATION": "Ürün Maliyet Hesaplama",
     "COPYTOROLE": "Role Kopyalama",
     "CALCULATEPRODUCTCOSTS": "Ürün Maliyetlerini Hesaplama",
     "START": "Başlat",
@@ -1992,6 +1995,8 @@
     "PICKUP": "PickUp",
     "COMPANYPAYMENTTERM": "Firma Vadesi",
     "UNPAIDDELIVERIES": "Ödemesi Yapılmamış Faturalar",
+    "MONTHLYSALESVSBUDGET": "Aylık Satışlar Vs Bütçe",
+    "WEEKLYSALESCOMPARE": "Haftalık Satış Karşılaştırması",
     "DELIVERYID": "Fatura Id",
     "ACTIVECUSTOMERS": "Aktif Müşteri",
     "ACTIVECUSTOMERSFREQUENCY": "Frequency",
@@ -2477,7 +2482,7 @@
         "MAIN": "Yemeksepeti İstatistikleri"
       },
       "getirstats": {
-        "MAIN": "Getir İstatistikleri"
+        "MAIN": "Aggregator İstatistikleri"
       },
       "callroute": {
         "MAIN": "Çağrı Yönlendirme"
@@ -2784,7 +2789,9 @@
         "LOYALTYREPORTS": "Sadakat",
         "WEBUSERS": "Web Kullanıcıları",
         "WEBREPORTS": "Web",
-        "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
+        "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare",
+        "MONTHLYSALESVSBUDGET": "Aylık Satışlar Vs Bütçe",
+        "WEEKLYSALESCOMPARE": "Haftalık Satış Karşılaştırması"
       },
       "addresses": {
         "MAIN": "Adresler",
@@ -3165,7 +3172,8 @@
     "Secondyear": "Bitiş Yılı",
     "Secondweek": "Bitiş Haftası",
     "Week": "Hafta",
-    "Year": "Yıl"
+    "Year": "Yıl",
+    "startMonth": "Başlangıç Ay"
   },
   "systemmessages": {
     "BrowseDisabledShort": "Geçiş yapılamaz",
@@ -4491,5 +4499,47 @@
     "Reason": "Sebep",
     "Description": "Açıklama",
     "isActive": "Aktif"
+  },
+  "weeklysalescompare": {
+    "Store": "Store",
+    "RegionManager": "Region Manager",
+    "StoreFilterType": "Restoran Filtre Tipi",
+    "StoreType": "Restoran Tipi",
+    "Sales": "Sales",
+    "SalesCY": "CY",
+    "SalesLY": "LY",
+    "SalesCHG": "% CHG",
+    "Transactions": "Transactions",
+    "TransactionsCY": "CY",
+    "TransactionsLY": " LY",
+    "TransactionsCHG": "% CHG",
+    "GCAvg": "GCAvg",
+    "GCAvgCY": "CY",
+    "GCAvgLY": "LY",
+    "GCAvgCHG": "% CHG",
+    "DeliverySales": "Delivery Sales",
+    "DeliverySalesCY": "CY",
+    "DeliverySalesLY": "LY",
+    "DeliverySalesCHG": "% CHG",
+    "DeliveryTransactions": "Delivery Transactions",
+    "DeliveryTransactionsCY": "CY",
+    "DeliveryTransactionsLY": "LY",
+    "DeliveryTransactionsCHG": "% CHG",
+    "DeliveryGCAvg": "Delivery GCAvg",
+    "DeliveryGCAvgCY": "CY",
+    "DeliveryGCAvgLY": "LY", 
+    "DeliveryGCAvgCHG": "% CHG"
+  },
+  "monthlysalesvsbudget": {
+    "Store": "Restoran",
+    "RegionManager": "Bölge Müdürü",
+    "StoreFilterType": "Restoran Filtreleme tipi",
+    "StoreType": "Restoran Tipi",
+    "Year": "Yıl",
+    "Month": "Ay",
+    "TotalMonthlyIncome": "Toplam Aylık Gelir",
+    "SalesTarget": "Satış Hedefi",
+    "Ratio": "Oran"
+    
   }
 }

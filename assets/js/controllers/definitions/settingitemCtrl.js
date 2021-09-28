@@ -124,6 +124,24 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
     //         toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
     //     });
     // };
+
+
+    $scope.CalculateDailyProductCosts = function () {
+        $scope.isWaiting = true;
+        var fromDate = $filter('date')($scope.DateRange.fromDate.value, 'yyyy-MM-dd');
+        var toDate = $filter('date')($scope.DateRange.toDate.value, 'yyyy-MM-dd');
+        Restangular.one('inventory/CalculateDailyProductCosts').get({
+            fromDate: fromDate,
+            toDate: toDate,
+        }).then(function (result) {
+            $scope.isWaiting = false;
+            toaster.pop('success', $translate.instant('difinitions.OrderDatesUpdated'));
+        }, function (response) {
+            $scope.isWaiting = false;
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
+        });
+    };
+
     $scope.SetStoreTypeID = function (FromValue) {
         $scope.StoreTypeID = FromValue;
         $scope.selectedStoreType = $filter('filter')($scope.storetypes, { id: FromValue });

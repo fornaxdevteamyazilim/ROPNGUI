@@ -1847,6 +1847,7 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
                                 var filtr = [];
                                 if (options.data) {
                                     filtr.push(["StaffPositionID", "=", options.data.StaffPositionID]);
+                                    filtr.push(["isActive", "=", 1]);
                                     if (!options.data.ShowAllUsers && !options.data.NGUserID) {
                                         filtr.push("and");
                                         filtr.push(["StoreID", "=", $scope.item.StoreID]);

@@ -11,7 +11,7 @@ function orderdriverlistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangu
         $scope.EndDate = moment().add(1, 'days').format('YYYY-MM-DD ');
     }
     $scope.BuildSearchString = function (StoreID) {
-        var DriverRoles = $filter('filter')($scope.userroles,  { name: 'REST. DRIVER' } || { name: 'REST. MANAGER + DRIVER' }).map(function (elem) {
+        var DriverRoles = $filter('filter')($scope.userroles,  { name: '' }).map(function (elem) {
             return elem.id;
         }).join(",");
         var result = []

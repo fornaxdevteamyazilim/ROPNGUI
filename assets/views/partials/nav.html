@@ -845,6 +845,7 @@
                                 İŞLEMLERİ</span>
                         </a>
                     </li>
+                    
                 </ul>
             </li>
             <li ng-if="user.restrictions.otherreports=='Enable'">
@@ -950,7 +951,7 @@
                                 translate="sidebar.nav.reports.FSRACTUALTHEORETICAL">Transactions</span>
                         </a>
                     </li>
-
+                  
 
                 </ul>
             </li>
@@ -1771,6 +1772,21 @@
                             ng-if="user.restrictions.unpaiddeliveries=='Enable'">
                             <i class="ti-files"></i><span class="title"
                                 translate="sidebar.nav.reports.UNPAIDDELIVERIES">Odemesi Yap?lmamis Faturalar</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.accounting.monthlysalesvsbudget"
+                        ng-if="user.restrictions.monthlysalesvsbudget=='Enable'"  >
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.MONTHLYSALESVSBUDGET">Aylik Satişlar vs Butce Raporu</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.accounting.weeklysalescompare"
+                           ng-if="user.restrictions.weeklysalescompare=='Enable'"
+ >
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.WEEKLYSALESCOMPARE">Haftalik Satis Karsılastirmasi</span>
                         </a>
                     </li>
                 </ul>

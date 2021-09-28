@@ -1525,6 +1525,25 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'realpaymentspivot'
             }
+        })
+        .state('app.reports.accounting.monthlysalesvsbudget', {
+            url: '/monthlysalesvsbudget',
+            templateUrl: "assets/views/reports/accounting/monthlysalesvsbudget.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'monthlysalesvsbudgetCtrl', 'dateCtrl', 'pivottable', 'jqueryui', 'selecttagCtrl', 'jquery-nestable-plugin', 'ng-nestable', 'angularBootstrapNavTree'),
+            title: 'Aylık Satışlar vs Bütçe Raporu',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'monthlysalesvsbudget'
+            }
+        }).state('app.reports.accounting.weeklysalescompare', {
+            url: '/weeklysalescompare',
+            templateUrl: "assets/views/reports/accounting/weeklysalescompare.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'weeklysalescompareCtrl', 'dateCtrl', 'pivottable', 'jqueryui', 'selecttagCtrl', 'jquery-nestable-plugin', 'ng-nestable', 'angularBootstrapNavTree'),
+            title: 'Haftalık Satış Karşılaştırması',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'weeklysalescompare'
+            }
         }).state('app.reports.accounting.unpaiddeliveries', {
             url: '/unpaiddeliveries',
             templateUrl: "assets/views/reports/accounting/unpaiddeliveries.html",

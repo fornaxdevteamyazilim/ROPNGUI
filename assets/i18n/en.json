@@ -324,6 +324,8 @@
     "CHANGEORDERPAYMENTS": "{{appName}} - Change Order Payments",
     "YSSTORESTATEEDIT": "{{appName}} - Ys Store State Edit",
     "UNPAIDDELIVERIESREPORT": "{{appName}} - UnPaid Deliveries Report",
+    "MONTHLYSALESVSBUDGET": "{{appName}}  -Monthly Sales Vs Budget",
+    "WEEKLYSALESCOMPARE": "{{appName}} - Weekly Sales Compare",
     "CUSTOMERSEGMENTATIONREPORT": "{{appName}} - Customer Segmantation Report",
     "SHIFTPLANACTUAL": "{{appName}} - Shift Plan Actual",
     "SHIFTPLANACTUALITEM": "{{appName}} - Shift Plan Actual Details",
@@ -1775,6 +1777,7 @@
     "UPDATEINVENTORYPRICES": "Update Inventory Prices",
     "SAVECONSUPTIONS": "Save Consuptions",
     "ORDERSREFERENCES": "Orders References",
+    "PRODUCTCOSTCALCULATION": "Product Cost Calculation",
     "COPYTOROLE": "Copy To Role",
     "CALCULATEPRODUCTCOSTS": "Calculating Product Costs",
     "COPYFROMPERIOD": "Copy From Period",
@@ -1973,6 +1976,8 @@
     "PICKUP": "PickUp",
     "COMPANYPAYMENTTERM": "Company Term",
     "UNPAIDDELIVERIES": "UnPaid Deliveries",
+    "MONTHLYSALESVSBUDGET": "Monthly Sales Vs Budget",
+    "WEEKLYSALESCOMPARE": "Weekly Sales Compare",
     "DELIVERYID": "Delivery Id",
     "ACTIVECUSTOMERS": "Active Customers",
     "ACTIVECUSTOMERSFREQUENCY": "Frequency",
@@ -2466,7 +2471,7 @@
         "MAIN": "Yemeksepeti Stats"
       },
       "getirstats": {
-        "MAIN": "Getir Stats"
+        "MAIN": "Aggregator Stats"
       },
       "callroute": {
         "MAIN": "Call Route"
@@ -2776,7 +2781,9 @@
         "BONUSSTATS": "Bonus Stats Report",
         "WEBREPORTS": "Web",
         "WEBUSERS": "Web Users Report",
-        "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
+        "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare",
+        "MONTHLYSALESVSBUDGET": "Monthly Sales Vs Budget",
+        "WEEKLYSALESCOMPARE": "Weekly Sales Compare"
       },
       "addresses": {
         "MAIN": "Address",
@@ -3151,7 +3158,8 @@
     "Secondyear": "Second Year",
     "Secondweek": "Second Week",
     "Week": "Week",
-    "Year": "Year"
+    "Year": "Year",
+    "startMonth": "Month"
   },
   "systemmessages": {
     "BrowseDisabledShort": "Browse Disabled",
@@ -4461,5 +4469,47 @@
     "Reason": "Reason",
     "Description": "Description",
     "isActive": "isActive"
+  },
+  "weeklysalescompare": {
+    "Store": "Store",
+    "RegionManager": "Region Manager",
+    "StoreFilterType": "Store Filter Type",
+    "StoreType": "Store Type",
+    "Sales": "Sales",
+    "SalesCY": "Sales CY",
+    "SalesLY": "Sales LY",
+    "SalesCHG": "Sales CHG",
+    "Transactions": "Transactions",
+    "TransactionsCY": "Transactions CY",
+    "TransactionsLY": "Transactions LY",
+    "TransactionsCHG": "Transactions CHG",
+    "GCAvg": "GCAvg",
+    "GCAvgCY": "GCAvgCY",
+    "GCAvgLY": "GCAvgLY",
+    "GCAvgCHG": "GCAvgCHG",
+    "DeliverySales": "Delivery Sales",
+    "DeliverySalesCY": "Delivery Sales CY",
+    "DeliverySalesLY": "Delivery Sales LY",
+    "DeliverySalesCHG": "Delivery Sales CHG",
+    "DeliveryTransactions": "Delivery Transactions",
+    "DeliveryTransactionsCY": "Delivery Transactions CY",
+    "DeliveryTransactionsLY": "Delivery Transactions LY",
+    "DeliveryTransactionsCHG": "Delivery Transactions CHG",
+    "DeliveryGCAvg": "Delivery GCAvg",
+    "DeliveryGCAvgCY": "Delivery GCAvgCY",
+    "DeliveryGCAvgLY": "Delivery GCAvgLY", 
+    "DeliveryGCAvgCHG": "Delivery GCAvgCHG"
+  },
+  "monthlysalesvsbudget": {
+    "Store": "Store",
+    "RegionManager": "Region Manager",
+    "StoreFilterType": "Store Filter Type",
+    "StoreType": "Store Type",
+    "Year": "Year",
+    "Month": "Month",
+    "TotalMonthlyIncome": "Total Monthly Income",
+    "SalesTarget": "SalesTarget",
+    "Ratio": "Ratio"
+    
   }
 }
