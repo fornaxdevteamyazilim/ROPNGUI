@@ -228,13 +228,6 @@ function monthlysalesvsbudgetCtrl($scope, Restangular, toaster, $interval, $http
 
             }
         },
-        onRowClick: function (rowInfo) {
-            //    location.href = '#/app/specialoperations/shiftplanedit2/' + rowInfo.key;
-            //rowInfo.component.editRow(rowInfo.rowIndex);  
-            $rootScope.SelectedData = { id: rowInfo.key, name: rowInfo.data.Store };
-            $location.path('/app/dashboard');
-            //$location.href = '#/app/dashboard';
-        },
         onDataErrorOccurred: function (e) {
             console.log(e.error);
         },
