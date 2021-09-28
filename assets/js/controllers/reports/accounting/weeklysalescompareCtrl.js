@@ -232,7 +232,8 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
             totalItems: [{ column: "Store", summaryType: "count", displayFormat: "{0}" },
             { column: "SalesCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
             { column: "SalesLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
-            { column: "SalesCHG", summaryType: "avg",name:"SalesCHG", dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" ,},
+            //{ column: "SalesCHG", summaryType: "avg",name:"SalesCHG", dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" ,},
+            { name: "SalesCHGSummary", showInColumn: "SalesCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { column: "TransactionsCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
             { column: "TransactionsLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
             { column: "TransactionsCHG", summaryType: "avg",  dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
@@ -253,8 +254,8 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
                 { column: "Store", summaryType: "count", displayFormat: "{0}" },
                 { column: "SalesCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "SalesLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "SalesCHG",summaryType: "avg",name:"SalesCHG", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true ,
-                 },
+                //{ column: "SalesCHG",summaryType: "avg",name:"SalesCHG", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true ,                 },
+                { name: "SalesCHGSummary", showInColumn: "SalesCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TransactionsCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TransactionsLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TransactionsCHG", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
@@ -272,6 +273,23 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
                 { column: "DeliveryGCAvgCHG",summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true  },
 
             ],
+            calculateCustomSummary: function (options) {
+                if (options.name === "SalesCHGSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                                options.dg = options.dg + options.value.SalesLY;
+                                options.totalValue = options.totalValue + options.value.SalesCY;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg-1;
+                            break;
+                    }
+                }
+            }
         },
         onCellPrepared: function (options) {
             if (options.rowType == 'data') {
