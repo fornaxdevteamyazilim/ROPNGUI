@@ -17,6 +17,7 @@ function orderdriverlistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangu
         var result = []
         result.push(" UserRoleID in (" + DriverRoles + ")");
         result.push(" StoreID='" + StoreID + "'");
+        result.push(isActive = false);
         return result;
     };
     $scope.Time = ngnotifyService.ServerTime();

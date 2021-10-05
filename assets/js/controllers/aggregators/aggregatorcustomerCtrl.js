@@ -216,7 +216,7 @@ function aggregatorcustomerCtrl($rootScope, $scope, $http,NG_SETTING,$filter, $m
             , CustomerAddressID: $scope.yemeksepetiItem.AddressId,
              Person_DeliveryAddressID: $scope.slectedAddress.id,
              AggregatorID:$scope.ysitem.AggregatorID,
-             Notes:ysitem.Adress
+             Notes:$scope.ysitem.Adress
              }
         // Restangular.restangularizeElement('', data, 'yemeksepeticustomermap');
         // data.post().then(function (resp) {

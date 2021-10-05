@@ -24,7 +24,7 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
         data.id = StoreID;
         data.name = Store;
         $rootScope.SelectedData = data;
-        $location.path('/app/dashboard');
+       // $location.path('/app/dashboard');
     };
     $scope.translate();
     var tranlatelistener = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
@@ -236,19 +236,24 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
             { name: "SalesCHGSummary", showInColumn: "SalesCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { column: "TransactionsCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
             { column: "TransactionsLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
-            { column: "TransactionsCHG", summaryType: "avg",  dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+           // { column: "TransactionsCHG", summaryType: "avg",  dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+            { name: "TransactionsCHGSummary", showInColumn: "TransactionsCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { column: "GCAvgCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
             { column: "GCAvgLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
-            { column: "GCAvgCHG", summaryType: "avg",  dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+            //{ column: "GCAvgCHG", summaryType: "avg",  dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+            { name: "GCAvgCHGSummary", showInColumn: "GCAvgCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { column: "DeliverySalesCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
             { column: "DeliverySalesLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
-            { column: "DeliverySalesCHG", summaryType: "avg",  dataType: "number",valueFormat: { type: "percent", precision: 2 },displayFormat: "{0}" },
+            //{ column: "DeliverySalesCHG", summaryType: "avg",  dataType: "number",valueFormat: { type: "percent", precision: 2 },displayFormat: "{0}" },
+            { name: "DeliverySalesCHGSummary", showInColumn: "DeliverySalesCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { column: "DeliveryTransactionsCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
             { column: "DeliveryTransactionsLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
-            { column: "DeliveryTransactionsCHG", summaryType: "avg",   dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+            //{ column: "DeliveryTransactionsCHG", summaryType: "avg",   dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+            { name: "DeliveryTransactionsCHGSummary", showInColumn: "DeliveryTransactionsCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { column: "DeliveryGCAvgCY", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
-            { column: "DeliveryGCAvgLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
-            { column: "DeliveryGCAvgCHG", summaryType: "avg", dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+            { column: "DeliveryGCAvgLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            //{ column: "DeliveryGCAvgCHG", summaryType: "avg", dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+            { name: "DeliveryGCAvgCHGSummary", showInColumn: "DeliveryGCAvgCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             ],
             groupItems: [
                 { column: "Store", summaryType: "count", displayFormat: "{0}" },
@@ -258,19 +263,24 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
                 { name: "SalesCHGSummary", showInColumn: "SalesCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TransactionsCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TransactionsLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "TransactionsCHG", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                //{ column: "TransactionsCHG", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "TransactionsCHGSummary", showInColumn: "TransactionsCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "GCAvgCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "GCAvgLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "GCAvgCHG", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true  },
+                //{ column: "GCAvgCHG", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true  },
+                { name: "GCAvgCHGSummary", showInColumn: "GCAvgCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "DeliverySalesCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "DeliverySalesLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "DeliverySalesCHG",summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true  },
+               // { column: "DeliverySalesCHG",summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true  },
+                { name: "DeliverySalesCHGSummary", showInColumn: "DeliverySalesCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "DeliveryTransactionsCY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "DeliveryTransactionsLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "DeliveryTransactionsCHG",summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true  },
+               // { column: "DeliveryTransactionsCHG",summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true  },
+                { name: "DeliveryTransactionsCHGSummary", showInColumn: "DeliveryTransactionsCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "DeliveryGCAvgCY", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "DeliveryGCAvgLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "DeliveryGCAvgCHG",summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true  },
+                { column: "DeliveryGCAvgLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                //{ column: "DeliveryGCAvgCHG",summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true  },
+                { name: "DeliveryGCAvgCHGSummary", showInColumn: "DeliveryGCAvgCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
 
             ],
             calculateCustomSummary: function (options) {
@@ -283,6 +293,81 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
                         case "calculate":
                                 options.dg = options.dg + options.value.SalesLY;
                                 options.totalValue = options.totalValue + options.value.SalesCY;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg-1;
+                            break;
+                    }
+                }
+                if (options.name === "TransactionsCHGSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                                options.dg = options.dg + options.value.TransactionsLY;
+                                options.totalValue = options.totalValue + options.value.TransactionsCY;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg-1;
+                            break;
+                    }
+                }
+                if (options.name === "GCAvgCHGSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                                options.dg = options.dg + options.value.GCAvgLY;
+                                options.totalValue = options.totalValue + options.value.GCAvgCY;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg-1;
+                            break;
+                    }
+                }
+                if (options.name === "DeliverySalesCHGSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                                options.dg = options.dg + options.value.DeliverySalesLY;
+                                options.totalValue = options.totalValue + options.value.DeliverySalesCY;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg-1;
+                            break;
+                    }
+                }
+                if (options.name === "DeliveryTransactionsCHGSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                                options.dg = options.dg + options.value.DeliveryTransactionsLY;
+                                options.totalValue = options.totalValue + options.value.DeliveryTransactionsCY;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg-1;
+                            break;
+                    }
+                }
+                if (options.name === "DeliveryGCAvgCHGSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                                options.dg = options.dg + options.value.DeliverySalesCY;
+                                options.totalValue = options.totalValue + options.value.DeliveryTransactionsCY;
                             break;
                         case "finalize":
                             options.totalValue = options.totalValue / options.dg-1;

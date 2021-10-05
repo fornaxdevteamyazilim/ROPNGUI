@@ -24,7 +24,7 @@ function monthlysalesvsbudgetCtrl($scope, Restangular, toaster, $interval, $http
         data.id = StoreID;
         data.name = Store;
         $rootScope.SelectedData = data;
-        $location.path('/app/dashboard');
+        //$location.path('/app/dashboard');
     };
     $scope.translate();
     var tranlatelistener = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
@@ -175,17 +175,36 @@ function monthlysalesvsbudgetCtrl($scope, Restangular, toaster, $interval, $http
             totalItems: [{ column: "Store", summaryType: "count", displayFormat: "{0}" },
                 { column: "TotalMonthlyIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
                 { column: "SalesTarget", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}" },
-                { column: "Ratio", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+                //{ column: "Ratio", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
+                { name: "RatioSummary", showInColumn: "Ratio", summaryType: "custom" , valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
 
             ],
             groupItems: [
                 { column: "Store", summaryType: "count", displayFormat: "{0}" },
                 { column: "TotalMonthlyIncome", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "SalesTarget", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 0 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "Ratio", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                //{ column: "Ratio", summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "RatioSummary", showInColumn: "Ratio", summaryType: "custom" , valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
 
 
             ],
+              calculateCustomSummary: function (options) {
+                if (options.name === "RatioSummary") {
+                    switch (options.summaryProcess) {
+                        case "start":
+                            options.totalValue = 0;
+                            options.dg = 0;
+                            break;
+                        case "calculate":
+                                options.dg = options.dg + options.value.SalesTarget;
+                                options.totalValue = options.totalValue + options.value.TotalMonthlyIncome;
+                            break;
+                        case "finalize":
+                            options.totalValue = options.totalValue / options.dg-1;
+                            break;
+                    }
+                }
+            }
         },
         onCellPrepared: function (options) {
             if (options.rowType == 'data') {

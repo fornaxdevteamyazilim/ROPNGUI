@@ -37,8 +37,10 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             dataField: "OrderID",
             caption: "Order ID",
         }, {
-            dataField: "OrderNumber"
-        }, {
+            dataField: "OrderNumber",
+        }, , {
+            dataField: "Aggregator",
+        },{
             dataField: "StoreName",
             caption: "Store Name",
         }, {
