@@ -221,7 +221,7 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
                 caption: $translate.instant('weeklysalescompare.DeliveryGCAvg'), name: "DeliveryGCAvg",
                 columns: [
                     { dataField: "DeliveryGCAvgCY", caption: $translate.instant('weeklysalescompare.DeliveryGCAvgCY'), format: { type: "fixedPoint", precision: 2 } },
-                    { dataField: "DeliveryGCAvgLY", caption: $translate.instant('weeklysalescompare.DeliveryGCAvgLY'), format: { type: "fixedPoint", precision: 0 } },
+                    { dataField: "DeliveryGCAvgLY", caption: $translate.instant('weeklysalescompare.DeliveryGCAvgLY'), format: { type: "fixedPoint", precision: 2 } },
                     { dataField: "DeliveryGCAvgCHG", caption: $translate.instant('weeklysalescompare.DeliveryGCAvgCHG'), name: "DeliveryGCAvgCHG", dataType: "number", format: { type: "percent", precision: 2 } },
                 ]
             },
@@ -251,7 +251,7 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
             //{ column: "DeliveryTransactionsCHG", summaryType: "avg",   dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { name: "DeliveryTransactionsCHGSummary", showInColumn: "DeliveryTransactionsCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { column: "DeliveryGCAvgCY", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
-            { column: "DeliveryGCAvgLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "DeliveryGCAvgLY", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             //{ column: "DeliveryGCAvgCHG", summaryType: "avg", dataType: "number",valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             { name: "DeliveryGCAvgCHGSummary", showInColumn: "DeliveryGCAvgCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}" },
             ],
@@ -278,7 +278,7 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
                // { column: "DeliveryTransactionsCHG",summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true  },
                 { name: "DeliveryTransactionsCHGSummary", showInColumn: "DeliveryTransactionsCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "DeliveryGCAvgCY", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-                { column: "DeliveryGCAvgLY", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "DeliveryGCAvgLY", summaryType: "avg", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 //{ column: "DeliveryGCAvgCHG",summaryType: "avg", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true  },
                 { name: "DeliveryGCAvgCHGSummary", showInColumn: "DeliveryGCAvgCHG", summaryType: "custom", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
 
@@ -318,14 +318,19 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.dg = 0;
+                            options.TranCY=0;
+                            options.TranLY=0;
+                            options.SalesCY=0;
+                            options.SalesLY=0;
                             break;
                         case "calculate":
-                                options.dg = options.dg + options.value.GCAvgLY;
-                                options.totalValue = options.totalValue + options.value.GCAvgCY;
+                            options.TranLY = options.TranLY + options.value.TransactionsLY;
+                            options.TranCY = options.TranCY + options.value.TransactionsCY;
+                            options.SalesLY=options.SalesLY + options.value.SalesLY;
+                            options.SalesCY=options.SalesCY + options.value.SalesCY;
                             break;
                         case "finalize":
-                            options.totalValue = options.totalValue / options.dg-1;
+                            options.totalValue = (options.SalesCY/options.TranCY)/(options.SalesLY/options.TranLY)-1;
                             break;
                     }
                 }
@@ -363,14 +368,19 @@ function weeklysalescompareCtrl($scope, Restangular, toaster, $interval, $http, 
                     switch (options.summaryProcess) {
                         case "start":
                             options.totalValue = 0;
-                            options.dg = 0;
+                            options.TranCY=0;
+                            options.TranLY=0;
+                            options.SalesCY=0;
+                            options.SalesLY=0;
                             break;
                         case "calculate":
-                                options.dg = options.dg + options.value.DeliverySalesCY;
-                                options.totalValue = options.totalValue + options.value.DeliveryTransactionsCY;
+                            options.TranLY = options.TranLY + options.value.DeliveryTransactionsLY;
+                            options.TranCY = options.TranCY + options.value.DeliveryTransactionsCY;
+                            options.SalesLY=options.SalesLY + options.value.DeliverySalesLY;
+                            options.SalesCY=options.SalesCY + options.value.DeliverySalesCY;
                             break;
                         case "finalize":
-                            options.totalValue = options.totalValue / options.dg-1;
+                            options.totalValue = (options.SalesCY/options.TranCY)/(options.SalesLY/options.TranLY)-1 ;
                             break;
                     }
                 }
