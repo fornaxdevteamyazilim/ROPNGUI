@@ -285,7 +285,7 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                     { id: 106761563444, name: 'Rest. Driver', isActive: true },
                     { id: 300002043360, name: 'Mutfak Kullanıcısı', isActive: false },
                     { id: 300021512530, name: 'Fiyuu Driver', isActive: false },//Bir tane de Fiyuu sürücü
-                    { id: 300021694696, name: 'Sürücü', isActive: false }
+                    { id: 300021694696, name: 'Sürücü', isActive: true }
                 ];
             }
             if (MemberID == 106851154380) { // LC

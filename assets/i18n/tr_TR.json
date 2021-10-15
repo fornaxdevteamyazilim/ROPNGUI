@@ -2931,10 +2931,10 @@
         "PAYMENTMACHING": "Ödeme Tipi Eşleştirme"
       },
       "aggregator": {
-        "MAIN": "Getir",
-        "orders": "Siparişler",
-        "mapping": "Eşleştirmeler",
-        "trendyolmapping": "Trendyol"
+        "MAIN": "Entegrasyonlar",
+        "orders": "Onay Bekleyen Siparişler",
+        "mapping": "Getir - Eşleştirmeler",
+        "trendyolmapping": "Trendyol - Eşleştirmeler"
       },
       "specialoperations": {
         "MAIN": "Özel Operasyonlar",
@@ -3860,7 +3860,7 @@
     "Delivery": "Adisyon Primi",
     "Orders": "Sipariş",
     "DriveCost": "Adisyon Maliyeti",
-    "PayedOffCOL": "Ödeme Durumu kapalı",
+    "PayedOffCOL": "Ücretli İzin Maliyeti",
     "Driver": "Sürücü"
   },
   "staffcost": {
@@ -4462,7 +4462,7 @@
     "isActive": "Aktif"
   },
   "trendyolmapping":{
-    "TITLE": "Trentyol Eşleme Ekranı",
+    "TITLE": "Trendyol Eşleme Ekranı",
     "rejectreason": "Reddetilen Sipariş sebebi"
   },
   "dxTrendyolStore": {

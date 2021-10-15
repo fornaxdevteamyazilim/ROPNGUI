@@ -11,13 +11,12 @@ function orderdriverlistCtrl($scope, $log, $modal, $filter, SweetAlert, Restangu
         $scope.EndDate = moment().add(1, 'days').format('YYYY-MM-DD ');
     }
     $scope.BuildSearchString = function (StoreID) {
-        var DriverRoles = $filter('filter')($scope.userroles,  { name: '' }).map(function (elem) {
-            return elem.id;
+       var DriverRoles = $filter('filter')($scope.userroles, { name: 'Rest. Driver'} | {name: 'REST. MANAGER+DRIVER' }).map(function (elem) {
+            return elem.id;  
         }).join(",");
         var result = []
         result.push(" UserRoleID in (" + DriverRoles + ")");
         result.push(" StoreID='" + StoreID + "'");
-        result.push(isActive = false);
         return result;
     };
     $scope.Time = ngnotifyService.ServerTime();
