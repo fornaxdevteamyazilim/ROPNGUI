@@ -3115,7 +3115,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/getirstatsdetail',
             templateUrl: "assets/views/yemeksepeti/getirstatsdetail.html",
             resolve: loadSequence('getirstatsdetailCtrl'),
-            title: 'getirstatsdetail',
+            title: 'Aggregator İstatistik Detayı',
             authenticate: true,
             ncyBreadcrumb: {
                 label: 'getirstatsdetail'
