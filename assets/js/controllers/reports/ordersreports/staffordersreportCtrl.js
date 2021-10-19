@@ -86,7 +86,7 @@ function staffordersreportCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         },
         columns: [
             // { dataField: "StoreID", dataType: "string", fixed: true },//, groupIndex: 0 },
-            { caption:$translate.instant('reportfields.OrderID'), dataField: "OrderID", dataType: "string", fixed: true, visible: false },//, groupIndex: 0 },
+            { caption:$translate.instant('reportfields.OrderID'), dataField: "id", dataType: "string", fixed: true, visible: false },//, groupIndex: 0 },
             { caption: $translate.instant('reportfields.Store'), dataField: "Store", dataType: "string", width: 230, fixed: true },//, groupIndex: 0 },
             { caption: $translate.instant('reportfields.StaffName'), dataField: "Alias", dataType: "string" },//, groupIndex: 0 },
             { caption: $translate.instant('reportfields.ShiftActive'),dataField: "ShiftActive", displayFormat: "bool" }, 

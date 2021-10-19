@@ -114,6 +114,9 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
         //string id,Enums.OrderStatus oldStatus, Enums.OrderStatus newStatus,string storeID
         $rootScope.$broadcast('OrderChange', data);
     });
+    ngnotifyHubProxy.on('OrderUpdated', function (data) {
+        $rootScope.$broadcast('OrderUpdated', data.order);
+    });
     ngnotifyHubProxy.on('ClientMessage', function (data) {
         $rootScope.$broadcast('ClientMessage', data);
         if (data.MessageType == "Error") {

@@ -79,13 +79,8 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             mode: "virtual"
         },
         height: 600,
-        showBorders: true,
-        summary: {
-            totalItems: [{
-                column: "id",
-                summaryType: "count"
-            }]
-        }
+        showBorders: true
+        
     };
 
 

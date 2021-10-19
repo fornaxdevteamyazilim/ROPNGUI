@@ -53,6 +53,32 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         }
         return order.Amount - ptotal;
     };
+
+    $scope.UpdateOrder = function (theOrder) {
+        if (theOrder.OrderTypeID == 0) {
+            for (var i = 0; i < $scope.tableplans.length; i++) {
+                if ($scope.tableplans[i].tables.some(x => x.id === theOrder.StoreTableID)) {
+                    var tindex = $scope.tableplans[i].tables.findIndex(x => x.id === theOrder.StoreTableID);
+                    theOrder['Remaining'] = $scope.GetOrderPaymentsTotal(theOrder);
+                    if ($scope.tableplans[i].tables[tindex].orders.some(x => x.id === theOrder.id)) {
+                        var idx = $scope.tableplans[i].tables[tindex].orders.findIndex(x => x.id === theOrder.id);
+                        if (theOrder.isActive)
+                            $scope.tableplans[i].tables[tindex].orders[idx] = theOrder;
+                        else
+                            $scope.tableplans[i].tables[tindex].orders.splice(idx, 1);
+                    }
+                    else {
+                        if (theOrder.isActive)
+                            $scope.tableplans[i].tables[tindex].orders.push(theOrder);
+                    }
+                }                
+            }            
+        }
+    }
+
+    var OrderUpdated = $scope.$on('OrderUpdated', function (event, data) {
+        $scope.UpdateOrder(data);
+    });
     $scope.LoadStoreTablePlans = function () {
         //$scope.isWaiting = true;
         Restangular.all('tableplan').getList({
@@ -60,7 +86,6 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             pageSize: 1000,
             search: "StoreID = '" + $rootScope.user.StoreID + "'"
         }).then(function (result) {
-            var storeorders = [];
             for (var i = 0; i < result.length; i++) {
                 for (var j = 0; j < result[i].tables.length; j++) {
                     for (var k = 0; k < result[i].tables[j].orders.length; k++) {
@@ -83,7 +108,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
     $scope.LoadStoreTablePlans();
     //Burası masa güncellemelri için: sorun - boş masa siaprişleri oluşmakta. 
     var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
-        $scope.LoadStoreTablePlans();
+        //$scope.LoadStoreTablePlans();
     });
     $scope.PersonSelect = function (item) {
         var modalInstance = $modal.open({
@@ -236,6 +261,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         $element.remove();
         $rootScope.uService.ExitController("tablePlanCtrl");
         OrderRefresh();
+        OrderUpdated();
     });
 };
 app.controller('SelectPersoncountCtrl', SelectPersoncountCtrl);

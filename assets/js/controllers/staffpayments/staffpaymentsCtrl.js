@@ -27,22 +27,59 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
         $location.path(page);
     };
     var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
-        $scope.GetPayOff();
+        $scope.GetPayOff(false);
     });
+    $scope.UpdateOrder = function (theOrder) {
+        if (theOrder.OrderStateID = 10 && (theOrder.OrderTypeID == 2 || theOrder.OrderTypeID == 7)) {
+            //Restangular.all('payoff').getList({  OrderID: theOrder.id }).then(function (result) {
+            Restangular.one('payoff').get({ OrderID: theOrder.id }).then(function (result) {
+                if (result) {
+                        if ($scope.StaffPayments.some(x => x.Driver.id === result.Driver.id)) {
+                            var idx = $scope.StaffPayments.findIndex(x => x.Driver.id === result.Driver.id);
+                            if (theOrder.isCharged)
+                                $scope.StaffPayments[idx] = result.plain();
+                            else
+                                $scope.StaffPayments.splice(idx, 1);
+                        }
+                        else {
+                            $scope.StaffPayments.push(result);
+                        }
+                    }
+                
+                for (var i = 0; i < $scope.StaffPayments.length; i++)
+                    if ($scope.StaffPayments[i].orders.length == 0)
+                        $scope.StaffPayments.splice(i, 1);
+
+                $scope.$broadcast('$$rebind::refresh');
+                $scope.ShowObject = false;
+            }, function (response) {
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            });
+
+
+
+        }
+    }
+
+    var OrderUpdated = $scope.$on('OrderUpdated', function (event, data) {
+        $scope.UpdateOrder(data);
+    });
+
     $scope.ShowObject = true;
     $scope.StaffPayments = [];
-    $scope.GetPayOff = function () {
-        Restangular.all('payoff').getList({
-            StoreID: $rootScope.user.StoreID,
-        }).then(function (result) {
-            angular.copy(result.plain(), $scope.StaffPayments);
-            $scope.$broadcast('$$rebind::refresh');
-            $scope.ShowObject = false;
-        }, function (response) {
-            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-        });
+    $scope.GetPayOff = function (initialLoad) {
+        if (initialLoad)
+            Restangular.all('payoff').getList({
+                StoreID: $rootScope.user.StoreID,
+            }).then(function (result) {
+                angular.copy(result.plain(), $scope.StaffPayments);
+                $scope.$broadcast('$$rebind::refresh');
+                $scope.ShowObject = false;
+            }, function (response) {
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            });
     };
-    $scope.GetPayOff();
+    $scope.GetPayOff(true);
     $scope.UpdateOrderPaymentType = function (item) {
         var modalInstance = $modal.open({
             animation: false,
@@ -58,17 +95,17 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
             }
         });
         modalInstance.result.then(function (item) {
-            $scope.GetPayOff();
+            $scope.GetPayOff(false);
         })
     };
     $scope.IsCharged = function (OrderID, index, driver) {
         driver.orders.splice(index, 1);
         Restangular.one('ordertools/updateorderascharged').get({ OrderID: OrderID }).then
             (function (restresult) {
-                toaster.pop("success",  $translate.instant('orderfile.ACCOUNTCLOSED'));
+                toaster.pop("success", $translate.instant('orderfile.ACCOUNTCLOSED'));
             }, function (restresult) {
-                $scope.GetPayOff();
-                toaster.pop('warning',  $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
+                $scope.GetPayOff(false);
+                toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
             })
     };
     $scope.CloseAcount = function (item, index, driver) {
@@ -80,15 +117,15 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 driver.orders.splice(driver.orders.indexOf(item), 1);
                 Restangular.one('ordertools/updateorderascharged').get({ OrderID: item.id }).then
                     (function (restresult) {
-                        toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
+                        toaster.pop('success', $translate.instant('orderfile.PAYMENTRECEIVED'));
                         $scope.Showspinner = false;
                         $scope.isWaiting = false;
                     },
-                    function (restresult) {
-                        toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
-                        $scope.Showspinner = false;
-                        $scope.isWaiting = false;
-                    })
+                        function (restresult) {
+                            toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
+                            $scope.Showspinner = false;
+                            $scope.isWaiting = false;
+                        })
             } else {
                 driver.orders.splice(driver.orders.indexOf(item), 1);
                 var payment = {
@@ -101,17 +138,17 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 payment.post().then(function (resp) {
                     Restangular.one('ordertools/updateorderascharged').get({ OrderID: resp.OrderID }).then
                         (function (restresult) {
-                            toaster.pop("success",  $translate.instant('orderfile.ACCOUNTCLOSED'));
+                            toaster.pop("success", $translate.instant('orderfile.ACCOUNTCLOSED'));
                             $scope.isWaiting = false;
-                            $scope.GetPayOff();
+                            $scope.GetPayOff(false);
                         }, function (restresult) {
                             toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                             $scope.isWaiting = false;
-                            $scope.GetPayOff();
+                            $scope.GetPayOff(false);
                         })
                 }, function (resp) {
-                    $scope.GetPayOff();
-                    toaster.pop('error',  $translate.instant('orderfile.NEWPAYMENTRECORDED'), resp.data.ExceptionMessage);
+                    $scope.GetPayOff(false);
+                    toaster.pop('error', $translate.instant('orderfile.NEWPAYMENTRECORDED'), resp.data.ExceptionMessage);
                     $scope.isWaiting = false
                 });
             }
@@ -129,15 +166,15 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
             $scope.Showspinner = true;
             modalInstance.result.then(function (password) {
                 if (password != "cancel") {
-                    userService.cardLogin(password,true).then(function (response) {
+                    userService.cardLogin(password, true).then(function (response) {
                         swal({
                             title: "'" + Payment.name + "'  All Accounts Will Be Closed !",
-                            text:  $translate.instant('margeaddress.Doyouapproveofthisoperation'),
+                            text: $translate.instant('margeaddress.Doyouapproveofthisoperation'),
                             type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: "#DD6B55",
-                            confirmButtonText:  $translate.instant('mainscreen.yes'),
-                            cancelButtonText:  $translate.instant('mainscreen.no'),
+                            confirmButtonText: $translate.instant('mainscreen.yes'),
+                            cancelButtonText: $translate.instant('mainscreen.no'),
                             closeOnConfirm: true
                         }, function () {
                             for (var i = 0; i < item.length; i++) {
@@ -145,7 +182,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                                     if (item[i].PaymentStatusID == 1) {
                                         Restangular.one('ordertools/updateorderascharged').get({ OrderID: item[i].id }).then
                                             (function (restresult) {
-                                                toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
+                                                toaster.pop('success', $translate.instant('orderfile.PAYMENTRECEIVED'));
                                             }, function (restresult) {
                                                 toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                                             })
@@ -161,22 +198,22 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                                             toaster.pop("success", "'" + Payment.name + $translate.instant('orderfile.AllAccountsWillBeClosed'));
                                             Restangular.one('ordertools/updateorderascharged').get({ OrderID: resp.OrderID }).then
                                                 (function (restresult) {
-                                                    toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
+                                                    toaster.pop('success', $translate.instant('orderfile.PAYMENTRECEIVED'));
                                                 }, function (restresult) {
                                                     toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                                                 })
                                         }, function (resp) {
-                                            toaster.pop('error',  $translate.instant('orderfile.NONEWPAYMENTRECORDED'), resp.data.ExceptionMessage);
+                                            toaster.pop('error', $translate.instant('orderfile.NONEWPAYMENTRECORDED'), resp.data.ExceptionMessage);
                                         });
                                     }
                                 }
                             }
                             $scope.Showspinner = false;
-                            $scope.GetPayOff();
+                            $scope.GetPayOff(false);
                         });
                     }, function (err) {
                         if (err) {
-                            toaster.pop('warning',  $translate.instant('orderfile.PasswordIncorrect'), err.error_description);
+                            toaster.pop('warning', $translate.instant('orderfile.PasswordIncorrect'), err.error_description);
                             $scope.Showspinner = false;
                             return 'No';
                         }
@@ -189,7 +226,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 }
             })
         } else {
-            toaster.pop("warning",  $translate.instant('orderfile.YOURENOTAUTHORIZEDTODOTHAT'));
+            toaster.pop("warning", $translate.instant('orderfile.YOURENOTAUTHORIZEDTODOTHAT'));
             $scope.Showspinner = false;
             return 'No';
         }
@@ -205,22 +242,22 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
             });
             modalInstance.result.then(function (password) {
                 if (password != "cancel") {
-                    userService.cardLogin(password,true).then(function (response) {
+                    userService.cardLogin(password, true).then(function (response) {
                         swal({
                             title: "'" + Driver + "' All Accounts Will Be Closed !",
-                            text:  $translate.instant('margeaddress.Doyouapproveofthisoperation'),
+                            text: $translate.instant('margeaddress.Doyouapproveofthisoperation'),
                             type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: "#DD6B55",
-                            confirmButtonText:  $translate.instant('mainscreen.yes'),
-                            cancelButtonText:  $translate.instant('mainscreen.no'),
+                            confirmButtonText: $translate.instant('mainscreen.yes'),
+                            cancelButtonText: $translate.instant('mainscreen.no'),
                             closeOnConfirm: true
                         }, function () {
                             for (var i = 0; i < item.length; i++) {
                                 if (item[i].PaymentStatusID == 1) {
                                     Restangular.one('ordertools/updateorderascharged').get({ OrderID: item[i].id }).then
                                         (function (restresult) {
-                                            toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
+                                            toaster.pop('success', $translate.instant('orderfile.PAYMENTRECEIVED'));
                                         }, function (restresult) {
                                             toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                                         })
@@ -233,24 +270,24 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                                     };
                                     Restangular.restangularizeElement('', payment, 'orderpayment');
                                     payment.post().then(function (resp) {
-                                        toaster.pop("success", "'" + Driver +  $translate.instant('orderfile.ALLACCOUNTSHAVEBEENCLOSED'));
+                                        toaster.pop("success", "'" + Driver + $translate.instant('orderfile.ALLACCOUNTSHAVEBEENCLOSED'));
                                         Restangular.one('ordertools/updateorderascharged').get({ OrderID: resp.OrderID }).then
                                             (function (restresult) {
-                                                toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
+                                                toaster.pop('success', $translate.instant('orderfile.PAYMENTRECEIVED'));
                                             }, function (restresult) {
                                                 toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
                                             })
                                     }, function (resp) {
-                                        toaster.pop('error',  $translate.instant('orderfile.NONEWPAYMENTRECORDED'), resp.data.ExceptionMessage);
+                                        toaster.pop('error', $translate.instant('orderfile.NONEWPAYMENTRECORDED'), resp.data.ExceptionMessage);
                                     });
                                 }
                             }
                             $scope.Showspinner = false;
-                            $scope.GetPayOff();
+                            $scope.GetPayOff(false);
                         });
                     }, function (err) {
                         if (err) {
-                            toaster.pop('warrning',  $translate.instant('orderfile.PasswordIncorrect'), err.error_description);
+                            toaster.pop('warrning', $translate.instant('orderfile.PasswordIncorrect'), err.error_description);
                             $scope.Showspinner = false;
                             return 'No';
                         }
@@ -264,7 +301,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 }
             })
         } else {
-            toaster.pop("warning",  $translate.instant('orderfile.YOURENOTAUTHORIZEDTODOTHAT'));
+            toaster.pop("warning", $translate.instant('orderfile.YOURENOTAUTHORIZEDTODOTHAT'));
             $scope.Showspinner = false;
             return 'No';
         }
@@ -274,13 +311,13 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
         if (item.PaymentStatusID == 1) {
             Restangular.one('ordertools/updateorderascharged').get({ OrderID: item.id }).then
                 (function (restresult) {
-                    toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
+                    toaster.pop('success', $translate.instant('orderfile.PAYMENTRECEIVED'));
                     $scope.Showspinner = false;
                 },
-                function (restresult) {
-                    toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
-                    $scope.Showspinner = false
-                })
+                    function (restresult) {
+                        toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
+                        $scope.Showspinner = false
+                    })
         } else {
             Restangular.all('orderperson').getList({
                 pageNo: 1,
@@ -305,13 +342,13 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                     if (data.msg == "OtherPayment" || data.msg == "ECRPayment") {
                         Restangular.one('ordertools/updateorderascharged').get({ OrderID: item.id }).then
                             (function (restresult) {
-                                toaster.pop('success',  $translate.instant('orderfile.PAYMENTRECEIVED'));
+                                toaster.pop('success', $translate.instant('orderfile.PAYMENTRECEIVED'));
                                 $scope.Showspinner = false;
                             },
-                            function (restresult) {
-                                toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
-                                $scope.Showspinner = false;
-                            })
+                                function (restresult) {
+                                    toaster.pop('warning', $translate.instant('orderfile.UNABLERECEIVEPAYMENT'), restresult.data.ExceptionMessage);
+                                    $scope.Showspinner = false;
+                                })
                     }
                     if (data == "cancel") {
                         $scope.Showspinner = false;
@@ -321,7 +358,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 $scope.Showspinner = false;
             });
-            $scope.GetPayOff();
+            $scope.GetPayOff(false);
         }
     };
     $scope.CheckCode = function (orderID, itemStates) {
@@ -338,7 +375,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                         $scope.ChangeOrderDriver(orderID, itemStates)
                     }, function (err) {
                         if (err) {
-                            toaster.pop('warrning',  $translate.instant('orderfile.PasswordIncorrect'), err.error_description);
+                            toaster.pop('warrning', $translate.instant('orderfile.PasswordIncorrect'), err.error_description);
                             return 'No'
                         }
                         else {
@@ -350,7 +387,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
                 }
             })
         } else {
-            toaster.pop("warning",  $translate.instant('orderfile.YOURENOTAUTHORIZEDTODOTHAT'));
+            toaster.pop("warning", $translate.instant('orderfile.YOURENOTAUTHORIZEDTODOTHAT'));
             return 'No';
         }
     };
@@ -367,7 +404,7 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
             }
         });
         modalInstance.result.then(function (item) {
-            $scope.GetPayOff();
+            $scope.GetPayOff(false);
         })
     };
     $scope.SelectItem = function (itemID) {
@@ -375,7 +412,8 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
     };
     $scope.$on('$destroy', function () {
         deregistration();
-        OrderRefresh
+        OrderRefresh();
+        OrderUpdated();
         $element.remove();
         $rootScope.uService.ExitController("staffpaymentsCtrl");
     });

@@ -7,8 +7,8 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
     //    isFirstOpen: false,
     //    isFirstDisabled: false
     //};
-    
-    
+
+
 
     $scope.getOrder = true;
     userService.userAuthorizated();
@@ -54,8 +54,60 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
     $scope.AvgTimer = 0;
     $scope.orders = [];
     $scope.ShowObject = true;
+    $scope.UpdateOrder = function (theOrder) {
+        if  (theOrder.OrderTypeID == 2 || theOrder.OrderTypeID == 7) {
+            if ($scope.preparingOrders) {
+                if ($scope.preparingOrders.some(x => x.id === theOrder.id)) {
+                    var idx = $scope.preparingOrders.findIndex(x => x.id === theOrder.id);
+                    if (theOrder.OrderStateID == 4 || theOrder.OrderStateID == 21)
+                        $scope.preparingOrders[idx] = theOrder;
+                    else
+                        $scope.preparingOrders.splice(idx, 1);
+                }
+                else {
+                    if (theOrder.OrderStateID == 4 || theOrder.OrderStateID == 21)
+                        $scope.preparingOrders.push(theOrder);
+                }
+            }
+            if ($scope.preparedOrders) {
+                if ($scope.preparedOrders.some(x => x.id === theOrder.id)) {
+                    var idx = $scope.preparedOrders.findIndex(x => x.id === theOrder.id);
+                    if (theOrder.OrderStateID == 5)
+                        $scope.preparedOrders[idx] = theOrder;
+                    else
+                        $scope.preparedOrders.splice(idx, 1);
+                }
+                else {
+                    if (theOrder.OrderStateID == 5)
+                        $scope.preparedOrders.push(theOrder);
+                }
+            }
+            if ($scope.outOrders) {
+                if ($scope.outOrders.some(x => x.id === theOrder.id)) {
+                    var idx = $scope.outOrders.findIndex(x => x.id === theOrder.id);
+                    if (theOrder.OrderStateID == 6)
+                        $scope.outOrders[idx] = theOrder;
+                    else
+                        $scope.outOrders.splice(idx, 1);
+                }
+                else {
+                    if (theOrder.OrderStateID == 6)
+                        $scope.outOrders.push(theOrder);
+                }
+            }
+
+            $scope.calculateOrderTime();
+            $scope.ShowObject = false;
+            $scope.getOrder = true;
+            $scope.$broadcast('$$rebind::refresh');
+        }
+    }
+
+    var OrderUpdated = $scope.$on('OrderUpdated', function (event, data) {
+        $scope.UpdateOrder(data);
+    });
     var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
-        $scope.LoadOrders();
+        //$scope.LoadOrders();
     });
     amMoment.changeLocale('tr');
     $scope.SelectItem = function (id) {
@@ -70,7 +122,8 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         result.push("tt.OperationDate ='" + $rootScope.user.Store.OperationDate + "'");
         return result;
     };
-    $scope.LoadOrders = function () {
+    $scope.LoadOrders = function (initload) {
+        if (!initload) return;
         if ($scope.getOrder == true) {
             $scope.getOrder = false;
             Restangular.all('order').getList({
@@ -86,13 +139,13 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                 $scope.getOrder = true;
                 $scope.$broadcast('$$rebind::refresh');
             }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 $scope.ShowObject = false;
                 $scope.getOrder = true;
             });
         }
     };
-    $scope.LoadOrders();
+    $scope.LoadOrders(true);
     $scope.UpdateOrderTimer = function (order) {
         var d1 = moment(order.DeliveryDate);
         var d2 = moment(ngnotifyService.ServerTime());
@@ -130,7 +183,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                     },
                     function (response) {
                         toaster.pop('error', $translate.instant('difinitions.UpdatedFailed'), response.data.ExceptionMessage);
-                        $scope.LoadOrders();
+                        $scope.LoadOrders(false);
                     }
                 );
                 break;
@@ -157,7 +210,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         }).then(function (_orderItems) {
             toaster.pop('success', $translate.instant('dispatcherfile.LabelPrintingAgain'));
         }, function (response) {
-            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.homedeliveryOrder = function () {
@@ -251,7 +304,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                     //$scope.DriverVehicle = items; 
                     $scope.$broadcast('$$rebind::refresh');
                 }, function (response) {
-                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data);
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data);
                 });
             }
         });
@@ -313,6 +366,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         OrderRefresh();
         OrderRefresh1();
         OrderRefresh2();
+        OrderUpdated();
         userService.stopTimeout();
         stop();
         deregistration1();
@@ -359,7 +413,7 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);
                 }, function (response) {
-                    toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         });
@@ -373,8 +427,8 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
                 toaster.pop("success", $translate.instant('dispatcherfile.OrderOutput'), $translate.instant('dispatcherfile.OrdermarkedOut'));
                 $scope.ok();
             }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-                $scope.LoadOrders();
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                $scope.LoadOrders(false);
             });
     };
     $scope.$on('$destroy', function () {
@@ -383,7 +437,7 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
     });
 };
 app.controller('backDriverCtrl', backDriverCtrl);
-function backDriverCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParams, Order, SweetAlert, toaster, Restangular, $filter, $log, $window,$translate, userService, ngnotifyService) {
+function backDriverCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParams, Order, SweetAlert, toaster, Restangular, $filter, $log, $window, $translate, userService, ngnotifyService) {
     $rootScope.uService.EnterController("backDriverCtrl");
     $scope.order = Order;
     $scope.driver = {};
@@ -423,7 +477,7 @@ function backDriverCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParam
             $scope.ok();
         }, function (resp) {
             toaster.pop('error', $translate.instant('Server.Returnfailed'), resp.data.ExceptionMessage);
-            $scope.LoadOrders();
+            $scope.LoadOrders(false);
         });
     };
     $scope.ok = function () {
@@ -437,7 +491,7 @@ function backDriverCtrl($rootScope, $scope, $modalInstance, $modal, ngTableParam
     });
 };
 app.controller('AccordionDemoCtrl', AccordionDemoCtrl);
-function AccordionDemoCtrl($rootScope, $scope,$translate) {
+function AccordionDemoCtrl($rootScope, $scope, $translate) {
     $rootScope.uService.EnterController("townCtrl");
     $scope.oneAtATime = true;
     $scope.groups = [{
