@@ -54,25 +54,37 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         return order.Amount - ptotal;
     };
 
-    $scope.UpdateOrder = function (theOrder) {
-        if (theOrder.OrderTypeID == 0) {
+    $scope.UpdateOrder = function (UpdatedOrder) {
+        if (UpdatedOrder.OrderTypeID == 0) {
             for (var i = 0; i < $scope.tableplans.length; i++) {
-                if ($scope.tableplans[i].tables.some(x => x.id === theOrder.StoreTableID)) {
-                    var tindex = $scope.tableplans[i].tables.findIndex(x => x.id === theOrder.StoreTableID);
-                    theOrder['Remaining'] = $scope.GetOrderPaymentsTotal(theOrder);
-                    if ($scope.tableplans[i].tables[tindex].orders.some(x => x.id === theOrder.id)) {
-                        var idx = $scope.tableplans[i].tables[tindex].orders.findIndex(x => x.id === theOrder.id);
-                        if (theOrder.isActive)
-                            $scope.tableplans[i].tables[tindex].orders[idx] = theOrder;
+                if ($scope.tableplans[i].tables.some(x => x.id === UpdatedOrder.StoreTableID)) {
+                    var tindex = $scope.tableplans[i].tables.findIndex(x => x.id === UpdatedOrder.StoreTableID);
+                    if ($scope.tableplans[i].tables[tindex].orders.some(x => x.id === UpdatedOrder.OrderID)) {
+                        var idx = $scope.tableplans[i].tables[tindex].orders.findIndex(x => x.id === UpdatedOrder.OrderID);
+                        if (UpdatedOrder.isActive) {
+                            var x = i;
+                            var tx = tindex;
+                            var ix = idx;
+                            Restangular.one('order/updated').get({ OrderID: UpdatedOrder.OrderID }).then(function (result) {
+                                result['Remaining'] = $scope.GetOrderPaymentsTotal(result);
+                                $scope.tableplans[x].tables[tx].orders[ix] = result;
+                            })
+                        }
                         else
                             $scope.tableplans[i].tables[tindex].orders.splice(idx, 1);
                     }
                     else {
-                        if (theOrder.isActive)
-                            $scope.tableplans[i].tables[tindex].orders.push(theOrder);
+                        if (UpdatedOrder.isActive) {
+                            var x = i;
+                            var tx = tindex;
+                            Restangular.one('order/updated').get({ OrderID: UpdatedOrder.OrderID }).then(function (result) {
+                                result['Remaining'] = $scope.GetOrderPaymentsTotal(result);
+                                $scope.tableplans[x].tables[tx].orders.push(result);
+                            });
+                        }
                     }
-                }                
-            }            
+                }
+            }
         }
     }
 

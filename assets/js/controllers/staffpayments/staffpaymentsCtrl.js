@@ -32,14 +32,11 @@ function staffpaymentsCtrl($scope, $log, $modal, Restangular, ngTableParams, Swe
     $scope.UpdateOrder = function (theOrder) {
         if (theOrder.OrderStateID = 10 && (theOrder.OrderTypeID == 2 || theOrder.OrderTypeID == 7)) {
             //Restangular.all('payoff').getList({  OrderID: theOrder.id }).then(function (result) {
-            Restangular.one('payoff').get({ OrderID: theOrder.id }).then(function (result) {
+            Restangular.one('payoff').get({ OrderID: theOrder.OrderID }).then(function (result) {
                 if (result) {
                         if ($scope.StaffPayments.some(x => x.Driver.id === result.Driver.id)) {
                             var idx = $scope.StaffPayments.findIndex(x => x.Driver.id === result.Driver.id);
-                            if (theOrder.isCharged)
-                                $scope.StaffPayments[idx] = result.plain();
-                            else
-                                $scope.StaffPayments.splice(idx, 1);
+                            $scope.StaffPayments[idx] = result.plain();                            
                         }
                         else {
                             $scope.StaffPayments.push(result);

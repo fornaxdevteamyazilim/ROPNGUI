@@ -115,7 +115,7 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
         $rootScope.$broadcast('OrderChange', data);
     });
     ngnotifyHubProxy.on('OrderUpdated', function (data) {
-        $rootScope.$broadcast('OrderUpdated', data.order);
+        $rootScope.$broadcast('OrderUpdated', data);
     });
     ngnotifyHubProxy.on('ClientMessage', function (data) {
         $rootScope.$broadcast('ClientMessage', data);
