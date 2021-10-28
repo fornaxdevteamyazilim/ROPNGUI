@@ -50,8 +50,8 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             dataField: "CustomerMappingTime",
             caption: "Customer Mapping Time",
         }, {
-            dataField: "GetirOrderID",
-            caption: "Getir #",
+            dataField: "AggregatorOrderID",
+            caption: "Aggr. Order #",
         }, {
                 dataField: "isCustomerMapRequired",
                 caption: "Customer Map",
