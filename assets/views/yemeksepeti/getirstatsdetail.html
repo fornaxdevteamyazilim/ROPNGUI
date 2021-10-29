@@ -1,8 +1,56 @@
 <div ng-controller="getiristatsdetailCtrl as ctrl">
+    <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="isWaiting==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-10">
+                <span print-remove class="mainTitle text-dark" style="font-size:25px;" translate="tittle.GETIRSTATSDETAIL" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+                <br />
+            </div>
+            <div print-remove class="col-lg-1 col-md-1 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+    </div>
     <div id="report" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-bold text-dark">
+                <span class="dx-field-label" translate="main.FROMDATE"></span>
+                <div class="dx-field-value">
+                    <div dx-date-box="DateRange.fromDate"></div>
+                </div>
+            </div>
 
-        <div dx-data-grid="gridOptions" dx-item-alias="order">
-            
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-bold text-dark">
+                <span class="dx-field-label" translate="main.TODATE"></span>
+                <div class="dx-field-value">
+                    <div dx-date-box="DateRange.toDate"></div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-bold text-dark margin-left-15">
+                <button class="btn btn-default tooltips" tooltip="{{'main.REPORT' | translate}}" tooltip-placement="bottom" ng-disabled="ObjectShow==true" dx-button="reportButtonOptions">
+                    <img ng-src="assets/images/report.png" style="width:2.5vw; height:3vh;" class="center" /><br />
+                    <span ng-if="ObjectShow==true" class="fa fa-spin fa-spinner"></span>
+                </button>
+            </div>
+            <div id="report" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive" ng-hide="isWaiting==true">
+                <!--<div id="sales-chart" dx-chart="chartOptions"></div>-->
+                <!--<div dx-button="resetButtonOptions"></div>-->
+                <div id="gridContainer" dx-data-grid="gridOptions" dx-item-alias="order"></div>
+            </div>
+          
+           
         </div>
     </div>
 </div>

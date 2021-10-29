@@ -1,5 +1,5 @@
 ﻿app.controller('inventorydeliveryeditCtrl', inventorydeliveryeditCtrl);
-function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, $modal, toaster, $window, $stateParams, $rootScope, $location, $translate, userService, ngnotifyService, $element) {
+function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, NG_SETTING, $http, $q, ngTableParams, $modal, toaster, $window, $stateParams, $rootScope, $location, $translate, userService, ngnotifyService, $element) {
     $rootScope.uService.EnterController("inventorydeliveryeditCtrl");
     var de = this;
     $scope.item = {};
@@ -81,6 +81,7 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
     else {
         $scope.item = {};
     }
+
     $scope.SaveData = function () {
         $scope.SaveButtonActive = false;
         if ($scope.item.restangularized && $scope.item.id) {
@@ -242,45 +243,173 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, ngT
             $scope.item = resp;
         });
     });
-    $scope.$on('$destroy', function () {
-        deregistration();
-        $element.remove();
-        $rootScope.uService.ExitController("inventorydeliveryeditCtrl");
-    });
-};
-app.controller('inventorydeliveryitemCtrl', inventorydeliveryitemCtrl);
-function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element,$translate) {
-    $rootScope.uService.EnterController("inventorydeliveryitemCtrl");
-    var idi = this;
-    $scope.item = {};
-    idi.tableParams = new ngTableParams({
+  
+
+// app.controller('inventorydeliveryitemCtrl', inventorydeliveryitemCtrl);
+// function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert,NG_SETTING, $http,$q, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $element,$translate) {
+//     $rootScope.uService.EnterController("inventorydeliveryitemCtrl");
+//     var idi = this;
+//     $scope.item = {};
+//     idi.tableParams = new ngTableParams({
+//         page: 1,
+//         count: 100,
+//         sorting: {
+//         }
+//     },{
+//         getData: function ($defer, params) {
+//             Restangular.all('inventorydeliveryitem').getList({
+//                 pageNo: params.page(),
+//                 pageSize: params.count(),
+//                 search: "InventoryDeliveryID='" + $stateParams.id + "'",
+//                 sort: params.orderBy()
+//             }).then(function (items) {
+//                 params.total(items.paging.totalRecordCount);
+//                 $defer.resolve(items);
+//                 $scope.item.Amount = 0;
+//                 $scope.item.VAT = 0;
+//                 $scope.item.Discount = 0;
+//                 for (var i = 0; i < items.length; i++) {
+//                     $scope.item.Amount += items[i].Amount;
+//                     $scope.item.VAT += items[i].VAT;
+//                     $scope.item.Discount += items[i].Discount;
+//                 }
+//             }, function (response) {
+//                 toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+//             });
+//         }
+//     });
+        
+    var params = {
         page: 1,
-        count: 100,
-        sorting: {
+        count: 10000,
+        search: "InventoryDeliveryID='" + $stateParams.id + "'",
+    };
+    $http.get(NG_SETTING.apiServiceBaseUri + "/api/inventorydeliveryitem", { params: params })
+        .then(function (result) {
+            $scope.item.items = result.data.Items;
+            var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            dataGrid.option("dataSource", $scope.item.items);
+        }, function (response) {
+            return $q.reject("Data Loading Error");
+        });
+    GetInventoryUnitPrice = function (inventoryUnitID, rowData) {
+        Restangular.one('inventoryunit').get({
+            InventoryUnitID: inventoryUnitID,
+            StoreID: $scope.item.StoreID,
+            ForDate: $scope.item.DateTime
+        }).then(function (result) {
+            if (result && result) {
+                console.log("GetInventoryUnitPrice result:" + result);
+                rowData.UnitPrice = result;
+            }
+            else {
+                console.log("GetInventoryUnitPrice result not found!");
+                rowData.UnitPrice = 0;
+            }
+        }, function (response) {
+            toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+        });
+    };
+    $scope.dataGridOptions = {
+        dataSource: $scope.item.items,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        keyExpr: "id",
+        showBorders: true,
+        hoverStateEnabled: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        headerFilter: { visible: true },
+        searchPanel: { visible: true },
+        showBorders: true,
+        //noDataText:  $translate.instant('InventoryRequirmentItem.Calculatingrequirments'),
+        paging: {
+            enabled: false
+        },
+        editing: {
+            mode: "inline",
+            allowAdding: true,//($rootScope.user.restrictions.inventorydeliveriesedit_add == 'Enable'), //inventorydeliveriesedit_add
+            allowUpdating: true,//($rootScope.user.restrictions.inventorydeliveriesedit_update == 'Enable'), //inventorydeliveriesedit_update
+            allowDeleting: true,//($rootScope.user.restrictions.inventorydeliveriesedit_delete == 'Enable'), //inventorydeliveriesedit_delete
+            allowInserting: true,//($rootScope.user.restrictions.inventorydeliveriesedit_insert == 'Enable') //inventorydeliveriesedit_insert
+        },
+        columns: [
+
+            //{ caption: $translate.instant('inventorydeliveriesedit.InventoryUnit'), dataField: "InventoryUnit", dataType: "string", allowEditing: false, visibleIndex: 1 },
+            {
+                dataField: "InventoryUnitID", caption: $translate.instant('inventorydeliveriesedit.InventoryUnit'), //fixed: true,width: 200,    
+                lookup: {
+                    valueExpr: "InventoryUnitID",
+                    displayExpr: function (data) {
+                        return "[" + data.ItemCode + "]" + data.InventoryUnitName;
+                    },
+                    searchMode: "contains",
+                    dataSource: {
+                        store: DevExpress.data.AspNet.createStore({
+                            key: "InventoryUnitID",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxInventoryUnits"
+                        }),
+                        sort: "InventoryUnitName",
+                        headerFilter: { allowSearch: true }
+                    },
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    },
+                },
+                setCellValue: function (rowData, value) {
+                    return Restangular.one('inventoryunit/price').get({
+                        InventoryUnitID: value,
+                        StoreID: $scope.item.StoreID,
+                        ForDate: $scope.item.DateTime
+                    }).then(function (result) {
+                        rowData.InventoryUnitID = value;
+                        if (result && result) {
+                            console.log("GetInventoryUnitPrice result:" + result);
+                            rowData.UnitPrice = result;
+                        }
+                        else {
+                            console.log("GetInventoryUnitPrice result not found!");
+                            rowData.UnitPrice = 0;
+                        }
+                    }, function (response) {
+                        toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    });
+                },
+            },{
+                caption: $translate.instant('inventorydeliveriesedit.VAT'), dataField: "VAT", dataType: "number", format: { type: "fixedPoint", precision: 2 }, allowEditing: true, visibleIndex: 2,
+             
+            },
+            {
+                caption: $translate.instant('inventorydeliveriesedit.UnitCount'), dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 0 }, allowEditing: true, visibleIndex: 2,
+             
+            },
+            { caption: $translate.instant('inventorydeliveriesedit.UnitPrice'), dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 }, displayFormat: "%{0}", allowEditing: false, visibleIndex: 3, },
+            { caption: $translate.instant('inventorydeliveriesedit.Total'), dataField: "Total", calculateCellValue: function (data) { return data.UnitCount * data.UnitPrice + data.VAT; }, format: { type: "fixedPoint", precision: 2 }, visibleIndex: 4 },
+        ],
+        summary: {
+            totalItems: [
+                {column: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                { column: "VAT", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            ],
+            groupItems: [
+                //{ name: "UnitCustom", showInColumn: "UnitCustom", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { name: "Total", showInColumn: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            ],
+          
+        },
+        // onContentReady(e) {
+        //     document.querySelector('.dx-datagrid-rowsview').before(document.querySelector('.dx-datagrid-total-footer'));
+        //     }
+        export: {
+            enabled: true,
+            fileName: "inventorydelivery",
         }
-    },{
-        getData: function ($defer, params) {
-            Restangular.all('inventorydeliveryitem').getList({
-                pageNo: params.page(),
-                pageSize: params.count(),
-                search: "InventoryDeliveryID='" + $stateParams.id + "'",
-                sort: params.orderBy()
-            }).then(function (items) {
-                params.total(items.paging.totalRecordCount);
-                $defer.resolve(items);
-                $scope.item.Amount = 0;
-                $scope.item.VAT = 0;
-                $scope.item.Discount = 0;
-                for (var i = 0; i < items.length; i++) {
-                    $scope.item.Amount += items[i].Amount;
-                    $scope.item.VAT += items[i].VAT;
-                    $scope.item.Discount += items[i].Discount;
-                }
-            }, function (response) {
-                toaster.pop('warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            });
-        }
-    });
+    };
     $scope.GetInventoryUnitFreePrice = function (InventoryUnitID) {
         Restangular.one('inventoryunit', InventoryUnitID).get().then(function (restresult) {
             if (restresult.EnableFreePrice == true) {
@@ -288,23 +417,23 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
             }
         })
     };
-    $scope.GetInventoryUnitPrice = function (rowform, item) {
-        $scope.GetInventoryUnitFreePrice(rowform.$data.InventoryUnitID);
-        Restangular.one('inventorydelivery', $stateParams.id).get().then(function (restresult) {
-            Restangular.one('inventoryunit/price').get({
-                InventoryUnitID: rowform.$data.InventoryUnitID,
-                StoreID: $rootScope.user.StoreID,
-                ForDate: restresult.DeliveryDate
-            }).then(function (result) {
-                if (result && result)
-                    item.UnitPrice = result;
-                else
-                    item.UnitPrice = 0;
-            }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            });
-        })
-    };
+    // $scope.GetInventoryUnitPrice = function (rowform, item) {
+    //     $scope.GetInventoryUnitFreePrice(rowform.$data.InventoryUnitID);
+    //     Restangular.one('inventorydelivery', $stateParams.id).get().then(function (restresult) {
+    //         Restangular.one('inventoryunit/price').get({
+    //             InventoryUnitID: rowform.$data.InventoryUnitID,
+    //             StoreID: $rootScope.user.StoreID,
+    //             ForDate: restresult.DeliveryDate
+    //         }).then(function (result) {
+    //             if (result && result)
+    //                 item.UnitPrice = result;
+    //             else
+    //                 item.UnitPrice = 0;
+    //         }, function (response) {
+    //             toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+    //         });
+    //     })
+    // };
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
         for (var i = 0; i < $scope[Container].length; i++) {
             if ($scope[Container][i][idName] == idvalue)
@@ -375,27 +504,28 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
     $scope.GetInventoryUnitsByDelivery();
     $scope.inventoryunitstoshow = [];
     $scope.loadEntities2('inventoryunit', 'inventoryunitstoshow');
-    $scope.saveData = function (data) {
-        if (data.EnteredUnitPrice) {
-            data.UnitPrice = data.EnteredUnitPrice;
-        }
-        data.Amount = data.UnitPrice * data.UnitCount;
-        data.VAT = data.UnitPrice * data.UnitCount * $scope.GetInventoryVAT(data.InventoryUnitID);
-        data.InventoryUnit = $scope.ShowObjectUnit('inventoryunitstoshow', 'id', data.InventoryUnitID, 'Inventory');
-        data.GetVat = $scope.GetInventoryVAT(data.InventoryUnitID) * 100
-        if (data.restangularized) {
-            data.put().then(function (res) {
-                $scope.$emit('UpdateInventoryDelivery', $scope.item);
-                toaster.pop('success', $translate.instant('invantories.Updated'),$translate.instant('invantories.Updatedapplied'));
-            });
-        } else {
-            Restangular.restangularizeElement('', data, 'inventorydeliveryitem')
-            data.post().then(function (res) {
-                $scope.$emit('UpdateInventoryDelivery', $scope.item);
-                toaster.pop('success', $translate.instant('invantories.Saved'),$translate.instant('invantories.Savedserver'));
-            });
-        }
-    };
+    
+    // $scope.saveData = function (data) {
+    //     if (data.EnteredUnitPrice) {
+    //         data.UnitPrice = data.EnteredUnitPrice;
+    //     }
+    //     data.Amount = data.UnitPrice * data.UnitCount;
+    //     data.VAT = data.UnitPrice * data.UnitCount * $scope.GetInventoryVAT(data.InventoryUnitID);
+    //     data.InventoryUnit = $scope.ShowObjectUnit('inventoryunitstoshow', 'id', data.InventoryUnitID, 'Inventory');
+    //     data.GetVat = $scope.GetInventoryVAT(data.InventoryUnitID) * 100
+    //     if (data.restangularized) {
+    //         data.put().then(function (res) {
+    //             $scope.$emit('UpdateInventoryDelivery', $scope.item);
+    //             toaster.pop('success', $translate.instant('invantories.Updated'),$translate.instant('invantories.Updatedapplied'));
+    //         });
+    //     } else {
+    //         Restangular.restangularizeElement('', data, 'inventorydeliveryitem')
+    //         data.post().then(function (res) {
+    //             $scope.$emit('UpdateInventoryDelivery', $scope.item);
+    //             toaster.pop('success', $translate.instant('invantories.Saved'),$translate.instant('invantories.Savedserver'));
+    //         });
+    //     }
+    // };
     $scope.FormKeyPress = function (event, rowform, data, index) {
         if (event.keyCode === 13 && rowform.$visible) {
             rowform.$submit();
@@ -473,9 +603,14 @@ function inventorydeliveryitemCtrl($scope, $modal, $filter, SweetAlert, Restangu
             $scope.FromDate = item;
         })
     };
+    // $scope.$on('$destroy', function () {
+    //     $element.remove();
+    //     $rootScope.uService.ExitController("inventorydeliveryitemCtrl");
+    // });
     $scope.$on('$destroy', function () {
+        deregistration();
         $element.remove();
-        $rootScope.uService.ExitController("inventorydeliveryitemCtrl");
+        $rootScope.uService.ExitController("inventorydeliveryeditCtrl");
     });
 };
 app.directive('replacecomma', function () {
