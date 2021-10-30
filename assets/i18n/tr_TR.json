@@ -360,6 +360,8 @@
     "GIFTPROMOTIONBLACKLIST": "{{appName}}- Hediye Promosyon Kara Liste",
     "PROMOTIONSETTING": "{{appName}} - Otomatik Promosyon Ayarları",
     "PROMOTIONEARNINGRULE": "{{appName}} - Otomatik Promosyon Ekleme Ayarları",
+    "AUTOMATICORDERITEMSETTING": "{{appName}} - Otamatik Ürün Siparişi Ayarları",
+    "AUTOMATICORDERITEMEARNING": "{{appName}} - Otomatik Ürün Ekleme Ayarları",
     "STOREREGIONS": "{{appName}} - Restoran Bölgeleri",
     "USERAUTOMATICREPORT": "{{appName}} - Kullanıcı Otomatik Rapor Tanımı",
     "AUTOMATICREPORTDEFINITION": "{{appName}} - Otomatik Rapor Tanımı",
@@ -740,7 +742,7 @@
     "ISACTIVEFILTER": "Aktif Filtre",
     "ENABLED": "Etkin",
     "DELIVERYTIME": "Teslim Süresi",
-    "MINAMOUNT": "Min Toplam",
+    "MINAMOUNT": "Min Tutar",
     "PRODUCTIONPOINT": "Üretim Noktası",
     "AUDITMEDIATYPE": "Bildirim Ortamı Tipi",
     "SUBCITY": "İlçe",
@@ -2284,6 +2286,8 @@
     "GIFTPROMOTIONBLACKLIST": "Hediye Promosyon Kara Liste",
     "PROMOTIONSETTING": "Otomatik Promosyon Ayarları",
     "PROMOTIONEARNINGRULE": "Otomatik Promosyon Ekleme Ayarları",
+    "AUTOMATICORDERITEMSETTING": "Otamatik Ürün Siparişi Ayarları",
+    "AUTOMATICORDERITEMEARNING": "Otomatik Ürün Ekleme Ayarları",
     "STOREIP": "Restoran IP",
     "IPFILTERENABLED": "IP Kontrolu Aktif Olsun mu ?",
     "DETECTSTOREBYIP": "Detect Store By IP",
@@ -2519,7 +2523,9 @@
         "GIFTPROMOTIONORDERSOURCE": "Hediye Promosyon Sipariş Kaynakları",
         "GIFTPROMOTIONBLACKLIST": "Hediye Promosyon Kara Liste",
         "PROMOTIONSETTING": "Otomatik Promosyon Ayarları",
-        "PROMOTIONEARNINGRULE": "Otomatik Promosyon Ekleme Ayarları"
+        "PROMOTIONEARNINGRULE": "Otomatik Promosyon Ekleme Ayarları",
+        "AUTOMATICORDERITEMSETTING": "Otamatik Ürün Siparişi Ayarları",
+        "AUTOMATICORDERITEMEARNING": "Otomatik Ürün Ekleme Ayarları"
       },
       "product": {
         "MAIN": "Ürünler",

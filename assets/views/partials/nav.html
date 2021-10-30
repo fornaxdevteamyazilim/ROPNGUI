@@ -264,6 +264,18 @@
                     <i class="ti-world"></i> <span class="title" translate="sidebar.nav.promotions.PROMOTIONSCODEVALIDATORS">Promotions Code Validators</span>
                 </a>
             </li>-->
+            <li ui-sref-active="active">
+                <a ui-sref="app.promotion.Automaticorderitemsetting">
+                    <i class="ti-world"></i> <span class="title"
+                        translate="sidebar.nav.promotions.AUTOMATICORDERITEMSETTING">Automatic order Settings </span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.promotion.automaticOrderItemEarning">
+                    <i class="ti-world"></i> <span class="title"
+                        translate="sidebar.nav.promotions.AUTOMATICORDERITEMEARNING">Automatic order Add Earning </span>
+                </a>
+            </li>
         </ul>
     </li>
     <li ng-class="{'active open':$state.includes('app.product')}" ng-if="user.restrictions.products=='Enable'">

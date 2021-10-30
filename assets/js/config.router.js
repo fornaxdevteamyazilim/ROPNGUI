@@ -260,6 +260,24 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'promotionearningrule'
             }
+        }).state('app.promotion.Automaticorderitemsetting', {
+            url: '/Automaticorderitemsetting',
+            templateUrl: "assets/views/promotions/Automaticorderitemsetting.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'AutomaticorderitemsettingCtrl', 'dateCtrl'),
+            title: 'Automaticorderitemsetting',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'Automaticorderitemsetting'
+            }
+        }).state('app.promotion.automaticOrderItemEarning', {
+            url: '/automaticOrderItemEarning',
+            templateUrl: "assets/views/promotions/automaticOrderItemEarning.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'automaticOrderItemEarningCtrl', 'dateCtrl'),
+            title: 'automaticOrderItemEarning',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'automaticOrderItemEarning'
+            }
         }).state('app.promotion.promotionsetting', {
             url: '/promotionsetting',
             templateUrl: "assets/views/promotions/promotionsetting.html",

@@ -407,6 +407,10 @@
     <Content Include="assets\js\controllers\person\selectPersonCtrl.js" />
     <Content Include="assets\js\controllers\matching\productitemmatchingCtrl.js" />
     <Content Include="assets\js\controllers\matching\ropAndRopngCtrl.js" />
+    <Content Include="assets\js\controllers\promotions\automaticOrderItemEarningCtrl.js" />
+    <Content Include="assets\js\controllers\promotions\AutomaticorderitemsettingCtrl.js" />
+    <Content Include="assets\js\controllers\promotions\automaticproductsettingsCtrl.js" />
+    <Content Include="assets\js\controllers\promotions\promotionaddproductsCtrl.js" />
     <Content Include="assets\js\controllers\promotions\promotioncodeCtrl.js" />
     <Content Include="assets\js\controllers\promotions\promotioncodesourceCtrl.js" />
     <Content Include="assets\js\controllers\promotions\promotionearningruleCtrl.js" />

@@ -356,6 +356,8 @@
     "GIFTPROMOTIONBLACKLIST": "{{appName}} - Gift Promotion Black List",
     "PROMOTIONSETTING": "{{appName}} - Promotion Setting",
     "PROMOTIONEARNINGRULE": "{{appName}} - Promotion Earning Rule",
+    "AUTOMATICORDERITEMSETTING": "{{appName}} - Product Order Item Settings",
+    "AUTOMATICORDERITEMEARNING": "{{appName}} - Automatic Product Add Earning",
     "STOREREGIONS": "{{appName}} - Store Regions",
     "USERAUTOMATICREPORT": "{{appName}} - User Automatic Report",
     "AUTOMATICREPORTDEFINITION": "{{appName}} - Automatic Report Definition",
@@ -2256,6 +2258,8 @@
     "GIFTPROMOTIONBLACKLIST": "Gift Promotion Black List",
     "PROMOTIONSETTING": "Promotion Setting",
     "PROMOTIONEARNINGRULE": "Promotion Earning Rule",
+    "AUTOMATICORDERITEMSETTING": "Product Order Item Settings",
+    "AUTOMATICORDERITEMEARNING": "Automatic Product Add Earning",
     "STOREIP": "Store IP",
     "IPFILTERENABLED": "IP Control is Enabled ?",
     "DETECTSTOREBYIP": "Detect Store By IP",
@@ -2509,7 +2513,9 @@
         "GIFTPROMOTIONORDERSOURCE": "Gift Promotion Order Source",
         "GIFTPROMOTIONBLACKLIST": "Gift Promotion Black List",
         "PROMOTIONSETTING": "Promotion Setting",
-        "PROMOTIONEARNINGRULE": "Promotion Earning Rule"
+        "PROMOTIONEARNINGRULE": "Promotion Earning Rule",
+        "AUTOMATICORDERITEMSETTING": "Product Order Item Settings",
+        "AUTOMATICORDERITEMEARNING": "Automatic Product Add Earning"
       },
       "product": {
         "MAIN": "Products",

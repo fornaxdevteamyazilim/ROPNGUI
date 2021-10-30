@@ -16,11 +16,11 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
     $scope.ShowObject = true;
     userService.userAuthorizated();
     $scope.dbClick = function () { };
-    //**************************************************//
+    //******************//
     //$scope.setBackground = {
     //    'background-image': 'url(assets/images/InStore.png)'
     //};
-    //**************************************************//
+    //******************//
     $scope.ShowOerderItems = function (order) {
         var value = [];
         for (var j = 0; j < order.items.length; j++) {
@@ -59,35 +59,32 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             for (var i = 0; i < $scope.tableplans.length; i++) {
                 if ($scope.tableplans[i].tables.some(x => x.id === UpdatedOrder.StoreTableID)) {
                     var tindex = $scope.tableplans[i].tables.findIndex(x => x.id === UpdatedOrder.StoreTableID);
-                    if ($scope.tableplans[i].tables[tindex].orders.some(x => x.id === UpdatedOrder.OrderID)) {
-                        var idx = $scope.tableplans[i].tables[tindex].orders.findIndex(x => x.id === UpdatedOrder.OrderID);
-                        if (UpdatedOrder.isActive) {
-                            var x = i;
-                            var tx = tindex;
-                            var ix = idx;
-                            Restangular.one('order/updated').get({ OrderID: UpdatedOrder.OrderID }).then(function (result) {
-                                result['Remaining'] = $scope.GetOrderPaymentsTotal(result);
-                                $scope.tableplans[x].tables[tx].orders[ix] = result;
-                            })
-                        }
-                        else
-                            $scope.tableplans[i].tables[tindex].orders.splice(idx, 1);
+                    if (UpdatedOrder.isActive) {
+                        var x = i;
+                        var tx = tindex;
+                        Restangular.one('order/updated').get({ OrderID: UpdatedOrder.OrderID }).then(function (result) {
+                            var tmpresult = result.plain();
+                            if (tmpresult.isActive) {
+
+                                tmpresult['Remaining'] = $scope.GetOrderPaymentsTotal(result);
+                                $scope.tableplans[x].tables[tx].orders.length = 0;
+                                $scope.tableplans[x].tables[tx].orders.push(tmpresult);
+                            }
+                            else 
+                            {
+                                $scope.tableplans[i].tables[tindex].orders.splice(0, $scope.tableplans[x].tables[tindex].orders.length);
+                            }
+                        })
                     }
                     else {
-                        if (UpdatedOrder.isActive) {
-                            var x = i;
-                            var tx = tindex;
-                            Restangular.one('order/updated').get({ OrderID: UpdatedOrder.OrderID }).then(function (result) {
-                                result['Remaining'] = $scope.GetOrderPaymentsTotal(result);
-                                $scope.tableplans[x].tables[tx].orders.push(result);
-                            });
-                        }
+                        //$scope.tableplans[i].tables[tindex].orders=[];
+                        $scope.tableplans[i].tables[tindex].orders.splice(0, $scope.tableplans[i].tables[tindex].orders.length);
                     }
                 }
             }
         }
     }
-
+    
     var OrderUpdated = $scope.$on('OrderUpdated', function (event, data) {
         $scope.UpdateOrder(data);
     });
@@ -106,7 +103,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
                 }
             }
             $scope.selectedOrder = '';
-            $scope.tableplans = result
+            angular.copy(result.plain(), $scope.tableplans);
             //$scope.isWaiting = false;
             $scope.tool = { icon: 'assets/images/InStore.png' };
         }, function (response) {
@@ -411,6 +408,3 @@ app.directive('clickAndDisable', function () {
         }
     };
 });
-
-
-
