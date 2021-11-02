@@ -148,21 +148,21 @@
             <!-- <button  ng-if="user.restrictions.yemeksepetistats=='Enable'" class="dropbtn">İşlemler</button> -->
             <div class="dropdown-content">
                 <!-- <a href="#" ng-click="SendToFiyuu(item.id)" ng-if="userRestrictions.sendtofiyuu=='Enable'">{{:: sendtofiyuu }}</a> -->
-                <a href="#" ng-click="DeleteYSMaping(item.id)" ng-if=" item.OrderSource == 'YemekSepeti'">{{::
+                <a href="#" ng-click="DeleteYSMaping(item.id)" ng-if="userRestrictions.deleteysmaping=='Enable' && item.OrderSource == 'YemekSepeti'">{{::
                     deleteysmaping}}</a>
-                <a href="#" ng-click="repeatOrder(item.id)" ng-if="(item.OrderTypeID==2 || item.OrderTypeID==7)">{{::
+                <a href="#" ng-click="repeatOrder(item.id)" ng-if="(item.OrderTypeID==2 || item.OrderTypeID==7) && userRestrictions.repeatorder=='Enable'">{{::
                     repeatorder}}</a>
-                <a href="#" ng-click="OrderChange(item)">{{:: changetoorder}}</a>
-                <a href="#" ng-click="CheckCode(item,'CancelOrder')">{{:: canceltoorder}}</a>
-                <a href="#" ng-click="SelectPromotions(item)">{{:: addpromotion}}</a>
-                <a href="#" ng-click="RePrintOrder(item.id)">{{:: reprint}}</a>
-                <a href="#" ng-click="CheckCode(item,'OrderPaymentDeteails')">{{:: changetopaymenttype}}</a>
+                <a href="#" ng-click="OrderChange(item)" ng-if="userRestrictions.changeorder=='Enable'">{{:: changetoorder}}</a>
+                <a href="#" ng-click="CheckCode(item,'CancelOrder')" ng-if="userRestrictions.cancelorder=='Enable'">{{:: canceltoorder}}</a>
+                <a href="#" ng-click="SelectPromotions(item)" ng-if="userRestrictions.addpromotion=='Enable'">{{:: addpromotion}}</a>
+                <a href="#" ng-click="RePrintOrder(item.id)" ng-if="userRestrictions.reprintorder=='Enable'">{{:: reprint}}</a>
+                <a href="#" ng-click="CheckCode(item,'OrderPaymentDeteails')" ng-if="userRestrictions.changeorderpayment=='Enable'">{{:: changetopaymenttype}}</a>
                 <!-- <a href="#" ng-click="AwaitingCCAutorization(item)">{{:: acceptorder}}</a> -->
-                <a href="#" ng-click="UpdateOrderStateChoose(item)">{{:: chooseorderstate}}</a>
-                <a href="#" ng-click="UpdateOrderPaymentStatusChoose(item.id)">{{:: closeorderpayment}}</a>
-                <a href="#" ng-click="UpdateOrderStatusAdmin(item.id)">{{:: canceltoorder}}</a>
-                <a href="#" ng-click="UpdateCode()">{{:: updatecode}}</a>
-                <a href="#" ng-click="RefreshOrder(item.id)">{{:: refreshorderamount}}</a>
+                <a href="#" ng-click="UpdateOrderStateChoose(item)" ng-if="userRestrictions.chooseorderstate=='Enable'">{{:: chooseorderstate}}</a>
+                <a href="#" ng-click="UpdateOrderPaymentStatusChoose(item.id)" ng-if="userRestrictions.closeorderpayment=='Enable'">{{:: closeorderpayment}}</a>
+                <a href="#" ng-click="UpdateOrderStatusAdmin(item.id)" ng-if="userRestrictions.canceltoorder=='Enable'">{{:: canceltoorder}}</a>
+                <a href="#" ng-click="UpdateCode()" ng-if="userRestrictions.updatecode=='Enable'">{{:: updatecode}}</a>
+                <a href="#" ng-click="RefreshOrder(item.id)"  ng-if="userRestrictions.refreshorderamount=='Enable'">{{:: refreshorderamount}}</a>
                 <!--        
                 <a href="#" ng-click="RevertToPrevState(item.id)" >{{:: reverttoprevstate}}</a>
                 <a href="#" ng-click="SendGiftPromotions(item.id)">{{:: sendgifpromotions }}</a>
@@ -173,21 +173,21 @@
             <button class="dropbtn btn btn-green ti-menu-alt pull-right"></button>
             <div class="dropdown-content">
                 <!-- <a href="#" ng-click="SendToFiyuu(item.id)" ng-if="userRestrictions.sendtofiyuu=='Enable'">{{:: sendtofiyuu }}</a> -->
-                <a href="#" ng-click="DeleteYSMaping(item.id)" ng-if=" item.OrderSource == 'YemekSepeti'">{{::
+                <a href="#" ng-click="DeleteYSMaping(item.id)" ng-if="userRestrictions.deleteysmaping=='Enable' && item.OrderSource == 'YemekSepeti'">{{::
                     deleteysmaping}}</a>
-                <a href="#" ng-click="repeatOrder(item.id)" ng-if="(item.OrderTypeID==2 || item.OrderTypeID==7)">{{::
+                <a href="#" ng-click="repeatOrder(item.id)" ng-if="(item.OrderTypeID==2 || item.OrderTypeID==7) && userRestrictions.repeatorder=='Enable'">{{::
                     repeatorder}}</a>
-                <a href="#" ng-click="OrderChange(item)">{{:: changetoorder}}</a>
-                <a href="#" ng-click="CheckCode(item,'CancelOrder')">{{:: canceltoorder}}</a>
-                <a href="#" ng-click="SelectPromotions(item)">{{:: addpromotion}}</a>
-                <a href="#" ng-click="RePrintOrder(item.id)">{{:: reprint}}</a>
-                <a href="#" ng-click="CheckCode(item,'OrderPaymentDeteails')">{{:: changetopaymenttype}}</a>
+                <a href="#" ng-click="OrderChange(item)" ng-if="userRestrictions.changeorder=='Enable'">{{:: changetoorder}}</a>
+                <a href="#" ng-click="CheckCode(item,'CancelOrder')" ng-if="userRestrictions.cancelorder=='Enable'">{{:: canceltoorder}}</a>
+                <a href="#" ng-click="SelectPromotions(item)" ng-if="userRestrictions.addpromotion=='Enable'">{{:: addpromotion}}</a>
+                <a href="#" ng-click="RePrintOrder(item.id)" ng-if="userRestrictions.reprintorder=='Enable'">{{:: reprint}}</a>
+                <a href="#" ng-click="CheckCode(item,'OrderPaymentDeteails')" ng-if="userRestrictions.changeorderpayment=='Enable'">{{:: changetopaymenttype}}</a>
                 <!-- <a href="#" ng-click="AwaitingCCAutorization(item)">{{:: acceptorder}}</a> -->
-                <a href="#" ng-click="UpdateOrderStateChoose(item)">{{:: chooseorderstate}}</a>
-                <a href="#" ng-click="UpdateOrderPaymentStatusChoose(item.id)">{{:: closeorderpayment}}</a>
-                <a href="#" ng-click="UpdateOrderStatusAdmin(item.id)">{{:: canceltoorder}}</a>
-                <a href="#" ng-click="UpdateCode()">{{:: updatecode}}</a>
-                <a href="#" ng-click="RefreshOrder(item.id)">{{:: refreshorderamount}}</a>
+                <a href="#" ng-click="UpdateOrderStateChoose(item)" ng-if="userRestrictions.chooseorderstate=='Enable'">{{:: chooseorderstate}}</a>
+                <a href="#" ng-click="UpdateOrderPaymentStatusChoose(item.id)" ng-if="userRestrictions.closeorderpayment=='Enable'">{{:: closeorderpayment}}</a>
+                <a href="#" ng-click="UpdateOrderStatusAdmin(item.id)" ng-if="userRestrictions.canceltoorder=='Enable'">{{:: canceltoorder}}</a>
+                <a href="#" ng-click="UpdateCode()" ng-if="userRestrictions.updatecode=='Enable'">{{:: updatecode}}</a>
+                <a href="#" ng-click="RefreshOrder(item.id)"  ng-if="userRestrictions.refreshorderamount=='Enable'">{{:: refreshorderamount}}</a>
                 <!--          
                  <a href="#" ng-click="RevertToPrevState(item.id)" >{{:: reverttoprevstate}}</a>
                  <a href="#" ng-click="SendGiftPromotions(item.id)">{{:: sendgifpromotions }}</a>
@@ -195,7 +195,7 @@
             </div>
         </div>
     </div>
-    <div class="orderdetailstable col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive" style="    top: -22px;">
+    <div class="orderdetailstable col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive" style="    top: -12px;">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 row pull-left margin-top-15 table-responsive">
             <div class="col-sm-12">
                 <table>

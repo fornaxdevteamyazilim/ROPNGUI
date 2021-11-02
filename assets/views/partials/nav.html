@@ -1659,6 +1659,12 @@
                                 translate="sidebar.nav.reports.PODSREPORT">Podlar</span>
                         </a>
                     </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.callcenterreports.customermaps" ng-if="user.restrictions.customermaps=='Enable'">
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.CUSTOMERMAPS">customer maps</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <!---->

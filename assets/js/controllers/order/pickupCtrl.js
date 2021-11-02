@@ -222,7 +222,6 @@ function pickupCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTa
         } else {
         }
     };
-
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
         for (var i = 0; i < $scope[Container].length; i++) {
             if ($scope[Container][i][idName] == idvalue)

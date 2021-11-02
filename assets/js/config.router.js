@@ -2414,6 +2414,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'callreasonreportpivot'
                 }
+            }).state('app.reports.callcenterreports.customermaps', {
+                url: '/customermaps',
+                templateUrl: "assets/views/reports/callcenterreports/customermaps.html",
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'customermapsCtrl', 'dateCtrl', 'pivottable', 'jqueryui', 'jquery-nestable-plugin', 'ng-nestable'),
+                title: 'customermaps',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'customermaps'
+                }
             }).state('app.reports.callcenterreports.personsurvey', {
                 url: '/personsurvey',
                 templateUrl: "assets/views/reports/callcenterreports/personsurvey.html",
