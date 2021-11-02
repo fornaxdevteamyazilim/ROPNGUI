@@ -56,88 +56,109 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
     $scope.ShowObject = true;
     $scope.UpdateOrder = function (OrderUpdate) {
         if (OrderUpdate.OrderTypeID == 2 || OrderUpdate.OrderTypeID == 7) {
-            if ($scope.cookingOrders) {
-                if ($scope.cookingOrders.some(x => x.id === OrderUpdate.OrderID)) {
-                    var idx = $scope.cookingOrders.findIndex(x => x.id === OrderUpdate.OrderID);
-                    if (OrderUpdate.OrderStateID == 21)
-                        Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
-                            $scope.cookingOrders[idx] = result;
-                            $scope.calculateOrderTime();
-                        }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
-                    else
-                        $scope.cookingOrders.splice(idx, 1);
-                }
-                else {
-                    if (OrderUpdate.OrderStateID == 21)
-                        Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
-                            $scope.cookingOrders.push(result);
-                            $scope.calculateOrderTime();
-                        }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
-
-                }
-            }
-            if ($scope.preparingOrders) {
-                if ($scope.preparingOrders.some(x => x.id === OrderUpdate.OrderID)) {
-                    var idx = $scope.preparingOrders.findIndex(x => x.id === OrderUpdate.OrderID);
-                    if (OrderUpdate.OrderStateID == 4)
-                        Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
-                            $scope.preparingOrders[idx] = result;
-                            $scope.calculateOrderTime();
-                        }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
-                    else
-                        $scope.preparingOrders.splice(idx, 1);
-                }
-                else {
-                    if (OrderUpdate.OrderStateID == 4)
-                    Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
-                        $scope.preparingOrders.push(result);
-                        $scope.calculateOrderTime();
-                    }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
-                    
-                }
-            }
-            if ($scope.preparedOrders) {
-                if ($scope.preparedOrders.some(x => x.id === OrderUpdate.OrderID)) {
-                    var idx = $scope.preparedOrders.findIndex(x => x.id === OrderUpdate.OrderID);
-                    if (OrderUpdate.OrderStateID == 5)
-                    Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
-                        $scope.preparedOrders[idx] = result;
-                        $scope.calculateOrderTime();
-                    }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
-                    else
-                    $scope.preparedOrders.splice(idx, 1);
-                }
-                else {
-                    if (OrderUpdate.OrderStateID == 5)
-                    Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
-                        $scope.preparedOrders.push(result);
-                        $scope.calculateOrderTime();
-                    }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
-                }
-            }
-            if ($scope.outOrders) {
-                if ($scope.outOrders.some(x => x.id === OrderUpdate.OrderID)) {
-                    var idx = $scope.outOrders.findIndex(x => x.id === OrderUpdate.OrderID);
-                    if (OrderUpdate.OrderStateID == 6)
-                        Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
-                            $scope.outOrders[idx] = result;
-                            $scope.calculateOrderTime();
-                            dis.tableParams.reload();
-                        }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+            if (OrderUpdate.isActive && ([4, 5, 6, 21].some(x => x === OrderUpdate.OrderStateID))) {
+                if ($scope.cookingOrders) {
+                    if ($scope.cookingOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                        var idx = $scope.cookingOrders.findIndex(x => x.id === OrderUpdate.OrderID);
+                        if (OrderUpdate.OrderStateID == 21)
+                            Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                                $scope.cookingOrders[idx] = result;
+                                $scope.calculateOrderTime();
+                            }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+                        else
+                            $scope.cookingOrders.splice(idx, 1);
+                    }
                     else {
-                        $scope.outOrders.splice(idx, 1);
-                        dis.tableParams.reload();
+                        if (OrderUpdate.OrderStateID == 21)
+                            Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                                $scope.cookingOrders.push(result);
+                                $scope.calculateOrderTime();
+                            }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+
                     }
                 }
-                else {
-                    if (OrderUpdate.OrderStateID == 6)
-                    Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
-                        $scope.outOrders.push(result);
-                        $scope.calculateOrderTime();
-                        dis.tableParams.reload();
-                    }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
-                
+                if ($scope.preparingOrders) {
+                    if ($scope.preparingOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                        var idx = $scope.preparingOrders.findIndex(x => x.id === OrderUpdate.OrderID);
+                        if (OrderUpdate.OrderStateID == 4)
+                            Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                                $scope.preparingOrders[idx] = result;
+                                $scope.calculateOrderTime();
+                            }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+                        else
+                            $scope.preparingOrders.splice(idx, 1);
+                    }
+                    else {
+                        if (OrderUpdate.OrderStateID == 4)
+                            Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                                $scope.preparingOrders.push(result);
+                                $scope.calculateOrderTime();
+                            }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+
+                    }
                 }
+                if ($scope.preparedOrders) {
+                    if ($scope.preparedOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                        var idx = $scope.preparedOrders.findIndex(x => x.id === OrderUpdate.OrderID);
+                        if (OrderUpdate.OrderStateID == 5)
+                            Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                                $scope.preparedOrders[idx] = result;
+                                $scope.calculateOrderTime();
+                            }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+                        else
+                            $scope.preparedOrders.splice(idx, 1);
+                    }
+                    else {
+                        if (OrderUpdate.OrderStateID == 5)
+                            Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                                $scope.preparedOrders.push(result);
+                                $scope.calculateOrderTime();
+                            }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+                    }
+                }
+                if ($scope.outOrders) {
+                    if ($scope.outOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                        var idx = $scope.outOrders.findIndex(x => x.id === OrderUpdate.OrderID);
+                        if (OrderUpdate.OrderStateID == 6)
+                            Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                                $scope.outOrders[idx] = result;
+                                $scope.calculateOrderTime();
+                                dis.tableParams.reload();
+                            }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+                        else {
+                            $scope.outOrders.splice(idx, 1);
+                            dis.tableParams.reload();
+                        }
+                    }
+                    else {
+                        if (OrderUpdate.OrderStateID == 6)
+                            Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                                $scope.outOrders.push(result);
+                                $scope.calculateOrderTime();
+                                dis.tableParams.reload();
+                            }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+
+                    }
+                }
+            }
+            else {
+                if ($scope.outOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                    $scope.outOrders.splice($scope.outOrders.findIndex(x => x.id === OrderUpdate.OrderID), 1);
+                    dis.tableParams.reload();
+                }
+                if ($scope.preparedOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                    $scope.preparedOrders.splice($scope.preparedOrders.findIndex(x => x.id === OrderUpdate.OrderID), 1);
+                    dis.tableParams.reload();
+                }
+                if ($scope.preparingOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                    $scope.preparingOrders.splice($scope.preparingOrders.findIndex(x => x.id === OrderUpdate.OrderID), 1);
+                    dis.tableParams.reload();
+                }
+                if ($scope.cookingOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                    $scope.cookingOrders.splice($scope.cookingOrders.findIndex(x => x.id === OrderUpdate.OrderID), 1);
+                    dis.tableParams.reload();
+                }
+
             }
 
             $scope.calculateOrderTime();
