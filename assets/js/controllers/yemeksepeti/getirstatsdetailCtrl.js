@@ -105,7 +105,8 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             alignment: "right",
             dataType: "date",
             width: 180,
-            format: "d/M/yyyy"
+            format: "d/M/yyyy",
+            sortIndex: 0,sortOrder: "desc"
         }, {
             dataField: "OrderID",
             caption: "Order ID",

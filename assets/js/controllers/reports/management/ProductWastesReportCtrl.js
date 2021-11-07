@@ -30,7 +30,7 @@ function ProductWastesReportCtrl($scope, $filter, $modal, $log, Restangular, Swe
         height: 600,
         showBorders: true,
         columns: [
-            { dataField: "OperationDate", alignment: "right", dataType: "date", width: 180, format: 'dd.MM.yyyy' },
+            { dataField: "OperationDate", alignment: "right", dataType: "date", width: 180, format: 'dd.MM.yyyy', sortIndex: 0,sortOrder: "desc" },
             //{ dataField: "OrderTypeID", caption: "OrderType ID", },
             { dataField: "OrderType", caption: "OrderType", },
             { dataField: "notes" }, { dataField: "ProductCount" },

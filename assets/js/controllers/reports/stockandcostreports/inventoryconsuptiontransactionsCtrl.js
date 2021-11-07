@@ -4,9 +4,12 @@ function inventoryconsuptiontransactionsCtrl($scope, $filter, $modal, $log, Rest
     var ctrl = this;
     $scope.VeiwHeader = {};
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            var gridDS = dataGrid.getDataSource();
+            dataGrid.clearFilter();
+            gridDS.filter(getFilter());
             dataGrid.refresh();
         }
     };
@@ -114,7 +117,7 @@ function inventoryconsuptiontransactionsCtrl($scope, $filter, $modal, $log, Rest
         remoteOperations: true,
         columns: [
             { dataField: "id" },
-            { dataField: "TransactionDate", caption: $translate.instant('InventoryConsuptionTransactions.TransactionDate'), dataType: "date", format: 'dd.MM.yyyy' },
+            { dataField: "TransactionDate", caption: $translate.instant('InventoryConsuptionTransactions.TransactionDate'), dataType: "date", format: 'dd.MM.yyyy', sortIndex: 0,sortOrder: "desc" },
             {
                 caption: $translate.instant('InventoryConsuptionTransactions.InventoryID'), dataField: "InventoryID",
                 lookup: {
