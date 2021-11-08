@@ -106,10 +106,10 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
                 { caption: $translate.instant('turnoverbydaysreport.Year'), dataField: "Year", dataType: "number", area: "column" },
                 { caption: $translate.instant('turnoverbydaysreport.MonthNumber'), dataField: "MonthNumber", dataType: "number", area: "column" },
                 { caption: $translate.instant('turnoverbydaysreport.Day'), dataField: "Day", dataType: "number", area: "column" },
-                { caption: $translate.instant('turnoverbydaysreport.Amount'), dataField: "Amount", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
-                { caption: $translate.instant('turnoverbydaysreport.GrossSales'), dataField: "GrossSales", dataType: "number", summaryType: "sum", format: "fixedPoint", precision: 2 },
+                { caption: $translate.instant('turnoverbydaysreport.Amount'), dataField: "Amount", dataType: "number", summaryType: "sum", format: { type: "fixedPoint", precision: 2 }, area: "data" },
+                { caption: $translate.instant('turnoverbydaysreport.GrossSales'), dataField: "GrossSales", dataType: "number", summaryType: "sum", format: { type: "fixedPoint", precision: 2 } },
                 { caption: "TC", dataField: "id", dataType: "number", summaryType: "count", area: "data" },
-                { caption: $translate.instant('turnoverbydaysreport.VAT'), dataField: "VAT", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
+                { caption: $translate.instant('turnoverbydaysreport.VAT'), dataField: "VAT", dataType: "number", summaryType: "sum",format: { type: "fixedPoint", precision: 2 }, area: "data" },
                 {
                     caption: "AC", dataField: "Amount", dataType: "number", summaryType: "avg", area: "data",
                     format: {
@@ -117,7 +117,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
                         precision: 2
                     }
                 },
-                { caption: $translate.instant('turnoverbydaysreport.AmountWithVAT'), dataField: "AmountWithVAT", dataType: "number", summaryType: "sum", format: "fixedPoint", area: "data", precision: 2 },
+                { caption: $translate.instant('turnoverbydaysreport.AmountWithVAT'), dataField: "AmountWithVAT", dataType: "number", summaryType: "sum", format: { type: "fixedPoint", precision: 2 }, area: "data" },
 
             ],
             store: DevExpress.data.AspNet.createStore({

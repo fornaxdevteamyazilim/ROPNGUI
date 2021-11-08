@@ -70,8 +70,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
                                 $scope.tableplans[x].tables[tx].orders.length = 0;
                                 $scope.tableplans[x].tables[tx].orders.push(tmpresult);
                             }
-                            else 
-                            {
+                            else {
                                 $scope.tableplans[i].tables[tindex].orders.splice(0, $scope.tableplans[x].tables[tindex].orders.length);
                             }
                         })
@@ -84,7 +83,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
             }
         }
     }
-    
+
     var OrderUpdated = $scope.$on('OrderUpdated', function (event, data) {
         $scope.UpdateOrder(data);
     });
@@ -118,6 +117,10 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
     //Burası masa güncellemelri için: sorun - boş masa siaprişleri oluşmakta. 
     var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
         //$scope.LoadStoreTablePlans();
+    });
+    var SignalrReConnected = $scope.$on('Signalr', function (event, data) {
+        if (data == 'reConnected')
+            $scope.LoadStoreTablePlans();
     });
     $scope.PersonSelect = function (item) {
         var modalInstance = $modal.open({
@@ -267,10 +270,11 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         }
     };
     $scope.$on('$destroy', function () {
-        $element.remove();
         $rootScope.uService.ExitController("tablePlanCtrl");
         OrderRefresh();
         OrderUpdated();
+        SignalrReConnected();
+        $element.remove();        
     });
 };
 app.controller('SelectPersoncountCtrl', SelectPersoncountCtrl);

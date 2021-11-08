@@ -177,6 +177,7 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
         if (_storeID) {
             _JoinGroup(_storeID.toString());
         }
+        $rootScope.$broadcast('Signalr','Connected');
         //toaster.pop('success', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionOk'));
         DevExpress.ui.notify({
             message: $translate.instant('SignalR.ConnectionOk'),
@@ -220,6 +221,7 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
             ngnotifyHubProxy.connection.start().done(function () {
                 ngAuthSettings.connected=true;
                 _reJoinToGroups();
+                $rootScope.$broadcast('Signalr','reConnected');
                 //toaster.pop('success', $translate.instant('SignalR.ConnectionInfo'), $translate.instant('SignalR.ConnectionOk'));
                 DevExpress.ui.notify($translate.instant('SignalR.ConnectionOk'), 'success',3000);
             });

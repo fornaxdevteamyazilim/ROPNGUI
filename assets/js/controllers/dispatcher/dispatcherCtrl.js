@@ -15,6 +15,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
     $scope.preparingOrders = [];
     $scope.preparedOrders = [];
     $scope.outOrders = [];
+    $scope.cookingOrders = [];
     $scope.translate = function () {
         $scope.new = $translate.instant('main.NEW');
         $scope.ordertime = $translate.instant('main.ORDERTIME');
@@ -141,7 +142,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                     }
                 }
             }
-            else {
+            else if (OrderUpdate.OrderStateID > 0) {
                 if ($scope.outOrders.some(x => x.id === OrderUpdate.OrderID)) {
                     $scope.outOrders.splice($scope.outOrders.findIndex(x => x.id === OrderUpdate.OrderID), 1);
                     dis.tableParams.reload();
@@ -158,7 +159,6 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                     $scope.cookingOrders.splice($scope.cookingOrders.findIndex(x => x.id === OrderUpdate.OrderID), 1);
                     dis.tableParams.reload();
                 }
-
             }
 
             $scope.calculateOrderTime();
@@ -173,6 +173,10 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
     });
     var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
         //$scope.LoadOrders();
+    });
+    var SignalrReConnected = $scope.$on('Signalr', function (event, data) {
+        if (data == 'reConnected')
+            $scope.LoadOrders();
     });
     amMoment.changeLocale('tr');
     $scope.SelectItem = function (id) {
@@ -199,6 +203,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                 $scope.preparingOrders = $filter('filter')(result, (item) => { return (item.OrderStateID == 4 || item.OrderStateID == 21); });
                 $scope.preparedOrders = $filter('filter')(result, (item) => { return (item.OrderStateID == 5); });
                 $scope.outOrders = $filter('filter')(result, (item) => { return (item.OrderStateID == 6); });
+
                 $scope.calculateOrderTime();
                 $scope.ShowObject = false;
                 $scope.getOrder = true;
@@ -210,7 +215,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
             });
         }
     };
-    $scope.LoadOrders(true);
+    
     $scope.UpdateOrderTimer = function (order) {
         var d1 = moment(order.DeliveryDate);
         var d2 = moment(ngnotifyService.ServerTime());
@@ -387,7 +392,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         })
     };
     $scope.stop = function () {
-        $timeout.cancel(refreshTime);
+        $timeout.cancel($scope.refreshTime);
     };
     var OrderRefresh1 = $rootScope.$on('PreparedOrderRefresh', function (event, OrdeID) {
         for (var i = 0; i < $scope.preparedOrders.length; i++) {
@@ -405,7 +410,16 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
             }
         }
     });
-    var refreshTime = null;
+    $scope.refreshTime = null;
+    $scope.fullRefreshOrdersTimer = null;
+    $scope.fullRefreshOrders = function () {
+        $scope.LoadOrders(true);
+        $scope.fullRefreshOrdersTimer=setTimeout(function () { $scope.fullRefreshOrders() }, 300000);
+    }
+    $scope.fullRefreshOrders();
+    $scope.stopRefreshOrders = function () {
+        $timeout.cancel($scope.fullRefreshOrdersTimer);
+    };
     $scope.calculateOrderTime = function () {
         $scope.stop();
         angular.forEach($scope.preparingOrders, function (ord) {
@@ -433,9 +447,10 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         OrderRefresh2();
         OrderUpdated();
         userService.stopTimeout();
-        stop();
+        $scope.stopstop();
         deregistration1();
         deregistration2();
+        $scope.stopRefreshOrders();
         $element.remove();
         $rootScope.uService.ExitController("dispatcherCtrl");
     });
