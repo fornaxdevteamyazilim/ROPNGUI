@@ -1335,6 +1335,7 @@
     "HOURLYTOTALS": "Daily Totals By Hourly",
     "STOREPAYMNETTYPES": "Payment of Distributions Restaurant",
     "COMPLAINTREPORTS": "Complaint",
+    "INTEGRATIONINCOMINGORDERS": "Integration Incoming Orders",
     "COMPLAINTLISTREPORTS": "Complaint List Reports",
     "SMSLIST": "Sms List",
     "REFRESHORDER": "Refresh Order",
@@ -2676,6 +2677,7 @@
         "HOURLYORDERSLIST": "Hourly Orders List",
         "DAILYTOTALS": "Daily Totals",
         "COMPLAINTREPORTS": "Complaint",
+        "INTEGRATIONINCOMINGORDERS": "Integration Incoming Orders",
         "COMPLAINTLISTREPORTS": "Complaint List Reports",
         "HOURLYTOTALS": "Daily Totals By Hourly",
         "ORDERSREPORT": "Order",
@@ -4461,7 +4463,8 @@
     "status": "Status",
     "isCourierAvailable": "is Courier Available",
     "restaurantSecretKey": "Restaurant Secret Key",
-    "isActive": "is Active"
+    "isActive": "is Active",
+    "isEnabled": "is Enabled"
   },
   "dxTrendyolProduct":{
     "TrendyolProductID": "Trendyol Product ID",

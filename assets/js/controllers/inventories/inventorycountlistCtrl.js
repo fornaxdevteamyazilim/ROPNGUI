@@ -1,196 +1,234 @@
 ﻿app.controller('inventorycountlistCtrl', inventorycountlistCtrl);
-function inventorycountlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $translate, $element, userService, $filter, ngnotifyService) {
+function inventorycountlistCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $filter, ngnotifyService, $element, $location, userService, $timeout, $translate, NG_SETTING, $http, $q) {
     $rootScope.uService.EnterController("inventorycountlistCtrl");
-    var ic = this;
-    $scope.objectType = 'inventorycount';
-    $scope.SelectedItem = null;
-    ic.search = '';
-    $scope.SelectItem = function (id) {
-        $scope.SelectedItem = id;
-        location.href = '#/app/inventory/inventorycount/edit/' + $scope.SelectedItem;
-    };
-    if (!$rootScope.ReportParameters.StartDate && !$rootScope.ReportParameters.EndDate) {
-        $rootScope.ReportParameters.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
-        $rootScope.ReportParameters.EndDate = moment().add(1, 'days').format('YYYY-MM-DD');
+    var id = this;
+    id.search = '';
+    userService.userAuthorizated();
+    if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.MemberID == "111679600561") {
+        $scope.ShowInventoryInvoiceButton = true;
     }
+    $scope.params = userService.getParameter('inventorycountlist',
+        {
+            fromDate: $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd'),
+            toDate: moment().add(0, 'days').format('YYYY-MM-DD')
+        }
+    ).Parameters;
+
     $scope.translate = function () {
         $scope.trDateTime = $translate.instant('main.DATETIME');
-        $scope.trNote = $translate.instant('main.NOTE');
-        $scope.trCountType = $translate.instant('main.COUNTTYPE');
+        $scope.trDocumentNumber = $translate.instant('main.DOCUMENTNUMBER');
+        $scope.trPaymentTerm = $translate.instant('main.PAYMENTTERM');
+        $scope.trCompany = $translate.instant('main.COMPANY');
         $scope.trRepository = $translate.instant('main.REPOSITORY');
-        $scope.trDescription = $translate.instant('main.DESCRIPTION');
-        $scope.searchbydate = $translate.instant('main.SEARCHBYDATE');
-        $scope.addnewcount = $translate.instant('main.ADDNEWCOUNT');
-        $scope.edit = $translate.instant('main.EDIT');
-        $scope.trCommands = $translate.instant('main.COMMANDS');
-        $scope.selectstore = $translate.instant('main.SELECTSTORE');
+        $scope.trDocumentType = $translate.instant('main.DOCUMENTTYPE');
+        $scope.trGrandTotal = $translate.instant('main.GRANDTOTAL');
+        $scope.addnewdelivery = $translate.instant('main.ADDNEW');
+        $scope.search = $translate.instant('main.SEARCH');
+        $scope.selectcompany = $translate.instant('main.SELECTCOMPANY');
         $scope.startdate = $translate.instant('main.STARTDATE');
         $scope.enddate = $translate.instant('main.ENDDATE');
-        $scope.showcounts = $translate.instant('main.SHOWCOUNTS');
+        $scope.showinvoices = $translate.instant('main.GETLIST');
+        $scope.seacrhbydocumentnumber = $translate.instant('main.SEARCHBYDOCUMENTNUMBER');
+        $scope.assigntoinvoice = $translate.instant('main.ASSIGNTOINVOICE');
+        $scope.selectstore = $translate.instant('main.SELECTSTORE');
+        $scope.trCountType = $translate.instant('main.COUNTTYPE');
+        $scope.trCommands = $translate.instant('main.COMMANDS');
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
         $scope.translate();
     });
-    $scope.cancelForm = function (rowform) {
-        rowform.$cancel();
-        if (!ic.tableParams.data[ic.tableParams.data.length - 1].restangularized) {
-            $scope.cancelremove(ic.tableParams.data.length - 1, 1);
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
-        } else {
-            toaster.pop('warning',$translate.instant('invantories.Cancelled'), $translate.instant('difinitions.Editcancelled'));
-        }
-    };
-    //$scope.BuildSearchString = function (src) {
-    //    var result = [];
-    //    if (!userService.userIsInRole("Admin")|| !userService.userIsInRole("PHAdmin")) {
-    //        result.push("Repository.StoreID='" + $rootScope.user.StoreID + "'");
-    //        return result;
-    //    }
-    //};
-            $scope.BuildSearchString = function (src) {
-        var result = [];
-        if ($rootScope.ReportParameters.StartDate && $rootScope.ReportParameters.EndDate && $scope.StoreID) {
-            result.push("CountDate between'" + $rootScope.ReportParameters.StartDate + "'and'" + $rootScope.ReportParameters.EndDate + "'");
-            result.push(($scope.StoreID) ? "Repository.StoreID='" + $scope.StoreID + "'" : "Repository.StoreID='" + $rootScope.user.StoreID + "'");
-        }
-        else if ($rootScope.ReportParameters.StartDate && $rootScope.ReportParameters.EndDate && !$scope.StoreID) {
-            result.push("CountDate between'" + $rootScope.ReportParameters.StartDate + "'and'" + $rootScope.ReportParameters.EndDate + "'");
-            result.push("Repository.StoreID='" + $rootScope.user.StoreID + "'");
-        }
-        return result;
-    };
-    ic.tableParams = new ngTableParams({
-        page: 1,
-        count: 10
-    },{
-        getData: function ($defer, params) {
-            if ($scope.StoreID || $rootScope.user.StoreID && $rootScope.ReportParameters.StartDate && $rootScope.ReportParameters.EndDate) {
-                $scope.isWaiting = true;
-            Restangular.all($scope.objectType).getList({
-                pageNo: params.page(),
-                pageSize: params.count(),
-                search: $scope.BuildSearchString(),
-                sort: '-CountDate'
-            }).then(function (items) {
-                params.total(items.paging.totalRecordCount);
-                if (items.length > 0)
-                    $scope.SelectedItem = items[0].id;
-                $defer.resolve(items);
-            }, function (response) {
-                toaster.pop('error',$translate.instant('Server.ServerError'), response);
-                SweetAlert.swal($translate.instant('Server.ServerError'), angular.toJson(response.data.ExceptionMessage, false), "error");
-            });
+
+    $scope.CreatInvoice = function (data) {
+        var item = {};
+        item.InventoryCountIDs = [];
+        item.InvoiceDocumentNumber = '';
+        item.InvoiceDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
+        for (var i = 0; i < id.tableParams.data.length; i++) {
+            if (id.tableParams.data[i].isSelected == true) {
+                item.InventoryCountIDs.push(id.tableParams.data[i].id)
             }
         }
+        Restangular.restangularizeElement('', item, 'inventorycount/assigntoinvoice')
+        item.post().then(function (resp) {
+            swal("success" ,$translate.instant('invantories.Saved'), $translate.instant('difinitions.DataSuccessfullySaved') );
+            $location.path('app/inventory/inventorycount/edit/' + resp.id);
         });
-    $scope.ChangeStore = function (StoreID) {
-        $scope.StoreID = StoreID;
     };
-
-    $scope.LoadCounts = function () {
-        ic.tableParams.reload();
-    };
-    $scope.ShowObject = function (Container, idName, idvalue, resName) {
-        for (var i = 0; i < $scope[Container].length; i++) {
-            if ($scope[Container][i][idName] == idvalue)
-                return $scope[Container][i][resName];
-        }
-        return idvalue || 'Not set';
-    };
-    $scope.loadEntities = function (EntityType, Container) {
-        if (!$scope[Container].length) {
-            Restangular.all(EntityType).getList({
+    var store = new DevExpress.data.CustomStore({
+        key: "id",
+        load: function (loadOptions) {
+            var params = {
+                fromDate: $scope.DateRange.fromDate.value,
+                toDate: $scope.DateRange.toDate.value,
+                pageSize: 100000,
                 pageNo: 1,
-                pageSize: 1000,
-            }).then(function (result) {
-                $scope[Container] = result;
-            }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            });
+                search: "CountDate between '" + $filter('date')($scope.params.fromDate, 'yyyy-MM-dd') + "' and '" + $filter('date')($scope.params.toDate, 'yyyy-MM-dd') + "'"
+            };
+            return $http.get(NG_SETTING.apiServiceBaseUri + "/api/inventorycount", { params: params })
+                .then(function (response) {
+                    return {
+                        data: response.data.Items,
+                        totalCount: 10
+                    };
+                }, function (response) {
+                    return $q.reject("Data Loading Error");
+                });
         }
-    };
-    $scope.loadEntitiesCache = function (EntityType, Container) {
-        if (!$scope[Container].length) {
-            Restangular.all(EntityType).getList({}).then(function (result) {
-                $scope[Container] = result;
-            }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.ServerError'), response);
-            });
-        }
-    };
-    $scope.stores = [];
-    $scope.loadEntitiesCache('cache/store', 'stores');
-    $scope.counttypes = [];
-    $scope.loadEntities('enums/inventorycounttype', 'counttypes');
-    $scope.cancelremove = function (index) {
-        if (ic.tableParams.data[index].fromServer) {
-            ic.tableParams.data[index].remove();
-        }
-        ic.tableParams.data.splice(index, 1);
-    };
-    var deregistration1 = $scope.$watch(angular.bind(ic, function () {
-        return ic.search;
-    }), function (value) {
-        ic.tableParams.reload();
     });
-    $scope.open = function (ObjectID) {
+    $scope.dataGridOptions = {
+        dataSource: store,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        //keyExpr: "id",
+        showBorders: true,
+        hoverStateEnabled: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        headerFilter: { visible: true },
+        searchPanel: { visible: true },
+        stateStoring: {
+            enabled: true,
+            type: "custom",
+            customLoad: function () {
+                return $scope.params.gridState;
+            },
+            customSave: function (state) {
+                $scope.params.gridState = state;
+            }
+        },
+        //stateStoring: {
+        //    enabled: true,
+        //    type: "localStorage",
+        //    storageKey: "storage"
+        //},
+        columns: [
+            { caption: $scope.trCommands ,type: "buttons",  buttons: [{ hint: "edit", icon: "edit", onClick: function (e) { location.href = '#/app/inventory/inventorycount/edit/' + e.row.data.id; } }] },
+            { caption: "id",dataField: "id", dataType: "number", visible: false },
+            { caption: $scope.trDateTime, dataField: "CountDate", alignment: "right", dataType: "date", format: 'dd.MM.yyyy',sortIndex: 0,sortOrder: "desc" },
+            { caption: $scope.trDescription, dataField: "Description", dataType: "string" },
+            { caption: $scope.trRepository, dataField: "Repository", dataType: "string" },
+            { caption: $scope.trCountType, dataField: "InventoryCountType", dataType: "string" },
 
-        var modalInstance = $modal.open({
-            templateUrl: 'assets/views/Tags/ObjectTagEditModalContent.html',
-            controller: 'TagModalCtrl',
-            size: '',
-            backdrop: '',
-            resolve: {
-                ObjectID: function () {
-                    return ObjectID;
+
+        ],
+        export: {
+            enabled: true,
+            fileName: "InventoryCounts",
+            customizeExcelCell: (options) => {
+                var gridCell = options.gridCell;
+                if (!gridCell) {
+                    return;
+                }
+                if (gridCell.rowType === 'data') {
+                    if (gridCell.data.Delta === true) {
+                        options.font.bold = true;
+                        options.backgroundColor = '#FFBB00';
+                    }
                 }
             }
-        });
-        modalInstance.result.then(function (selectedItem) {
-            $scope.result = selectedItem;
-        });
+        },
+        scrolling: { mode: "virtual" },
+        height: 600,
+        paging: {
+            enabled: true
+        },
+        // masterDetail: {
+        //     enabled: true,
+        //     template: "detail"
+        // }
     };
-
-    $scope.SelectStartDate = function (item) {
-        var modalInstance = $modal.open({
-            templateUrl: 'assets/views/Tools/date.html',
-            controller: 'dateCtrl',
-            size: '',
-            backdrop: '',
-            resolve: {
-                DateTime: function () {
-                    return item;
-                }
-            }
-        });
-        modalInstance.result.then(function (item) {
-            var data = new Date(item);
-            $rootScope.ReportParameters.StartDate = $filter('date')(data, 'yyyy-MM-dd');
-        })
+    // $scope.getDetailGridSettings = function (key) {
+    //     return {
+    //         dataSource: new DevExpress.data.DataSource({
+    //             store: new DevExpress.data.CustomStore({
+    //                 key: "$stateParams.id",
+    //                 load: function (loadOptions) {
+    //                     var params = {
+    //                         pageSize: 100000,
+    //                         pageNo: 1,
+    //                         search: "InventoryCountID= '" + key + "'"
+    //                     };
+    //                     return $http.get(NG_SETTING.apiServiceBaseUri + "/api/inventorycount", { params: params })
+    //                         .then(function (response) {
+    //                             return {
+    //                                 data: response.data.Items,
+    //                                 totalCount: 10
+    //                             };
+    //                         }, function (response) {
+    //                             return $q.reject("Data Loading Error");
+    //                         });
+    //                 }
+    //             })
+    //         }),
+    //         columnAutoWidth: true,
+    //         showBorders: true,
+    //         columns: ['InventoryUnit',
+    //             { dataField: "InventoryGroup" },
+    //             { dataField: "UnitCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+    //             { dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+    //         ],
+    //         export: {
+    //             enabled: true,
+    //             fileName: "InventoryCountIDItems",
+    //             customizeExcelCell: (options) => {
+    //                 var gridCell = options.gridCell;
+    //                 if (!gridCell) {
+    //                     return;
+    //                 }
+    //                 if (gridCell.rowType === 'data') {
+    //                     if (gridCell.data.Delta === true) {
+    //                         options.font.bold = true;
+    //                         options.backgroundColor = '#FFBB00';
+    //                     }
+    //                 }
+    //             }
+    //         },
+    //     };
+    // }
+    $scope.LoadData = function () {
+        var dataGrid = $('#gridContainer').dxDataGrid('instance');
+        dataGrid.refresh();
     };
-    $scope.SelectEndDate = function (item) {
-        var modalInstance = $modal.open({
-            templateUrl: 'assets/views/Tools/date.html',
-            controller: 'dateCtrl',
-            size: '',
-            backdrop: '',
-            resolve: {
-                DateTime: function () {
-                    return item;
-                }
-            }
-        });
-        modalInstance.result.then(function (item) {
-            var data = new Date(item);
-            $rootScope.ReportParameters.EndDate = $filter('date')(data, 'yyyy-MM-dd');
-        })
+    $scope.reportButtonOptions = {
+        text: $scope.showinvoices,
+        onClick: function () {
+            var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            dataGrid.refresh();
+        }
     };
-
-
+    $scope.addNewButtonOptions = {
+        text: $scope.addnewdelivery,
+        onClick: function () {
+            location.href = '#/app/inventory/inventorycount/edit/new';
+        }
+    };
+    $scope.DateRange = {
+        fromDate: {
+            max: $scope.params.toDate,
+            min: new Date(2019, 0, 1),
+            displayFormat: 'dd.MM.yyyy',
+            bindingOptions: {
+                value: "params.fromDate"
+            },
+            value: $scope.params.fromDate.value
+        },
+        toDate: {
+            max: new Date(),
+            min: new Date(2019, 0, 1),
+            displayFormat: 'dd.MM.yyyy',
+            bindingOptions: {
+                value: "params.toDate"
+            },
+            value: $scope.params.toDate.value
+        }
+    };
     $scope.$on('$destroy', function () {
         deregistration();
-        deregistration1();
         $element.remove();
         $rootScope.uService.ExitController("inventorycountlistCtrl");
     });

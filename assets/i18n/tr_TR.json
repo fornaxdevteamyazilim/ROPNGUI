@@ -386,6 +386,7 @@
     "AGGREGATORORDERSREPORT": "{{appName}} - Kanal Bazlı Sipariş Listesi",
     "CUSTOMERMAPS": "{{appName}} - Müşteri Eşleme İstatistikleri",
     "GETIRSTATSDETAIL": "{{appName}} - Aggregator İstatistikleri Detayı",
+    "YEMEKSEPETISTATSDETAIL": "{{appName}} - YS İstatistikleri Detayı",
     "MARKETINGPERMISSIONS": "{{appName}} - KVKK Onayları",
     "ACTUALVSTHEORITICAL": "{{appName}} - Gerçek vs Teorik Analizi",
     "DIFFBYHOURREQ": "{{appName}} - Saatlere Göre İhtiyaç Raporu",
@@ -1354,6 +1355,7 @@
     "HOURLYTOTALS": " Saatlere Göre Günlük Toplamlar",
     "STOREPAYMNETTYPES": "Restoranların Ödeme Dağılımları",
     "COMPLAINTREPORTS": "Şikayet",
+    "INTEGRATIONINCOMINGORDERS": "Entegrasyon Gelen Siparişler",
     "COMPLAINTLISTREPORTS": "Şikayet Listesi",
     "SMSLIST": "Sms Listesi",
     "REFRESHORDER": "Siparişi Yenile",
@@ -2687,6 +2689,7 @@
         "STOREPAYMNETTYPES": "Restoranların Ödeme Dağılımları",
         "ADDRESSES": "Adresler",
         "COMPLAINTREPORTS": "Şikayet",
+        "INTEGRATIONINCOMINGORDERS": "Entegrasyonla Gelen Siparişler",
         "COMPLAINTLISTREPORTS": "Şikayet Listesi",
         "ORDERSREPORT": "Sipariş",
         "AUDIT": "Denetim",
@@ -4490,7 +4493,8 @@
     "status": "Durum",
     "isCourierAvailable": "Mevcut Kurye",
     "restaurantSecretKey": "Restoran Güvenlik Anahtarı",
-    "isActive": "Aktif"
+    "isActive": "Aktif",
+    "isEnabled": "Etkin"
   },
   "dxTrendyolProduct":{
     "TrendyolProductID": "Trenyol Ürün ID",
