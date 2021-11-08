@@ -118,7 +118,7 @@ function trendyolmappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elemen
             { dataField: "isCourierAvailable", caption: $translate.instant('dxTrendyolStore.isCourierAvailable') },
             { dataField: "restaurantSecretKey", caption: $translate.instant('dxTrendyolStore.restaurantSecretKey') },
             { dataField: "isActive", caption: $translate.instant('dxTrendyolStore.isActive') },
-            { dataField: "isEnabled ", caption: $translate.instant('dxTrendyolStore.isEnabled') },
+            { dataField: "isEnabled", caption: $translate.instant('dxTrendyolStore.isEnabled') },
 
             //"FixedSize",
             //"MapByPrototype",
