@@ -1393,6 +1393,7 @@
     "PRODUCTWITHRELATIONS": "Menu - Product Sale",
     "MENUINCOME": "Menu Sals",
     "RETURNTIME/PAYMENTTIME": "Return Time / Payment Time",
+    "ISECRUSED": "is ECR Used",
     "CLOSNGTABLE": "Closing Table",
     "CUTTABLE": "Cut Table",
     "MAKETABLE": "Make Table",
@@ -4529,6 +4530,25 @@
     "TotalMonthlyIncome": "Total Monthly Income",
     "SalesTarget": "SalesTarget",
     "Ratio": "Ratio"
+    
+  },
+  "getiristatsdetail": {
+    "MapID": "Map ID",
+    "MapDate": "Map Date",
+    "OperationDate": "Operation Date",
+    "OrderID": "Order ID",
+    "OrderNumber": "OrderNumber",
+    "StoreName": "Store Name",
+    "TransferTimeMinutes": "Transfer Time Minutes",
+    "CustomerMappingTime": "Customer Mapping Time",
+    "isCustomerMapRequired": "Customer Map Required",
+    "Notes": "Notes",
+    "OrderStatus": "Order Status",
+    "CustomerMapBy": "Customer Map By",
+    "YemekSepetiOrderID": "YemekSepeti Order ID",
+    "Getir": "Getir Order ID",
+    "Aggregator": "Aggregator",
+    "AggregatorOrderID": "Aggregator Order ID"
     
   }
 }

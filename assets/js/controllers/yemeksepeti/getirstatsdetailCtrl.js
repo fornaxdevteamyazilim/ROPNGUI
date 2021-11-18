@@ -19,7 +19,7 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             bindingOptions: {
                 value: "DateRange.fromDate.value"
             },
-            value: (new Date()).addDays(-2),
+            value: (new Date()).addDays(0),
             labelLocation: "top", // or "left" | "right"  
 
         },
@@ -30,7 +30,7 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             bindingOptions: {
                 value: "DateRange.toDate.value"
             },
-            value: (new Date()).addDays(-1),
+            value: (new Date()).addDays(0),
             label: {
                 location: "top",
                 alignment: "right" // or "left" | "center"
@@ -84,61 +84,35 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
     $scope.gridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
-            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxAggregatorOrders",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirStats",
             //onBeforeSend: function (method, ajaxOptions) {
             //    ajaxOptions.xhrFields = { withCredentials: true };
             //}
+            //loadParams: {
+            //    filter: JSON.stringify(getFilter()),
+            //},
+            //filter: getFilter(),
+        
+            remoteOperations: true,
         }),
+        //filter: getFilter(),
+        filterValue: getFilter(),
         remoteOperations: true,
-        columns: [{
-            dataField: "id",
-            caption: "MapID",
-        },
-            {
-            dataField: "MapDate",
-            alignment: "right",
-            dataType: "datetime",
-            width: 180,
-            format: "d/M/yyyy, HH:mm"
-        }, {
-            dataField: "OperationDate",
-            alignment: "right",
-            dataType: "date",
-            width: 180,
-            format: "d/M/yyyy",
-            sortIndex: 0,sortOrder: "desc"
-        }, {
-            dataField: "OrderID",
-            caption: "Order ID",
-        }, {
-            dataField: "OrderNumber",
-        }, , {
-            dataField: "Aggregator",
-        },{
-            dataField: "StoreName",
-            caption: "Store Name",
-        }, {
-            dataField: "TransferTimeMinutes",
-            caption: "Transfer Time",
-        }, {
-            dataField: "CustomerMappingTime",
-            caption: "Customer Mapping Time",
-        }, {
-            dataField: "GetirOrderID",
-            caption: "Getir #",
-        }, {
-                dataField: "isCustomerMapRequired",
-                caption: "Customer Map",
-        }, {
-            dataField: "Notes",
-            caption: "Notes",
-            }, {
-                dataField: "OrderStatus",
-                caption: "OrderStatus",
-            }, {
-                dataField: "CustomerMapBy",
-                caption: "CustomerMapBy",
-            }],
+        columns: [
+            { dataField: "id", caption: "MapID" , caption: $translate.instant('AggregatorOrdersstatsdetail.MapID') }, 
+            { dataField: "MapDate", alignment: "right", dataType: "datetime", width: 110, format: "d/M/yyyy, HH:mm", caption: $translate.instant('AggregatorOrdersstatsdetail.MapDate') }, 
+            { dataField: "OperationDate", alignment: "right", dataType: "date", width: 100, format: "d/M/yyyy", caption: $translate.instant('AggregatorOrdersstatsdetail.OperationDate') }, 
+            { dataField: "OrderID", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderID') }, 
+            { dataField: "OrderNumber", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderNumber') },
+            { dataField: "StoreName", caption: $translate.instant('AggregatorOrdersstatsdetail.StoreName') }, 
+            { dataField: "TransferTimeMinutes", caption: $translate.instant('AggregatorOrdersstatsdetail.TransferTimeMinutes') },
+            { dataField: "CustomerMappingTime", caption: $translate.instant('AggregatorOrdersstatsdetail.CustomerMappingTime') },
+            { dataField: "isCustomerMapRequired", caption: $translate.instant('AggregatorOrdersstatsdetail.isCustomerMapRequired') }, 
+            { dataField: "AggregatorOrderID", caption: $translate.instant('AggregatorOrdersstatsdetail.GetirOrderID') }, 
+            { dataField: "Notes", caption: $translate.instant('AggregatorOrdersstatsdetail.Notes') }, 
+            { dataField: "OrderStatus", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderStatus') },
+            { dataField: "CustomerMapBy", caption:$translate.instant('AggregatorOrdersstatsdetail.CustomerMapBy') }
+        ],
         filterRow: {
             visible: true
         },
@@ -147,26 +121,32 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         },
         "export": {
             enabled: true,
-            fileName: "GetirStatDetails",
+            fileName: "getiristatsdetail",
         },
         scrolling: {
             mode: "virtual"
         },
         height: 600,
-        showBorders: true
-        
+        showBorders: true,
+        summary: {
+            totalItems: [{
+                column: "id",
+                summaryType: "count"
+            }]
+        }
     };
 
 
 
     $scope.LoadData = function () {
-
+        
     };
-
-
-
-
+    //$scope.inittable();
     $scope.$on('$destroy', function () {
         $element.remove();
     });
+
+    $scope.Back = function () {
+        $window.history.back();
+    };
 };

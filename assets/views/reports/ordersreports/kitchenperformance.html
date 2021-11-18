@@ -170,10 +170,11 @@
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.ORDEROUTPERIOD' | translate}} (DK.)</span></th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.OUTTIME' | translate}}</th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">{{'main.DELIVERYPERIOD' | translate}} (DK.)</span></th>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="pull-right">  {{'main.ISECRUSED' | translate}}</span></th>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.RETURNTIME/PAYMENTTIME' | translate}} </th>
                 </tr>
                 <tr ng-repeat="item in Orders | orderBy:'+OrderDate'">
-                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-click="RunOrderDetail(item.OrderID)">
                         <span class="pull-left">
                             {{item.OrderNumber}}
                         </span>
@@ -227,14 +228,21 @@
                         </span>
                     </td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                        <span ng-if="item.isRealDeliveryTime == true" class="pull-left">
+                        <span ng-if="item.isECRUsed">
+                            <label ng-class="{'text-bold':item.isECRUsed}">
+                                {{item.isECRUsed}}
+                            </label>
+                        </span>
+                    </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <span ng-if="item.isRealDeliveryTime  == true" class="pull-left">
                             <label ng-class="{'badge':item.DeliveryDate}">
-                                {{item.DeliveryDate | date:'HH:mm:ss'}}
+                                {{item.DeliveryDate  | date:'HH:mm:ss'}}
                             </label>
                         </span>
                         <span ng-if="item.isRealDeliveryTime == false">
                             <label ng-class="{'text-bold':item.DeliveryDate}">
-                                {{item.DeliveryDate | date:'HH:mm:ss'}}
+                                {{item.DeliveryDate  | date:'HH:mm:ss'}}
                             </label>
                         </span>
                     </td>
@@ -242,6 +250,7 @@
                 <tr class="bg-grey">
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold">Toplam: </td>
                     <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold">{{linage}} </td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
@@ -261,6 +270,7 @@
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span class="pull-right">{{formatTimeFromSeconds(DeliveryPeriod/linage)}}</span></td>
+                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                     <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></td>
                 </tr>
             </table>

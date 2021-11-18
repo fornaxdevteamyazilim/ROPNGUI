@@ -2,29 +2,14 @@
 app.controller('bonustransactionsCtrl', bonustransactionsCtrl);
 function bonustransactionsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING, $http, $q, localStorageService) {
     var ctrl = this;
-    $scope.VeiwHeader = {};
-    $scope.reportButtonOptions = {
-        text: "Get Data",
-        onClick: function () {
-            var dataGrid = $('#gridContainer').dxDataGrid('instance');
-            dataGrid.refresh();
-        }
-    };
-    $scope.resetlayout = $translate.instant('main.RESETLAYOUT');
-    $scope.resetButtonOptions = {
-        text: $scope.resetlayout,
-        onClick: function () {
-            $("#sales").dxPivotGrid("instance").getDataSource().state({});
-        }
-    };
-    function isNotEmpty(value) {
-        return value !== undefined && value !== null && value !== "";
-    };
-    Date.prototype.addDays = function (days) {
-        var date = new Date(this.valueOf());
-        date.setDate(date.getDate() + days);
-        return date;
+    $scope.Time = ngnotifyService.ServerTime();
+
+    if (!$rootScope.user || !$rootScope.user.UserRole || !$rootScope.user.UserRole.Name) {
+        $location.path('/login/signin');
     }
+    Date.prototype.addDays = Date.prototype.addDays || function (days) {
+        return this.setTime(864E5 * days + this.valueOf()) && this;
+    };
     $scope.DateRange = {
         fromDate: {
             max: new Date(),
@@ -33,7 +18,7 @@ function bonustransactionsCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             bindingOptions: {
                 value: "DateRange.fromDate.value"
             },
-            value: (new Date()).addDays(-2),
+            value: (new Date()).addDays(1),
             labelLocation: "top", // or "left" | "right"  
 
         },
@@ -44,13 +29,29 @@ function bonustransactionsCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             bindingOptions: {
                 value: "DateRange.toDate.value"
             },
-            value: (new Date()).addDays(-1),
+            value: (new Date()).addDays(1),
             label: {
                 location: "top",
                 alignment: "right" // or "left" | "center"
             }
         }
     };
+    $scope.reportButtonOptions = {
+        text: $translate.instant('reportcommands.GetData'),
+        onClick: function () {
+            var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            var gridDS = dataGrid.getDataSource();
+            dataGrid.clearFilter();
+            gridDS.filter(getFilter());
+            dataGrid.refresh();
+        }
+    };
+    $scope.inittable=function () {
+        var dataGrid = $('#gridContainer').dxDataGrid('instance');
+        var gridDS = dataGrid.getDataSource();
+        gridDS.filter(getFilter());
+        dataGrid.refresh();
+    }
     function getFilter() { //"and",["!",["OrderType","=",""]]
         var fdate = new Date($scope.DateRange.fromDate.value.getFullYear(), $scope.DateRange.fromDate.value.getMonth(), $scope.DateRange.fromDate.value.getDate());
         var tdate = new Date($scope.DateRange.toDate.value.getFullYear(), $scope.DateRange.toDate.value.getMonth(), $scope.DateRange.toDate.value.getDate());
@@ -81,7 +82,7 @@ function bonustransactionsCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             }
         }),
         remoteOperations: { groupPaging: true },
-        //filterValue: getFilter(),
+        filterValue: getFilter(),
         showBorders: true,
         allowColumnResizing: true,
         columnAutoWidth: true,

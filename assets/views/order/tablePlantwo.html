@@ -34,7 +34,7 @@
                     <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderState}}</span>
                     <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trPaymentStatus}}</span>
                     <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderDate}}</span>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" ng-if="user.restrictions.dispatcherpaymentbuttons=='Enable'">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" ng-if="user.restrictions.tableplantwopaymentbuttons=='Enable'">
                         <button class="btn btn-o btn-success ti-credit-card pull-left" ng-click="OrderPaymentDeteails(order)" ng-disabled="::order.PaymentStatusID==1"></button>
                         <button class="btn btn-o btn-primary ti-share pull-right" ng-click="SaveOpenOrders(order)" ng-disabled="::order.PaymentStatusID==0 || order.OrderStateID==4"></button>
                     </div>
@@ -75,7 +75,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
                     <span class="col-sm-4 col-xs-4">{{::trOrderNumber}}</span>
                     <span class="col-sm-4 col-xs-4">{{::trPersonName}} <br /><span ng-if="::order.Alias">({{::orderdetails}})</span></span>
-                    <div class="col-sm-4 col-xs-4" ng-if="user.restrictions.dispatcherpaymentbuttons=='Enable'">
+                    <div class="col-sm-4 col-xs-4" ng-if="user.restrictions.tableplantwopaymentbuttons=='Enable'">
                         <button class="btn btn-o btn-success btn-lg ti-credit-card visible-lg pull-left" ng-click="OrderPaymentDeteails(order)" ng-disabled="::order.PaymentStatusID==1"></button>
                         <button class="btn btn-o btn-primary btn-lg ti-share tooltips visible-lg pull-right" tooltip-placement="top" tooltip="Siparişi Teslim Et!" ng-click="SaveOpenOrders(order)" ng-disabled="order.PaymentStatusID==0"></button>
                         <button class="btn btn-o btn-success btn-md ti-credit-card visible-md visible-sm visible-xs pull-left" ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>
@@ -129,7 +129,7 @@
                     <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderState}}</span>
                     <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::trPaymentStatus}}</span>
                     <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderDate}}</span>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row " ng-if="::user.restrictions.dispatcherpaymentbuttons=='Enable'">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row " ng-if="::user.restrictions.tableplantwopaymentbuttons=='Enable'">
                         <button class="btn btn-o btn-success btn-lg ti-credit-card tooltips" tooltip-placement="top" tooltip="Ödeme !" ng-click="OrderPaymentDeteails(order)" ng-disabled="::order.PaymentStatusID==1"></button>
                         <button class="btn btn-o btn-primary btn-lg ti-share tooltips" tooltip-placement="top" tooltip="Siparişi Teslim Et!" ng-click="SaveOpenOrders(order)" ng-disabled="::order.PaymentStatusID==0"></button>
                     </div>

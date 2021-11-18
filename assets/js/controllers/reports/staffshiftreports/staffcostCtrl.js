@@ -23,7 +23,7 @@ function staffcostCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
             bindingOptions: {
                 value: "DateRange.fromDate.value"
             },
-            value: (new Date()).addDays(-8),
+            value: (new Date()).addDays(1),
             labelLocation: "top", // or "left" | "right"  
 
         },
@@ -34,7 +34,7 @@ function staffcostCtrl($scope, Restangular, toaster, $interval, $http, NG_SETTIN
             bindingOptions: {
                 value: "DateRange.toDate.value"
             },
-            value: (new Date()).addDays(-1),
+            value: (new Date()).addDays(1),
             label: {
                 location: "top",
                 alignment: "right" // or "left" | "center"

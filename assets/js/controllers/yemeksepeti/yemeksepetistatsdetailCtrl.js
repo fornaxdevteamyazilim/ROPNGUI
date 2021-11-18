@@ -7,8 +7,8 @@ function yemeksepetistatsdetailCtrl($scope, $filter, $modal, $log, Restangular, 
 
     if (!$rootScope.user || !$rootScope.user.UserRole || !$rootScope.user.UserRole.Name) {
         $location.path('/login/signin');
-    } 
-      Date.prototype.addDays = Date.prototype.addDays || function (days) {
+    }
+    Date.prototype.addDays = Date.prototype.addDays || function (days) {
         return this.setTime(864E5 * days + this.valueOf()) && this;
     };
     $scope.DateRange = {
@@ -19,7 +19,7 @@ function yemeksepetistatsdetailCtrl($scope, $filter, $modal, $log, Restangular, 
             bindingOptions: {
                 value: "DateRange.fromDate.value"
             },
-            value: (new Date()).addDays(-2),
+            value: (new Date()).addDays(0),
             labelLocation: "top", // or "left" | "right"  
 
         },
@@ -30,7 +30,7 @@ function yemeksepetistatsdetailCtrl($scope, $filter, $modal, $log, Restangular, 
             bindingOptions: {
                 value: "DateRange.toDate.value"
             },
-            value: (new Date()).addDays(-1),
+            value: (new Date()).addDays(0),
             label: {
                 location: "top",
                 alignment: "right" // or "left" | "center"
@@ -88,55 +88,32 @@ function yemeksepetistatsdetailCtrl($scope, $filter, $modal, $log, Restangular, 
             //onBeforeSend: function (method, ajaxOptions) {
             //    ajaxOptions.xhrFields = { withCredentials: true };
             //}
+            //loadParams: {
+            //    filter: JSON.stringify(getFilter()),
+            //},
+            //filter: getFilter(),
+        
+            remoteOperations: true,
         }),
+        //filter: getFilter(),
+        filterValue: getFilter(),
         remoteOperations: true,
-        columns: [{
-            dataField: "id",
-            caption: "MapID",
-        },
-            {
-            dataField: "MapDate",
-            alignment: "right",
-            dataType: "datetime",
-            width: 180,
-            format: "d/M/yyyy, HH:mm"
-        }, {
-            dataField: "OperationDate",
-            alignment: "right",
-            dataType: "date",
-            width: 180,
-            format: "d/M/yyyy",
-            sortIndex: 0,sortOrder: "desc"
-        }, {
-            dataField: "OrderID",
-            caption: "Order ID",
-        }, {
-            dataField: "OrderNumber"
-        }, {
-            dataField: "StoreName",
-            caption: "Store Name",
-        }, {
-            dataField: "TransferTimeMinutes",
-            caption: "Transfer Time",
-        }, {
-            dataField: "CustomerMappingTime",
-            caption: "Customer Mapping Time",
-        }, {
-            dataField: "YemekSepetiOrderID",
-            caption: "YemekSepeti #",
-        }, {
-                dataField: "isCustomerMapRequired",
-                caption: "Customer Map",
-        }, {
-            dataField: "Notes",
-            caption: "Notes",
-            }, {
-                dataField: "OrderStatus",
-                caption: "OrderStatus",
-            }, {
-                dataField: "CustomerMapBy",
-                caption: "CustomerMapBy",
-            }],
+        columns: [
+            
+        { dataField: "id", caption: "MapID" , caption: $translate.instant('AggregatorOrdersstatsdetail.MapID') }, 
+        { dataField: "MapDate", alignment: "right", dataType: "datetime", width: 110, format: "d/M/yyyy, HH:mm", caption: $translate.instant('AggregatorOrdersstatsdetail.MapDate') }, 
+        { dataField: "OperationDate", alignment: "right", dataType: "date", width: 100, format: "d/M/yyyy", caption: $translate.instant('AggregatorOrdersstatsdetail.OperationDate') }, 
+        { dataField: "OrderID", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderID') }, 
+        { dataField: "OrderNumber", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderNumber') },
+        { dataField: "StoreName", caption: $translate.instant('AggregatorOrdersstatsdetail.StoreName') }, 
+        { dataField: "TransferTimeMinutes", caption: $translate.instant('AggregatorOrdersstatsdetail.TransferTimeMinutes') },
+        { dataField: "CustomerMappingTime", caption: $translate.instant('AggregatorOrdersstatsdetail.CustomerMappingTime') },
+        { dataField: "YemekSepetiOrderID", caption: $translate.instant('AggregatorOrdersstatsdetail.YemekSepetiOrderID')}, 
+         { dataField: "isCustomerMapRequired", caption: $translate.instant('AggregatorOrdersstatsdetail.isCustomerMapRequired') }, 
+        { dataField: "Notes", caption: $translate.instant('AggregatorOrdersstatsdetail.Notes') }, 
+        { dataField: "OrderStatus", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderStatus') },
+        { dataField: "CustomerMapBy", caption:$translate.instant('AggregatorOrdersstatsdetail.CustomerMapBy') }
+        ],
         filterRow: {
             visible: true
         },
@@ -163,13 +140,14 @@ function yemeksepetistatsdetailCtrl($scope, $filter, $modal, $log, Restangular, 
 
 
     $scope.LoadData = function () {
-
+        
     };
-
-
-
-
+    //$scope.inittable();
     $scope.$on('$destroy', function () {
         $element.remove();
     });
+
+    $scope.Back = function () {
+        $window.history.back();
+    };
 };

@@ -23,7 +23,7 @@ function staffcostdetailCtrl($scope, NG_SETTING, $rootScope, $translate, $elemen
             bindingOptions: {
                 value: "DateRange.fromDate.value"
             },
-            value: (new Date()).addDays(-2),
+            value: (new Date()).addDays(1),
             labelLocation: "top", // or "left" | "right"  
 
         },
@@ -34,7 +34,7 @@ function staffcostdetailCtrl($scope, NG_SETTING, $rootScope, $translate, $elemen
             bindingOptions: {
                 value: "DateRange.toDate.value"
             },
-            value: (new Date()).addDays(-1),
+            value: (new Date()).addDays(1),
             label: {
                 location: "top",
                 alignment: "right" // or "left" | "center"

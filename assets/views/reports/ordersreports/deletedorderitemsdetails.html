@@ -115,6 +115,7 @@
                         <span class="col-lg-3 col-md-4 col-sm-4 col-xs-4 text text-bold text-extra-large">{{:: payment.PaymentType}}</span>
                         <span class="col-lg-3 col-md-4 col-sm-4 col-xs-4">{{:: payment.PaymentDate  | date:'dd-MM-yyyy / HH:mm:ss'}}</span>
                         <span class="col-lg-3 col-md-4 col-sm-4 col-xs-4">{{:: payment.Amount | number:2}}</span>
+                        <span class="col-lg-3 col-md-4 col-sm-4 col-xs-4" ng-if="payment.isAutomatic == true"><span class="text-bold">OKC</span></span>
                     </div>
                 </div>
             </fieldset>

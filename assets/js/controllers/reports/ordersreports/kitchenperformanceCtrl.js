@@ -68,6 +68,21 @@ function kitchenperformanceCtrl($scope, $log, $modal, $timeout, $filter, SweetAl
     $scope.PerformanceExcel = function () {
         location.href = NG_SETTING.apiServiceBaseUri + '/api/order/reports/deliveryperformancexls?StartDate=' + $scope.StartDate + '&EndDate=' + $scope.EndDate + '&StoreID=' + $scope.StoreID;
     };
+     $scope.RunOrderDetail = function (itemID) {
+        var modalInstance = $modal.open({
+            templateUrl: 'assets/views/reports/ordersreports/deletedorderitemsdetails.html',
+            controller: 'deletedorderitemsdetailsCtrl',
+            size: 'lg',
+            backdrop: '',
+            resolve: {
+                OrderID: function () {
+                    return itemID;
+                }
+            }
+        });
+        modalInstance.result.then(function (item) {
+        })
+    };
     $scope.SelectStartDate = function (item) {
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/Tools/date.html',
@@ -123,6 +138,7 @@ function kitchenperformanceCtrl($scope, $log, $modal, $timeout, $filter, SweetAl
     $scope.ordertypes = [];
     $scope.loadEntities('enums/ordertype', 'ordertypes');
     $scope.OrderType = "-1";
+    $scope.OrderType = "1";
     $scope.Back = function () {
         $window.history.back();
     };

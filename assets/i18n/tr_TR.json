@@ -1416,6 +1416,7 @@
     "PRODUCTWITHRELATIONS": "Menü - Ürün Satış",
     "MENUINCOME": "Menü Satış Geliri",
     "RETURNTIME/PAYMENTTIME": "Dönüş Saati / Ödeme Saati",
+    "ISECRUSED": "ECR Kullanımı",
     "CLOSNGTABLE": "Kapanış Tablosu",
     "CUTTABLE": "Cut Table Tahmin Tablosu",
     "MAKETABLE": "Hazır Pizza Rafı Tablosu",
@@ -4560,5 +4561,23 @@
     "SalesTarget": "Satış Hedefi",
     "Ratio": "Oran"
     
+  },
+  "AggregatorOrdersstatsdetail": {
+    "MapID": "ID",
+    "MapDate": "Eşleşme Saati",
+    "OperationDate": "Sipariş Saati",
+    "OrderID": "Sipariş ID",
+    "OrderNumber": "Sipariş Numarası",
+    "StoreName": "Restoran",
+    "TransferTimeMinutes": "Transfer Süresi",
+    "CustomerMappingTime": "Agent Eşleşme Süresi",
+    "isCustomerMapRequired": "Gerekli Agent Eşlemesi",
+    "Notes": "Not",
+    "OrderStatus": "Sipariş Durumu",
+    "CustomerMapBy": "Agent",
+    "YemekSepetiOrderID": "YemekSepeti Sipariş ID",
+    "GetirOrderID": "Getir Sipariş ID",
+    "Aggregator": "Kaynak",
+    "AggregatorOrderID":"Kaynak Sipariş ID"
   }
 }

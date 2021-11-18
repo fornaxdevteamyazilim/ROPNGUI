@@ -2677,7 +2677,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }).state('app.reports.ordersreports.kitchenperformance', {
                 url: '/kitchenperformance',
                 templateUrl: "assets/views/reports/ordersreports/kitchenperformance.html",
-                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'kitchenperformanceCtrl', 'dateCtrl', 'pivottable', 'jqueryui', 'jquery-nestable-plugin', 'ng-nestable'),
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'kitchenperformanceCtrl', 'deletedorderitemsdetailsCtrl', 'dateCtrl', 'pivottable', 'jqueryui', 'jquery-nestable-plugin', 'ng-nestable'),
                 title: 'Mutfak Performanslari Raporu',
                 authenticate: true,
                 ncyBreadcrumb: {

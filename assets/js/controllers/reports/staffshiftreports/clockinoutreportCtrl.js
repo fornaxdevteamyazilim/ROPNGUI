@@ -2,11 +2,14 @@
 app.controller('clockinoutreportCtrl', clockinoutreportCtrl);
 function clockinoutreportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING, $http, $q, localStorageService) {
     var ctrl = this;
-    //var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
-    //    $scope.translate();
-    //});
-    //DevExpress.localization.locale("tr");
-    //Globalize.locale('tr');
+    $scope.Time = ngnotifyService.ServerTime();
+
+    if (!$rootScope.user || !$rootScope.user.UserRole || !$rootScope.user.UserRole.Name) {
+        $location.path('/login/signin');
+    }
+    Date.prototype.addDays = Date.prototype.addDays || function (days) {
+        return this.setTime(864E5 * days + this.valueOf()) && this;
+    };
     $scope.DateRange = {
         fromDate: {
             max: new Date(),
@@ -15,7 +18,9 @@ function clockinoutreportCtrl($scope, $filter, $modal, $log, Restangular, SweetA
             bindingOptions: {
                 value: "DateRange.fromDate.value"
             },
-            value: new Date()
+            value: (new Date()).addDays(1),
+            labelLocation: "top", // or "left" | "right"  
+
         },
         toDate: {
             max: new Date(),
@@ -24,24 +29,29 @@ function clockinoutreportCtrl($scope, $filter, $modal, $log, Restangular, SweetA
             bindingOptions: {
                 value: "DateRange.toDate.value"
             },
-            value: new Date()
+            value: (new Date()).addDays(1),
+            label: {
+                location: "top",
+                alignment: "right" // or "left" | "center"
+            }
         }
     };
-    $scope.VeiwHeader = {};
     $scope.reportButtonOptions = {
-        text: "Get Data",
+        text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            var gridDS = dataGrid.getDataSource();
+            dataGrid.clearFilter();
+            gridDS.filter(getFilter());
             dataGrid.refresh();
         }
     };
-    $scope.resetlayout = $translate.instant('main.RESETLAYOUT');
-    $scope.resetButtonOptions = {
-        text: $scope.resetlayout,
-        onClick: function () {
-            $("#sales").dxPivotGrid("instance").getDataSource().state({});
-        }
-    };
+    $scope.inittable=function () {
+        var dataGrid = $('#gridContainer').dxDataGrid('instance');
+        var gridDS = dataGrid.getDataSource();
+        gridDS.filter(getFilter());
+        dataGrid.refresh();
+    }
     function isNotEmpty(value) {
         return value !== undefined && value !== null && value !== "";
     };
@@ -70,17 +80,20 @@ function clockinoutreportCtrl($scope, $filter, $modal, $log, Restangular, SweetA
         return result;
     }
     function getFilter() { //"and",["!",["OrderType","=",""]]
+        var fdate = new Date($scope.DateRange.fromDate.value.getFullYear(), $scope.DateRange.fromDate.value.getMonth(), $scope.DateRange.fromDate.value.getDate());
+        var tdate = new Date($scope.DateRange.toDate.value.getFullYear(), $scope.DateRange.toDate.value.getMonth(), $scope.DateRange.toDate.value.getDate());
 
-        var s = BuildUserStoresArray($rootScope.user.userstores);
-        if (s)
-            return [["OperationDate", ">=", $scope.DateRange.fromDate.value], "and", ["OperationDate", "<=", $scope.DateRange.toDate.value], [s]];
-        else
-            return "";
-        //return [["OperationDate", ">=", $scope.DateRange.fromDate.value], "and", ["OperationDate", "<=", $scope.DateRange.toDate.value ], [s]];
-        //else
-        //    return [["OperationDate", ">=", $scope.DateRange.fromDate.value], "and", ["OperationDate", "<=", $scope.DateRange.toDate.value ],["isActive","=","1"]];
-
-    }
+        if ($scope.StoreID) {
+            return [[["OperationDate", ">=", fdate], "and", ["OperationDate", "<=", tdate]], "and", ["StoreID", "=", $scope.StoreID]];
+        }
+        else {
+            //var s= BuildUserStoresArray($rootScope.user.userstores);
+            //if (s)
+            //    return [["OperationDate", ">=", fdate], "and", ["OperationDate", "<=", tdate], [s]];
+            //else
+                return [["OperationDate", ">=", fdate], "and", ["OperationDate", "<=", tdate]];
+        }
+    };
     $scope.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",

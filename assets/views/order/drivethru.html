@@ -30,7 +30,7 @@
                     <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderState}}</span>
                     <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::trPaymentStatus}}</span>
                     <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderDate}}</span>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row " ng-if="::user.restrictions.dispatcherpaymentbuttons=='Enable'">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 row " ng-if="::user.restrictions.drivethrupaymentbuttons=='Enable'">
                         <button class="btn btn-o btn-success btn-lg ti-credit-card tooltips" tooltip-placement="top" tooltip="Ödeme !" ng-click="OrderPaymentDeteails(order)" ng-disabled="::order.PaymentStatusID==1"></button>
                         <button class="btn btn-o btn-primary btn-lg ti-share tooltips" tooltip-placement="top" tooltip="Siparişi Teslim Et!" ng-click="SaveOpenOrders(order)" ng-disabled="::order.PaymentStatusID==0"></button>
                     </div>

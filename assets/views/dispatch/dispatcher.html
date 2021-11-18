@@ -669,11 +669,11 @@
                 </tab>
             </tabset>
 
-            <tabset class="tabbable">
+            <tabset class="tabbable visible-sm visible-xs">
                 <tab class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <tab-heading>{{::driverlist}} </tab-heading>
-                    <div style="min-height:1000px;">
-                        <table ng-table="dis.tableParams" class="table table-striped col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div style="min-height:1000px;" ng-repeat="item in dis.tableParams">
+                        <table  class="table table-striped col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <tr>
                                 <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::drivername}}</th>
                                 <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::vehicle}}</th>

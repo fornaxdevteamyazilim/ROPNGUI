@@ -37,7 +37,7 @@
                     <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.ORDERSTATE' | translate}}</span>
                     <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.PAYMENTSTATUS' | translate}}</span>
                     <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{'main.ORDERDATE' | translate}}</span>
-                    <div class="col-lg-2 col-md-1 col-sm-1 col-xs-1" ng-if="user.restrictions.dispatcherpaymentbuttons=='Enable'">
+                    <div class="col-lg-2 col-md-1 col-sm-1 col-xs-1" ng-if="user.restrictions.stafforderpaymentbuttons=='Enable'">
                         <button class="btn btn-o btn-success btn-lg ti-credit-card visible-lg pull-left" ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>
                         <button class="btn btn-o btn-primary btn-lg ti-share tooltips visible-lg pull-right" tooltip-placement="top" tooltip="Siparişi Teslim Et!" ng-click="SaveOpenOrders(order)" ng-disabled="order.PaymentStatusID==0"></button>
 
@@ -81,7 +81,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
                     <span class="col-sm-4 col-xs-4">{{'main.ORDERNUMBER' | translate}}</span>
                     <span class="col-sm-4 col-xs-4">{{'main.PERSONNAME' | translate}} <br /><span ng-if="order.Alias">({{'main.ORDERALIAS' | translate}})</span></span>
-                    <div class="col-sm-4 col-xs-4" ng-if="user.restrictions.dispatcherpaymentbuttons=='Enable'">
+                    <div class="col-sm-4 col-xs-4" ng-if="user.restrictions.stafforderpaymentbuttons=='Enable'">
                         <button class="btn btn-o btn-success btn-lg ti-credit-card visible-lg pull-left" ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>
                         <button class="btn btn-o btn-primary btn-lg ti-share tooltips visible-lg pull-right" tooltip-placement="top" tooltip="Siparişi Teslim Et!" ng-click="SaveOpenOrders(order)" ng-disabled="order.PaymentStatusID==0"></button>
                         <button class="btn btn-o btn-success btn-md ti-credit-card visible-md visible-sm visible-xs pull-left" ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>

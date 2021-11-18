@@ -19,7 +19,7 @@ function aggregatorordersreportCtrl($scope, $filter, $modal, $log, Restangular, 
             bindingOptions: {
                 value: "DateRange.fromDate.value"
             },
-            value: (new Date()).addDays(-2),
+            value: (new Date()).addDays(1),
             labelLocation: "top", // or "left" | "right"  
 
         },
@@ -30,7 +30,7 @@ function aggregatorordersreportCtrl($scope, $filter, $modal, $log, Restangular, 
             bindingOptions: {
                 value: "DateRange.toDate.value"
             },
-            value: (new Date()).addDays(-1),
+            value: (new Date()).addDays(1),
             label: {
                 location: "top",
                 alignment: "right" // or "left" | "center"
@@ -98,51 +98,21 @@ function aggregatorordersreportCtrl($scope, $filter, $modal, $log, Restangular, 
         //filter: getFilter(),
         filterValue: getFilter(),
         remoteOperations: true,
-        columns: [{
-            dataField: "id",
-            caption: "MapID",
-        }, {
-            dataField: "Aggregator"
-        },
-        {
-            dataField: "MapDate",
-            alignment: "right",
-            dataType: "datetime",
-            width: 180,
-            format: "d/M/yyyy, HH:mm"
-        }, {
-            dataField: "OperationDate",
-            alignment: "right",
-            dataType: "date",
-            width: 180,
-            format: "d/M/yyyy"
-        }, {
-            dataField: "OrderID",
-            caption: "Order ID",
-        }, {
-            dataField: "OrderNumber"
-        }, {
-            dataField: "StoreName",
-            caption: "Store Name",
-        }, {
-            dataField: "TransferTimeMinutes",
-            caption: "Transfer Time",
-        }, {
-            dataField: "CustomerMappingTime",
-            caption: "Customer Mapping Time",
-        }, {
-            dataField: "AggregatorOrderID",
-            caption: "Aggregator Order #",
-        }, {
-            dataField: "isCustomerMapRequired",
-            caption: "Customer Map",
-        }, {
-            dataField: "Notes",
-            caption: "Notes",
-        }, {
-            dataField: "OrderStatus",
-            caption: "OrderStatus",
-        }],
+        columns: [           
+        { dataField: "id", caption: "MapID" , caption: $translate.instant('AggregatorOrdersstatsdetail.MapID'),fixed: false }, 
+        { dataField: "Aggregator" , caption: $translate.instant('AggregatorOrdersstatsdetail.Aggregator') },
+        { dataField: "MapDate", alignment: "right", dataType: "datetime", width: 110, format: "d/M/yyyy, HH:mm", caption: $translate.instant('AggregatorOrdersstatsdetail.MapDate') }, 
+        { dataField: "OperationDate", alignment: "right", dataType: "date", width: 100, format: "d/M/yyyy", caption: $translate.instant('AggregatorOrdersstatsdetail.OperationDate') }, 
+        { dataField: "OrderID", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderID') }, 
+        { dataField: "OrderNumber", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderNumber') },
+        { dataField: "StoreName", caption: $translate.instant('AggregatorOrdersstatsdetail.StoreName') }, 
+        { dataField: "TransferTimeMinutes", caption: $translate.instant('AggregatorOrdersstatsdetail.TransferTimeMinutes') }, 
+        { dataField: "CustomerMappingTime", caption: $translate.instant('AggregatorOrdersstatsdetail.CustomerMappingTime') }, 
+        { dataField: "AggregatorOrderID", caption: $translate.instant('AggregatorOrdersstatsdetail.AggregatorOrderID') }, 
+        { dataField: "isCustomerMapRequired", caption:$translate.instant('AggregatorOrdersstatsdetail.isCustomerMapRequired') }, 
+        { dataField: "Notes", caption:$translate.instant('AggregatorOrdersstatsdetail.Notes') }, 
+        { dataField: "OrderStatus", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderStatus') }
+    ],
         filterRow: {
             visible: true
         },
@@ -151,7 +121,7 @@ function aggregatorordersreportCtrl($scope, $filter, $modal, $log, Restangular, 
         },
         "export": {
             enabled: true,
-            fileName: "YemekSepetiStatDetails",
+            fileName: "AggregatorOrders",
         },
         scrolling: {
             mode: "virtual"
