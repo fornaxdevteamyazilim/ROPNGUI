@@ -136,6 +136,65 @@ function trendyolmappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elemen
         scrolling: { mode: "virtual" },
         height: 600
     };
+    $scope.dxTrendyolAggregatorGridOptions = {
+        dataSource: DevExpress.data.AspNet.createStore({
+            key: "id",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolAggregator",
+            insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolAggregator",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolAggregator",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxTrendyolAggregator",
+        }),
+        //filterValue: getFilter(),
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: false,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        showBorders: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        filterPanel: { visible: true },
+        headerFilter: { visible: true },
+        //grouping: { autoExpandAll: false },
+        searchPanel: { visible: true },
+        //groupPanel: { visible: true },
+        editing: {
+            allowAdding: true,
+            allowUpdating: true,
+            allowDeleting: true,
+            allowInserting: true
+        },
+        columnChooser: { enabled: true },
+        columnFixing: { enabled: true },
+        remoteOperations: true,
+        columns: [
+            { dataField: "id", caption: "id", visible: false },
+            { dataField: "name", caption: "name" }, 
+            { dataField: "SupplierID", caption: "SupplierID" }, 
+            { dataField: "apiAgentName", caption: "apiAgentName" },
+            { dataField: "HostAddress", caption: "HostAddress"},
+            { dataField: "apiKey", caption: "apiKey" },
+            { dataField: "apiSecret", caption: "apiSecret" },
+            { dataField: "isActive", caption: "isActive" },
+            { dataField: "TransferOrdersInstant", caption: "TransferOrdersInstant" },
+            { dataField: "apiExecutorUser", caption: "apiExecutorUser" },
+
+            //"FixedSize",
+            //"MapByPrototype",
+            // "SkipProduct",
+            // "AutoAddProductID",
+            // "AutoAddMapToOption",
+            // "AutoAddProductQuantity",
+            // "AutoAddMapOptionsLevel"
+        ],
+        onRowClick: function (rowInfo) {
+            if (rowInfo.rowType == "data")
+                rowInfo.component.editRow(rowInfo.rowIndex);
+        },
+        export: { enabled: true, fileName: "TrendyolProducts", },
+        scrolling: { mode: "virtual" },
+        height: 600
+    };
     $scope.productGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",

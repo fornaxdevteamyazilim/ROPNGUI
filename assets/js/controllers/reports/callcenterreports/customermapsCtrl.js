@@ -7,6 +7,9 @@ function customermapsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
     //});
     //DevExpress.localization.locale("tr");
     //Globalize.locale('tr');
+    Date.prototype.addDays = Date.prototype.addDays || function (days) {
+        return this.setTime(864E5 * days + this.valueOf()) && this;
+    };
     $scope.DateRange = {
         fromDate: {
             max: new Date(),
@@ -15,7 +18,9 @@ function customermapsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
             bindingOptions: {
                 value: "DateRange.fromDate.value"
             },
-            value: new Date()
+            value: (new Date()).addDays(0),
+            labelLocation: "top", // or "left" | "right"  
+
         },
         toDate: {
             max: new Date(),
@@ -24,7 +29,11 @@ function customermapsCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert
             bindingOptions: {
                 value: "DateRange.toDate.value"
             },
-            value: new Date()
+            value: (new Date()).addDays(1),
+            label: {
+                location: "top",
+                alignment: "right" // or "left" | "center"
+            }
         }
     };
     $scope.VeiwHeader = {};

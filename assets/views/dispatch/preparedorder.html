@@ -24,15 +24,15 @@
                         ng-class="{'list-group-item-danger':item.VehicleState == 'Out', 'strike':item.VehicleState == 'Out', 'text-red':item.VehicleState == 'Out', 'bg-danger':item.VehicleState == 'Out'}"
                         ng-show="item.VehicleState !='Out'">
                         <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" data-sortable="'name'" ng-click="saveDriver(item.DriverID)" ng-dblclick="DblClikFunction()" style="color:black;">
-                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.Driver}}</label>
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}"style="    font-size: 17px;">{{item.Driver}}</label>
                         </td>
-                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" data-sortable="'Vehicle'" style="color:black;">
+                        <td class="text-capitalize col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trVehicle" data-sortable="'Vehicle'" style="color:black;">
                             <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.Vehicle}}</label>
                         </td>
-                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" data-sortable="'OrderStates'" style="color:black;">
+                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" data-title="trTotalOrder" data-sortable="'OrderStates'" style="color:black;">
                             <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.OrderStates.length/2 | number:0}}</label>
                         </td>
-                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" data-sortable="'StateTime'" style="color:black;">
+                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" data-title="trStateTime" data-sortable="'StateTime'" style="color:black;">
                             <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.StateTime |number:0}} sn.</label>
                         </td>
                     </tr>
@@ -41,15 +41,15 @@
                         ng-class="{'list-group-item-danger':item.VehicleState=='Out', 'strike':item.VehicleState=='Out', 'text-red':item.VehicleState=='Out', 'bg-danger':item.VehicleState=='Out'}"
                         ng-show="item.VehicleState=='Out'">
                         <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trDriverName" data-sortable="'name'" ng-click="saveDriver(item.DriverID)" ng-dblclick="DblClikFunction()" style="color:black;">
-                            <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.Driver}}</label>
+                            <label ng-class="{'text-white':item.VehicleState == 'Out'}"  style="    font-size: 17px;">{{item.Driver}}</label>
                         </td>
-                        <td class="text-capitalize col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trVehicle" data-sortable="'Vehicle'" style="color:black;">
+                        <td class="text-capitalize col-lg-1 col-md-1 col-sm-1 col-xs-1" data-title="trVehicle" data-sortable="'Vehicle'" style="color:black;">
                             <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.Vehicle}}</label>
                         </td>
-                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trTotalOrder" data-sortable="'OrderStates'" style="color:black;">
+                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" data-title="trTotalOrder" data-sortable="'OrderStates'" style="color:black;">
                             <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.OrderStates.length/2 | number:0}}</label>
                         </td>
-                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-title="trStateTime" data-sortable="'StateTime'" style="color:black;">
+                        <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" data-title="trStateTime" data-sortable="'StateTime'" style="color:black;">
                             <label ng-class="{'text-white':item.VehicleState == 'Out'}">{{item.StateTime |number:0}} sn.</label>
                         </td>
                     </tr>

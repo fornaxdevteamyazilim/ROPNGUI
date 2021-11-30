@@ -65,7 +65,7 @@ function inventorycountlistCtrl($scope, $log, $modal, Restangular, ngTableParams
                 pageNo: 1,
                 search: "CountDate between '" + $filter('date')($scope.params.fromDate, 'yyyy-MM-dd') + "' and '" + $filter('date')($scope.params.toDate, 'yyyy-MM-dd') + "'"
             };
-            return $http.get(NG_SETTING.apiServiceBaseUri + "/api/inventorycount", { params: params })
+            return $http.get(NG_SETTING.apiServiceBaseUri + "/api/dxInventoryCount", { params: params })
                 .then(function (response) {
                     return {
                         data: response.data.Items,

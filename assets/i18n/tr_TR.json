@@ -285,6 +285,7 @@
     "STORESALESBUDGET": "{{appName}} - Resturant Satış Bütcesi",
     "STORESALESBUDGETLIST": "{{appName}} -  Resturant Satış Bütce listesi",
     "NGSETTINGITEM": "{{appName}} - RopNG Ayarlar",
+    "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : "{{appName}} - ROPING API Servislerine Bağlantınız Kesilmiştir !",
     "INVENTORYPERIDICCOST": "{{appName}} - Dönemsel Maliyetler",
     "USERPRODUCTSALES": "{{appName}} - Kullanıcı - Ürün Satış Listesi",
     "DEMANDRULEDEFINITION": "{{appName}} - Talep Kuralları Tanımı",
@@ -1293,6 +1294,7 @@
     "FROMMERGESTREETADDRESS": "Birleştirilecek Cadde-Sokak",
     "TOMERGESTREETADDRESS": "Birleşecek Cadde-Sokak",
     "TABLEORDERS": "Masa Siparişleri",
+    "OPENTABLEORDERS": "Açık Masa Siparişleri",
     "TAKEAWAYORDERS": "Gel - Al Siparişler",
     "WEBDINEIN": "Dine In Web",
     "LANGUAGE": "Language",
@@ -2287,6 +2289,7 @@
     "GLOVOORDERS": "Glovo Siparişleri",
     "GETIRORDERS": "Getir Siparişleri",
     "TRENDYOL": "Trendyol Siparişleri",
+    "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : " ROPING API Servislerine Bağlantınız Kesilmiştir !",
     "ORDERNUMBERPREFIX": "Sipariş Numarası Başlangıç",
     "GIFTPROMOTIONBLACKLIST": "Hediye Promosyon Kara Liste",
     "PROMOTIONSETTING": "Otomatik Promosyon Ayarları",
@@ -2931,6 +2934,7 @@
         "PREDEFINEDNOTE": "Tanımlı Notlar",
         "YEMEKSEPETIREJECTREASON": "Yemek Sepeti Red Sebepleri",
         "NGSETTINGITEM": "RopNG Ayar Tanımları",
+        "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : " ROPING API Servislerine Bağlantınız Kesilmiştir !",
         "SETTINGITEM": "Düzenleme Araçları",
         "SURVEURESULT": "Anket Sonuç Tanımları",
         "STAFFTYPE": "Personel Tipleri",
@@ -3792,7 +3796,8 @@
     "ConnectionLost": "ROPNG sunucu bağlantı koptu: ",
     "ConnectionError": "Bağlantı hatası",
     "Reconnecting": "ROPNG servislerine yeniden bağlanıyor...",
-    "ConnectionSlow": "ROPNG sunucu bağlantı kalitesi düşük..."
+    "ConnectionSlow": "ROPNG sunucu bağlantı kalitesi düşük...",
+    "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" :"ROPING API Servislerine Bağlantınız Kesilmiştir !"
   },
   "OrderType": {
     "Paket": "Paket",
@@ -4398,7 +4403,8 @@
     "TITLE": "Getir Eşleme Ekranı",
     "productmap": "Ürün Eşleme",
     "paymentmapping": "Ödeme Tipi Eşleme",
-    "store" : "Restoran Eşleme"
+    "store": "Restoran Eşleme",
+    "TrendyolAggregator": "Trendyol Eşleme Ayarı"
   },
   "aggregatororderlist": {
     "MAIN": "Entegrasyon Sipariş Listesi",

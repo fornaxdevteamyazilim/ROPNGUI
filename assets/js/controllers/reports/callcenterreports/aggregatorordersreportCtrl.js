@@ -111,7 +111,8 @@ function aggregatorordersreportCtrl($scope, $filter, $modal, $log, Restangular, 
         { dataField: "AggregatorOrderID", caption: $translate.instant('AggregatorOrdersstatsdetail.AggregatorOrderID') }, 
         { dataField: "isCustomerMapRequired", caption:$translate.instant('AggregatorOrdersstatsdetail.isCustomerMapRequired') }, 
         { dataField: "Notes", caption:$translate.instant('AggregatorOrdersstatsdetail.Notes') }, 
-        { dataField: "OrderStatus", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderStatus') }
+        { dataField: "OrderStatus", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderStatus') },
+        { dataField: "CustomerMapBy", caption:"CustomerMapBy" }
     ],
         filterRow: {
             visible: true

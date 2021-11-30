@@ -281,6 +281,7 @@
     "STORESALESBUDGET": "{{appName}} - Store Sales Budget",
     "STORESALESBUDGETLIST": "{{appName}} - Store Sales Budget List",
     "NGSETTINGITEM": "{{appName}} - RopNG Settings",
+    "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : "{{appName}} -Connection to ROPNG API service not availible!",
     "INVENTORYPERIDICCOST": "{{appName}} - Inventory Periodic Costs",
     "USERPRODUCTSALES": "{{appName}} - User - Product Sale List",
     "DEMANDRULEDEFINITION": "{{appName}} - Demand Rules Definition",
@@ -1270,6 +1271,7 @@
     "FROMMERGESTREETADDRESS": "From Merge Street Address",
     "TOMERGESTREETADDRESS": "To Merge Address",
     "TABLEORDERS": "Table Orders",
+    "OPENTABLEORDERS": "Open Table Orders",
     "TAKEAWAYORDERS": "TakeAway Orders",
     "WEBDINEIN": "Dine In Web",
     "HDORDERS": "Delivery Orders",
@@ -2258,6 +2260,7 @@
     "GLOVOORDERS": "Glovo Orders",
     "GETIRORDERS": "Getir Orders",
     "TRENDYOL": "Trendyol Orders",
+    "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : "Connection to ROPNG API service not availible!",
     "ORDERNUMBERPREFIX": "Order Number Prefix",
     "GIFTPROMOTIONBLACKLIST": "Gift Promotion Black List",
     "PROMOTIONSETTING": "Promotion Setting",
@@ -2923,6 +2926,7 @@
         "PREDEFINEDNOTE": "PreDefinet Note",
         "YEMEKSEPETIREJECTREASON": "Yemek Sepeti Reject Reason",
         "NGSETTINGITEM": "RopNG Setting Definitions",
+        "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : "Connection to ROPNG API service not availible!",
         "SETTINGITEM": "Editing Tools ",
         "SURVEURESULT": "Survey Result Definition",
         "STAFFTYPE": "Staff Types",
@@ -3776,7 +3780,9 @@
     "ConnectionLost": "ROPNG Server Disconnected: ",
     "ConnectionError": "Server Connection error!!!",
     "Reconnecting": "Reconnecting to ROPNG services...",
-    "ConnectionSlow": "Connection quality is poor!"
+    "ConnectionSlow": "Connection quality is poor!",
+    "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : "Connection to ROPNG API service not availible!"
+    
   },
   "OrderType": {
     "Paket": "Delivery",
@@ -4368,7 +4374,8 @@
     "TITLE": "Aggregator Mapping",
     "productmap": "Product Mapping",
     "paymentmapping": "Payment Type Mapping",
-    "store" : "store"
+    "store" : "store",
+    "TrendyolAggregator": "Trendyol Aggregator Setting"
   },
   "aggregatororderlist": {
     "MAIN": "Aggregator Order List",

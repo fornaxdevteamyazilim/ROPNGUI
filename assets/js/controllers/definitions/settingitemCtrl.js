@@ -126,16 +126,36 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
     // };
 
 
+    $scope.DateRange = {
+        fromDate: {
+            max: new Date(),
+            min: new Date(2019, 0, 1),
+            displayFormat: 'dd.MM.yyyy',
+            bindingOptions: {
+                value: "DateRange.fromDate.value"
+            },
+            value: new Date()
+        },
+        toDadte: {
+            max: $scope.params.toDadte,
+            min: new Date(2019, 0, 3),
+            displayFormat: 'dd.MM.yyyy',
+            bindingOptions: {
+                value: "DateRange.toDadte.value"
+            },
+            value: new Date()
+        }
+    };
     $scope.CalculateDailyProductCosts = function () {
         $scope.isWaiting = true;
         var fromDate = $filter('date')($scope.DateRange.fromDate.value, 'yyyy-MM-dd');
-        var toDate = $filter('date')($scope.DateRange.toDate.value, 'yyyy-MM-dd');
+        var toDadte = $filter('date')($scope.DateRange.toDadte.value, 'yyyy-MM-dd');
         Restangular.one('inventory/CalculateDailyProductCosts').get({
             fromDate: fromDate,
-            toDate: toDate,
+            toDadte: toDadte,
         }).then(function (result) {
             $scope.isWaiting = false;
-            toaster.pop('success', $translate.instant('difinitions.OrderDatesUpdated'));
+            toaster.pop('success', $translate.instant('difinitions.CalculateProductCosts'));
         }, function (response) {
             $scope.isWaiting = false;
             toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);

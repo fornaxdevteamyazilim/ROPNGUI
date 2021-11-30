@@ -35,12 +35,15 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         return order;
     };
 
-    $scope.FormatClock = function (val) {
-        var n = new Date();
-        var milisecondsDiff = n - val;
+    $scope.FormatClock = function (item) {
+        if (item.orders[0]) {
+            var val = new Date(item.orders[0].OrderDate);
+            var n = new Date();
+            var milisecondsDiff = n - val;
 
-        return Math.floor(milisecondsDiff / (1000 * 60 * 60)).toLocaleString(undefined, { minimumIntegerDigits: 2 }) + ":" + (Math.floor(milisecondsDiff / (1000 * 60)) % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 }) + ":" + (Math.floor(milisecondsDiff / 1000) % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 });
-
+            return Math.floor(milisecondsDiff / (1000 * 60 * 60)).toLocaleString(undefined, { minimumIntegerDigits: 2 }) + ":" + (Math.floor(milisecondsDiff / (1000 * 60)) % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 });// + ":" + (Math.floor(milisecondsDiff / 1000) % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+        }
+        return null;
         //return $filter('date')(ngnotifyService.ServerTime(val), 'HH:mm:ss');
     };
     $scope.GetOrderPaymentsTotal = function (data) {
@@ -73,17 +76,29 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
                             else {
                                 $scope.tableplans[i].tables[tindex].orders.splice(0, $scope.tableplans[x].tables[tindex].orders.length);
                             }
+                            $scope.UpdateTimers(true);
                         })
                     }
                     else {
                         //$scope.tableplans[i].tables[tindex].orders=[];
                         $scope.tableplans[i].tables[tindex].orders.splice(0, $scope.tableplans[i].tables[tindex].orders.length);
                     }
+
                 }
             }
+            $scope.UpdateTimers(true);
         }
     }
-
+    $scope.UpdateTimers = function (fullRefresh) {
+        for (var i = 0; i < $scope.tableplans.length; i++) {
+            for (var j = 0; j < $scope.tableplans[i].tables.length; j++) {
+                $scope.tableplans[i].tables[j].ActiveOrderTime = $scope.FormatClock($scope.tableplans[i].tables[j]);
+            }
+        }
+        if (fullRefresh)
+            $scope.$broadcast('$$rebind::refresh');
+        $scope.$broadcast('$$rebind::timers');
+    }
     var OrderUpdated = $scope.$on('OrderUpdated', function (event, data) {
         $scope.UpdateOrder(data);
     });
@@ -98,11 +113,13 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
                 for (var j = 0; j < result[i].tables.length; j++) {
                     for (var k = 0; k < result[i].tables[j].orders.length; k++) {
                         result[i].tables[j].orders[k]['Remaining'] = $scope.GetOrderPaymentsTotal(result[i].tables[j].orders[k]);
+                        result[i].tables[j].ActiveOrderTime = $scope.FormatClock(result[i].tables[j]);
                     }
                 }
             }
             $scope.selectedOrder = '';
             angular.copy(result.plain(), $scope.tableplans);
+            $scope.UpdateTimers(true);
             //$scope.isWaiting = false;
             $scope.tool = { icon: 'assets/images/InStore.png' };
         }, function (response) {
@@ -114,6 +131,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         });
     };
     $scope.LoadStoreTablePlans();
+    
     //Burası masa güncellemelri için: sorun - boş masa siaprişleri oluşmakta. 
     var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
         //$scope.LoadStoreTablePlans();
@@ -274,7 +292,7 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
         OrderRefresh();
         OrderUpdated();
         SignalrReConnected();
-        $element.remove();        
+        $element.remove();
     });
 };
 app.controller('SelectPersoncountCtrl', SelectPersoncountCtrl);

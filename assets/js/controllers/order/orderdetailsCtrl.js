@@ -188,6 +188,48 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
                 toaster.pop('error', $translate.instant('Server.Serverconnectionerror'), response.data.ExceptionMessage);
             });
     };
+    var params = {
+        search: "OrderID='" + $stateParams.id + "'"
+    };
+    $http.get(NG_SETTING.apiServiceBaseUri + "/api/orderitem", { params: params })
+    .then(function (result) {
+        $scope.orderItems = angular.copy(result);
+        var dataGrid = $("#treeViewContainer").dxTreeList("instance");
+        dataGrid.option("dataSource", result);
+    }, function (response) {
+        return $q.reject("Data Loading Error");
+    });
+    $scope.dataGridOptionsorder = {
+        dataSource: order,
+        showRowLines: true,
+        showBorders: true,
+        columnAutoWidth: true,
+        allowColumnResizing: true,
+        showColumnLines: true,
+        rowAlternationEnabled: true,
+        hoverStateEnabled: true,
+        allowColumnReordering: true,
+        //selectedRowKeys: [1, 29, 42],
+        autoExpandAll: true,
+        wordWrapEnabled: true,
+        remoteOperations: { grouping: true },
+        //keyExpr: 'id',
+        //displayExpr: 'caption',
+        parentIdExpr: 'ParentItemID',
+        virtualModeEnabled: true,
+        autoExpandAll:true,   
+        columns: [
+            { name: "Quantity", dataField: "Quantity", caption: $scope.quantity,width:40 },
+            { name: "Product", dataField: "Product", caption: $scope.product, },
+           // { name: "ProductOption", dataField: "ProductOption", caption: $scope.productOption },
+            { name: "ProductPrice", dataField: "ProductPrice", caption: $scope.productPrice},
+            { name: "AddDate", dataField: "AddDate", caption:  $scope.addDate ,dataType: "date", format: " HH:mm:ss" },
+            { name: "TotalAmount", dataField: "TotalAmount", caption:  $scope.totalAmount, summaryType: "count", displayFormat: "{0}₺" },
+        ],
+        summary: {
+            totalItems: [{ caption:  $scope.totalAmount, column: "TotalAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },],
+        }
+    };
     $scope.CopyOrder = function (order) {
         return {
             id: order.id,
@@ -227,41 +269,6 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         readOnly: true,
         //disabled:true,
         labelLocation: 'top'
-    };
-    $scope.dataGridOptionsorder = {
-        dataSource: order,
-        showRowLines: true,
-        showBorders: true,
-        columnAutoWidth: true,
-        allowColumnResizing: true,
-        showColumnLines: true,
-        rowAlternationEnabled: true,
-        hoverStateEnabled: true,
-        allowColumnReordering: true,
-        //selectedRowKeys: [1, 29, 42],
-        autoExpandAll: true,
-        wordWrapEnabled: true,
-        remoteOperations: { grouping: true },
-        keyExpr: 'id',
-        displayExpr: 'caption',
-        parentIdExpr: 'ParentItemID',
-        virtualModeEnabled: true,
-        expandedRowKeys: [1, 5, 18],
-        
-        columns: [
-            { name: "Quantity", dataField: "Quantity", caption: $scope.quantity,width:40 },
-            { name: "Product", dataField: "Product", caption: $scope.product, },
-           // { name: "ProductOption", dataField: "ProductOption", caption: $scope.productOption },
-            { name: "ProductPrice", dataField: "ProductPrice", caption: $scope.productPrice},
-            { name: "AddDate", dataField: "AddDate", caption:  $scope.addDate ,dataType: "date", format: " HH:mm:ss" },
-            { name: "TotalAmount", dataField: "TotalAmount", caption:  $scope.totalAmount, summaryType: "count", displayFormat: "{0}₺" },
-
-        ],
-       
-        summary: {
-            totalItems: [{ caption:  $scope.totalAmount, column: "TotalAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },],
-
-        }
     };
     $scope.dataGridOptionsstate = {
         dataSource: states,

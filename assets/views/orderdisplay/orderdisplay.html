@@ -25,15 +25,15 @@
             <div ng-class="{'list-group-item-info': order.OrderSource =='CallCenter' , 'list-group-item-danger': order.OrderSource =='Web' , 'list-group-item-warning': order.OrderSource =='YemekSepeti'}">
                 <div class="row panel-heading">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
-                        <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-uppercase text-large">{{order.OrderSource}}</span></span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ORDERDATE' | translate}}</span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ORDERNUMBER' | translate}}</span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.PERSONNAME' | translate}}</span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ORDERTYPE' | translate}}</span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ORDERSTATE' | translate}}</span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.STORENAME' | translate}}</span>
-                        <span class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{'main.ADDRESS' | translate}}</span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{'main.ORDERDATE' | translate}}</span>
+                        <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><span class="text-bold text-uppercase text-large">{{::order.OrderSource}}</span></span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::'main.ORDERDATE' | translate}}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::'main.ORDERNUMBER' | translate}}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::'main.PERSONNAME' | translate}}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::'main.ORDERTYPE' | translate}}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::'main.ORDERSTATE' | translate}}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::'main.STORENAME' | translate}}</span>
+                        <span class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{::'main.ADDRESS' | translate}}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::'main.ORDERDATE' | translate}}</span>
                     </div>
                     <hr />
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize">
@@ -46,12 +46,12 @@
                                 <span>{{'main.DELETECUSTOMERYSMAPING' | translate}}</span>
                             </button>-->
                         </span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">[{{order.TimerStr}})]</span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{order.OrderNumber}}</span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{order.persons[0].Person}}</span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{order.OrderType}}</span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{order.OrderState}}</span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{order.Store}}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">[{::{order.TimerStr}})]</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::order.OrderNumber}}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::order.persons[0].Person}}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::order.OrderType}}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::order.OrderState}}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::order.Store}}</span>
                         <span class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                             {{:: order.Address.StreetAddress}}
                             {{:: order.Address.AppartmentName}} Apt.
@@ -61,20 +61,20 @@
                             Giriş: {{:: order.Address.Entrance}}
                             Tarif: {{:: order.Address.Landmark}}
                             <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5" ng-show="order.OrderSource == 'YemekSepeti'">
-                                <label class="text-bold text-dark">{{'main.YSORDERDETAILS' |translate}}</label><br />
-                               Adres : {{order.YemekSepetiOrderMap.YemekSepetiRawOrder.Address}} <br />
-                               Müşteri Bilgileri : {{order.YemekSepetiOrderMap.YemekSepetiRawOrder.CustomerName}} -  {{order.YemekSepetiOrderMap.YemekSepetiRawOrder.CustomerPhone}} <br />
-                               Restoran : {{order.YemekSepetiOrderMap.YemekSepetiRawOrder.RestaurantName}} <br />
+                                <label class="text-bold text-dark">{{::'main.YSORDERDETAILS' |translate}}</label><br />
+                               Adres : {{::order.YemekSepetiOrderMap.YemekSepetiRawOrder.Address}} <br />
+                               Müşteri Bilgileri : {{::order.YemekSepetiOrderMap.YemekSepetiRawOrder.CustomerName}} -  {{::order.YemekSepetiOrderMap.YemekSepetiRawOrder.CustomerPhone}} <br />
+                               Restoran : {{::order.YemekSepetiOrderMap.YemekSepetiRawOrder.RestaurantName}} <br />
 
                             </span>
                         </span>
-                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{order.OrderDate | date: "dd-MM-yyyy / HH:mm:s" }}</span>
+                        <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{::order.OrderDate | date: "dd-MM-yyyy / HH:mm:s" }}</span>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div id="panel5">
                         <div class="panel-heading">
-                            <h4 class="panel-title text-primary" ng-click="collapse =! collapse">{{'main.ORDERDETAILS' |translate}} <span class="pull-right text-bold text-dark text-extra-large">{{order.PaymentType.PaymentType.name}} / {{order.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></h4>
+                            <h4 class="panel-title text-primary" ng-click="collapse =! collapse">{{::'main.ORDERDETAILS' |translate}} <span class="pull-right text-bold text-dark text-extra-large">{{order.PaymentType.PaymentType.name}} / {{order.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></h4>
                         </div>
                         <div collapse="panel1" ng-if="collapse" class="panel-wrapper">
                             <div class="panel-body">
@@ -84,7 +84,7 @@
                                     </form>
                                 </div>
                                 <span class="text-bold text-large text-uppercase">
-                                    {{'main.ORDERSNOTE' | translate}} :{{order.OrderNote}}
+                                    {{::'main.ORDERSNOTE' | translate}} :{{::order.OrderNote}}
                                 </span>
                             </div>
                         </div>

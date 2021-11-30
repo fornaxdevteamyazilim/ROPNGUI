@@ -3309,7 +3309,7 @@ a.text-light:hover {
 
 .tab-content > .tab-pane, .pill-content > .pill-pane {
   display: none;
-  padding: 15px;
+  padding: 0px;
 }
 
 .tab-content > .active, .pill-content > .active {

@@ -19,7 +19,9 @@
         <div class="box-login" ng-controller="loginCtrl">
             <!-- <div>{{ConnStatus()}}</div> -->
             <div ng-show="!ConnStatus()">
-                Connection to ROPNG API service not availible!
+                <!-- Connection to ROPNG API service not availible! -->
+               
+                {{'main.CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE' | translate}}
             </div>
             <div ng-show="ConnStatus()">
                 <form class="form-login" >
