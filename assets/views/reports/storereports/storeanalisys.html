@@ -292,6 +292,12 @@
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
                                 class="pull-right">{{'main.GETIRPERCENT' | translate}}</span></th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
+                                    class="pull-right">{{'main.TRENDYOLTC' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
+                                    class="pull-right">{{'main.TRENDYOLAMOUNT' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
+                                    class="pull-right">{{'main.TRENDYOLPERCENT' | translate}}</span></th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
                                 class="pull-right">{{'main.STORETC' | translate}}</span></th>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold"><span
                                 class="pull-right">{{'main.STOREAMOUNT' | translate}}</span></th>
@@ -565,6 +571,15 @@
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <span class="pull-right">{{(item.Getir_Percent)*100 |number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.Trendyol_TC}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{item.Trendyol_Amount |number:2}}</span>
+                        </td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <span class="pull-right">{{(item.Trendyol_Percent)*100 |number:2}}</span>
                         </td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <span class="pull-right">{{item.Store_TC}}</span>
@@ -850,6 +865,11 @@
                                 class="pull-right">{{totalGetirTC}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
                                 class="pull-right">{{totalGetirTL|number:2}}</span></td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
+                                class="pull-right">{{totalTrendyolTC}}</span></td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
+                                class="pull-right">{{totalTrendyolTL|number:2}}</span></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"></td>
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-dark"><span
                                 class="pull-right">{{totalRestoranTC}}</span></td>

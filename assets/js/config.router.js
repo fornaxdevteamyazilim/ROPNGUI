@@ -978,7 +978,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.orders.WebDineIn', {
             url: '/WebDineIn',
             templateUrl: "assets/views/order/WebDineIn.html",
-            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'touchspin-plugin', 'angular-bootstrap-touchspin', 'WebDineInCtrl', 'orderpaymentCtrl', 'orderinvoiceCtrl'),
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'touchspin-plugin', 'angular-bootstrap-touchspin', 'WebDineInCtrl', 'orderpaymentCtrl', 'orderinvoiceCtrl', 'changeorderstateWebDineInCtrl'),
             title: 'WebDineIn',
             authenticate: true,
             ncyBreadcrumb: {

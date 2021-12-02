@@ -369,6 +369,7 @@
     <Content Include="assets\js\controllers\dispatcher\changeorderdriverCtrl.js" />
     <Content Include="assets\js\controllers\order\changeorderstate2Ctrl.js" />
     <Content Include="assets\js\controllers\order\changeorderstateCtrl.js" />
+    <Content Include="assets\js\controllers\order\changeorderstateWebDineInCtrl.js" />
     <Content Include="assets\js\controllers\order\deleteorderpromotionCtrl.js" />
     <Content Include="assets\js\controllers\order\orderpaymenttypesCtrl.js" />
     <Content Include="assets\js\controllers\order\ordersreports\OrderPaymentCompareCtrl.js" />

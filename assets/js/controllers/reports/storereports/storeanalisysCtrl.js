@@ -141,6 +141,8 @@ function storeanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular,$tra
                 $scope.totalGlovoTL = $scope.sumColumnJS(result, "Glovo_Amount");
                 $scope.totalGetirTC = $scope.sumColumnJS(result, "Getir_TC");
                 $scope.totalGetirTL = $scope.sumColumnJS(result, "Getir_Amount");
+                $scope.totalTrendyolTC = $scope.sumColumnJS(result, "Trendyol_TC");
+                $scope.totalTrendyolTL = $scope.sumColumnJS(result, "Trendyol_Amount");
                 $scope.totalPersonelTC = $scope.sumColumnJS(result, "Personel_TC");
                 $scope.totalPersonelTL = $scope.sumColumnJS(result, "Personel_Amount");
                 $scope.totalAvmTC = $scope.sumColumnJS(result, "AVM_TC");

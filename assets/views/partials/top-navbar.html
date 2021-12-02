@@ -115,6 +115,11 @@
                 </i>
             </a>
         </li>
+        <li class="dropdown hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
+            <a class="dropdown-toggle margin-top-10" ng-click="FullscreenPage()">
+                <i class="fa fa-arrows-alt" style="font-size:x-large;"></i>
+            </a>
+        </li>
         <li ng-if="user.restrictions.reloadcache=='Enable'" class="dropdown" dropdown on-toggle="toggled(open)">
             <a class="dropdown-toggle margin-top-10" ng-click="ReloadCache()">
                 <i ng-class="{'fa fa-spin':StartReloadCache == true, 'fa fa-refresh':StartReloadCache == false}" class="fa fa-refresh" style="font-size:x-large;"></i>
@@ -123,11 +128,6 @@
         <li ng-if="user.restrictions.reloadcache=='Enable'" class="dropdown" dropdown on-toggle="toggled(open)">
             <a class="dropdown-toggle margin-top-10" ng-click="ReloadCacheAll()">
                 <i ng-class="{'fa fa-spin':StartReloadCacheAll == true, 'fa fa-cogs':StartReloadCacheAll == false}" class="fa fa-cogs" style="font-size:x-large;"></i>
-            </a>
-        </li>
-        <li class="dropdown hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">
-            <a class="dropdown-toggle margin-top-10" ng-click="FullscreenPage()">
-                <i class="fa fa-arrows-alt" style="font-size:x-large;"></i>
             </a>
         </li>
         <li ng-if="user.restrictions.upnavlanguage=='Enable'" class="dropdown hidden-sm hidden-xs" dropdown on-toggle="toggled(open)">

@@ -137,7 +137,7 @@ function WebDineInCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
         var opDate = ($rootScope.user && $rootScope.user.Store && $rootScope.user.Store.OperationDate) ? $rootScope.user.Store.OperationDate : $filter('date')(new Date(), 'yyyy-MM-dd');
         result.push("StoreID='" + $rootScope.user.StoreID + "'");
         result.push("OrderDate >'" + opDate + "'");        
-        result.push("((OrderStateID in (2,3,4,5,11,12,13,14,19,20)) or (OrderStateID =10 and PaymentStatusID=0))");
+        result.push("((OrderStateID in (2,3,4,5,11,12,13,14,18,19,20)) or (OrderStateID =10 and PaymentStatusID=0) or (OrderStateID =14 and PaymentStatusID=8)) ");
         result.push("(OrderTypeID in (9))");
         return result;
     };
@@ -167,6 +167,42 @@ function WebDineInCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
     var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
         $scope.loadOrders();
     });
+    $scope.CheckOrder = function (data, state) {
+        if (state == 1) {
+            var ordertosave = $scope.CopyOrder(data);
+            ordertosave.OrderStateID = 1;
+            Restangular.restangularizeElement('', ordertosave, 'order');
+            ordertosave.put().then(function (result) {
+                toaster.pop('success', $translate.instant('orderfile.OrderConfirmed '));
+                $scope.LoadOrders();
+                $rootScope.$broadcast('AskingOrder');
+            }, function () {
+                toaster.pop('error', $translate.instant('orderfile.NotSaved '));
+                $scope.LoadOrders();
+                $rootScope.$broadcast('AskingOrder');
+            });
+        }
+        if (state == 14) {
+            data.root = "WebDineIn";
+            var modalInstance = $modal.open({
+                templateUrl: 'assets/views/order/changeorderstateWebDineIn.html',
+                controller: 'changeorderstateWebDineInCtrl',
+                size: '',
+                backdrop: '',
+                resolve: {
+                    item: function () {
+                        return data;
+                    },
+                }
+            });
+            modalInstance.result.then(function (value) {
+                if (value == 'result') {
+                    $scope.LoadOrders();
+                    $rootScope.$broadcast('AskingOrder');
+                }
+            })
+        }
+    };
     $scope.GetDepartments = function () {
         Restangular.all('department').getList({
             pageNo: 1,
@@ -230,6 +266,7 @@ function WebDineInCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, n
     $scope.$on('$destroy', function () {
         tranlatelistener();
         OrderRefresh();
+        $scope.LoadOrders();
         $element.remove();
         $rootScope.uService.ExitController("WebDineInCtrl");
     });

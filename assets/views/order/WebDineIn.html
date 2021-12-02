@@ -6,22 +6,50 @@
         border: 1px solid rgba(86,61,124,.2);
     }
 </style>-->
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
 
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 7px;
+        font-size: 11px;
+        /* width: 100px; */
+        text-align: center;
+    }
+
+    tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+
+
+    .blink {
+        animation: blink 3s infinite;
+        color: red;
+    }
+</style>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="WebDineInCtrl">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold margin-top-10">
         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 pull-left">
-              <!--   <label translate="main.ORDERALIAS" for="PaymentNote">
+                <!--   <label translate="main.ORDERALIAS" for="PaymentNote">
                     Order Alias
                 </label>
-                <input type="text" class="form-control text-uppercase" data-ng-model="Alias"> --> <!--ng-virtual-keyboard-->
+                <input type="text" class="form-control text-uppercase" data-ng-model="Alias"> -->
+                <!--ng-virtual-keyboard-->
             </div>
             <!-- <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6 pull-left">
                 <button class="btn btn-scroll btn-success btn-scroll-top ti-new-window margin-top-20" ng-disabled="!Alias && user.UserRole.MemberID != 106851154380" ng-click="takeawayOrder(Alias)"><span class="text-extra-large text-bold ">{{'main.NEWORDERR' | translate}} </span></button>
             </div> -->
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 margin-top-10">
-            <h2>{{'main.WEBDINEIN' | translate}} <span ng-if="ShowObject==true"><span class="fa fa-spin fa-spinner center"></span></span><br /></h2>
+            <h2>{{'main.WEBDINEIN' | translate}} <span ng-if="ShowObject==true"><span
+                        class="fa fa-spin fa-spinner center"></span></span><br /></h2>
         </div>
     </div>
     <!-- large / medium -->
@@ -29,39 +57,55 @@
         <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <span class="text-bold text-dark text-uppercase center text-large">{{'main.STORETAKEAWAYORDERS' | translate}} <span ng-if="ShowObject==true"><span class="fa fa-spin fa-spinner center"></span></span><br /></span>
         </div> -->
-        <div class="row panel panel-white margin-top-30 " ng-repeat="order in orders | filter:({OrderTypeID:9})" order="order">
+        <div class="row panel panel-white margin-top-30 " ng-repeat="order in orders | filter:({OrderTypeID:9})"
+            order="order">
             <div class="row panel-heading">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderNumber}}</span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trPersonName}} <br /><span ng-if="order.Alias">({{::trORDERALIAS}})</span></span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderState}}</span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trPaymentStatus}}</span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderDate}}</span>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" ng-if="user.restrictions.webdineinpaymentbuttons=='Enable'">
-                        <button class="btn btn-o btn-success ti-credit-card pull-left" ng-click="OrderPaymentDeteails(order)"   ng-disabled="::order.PaymentStatusID==1"></button>
-                        <button class="btn btn-o btn-primary ti-share pull-right" ng-click="SaveOpenOrders(order)"   ng-disabled="::order.PaymentStatusID==0 || order.OrderStateID==4"></button>
-                    </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 row text-bold text-dark">
+                    <table>
+                        <tr style="  background-color: #f5f5f5;">
+
+                            <th>{{:: trOrderNumber}}</th>
+                            <th>{{:: trPersonName}} <br /><span ng-if="order.Alias">({{::trORDERALIAS}})</span></th>
+                            <th>{{:: trOrderState}}</th>
+                            <th>{{:: trPaymentStatus}}</th>
+                            <th>{{:: trOrderDate}}</th>
+                        </tr>
+                        <tr>
+                            <td  ng-click="SelectItem(order.id)">{{:: order.OrderNumber}}</td>
+                            <td>{{:: order.Description}} {{:: item.StoreTable.name}}</td>
+                            <td>{{:: order.OrderState}}</td>
+                            <td>{{:: order.PaymentStatus}}</td>
+                            <td>{{order.OrderDateTXT}}</td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize">
-                    <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3" ng-click="SelectItem(order.id)">
-                        <label class="text-bold" style="color:black;">{{:: order.OrderNumber}}</label>
-                    </span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{:: order.Description}}</span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::order.OrderState}}</span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::order.PaymentStatus}}</span>
-                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{::order.OrderDateTXT }}</span>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 pull-right" ng-if="user.restrictions.webdineinpaymentbuttons=='Enable'">
+                    <button class="btn btn-o btn-success ti-credit-card pull-left"
+                        ng-click="OrderPaymentDeteails(order)"
+                        ng-disabled="::order.PaymentStatusID==1 ||order.OrderStateID==14"></button>
+                    <!-- <button type="button" class="btn btn-o btn-danger tooltips ti-close pull-center" ng-click="CheckOrder(order,14)"></button> -->
+                    <button class="btn btn-o btn-danger ti-close pull-left" style="left: 15px;" ng-click="CheckOrder(order,14)"
+                          ng-show="order.PaymentStatusID ==8 ||  order.OrderStateID==14" ng-if="user.restrictions.webdineincancelbuttons=='Enable'"></button>
+                    <button class="btn btn-o btn-primary ti-share pull-right"
+                        ng-click="SaveOpenOrders(order)"
+                        ng-disabled="::order.PaymentStatusID==0 || order.OrderStateID==4"></button>
                 </div>
             </div>
             <div class="col-sm-12">
                 <div class="panel panel-white" id="panel5">
                     <div class="panel-heading">
-                        <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{::orderdetails}} <label class="pull-right text-red text-bold text-extra-large">{{::order.PaymentType.PaymentType.name}} / {{::order.Amount|number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}} </label></h4>
+                        <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{::orderdetails}}
+                            <label
+                                class="pull-right text-red text-bold text-extra-large">{{::order.PaymentType.PaymentType.name}}
+                                / {{::order.Amount|number:2 }} {{:: 'main.CURRENCY_SYMBOL' | translate}} </label></h4>
                     </div>
                     <div collapse="panel1" ng-if="collapse" class="panel-wrapper">
                         <div class="panel-body">
                             <div class="row panel-body">
                                 <form role="form">
-                                    <div><span ng-repeat='member in order.items track by member.id'><kvsorder-item member='member'></kvsorder-item></span></div>
+                                    <div><span ng-repeat='member in order.items track by member.id'>
+                                            <kvsorder-item member='member'></kvsorder-item>
+                                        </span></div>
                                 </form>
                             </div>
                         </div>
@@ -73,18 +117,28 @@
     <!-- small / xsmall -->
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 margin-top-10 visible-sm visible-xs">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <span class="text-bold text-dark text-uppercase center text-large">{{'main.STORETAKEAWAYORDERS' | translate}} <span ng-if="ShowObject==true"><span class="fa fa-spin fa-spinner center"></span></span><br /></span>
+            <span class="text-bold text-dark text-uppercase center text-large">{{'main.STORETAKEAWAYORDERS' |
+                translate}} <span ng-if="ShowObject==true"><span
+                        class="fa fa-spin fa-spinner center"></span></span><br /></span>
         </div>
         <div class="row panel panel-white" ng-repeat="order in orders | filter:({OrderTypeID:9})" order="order">
             <div class="row panel-heading">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
                     <span class="col-sm-4 col-xs-4">{{::trOrderNumber}}</span>
-                    <span class="col-sm-4 col-xs-4">{{::trPersonName}} <br /><span ng-if="::order.Alias">({{::orderdetails}})</span></span>
+                    <span class="col-sm-4 col-xs-4">{{::trPersonName}} <br /><span
+                            ng-if="::order.Alias">({{::orderdetails}})</span></span>
                     <div class="col-sm-4 col-xs-4" ng-if="user.restrictions.webdineinpaymentbuttons=='Enable'">
-                        <button class="btn btn-o btn-success btn-lg ti-credit-card visible-lg pull-left" ng-click="OrderPaymentDeteails(order)"  ng-disabled="::order.PaymentStatusID==1"></button>
-                        <button class="btn btn-o btn-primary btn-lg ti-share tooltips visible-lg pull-right" tooltip-placement="top" tooltip="Siparişi Teslim Et!" ng-click="SaveOpenOrders(order)" ng-disabled="order.PaymentStatusID==0"></button>
-                        <button class="btn btn-o btn-success btn-md ti-credit-card visible-md visible-sm visible-xs pull-left" ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>
-                        <button class="btn btn-o btn-primary btn-md ti-share visible-md visible-sm visible-xs pull-right" ng-click="SaveOpenOrders(order)" ng-disabled="::order.PaymentStatusID==0"></button>
+                        <button class="btn btn-o btn-success btn-lg ti-credit-card visible-lg pull-left"
+                            ng-click="OrderPaymentDeteails(order)" ng-disabled="::order.PaymentStatusID==1"></button>
+                        <button class="btn btn-o btn-primary btn-lg ti-share tooltips visible-lg pull-right"
+                            tooltip-placement="top" tooltip="Siparişi Teslim Et!" ng-click="SaveOpenOrders(order)"
+                            ng-disabled="order.PaymentStatusID==0"></button>
+                        <button
+                            class="btn btn-o btn-success btn-md ti-credit-card visible-md visible-sm visible-xs pull-left"
+                            ng-click="OrderPaymentDeteails(order)" ng-disabled="order.PaymentStatusID==1"></button>
+                        <button
+                            class="btn btn-o btn-primary btn-md ti-share visible-md visible-sm visible-xs pull-right"
+                            ng-click="SaveOpenOrders(order)" ng-disabled="::order.PaymentStatusID==0"></button>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize">
@@ -92,7 +146,8 @@
                         <label class="text-bold" style="color:black;">{{:: order.OrderNumber}}</label><br />
                         {{:: order.id}}
                     </span>
-                    <span class="col-sm-4 col-xs-4">{{:: order.persons[0].Person.name}}<span ng-if="order.Alias">{{::order.Alias}} </span></span>
+                    <span class="col-sm-4 col-xs-4">{{:: order.persons[0].Person.name}}<span
+                            ng-if="order.Alias">{{::order.Alias}} </span></span>
                 </div>
             </div>
             <div class="row panel-heading">
@@ -110,13 +165,18 @@
             <div class="col-sm-12">
                 <div class="panel panel-white" id="panel5">
                     <div class="panel-heading">
-                        <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{::orderdetails}} <label class="pull-right text-red text-bold text-extra-large">{{::order.PaymentType.PaymentType.name}} / {{::order.AmountTXT }} {{:: 'main.CURRENCY_SYMBOL' | translate}} </label></h4>
+                        <h4 class="panel-title text-primary ng" ng-click="collapse =! collapse">{{::orderdetails}}
+                            <label
+                                class="pull-right text-red text-bold text-extra-large">{{::order.PaymentType.PaymentType.name}}
+                                / {{::order.AmountTXT }} {{:: 'main.CURRENCY_SYMBOL' | translate}} </label></h4>
                     </div>
                     <div collapse="panel1" ng-if="collapse" class="panel-wrapper">
                         <div class="panel-body">
                             <div class="row panel-body">
                                 <form role="form">
-                                    <div><span ng-repeat='member in ::order.items'><kvsorder-item member='member'></kvsorder-item></span></div>
+                                    <div><span ng-repeat='member in ::order.items'>
+                                            <kvsorder-item member='member'></kvsorder-item>
+                                        </span></div>
                                 </form>
                             </div>
                         </div>

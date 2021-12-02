@@ -1,0 +1,73 @@
+<!--<style>
+    [class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+</style>-->
+
+<div class="modal-header center">
+    <h3 class="modal-title center"><span class="center">{{::trOrderNumber}} :{{OrderNo}} - {{OrderNumber}}</span><button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
+</div>
+<div class="panel-body panel panel-white">
+    <div  class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12" ng-if="order.OrderSource == 'YemekSepeti' || order.OrderSource == 'Getir'">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <label translate="{{:: trYSCancelReason }}" for="YemekSepetiRejectReasonID">
+                Reasons
+            </label>
+            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <select id="YemekSepetiRejectReasonID" class="form-control center" ng-options="q.id as q.Reason for q in yemeksepetirejectreasons | orderBy:'+Reason'" ng-model="item.YemekSepetiRejectReasonID"></select>
+            </span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top-20">
+            <div class="checkbox clip-check check-success checkbox-inlines pull-right">
+                <input type="checkbox" id="isCustomerInformed" value="true" ng-model="item.isCustomerInformed">
+                <label translate="{{:: trisCustomerInformed }}" for="isCustomerInformed">
+                    isCustomerInformed
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+            <label translate="{{:: trCancelReason}}" for="OrderReasonID">
+                Order Reason
+            </label>
+            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <select id="OrderReasonID" class="form-control center" ng-options="q.id as q.Description for q in orderreasons | orderBy:'+Name'" ng-model="item.OrderReasonID" required></select>
+            </span>
+        </div>
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+            <label translate="{{::trOrderNote}}" for="Note">
+                Order Note
+            </label>
+            <textarea id="OrderID" type="text" style='min-height:70px; max-width:557px; max-height:90px;' minlength="5" class="form-control text-capitalize center" ng-model="item.Note"></textarea>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="root == 'orderdetail'" ng-hide="user.restrictions.askinventory=='Kapali'">
+            <!--<div>
+                <label>* İptal işlemi için aşağıdakilerden birini seçmeniz gerekmektedir !</label>
+            </div>-->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
+                <div class="radio clip-radio radio-success radio-inline">
+                    <input type="radio" id="notUseInventory" name="inventory" ng-value="false" ng-model="item.value" checked="checked">
+                    <label class="text-bold" translate="{{:: trnotUseInventory}}" for="notUseInventory">
+                        Note Use Inventory
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="radio clip-radio radio-danger radio-inline">
+                    <input type="radio" id="useInventory" name="inventory" ng-value="true" ng-model="item.value">
+                    <label class="text-bold" translate="{{:: truseInventory }}" for="useInventory">
+                        Use Inventory
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer center">
+    <button ng-disabled="!item.Note || !item.OrderReasonID" class="btn btn-primary" ng-click="SaveData(item)">OK</button>
+</div>
