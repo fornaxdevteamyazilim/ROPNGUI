@@ -3010,7 +3010,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }).state('app.bonus.bonusearningrule', {
                 url: '/bonusearningrule',
                 templateUrl: "assets/views/bonus/bonusearningrule.html",
-                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'bonusearningruleCtrl', 'dashboardCtrl'),
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'bonusearningruleCtrl', 'dashboardCtrl','TagModalCtrl'),
                 title: 'Bonus Earning Rule',
                 authenticate: true,
                 ncyBreadcrumb: {

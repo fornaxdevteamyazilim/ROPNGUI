@@ -1,5 +1,5 @@
 app.controller('bonusearningruleCtrl', bonusearningruleCtrl);
-function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService, $http) {
+function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService, $http,$modal) {
     $rootScope.uService.EnterController("bonusearningruleCtrl");
     var ngurr = this;
     $scope.NGUserRoleID = '';
@@ -220,11 +220,42 @@ function bonusearningruleCtrl($rootScope, $scope, NG_SETTING, $translate, $eleme
                     },
                 },
             },
+            {             
+                caption: $translate.instant('unmappedorders.Commands'),
+                //dataField: "Store",
+                type: "buttons",
+                buttons: ['edit', 'delete',{
+                    text: "Tags",
+                    icon: "tags",
+                    hint: "Tags edit",
+                    // visible: function (e) {
+                    //     return !e.row.isEditing && e.row.data.AggregatorOrderStateID == 1;//!e.row.isEditing && !isChief(e.row.data.Position);
+                    // },
+                    onClick: function (e) {
+
+                        var modalInstance = $modal.open({
+                            templateUrl: 'assets/views/Tags/ObjectTagEditModalContent.html',
+                            controller: 'TagModalCtrl',
+                            size: '',
+                            backdrop: '',
+                            resolve: {
+                                ObjectID: function () {
+                                    return e.row.data.id;
+                                }
+                            }
+                        });               
+                        
+                    
+                },
+            }
+                ]
+            }
         ],
         export: { enabled: true, fileName: "bonusearningrulelist", },
         scrolling: { mode: "virtual" },
         height: 600
     };
+    
     $scope.$on('$destroy', function () {
         deregistration();
         $element.remove();

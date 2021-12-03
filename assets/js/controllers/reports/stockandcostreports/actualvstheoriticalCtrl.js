@@ -128,6 +128,7 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
             { caption: $translate.instant('actualvstheoritical.Beg.Inv.'), dataField: "FistCount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('actualvstheoritical.Purchase'), dataField: "DeliveredUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('actualvstheoritical.TransferIn'), dataField: "InTransferUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('actualvstheoritical.TransformUnits'), dataField: "TransformUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('actualvstheoritical.Sold'), dataField: "SouldUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('actualvstheoritical.TransferOut'), dataField: "OutTransferUnits", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('actualvstheoritical.RawWaste'), dataField: "RawWasteUntis", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
