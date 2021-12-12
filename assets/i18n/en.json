@@ -3171,7 +3171,8 @@
   },
   "reportcommands": {
     "GetData": "Get Data",
-    "ClearTemplate": "Clear Template"
+    "ClearTemplate": "Clear Template",
+    "ADDNEWCOUNT": "Add New Count"
   },
   "reportparameters": {
     "FromDate": "From Date",
@@ -4557,5 +4558,14 @@
     "Aggregator": "Aggregator",
     "AggregatorOrderID": "Aggregator Order ID"
     
+  },
+  "InventoryCounts": {
+    "RepositoryID": "Repository",
+    "CountDate": "Count Date",
+    "Description": "Description",
+    "Notes": "Notes",
+    "InventoryCountTypeID": "Inventory Count Type",
+    "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
+    "Commands": "Commands"
   }
 }

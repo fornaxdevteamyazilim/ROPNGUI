@@ -662,7 +662,7 @@
     "QUANTITY": "Miktar",
     "PRODUCTNAME": "Ürün Adı",
     "STATE": "Durum",
-    "DURATION": "Hazırlama Süresi",
+    "DURATION": "Süre",
     "TIMER": "Süre",
     "TIMERSTR": "Geçen Zaman",
     "OUTSIDE": "Çıkan",
@@ -3188,7 +3188,8 @@
   },
   "reportcommands": {
     "GetData": "Bilgileri Getir",
-    "ClearTemplate": "Şablonu Temizle"
+    "ClearTemplate": "Şablonu Temizle",
+    "ADDNEWCOUNT": "Yeni Sayım Ekle"
   },
   "reportparameters": {
     "FromDate": "Başlangıç",
@@ -4221,7 +4222,7 @@
     "User": "Kullanıcı",
     "OperationDate": "Çalışma Tarihi",
     "WorkingHours": "Çalışma Saatleri",
-    "InTime": "Zaman İçinde",
+    "InTime": "Giriş Zamanı",
     "OutTime": "Çıkış Zamanı",
     "InIPAddress": "Giriş IP Adresi",
     "OutIPAddress": "Çıkış Ip Adresi",
@@ -4588,5 +4589,14 @@
     "GetirOrderID": "Getir Sipariş ID",
     "Aggregator": "Kaynak",
     "AggregatorOrderID":"Kaynak Sipariş ID"
+  },
+  "InventoryCounts": {
+    "RepositoryID": "Depo",
+    "CountDate": "Tarih",
+    "Description": "Açıklama",
+    "Notes": "Not",
+    "InventoryCountTypeID": "Sayım Tipi",
+    "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
+    "Commands": "İşlemler"
   }
 }

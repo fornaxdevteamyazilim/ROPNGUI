@@ -6,7 +6,33 @@
         border: 1px solid rgba(86,61,124,.2);
     }
 </style>-->
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
 
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 7px;
+        font-size: 11px;
+        /* width: 100px; */
+        text-align: center;
+    }
+
+    tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+
+
+    .blink {
+        animation: blink 3s infinite;
+        color: red;
+    }
+</style>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="takeawayCtrl">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold margin-top-10">
         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
@@ -29,27 +55,29 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <span class="text-bold text-dark text-uppercase center text-large">{{'main.STORETAKEAWAYORDERS' | translate}} <span ng-if="ShowObject==true"><span class="fa fa-spin fa-spinner center"></span></span><br /></span>
         </div>
-        <div class="row panel panel-white margin-top-30 " ng-repeat="order in orders | filter:({OrderTypeID:1})" order="order">
+        <div class="row panel panel-white margin-top-30 " ng-repeat="order in orders | filter:({OrderTypeID:1})" order="order">                                                                                
             <div class="row panel-heading">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-bold text-dark">
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderNumber}}</span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trPersonName}} <br /><span ng-if="order.Alias">({{::trORDERALIAS}})</span></span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderState}}</span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trPaymentStatus}}</span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::trOrderDate}}</span>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" ng-if="user.restrictions.takeawaypaymentbuttons=='Enable'">
-                        <button class="btn btn-o btn-success ti-credit-card pull-left" ng-if="user.restrictions.takeawayOrderPaymentDeteails=='Enable'" ng-click="OrderPaymentDeteails(order)"   ng-disabled="::order.PaymentStatusID==1"></button>
-                        <button class="btn btn-o btn-primary ti-share pull-right" ng-if="user.restrictions.takeawaySaveOpenOrders=='Enable'" ng-click="SaveOpenOrders(order)"   ng-disabled="::order.PaymentStatusID==0 || order.OrderStateID==4"></button>
-                    </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 row text-bold text-dark">
+                    <table>
+                        <tr style="  background-color: #f5f5f5;">
+                            <th>{{:: trOrderNumber}}</th>
+                            <th>{{:: trPersonName}} <br /><span ng-if="order.Alias">({{::trORDERALIAS}})</span></th>
+                            <th>{{:: trOrderState}}</th>
+                            <th>{{:: trPaymentStatus}}</th>
+                            <th>{{:: trOrderDate}}</th>
+                        </tr>
+                        <tr>
+                            <td  ng-click="SelectItem(order.id)">{{:: order.OrderNumber}}</td>
+                            <td>{{:: order.Description}} {{:: item.StoreTable.name}}</td>
+                            <td>{{:: order.OrderState}}</td>
+                            <td>{{:: order.PaymentStatus}}</td>
+                            <td>{{order.OrderDateTXT}}</td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row text-capitalize">
-                    <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3" ng-click="SelectItem(order.id)">
-                        <label class="text-bold" style="color:black;">{{:: order.OrderNumber}}</label>
-                    </span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{:: order.Description}}</span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::order.OrderState}}</span>
-                    <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{::order.PaymentStatus}}</span>
-                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{::order.OrderDateTXT }}</span>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-right" ng-if="user.restrictions.webdineinpaymentbuttons=='Enable'">
+                 <button class="btn btn-o btn-success ti-credit-card pull-left" ng-if="user.restrictions.takeawayOrderPaymentDeteails=='Enable'" ng-click="OrderPaymentDeteails(order)"   ng-disabled="::order.PaymentStatusID==1"></button>
+                 <button class="btn btn-o btn-primary ti-share pull-right" ng-if="user.restrictions.takeawaySaveOpenOrders=='Enable'" ng-click="SaveOpenOrders(order)"   ng-disabled="::order.PaymentStatusID==0 || order.OrderStateID==4"></button>     
                 </div>
             </div>
             <div class="col-sm-12">

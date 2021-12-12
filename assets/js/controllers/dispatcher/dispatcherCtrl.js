@@ -432,7 +432,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
             $scope.UpdateOrderTimer(ord);
         });
         $scope.$broadcast('$$rebind::refresh');
-        $scope.refreshTime = setTimeout(function () { $scope.calculateOrderTime() }, 60000);
+        $scope.refreshTime = setTimeout(function () { $scope.calculateOrderTime() }, 30000);
     };
     var deregistration1 = $scope.$on('$translateChangeSuccess', function (event, data) {
         $scope.translate();

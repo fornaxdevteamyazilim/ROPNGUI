@@ -350,8 +350,8 @@
                             <label class="pull-right text-red text-bold text-extra-large"></label>
                         </h4>
                     </div>
-                    <div collapse="panel4" ng-if="collapse4" class="panel-wrapper">
-                        <div class="panel-body" style="padding: 0px;">
+                    <div collapse="panel4" ng-hide="collapse4" class="panel-wrapper">
+                        <div class="panel-body" style=" padding: 0px;">
                             <div class="row panel-body" style="    font-size: 12px;    padding: 5px;">
                                 <table>
                                     <tr style="  background-color: #f5f5f5;">
@@ -368,20 +368,21 @@
                                             number:2}}</td>
                                         <td ng-if="payment.isAutomatic == true">OKC</td>
                                 </table>
+                              
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12">
-                <div class="panel panel-white" id="panel5">
+                <div class="panel panel-white" id="panel3">
                     <div class="panel-heading" style="padding: 6px;min-height: 26px;">
                         <h4 class="panel-title text-primary ng" ng-click="collapse3 =! collapse3">{{::promotions}}
                             <label class="pull-right text-red text-bold text-extra-large"></label>
                         </h4>
                     </div>
-                    <div collapse="panel3" ng-if="collapse3" class="panel-wrapper">
-                        <div class="panel-body" style="padding: 0px;">
+                    <div collapse="panel3" ng-hide="collapse3" class="panel-wrapper">
+                        <div class="panel-body" style=" padding: 0px;">
                             <div class="row panel-body" style="    font-size: 12px;    padding: 5px;">
                                 <table>
                                     <tr style="  background-color: #f5f5f5;">
@@ -389,7 +390,6 @@
                                         <th>{{:: promotioncode}}</th>
                                     </tr>
                                     <tr ng-repeat="code in item.promotions track by code.id">
-
                                         <td>{{::code.Promotion.name}} / ({{:: code.Amount | number:2}})</td>
                                         <td>{{:: code.Code}}</td>
                                         <td> <label class='col-lg-4 col-md-4 col-sm-4 col-xs-6 ng pull-right'>
