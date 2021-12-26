@@ -344,9 +344,9 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         location.href = '#/app/orders/orderStore/' + restresult.id;      //Gel-Al Sipariş
                     if (restresult.OrderTypeID == 2)
                         location.href = '#/app/orders/orderStore/' + restresult.id;      //Adrese Sipaiş
-                    if (restresult.OrderTypeID == 4 && !restresult.persons[0].PersonID)
+                    if (restresult.OrderTypeID == 4)
                         location.href = '#/app/orders/orderStoreTable/' + restresult.id; //Personel Yemeği Sipariş 
-                    if (restresult.OrderTypeID == 5 && !restresult.persons[0].PersonID)
+                    if (restresult.OrderTypeID == 5)
                         location.href = '#/app/orders/orderStoreTable/' + restresult.id; //PickUp Siparişi
                     if (restresult.OrderTypeID == 6 && !restresult.persons[0].PersonID)
                         location.href = '#/app/orders/orderStoreTable/' + restresult.id; //Mall Siparişi
@@ -639,8 +639,8 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         }
                     }
                     if ($scope._order.OrderTypeID == 4) {
-                        if (userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("STORE") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("Driver"))
-                            $location.path('/app/mainscreen');
+                        //if (userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("STORE") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("Driver"))
+                           $location.path('/app/orders/takeaway');
                     }
                     if ($scope._order.OrderTypeID == 5) {
                         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER"))

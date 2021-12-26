@@ -118,6 +118,7 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
             { dataField: "isCourierAvailable", caption: $translate.instant('dxGetirStore.isCourierAvailable') },
             { dataField: "restaurantSecretKey", caption: $translate.instant('dxGetirStore.restaurantSecretKey') },
             { dataField: "isActive", caption: $translate.instant('dxGetirStore.isActive') },
+             { dataField: "isEnabled", caption: $translate.instant('dxGetirStore.isEnabled') },
 
             //"FixedSize",
             //"MapByPrototype",

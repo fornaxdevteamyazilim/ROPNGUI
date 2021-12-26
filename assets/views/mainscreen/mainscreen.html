@@ -65,6 +65,30 @@
                     </div>
                 </li>
                 <li>
+                    <div ng-if="user.restrictions.getirstorestatus=='Enable'">
+                        <div>
+                            <strong class="text-green text-large text-uppercase"
+                                ng-if="AggregatorStoreStats[1].isActive == true"> {{:: open}} 
+                                <i class="fa fa-check"></i></strong>
+                            <strong class="text-red text-large text-uppercase"
+                                ng-if="AggregatorStoreStats[1].isActive == false">
+                                {{:: close}} <i class="fa fa-exclamation"></i></strong>
+                            <p style="font-weight: bold;">
+                                {{:: 'main.TRENDYOLSTATUS' | translate}}
+                            </p>
+                        </div>
+                        <div class="pull-left"
+                            ng-if="user.restrictions.changeysstorestatus=='Enable' && user.UserRole.Name == 'PHAdmin'">
+                            <div>
+                                <span class="text-bold text-extra-large" ng-click="ChangeYsStore()">
+                                    GETİR Restoran Durum Değişikliği !
+                                </span><br />
+                            </div>
+                        </div>
+
+                    </div>
+                </li>
+                <li>
                     <div class="values">
                         <strong class="text-bricky">{{::theClock}}</strong>
                         <p>
@@ -300,12 +324,23 @@
                 </div>
                 <div class="col-ms-4 col-xs-4" ng-if="user.restrictions.getirstorestatus=='Enable'">
                     <div>
-                        <strong class="text-green text-large text-uppercase" ng-if="yemekSepetiStore.isOpen == true">
+                        <strong class="text-green text-large text-uppercase" ng-if="AggregatorStore.isOpen == true">
                             {{:: open}} <i class="fa fa-check"></i></strong>
-                        <strong class="text-red text-large text-uppercase" ng-if="yemekSepetiStore.isOpen == false">
+                        <strong class="text-red text-large text-uppercase" ng-if="AggregatorStore.isOpen == false">
                             {{:: close}} <i class="fa fa-exclamation"></i></strong>
                         <p>
                             {{:: 'main.GETIRSTATUS' | translate}}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-ms-4 col-xs-4" ng-if="user.restrictions.trendyolstorestatus=='Enable'">
+                    <div>
+                        <strong class="text-green text-large text-uppercase" ng-if="TrendyolStore.isOpen == true">
+                            {{:: open}} <i class="fa fa-check"></i></strong>
+                        <strong class="text-red text-large text-uppercase" ng-if="TrendyolStore.isOpen == false">
+                            {{:: close}} <i class="fa fa-exclamation"></i></strong>
+                        <p>
+                            {{:: 'main.TRENDYOLSTATUS' | translate}}
                         </p>
                     </div>
                 </div>

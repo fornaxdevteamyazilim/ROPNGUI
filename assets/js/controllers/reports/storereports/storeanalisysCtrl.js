@@ -187,6 +187,7 @@ function storeanalisysCtrl($scope, $modal, $filter, SweetAlert, Restangular,$tra
                 $scope.totalYSDiscountTL = $scope.sumColumnJS(result, "Ys_Ind_Amount");
                 $scope.total30DKDiscount = $scope.sumColumnJS(result, "Dk_Ind_Count");
                 $scope.total30DKDiscountTL = $scope.sumColumnJS(result, "Dk_Ind_Amount");
+                
 
                 angular.copy(result, $scope.StoreAnalisys);
             }, function (response) {

@@ -88,7 +88,7 @@ function pickupCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTa
             OrderStateID: order.OrderStateID,
             OrderDate: $filter('date')(order.OrderDate, 'yyyy-MM-dd HH:mm:ss'),
             DeliveryDate: $filter('date')(order.DeliveryDate, 'yyyy-MM-dd HH:mm:ss'),
-             OperationDate: order.OperationDate,
+            OperationDate: order.OperationDate,
             OrderNote: order.OrderNote,
             PaymentNote: order.PaymentNote,
             StoreTableID: order.StoreTableID,

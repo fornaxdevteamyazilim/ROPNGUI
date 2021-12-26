@@ -235,6 +235,7 @@
                     <tr style="  background-color: #f5f5f5;">
                         <th>{{:: isChargedd}}</th>
                         <th>{{:: orderdate}}</th>
+                        <th>{{:: LastStateDate}}</th>
                         <th>{{:: deliverydate}}</th>
                         <th>{{:: agent}}</th>
                        
@@ -256,6 +257,7 @@
                                 value="{{::close}}" id="form-field-21" class="form-control" readonly>
                         </td>
                         <td>{{:: item.OrderDate | date:'HH:mm:ss dd-MM-yyyy'}}</td>
+                        <td>{{:: item.LastStateDate | date:'HH:mm:ss dd-MM-yyyy'}}</td>
                         <td>{{:: item.DeliveryDate | date:'HH:mm:ss dd-MM-yyyy'}}</td>
                         <td>{{:: User}}</td>
                        
@@ -320,6 +322,7 @@
                                 <div class="panel-body" style="padding: 5px;">
                                     <div id="treeViewContainer" dx-tree-list="dataGridOptionsorder">
                                     </div>
+                                   
                                 </div>
                             </div>
                         </div>

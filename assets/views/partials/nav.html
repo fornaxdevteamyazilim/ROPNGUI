@@ -670,6 +670,45 @@
             </li>-->
         </ul>
     </li>
+    <li ng-class="{'active open':$state.includes('app.aggregator')}" ng-if="user.restrictions.aggregator=='Enable'">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-location-pin"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="sidebar.nav.aggregator.MAIN"> Aggregator </span><i
+                        class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active" ng-if="user.restrictions.aggregatorsorders=='Enable'">
+                <a ui-sref="app.aggregators.orders">
+                    <i class="ti-receipt"></i> <span class="title"
+                        translate="sidebar.nav.aggregator.orders">Orders</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="user.restrictions.aggregatorsmapping=='Enable'">
+                <a ui-sref="app.aggregators.mapping">
+                    <i class="ti-settings"></i> <span class="title" translate="sidebar.nav.aggregator.mapping">Getir
+                        Mapping</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="user.restrictions.trendyolmapping=='Enable'">
+                <a ui-sref="app.aggregators.trendyolmapping">
+                    <i class="ti-settings"></i> <span class="title"
+                        translate="sidebar.nav.aggregator.trendyolmapping">Trendyol Mapping</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.aggregators.storeaggregatorstatus">
+                    <i class="ti-settings"></i> <span class="title"
+                        translate="sidebar.nav.aggregator.storeaggregatorstatus">storeaggregatorstatus Mapping</span>
+                </a>
+            </li>
+        </ul>
+    </li>
     <li ng-class="{'active open':$state.includes('app.reports')}" ng-if="user.restrictions.reports=='Enable'">
         <a href="javascript:void(0)">
             <div class="item-content">
@@ -1452,6 +1491,13 @@
                                 translate="sidebar.nav.reports.STAFFORDERSREPORT">personel sipariş raporu</span>
                         </a>
                     </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.ordersreports.orderrouted">
+                            <!-- ng-if="user.restrictions.orderrouted=='Enable'" -->
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.ORDERROUTED">sipariş yönlendirme raporu</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li ng-if="user.restrictions.audit=='Enable'">
@@ -2038,40 +2084,7 @@
             </li>
         </ul>
     </li>
-    <li ng-class="{'active open':$state.includes('app.aggregator')}" ng-if="user.restrictions.aggregator=='Enable'">
-        <a href="javascript:void(0)">
-            <div class="item-content">
-                <div class="item-media">
-                    <i class="ti-location-pin"></i>
-                </div>
-                <div class="item-inner">
-                    <span class="title" translate="sidebar.nav.aggregator.MAIN"> Aggregator </span><i
-                        class="icon-arrow"></i>
-                </div>
-            </div>
-        </a>
-        <ul class="sub-menu">
-            <li ui-sref-active="active" ng-if="user.restrictions.aggregatorsorders=='Enable'">
-                <a ui-sref="app.aggregators.orders">
-                    <i class="ti-location-pin"></i> <span class="title"
-                        translate="sidebar.nav.aggregator.orders">Orders</span>
-                </a>
-            </li>
-            <li ui-sref-active="active" ng-if="user.restrictions.aggregatorsmapping=='Enable'">
-                <a ui-sref="app.aggregators.mapping">
-                    <i class="ti-location-pin"></i> <span class="title" translate="sidebar.nav.aggregator.mapping">Getir
-                        Mapping</span>
-                </a>
-            </li>
-            <li ui-sref-active="active" ng-if="user.restrictions.trendyolmapping=='Enable'">
-                <a ui-sref="app.aggregators.trendyolmapping">
-                    <i class="ti-location-pin"></i> <span class="title"
-                        translate="sidebar.nav.aggregator.trendyolmapping">Trendyol Mapping</span>
-                </a>
-            </li>
-        </ul>
 
-    </li>
     <li ng-class="{'active open':$state.includes('app.mergeaddresses')}"
         ng-if="user.restrictions.mergeaddressese=='Enable'">
         <a href="javascript:void(0)">

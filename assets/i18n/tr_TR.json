@@ -11,6 +11,7 @@
     "ORDERPROMOTIONSREPORT": "{{appName}} - Sipariş İndirim Raporu",
     "ORDERPAYMENTSCHECK": "{{appName}} - Ödeme Karşılaştırma Raporu",
     "STAFFORDERSREPORT": "{{appName}} - Personel Sipariş Raporu",
+    "ORDERROUTED": "{{appName}} - Sipariş Yönlendirme Raporu",
     "RETURNEDPRODUCTSDETAILED": "{{appName}} - İptal Adisyon Ürün Listesi",
     "ACCOUNTTRANSACTIONS": "{{appName}} - Hesap İşlemleri",
     "ORDERPAYMENTS": "{{appName}} - Gerçekleşen Ödemeler",
@@ -376,7 +377,7 @@
     "FSRACTUALTHEORETICAL": "{{appName}} - Malzeme ve İşçilik Maliyet Raporu",
     "FSRCOMPARISONBUDGET": "{{appName}} - Bütçe Karşılaştırma Raporu",
     "FSRSPEEDOFSERVICE": "{{appName}} - Servis Hızı Raporu",
-    "VOIDORDERS": "{{appName}} - Void Orders Report",
+    "VOIDORDERS": "{{appName}} - İptal Sipariş Raporu",
     "PODSREPORT": "{{appName}} - POD Raporu",
     "PRODUCTGROUPSTRIKERATE": "{{appName}} - Ürün Grubu Satış Oranı",
     "PROMOTIONCODEDETAILS": "{{appName}} - Promosyon Kod Detayları",
@@ -910,7 +911,7 @@
     "CANCEL": "İptal",
     "CANCELL": "İptal Siparişler",
     "VOIDS": "Tüm İptaller",
-    "DELIVERYDATE": "Teslim Tarihi",
+    "DELIVERYDATE": "Planlanan Teslim",
     "PAYMENTSTATUS": "Ödeme Durumu",
     "ORDERITEMDETAILS": "Sipariş İçeriği",
     "SPLITINDEX": "Split İndeks",
@@ -927,6 +928,7 @@
     "REASONS": "Red Sebepleri",
     "STATES": "Durumlar",
     "STATEDATE": "Durum Tarihi",
+    "LASTSTATEDATE": "Teslim zamanı",
     "DRIVER": "Sürücü",
     "NEWORDER": "Yeni Siparişler",
     "PREPARINGDORDER": "Hazırlanan Siparişler",
@@ -2289,7 +2291,7 @@
     "GLOVOORDERS": "Glovo Siparişleri",
     "GETIRORDERS": "Getir Siparişleri",
     "TRENDYOL": "Trendyol Siparişleri",
-    "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : " ROPING API Servislerine Bağlantınız Kesilmiştir !",
+    "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : " ROPING API Servislerine Bağlantınız Kesilmiştir ! (CTRL + F5 Yapar mısınız !!)",
     "ORDERNUMBERPREFIX": "Sipariş Numarası Başlangıç",
     "GIFTPROMOTIONBLACKLIST": "Hediye Promosyon Kara Liste",
     "PROMOTIONSETTING": "Otomatik Promosyon Ayarları",
@@ -2336,6 +2338,7 @@
     "MINITEMCOUNT": "Min Adet",
     "YSSTATUS": "YEMEK SEPETİ",
     "GETIRSTATUS": "GETİR",
+    "TRENDYOLSTATUS": "TRENDYOL",
     "ROPNGTIME": "RopNG Saati",
     "PREWWEEK": "Geçen Hafta",
     "LASTDAY": "Önceki Gün",
@@ -2428,6 +2431,7 @@
     "STOREROUTINGTYPE": "Yönlendirme Tipi",
     "ORDERPAYMENTSCHECK": "Ödeme Karşılaştırma Raporu",
     "STAFFORDERSREPORT": "Personel Sipariş Raporu",
+    "ORDERROUTED": "Sipariş Yönlendirme Raporu",
     "LOYALTYREPORTS": "Sadakat",
     "PUNCHCARDTRANSACTIONS": "Dilim Raporu",
     "BONUSTRANSACTIONS": "Puan Detay Raporu",
@@ -2718,6 +2722,7 @@
         "PRODUCTSALES": "Ürün Satış Listesi",
         "ORDERPAYMENTSCHECK": " Ödeme Karşılaştırma Raporu",
         "STAFFORDERSREPORT": "Personel Sipariş Raporu",
+        "ORDERROUTED": "Sipariş Yönlendirme Raporu",
         "PAYMENTORDER": "Ödeme Tiplerine Göre Siparişler (Tutar)",
         "INVENTORYUSAGES": "Malzeme Tüketim Analiz (Adet)",
         "ORDERTOTALSSTOREBYORDERTYPE": "Sipariş Tipine Göre Siparişler",
@@ -2960,7 +2965,8 @@
         "MAIN": "Entegrasyonlar",
         "orders": "Onay Bekleyen Siparişler",
         "mapping": "Getir - Eşleştirmeler",
-        "trendyolmapping": "Trendyol - Eşleştirmeler"
+        "trendyolmapping": "Trendyol - Eşleştirmeler",
+        "storeaggregatorstatus": "Restoran Entegrasyon Ayarları"
       },
       "specialoperations": {
         "MAIN": "Özel Operasyonlar",
@@ -4488,7 +4494,8 @@
     "status": "Durum",
     "isCourierAvailable": "Mevcut Kurye",
     "restaurantSecretKey": "Restoran Güvenlik Anahtarı",
-    "isActive": "Aktif"
+    "isActive": "Aktif",
+    "isEnabled": "Etkin"
   },
   "trendyolmapping":{
     "TITLE": "Trendyol Eşleme Ekranı",
@@ -4575,7 +4582,7 @@
   "AggregatorOrdersstatsdetail": {
     "MapID": "ID",
     "MapDate": "Eşleşme Saati",
-    "OperationDate": "Sipariş Saati",
+    "OperationDate": "Sipariş Tarihi",
     "OrderID": "Sipariş ID",
     "OrderNumber": "Sipariş Numarası",
     "StoreName": "Restoran",
@@ -4598,5 +4605,43 @@
     "InventoryCountTypeID": "Sayım Tipi",
     "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
     "Commands": "İşlemler"
+  },
+  "storeaggregatorstatus": {
+    "TITLE": "Restoran Entegrasyon Ayarları",
+    "Store": "Restoran",
+    "YS": "Yemek Sepeti",
+    "ys_isOpen": "Durumu",
+    "ys_Enabled": "NG Durumu",
+    "ys_ServiceTime": "Servis Süresi",
+    "Getir": "Getir",
+    "Getir_Active": "Durumu",
+    "Getir_Enabled": "NG Durumu",
+    "Getir_ServiceTime": "Servis Süresi",
+    "Trendyol": "Trendyol",
+    "Trendyol_Active": "Durumu",
+    "Trendyol_Enabled": "NG Durumu",
+    "Trendyol_ServiceTime": "Servis Süresi",
+    "YemekSepeti_Name": "YemekSepeti Adı ",
+    "YemekSepeti_StoreID": "YemekSepeti Restoran Id",
+    "YemekSepeti_sid": "YemekSepeti Sıd",
+    "YemekSepeti_Status": "YemekSepeti Durumu",
+    "Getir_Name": "Getir Adı ",
+    "Getir_StoreID": "Getir Restoran Id",
+    "Getir_sid": "Getir Sıd",
+    "Getir_Status": "Getir Durumu",
+    "Trendyol_Name": "Trendyol Adı ",
+    "Trendyol_StoreID": "Trendyol Restoran Id",
+    "Trendyol_sid": "Trendyol Sıd",
+    "Trendyol_Status": "Trendyol Durumu"
+    
+  },
+  "orderrouted": {
+    "OrderID": "Sipariş ID",
+    "ordertransmittedstore": "Sipariş İletildiği Restoran",
+    "orderroutingstore": "Sipariş Yönlendirildiği Restoran",
+    "customername": "Müşteri İsmi",
+    "customerphone": "Müşteri Telefon",
+    "customeradress": "Müşteri Telefon"
+
   }
 }

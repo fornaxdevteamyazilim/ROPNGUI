@@ -96,7 +96,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         $scope.AppartmentNo = $translate.instant('main.*APERTMENTNO');
         $scope.AppartmentName = $translate.instant('main.APPARTMENTNAME');
         $scope.OperationDate = $translate.instant('main.OPERATIONDATE');
-        $scope.LastStateDate = $translate.instant('main.STATEDATE');
+        $scope.LastStateDate = $translate.instant('main.LASTSTATEDATE');
         $scope.quantity = $translate.instant('main.QUANTITY');
         
     };
@@ -227,8 +227,15 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
             { name: "AddDate", dataField: "AddDate", caption:  $scope.addDate ,dataType: "date", format: " HH:mm:ss" },            
         ],
         summary: {
-            totalItems: [{ caption:  $scope.totalAmount, column: "TotalAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },],
-        }
+            totalItems: [
+                { column: "TotalAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+                //{ name: "UnitCustom", showInColumn: "UnitCustom", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            ],
+            groupItems: [
+                //{ name: "UnitCustom", showInColumn: "UnitCustom", summaryType: "custom", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "TotalAmount", showInColumn: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            ],
+        },
     };
     $scope.CopyOrder = function (order) {
         return {

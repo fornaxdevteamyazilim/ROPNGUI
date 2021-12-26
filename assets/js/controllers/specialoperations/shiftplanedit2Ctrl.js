@@ -1664,9 +1664,9 @@ function shiftplanedit2Ctrl($rootScope, $scope, NG_SETTING, $translate, $element
         //groupPanel: { visible: true },
         editing: {
             allowAdding: true,
-            allowUpdating: true,
+            allowUpdating: ($rootScope.user.restrictions.shiftplanedit2_update == 'Enable'),
             allowDeleting: ($rootScope.user.restrictions.shiftplanedit2_delete == 'Enable'),
-            allowInserting: true,
+            allowInserting: ($rootScope.user.restrictions.shiftplanedit2_insert == 'Enable'),
             useIcons: true,
             mode: "popup",
 

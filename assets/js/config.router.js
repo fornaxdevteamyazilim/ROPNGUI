@@ -2530,6 +2530,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'staffordersreport'
                 }
+            }).state('app.reports.ordersreports.orderrouted', {
+                url: '/orderrouted',
+                templateUrl: "assets/views/reports/ordersreports/orderrouted.html",
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'orderroutedCtrl', 'dateCtrl', 'pivottable', 'jqueryui', 'jquery-nestable-plugin', 'ng-nestable'),
+                title: 'Order Routed Report',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'orderrouted'
+                }
             }).state('app.reports.ordersreports.performance', {
                 url: '/performance',
                 templateUrl: "assets/views/reports/ordersreports/performance.html",
@@ -2849,6 +2858,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 authenticate: true,
                 ncyBreadcrumb: {
                     label: 'customermap'
+                }
+            }).state('app.aggregators.storeaggregatorstatus', {
+                url: '/storeGridOptions',
+                templateUrl: "assets/views/aggregators/storeaggregatorstatus.html",
+                resolve: loadSequence('storeaggregatorstatusCtrl'),
+                title: 'storeaggregatorstatus',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'storeaggregatorstatus'
                 }
             }).state('app.addresses', {
                 url: '/addresses',
