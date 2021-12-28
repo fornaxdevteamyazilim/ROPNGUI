@@ -4601,7 +4601,9 @@
     "Trendyol_Name": "Trendyol Name ",
     "Trendyol_StoreID": "Trendyol StoreID",
     "Trendyol_sid": "Trendyol sid",
-    "Trendyol_Status": "Trendyol Status"
+    "Trendyol_Status": "Trendyol Status",
+    "Active":"Active",
+    "Passive":"Passive"
   },
   "orderrouted": {
     "OrderID": "Order ID",

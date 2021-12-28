@@ -4632,8 +4632,9 @@
     "Trendyol_Name": "Trendyol Adı ",
     "Trendyol_StoreID": "Trendyol Restoran Id",
     "Trendyol_sid": "Trendyol Sıd",
-    "Trendyol_Status": "Trendyol Durumu"
-    
+    "Trendyol_Status": "Trendyol Durumu",
+    "Active":"Açık",
+    "Passive":"Kapalı"
   },
   "orderrouted": {
     "OrderID": "Sipariş ID",
