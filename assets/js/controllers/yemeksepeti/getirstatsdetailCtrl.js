@@ -104,7 +104,6 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             { dataField: "OperationDate", alignment: "right", dataType: "date", width: 100, format: "d/M/yyyy", caption: $translate.instant('AggregatorOrdersstatsdetail.OperationDate') }, 
             { dataField: "OrderID", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderID') }, 
             { dataField: "OrderNumber", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderNumber') },
-           // { dataField: "Aggregator" , caption: $translate.instant('AggregatorOrdersstatsdetail.Aggregator') },
             { dataField: "StoreName", caption: $translate.instant('AggregatorOrdersstatsdetail.StoreName') }, 
             { dataField: "TransferTimeMinutes", caption: $translate.instant('AggregatorOrdersstatsdetail.TransferTimeMinutes') },
             { dataField: "CustomerMappingTime", caption: $translate.instant('AggregatorOrdersstatsdetail.CustomerMappingTime') },
@@ -112,7 +111,7 @@ function getiristatsdetailCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             { dataField: "AggregatorOrderID", caption: $translate.instant('AggregatorOrdersstatsdetail.GetirOrderID') }, 
             { dataField: "Notes", caption: $translate.instant('AggregatorOrdersstatsdetail.Notes') }, 
             { dataField: "OrderStatus", caption: $translate.instant('AggregatorOrdersstatsdetail.OrderStatus') },
-            //{ dataField: "CustomerMapBy", caption:$translate.instant('AggregatorOrdersstatsdetail.CustomerMapBy') }
+            { dataField: "CustomerMapBy", caption:$translate.instant('AggregatorOrdersstatsdetail.CustomerMapBy') }
         ],
         filterRow: {
             visible: true

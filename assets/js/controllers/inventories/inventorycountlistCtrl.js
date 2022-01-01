@@ -73,6 +73,7 @@ function inventorycountlistCtrl($scope, $filter, $modal, $log, Restangular, Swee
         return result;
     };
     function getFilter() { //"and",["!",["OrderType","=",""]]
+        var s = BuildUserStoresArray($rootScope.user.userstores);
         var fdate = new Date($scope.DateRange.fromDate.value.getFullYear(), $scope.DateRange.fromDate.value.getMonth(), $scope.DateRange.fromDate.value.getDate());
         var tdate = new Date($scope.DateRange.toDate.value.getFullYear(), $scope.DateRange.toDate.value.getMonth(), $scope.DateRange.toDate.value.getDate());
 

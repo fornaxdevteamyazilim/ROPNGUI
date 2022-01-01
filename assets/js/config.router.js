@@ -2860,7 +2860,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     label: 'customermap'
                 }
             }).state('app.aggregators.storeaggregatorstatus', {
-                url: '/storeGridOptions',
+                url: '/storeaggregatorstatus',
                 templateUrl: "assets/views/aggregators/storeaggregatorstatus.html",
                 resolve: loadSequence('storeaggregatorstatusCtrl'),
                 title: 'storeaggregatorstatus',

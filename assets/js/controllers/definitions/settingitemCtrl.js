@@ -12,6 +12,9 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             toDate: moment().add(2, 'days').format('YYYY-MM-DD')
         }
     ).Parameters;
+    Date.prototype.addDays = Date.prototype.addDays || function (days) {
+        return this.setTime(864E5 * days + this.valueOf()) && this;
+    };
     $scope.StartNewPeriod = function () {
         $scope.isWaiting = true;
         Restangular.one('inventory/startnewperiod').get({}).then(function (result) {
@@ -79,8 +82,8 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
     $scope.correctopdates = function () {
         $scope.isWaiting = true;
         //var data = new Date();
-        var fromDate = $filter('date')($scope.DateRange.fromDate.value, 'yyyy-MM-dd');
-        var toDate = $filter('date')($scope.DateRange.toDate.value, 'yyyy-MM-dd');
+        var fromDate = $filter('date')($scope.DateRanges.fromDate.value, 'yyyy-MM-dd');
+        var toDate = $filter('date')($scope.DateRanges.toDate.value, 'yyyy-MM-dd');
         Restangular.one('tools/correctopdates').get({
             fromDate: fromDate,
             toDate: toDate,
@@ -92,26 +95,53 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
         });
     };
-    $scope.DateRange = {
+    // $scope.DateRanges = {
+    //     fromDate: {
+    //         max: new Date(),
+    //         min: new Date(2019, 0, 1),
+    //         displayFormat: 'dd.MM.yyyy',
+    //         bindingOptions: {
+    //             value: "DateRange.fromDate.value"
+    //         },
+    //         value: new Date()
+    //     },
+    //     toDate: {
+    //         max: $scope.params.toDate,
+    //         min: new Date(2019, 0, 3),
+    //         displayFormat: 'dd.MM.yyyy',
+    //         bindingOptions: {
+    //             value: "DateRange.toDate.value"
+    //         },
+    //         value: new Date()
+    //     }
+    // };
+    $scope.DateRanges = {
         fromDate: {
             max: new Date(),
             min: new Date(2019, 0, 1),
             displayFormat: 'dd.MM.yyyy',
             bindingOptions: {
-                value: "DateRange.fromDate.value"
+                value: "DateRanges.fromDate.value"
             },
-            value: new Date()
+            value: (new Date()).addDays(-1),
+            labelLocation: "top", // or "left" | "right"  
+
         },
         toDate: {
             max: $scope.params.toDate,
-            min: new Date(2019, 0, 3),
+            min: new Date(2019, 0, 1),
             displayFormat: 'dd.MM.yyyy',
             bindingOptions: {
-                value: "DateRange.toDate.value"
+                value: "DateRanges.toDate.value"
             },
-            value: new Date()
+            value: (new Date()).addDays(1),
+            label: {
+                location: "top",
+                alignment: "right" // or "left" | "center"
+            }
         }
     };
+    
     // $scope.CalculateProductCosts = function () {
     //     $scope.isWaiting = true;
     //     Restangular.one('inventory/CalculateProductCosts').get({

@@ -4607,11 +4607,18 @@
   },
   "orderrouted": {
     "OrderID": "Order ID",
-    "ordertransmittedstore": "Order Transmitted Store",
-    "orderroutingstore": "Order Routing Store",
+    "FromStore": "From Store",
+    "ToStore": "To Store",
     "customername": "Customer Name",
     "customerphone": "Customer Phone",
-    "customeradress": "Customer Adress"
+    "OperationDate": "Operation Date",
+    "FromStoreID": "From Store ID",
+    "ToStoreID": "To Store ID",
+    "AddressID": "Address ID",
+    "StreetAddress": "Street Address",
+    "QuarterName": "Quarter Name",
+    "SubcityName": "Subcity Name",
+    "TownName": "Town Name"
   
   }
 }

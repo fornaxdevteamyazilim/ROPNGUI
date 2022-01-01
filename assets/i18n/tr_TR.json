@@ -4635,14 +4635,24 @@
     "Trendyol_Status": "Trendyol Durumu",
     "Active":"Açık",
     "Passive":"Kapalı"
+    
   },
   "orderrouted": {
     "OrderID": "Sipariş ID",
-    "ordertransmittedstore": "Sipariş İletildiği Restoran",
-    "orderroutingstore": "Sipariş Yönlendirildiği Restoran",
+    "FromStore": "Sipariş İletildiği Restoran",
+    "ToStore": "Sipariş Yönlendirildiği Restoran",
     "customername": "Müşteri İsmi",
     "customerphone": "Müşteri Telefon",
-    "customeradress": "Müşteri Telefon"
+    "OperationDate": "Sipariş Tarihi",
+    "FromStoreID": "İletildiği Restoran Id",
+    "ToStoreID": "Yönlendirildiği Restoran Id",
+    "AddressID": "Adres Id",
+    "StreetAddress": "Adres",
+    "QuarterName": "Mahalle",
+    "SubcityName": "Ilçe",
+    "TownName": "Şehir"
+
+    
 
   }
 }

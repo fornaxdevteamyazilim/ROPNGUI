@@ -73,8 +73,9 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
     $scope.RefreshStoreStats = function (stats) {
         $rootScope.ShowSpinnerObject = false;
         $scope.yemekSepetiStore = angular.copy(stats.yemekSepetiStore);
-        $scope.AggregatorStore = angular.copy(stats.AggregatorStore);
-        $scope.TrendyolStore = angular.copy(stats.TrendyolStore);
+        $scope.AggregatorStoreStats = angular.copy(stats.AggregatorStoreStats);
+        $scope.getirStore = angular.copy(stats.getirStore);
+        $scope.trendyolStore = angular.copy(stats.trendyolStore);
         $scope.DisplayName = angular.copy(stats.DisplayName);
         $scope.isOpen = angular.copy(stats.isOpen);
 

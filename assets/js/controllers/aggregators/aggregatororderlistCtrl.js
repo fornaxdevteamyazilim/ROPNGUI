@@ -303,6 +303,7 @@ function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SE
     $scope.$on('$destroy', function () {
         //$scope.stop();
         onAggregatorOrder();
+        refreshData();
         //NewAggregatorOrderfresh();
         tranlatelistener();
         $element.remove();

@@ -244,13 +244,13 @@
                                                     <div class="dx-field pull-left" style="    font-weight: 300;">
                                                         <div class="dx-field-label" translate="main.FROMDATE" >FormDate</div>
                                                         <div class="dx-field-value">
-                                                            <div dx-date-box="DateRange.fromDate"></div>
+                                                            <div dx-date-box="DateRanges.fromDate"></div>
                                                         </div>
                                                     </div>
                                                     <div class="dx-field pull-left">
                                                         <div class="dx-field-label"  translate="main.TODATE">ToDate</div>
                                                         <div class="dx-field-value">
-                                                            <div dx-date-box="DateRange.toDate"></div>
+                                                            <div dx-date-box="DateRanges.toDate"></div>
                                                         </div>
                                                     </div>
 
@@ -262,8 +262,8 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="readmore">
                                                 <button class="btn btn-primary btn-o btn-wide"
-                                                    ng-click="correctopdates(DateRange.fromDate,DateRange.toDate)"
-                                                    ng-if="DateRange.fromDate && DateRange.toDate">
+                                                    ng-click="correctopdates(DateRanges.fromDate,DateRanges.toDate)"
+                                                    ng-if="DateRanges.fromDate && DateRanges.toDate">
 
                                                     <span ng-if="isWaiting != true">{{'main.START' | translate}} <i
                                                             class="fa fa-arrow-circle-right"></i></span>
