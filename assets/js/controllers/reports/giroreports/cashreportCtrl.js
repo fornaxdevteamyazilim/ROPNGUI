@@ -75,6 +75,10 @@ function cashreportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
             Total += data[i].Value;
         return Total;
     };
+    $scope.SelectItem = function (id) {
+       
+        location.href = '#/app/reports/giroreports/declaredrevenuee/' + id;
+    };
     $scope.CalcTotalIncome = function (items) {
         var TotalIncome = 0;
         for (var i = 0; i < items.length; i++)

@@ -422,6 +422,8 @@
     "PAYMENTTERM": "Vade",
     "USAGERETURNED": "Atık Kullanımı",
     "IDEALCOSTS": "Ideal Maliyet.",
+    "TOTALACTUALAMOUNT":"Toplam Gerçek Tutar",
+    "TOTALDECLAREDAMOUNT":"BEYAN EDİLEN TOPLAM TUTAR",
     "THEORICINVANTORIES": "Ideal Maliyet Malzeme Toplamı",
     "ACTUALINVANTORIES": "Gerçekleşen Maliyet Malzeme Toplamı",
     "THEORIC": "Ideal Maliyet Tablosu",
