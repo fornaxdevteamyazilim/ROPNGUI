@@ -1069,6 +1069,12 @@
                         </a>
                     </li>
                     <li ui-sref-active="active">
+                        <a ui-sref="app.reports.giroreports.declaredrevenuee" ng-if="user.restrictions.declaredrevenues=='Enable'">
+                            <i class="ti-files"></i> <span class="title"
+                                translate="sidebar.nav.reports.DECLAREDREVENUEE">Beyan edilen gelir</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
                         <a ui-sref="app.reports.giroreports.storecashcontrol"
                             ng-if="user.restrictions.storecashcontrol=='Enable'">
                             <i class="ti-files"></i> <span class="title"

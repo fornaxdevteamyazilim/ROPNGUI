@@ -212,6 +212,7 @@
     "HNRDATA": "{{appName}} - HNR Veri",
     "HNRGROUP": "{{appName}} - HNR Grup",
     "HNRPRODUCTDATAS": "{{appName}} - HNR Ürün",
+    "DECLAREDREVENUEE": "{{appName}} - Beyan Edilen Gelir",
     "STORELOGS": "{{appName}} - Restoran Logları",
     "USERSTORE": "{{appName}} - Kullanıcı - Restoran",
     "STORESALETYPE": "{{appName}} - Restoran Sipariş Tipi Kapama",
@@ -1624,6 +1625,7 @@
     "SEARCHBYORDERNUMBERPERSONNAMEORPERSONPHONE": "Sipariş Numarası, Müşteri İsmi veya Telefon Numarasına Göre Ara",
     "SALESINCOME": "Satış Gelirleri",
     "CASHSTATUS": "Kasa Durumu",
+    "DECLAREDREVENUEE": "Beyan Edilen Gelir",
     "AWAITINGAUTHDURATION": "Onay Bekleme Süresi",
     "KITCHENPERFORMANCE": "Mutfak Performansları",
     "CALCULATEDCOUNT": "Hesaplanan Miktar",
@@ -2650,6 +2652,7 @@
         "STORESALESSTATISTICS": "Restoran Satış istatistikleri",
         "ORDERPAYMENTS": "Gerçekleşen Ödemeler",
         "MAIN": "Raporlar",
+        "DECLAREDREVENUEE": "Beyan Edilen Gelir",
         "CASHREPORT": "Kasa",
         "GENERALREPORT": "Genel Raporlar",
         "TARGETANDACTUALREPORT": "Hedef Ve Güncel",
@@ -4654,5 +4657,13 @@
 
     
 
+  },
+  "DeclaredRevenue": {
+    "StoreID": "Restoran",
+    "OperationDate": "Sipariş Tarihi",
+    "DeclaredAmount": "Beyan Edilen Toplam ",
+    "ActualAmount": "Gerçekleşen Toplam"
+  
   }
+  
 }

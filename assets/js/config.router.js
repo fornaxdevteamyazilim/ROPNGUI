@@ -1931,6 +1931,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'Giro'
                 }
+            }).state('app.reports.giroreports.declaredrevenuee', {
+                url: '/declaredrevenuee',
+                templateUrl: "assets/views/reports/giroreports/declaredrevenuee.html",
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'declaredrevenueeCtrl', 'dateCtrl'),
+                title: 'declaredrevenuee',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'declaredrevenuee'
+                }
             }).state('app.reports.giroreports.giroanalysis', {
                 url: '/giroanalysis',
                 templateUrl: "assets/views/reports/giroreports/giroanalysis.html",

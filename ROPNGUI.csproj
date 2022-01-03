@@ -482,6 +482,7 @@
     <Content Include="assets\js\controllers\reports\productsalesreports\productusagecountsCtrl.js" />
     <Content Include="assets\js\controllers\reports\giroreports\giroanalysisCtrl.js" />
     <Content Include="assets\js\controllers\reports\giroreports\giroreportCtrl.js" />
+    <Content Include="assets\js\controllers\reports\giroreports\declaredrevenueeCtrl.js" />
     <Content Include="assets\js\controllers\reports\productsalesreports\productsalesstatisticsCtrl.js" />
     <Content Include="assets\js\controllers\reports\stockandcostreports\inventorytransactionsCtrl.js" />
     <Content Include="assets\js\controllers\reports\reportspopup\selectanyCtrl.js" />

@@ -1,0 +1,76 @@
+<div ng-controller="declaredrevenueeCtrl as dre" ng-init="app.layout.isSidebarClosed=true">
+    <div>
+        <br />
+        <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+            <span translate="main.BACK">Back</span>
+        </a>
+    </div>
+    <h1 class="mainTitle" translate="tittle.DECLAREDREVENUE" translate-values="{ appName: app.name }">{{ mainTitle }}</h1>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row center" ng-if="ShowObject==true">
+        <span class="margin-bottom-10 visible-lg">
+            <img src="assets/images/loader.gif" />
+        </span>
+        <span class="margin-bottom-10 visible-md visible-sm visible-xs">
+            <img class="center" style="width:250px; height:200px;" src="assets/images/loader.gif" />
+        </span>
+    </div>
+    <div class="panel panel-white" ng-hide="ShowObject==true">
+        <div class="panel-body">
+            <form role="form">
+                <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
+                    <label>{{:: trStore}}</label><br />                    
+                    <input id="isCharged " type="text" class="form-control" ng-model="item.StoreName " readonly ng-if="selectStore == false"/>
+                    <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-options="q.id as q.name for q in stores |orderBy: '+name'" ng-model="item.StoreID" ng-change="loadStorePaymentTypes(item.StoreID)" ng-if="selectStore == true"></select>
+                </div>
+                <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
+                    <label>{{:: trOperationDate }}</label><br />
+                    <input id="Date" type="text" class="form-control ng" ng-model="item.OperationDate" readonly ng-click="datepopup(item.OperationDate )" required>
+                </div>
+                <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
+                    <label>{{:: trTotalAmount }}</label><br />
+                    <input id="isCharged " type="number" class="form-control" ng-model="item.TotalAmount" readonly>
+                </div>
+                <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
+                    <label>{{:: trTotalCash }}</label><br />
+                    <input id="isCharged " type="number" class="form-control" ng-model="item.TotalCash" readonly>
+                </div>
+                <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
+                    <label>{{:: trNotes}}</label><br />
+                    <textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.Notes" placeholder=""></textarea>
+                </div>
+                <div   class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
+                    <label>{{:: trisCharged }}</label><br />
+                    <input id="isCharged " type="text" class="form-control" ng-if="item.isCharged == true" value="Onaylandı!" readonly>
+                    <input id="isCharged " type="text" class="form-control" ng-if="item.isCharged == false" value="Onay Bekliyor!" readonly>
+                </div>  
+                <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-left" ng-click="SaveData()">
+                            <span>{{:: save}}</span>
+                        </button>
+                    </div>
+                    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                        <button class="btn btn-success btn-o btn-wide btn-scroll btn-scroll-left fa  fa-check center" ng-click="checkisCharged()" ng-if="hideButton == true && DeclaredRevenueID != 'new' && item.isCharged == false">
+                            <span>{{:: Approve}}</span>
+                        </button>
+                    </div>
+                    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                        <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-click="removedata(item.id)">
+                            <span>{{:: delete}}</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-white table-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12"
+    ng-if="InventoryCountID != 'new'">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="table-responsive">
+            <div class="demo-container">
+                <div id="gridContainer" dx-data-grid="dataGridOptions"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

@@ -4620,5 +4620,12 @@
     "SubcityName": "Subcity Name",
     "TownName": "Town Name"
   
+  },
+  "DeclaredRevenue": {
+    "StoreID": "Store",
+    "OperationDate": "Operation Date",
+    "DeclaredAmount": " Declared Amount",
+    "ActualAmount": "Actual Amount"
+  
   }
 }

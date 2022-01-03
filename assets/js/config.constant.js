@@ -276,6 +276,7 @@ app.constant('JS_REQUIRES', {
         'awaitingsuppliesCtrl': 'assets/js/controllers/reports/stockandcostreports/awaitingsuppliesCtrl.js?v=0708',
         'supplyreportCtrl': 'assets/js/controllers/reports/stockandcostreports/supplyreportCtrl.js?v=0708',
         "giroreportCtrl": "assets/js/controllers/reports/giroreports/giroreportCtrl.js?v=0708",
+        "declaredrevenueeCtrl": "assets/js/controllers/reports/giroreports/declaredrevenueeCtrl.js?v=0708",
         "giroanalysisCtrl": "assets/js/controllers/reports/giroreports/giroanalysisCtrl.js?v=0708",
         'cashreportCtrl': 'assets/js/controllers/reports/giroreports/cashreportCtrl.js?v=0708',
         'storecashcontrolCtrl': 'assets/js/controllers/reports/giroreports/storecashcontrolCtrl.js?v=0708',
