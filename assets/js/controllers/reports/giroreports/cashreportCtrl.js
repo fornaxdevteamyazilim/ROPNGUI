@@ -75,10 +75,16 @@ function cashreportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
             Total += data[i].Value;
         return Total;
     };
-    $scope.SelectItem = function (id) {
-       
+    $scope.SelectItem = function (id) {       
         location.href = '#/app/reports/giroreports/declaredrevenuee/' + id;
     };
+    Array.prototype.sum = function (prop) {
+        var total = 0
+        for ( var i = 0, _len = this.length; i < _len; i++ ) {
+            total += this[i][prop]
+        }
+        return total
+    }
     $scope.CalcTotalIncome = function (items) {
         var TotalIncome = 0;
         for (var i = 0; i < items.length; i++)

@@ -116,22 +116,6 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         //     }
        
     };
-    $scope.checkisCharged = function (data) {
-        $scope.item.isCharged = true;
-        $scope.item.put().then(function (resp) {
-            swal($translate.instant('orderfile.Confirmed'), $translate.instant('orderfile.Updated'), "warning");
-            $location.path('app/specialoperations/declaredrevenue');
-        });
-        $scope.item.get();
-    };
-    $scope.checkisCharged = function (data) {
-        $scope.item.isCharged = true;
-        $scope.item.put().then(function (resp) {
-            swal($translate.instant('orderfile.Confirmed'), $translate.instant('orderfile.Updated'), "warning");
-            $location.path('app/specialoperations/declaredrevenue');
-        });
-        $scope.item.get();
-    };
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
@@ -152,24 +136,6 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             });
         }
         $scope.item.get();
-    };
-    $scope.FormKeyPress = function (event, rowform, data, index) {
-        if (event.keyCode === 13 && rowform.$visible) {
-            rowform.$submit();
-            $scope.addItem();
-        }
-        if (event.keyCode === 27 && rowform.$visible) {
-            $scope.cancelForm(rowform);
-        }
-    };
-    $scope.cancelForm = function (rowform) {
-        rowform.$cancel();
-        if (!dre.tableParams.data[dre.tableParams.data.length - 1].restangularized) {
-            $scope.cancelremove(dre.tableParams.data.length - 1, 1);
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Insertcancelled'));
-        } else {
-            toaster.pop('warning', $translate.instant('orderfile.Cancelled'), $translate.instant('difinitions.Editcancelled'));
-        }
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
