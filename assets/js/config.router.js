@@ -1932,7 +1932,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     label: 'Giro'
                 }
             }).state('app.reports.giroreports.declaredrevenuee', {
-                url: '/declaredrevenuee',
+                url: '/declaredrevenuee/:id',
                 templateUrl: "assets/views/reports/giroreports/declaredrevenuee.html",
                 resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'declaredrevenueeCtrl', 'dateCtrl'),
                 title: 'declaredrevenuee',

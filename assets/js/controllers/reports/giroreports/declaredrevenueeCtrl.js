@@ -1,5 +1,5 @@
 app.controller('declaredrevenueeCtrl', declaredrevenueeCtrl);
-function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, userService, $element, Excel, $timeout, NG_SETTING, $http, $q) {
+function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, userService, $element, $timeout, NG_SETTING, $http, $q) {
     $rootScope.uService.EnterController("declaredrevenueeCtrl");
     userService.userAuthorizated();
     var dre = this;
@@ -19,7 +19,8 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         $scope.delete = $translate.instant('main.DELETE');
         $scope.addadnewpaymentitem = $translate.instant('main.ADDNEWPAYMENTITEM');
         $scope.trPaymentType = $translate.instant('main.PAYMENTTYPE');
-        $scope.trAmount = $translate.instant('main.AMOUNT');
+        $scope.trTotalActualAmount = $translate.instant('main.TOTALACTUALAMOUNT');
+        $scope.trTotalDeclaredAmount = $translate.instant('main.TOTALDECLAREDAMOUNT');
         $scope.Approve = $translate.instant('main.APPROVE');
         $scope.trCommands = $translate.instant('main.COMMANDS');
     };
@@ -50,17 +51,27 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             }
         }
     });
-    var params = {
-        DeclaredRevenueID: $stateParams.id,
-    };
-    $http.get(NG_SETTING.apiServiceBaseUri + "/api/DeclaredRevenue", { params: params })
+    /*
+    $http.get(NG_SETTING.apiServiceBaseUri + "/api/DeclaredRevenue/"+$stateParams.id)
         .then(function (response) {
-            $scope.item.items;
+            $scope.item=response.data;
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
             dataGrid.option("dataSource", $scope.item.items);
         }, function (result) {
             return $q.reject("Data Loading Error");
         });
+        */
+        Restangular.one('DeclaredRevenue', $stateParams.id).get()
+            .then(function (restresult) {
+                $scope.item=restresult;
+            var dataGrid = $('#gridContainer').dxDataGrid('instance');
+            dataGrid.option("dataSource", $scope.item.items);
+            },
+           function (restresult) {
+               toaster.pop('error', "Error", $translate.instant('Server.ServerError'));
+               swal("Error!",$translate.instant('Server.DataError'), "Warning");
+           }
+           );
     $scope.dataGridOptions = {
         dataSource: $scope.item.items,
         showBorders: true,
@@ -86,13 +97,9 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             allowUpdating: true
         },
         columns: [
-            { caption:$translate.instant('DeclaredRevenue.StoreID'), dataField: "StoreID", dataType: "string", allowEditing: false, sortIndex: 0, sortOrder: "desc" },
-            { caption: $translate.instant('DeclaredRevenue.OperationDate'), dataField: "OperationDate", dataType: "string", allowEditing: false, visibleIndex: 1 },
-            {
-                dataField: "DeclaredAmount", caption: $translate.instant('DeclaredRevenue.DeclaredAmount'), allowEditing: false, dataType: "string"//fixed: true,width: 200,    
-            },
-           
-            { caption: $translate.instant('DeclaredRevenue.ActualAmount'), dataField: "ActualAmount", calculateCellValue: function (data) { return data.UnitCount * data.UnitPrice; }, format: { type: "fixedPoint", precision: 2 }, visibleIndex: 4 },
+            { caption:$translate.instant('DeclaredRevenue.PaymentType'), dataField: "PaymentType.name", dataType: "string", allowEditing: false, sortIndex: 0, sortOrder: "desc" },            
+            { caption: $translate.instant('DeclaredRevenue.ActualAmount'), dataField: "ActualAmount", format: { type: "fixedPoint", precision: 2 }, visibleIndex: 2 },
+            { caption: $translate.instant('DeclaredRevenue.DeclaredAmount'), dataField: "DeclaredAmount", format: { type: "fixedPoint", precision: 2 }, visibleIndex: 3, allowEditing: false }
         ],
         summary: {
             totalItems: [

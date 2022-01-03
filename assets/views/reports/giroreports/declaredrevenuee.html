@@ -27,33 +27,24 @@
                     <input id="Date" type="text" class="form-control ng" ng-model="item.OperationDate" readonly ng-click="datepopup(item.OperationDate )" required>
                 </div>
                 <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
-                    <label>{{:: trTotalAmount }}</label><br />
-                    <input id="isCharged " type="number" class="form-control" ng-model="item.TotalAmount" readonly>
+                    <label>{{:: trTotalActualAmount }}</label><br />
+                    <input id="ActualAmount " type="number" class="form-control" ng-model="item.ActualAmount" readonly>
                 </div>
                 <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
-                    <label>{{:: trTotalCash }}</label><br />
-                    <input id="isCharged " type="number" class="form-control" ng-model="item.TotalCash" readonly>
+                    <label>{{:: trTotalDeclaredAmount }}</label><br />
+                    <input id="DeclaredAmount " type="number" class="form-control" ng-model="item.DeclaredAmount" readonly>
                 </div>
                 <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
                     <label>{{:: trNotes}}</label><br />
                     <textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.Notes" placeholder=""></textarea>
                 </div>
-                <div   class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
-                    <label>{{:: trisCharged }}</label><br />
-                    <input id="isCharged " type="text" class="form-control" ng-if="item.isCharged == true" value="Onaylandı!" readonly>
-                    <input id="isCharged " type="text" class="form-control" ng-if="item.isCharged == false" value="Onay Bekliyor!" readonly>
-                </div>  
                 <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
                     <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
                         <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-left" ng-click="SaveData()">
                             <span>{{:: save}}</span>
                         </button>
                     </div>
-                    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
-                        <button class="btn btn-success btn-o btn-wide btn-scroll btn-scroll-left fa  fa-check center" ng-click="checkisCharged()" ng-if="hideButton == true && DeclaredRevenueID != 'new' && item.isCharged == false">
-                            <span>{{:: Approve}}</span>
-                        </button>
-                    </div>
+                    
                     <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
                         <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-click="removedata(item.id)">
                             <span>{{:: delete}}</span>
