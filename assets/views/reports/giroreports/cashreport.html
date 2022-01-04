@@ -498,7 +498,7 @@
                 </div>
             </div>
         </fieldset>
-        <fieldset class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <fieldset class="col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-if="CashReportResults[0].DeclaredRevenue">
             <div translate="main.DECLAREDREVENUEE" ng-click="SelectItem(CashReportResults[0].DeclaredRevenue.id)" class="panel panel-heading center text-bold"> Beyan edilen gelir</div>
             <div class="panel-scroll" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true" style="max-height:206px; min-height:206px;">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="item in CashReportResults[0].DeclaredRevenue.items">
@@ -510,7 +510,7 @@
                                 <label class="pull-right"> {{item.DeclaredRevenue}} </label>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
-                                <label class="pull-right">{{item.ActualAmount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
+                                <label class="pull-right">{{item.DeclaredAmount| number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>
                             </div>
                         </div>
                     </div>

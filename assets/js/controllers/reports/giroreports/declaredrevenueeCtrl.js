@@ -4,6 +4,7 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
     userService.userAuthorizated();
     var dre = this;
     $scope.item = {};
+    $scope.items = [];
     $scope.resdata = {};
     $scope.Back = function () {
         $location.path('app/reports/giroreports/maincashreport');
@@ -61,26 +62,27 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             return $q.reject("Data Loading Error");
         });
         */
-        Restangular.one('DeclaredRevenue', $stateParams.id).get()
-            .then(function (restresult) {
-                $scope.item=restresult;
+    Restangular.one('DeclaredRevenue', $stateParams.id).get()
+        .then(function (restresult) {
+            $scope.item = Restangular.copy(restresult);
+            $scope.items = Restangular.copy($scope.item.items);
             var dataGrid = $('#gridContainer').dxDataGrid('instance');
-            dataGrid.option("dataSource", $scope.item.items);
-            },
-           function (restresult) {
-               toaster.pop('error', "Error", $translate.instant('Server.ServerError'));
-               swal("Error!",$translate.instant('Server.DataError'), "Warning");
-           }
-           );
+            dataGrid.option("dataSource", $scope.items);
+        },
+            function (restresult) {
+                toaster.pop('error', "Error", $translate.instant('Server.ServerError'));
+                swal("Error!", $translate.instant('Server.DataError'), "Warning");
+            }
+        );
     $scope.dataGridOptions = {
-        dataSource: $scope.item.items,
+        //dataSource: $scope.item.items,
         showBorders: true,
         allowColumnResizing: true,
         columnAutoWidth: true,
         showColumnLines: true,
         showRowLines: true,
         rowAlternationEnabled: true,
-        //skeyExpr: "id",
+        keyExpr: "id",
         showBorders: true,
         hoverStateEnabled: true,
         allowColumnReordering: true,
@@ -97,8 +99,8 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             allowUpdating: true
         },
         columns: [
-            { caption:$translate.instant('DeclaredRevenue.PaymentType'), dataField: "PaymentType.name", dataType: "string", allowEditing: false, sortIndex: 0, sortOrder: "desc" },            
-            { caption: $translate.instant('DeclaredRevenue.ActualAmount'), dataField: "ActualAmount", format: { type: "fixedPoint", precision: 2 }, visibleIndex: 2 ,allowEditing: false},
+            { caption: $translate.instant('DeclaredRevenue.PaymentType'), dataField: "PaymentType.name", dataType: "string", allowEditing: false, sortIndex: 0, sortOrder: "desc" },
+            { caption: $translate.instant('DeclaredRevenue.ActualAmount'), dataField: "ActualAmount", format: { type: "fixedPoint", precision: 2 }, visibleIndex: 2, allowEditing: false },
             { caption: $translate.instant('DeclaredRevenue.DeclaredAmount'), dataField: "DeclaredAmount", format: { type: "fixedPoint", precision: 2 }, visibleIndex: 3 }
         ],
         summary: {
@@ -114,61 +116,69 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         // onContentReady(e) {
         //     document.querySelector('.dx-datagrid-rowsview').before(document.querySelector('.dx-datagrid-total-footer'));
         //     }
-       
+
     };
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
+            angular.copy($scope.items, $scope.item.items);
+            Restangular.restangularizeElement('', $scope.item, 'DeclaredRevenue');
             $scope.item.put().then(function (resp) {
                 $location.path('app/mainscreen');
                 swal($translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'), "success");
+            },
+            function (response) {
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
         else {
-            Restangular.restangularizeElement('', $scope.item, 'DeclaredRevenue')
+            Restangular.restangularizeElement('', $scope.item, 'DeclaredRevenue');
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
                 swal($translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'), "success");
-                $location.path('app/mainscreen/' );
+                $location.path('app/mainscreen/');
                 $scope.item = {};
                 $scope.item = Restangular.copy(resp);
-               // dre.tableParams.reload();
+                // dre.tableParams.reload();
                 $scope.DeclaredRevenueID = $stateParams.id;
-            });
+            },
+                function (response) {
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                });
         }
-        
+
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
-            title:  $translate.instant('orderfile.Sure') ,
-            text:  $translate.instant('orderfile.SureRecord'),
+            title: $translate.instant('orderfile.Sure'),
+            text: $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText:    $translate.instant('orderfile.confirmButtonText'),
-            cancelButtonText:   $translate.instant('orderfile.cancelButtonText'),
+            confirmButtonText: $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText: $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
                 $scope.item.remove().then(function () {
-                    SweetAlert.swal($translate.instant('orderfile.Deleted'),  $translate.instant('orderfile.RecordDeleted'), "success");
+                    SweetAlert.swal($translate.instant('orderfile.Deleted'), $translate.instant('orderfile.RecordDeleted'), "success");
                     $location.path('app/mainscreen');
                 });
             }
             else {
-                SweetAlert.swal( $translate.instant('orderfile.Cancelled'), $translate.instant('orderfile.DeletionCanceled'), "error");
+                SweetAlert.swal($translate.instant('orderfile.Cancelled'), $translate.instant('orderfile.DeletionCanceled'), "error");
             }
         });
     };
     $scope.removeItem = function (index) {
         SweetAlert.swal({
-            title:  $translate.instant('orderfile.Sure') ,
-            text:  $translate.instant('orderfile.SureRecord'),
+            title: $translate.instant('orderfile.Sure'),
+            text: $translate.instant('orderfile.SureRecord'),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText:  $translate.instant('orderfile.confirmButtonText'),
-            cancelButtonText:  $translate.instant('orderfile.cancelButtonText'),
+            confirmButtonText: $translate.instant('orderfile.confirmButtonText'),
+            cancelButtonText: $translate.instant('orderfile.cancelButtonText'),
             closeOnConfirm: true,
             closeOnCancel: true
         }, function (isConfirm) {
@@ -177,7 +187,7 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
                     dre.tableParams.data[index].remove();
                 }
                 dre.tableParams.data.splice(index, 1);
-                toaster.pop("error", $translate.instant('orderfile.Attention'),$translate.instant('orderfile.RecordDeleted'));
+                toaster.pop("error", $translate.instant('orderfile.Attention'), $translate.instant('orderfile.RecordDeleted'));
             }
         });
     };

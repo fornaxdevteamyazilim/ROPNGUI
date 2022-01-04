@@ -9,9 +9,9 @@ function cashreportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
     }
     if (userService.userAuthorizated()) {
         Restangular.all('report').getList(
-           {
-               search: "number='001'"
-           }
+            {
+                search: "number='001'"
+            }
         ).then(function (result) {
             $scope.VeiwHeader = result[0].name;
         }, function (response) {
@@ -75,12 +75,18 @@ function cashreportCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
             Total += data[i].Value;
         return Total;
     };
-    $scope.SelectItem = function (id) {       
-        location.href = '#/app/reports/giroreports/declaredrevenuee/' + id;
+    $scope.SelectItem = function (id) {
+        if ($scope.CashReportResults[0].DeclaredRevenue && $scope.CashReportResults[0].DeclaredRevenue.CanChangeRevenue) {
+            location.href = '#/app/reports/giroreports/declaredrevenuee/' + id;
+        }
+        else
+        {
+            toaster.pop('error', $translate.instant('Server.ServerError'), $translate.instant('Unable to edit declared revenue!'));
+        }
     };
     Array.prototype.sum = function (prop) {
         var total = 0
-        for ( var i = 0, _len = this.length; i < _len; i++ ) {
+        for (var i = 0, _len = this.length; i < _len; i++) {
             total += this[i][prop]
         }
         return total

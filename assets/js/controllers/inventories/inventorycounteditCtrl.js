@@ -84,7 +84,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 $location.path('app/inventory/inventorycount/list');
               
             },
-                function (response) {f
+                function (response) {
                     $scope.ShowObject = false; 
                     $scope.isWaiting = false;    
                     toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
