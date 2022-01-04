@@ -6,7 +6,7 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
     $scope.item = {};
     $scope.resdata = {};
     $scope.Back = function () {
-        $location.path('app/specialoperations/declaredrevenue');
+        $location.path('app/reports/giroreports/maincashreport');
     };
     $scope.translate = function () {
         $scope.trStore = $translate.instant('main.STORE');
@@ -38,19 +38,19 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
     if (!userService.userIsInRole("STOREMANAGER")) {
         $scope.hideButton = true;
     }
-    dre.tableParams = new ngTableParams({
-        page: 1,
-        count: 10,
-    }, {
-        getData: function ($defer, params) {
-            if ($scope.item.items && $scope.item.items.length > 0) {
-                $defer.resolve($scope.item.items);
-            } else {
-                $scope.item.items = [];
-                $defer.resolve($scope.item.items);
-            }
-        }
-    });
+    // dre.tableParams = new ngTableParams({
+    //     page: 1,
+    //     count: 10,
+    // }, {
+    //     getData: function ($defer, params) {
+    //         if ($scope.item.items && $scope.item.items.length > 0) {
+    //             $defer.resolve($scope.item.items);
+    //         } else {
+    //             $scope.item.items = [];
+    //             $defer.resolve($scope.item.items);
+    //         }
+    //     }
+    // });
     /*
     $http.get(NG_SETTING.apiServiceBaseUri + "/api/DeclaredRevenue/"+$stateParams.id)
         .then(function (response) {
@@ -98,8 +98,8 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         },
         columns: [
             { caption:$translate.instant('DeclaredRevenue.PaymentType'), dataField: "PaymentType.name", dataType: "string", allowEditing: false, sortIndex: 0, sortOrder: "desc" },            
-            { caption: $translate.instant('DeclaredRevenue.ActualAmount'), dataField: "ActualAmount", format: { type: "fixedPoint", precision: 2 }, visibleIndex: 2 },
-            { caption: $translate.instant('DeclaredRevenue.DeclaredAmount'), dataField: "DeclaredAmount", format: { type: "fixedPoint", precision: 2 }, visibleIndex: 3, allowEditing: false }
+            { caption: $translate.instant('DeclaredRevenue.ActualAmount'), dataField: "ActualAmount", format: { type: "fixedPoint", precision: 2 }, visibleIndex: 2 ,allowEditing: false},
+            { caption: $translate.instant('DeclaredRevenue.DeclaredAmount'), dataField: "DeclaredAmount", format: { type: "fixedPoint", precision: 2 }, visibleIndex: 3 }
         ],
         summary: {
             totalItems: [
@@ -119,23 +119,23 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
-                $location.path('app/specialoperations/declaredrevenue');
+                $location.path('app/mainscreen');
                 swal($translate.instant('orderfile.Updated'), $translate.instant('orderfile.Updated'), "success");
             });
         }
         else {
-            Restangular.restangularizeElement('', $scope.item, 'declaredrevenue')
+            Restangular.restangularizeElement('', $scope.item, 'DeclaredRevenue')
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
                 swal($translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'), "success");
-                $location.path('app/specialoperations/declaredrevenueedit/' + resp.id);
+                $location.path('app/mainscreen/' );
                 $scope.item = {};
                 $scope.item = Restangular.copy(resp);
-                dre.tableParams.reload();
+               // dre.tableParams.reload();
                 $scope.DeclaredRevenueID = $stateParams.id;
             });
         }
-        $scope.item.get();
+        
     };
     $scope.removedata = function (SelectItem) {
         SweetAlert.swal({
@@ -152,7 +152,7 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             if (isConfirm) {
                 $scope.item.remove().then(function () {
                     SweetAlert.swal($translate.instant('orderfile.Deleted'),  $translate.instant('orderfile.RecordDeleted'), "success");
-                    $location.path('app/specialoperations/declaredrevenue');
+                    $location.path('app/mainscreen');
                 });
             }
             else {
@@ -219,11 +219,11 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         });
     };
     if ($stateParams.id != 'new') {
-        Restangular.one('declaredrevenue', $stateParams.id).get().then
+        Restangular.one('DeclaredRevenue', $stateParams.id).get().then
             (function (restresult) {
                 $scope.item = Restangular.copy(restresult);
                 $scope.loadStorePaymentTypes(restresult.StoreID);
-                dre.tableParams.reload();
+                //dre.tableParams.reload();
                 if (!userService.userIsInRole("Admin")) {
                     $scope.item["StoreName"] = $scope.foundStore($scope.item.StoreID)
                     $scope.selectStore = false;
