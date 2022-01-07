@@ -55,6 +55,14 @@ function fsrcomparisonbudgetCtrl($scope, $filter, $modal, $log, Restangular, Swe
         max: 53,
         showSpinButtons: true
     };
+    $scope.endYearButton = {
+        bindingOptions: {
+            value: "endYear"
+        },
+        min: minYear,
+        max: maxYear,
+        showSpinButtons: true
+    };
     $scope.reportButtonOptions = {
         text: $translate.instant('reportcommands.GetData'),
         onClick: function () {
