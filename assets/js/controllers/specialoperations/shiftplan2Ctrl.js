@@ -104,11 +104,13 @@ function shiftplan2Ctrl($scope, $filter, $modal, $log, Restangular, SweetAlert, 
         return rangeIsFrom + " to " + rangeIsTo;
     };
     function getStaratOfWeek(weekNo, y) {
-        var d1, numOfdaysPastSinceLastMonday, rangeIsFrom, rangeIsTo;
+        var d1, numOfdaysPastSinceLastMonday, week;
         d1 = new Date('' + y + '');
         numOfdaysPastSinceLastMonday = d1.getDay() - 1;
+        week=d1.getWeek();
+        if (week>=52) week=week-52;
         d1.setDate(d1.getDate() - numOfdaysPastSinceLastMonday);
-        d1.setDate(d1.getDate() + (7 * (weekNo - d1.getWeek())));
+        d1.setDate(d1.getDate() + (7 * (weekNo - week)));
         return d1;
     };
     $scope.dataGridOptions = {

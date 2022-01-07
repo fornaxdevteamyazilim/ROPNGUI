@@ -22,13 +22,13 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
         return 1 + Math.ceil((firstThursday - tdt) / 604800000);
     }
     var cYeaar = parseInt(((new Date()).getFullYear()));
-    $scope.startYear = cYeaar;
-    $scope.endYear = cYeaar;
+    var vNumber = ISO8601_week_no((new Date()));
+    $scope.startYear = vNumber-2<=0? cYeaar-1:cYeaar;
+    $scope.endYear = vNumber-1<=0? cYeaar-1:cYeaar;
     var minYear = parseInt(cYeaar - 4);
     var maxYear = parseInt(cYeaar);
-    var vNumber = ISO8601_week_no((new Date()));
-    $scope.startWeek = parseInt(vNumber - 2);
-    $scope.endWeek = parseInt(vNumber - 1);
+    $scope.startWeek = vNumber-2<=0?parseInt(vNumber - 2+52):parseInt(vNumber - 2);
+    $scope.endWeek = vNumber-1<=0?parseInt(vNumber - 1+52):parseInt(vNumber - 1);
     $scope.VeiwHeader = {};
     $scope.startYearButton = {
         bindingOptions: {
