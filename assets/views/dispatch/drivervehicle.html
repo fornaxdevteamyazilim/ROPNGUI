@@ -13,7 +13,7 @@
                         {{ShowObject('drivers','id',item.DriverID,'name')}}
                     </span>-->
                     <span class="text-capitalize" editable-select="item.DriverID" e-name="DriverID" e-ng-model="item.DriverID" e-form="rowform"
-                          e-ng-options="q.id as q.name for q in drivers | filter:{isActive:'true' }" e-style="width:10vw;" ng-if="user.Store.MemberID==300000000000">
+                          e-ng-options="q.id as q.name for q in drivers | filter:{isActive:'true' }| filter:{isDriver:'true' }" e-style="width:10vw;" ng-if="user.Store.MemberID==300000000000">
                         {{ShowObject('drivers','id',item.DriverID,'name')}}
                     </span>
                 </td>
