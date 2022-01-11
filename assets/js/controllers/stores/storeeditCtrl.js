@@ -1406,8 +1406,6 @@ function driverCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular
             });
         }
     };
-
-
     $scope.staffpositions = [
         {
             id: 300000014254,
@@ -1416,6 +1414,16 @@ function driverCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular
         {
             id: 300087505293,
             Name: "ULAK Kurye"
+
+        },
+        {
+            id: 300133806509,
+            Name: "Vigo-Kurye"
+
+        },
+        {
+            id: 300148827478,
+            Name: "Isim-Kurye"
 
         }
     ];

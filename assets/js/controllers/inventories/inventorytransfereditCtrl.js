@@ -88,6 +88,9 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             toaster.pop('warning', "warning...", response.data.ExceptionMessage);
         });
     };
+    $scope.EditCountDisabled = function () {
+        return $stateParams.id != 'new';
+    }
     $scope.DeliverTransfer = function () {
         $scope.item.InventorySupplyState = 3;
         $scope.SaveData();

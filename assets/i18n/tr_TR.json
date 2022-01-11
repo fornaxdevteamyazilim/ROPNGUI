@@ -4656,16 +4656,24 @@
     "QuarterName": "Mahalle",
     "SubcityName": "Ilçe",
     "TownName": "Şehir"
-
-    
-
   },
   "DeclaredRevenue": {
     "StoreID": "Restoran",
     "OperationDate": "Sipariş Tarihi",
     "DeclaredAmount": "Beyan Edilen Toplam ",
     "ActualAmount": "Gerçekleşen Toplam"
-  
+  },
+  "servicearea": {
+    "Store": "Restoran",
+    "StreetAddressTypeID": "Adres Tipi",
+    "Grid": "Grid",
+    "WDT": "Wdt",
+    "DeliveryTime": "Teslim Süresi",
+    "AddressID": "Adres Id",
+    "StreetAddress": "Adres",
+    "QuarterName": "Mahalle",
+    "SubcityName": "Ilçe",
+    "TownName": "Şehir"
   }
   
 }

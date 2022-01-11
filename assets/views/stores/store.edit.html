@@ -652,11 +652,11 @@
                             <table ng-table="dc.tableParams" class="table table-striped table-hover">
                                 <tr ng-repeat-start="item in $data"
                                     ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
-                                    <td data-title="trCitizenship" style="width:10%;" ng-click="rowform.$show()" class="ng">
+                                    <td data-title="trCitizenship" style="width:10%;" class="ng">
                                         <input type="text" id="CitizenshipID" name="CitizenshipID" ng-model="item.CitizenshipID" maxlength="11" ng-show="rowform.$visible" size="11">
                                         <span ng-show="!rowform.$visible">{{ item.CitizenshipID }}</span>
                                     </td>
-                                    <td data-title="trUserName" data-sortable="'name'" style="width:15%" ng-click="rowform.$show()" class="ng">
+                                    <td data-title="trUserName" data-sortable="'name'" style="width:15%" class="ng">
                                         <span editable-text="item.name" e-name="name" e-form="rowform" e-ng-model="item.name">
                                             {{ item.name }}
                                         </span>

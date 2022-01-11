@@ -46,7 +46,9 @@
                     </div>
                     <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12">
                         <label translate="main.USERPOSITION" for="StaffPosition"></label><br />
-                        <select id="StaffPositionID" ng-options="q.id as q.Name for q in staffpositions |orderBy:'+Name'" class="form-control" ng-model="item.StaffPositionID"></select>
+                        <select id="StaffPositionID" ng-options="q.id as q.Name for q in staffpositions |orderBy:'+Name'" class="form-control" ng-model="item.StaffPositionID">
+                            <option value="">Yok</option>
+                        </select>
                     </div>
                     <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12">
                         <label translate="main.LABORCOSTTYPE" for="LaborCostType"></label><br />

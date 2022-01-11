@@ -4620,13 +4620,23 @@
     "QuarterName": "Quarter Name",
     "SubcityName": "Subcity Name",
     "TownName": "Town Name"
-  
   },
   "DeclaredRevenue": {
     "StoreID": "Store",
     "OperationDate": "Operation Date",
     "DeclaredAmount": " Declared Amount",
     "ActualAmount": "Actual Amount"
-  
+  },
+  "servicearea": {
+    "Store": "Store",
+    "StreetAddressTypeID": "Street Address Type",
+    "Grid": "Grid",
+    "WDT": "Wdt",
+    "DeliveryTime": "Delivery Time",
+    "AddressID": "Adress Id",
+    "StreetAddress": "Street Address",
+    "QuarterName": "Quarter Name",
+    "SubcityName": "Subcity Name",
+    "TownName": "Town Name"
   }
 }
