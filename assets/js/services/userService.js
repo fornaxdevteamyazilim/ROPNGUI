@@ -72,6 +72,30 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             });
             return deferred.promise;
         };
+        var _mcardLogin = function (fmd, skipLandigRoute) {
+            authService.logOut();
+            var _storeID = localStorageService.get('StoreID');
+            if (_storeID) {
+                _JoinGroup(_storeID.toString());
+            }
+            else {
+                _storeID = $rootScope.user.StoreID;
+            }
+            var logindata = {
+                userName: "MagneticCard_" + _storeID,
+                password: fmd,
+                useRefreshTokens: true
+            }
+            var deferred = $q.defer();
+            authService.login(logindata).then(function (response) {
+                isTimedOut = false;
+                _refreshUserData(skipLandigRoute);
+                deferred.resolve(response);
+            }, function (err) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        };
         var _refreshUserData = function (skipLandigRoute) {
             _resetUserData();
             $http.get(ngAuthSettings.apiServiceBaseUri + 'api/user', { params: { id: 'CurrentUser' } }).success(function (response) {
@@ -351,6 +375,7 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         userServiceFactory.GetPreferenceValue = _GetPreferenceValue;
         userServiceFactory.cardLogin = _cardLogin;
         userServiceFactory.fmdLogin = _fmdLogin;
+        userServiceFactory.mcardLogin = _mcardLogin;
         userServiceFactory.getRestrictions = _getRestrictions;
         userServiceFactory.CleanPreferences = _isCleanPreference;
         userServiceFactory.Preferences = _isPreference;

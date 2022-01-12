@@ -324,6 +324,26 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
             }
         });
     });
+    var mcListener = $rootScope.$on('MagneticCardIdentification', function (event, data) {
+        userService.mcardLogin(data.CardData,false).then(function (response) {
+            userService.stopTimeout();
+            if (response) {
+                $location.path('/app/mainscreen');
+            }
+        }, function (err) {
+            if (err && err.error == 'invalid_grant') {
+                toaster.pop('warrning', $translate.instant('mainscreen.MagneticCardInvalid'), err.error_description);                
+            }
+            else {
+                if (err) {
+                    toaster.pop('warrning', err.error, err.error_description);
+                }
+                else {
+                    toaster.pop('warrning', "Error", $translate.instant('Server.UnknownError'));
+                }
+            }
+        });
+    });
     $scope.ChechCardCode = function (password) {
         userService.cardLogin(password,true).then(function (response) {
             userService.stopTimeout();
@@ -580,6 +600,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         deregistration4();
         stopClock();
         idListener();
+        mcListener();
         $element.unbind();
         $scope.$destroy;
         $element.remove();

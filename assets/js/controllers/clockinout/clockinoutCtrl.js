@@ -9,10 +9,12 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
     $scope.data = { Action: ac, Client: localStorageService.get('ClientName') };
     $scope.ClientMessages = [];
     var idListener = $rootScope.$on('Identification', function (event, data) {
-        //var uiFMD = encodeURIComponent(data.FMD);
-
         $scope.data.FMD = data.FMD;
         $scope.processaction($scope.data);
+    });
+    var mcListener = $rootScope.$on('MagneticCardIdentification', function (event, data) {
+        $scope.data.CardData = data.CardData;
+        $scope.processCardAction($scope.data);
     });
     $scope.processaction = function (data) {
         //post data to api/clockinout/do
@@ -20,6 +22,27 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
         data.Client = localStorageService.get('ClientName');
         data.NGUserID = userService.getCurrentUser().id;
         Restangular.all('clockinout/do').post(
+            data
+        ).then(function (result) {
+            $scope.data = result;
+            toaster.pop('success', "Clock In/Out", 'Request Recieved.');
+            if ($scope.data.Action == 'ClockOut') {
+                $location.path('/login/logout/logout');
+            }
+            else {
+                userService.refreshUserData(false);
+            }
+            
+        }, function (response) {
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+        });
+    };
+    $scope.processCardAction = function (data) {
+        //post data to api/clockinout/do
+        data.SotreID = localStorageService.get('StoreID');
+        data.Client = localStorageService.get('ClientName');
+        data.NGUserID = userService.getCurrentUser().id;
+        Restangular.all('clockinout/magneticcard').post(
             data
         ).then(function (result) {
             $scope.data = result;
@@ -75,6 +98,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
     $scope.$on('$destroy', function () {
         $element.remove();
         DeregisterClientMessage();
-        idListener();        
+        idListener(); 
+        mcListener();       
     });
 }

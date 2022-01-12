@@ -53,6 +53,23 @@ app.controller('loginCtrl', ['$scope', '$location', 'authService', 'ngAuthSettin
                     }
                 });            
         });
+        var mcListener = $rootScope.$on('MagneticCardIdentification', function (event,data) {
+            userService.mcardLogin(data.CardData).then(function (response) {
+                $scope.GetCurrentUserData(false);
+            },
+                function (err) {
+                    $scope.isWaiting = false;
+                    if (err && err.error == 'invalid_grant') {
+                        $scope.translate = function () {
+                            $scope.message = $translate.instant('main.LOGINERROR');
+                        };
+                        $scope.translate();
+                        
+                    } else {
+                        $scope.message = (err && err.error)?err.error:"Unknown error";
+                    }
+                });            
+        });
         $scope.login = function () {
             $scope.isWaiting = true;            
                 authService.login($scope.loginData).then(function (response) {
@@ -138,6 +155,7 @@ app.controller('loginCtrl', ['$scope', '$location', 'authService', 'ngAuthSettin
         $scope.$on('$destroy', function () {
             tranlatelistener();
             idListener();
+            mcListener();
             $element.remove();
             $rootScope.uService.ExitController("loginCtrl");
         });

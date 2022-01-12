@@ -18,6 +18,9 @@ function loginpasswordCtrl($rootScope, $scope, $modalInstance, $translate, $log,
     var idListener = $rootScope.$on('Identification', function (event, data) {
         $modalInstance.dismiss('cancel');
     });
+    var mcListener = $rootScope.$on('MagneticCardIdentification', function (event, data) {
+        $modalInstance.dismiss('cancel');
+    });
     $scope.ok = function () {
         $modalInstance.close($scope.CardID);
     };
@@ -27,5 +30,6 @@ function loginpasswordCtrl($rootScope, $scope, $modalInstance, $translate, $log,
     $scope.$on('$destroy', function () {
         $rootScope.uService.ExitController("loginpasswordCtrl");
         idListener();
+        mcListener();
     });    
 };

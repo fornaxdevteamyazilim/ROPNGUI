@@ -34,6 +34,27 @@ function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $loca
             }
         });
     });
+    var mcListener = $rootScope.$on('MagneticCardIdentification', function (event,data) {
+        userService.mcardLogin(data.CardData).then(function (response) {
+            userService.stopTimeout();
+            if (response) {
+                $rootScope.allowNavigation();
+                //$window.history.back();
+                $location.path('/app/mainscreen');
+            }
+        }, function (err) {
+            if (err && err.error == 'invalid_grant') {
+                $scope.translate = function () {
+                    $scope.message = $translate.instant('main.PASSWORDERROR');
+                    return 'No'
+                };
+            }
+            else {
+                $scope.message = (err && err.error)?err.error:"Unknown error";
+                return 'No'
+            }
+        });
+    });
     stopTime = $timeout(function ()
             {
                 $rootScope.preventNavigation();                
@@ -70,6 +91,7 @@ function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $loca
     $scope.$on('$destroy', function () {
         $element.remove();
         idListener();
+        mcListener();
         $timeout.cancel(stopTime);
         $rootScope.uService.ExitController("login_lockCtrl");
     });
