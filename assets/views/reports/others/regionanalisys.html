@@ -64,7 +64,8 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 margin-top-5" ng-if="ShowStores == true">
                     <span class="text-bold" translate="main.STORE">Store</span> <span class="text-bold">*</span><br />
                     <select class="col-lg-6 col-md-6 col-sm-10 col-xs-12 form-control" ng-disabled="ObjectShow==true" ng-model="StoreID" ng-change="SetStoreID(StoreID)">
-                        <option value="">{{'PLEASESELECTSTORE' | translate}}</option>
+                        <!-- <option value="">{{'PLEASESELECTSTORE' | translate}}</option> -->
+                        <option value=""  ng-if="user.restrictions.storeselectall=='Enable'">{{'main.ALL' | translate}}</option>
                         <option ng-repeat="item in user.userstores | orderBy:'+name'" value="{{item.id}}">{{item.name}}</option>
                     </select>
                 </div>

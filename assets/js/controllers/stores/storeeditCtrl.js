@@ -1,5 +1,5 @@
 ﻿app.controller('storeeditCtrl', storeeditCtrl);
-function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, $modal, toaster, $window, $stateParams, $rootScope, $location, $translate, userService, $element) {
+function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, ngnotifyService, $modal, toaster, $window, $stateParams, $rootScope, $location, $translate, userService, $element) {
     $rootScope.uService.EnterController("storeeditCtrl");
     var vm = this;
     userService.userAuthorizated();
@@ -52,6 +52,12 @@ function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, 
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
         $scope.translate();
     });
+    if (!$scope.item.OpenDate) {
+        $scope.item.OpenDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
+    }
+    if (!$scope.item.CloseDate) {
+        $scope.item.CloseDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
+    }
     if ($stateParams.id != 'new') {
         Restangular.one('store', $stateParams.id).get().then
             (function (restresult) {
@@ -202,6 +208,38 @@ function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, 
         });
         modalInstance.result.then(function (selectedItem) {
             $scope.item.StoreAddress = selectedItem.name + '/' + selectedItem.Quarter.name + '/' + selectedItem.Quarter.Subcity.name + '/' + selectedItem.Quarter.Subcity.Town.name;
+        })
+    };
+    $scope.datepopup = function (item) {
+        var modalInstance = $modal.open({
+            templateUrl: 'assets/views/Tools/date.html',
+            controller: 'dateCtrl',
+            size: '',
+            backdrop: '',
+            resolve: {
+                DateTime: function () {
+                    return item;
+                }
+            }
+        });
+        modalInstance.result.then(function (item) {
+            $scope.item.OpenDate = item;
+        })
+    };
+    $scope.closedatepopup = function (item) {
+        var modalInstance = $modal.open({
+            templateUrl: 'assets/views/Tools/date.html',
+            controller: 'dateCtrl',
+            size: '',
+            backdrop: '',
+            resolve: {
+                DateTime: function () {
+                    return item;
+                }
+            }
+        });
+        modalInstance.result.then(function (item) {
+            $scope.item.CloseDate = item;
         })
     };
     $scope.$on('$destroy', function () {

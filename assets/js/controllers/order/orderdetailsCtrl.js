@@ -222,7 +222,7 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
             { name: "Product", dataField: "Product", caption: $scope.product,minWidth:200 },
             { name: "Quantity", dataField: "Quantity", caption: $scope.quantity,format: { type: "fixedPoint", precision: 2 } },
             // { name: "ProductOption", dataField: "ProductOption", caption: $scope.productOption },
-            { name: "ProductPrice", dataField: "ProductPrice", dataType: "number",caption: $scope.productPrice,format: { type: "fixedPoint", precision: 2 }},
+            { name: "ProductPrice", dataField: "ProductPrice",caption: $scope.productPrice,format: { type: "fixedPoint", precision: 2 }},
             { name: "TotalAmount", dataField: "TotalAmount", caption:  $scope.totalAmount, summaryType: "count", format: "#,##0.00₺" },
             { name: "AddDate", dataField: "AddDate", caption:  $scope.addDate ,dataType: "date", format: " HH:mm:ss" },            
         ],

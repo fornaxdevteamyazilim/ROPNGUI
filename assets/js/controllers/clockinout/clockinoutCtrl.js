@@ -3,8 +3,12 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
     if (!userService.getCurrentUser())
         $location.path('/login/signin');
     $scope.statusmessage = userService.getCurrentUser().ShiftActive ? $translate.instant('clockiout.Fingerreading') : $translate.instant('clockiout.Fingerentry');
+    $scope.statusmessagecard = userService.getCurrentUser().ShiftActive ? $translate.instant('clockiout.SwipeCardToClockOut') : $translate.instant('clockiout.SwipeCardToClockIn');
     var fp = userService.getCurrentUser().isFingerPrintExist;
-    $scope.statusmessage = $scope.statusmessage + (!fp ?  $translate.instant('clockiout.FINGERPRINTSFIRST') : '');
+    var mc = userService.getCurrentUser().isMagneticCardExist;
+    $scope.statusmessage = $scope.statusmessage + (!fp ? $translate.instant('clockiout.FINGERPRINTSFIRST') : '');
+    $scope.statusmessagecard = $scope.statusmessage + (!mc ? $translate.instant('clockiout.ENROLLCARD') : '');
+    
     var ac = userService.getCurrentUser().ShiftActive ? 'ClockOut' : 'ClockIn';
     $scope.data = { Action: ac, Client: localStorageService.get('ClientName') };
     $scope.ClientMessages = [];
@@ -12,10 +16,33 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
         $scope.data.FMD = data.FMD;
         $scope.processaction($scope.data);
     });
+
     var mcListener = $rootScope.$on('MagneticCardIdentification', function (event, data) {
         $scope.data.CardData = data.CardData;
-        $scope.processCardAction($scope.data);
+        if ($scope.CardEnrollActive)
+            $scope.EnrollCard(data.CardData);
+        else
+            $scope.processCardAction($scope.data);
     });
+    $scope.CardEnrollActive = false;
+    $scope.StartCardEnroll = function () {
+        $scope.CardEnrollActive = true;
+    };
+    $scope.EnrollCard = function (carddata) {
+        var cUser = userService.getCurrentUser();
+        var data = {
+            NGUserID: cUser.id,
+            CardData: carddata,
+            StationID: localStorageService.get('ClientName')
+        }
+        Restangular.restangularizeElement('', data, 'msr/enroll');//'MagneticCard');
+        data.post().then(function (resp) {
+            toaster.pop('success', $translate.instant('clockiout.cardsaved'));
+        }, function (resp) {
+            toaster.pop('error', $translate.instant('clockiout.cardnotsaved'), resp.data.ExceptionMessage);
+        });
+        $scope.CardEnrollActive = false;
+    };
     $scope.processaction = function (data) {
         //post data to api/clockinout/do
         data.SotreID = localStorageService.get('StoreID');
@@ -32,7 +59,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
             else {
                 userService.refreshUserData(false);
             }
-            
+
         }, function (response) {
             toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
@@ -53,7 +80,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
             else {
                 userService.refreshUserData(false);
             }
-            
+
         }, function (response) {
             toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
@@ -82,11 +109,11 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
             StationID: ClientName,
             isSuccessed: false
         }
-          // $http.post(NG_SETTING.apiServiceBaseUri + '/api/FingerPrint/startEnroll', data, {
+        // $http.post(NG_SETTING.apiServiceBaseUri + '/api/FingerPrint/startEnroll', data, {
         $http.post('http://192.168.9.40:9065/api/FingerPrint/startEnroll', data, {
-                'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         }).success(function (response) {
-            toaster.pop('success', $translate.instant('clockiout.Started'),$translate.instant('clockiout.FingerPrint') );
+            toaster.pop('success', $translate.instant('clockiout.Started'), $translate.instant('clockiout.FingerPrint'));
             //deferred.resolve(response);
         }).error(function (err, status) {
             toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
@@ -98,7 +125,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
     $scope.$on('$destroy', function () {
         $element.remove();
         DeregisterClientMessage();
-        idListener(); 
-        mcListener();       
+        idListener();
+        mcListener();
     });
 }

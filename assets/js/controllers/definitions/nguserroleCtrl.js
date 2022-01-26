@@ -13,6 +13,7 @@ function nguserroleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
         $scope.trCommands = $translate.instant('main.COMMANDS');
         $scope.trUserCardLogin = $translate.instant('main.USERCARDLOGIN');
         $scope.trPasswordLogin = $translate.instant('main.PASSWORDLOGIN');
+        $scope.trisDriverRole = $translate.instant('main.ISDRIVERROLE');
 
     }
     $scope.translate();
@@ -74,7 +75,7 @@ function nguserroleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, 
                 toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
         }
-    });
+    }); 
     $scope.removeItem = function (index) {
         SweetAlert.swal({
             title:  $translate.instant('difinitions.Sure') ,

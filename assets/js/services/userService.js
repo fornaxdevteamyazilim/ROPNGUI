@@ -82,7 +82,7 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                 _storeID = $rootScope.user.StoreID;
             }
             var logindata = {
-                userName: "MagneticCard_" + _storeID,
+                userName: "MSR_" + _storeID,
                 password: fmd,
                 useRefreshTokens: true
             }

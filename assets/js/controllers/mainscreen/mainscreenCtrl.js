@@ -41,6 +41,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         $scope.activecomplaints = $translate.instant('main.ACTIVECOMPLAINTS');
         $scope.OK = $translate.instant('main.OK');
         $scope.accept = $translate.instant('main.ACCEPT');
+        $scope.cashdrawer = $translate.instant('main.CASHDRAWER');
 
     };
     $scope.StoreOrderTypes=[];
@@ -400,6 +401,22 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/specialoperations/checkoutcash.html',
             controller: 'checkoutcashCtrl',
+            size: '',
+            backdrop: '',
+            resolve: {
+                ObjectPath: function () {
+                    return data;
+                }
+            }
+        });
+        modalInstance.result.then(function () {
+
+        })
+    };
+    $scope.GoToCashDrawer = function (data) {
+        var modalInstance = $modal.open({
+            templateUrl: 'assets/views/specialoperations/cashdrawer.html',
+            controller: 'cashdrawerCtrl',
             size: '',
             backdrop: '',
             resolve: {

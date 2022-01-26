@@ -43,7 +43,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.mainscreen', {
             url: "/mainscreen",
             templateUrl: "assets/views/mainscreen/mainscreen.html",
-            resolve: loadSequence('jquery-sparkline', 'sparkline', 'mainscreenCtrl', 'loginpasswordCtrl', 'checkoutcashCtrl', 'ngTable', 'currentendCtrl', 'notpaidCtrl', 'treatCtrl', 'acentextensionCtrl', 'ngAudio', 'dashboardCtrl', 'authcodeCtrl', 'ysstoreeditCtrl'),
+            resolve: loadSequence('jquery-sparkline', 'sparkline', 'mainscreenCtrl', 'loginpasswordCtrl', 'checkoutcashCtrl', 'cashdrawerCtrl', 'ngTable', 'currentendCtrl', 'notpaidCtrl', 'treatCtrl', 'acentextensionCtrl', 'ngAudio', 'dashboardCtrl', 'authcodeCtrl', 'ysstoreeditCtrl'),
             title: 'mainscreen',
             authenticate: true,
             ncyBreadcrumb: {

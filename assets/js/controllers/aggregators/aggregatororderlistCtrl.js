@@ -280,7 +280,7 @@ function aggregatororderlistCtrl($scope,$modal, toaster, $interval, $http, NG_SE
         return parts.join(".");
     }
     var refreshData = function () {
-        var dataGrid = $('#advgridContainer').dxDataGrid('instance');
+        var dataGrid = $('#gridContainer').dxDataGrid('instance');
         dataGrid.refresh();
     }
     var onAggregatorOrder = $scope.$on('AggregatorOrderUpdate', function (event, data) { 

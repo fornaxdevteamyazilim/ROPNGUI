@@ -530,6 +530,7 @@
     "TOTALBONUS": "Toplam Bonus",
     "SAVE": "Kaydet",
     "DELETEFINGERPRINT": "Parmak izi sil",
+    "DELETECARDPRINT": "Kartı sil",
     "TAKEAWAY": "Gel-Al Sipariş",
     "BACK": "Geri",
     "ADDRESS": "Adres",
@@ -978,6 +979,7 @@
     "ISEXTERNAL": "Promosyon Durumu",
     "ENDOFDAY": "Gün Sonu İşlemleri",
     "CLOCKINOUT": "Vardiya Gir/Çık",
+    "CASHDRAWER": "Kasa Çekmesini Aç",
     "CASH": "Cari Ödeme",
     "STREETQUARTER": "* Sokak / Mahalle / İlçe / İl",
     "OUTTIME": "Çıkış Saati",
@@ -1692,6 +1694,8 @@
     "CUSTOMERCONSUPTIONREPORT": "Müşteri Tüketim Raporu",
     "SELECTSPECIALDATETYPE": "Özel Gün Tipi Seçimi",
     "CENTRALWAREHOUSE": "Merkez Depo",
+    "OPENDATE": "Açılış Tarihi",
+    "CLOSEDATE": "Kapanış Tarihi",
     "REPORTDATE": "Rapor Tarihi",
     "SELECTEDSTORE": "Seçili Restoran",
     "USERSTORE": "Kullanıcı Restoranı",
@@ -1996,6 +2000,7 @@
     "ECRENABLED": "OKC",
     "PASSWORDLOGIN": "Şifre Girişleri",
     "USERCARDLOGIN": "Kart Kodu Girişleri",
+    "ISDRIVERROLE": "Sürücü Aktif olsun mu ? ",
     "AUTOSENDTOECR": "ECR Otomatik Gönder",
     "ECRPAYMENTTYPE": "ECR Ödeme Tipi",
     "ENABLETRENDSHARING": "Trend Raporu Paylaşımını Etkinleştir",
@@ -3286,7 +3291,12 @@
     "Fingerreading": "Vardiya çıkışı için parmak okutunuz",
     "Fingerentry": "'Vardiya girişi için parmak okutunuz'",
     "FINGERPRINTSFIRST": "!!! ÖNCE PARMAK İZİ TANITINIZ !!! ",
-    "EnrollFingerprint": "Parmak İzi Kaydı"
+    "CARDPRINTSFIRST": "!!! ÖNCE Kartı TANITINIZ !!! ",
+    "CardPrint": "Kart kayıt işlemi başladı...",
+    "Cardreading": "Vardiya çıkışı için Kart okutunuz",
+    "Cardentry": "'Vardiya girişi için Kart okutunuz'",
+    "EnrollFingerprint": "Parmak İzi Kaydı",
+    "EnrollCardPrint": "Kart Kaydı"
   },
   "difinitions": {
     "Updated": "Güncellendi.",
@@ -4661,7 +4671,8 @@
     "StoreID": "Restoran",
     "OperationDate": "Sipariş Tarihi",
     "DeclaredAmount": "Beyan Edilen Toplam ",
-    "ActualAmount": "Gerçekleşen Toplam"
+    "ActualAmount": "Gerçekleşen Toplam",
+    "PaymentType": "Ödeme Tipi"
   },
   "servicearea": {
     "Store": "Restoran",

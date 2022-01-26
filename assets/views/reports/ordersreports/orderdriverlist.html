@@ -47,7 +47,7 @@
             <div print-only class="visible-print hidden col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-hide="ShowObject==true">
                 <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-bold" translate="main.STAFFNAME" for="Store"></label>
                 <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <select id="Driver" class="form-control ng" ng-options="q.id as q.name for q in Drivers" ng-change="GetDriverName(DriverNames)" ng-model="Driver">
+                    <select id="Driver" class="form-control ng" ng-options="q.id as q.name for q in Drivers | filter:{isActive:'true' }| filter:{isDriver:'true' }" ng-change="GetDriverName(DriverNames)" ng-model="Driver">
                         <option value=''></option>
                     </select>
                 </span>

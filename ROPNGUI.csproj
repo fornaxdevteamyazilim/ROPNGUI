@@ -442,6 +442,7 @@
     <Content Include="assets\js\controllers\reports\reportspageCtrl.js" />
     <Content Include="assets\js\controllers\reports\sms\smslistCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\checkoutcashCtrl.js" />
+    <Content Include="assets\js\controllers\specialoperations\cashdrawerCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\currentendCtrl.js" />
     <Content Include="assets\js\controllers\orderdisplay\orderdisplayCtrl.js" />
     <Content Include="assets\js\controllers\order\orderdetailsCtrl.js" />
@@ -996,6 +997,7 @@
     <Content Include="assets\views\reports\reportspage.html" />
     <Content Include="assets\views\reports\sms\smslist.html" />
     <Content Include="assets\views\specialoperations\checkoutcash.html" />
+    <Content Include="assets\views\specialoperations\cashdrawer.html" />
     <Content Include="assets\views\specialoperations\currentend.html" />
     <Content Include="assets\views\orderdisplay\orderdisplay.html" />
     <Content Include="assets\views\order\dateSpecialDay.html" />

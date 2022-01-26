@@ -95,26 +95,6 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
         });
     };
-    // $scope.DateRanges = {
-    //     fromDate: {
-    //         max: new Date(),
-    //         min: new Date(2019, 0, 1),
-    //         displayFormat: 'dd.MM.yyyy',
-    //         bindingOptions: {
-    //             value: "DateRange.fromDate.value"
-    //         },
-    //         value: new Date()
-    //     },
-    //     toDate: {
-    //         max: $scope.params.toDate,
-    //         min: new Date(2019, 0, 3),
-    //         displayFormat: 'dd.MM.yyyy',
-    //         bindingOptions: {
-    //             value: "DateRange.toDate.value"
-    //         },
-    //         value: new Date()
-    //     }
-    // };
     $scope.DateRanges = {
         fromDate: {
             max: new Date(),

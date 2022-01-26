@@ -17,26 +17,26 @@
     <div class="panel panel-white" ng-hide="ShowObject==true">
         <div class="panel-body">
             <form role="form">
-                <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
+                <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12" >
                     <label>{{:: trStore}}</label><br />                    
                     <input id="isCharged " type="text" class="form-control" ng-model="item.StoreName " readonly ng-if="selectStore == false"/>
-                    <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-options="q.id as q.name for q in stores |orderBy: '+name'" ng-model="item.StoreID" ng-change="loadStorePaymentTypes(item.StoreID)" ng-if="selectStore == true"></select>
+                    <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-disabled="EditCountDisabled()" ng-options="q.id as q.name for q in stores |orderBy: '+name'" ng-model="item.StoreID" ng-change="loadStorePaymentTypes(item.StoreID)" ng-if="selectStore == true"></select>
                 </div>
                 <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
                     <label>{{:: trOperationDate }}</label><br />
-                    <input id="Date" type="text" class="form-control ng" ng-model="item.OperationDate" readonly ng-click="datepopup(item.OperationDate )" required>
+                    <input id="Date" type="text" class="form-control ng" ng-model="item.OperationDate" datepicker-popup="dd-MM-yyyy" ng-disabled="EditCountDisabled()" readonly ng-click="datepopup(item.OperationDate )" required>
                 </div>
                 <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
                     <label>{{:: trTotalActualAmount }}</label><br />
-                    <input id="ActualAmount " type="number" class="form-control" ng-model="item.ActualAmount" readonly>
+                    <input id="ActualAmount " type="number" class="form-control"  ng-disabled="EditCountDisabled()"ng-model="item.ActualAmount" readonly>
                 </div>
                 <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
                     <label>{{:: trTotalDeclaredAmount }}</label><br />
-                    <input id="DeclaredAmount " type="number" class="form-control" ng-model="item.DeclaredAmount" readonly>
+                    <input id="DeclaredAmount " type="number" class="form-control" ng-disabled="EditCountDisabled()" ng-model="item.DeclaredAmount" readonly>
                 </div>
                 <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
                     <label>{{:: trNotes}}</label><br />
-                    <textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.Notes" placeholder=""></textarea>
+                    <textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' ng-disabled="EditCountDisabled()" class="form-control text-uppercase" ng-model="item.Notes" placeholder=""></textarea>
                 </div>
                 <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
                     <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">

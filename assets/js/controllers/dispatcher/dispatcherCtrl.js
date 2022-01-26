@@ -447,7 +447,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
         OrderRefresh2();
         OrderUpdated();
         userService.stopTimeout();
-        $scope.stopstop();
+        //$scope.stopstop();
         deregistration1();
         deregistration2();
         $scope.stopRefreshOrders();

@@ -95,7 +95,7 @@ function drivervehicleCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
             $scope.tableParams.data[index].remove();
         }
         $scope.tableParams.data.splice(index, 1);
-        oaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
+        toaster.pop("error", $translate.instant('difinitions.Attention'),$translate.instant('difinitions.RecordDeleted'));
     };
     $scope.cancelremove = function (index) {
         if ($scope.tableParams.data[index].fromServer) {

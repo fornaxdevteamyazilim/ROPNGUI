@@ -9,7 +9,7 @@ function regionanalisysCtrl($scope, $modal, $filter, $translate, SweetAlert, Res
     if (!$rootScope.ReportParameters.EndDate) {
         $rootScope.ReportParameters.EndDate = moment().add(1, 'days').format('YYYY-MM-DD ');
     }
-    if (userService.userIsInRole("Admin") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("LC") || userService.userIsInRole("AREAMANAGER") || userService.userIsInRole("ACCOUNTING") || userService.userIsInRole("PH") || userService.userIsInRole("MarketingDepartment") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("FinanceDepartment")) {
+    if (userService.userIsInRole("Admin") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("LC") || userService.userIsInRole("AREAMANAGER") || userService.userIsInRole("ACCOUNTING") || userService.userIsInRole("PH") || userService.userIsInRole("MarketingDepartment") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("FinanceDepartment") || userService.userIsInRole("Indeks")) {
         $scope.StoreID = '';
         $scope.ShowStores = true;
     } else {
@@ -43,9 +43,6 @@ function regionanalisysCtrl($scope, $modal, $filter, $translate, SweetAlert, Res
                 $scope.totalOrdersAmount = $scope.sumColumnJS(result, "OrdersAmount");
                 $scope.totalOrdersCount = $scope.sumColumnJS(result, "OrdersCount");
                 $scope.totalCustomersCountTotal = $scope.sumColumnJS(result, "CustomersCountTotal");
-
-
-
             }, function (response) {
                 $scope.isWaiting = false;
                 toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
@@ -130,7 +127,7 @@ function regionanalisysCtrl($scope, $modal, $filter, $translate, SweetAlert, Res
             });
         }
     };
-    $scope.stores = [];
+     $scope.stores = [];
     $scope.loadEntitiesCache('cache/store', 'stores');
     $scope.ordersources = [];
     $scope.loadEntities('ordersource', 'ordersources');

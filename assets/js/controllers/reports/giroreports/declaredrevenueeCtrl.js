@@ -39,7 +39,6 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
     if (!userService.userIsInRole("STOREMANAGER")) {
         $scope.hideButton = true;
     }
-    // dre.tableParams = new ngTableParams({
     //     page: 1,
     //     count: 10,
     // }, {
@@ -113,11 +112,19 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
                 { name: "ActualAmount", showInColumn: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
             ],
         },
+        onEditingStart(e) {
+            if(e.column.name && e.column.name=="DeclaredAmount")
+            e.cancel=!e.data["canEdit"];    
+            },
+    
         // onContentReady(e) {
         //     document.querySelector('.dx-datagrid-rowsview').before(document.querySelector('.dx-datagrid-total-footer'));
         //     }
 
     };
+    $scope.EditCountDisabled = function () {
+        return $stateParams.id != 'new';
+    }
     $scope.SaveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             angular.copy($scope.items, $scope.item.items);

@@ -58,7 +58,7 @@ function callrouteCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert, Re
             }, function (response) {
                 toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
-            data.get();
+            data.get(); 
         }
     };
     $scope.FormKeyPress = function (event, rowform, data, index) {
