@@ -325,7 +325,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
             }
         });
     });
-    var mcListener = $rootScope.$on('MagneticCardIdentification', function (event, data) {
+    var mcListener = $rootScope.$on('MSRIdentification', function (event, data) {
         userService.mcardLogin(data.CardData,false).then(function (response) {
             userService.stopTimeout();
             if (response) {

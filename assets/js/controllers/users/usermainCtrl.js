@@ -58,7 +58,7 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
     }
     $scope.CheckCardPrint = function () {
         if ($stateParams.id != 'new') {
-            Restangular.all('NGUsermagneticcard').getList({
+            Restangular.all('MagneticCard').getList({
                 search: 'NGUserID=' + $stateParams.id
             }).then(function (result) {
                 $scope.magneticcardExists = result.length;

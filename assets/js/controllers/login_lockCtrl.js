@@ -34,7 +34,7 @@ function login_lockCtrl($rootScope, $scope, toaster, Restangular, $window, $loca
             }
         });
     });
-    var mcListener = $rootScope.$on('MagneticCardIdentification', function (event,data) {
+    var mcListener = $rootScope.$on('MSRIdentification', function (event,data) {
         userService.mcardLogin(data.CardData).then(function (response) {
             userService.stopTimeout();
             if (response) {

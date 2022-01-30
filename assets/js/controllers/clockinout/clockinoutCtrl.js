@@ -17,7 +17,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
         $scope.processaction($scope.data);
     });
 
-    var mcListener = $rootScope.$on('MagneticCardIdentification', function (event, data) {
+    var mcListener = $rootScope.$on('MSRIdentification', function (event, data) {
         $scope.data.CardData = data.CardData;
         if ($scope.CardEnrollActive)
             $scope.EnrollCard(data.CardData);
@@ -69,7 +69,7 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
         data.SotreID = localStorageService.get('StoreID');
         data.Client = localStorageService.get('ClientName');
         data.NGUserID = userService.getCurrentUser().id;
-        Restangular.all('clockinout/magneticcard').post(
+        Restangular.all('clockinout/msr').post(
             data
         ).then(function (result) {
             $scope.data = result;

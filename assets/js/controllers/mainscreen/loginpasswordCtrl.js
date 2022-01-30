@@ -18,7 +18,7 @@ function loginpasswordCtrl($rootScope, $scope, $modalInstance, $translate, $log,
     var idListener = $rootScope.$on('Identification', function (event, data) {
         $modalInstance.dismiss('cancel');
     });
-    var mcListener = $rootScope.$on('MagneticCardIdentification', function (event, data) {
+    var mcListener = $rootScope.$on('MSRIdentification', function (event, data) {
         $modalInstance.dismiss('cancel');
     });
     $scope.ok = function () {

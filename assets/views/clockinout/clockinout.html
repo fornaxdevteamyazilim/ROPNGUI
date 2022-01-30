@@ -66,9 +66,9 @@
                                 translate}}</a>
                         </div>
                         <div class="form-group col-sm-4 col-lg-2 col-md-3 col-xs-6 margin-top-25"
-                            ng-if="!user.isFingerPrintExist">
+                            ng-if="!user.isMagneticCardExist">
                             <a class="btn btn-wide btn-green btn-scroll btn-scroll-top ti-back-left pull-right"
-                                ng-click="EnrollCard()">
+                                ng-click="StartCardEnroll()">
                                 <span>{{:: 'clockiout.EnrollCardPrint' | translate}} </span>
                             </a>
                         </div>

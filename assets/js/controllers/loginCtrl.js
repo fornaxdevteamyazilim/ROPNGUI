@@ -53,7 +53,7 @@ app.controller('loginCtrl', ['$scope', '$location', 'authService', 'ngAuthSettin
                     }
                 });            
         });
-        var mcListener = $rootScope.$on('MagneticCardIdentification', function (event,data) {
+        var mcListener = $rootScope.$on('MSRIdentification', function (event,data) {
             userService.mcardLogin(data.CardData).then(function (response) {
                 $scope.GetCurrentUserData(false);
             },

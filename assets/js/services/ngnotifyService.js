@@ -132,9 +132,9 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
             toaster.pop('Warning', data.MessageType, 'Recieved FingerPrintID info!');
         }
     });
-    ngnotifyHubProxy.on('MagneticCardIdentification', function (data) {
+    ngnotifyHubProxy.on('MSRIdentification', function (data) {
         if (data.StationID == localStorageService.get('ClientName')) {
-            $rootScope.$broadcast('MagneticCardIdentification', data);
+            $rootScope.$broadcast('MSRIdentification', data);
             toaster.pop('Warning', data.MessageType, 'Recieved Magnetic Card info!');
         }
     });
