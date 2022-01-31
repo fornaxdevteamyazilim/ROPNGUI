@@ -64,6 +64,16 @@ function kds2Ctrl($rootScope, $scope, $log, $modal,$translate, $interval, $timeo
             case "f": key = 6; break;
             case "g": key = 3; break;
             case "h": key = 7; break;
+            case "1": key = 0; break;
+            case "2": key = 1; break;
+            case "3": key = 2; break;
+            case "4": key = 3; break;
+            case "5": key = 4; break;
+            case "6": key = 5; break;
+            case "7": key = 6; break;
+            case "8": key = 7; break;
+            case "9": key = 8; break;
+            case "0": key = 9; break;
             default: key = -1;
         }
         if (key => 0)

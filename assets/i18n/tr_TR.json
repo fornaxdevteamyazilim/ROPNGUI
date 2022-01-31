@@ -285,6 +285,7 @@
     "BILLBOARDITEM": "{{appName}} - Duyurular",
     "STORESALESTARGET": "{{appName}} - Restoran Satış Hedefleri",
     "STORESALESBUDGET": "{{appName}} - Resturant Satış Bütcesi",
+    "INDEXIMPORT": "{{appName}} - Index Import",
     "STORESALESBUDGETLIST": "{{appName}} -  Resturant Satış Bütce listesi",
     "NGSETTINGITEM": "{{appName}} - RopNG Ayarlar",
     "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : "{{appName}} - ROPING API Servislerine Bağlantınız Kesilmiştir !",
@@ -2986,7 +2987,8 @@
         "STORESALESTARGET": "Restoran Satış Hedefleri",
         "STORESALESBUDGET": "Resturant Satış Bütcesi",
         "STORESALESBUDGETLIST": "Resturant Satış Bütce Listesi",
-        "STORESTAFFSHIFT": "Personel Bilgi Girişi"
+        "STORESTAFFSHIFT": "Personel Bilgi Girişi",
+        "INDEXIMPORT": " Index Import"
       },
       "staffshiftplan": {
         "MAIN": "Personel Vardiya Planı",
@@ -3487,7 +3489,9 @@
     "PleaseChooseARestaurant": "Lütfen Restoran Seçiniz!",
     "Recordlocked": "Kayıt kilitli",
     "YSOrderCustomerMatchingDeleted": "YS sipariş Müşteri eşleştirme silindi!",
-    "Markorderasdelivered": "Siparişi teslim edildi olarak işaretle"
+    "Markorderasdelivered": "Siparişi teslim edildi olarak işaretle",
+    "THEDRAWERISCLOSED": "Çekmece Kapandı",
+    "THEDRAWERISOPENED": "Çekmece Açıldı"
   },
   "yemeksepetifile": {
     "Cancelled": "İptal edildi !",

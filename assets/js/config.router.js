@@ -3333,6 +3333,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'storesalestarget'
                 }
+            }).state('app.specialoperations.indeximport', {
+                url: '/indeximport',
+                templateUrl: "assets/views/specialoperations/indeximport.html",
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'indeximportCtrl'),
+                title: 'indeximport',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'indeximport'
+                }
             }).state('app.specialoperations.storebudget', {
                 url: '/storebudget',
                 templateUrl: "assets/views/specialoperations/storebudget.html",

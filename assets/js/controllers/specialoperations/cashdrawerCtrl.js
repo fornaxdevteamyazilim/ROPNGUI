@@ -16,7 +16,7 @@ function cashdrawerCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, 
                     PosName: localStorageService.get('ClientName')
                 }
             ).then(function (result) {
-                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
+                toaster.pop('success', $translate.instant('orderfile.THEDRAWERISOPENED'), $translate.instant('orderfile.THEDRAWERISOPENED'));
                 $scope.ok();
                 return $scope.CashDrawerOpenReason = result;
             }, function (response) {
@@ -33,7 +33,7 @@ function cashdrawerCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, 
                     PosName: localStorageService.get('ClientName')
                 }
             ).then(function (result) {
-                toaster.pop('success', $translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'));
+                toaster.pop('success', $translate.instant('orderfile.THEDRAWERISOPENED'), $translate.instant('orderfile.THEDRAWERISOPENED'));
                 $scope.ok();
                 return $scope.CashDrawerOpenReason = result;
             }, function (response) {

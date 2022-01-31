@@ -432,6 +432,7 @@ app.constant('JS_REQUIRES', {
         "billboarditemCtrl": "assets/js/controllers/help/billboarditemCtrl.js?v=0714",
         "billboardCtrl": "assets/js/controllers/billboardCtrl.js?v=0714",
         "storesalestargetCtrl": "assets/js/controllers/specialoperations/storesalestargetCtrl.js?v=0714",
+        "indeximportCtrl": "assets/js/controllers/specialoperations/indeximportCtrl.js?v=0714",
         "storebudgetCtrl": "assets/js/controllers/specialoperations/storebudgetCtrl.js?v=0714",
         "ngsettingitemCtrl": "assets/js/controllers/definitions/ngsettingitemCtrl.js?v=0714",
         "marketingpermissionCtrl": "assets/js/controllers/order/marketingpermissionCtrl.js?v=0714",

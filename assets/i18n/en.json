@@ -281,6 +281,7 @@
     "BILLBOARDITEM": "{{appName}} - Announcements",
     "STORESALESTARGET": "{{appName}} - Store Sales Target",
     "STORESALESBUDGET": "{{appName}} - Store Sales Budget",
+    "INDEXIMPORT": "{{appName}} - Index Import",
     "STORESALESBUDGETLIST": "{{appName}} - Store Sales Budget List",
     "NGSETTINGITEM": "{{appName}} - RopNG Settings",
     "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : "{{appName}} -Connection to ROPNG API service not availible!",
@@ -2979,7 +2980,8 @@
         "STORESALESTARGET": "Store Sales Target",
         "STORESALESBUDGET": "Store Sales Budget",
         "STORESALESBUDGETLIST": "Store Sales Budget List",
-        "STORESATAFFSHIFT": "Staff Shift Detail"
+        "STORESATAFFSHIFT": "Staff Shift Detail",
+        "INDEXIMPORT": " Index Import"
       },
       "staffshiftplan": {
         "MAIN": "Staff",
