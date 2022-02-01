@@ -358,6 +358,7 @@
     <Content Include="assets\js\controllers\definitions\productionpointsCtrl.js" />
     <Content Include="assets\js\controllers\dispatcher\driverlistCtrl.js" />
     <Content Include="assets\js\controllers\dispatcher\drivervehicleCtrl.js" />
+    <Content Include="assets\js\controllers\dispatcher\carrierCtrl.js" />
     <Content Include="assets\js\controllers\kitchenDisplay\kdsCtrl.js" />
     <Content Include="assets\js\controllers\dispatcher\dispatcherCtrl.js" />
     <Content Include="assets\js\controllers\mainscreen\acentextensionCtrl.js" />
@@ -446,6 +447,7 @@
     <Content Include="assets\js\controllers\specialoperations\cashdrawerCtrl.js" />
     <Content Include="assets\js\controllers\specialoperations\currentendCtrl.js" />
     <Content Include="assets\js\controllers\orderdisplay\orderdisplayCtrl.js" />
+    <Content Include="assets\js\controllers\orderdisplay\orderCarrierSelectionCtrl.js" />
     <Content Include="assets\js\controllers\order\orderdetailsCtrl.js" />
     <Content Include="assets\js\controllers\order\orderlistCtrl.js" />
     <Content Include="assets\js\controllers\order\orderCtrl.js" />
@@ -819,6 +821,7 @@
     <Content Include="assets\views\definitions\companylist.html" />
     <Content Include="assets\views\dispatch\itemDetails.html" />
     <Content Include="assets\views\dispatch\preparedorder.html" />
+     <Content Include="assets\views\dispatch\carrierorder.html" />
     <Content Include="assets\views\matching\inventoryunitmatching.html" />
     <Content Include="assets\views\definitions\nguserrestriction.html" />
     <Content Include="assets\views\definitions\ordersource.html" />

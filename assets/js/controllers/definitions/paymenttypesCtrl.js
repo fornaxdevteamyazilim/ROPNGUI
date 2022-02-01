@@ -16,6 +16,8 @@ function paymenttypesCtrl($rootScope, $scope, $log, $modal, $filter, SweetAlert,
         $scope.trACServiceVATAccount = $translate.instant('main.ACSERVICEVATACCOUNT');
         $scope.trAutoSendToEcr = $translate.instant('main.AUTOSENDTOECR');
         $scope.trEcrPaymentType = $translate.instant('main.ECRPAYMENTTYPE');
+        $scope.trOpenDrawer = $translate.instant('main.OPENDRAWER');
+        
 
     }
     $scope.translate();

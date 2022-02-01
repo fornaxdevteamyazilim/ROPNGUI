@@ -2369,7 +2369,7 @@
                         translate="sidebar.nav.specialoperations.STORESALESBUDGET">Store Sales Budget</span>
                 </a>
             </li>
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-if="user.restrictions.indeximport=='Enable'">
                 <a ui-sref="app.specialoperations.indeximport">
                     <i class="ti-money"></i> <span class="title"
                         translate="sidebar.nav.specialoperations.INDEXIMPORT">Store Sales Traget</span>

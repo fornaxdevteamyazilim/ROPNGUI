@@ -1,0 +1,204 @@
+<style>
+    input[type='checkbox'] {
+        display: none;
+    }
+
+    .wrap-collabsible {
+        margin: 1.2rem 0;
+    }
+
+    .lbl-toggle {
+        display: block;
+        font-weight: bold;
+        font-family: monospace;
+        font-size: 1.0rem;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 0.5rem;
+        color: #DDD;
+        background: #0069ff;
+        cursor: pointer;
+        border-radius: 19px;
+        transition: all 0.25s ease-out;
+    }
+
+    .lbl-toggle:hover {
+        color: #FFF;
+    }
+
+    .lbl-toggle::before {
+        content: ' ';
+        display: inline-block;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid currentColor;
+        vertical-align: middle;
+        margin-right: .7rem;
+        transform: translateY(-2px);
+        transition: transform .2s ease-out;
+    }
+
+    .toggle:checked+.lbl-toggle::before {
+        transform: rotate(90deg) translateX(-3px);
+    }
+
+    .collapsible-content {
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height .25s ease-in-out;
+    }
+
+    .toggle:checked+.lbl-toggle+.collapsible-content {
+        max-height: 350px;
+    }
+
+    .toggle:checked+.lbl-toggle {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .collapsible-content .content-inner {
+        background: rgba(0, 105, 255, .2);
+        border-bottom: 1px solid rgba(0, 105, 255, .45);
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+        padding: .5rem 1rem;
+    }
+
+    .collapsible-content p {
+        margin-bottom: 0;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 5px;
+        font-size: 11px;
+        width: 100px;
+        text-align: center;
+    }
+
+    tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+
+
+.blink {
+  animation: blink 3s infinite;
+  color: red;
+}
+
+@keyframes blink {
+  0% {
+    opacity: -1;
+  }
+  100% {
+    opacity: 1;
+    color: red;
+  }
+}
+@media (max-width: 760px) {
+/* Dropdown Button */
+.orderdetails {
+ font-size: 21px;
+}
+}
+@media (max-width: 760px) {
+/* Dropdown Button */
+.orderdetailstable {
+ top: -25px;
+}
+}
+
+</style>
+<div ng-controller="orderCarrierSelectionCtrl" ng-init="app.layout.isSidebarClosed=true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md" >
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                  
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center text-bold" >
+                    <!-- <h2>{{'main.ORDERCARRIERSELECTION' | translate}} <span ng-if="ShowObject==true" class="center"><span class="fa fa-spin fa-spinner center"></span></span><br /></h2> -->
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <button type="button" class="btn btn-o btn-primary btn-scroll btn-scroll-top fa-lock pull-right" ng-click="carrier()">
+                        <span>{{::addcarrier}}</span>
+                    </button>
+                </div>
+            </div>
+      
+    </div><br><br> <br>
+    <div class="container-fluid container-fullw bg-white" ng-repeat="order in preparedOrders | orderBy:'+OrderDate'" order="order">
+        <div>
+            <div class="row panel-heading">
+                <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <button type="button" class="btn btn-o btn-primary tooltips btn-lg " ng-click="ControlOrderType(order)">  <span>{{::send}}</span></button>
+                   
+                </span>
+                <table class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                    <tr style="  background-color: #f5f5f5;">
+                        <th>{{::'main.CARRIER' | translate}}</th>
+                        <th>{{::'main.CARRIERID' | translate}}</th>
+                        <th>{{::'main.ORDERDATE' | translate}}</th>
+                        <th>{{::'main.ORDERNUMBER' | translate}}</th>
+                        <th>{{::'main.PERSONNAME' | translate}}</th>
+                        <th>{{::'main.ORDERTYPE' | translate}}</th>
+                        <th>{{::'main.ORDERSTATE' | translate}}</th>
+                        <th>{{::'main.STORENAME' | translate}}</th>
+                        <th>{{::'main.ADDRESS' | translate}}</th>
+                        <th>{{::'main.ORDERDATE' | translate}}</th>
+                    </tr>
+                    <tr >
+                    
+                        <td>[{{::order.Carrier}}]</td>
+                        <td>{{::order.CarrierId}}</td>
+                        <td>[{{::order.TimerStr}}]</td>
+                        <td>{{::order.OrderNumber}}</td>
+                        <td>{{::order.persons[0].Person}}</td>
+                        <td>{{::order.OrderType}}</td>
+                        <td>[{{::order.OrderState}}]</td>
+                        <td>{{::order.Store}}</td>
+                        <td> {{:: order.Address.StreetAddress}}
+                            {{:: order.Address.AppartmentName}} Apt.
+                            N: {{:: order.Address.AddressNo}}
+                            D: {{:: order.Address.AppartmentNo}}
+                            Kat: {{:: order.Address.Floor}}
+                            Giriş: {{:: order.Address.Entrance}}
+                            Tarif: {{:: order.Address.Landmark}}</td>
+                           
+     <td>{{::order.OrderDate | date: "dd-MM-yyyy / HH:mm:s" }}</td>
+                </table>
+             
+            </div>
+            <div class="col-sm-12">
+                <div id="panel5">
+                    <div class="panel-heading">
+                        <h4 class="panel-title text-primary" ng-click="collapse =! collapse">{{::'main.ORDERDETAILS' |translate}} <span class="pull-right text-bold text-dark text-extra-large">{{order.PaymentType.PaymentType.name}} / {{order.Amount | number:2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</span></h4>
+                    </div>
+                    <div collapse="panel1" ng-if="collapse" class="panel-wrapper">
+                        <div class="panel-body">
+                            <div class="row panel-body">
+                                <form role="form">
+                                    <div><span ng-repeat='member in order.items'><kvsorder-item member='member'></kvsorder-item></span></div>
+                                </form>
+                            </div>
+                            <span class="text-bold text-large text-uppercase">
+                                {{::'main.ORDERSNOTE' | translate}} :{{::order.OrderNote}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

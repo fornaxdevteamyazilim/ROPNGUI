@@ -2982,6 +2982,16 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'Order Display'
                 }
+            })
+            .state('app.orderdisplay.orderCarrierSelection', {
+                url: '/orderCarrierSelection',
+                templateUrl: "assets/views/orderdisplay/orderCarrierSelection.html",
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'carrierCtrl' ,'orderCarrierSelectionCtrl', 'changeorderstateCtrl', 'ysorderrejectreasonCtrl', 'changeysorderstoreCtrl'),
+                title: 'Order Carrier Selection',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'Order Carrier Selection'
+                }
             }).state('app.orderdisplay.ysordersdisplay', {
                 url: '/ysordersdisplay',
                 templateUrl: "assets/views/orderdisplay/ysordersdisplay.html",

@@ -128,34 +128,7 @@ $scope.LoadData = function () {
         remoteOperations: true,
         columns: [
             { dataField: "id", caption: "ID", allowEditing: false ,visible:false }, 
-            {
-                dataField: "StoreID", caption: "Store",
-                lookup: {
-                    valueExpr: "id",
-                    displayExpr: "name",
-                    dataSource: {
-                        store: DevExpress.data.AspNet.createStore({
-                            key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
-                            onBeforeSend: function (method, ajaxOptions) {
-                                var authData = localStorageService.get('authorizationData');
-                                if (authData) {
-                                    ajaxOptions.headers = {
-                                        Authorization: 'Bearer ' + authData.token,
-                                        'Content-type': 'application/json'
-                                    };
-                                }
-                            }
-                        }),
-                        sort: "name",
-                        headerFilter: { allowSearch: true }
-                    },
-                    calculateSortValue: function (data) {
-                        var value = this.calculateCellValue(data);
-                        return this.lookup.calculateCellValue(value);
-                    }
-                },
-            }  , 
+            { dataField: "StoreID", caption: "Store", allowEditing: true}  , 
             { dataField: "Grid",caption: "Grid", allowEditing: true },  
              { dataField: "DeliveryTime ",caption: "DeliveryTime ", allowEditing: true },  
              { dataField: "Mesafe ",caption: "Mesafe ", allowEditing: true },  
@@ -174,7 +147,7 @@ $scope.LoadData = function () {
 
                        
         ],
-        export: { enabled: true, fileName: "storesalestargetlist"},
+        export: { enabled: true, fileName: "indeximport"},
         scrolling: { mode: "virtual" },
         height: 600
     };
