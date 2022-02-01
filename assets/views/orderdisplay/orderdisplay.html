@@ -19,7 +19,7 @@
     }*/
 </style>
 
-<div ng-controller="orderCarrierSelectionCtrl" ng-init="app.layout.isSidebarClosed=true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div ng-controller="orderdisplayCtrl" ng-init="app.layout.isSidebarClosed=true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row panel panel-white margin-top-5" ng-repeat="order in orders" order="order">
             <div ng-class="{'list-group-item-info': order.OrderSource =='CallCenter' , 'list-group-item-danger': order.OrderSource =='Web' , 'list-group-item-warning': order.OrderSource =='YemekSepeti'}">

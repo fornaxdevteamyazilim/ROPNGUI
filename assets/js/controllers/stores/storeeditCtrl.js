@@ -160,7 +160,7 @@ function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, 
         }
     };
     $scope.company = [];
-    $scope.loadEntities('api/company', 'company');
+    $scope.loadEntities('company', 'company');
     $scope.members = [];
     $scope.loadEntities('member', 'members');
     $scope.filters = [];

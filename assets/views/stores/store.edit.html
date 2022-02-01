@@ -113,7 +113,7 @@
                         <select id="company" ng-options="q.id as q.Name for q in company | orderBy:'+Name'| filter: {isActiveValue: 'true'}" class="form-control text-uppercase ng" ng-model="item.CompanyID"></select>
                     </div>
               
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStore =='Enable'">
                         <label for="ServiceTime" translate="main.SERVICESTIME"></label>
                         <input id="id" type="text" class="form-control1 text-capitalize" ng-model="item.ServiceTime" required>
                     </div>
