@@ -3352,6 +3352,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'indeximport'
                 }
+            }).state('app.specialoperations.declaredrevenueelist', {
+                url: '/declaredrevenueelist',
+                templateUrl: "assets/views/specialoperations/declaredrevenueelist.html",
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'declaredrevenueelistCtrl'),
+                title: 'declaredrevenueelist',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'declaredrevenueelist'
+                }
             }).state('app.specialoperations.storebudget', {
                 url: '/storebudget',
                 templateUrl: "assets/views/specialoperations/storebudget.html",

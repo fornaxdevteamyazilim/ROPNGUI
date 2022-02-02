@@ -282,6 +282,7 @@
     "STORESALESTARGET": "{{appName}} - Store Sales Target",
     "STORESALESBUDGET": "{{appName}} - Store Sales Budget",
     "INDEXIMPORT": "{{appName}} - Index Upload ",
+    "DECLAREDREVENUEELIST": "{{appName}} - Declared Revenuee List",
     "STORESALESBUDGETLIST": "{{appName}} - Store Sales Budget List",
     "NGSETTINGITEM": "{{appName}} - RopNG Settings",
     "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : "{{appName}} -Connection to ROPNG API service not availible!",
@@ -2988,7 +2989,8 @@
         "STORESALESBUDGET": "Store Sales Budget",
         "STORESALESBUDGETLIST": "Store Sales Budget List",
         "STORESATAFFSHIFT": "Staff Shift Detail",
-        "INDEXIMPORT": " Index Upload"
+        "INDEXIMPORT": " Index Upload",
+        "DECLAREDREVENUEELIST": "Declared Revenuee List"
       },
       "staffshiftplan": {
         "MAIN": "Staff",
@@ -4685,5 +4687,17 @@
     "QuarterName": "Quarter Name",
     "SubcityName": "Subcity Name",
     "TownName": "Town Name"
+  },
+  "declaredrevenuelist": {
+    "Store": "Store",
+    "OperationDate": "Operation Date",
+    "DeclaredAmount": " Declared Amount",
+    "ActualAmount": "Actual Amount",
+    "TotalCash": "Total Cash",
+    "Notes": "Notes",
+    "isCharged": "Street Address",
+    "isOk": "Quarter Name",
+    "SendDate": "Subcity Name",
+    "fk_ObjectUpdate_id": "fk_ObjectUpdate_id"
   }
 }

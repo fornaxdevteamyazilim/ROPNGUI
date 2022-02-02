@@ -168,21 +168,19 @@ function inventorypurchaselistCtrl($rootScope, $scope, $modal, $log, Restangular
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
+                    searchMode:"contains",
                     dataSource: {
                         store: DevExpress.data.AspNet.createStore({
                             key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
-                            onBeforeSend: function (method, ajaxOptions) {
-                                var authData = localStorageService.get('authorizationData');
-                                if (authData) {
-
-                                    ajaxOptions.headers = {
-                                        Authorization: 'Bearer ' + authData.token
-                                    };
-                                }
-                            }
-                        })
-                    }
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore" 
+                        }),
+                        sort: "name",
+                        headerFilter: { allowSearch: true }
+                    },
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    }  
                 }, visibleIndex: 2
             },
             { caption: $translate.instant('inventorypurchase.DateTime'), dataField: "DateTime", alignment: "right", width: 100, dataType: "date", format: 'dd.MM.yyyy', visibleIndex: 3, sortIndex: 0, sortOrder: "desc" },
