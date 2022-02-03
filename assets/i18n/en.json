@@ -966,6 +966,7 @@
     "ENDOFDAY": "End Of Day",
     "CLOCKINOUT": "Clock In/Out",
     "CASHDRAWER": "Open Cash Drawer",
+    "REASONOPEN": "Reason for Opening",
     "CASH": "Current Payment",
     "STREETQUARTER": "* Street / Quarter / Subcity / Town",
     "OUTTIME": "Store Out Time",
