@@ -159,8 +159,8 @@ function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, 
             });
         }
     };
-    $scope.company = [];
-    $scope.loadEntities('api/company', 'company');
+    $scope.companies = [];
+    $scope.loadEntities('company', 'companies');
     $scope.members = [];
     $scope.loadEntities('member', 'members');
     $scope.filters = [];

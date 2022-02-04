@@ -52,6 +52,9 @@
                 <td data-title="trisActiveValue" width="10%">
                     {{ item.isActiveValue && "Aktif" || "Pasif"}}
                 </td>
+                <td data-title="OracleIntegration" width="10%">
+                    {{ item.OracleIntegration && "Aktif" || "Pasif"}}
+                </td>
                 <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
                     <form editable-form name="rowform" onbeforesave="saveItem($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
                           shown="inserted == item || !item.id">

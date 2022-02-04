@@ -2986,7 +2986,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             .state('app.orderdisplay.orderCarrierSelection', {
                 url: '/orderCarrierSelection',
                 templateUrl: "assets/views/orderdisplay/orderCarrierSelection.html",
-                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'carrierCtrl' ,'orderCarrierSelectionCtrl', 'changeorderstateCtrl', 'ysorderrejectreasonCtrl', 'changeysorderstoreCtrl'),
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'carrierCtrl' ,'orderCarrierSelectionCtrl'),
                 title: 'Order Carrier Selection',
                 authenticate: true,
                 ncyBreadcrumb: {

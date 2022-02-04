@@ -57,10 +57,10 @@
                         <label for="Adress" translate="main.ADDRESS"></label>
                         <textarea type="text" style='min-height:60px; max-width:250px; max-height:100px; min-width:250px;' class="form-control text-uppercase" ng-model="item.Address"></textarea>
                     </div>
-                    <!--<div class="form-group col-sm-6 col-lg-2 col-md-3 col-xs-12 pull-right">
-                        <label translate="main.ISACTIVE" for="isActiveValue"></label><br />
-                        <input type="checkbox" ng-model="item.isActiveValue" style="width:30px; height:30px;">
-                    </div>-->
+                    <div class="form-group col-sm-6 col-lg-2 col-md-3 col-xs-12 pull-right">
+                        <label translate="main.ORACLEINTEGRATION" for="OracleIntegration"></label><br />
+                        <input type="checkbox" ng-model="item.OracleIntegration" style="width:30px; height:30px;">
+                    </div>
                     <div class="form-group col-sm-6 col-lg-2 col-md-3 col-xs-12">
                         <label translate="main.FILTER" for="isActiveValue"></label><br />
                         <select id="FilterID" ng-options="s.id as s.Name for s in filters | orderBy:'+Name'" class="form-control text-capitalize" ng-model="item.isActiveFilter"></select>

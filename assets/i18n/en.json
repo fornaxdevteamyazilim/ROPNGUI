@@ -1291,6 +1291,7 @@
     "ESTIMATEDDELIVERYTIME": "Estimated Delivery Time",
     "ASSIGNDRIVER": "Assing Driver",
     "ADDCARRIER": "Add Carrier",
+    "CARRIERSELECT": "Select Carrier",
     "ORDERPERIOD": "Order Period",
     "MINUTES": "min.",
     "NEWORDERR": "New Order",
@@ -3285,15 +3286,17 @@
   "clockiout": {
     "Started": "Started",
     "FingerPrint": "FingerPrint enroll process started...",
-    "Fingerreading": "Finger reading for shift output",
-    "Fingerentry": "Finger reading for shift entry",
+    "Fingerreading": "Scan Finger to end shift",
+    "Fingerentry": "Scan Finger to start shift",
     "FINGERPRINTSFIRST": "!!! INTRODUCE FINGERPRINTS FIRST !!! ",
     "EnrollFingerprint": "Enroll Finger print",
     "CARDPRINTSFIRST": "!!!Please Introduce The Card First !!! ",
     "CardPrint": "The card registration process has started...",
     "Cardreading": "To exit the shift, please read the Card",
     "Cardentry": "'Please read the Card for shift entry'",
-    "EnrollCardPrint": "Card Registration"
+    "EnrollCardPrint": "Card Registration",
+    "SwipeCardToClockOut":"Vardiya çıkışı için kart okutunuz",
+    "SwipeCardToClockIn":"vardiya girişi için kart okutunuz"
   },
   "difinitions": {
     "Updated": "Updated.",

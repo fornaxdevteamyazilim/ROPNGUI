@@ -1316,6 +1316,7 @@
     "ESTIMATEDDELIVERYTIME": "Tahmini Teslimat Saati ",
     "ASSIGNDRIVER": "Zimmet",
     "ADDCARRIER": "Taşıyıcı Ekle",
+    "CARRIERSELECT":"Taşıyıcı Seç",
     "ORDERPERIOD": "Sipariş Süresi",
     "MINUTES": "Dk.",
     "NEWORDERR": "Yeni Sipariş",
@@ -3305,7 +3306,9 @@
     "Cardreading": "Vardiya çıkışı için Kart okutunuz",
     "Cardentry": "'Vardiya girişi için Kart okutunuz'",
     "EnrollFingerprint": "Parmak İzi Kaydı",
-    "EnrollCardPrint": "Kart Kaydı"
+    "EnrollCardPrint": "Kart Kaydı",
+    "SwipeCardToClockOut":"Vardiya çıkışı için kart okutunuz",
+    "SwipeCardToClockIn":"vardiya girişi için kart okutunuz"
   },
   "difinitions": {
     "Updated": "Güncellendi.",

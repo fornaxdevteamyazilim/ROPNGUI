@@ -292,6 +292,27 @@ function InventoryRequirmentsEditCtrl($scope, $log, $modal, $filter, SweetAlert,
             {
                 caption: $translate.instant('InventoryRequirmentItem.Inventory'), name: "Inventory",
                 columns: [
+                    {
+                        dataField: "InventoryUnitID", caption: $translate.instant('InventoryRequirmentItem.InventoryUnitID'), //fixed: true,width: 200,    
+                        visibleIndex: 0,
+                        lookup: {
+                            valueExpr: "InventoryUnitID",
+                            displayExpr: "ItemCode",
+                            searchMode: "contains",
+                            dataSource: {
+                                store: DevExpress.data.AspNet.createStore({
+                                    key: "InventoryUnitID",
+                                    loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxInventoryUnits"
+                                }),
+                                sort: "InventoryUnitName",
+                                headerFilter: { allowSearch: true }
+                            },
+                            calculateSortValue: function (data) {
+                                var value = this.calculateCellValue(data);
+                                return this.lookup.calculateCellValue(value);
+                            },
+                        },
+                    },
                     { caption: $translate.instant('InventoryRequirmentItem.InventoryUnit'), dataField: "InventoryUnit", dataType: "string", allowEditing: false, visibleIndex: 1 },
                     { caption: "Group", dataField: "InventoryGroup", dataType: "string", allowEditing: false, visibleIndex: 2 },
                     { caption: $translate.instant('InventoryRequirmentItem.factor'), dataField: "factor", dataType: "number", allowEditing: false, visibleIndex: 3 },

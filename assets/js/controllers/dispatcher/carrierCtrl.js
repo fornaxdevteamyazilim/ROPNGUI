@@ -63,11 +63,11 @@ function carrierCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngT
     },
         {
             getData: function ($defer, params) {
-                Restangular.all('carrier ').getList({
+                Restangular.all('carrier').getList({
                     pageNo: params.page(),
                     pageSize: params.count(),
                     sort: params.orderBy(),
-                    search: "Drivers.StoreID='" + $rootScope.user.StoreID + "'"
+                    search: ""//"Drivers.StoreID='" + $rootScope.user.StoreID + "'"
                 }).then(function (items) {
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);

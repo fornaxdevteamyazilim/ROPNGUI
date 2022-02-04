@@ -2,8 +2,8 @@
 /**
  * Clip-Two Main Controller
  */
-app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$translate', '$localStorage', '$window', '$document', '$timeout', '$http', 'cfpLoadingBar', 'authService', 'authInterceptorService', 'userService', 'callsService', 'localStorageService', 'Restangular', 'ngnotifyService', '$location', 'ngAudio', '$animate', '$element', 'Fullscreen', 'toaster', 'Idle', 'Keepalive',
-    function ($rootScope, $scope, $modal, $state, $translate, $localStorage, $window, $document, $timeout, $http, cfpLoadingBar, authService, authInterceptorService, userService, callsService, localStorageService, Restangular, ngnotifyService, $location, ngAudio, $animate, $element, Fullscreen, toaster, Idle, Keepalive) {
+app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$translate', '$localStorage', '$window', '$document', '$timeout', '$http', 'cfpLoadingBar', 'authService', 'authInterceptorService', 'userService', 'callsService', 'localStorageService', 'Restangular', 'ngnotifyService', '$location', 'ngAudio', '$animate', '$element', 'Fullscreen', 'toaster', 'Idle', 'Keepalive','$filter',
+    function ($rootScope, $scope, $modal, $state, $translate, $localStorage, $window, $document, $timeout, $http, cfpLoadingBar, authService, authInterceptorService, userService, callsService, localStorageService, Restangular, ngnotifyService, $location, ngAudio, $animate, $element, Fullscreen, toaster, Idle, Keepalive,$filter) {
         $rootScope.uService = userService;
         $rootScope.uService.EnterController("AppCtrl");
         $animate.enabled(false);
@@ -358,7 +358,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
             if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
                 if ($rootScope.user.restrictions.aggregatorcustomermapping == 'Enable') {
                     Restangular.all('aggregator/unmappedorders').getList({
-                        StoreID: $rootScope.user.StoreID ? $rootScope.user.StoreID : ''
+                        //StoreID: $rootScope.user.StoreID ? $rootScope.user.StoreID : ''
                     }).then(function (result) {
                         $scope.audio.muting = !(result.length > 0);
                         if (result.length > 0) {
@@ -380,8 +380,8 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                 $scope.GetNewOrderCount();
             if ($rootScope.YSOrderCount > 0 && $rootScope.user.restrictions.ysorder == 'Enable')
                 $scope.getNewYSOrder();
-            if ($rootScope.AggregatorOrderCount > 0 && $rootScope.user.restrictions.aggregatorcustomermapping == 'Enable')
-                $scope.getNewwAggregatorOrder();
+            // if ($rootScope.AggregatorOrderCount > 0 && $rootScope.user.restrictions.aggregatorcustomermapping == 'Enable')
+            //     $scope.getNewwAggregatorOrder();
         });
 
         $scope.getNewYSOrder();
@@ -456,6 +456,63 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                 $rootScope.disableSessionTimeOut();
             }
         }
+        var OrderUpdated = $scope.$on('OrderUpdated', function (event, data) {
+            $scope.UpdateOrder(data);
+        });
+        $scope.preparingOrders = [];
+        $scope.UpdateOrder = function (OrderUpdate) {
+            if (OrderUpdate.OrderTypeID == 2 || OrderUpdate.OrderTypeID == 7) {
+                if (OrderUpdate.isActive && ([4].some(x => x === OrderUpdate.OrderStateID))) {
+                    if ($scope.preparingOrders) {
+                        if ($scope.preparingOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                            var idx = $scope.preparingOrders.findIndex(x => x.id === OrderUpdate.OrderID);
+                            if (OrderUpdate.OrderStateID == 4)
+                                Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                                    $scope.preparingOrders[idx] = result;
+                                }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+                            else
+                                $scope.preparingOrders.splice(idx, 1);
+                        }
+                        else {
+                            if (OrderUpdate.OrderStateID == 4)
+                                Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                                    $scope.preparingOrders.push(result);
+                                }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+                        }
+                    }
+                }
+                else if (OrderUpdate.OrderStateID > 0) {
+                    if ($scope.preparingOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                        $scope.preparingOrders.splice($scope.preparingOrders.findIndex(x => x.id === OrderUpdate.OrderID), 1);
+                    }
+                }
+                $scope.$broadcast('$$rebind::refresh');
+            }
+        }
+        $scope.LoadOrders = function (initload) {
+            if (!initload) return;
+            $scope.getOrder = false;
+            Restangular.all('order').getList({
+                pageNo: 1,
+                pageSize: 1000,
+                search: $scope.BuildSearchString()
+            }).then(function (result) {
+                $scope.preparingOrders = $filter('filter')(result, (item) => { return (item.OrderStateID == 4 || item.OrderStateID == 21); });
+                $scope.$broadcast('$$rebind::refresh');
+            }, function (response) {
+                toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            });
+
+        };
+        $scope.BuildSearchString = function (src) {
+            var result = [];
+            result.push("OrderTypeID in (2,7)");
+            result.push("StoreID='" + localStorageService.get('StoreID') + "'");
+            result.push("OrderStateID in (4)");
+            result.push("tt.OperationDate ='" + $filter('date')(ngnotifyService.ServerOperationDate(), 'yyyy-MM-dd') + "'");
+            return result;
+        };
+        $scope.LoadOrders(true);
         $scope.$on('$destroy', function () {
             deregistration1();
             deregistration2();
@@ -463,6 +520,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
             deregistration4();
             deregistration5();
             deregistration6();
+            OrderUpdated();
             NewAggregatorOrderfresh();
             $timeout.cancel(stopTime);
             CustomerArrivedEvent();

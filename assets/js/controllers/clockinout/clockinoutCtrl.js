@@ -7,8 +7,8 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
     var fp = userService.getCurrentUser().isFingerPrintExist;
     var mc = userService.getCurrentUser().isMagneticCardExist;
     $scope.statusmessage = $scope.statusmessage + (!fp ? $translate.instant('clockiout.FINGERPRINTSFIRST') : '');
-    $scope.statusmessagecard = $scope.statusmessage + (!mc ? $translate.instant('clockiout.ENROLLCARD') : '');
-    
+    $scope.statusmessagecard = $scope.statusmessagecard + (!mc ? $translate.instant('clockiout.CARDPRINTSFIRST') : '');
+
     var ac = userService.getCurrentUser().ShiftActive ? 'ClockOut' : 'ClockIn';
     $scope.data = { Action: ac, Client: localStorageService.get('ClientName') };
     $scope.ClientMessages = [];
@@ -25,8 +25,12 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
             $scope.processCardAction($scope.data);
     });
     $scope.CardEnrollActive = false;
+    $scope.CardEnrollMessage = "";
     $scope.StartCardEnroll = function () {
         $scope.CardEnrollActive = true;
+        toaster.pop('success', "Kart kayıt işlemi başlatıldı.", 'Kartı okutunuz');
+        toaster.pop('success', "Kart kayıt işlemi başlatıldı.", 'Kartı okutunuz');
+        $scope.CardEnrollMessage = "Kart kayıt işlemi: Kartı Okutunuz...";
     };
     $scope.EnrollCard = function (carddata) {
         var cUser = userService.getCurrentUser();
@@ -40,8 +44,10 @@ function clockinoutCtrl($rootScope, $scope, Restangular, toaster, $window, $loca
             toaster.pop('success', $translate.instant('clockiout.cardsaved'));
         }, function (resp) {
             toaster.pop('error', $translate.instant('clockiout.cardnotsaved'), resp.data.ExceptionMessage);
+            $scope.CardEnrollActive = false;
         });
-        $scope.CardEnrollActive = false;
+        
+        $scope.CardEnrollMessage = "";
     };
     $scope.processaction = function (data) {
         //post data to api/clockinout/do

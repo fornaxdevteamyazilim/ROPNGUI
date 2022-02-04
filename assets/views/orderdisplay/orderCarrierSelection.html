@@ -137,18 +137,16 @@
             </div>
       
     </div><br><br> <br>
-    <div class="container-fluid container-fullw bg-white" ng-repeat="order in preparedOrders | orderBy:'+OrderDate'" order="order">
+    <div class="container-fluid container-fullw bg-white" ng-repeat="order in preparingOrders | orderBy:'+OrderDate'" order="order">
         <div>
             <div class="row panel-heading">
                 <span class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <button type="button" class="btn btn-o btn-primary tooltips btn-lg " ng-click="ControlOrderType(order)">  <span>{{::send}}</span></button>
+                    <button type="button" class="btn btn-o btn-primary tooltips btn-lg " ng-click="ControlOrderType(order)">  <span>{{::selectcarrier}}</span></button>
                    
                 </span>
                 <table class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
                     <tr style="  background-color: #f5f5f5;">
                         <th>{{::'main.CARRIER' | translate}}</th>
-                        <th>{{::'main.CARRIERID' | translate}}</th>
-                        <th>{{::'main.ORDERDATE' | translate}}</th>
                         <th>{{::'main.ORDERNUMBER' | translate}}</th>
                         <th>{{::'main.PERSONNAME' | translate}}</th>
                         <th>{{::'main.ORDERTYPE' | translate}}</th>
@@ -159,9 +157,7 @@
                     </tr>
                     <tr >
                     
-                        <td>[{{::order.Carrier}}]</td>
-                        <td>{{::order.CarrierId}}</td>
-                        <td>[{{::order.TimerStr}}]</td>
+                        <td>{{::order.Carrier.name}}</td>
                         <td>{{::order.OrderNumber}}</td>
                         <td>{{::order.persons[0].Person}}</td>
                         <td>{{::order.OrderType}}</td>

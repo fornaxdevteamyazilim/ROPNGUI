@@ -109,6 +109,14 @@ function inventorycountlistCtrl($scope, $filter, $modal, $log, Restangular, Swee
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
             loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxInventoryCount",
+            onBeforeSend: function (method, ajaxOptions) {
+                var authData = localStorageService.get('authorizationData');
+                if (authData) {
+                    ajaxOptions.headers = {
+                        Authorization: 'Bearer ' + authData.token,
+                    };
+                }
+            },
             //onBeforeSend: function (method, ajaxOptions) {
             //    ajaxOptions.xhrFields = { withCredentials: true };
             //}
