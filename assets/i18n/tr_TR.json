@@ -286,6 +286,7 @@
     "STORESALESTARGET": "{{appName}} - Restoran Satış Hedefleri",
     "STORESALESBUDGET": "{{appName}} - Resturant Satış Bütcesi",
     "INDEXIMPORT": "{{appName}} - Index Upload ",
+    "DECLAREDREVENUEELIST": "{{appName}} - Beyan Edilen Gelir Listesi",
     "STORESALESBUDGETLIST": "{{appName}} -  Resturant Satış Bütce listesi",
     "NGSETTINGITEM": "{{appName}} - RopNG Ayarlar",
     "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : "{{appName}} - ROPING API Servislerine Bağlantınız Kesilmiştir !",
@@ -985,7 +986,8 @@
     "ISEXTERNAL": "Promosyon Durumu",
     "ENDOFDAY": "Gün Sonu İşlemleri",
     "CLOCKINOUT": "Vardiya Gir/Çık",
-    "CASHDRAWER": "Kasa Çekmesini Aç",
+    "CASHDRAWER": "Para Çekmesini Aç",
+    "REASONOPEN": "Açılma Nedeni",
     "CASH": "Cari Ödeme",
     "STREETQUARTER": "* Sokak / Mahalle / İlçe / İl",
     "OUTTIME": "Çıkış Saati",
@@ -2996,7 +2998,8 @@
         "STORESALESBUDGET": "Resturant Satış Bütcesi",
         "STORESALESBUDGETLIST": "Resturant Satış Bütce Listesi",
         "STORESTAFFSHIFT": "Personel Bilgi Girişi",
-        "INDEXIMPORT": " Index Upload "
+        "INDEXIMPORT": " Index Upload",
+        "DECLAREDREVENUEELIST": "Beyan Edilen Gelir Listesi"
       },
       "staffshiftplan": {
         "MAIN": "Personel Vardiya Planı",
@@ -4699,6 +4702,18 @@
     "QuarterName": "Mahalle",
     "SubcityName": "Ilçe",
     "TownName": "Şehir"
+  },
+  "declaredrevenuelist": {
+    "StoreID": "Restoran",
+    "OperationDate": "Operasyon Tarihi",
+    "DeclaredAmount": "Beyan Edilen Toplam ",
+    "ActualAmount": "Gerçekleşen Toplam",
+    "TotalCash": "Toplam Nakit",
+    "Notes": "Not",
+    "isCharged": "Personel Tahsilat Durumu",
+    "isOk": "Onaylandı",
+    "SendDate": "Gönderim Zamanı",
+    "fk_ObjectUpdate_id": "fk_ObjectUpdate_id"
   }
   
 }

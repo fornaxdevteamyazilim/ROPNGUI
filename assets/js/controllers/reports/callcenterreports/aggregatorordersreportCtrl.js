@@ -99,7 +99,7 @@ function aggregatorordersreportCtrl($scope, $filter, $modal, $log, Restangular, 
         filterValue: getFilter(),
         remoteOperations: true,
         columns: [           
-        { dataField: "id", caption: "MapID" , caption: $translate.instant('AggregatorOrdersstatsdetail.MapID'),fixed: false }, 
+        { dataField: "id", caption: $translate.instant('AggregatorOrdersstatsdetail.MapID'),fixed: false }, 
         { dataField: "Aggregator" , caption: $translate.instant('AggregatorOrdersstatsdetail.Aggregator') },
         { dataField: "MapDate", alignment: "right", dataType: "datetime", width: 110, format: "d/M/yyyy, HH:mm", caption: $translate.instant('AggregatorOrdersstatsdetail.MapDate') }, 
         { dataField: "OperationDate", alignment: "right", dataType: "date", width: 100, format: "d/M/yyyy", caption: $translate.instant('AggregatorOrdersstatsdetail.OperationDate') }, 

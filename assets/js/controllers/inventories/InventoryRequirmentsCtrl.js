@@ -179,22 +179,20 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
             lookup: {
                 valueExpr: "id",
                 displayExpr: "name",
+                searchMode:"contains",
                 dataSource: {
                     store: DevExpress.data.AspNet.createStore({
                         key: "id",
-                        loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
-                        onBeforeSend: function (method, ajaxOptions) {
-                            var authData = localStorageService.get('authorizationData');
-                            if (authData) {
-
-                                ajaxOptions.headers = {
-                                    Authorization: 'Bearer ' + authData.token
-                                };
-                            }
-                        }
-                    })
-                }
-            }},
+                        loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore" 
+                    }),
+                    sort: "name",
+                    headerFilter: { allowSearch: true }
+                },
+                calculateSortValue: function (data) {
+                    var value = this.calculateCellValue(data);
+                    return this.lookup.calculateCellValue(value);
+                }  
+            },},
             { caption: $translate.instant('InventoryRequirment.DateTime'), dataField: "Date", alignment: "right", dataType: "date", format: 'dd.MM.yyyy', sortIndex: 0,sortOrder: "desc" },
             //{ caption: $translate.instant('InventoryRequirment.DeliveryDate'), dataField: "DeliveryDate", alignment: "right", dataType: "date",  format: 'dd.MM.yyyy' },
             //{ caption: $translate.instant('InventoryRequirment.Amount'), dataField: "Amount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
