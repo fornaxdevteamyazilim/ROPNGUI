@@ -363,7 +363,7 @@ function dispatcherCtrl($scope, $log, $interval, $timeout, amMoment, $filter, $m
                     pageNo: params.page(),
                     pageSize: params.count(),
                     sort: params.orderBy(),
-                    search: "Drivers.StoreID='" + $rootScope.user.StoreID + "'"
+                    search: "Drivers.StoreID='" + $rootScope.user.StoreID + "' and tt.isActive=1"
                 }).then(function (items) {
                     for (var i = 0; i < items.length; i++) {
                         items[i].OrderStates.lengthTXT = $filter('number')(items[i].OrderStates.length / 2, 0);
@@ -488,7 +488,7 @@ function preparedOrderCtrl($scope, $rootScope, $modalInstance, $modal, ngTablePa
                     pageNo: params.page(),
                     pageSize: params.count(),
                     sort: params.orderBy(),
-                    search: "Drivers.StoreID='" + $rootScope.user.StoreID + "'"
+                    search: "Drivers.StoreID='" + $rootScope.user.StoreID + "' and tt.isActive=1"
                 }).then(function (items) {
                     params.total(items.paging.totalRecordCount);
                     $defer.resolve(items);

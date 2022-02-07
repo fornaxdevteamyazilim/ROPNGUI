@@ -139,6 +139,11 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
         paging: {
             enabled: false
         },
+        keyboardNavigation: {
+            enterKeyAction: 'moveFocus',
+            enterKeyDirection: 'column',
+            editOnKeyPress: true,
+          },
         editing: {
             mode: "cell",
             allowUpdating: true
@@ -157,7 +162,7 @@ function inventorycounteditCtrl($scope, $log, $modal, $filter, SweetAlert, Resta
                 },
             },
             { caption: $translate.instant('inventorycount.UnitPrice'), dataField: "UnitPrice", dataType: "number", format: { type: "fixedPoint", precision: 2 }, allowEditing: false, visibleIndex: 3, },
-            { caption: $translate.instant('inventorycount.Total'), dataField: "Total", calculateCellValue: function (data) { return data.UnitCount * data.UnitPrice; }, format: { type: "fixedPoint", precision: 2 }, visibleIndex: 4 },
+            { caption: $translate.instant('inventorycount.Total'), dataField: "Total", calculateCellValue: function (data) { return data.UnitCount * data.UnitPrice; }, format: { type: "fixedPoint", precision: 2 }, visibleIndex: 4, allowEditing: false },
         ],
         summary: {
             totalItems: [
