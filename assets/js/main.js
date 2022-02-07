@@ -95,7 +95,7 @@ app.run(['$rootScope', '$state', '$browser', '$stateParams', '$location', 'authS
             name: 'ROP NG',
             author: 'Fornax A.Ş.',
             description: 'Retail Operation Platform NG',
-            version: '1.0.716',
+            version: '1.0.718',
             year: ((new Date()).getFullYear()),
             isMobile: (function () {// true if the browser is a mobile device
                 var check = false;
@@ -132,7 +132,7 @@ app.config(function ($httpProvider) {
                 if (request.url.endsWith(".html") && !request.url.includes("tabset.html")) {
                     if ($templateCache.get(request.url) === undefined) { // cache miss
                         // Item is not in $templateCache so add our query string
-                        request.url = request.url + '?v=0716';
+                        request.url = request.url + '?v=0718';
                     }
                 }
                 return request;
@@ -150,7 +150,7 @@ app.value('signalRServer', 'http://192.168.9.40:9065');//PH
 //app.value('signalRServer', 'http://localhost:9065');//localhost
 //app.value('signalRServer', 'http://78.135.103.74:9065');//ROPNG TEST
 //app.value('signalRServer', 'http://192.168.15.10:9065');//PH
-//app.value('signalRServer', 'http://31.145.149.211:9065');//CALLCENTER
+//app.value('signalRServer', 'http://31.145.149.211:9063');//CALLCENTER
 app.run(['callsService', function (callsService) { }]);
 app.run(['ngnotifyService', function (ngnotifyService) { }]);
 // translate config

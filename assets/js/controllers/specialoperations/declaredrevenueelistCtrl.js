@@ -85,6 +85,14 @@ function declaredrevenueelistCtrl($scope, $filter, $modal, $log, Restangular, Sw
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
             loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxdeclaredrevenue",
+            onBeforeSend: function (method, ajaxOptions) {
+                var authData = localStorageService.get('authorizationData');
+                if (authData) {
+                    ajaxOptions.headers = {
+                        Authorization: 'Bearer ' + authData.token,
+                    };
+                }
+            },
             //onBeforeSend: function (method, ajaxOptions) {
             //    ajaxOptions.xhrFields = { withCredentials: true };
             //}
@@ -93,7 +101,7 @@ function declaredrevenueelistCtrl($scope, $filter, $modal, $log, Restangular, Sw
             //},
             //filter: getFilter(),
 
-            remoteOperations: true,
+          
         }),
         //filter: getFilter(),
         filterValue: getFilter(),
@@ -126,15 +134,23 @@ function declaredrevenueelistCtrl($scope, $filter, $modal, $log, Restangular, Sw
             { dataField: "OperationDate", alignment: "right", dataType: "date", width: 100, format: "d/M/yyyy", caption: $translate.instant('declaredrevenuelist.OperationDate') },
              //{ dataField: "fk_ObjectUpdate_id", caption: $translate.instant('declaredrevenuelist.fk_ObjectUpdate_id') }, 
             {
-                dataField: "StoreID", caption: $translate.instant('declaredrevenuelist.StoreID'),
+                dataField: "StoreID", caption: $translate.instant('declaredrevenuelist.StoreID'),   
                 lookup: {
                     valueExpr: "id",
                     displayExpr: "name",
-                    searchMode: "contains",
                     dataSource: {
                         store: DevExpress.data.AspNet.createStore({
                             key: "id",
-                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore"
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                            onBeforeSend: function (method, ajaxOptions) {
+                                var authData = localStorageService.get('authorizationData');
+                                if (authData) {
+                                    ajaxOptions.headers = {
+                                        Authorization: 'Bearer ' + authData.token,
+                                        'Content-type': 'application/json'
+                                    };
+                                }
+                            }
                         }),
                         sort: "name",
                         headerFilter: { allowSearch: true }
@@ -144,6 +160,7 @@ function declaredrevenueelistCtrl($scope, $filter, $modal, $log, Restangular, Sw
                         return this.lookup.calculateCellValue(value);
                     }
                 },
+               
             },
             { dataField: "DeclaredAmount", caption: $translate.instant('declaredrevenuelist.DeclaredAmount'),format: { type: "fixedPoint", precision: 2 } },
             { dataField: "ActualAmount", caption: $translate.instant('declaredrevenuelist.ActualAmount'),format: { type: "fixedPoint", precision: 2 } },

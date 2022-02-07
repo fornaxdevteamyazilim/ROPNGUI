@@ -24,6 +24,8 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         $scope.trTotalDeclaredAmount = $translate.instant('main.TOTALDECLAREDAMOUNT');
         $scope.Approve = $translate.instant('main.APPROVE');
         $scope.trCommands = $translate.instant('main.COMMANDS');
+        $scope.Oracle = $translate.instant('main.ORACLE');
+        
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
@@ -125,6 +127,15 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
         //     document.querySelector('.dx-datagrid-rowsview').before(document.querySelector('.dx-datagrid-total-footer'));
         //     }
 
+    };
+    $scope.transmittedOracle = function () {
+        Restangular.one('DeclaredRevenue/send').get({
+            id: $stateParams.id
+        }).then(function (restresult) {
+            toaster.pop('success', $translate.instant('declaredrevenuelist.transmittedOracle'));
+        }, function (response) {
+            toaster.pop('warning', "warning...", response.data.ExceptionMessage);
+        });
     };
     $scope.EditCountDisabled = function () {
         return $stateParams.id != 'new';

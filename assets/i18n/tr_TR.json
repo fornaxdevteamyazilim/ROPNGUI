@@ -694,6 +694,7 @@
     "ADDSCHEDULETYPETIMEWEEKDAY": "Zaman Tipi Gün Ekle",
     "ADDSCHEDULETYPEDATERANGE": "Zaman Tipi Gün Aralığı Ekle",
     "DELETE": "Sil",
+    "ORACLE": "Oracle Gönder",
     "SCHEDULETYPENAME": "Zaman Tip Adı",
     "SCHEDULETYPETIMERANGE": "Zaman Tipi Saat Aralığı",
     "SCHEDULETYPETIMEWEEKDAY": "Zaman Tipi Günler",
@@ -1554,6 +1555,7 @@
     "FACTORYINDEX": "Üretim Merkezi",
     "WAREHOUSEINDEX": "Depo Kodu",
     "DIVISIONINDEX": "Bölüm",
+    "ORACLEINTEGRATION": "Oracle Entegrasyonu",
     "CURRENTCOMPANYCODE": "Cari Hesap Kodu",
     "CURRENTACCOUNTINGCODE": "Cari Muhasebe Kodu",
     "TERMCODE": "Vade Kodu",
@@ -4713,7 +4715,8 @@
     "isCharged": "Personel Tahsilat Durumu",
     "isOk": "Onaylandı",
     "SendDate": "Gönderim Zamanı",
-    "fk_ObjectUpdate_id": "fk_ObjectUpdate_id"
+    "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
+    "transmittedOracle": "Oracle iletildi"
   }
   
 }

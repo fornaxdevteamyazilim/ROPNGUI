@@ -81,7 +81,7 @@
                             <span translate="main.DELETEFINGERPRINT"></span>
                         </a>
                     </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12" >
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12"  ng-if="magneticcardExists>0">
                         <a class="margin-top-20 btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="deletemagneticcard(item)" ng-disabled="!user.isAdmin">
                             <span translate="main.DELETECARDPRINT"></span>
                         </a>
