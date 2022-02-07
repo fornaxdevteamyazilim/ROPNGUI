@@ -46,6 +46,12 @@
                     </div>
                     
                     <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                        <button class="btn btn-o btn-success btn-wide btn-scroll btn-scroll-left fa fa-check" ng-show="$stateParams.id !== 'new'" ng-click="transmittedOracle(item.id)">
+                            <span>{{:: Oracle}}</span>
+                        </button>
+                    </div>
+                     
+                    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
                         <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-click="removedata(item.id)">
                             <span>{{:: delete}}</span>
                         </button>

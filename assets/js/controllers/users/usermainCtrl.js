@@ -56,7 +56,7 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
             toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     }
-    $scope.CheckCardPrint = function () {
+    $scope.CheckCard = function () {
         if ($stateParams.id != 'new') {
             Restangular.all('MagneticCard').getList({
                 search: 'NGUserID=' + $stateParams.id
@@ -67,7 +67,7 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
             });
         }
     }
-    $scope.deleteCardPrint = function () {
+    $scope.deletemagneticcard = function () {
         Restangular.all('user/deletemagneticcard').getList({
             UserID: $stateParams.id
         }).then(function (result) {
@@ -76,7 +76,7 @@ function usermainCtrl($rootScope, $scope, $window, $translate, $stateParams, Res
             toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     }
-  //  $scope.CheckcardPrint();
+   $scope.CheckCard();
     $scope.CheckFingerPrint();
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
         for (var i = 0; i < $scope[Container].length; i++) {

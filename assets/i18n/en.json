@@ -586,6 +586,7 @@
     "COMPANYTAXOFFICE": "Company Tax Office",
     "DATE": "Date",
     "DELETE": "Delete",
+    "ORACLE": "Send Oracle",
     "DELETEADJUST": "Delete Adjust",
     "DELETESCHEDULE": "Delete Schedule",
     "DELIVERY": "Delivery",
@@ -1541,6 +1542,7 @@
     "FACTORYINDEX": "Production Center",
     "WAREHOUSEINDEX": "Warehouse Code",
     "DIVISIONINDEX": "Department",
+    "ORACLEINTEGRATION": "ORACLE INTEGRATION",
     "CURRENTCOMPANYCODE": "Crrent Company Code",
     "CURRENTACCOUNTINGCODE": "Crrent Acounting Code",
     "TERMCODE": "Term Code",
@@ -4702,6 +4704,7 @@
     "isCharged": "Street Address",
     "isOk": "Quarter Name",
     "SendDate": "Subcity Name",
-    "fk_ObjectUpdate_id": "fk_ObjectUpdate_id"
+    "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
+    "transmittedOracle": "Transmitted Oracle"
   }
 }
