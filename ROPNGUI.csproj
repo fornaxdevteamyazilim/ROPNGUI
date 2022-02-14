@@ -178,6 +178,7 @@
     <Content Include="assets\js\controllers\definitions\companylistCtrl.js" />
     <Content Include="assets\js\controllers\definitions\complaintrelationCtrl.js" />
     <Content Include="assets\js\controllers\definitions\complaintsubjectsCtrl.js" />
+    <Content Include="assets\js\controllers\definitions\CashDrawerOpenReasonsCtrl.js" />
     <Content Include="assets\js\controllers\definitions\complaintsourciesCtrl.js" />
     <Content Include="assets\js\controllers\definitions\departmentsCtrl.js" />
     <Content Include="assets\js\controllers\definitions\ECRsCtrl.js" />

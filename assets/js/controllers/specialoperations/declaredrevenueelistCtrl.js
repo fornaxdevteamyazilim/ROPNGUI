@@ -130,8 +130,8 @@ function declaredrevenueelistCtrl($scope, $filter, $modal, $log, Restangular, Sw
         // },
         columns: [
             { type: "buttons", width: 50, buttons: [{ hint: "edit", icon: "edit", onClick: function (e) { location.href = '#/app/reports/giroreports/declaredrevenuee/' + e.row.data.id; } }] },
-            { dataField: "id", caption:"id" },
-            { dataField: "OperationDate", alignment: "right", dataType: "date", width: 100, format: "d/M/yyyy", caption: $translate.instant('declaredrevenuelist.OperationDate') },
+            { dataField: "id", caption:"id",visible:false },
+            { dataField: "OperationDate", alignment: "right",width: 80, dataType: "date", format: 'dd.MM.yyyy', caption: $translate.instant('declaredrevenuelist.OperationDate') },
              //{ dataField: "fk_ObjectUpdate_id", caption: $translate.instant('declaredrevenuelist.fk_ObjectUpdate_id') }, 
             {
                 dataField: "StoreID", caption: $translate.instant('declaredrevenuelist.StoreID'),   
@@ -166,7 +166,7 @@ function declaredrevenueelistCtrl($scope, $filter, $modal, $log, Restangular, Sw
             { dataField: "ActualAmount", caption: $translate.instant('declaredrevenuelist.ActualAmount'),format: { type: "fixedPoint", precision: 2 } },
             { dataField: "TotalCash", caption: $translate.instant('declaredrevenuelist.TotalCash'),format: { type: "fixedPoint", precision: 2 } },
             { dataField: "Notes", caption: $translate.instant('declaredrevenuelist.Notes'),minWidth:300, },
-            { dataField: "isCharged", caption: $translate.instant('declaredrevenuelist.isCharged') },
+            { dataField: "isCharged", caption: $translate.instant('declaredrevenuelist.isCharged'),visible:false },
             { dataField: "isOk", caption: $translate.instant('declaredrevenuelist.isOk') },
             { dataField: "SendDate", caption: $translate.instant('declaredrevenuelist.SendDate') }
             
@@ -187,16 +187,16 @@ function declaredrevenueelistCtrl($scope, $filter, $modal, $log, Restangular, Sw
         },
         height: 600,
         showBorders: true,
-        // summary: {
-        //     totalItems: [
-        //         { column: "DeclaredAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
-        //         { column: "ActualAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
-        //     ],
-        //     groupItems: [
-        //         { name: "DeclaredAmount", showInColumn: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-        //         { name: "ActualAmount", showInColumn: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
-        //     ],
-        // },
+        summary: {
+            totalItems: [
+                { column: "StoreID", showInColumn: "Total", summaryType: "count",  },
+                //{ column: "ActualAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            ],
+            groupItems: [
+                //{ name: "StoreID", showInColumn: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                //{ name: "ActualAmount", showInColumn: "Total", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            ],
+        },
     };
 
 

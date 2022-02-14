@@ -33,6 +33,7 @@ function bonussettingCtrl($rootScope, $scope, NG_SETTING, $translate, $element,l
                     };  
                 }                
             }
+            
         }),
         //filterValue: getFilter(),
         showBorders: true,

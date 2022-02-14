@@ -705,7 +705,7 @@
                                     </td>
                                     <td class="text-capitalize" data-title="trStaffPosition" data-sortable="'StaffPositionID'" style="width:15%">
                                         <span editable-select="item.StaffPositionID" e-name="StaffPositionID" e-ng-model="item.StaffPositionID" e-form="rowform"
-                                              e-ng-options="q.id as q.Name for q in staffpositions | orderBy:'+Name'">
+                                              e-ng-options="q.id as q.Name for q in staffpositions | orderBy:'+Name'| filter: {isActive: 'true'}">
                                             {{ ShowObject('staffpositions','id',item.StaffPositionID,'Name') }}
                                         </span>
                                     </td>
