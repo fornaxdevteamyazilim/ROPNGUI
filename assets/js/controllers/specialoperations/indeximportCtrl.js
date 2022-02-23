@@ -10,66 +10,85 @@ app.directive('ngFiles', ['$parse', function ($parse) {
     return {
         link: fn_link
     }
-} ]);
+}]);
 app.controller('indeximportCtrl', indeximportCtrl);
-function indeximportCtrl($rootScope, $scope, NG_SETTING, $translate, $element,localStorageService,$http) {
+function indeximportCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService, $http,Restangular,toaster) {
     $rootScope.uService.EnterController("indeximportCtrl");
     var ngurr = this;
 
-    $scope.selectedFile = null;  
-    $scope.msg = "";  
-    
+    $scope.selectedFile = null;
+    $scope.msg = "";
+
     $scope.getTheFiles = function ($files) {
-        $scope.selectedFile = $files[0];   
+        $scope.selectedFile = $files[0];
         // angular.forEach($files, function (value, key) {
         //     formdata.append(key, value);
         // });
     };
-    $scope.handleFile = function () {    
-        var file = $scope.selectedFile;    
-        if (file) {    
-            var reader = new FileReader();    
-            reader.onload = function (e) {    
-                var data = e.target.result;    
-                var workbook = XLSX.read(data, { type: 'binary' });    
-                var first_sheet_name = workbook.SheetNames[0];    
-                var dataObjects = XLSX.utils.sheet_to_json(workbook.Sheets[first_sheet_name]);    
+    $scope.handleFile = function () {
+        var file = $scope.selectedFile;
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var data = e.target.result;
+                var workbook = XLSX.read(data, { type: 'binary' });
+                var first_sheet_name = workbook.SheetNames[0];
+                var dataObjects = XLSX.utils.sheet_to_json(workbook.Sheets[first_sheet_name]);
                 //console.log(excelData);    
-                if (dataObjects.length > 0) {  
-                    $scope.save(dataObjects);   
-                } else {  
-                    $scope.msg = "Error : Something Wrong !";  
-                }    
-            }    
-            reader.onerror = function (ex) {    
-            }    
-            reader.readAsBinaryString(file);  
-        }  
-    }  
-    $scope.save = function (data) {    
-        $http({  
-            method: "POST",  
-            url: NG_SETTING.apiServiceBaseUri + "/api/tools/UploadStreetAddressImportData",  
-            data: JSON.stringify(data),  
-            headers: {  
-                'Content-Type': 'application/json'  
-            }    
-        }).then(function (data) {  
-            if (data.status) {  
-                $scope.msg = "Data has been inserted ! ";  
+                if (dataObjects.length > 0) {
+                    $scope.save(dataObjects);
+                } else {
+                    $scope.msg = "Error : Something Wrong !";
+                }
+            }
+            reader.onerror = function (ex) {
+            }
+            reader.readAsBinaryString(file);
+        }
+    }
+    $scope.save = function (data) {
+        $http({
+            method: "POST",
+            url: NG_SETTING.apiServiceBaseUri + "/api/tools/UploadStreetAddressImportData",
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (data) {
+            if (data.status) {
+                toaster.pop('success',"Data has been inserted ! ");
+                $scope.msg = "Data has been inserted ! ";
                 $scope.LoadData();
-            }  
-            else {  
-                $scope.msg = "Error : Something Wrong";  
-            }  
-        }, function (error) {  
-            $scope.msg = "Error : Something Wrong";  
-        })  
-      }  
-$scope.LoadData = function () {
-            var dataGrid = $('#gridContainer').dxDataGrid('instance');
-            dataGrid.refresh();
-        };
+            }
+            else {
+                $scope.msg = "Error : Something Wrong";
+                toaster.pop('warning',"Error : Something Wrong");
+            }
+        }, function (error) {
+            $scope.msg = "Error : Something Wrong";
+            toaster.pop('warning',"Error : Something Wrong");
+        })
+    }
+    $scope.ClearData = function () {
+        Restangular.one('/tools/ClearAddressData').get().then(function (restresult) {
+            toaster.pop('success', 'Data Cleared');
+            $scope.LoadData();
+        }, function (response) {
+            toaster.pop('warning', "warning...", response.data.ExceptionMessage);
+        });
+    };
+    $scope.ImportData = function () {
+        Restangular.one('/tools/ImportAddressData').get().then(function (restresult) {
+            toaster.pop('success', 'Address Data Imported');
+            $scope.LoadData();
+        }, function (response) {
+            toaster.pop('warning', "warning...", response.data.ExceptionMessage);
+        });
+    };
+    $scope.LoadData = function () {
+        var dataGrid = $('#gridContainer').dxDataGrid('instance');
+        dataGrid.refresh();
+    };
     $scope.translate = function () {
         $scope.trStore = $translate.instant('main.STORE');
         $scope.trYear = $translate.instant('main.YEAR');
@@ -93,12 +112,12 @@ $scope.LoadData = function () {
                 //}
                 var authData = localStorageService.get('authorizationData');
                 if (authData) {
-                    
+
                     ajaxOptions.headers = {
                         Authorization: 'Bearer ' + authData.token//,
                         //'Content-type': 'application/json'
-                    };  
-                }                
+                    };
+                }
             }
         }),
         //filterValue: getFilter(),
@@ -127,27 +146,26 @@ $scope.LoadData = function () {
         columnFixing: { enabled: true },
         remoteOperations: true,
         columns: [
-            { dataField: "id", caption: "ID", allowEditing: false ,visible:false }, 
-            { dataField: "StoreID", caption: "Store", allowEditing: true}  , 
-            { dataField: "Grid",caption: "Grid", allowEditing: true },  
-             { dataField: "DeliveryTime ",caption: "DeliveryTime ", allowEditing: true },  
-             { dataField: "Mesafe ",caption: "Mesafe ", allowEditing: true },  
-             { dataField: "AdressID ",caption: "AdressID ", allowEditing: true },  
-             { dataField: "Adress ",caption: "Adress ", allowEditing: true },
-             { dataField: "Type ",caption: "Type ", allowEditing: true },  
-             { dataField: "QuarterCode ",caption: "QuarterCode ", allowEditing: true },  
-             { dataField: "PointX ",caption: "PointX ", allowEditing: true },
-             { dataField: "PointY ",caption: "PointY ", allowEditing: true },  
-             { dataField: "WDT ",caption: "WDT ", allowEditing: true },  
-             { dataField: "CSBM ",caption: "CSBM ", allowEditing: true },
-             { dataField: "ObjectId  ",caption: "ObjectId  ", allowEditing: true },
-             { dataField: "Quarter  ",caption: "Quarter  ", allowEditing: true },  
-             { dataField: "SubCity  ",caption: "SubCity  ", allowEditing: true },  
-             { dataField: "Town  ",caption: "Town  ", allowEditing: true },  
+            { dataField: "id", caption: "ID", allowEditing: false },
+            { dataField: "Store", caption: "Store" },
+            { dataField: "Grid", caption: "Grid" },
+            { dataField: "DeliveryTime", caption: "DeliveryTime " },
+            { dataField: "Mesafe", caption: "Mesafe " },
+            { dataField: "Adress", caption: "Adress " },
+            { dataField: "Type", caption: "Type " },
+            { dataField: "QuarterCode", caption: "QuarterCode " },
+            { dataField: "PointX", caption: "PointX " },
+            { dataField: "PointY", caption: "PointY " },
+            { dataField: "WDT", caption: "WDT " },
+            { dataField: "CSBM", caption: "CSBM " },
+            { dataField: "ObjectId", caption: "ObjectId  " },
+            { dataField: "Quarter", caption: "Quarter  " },
+            { dataField: "SubCity", caption: "SubCity  " },
+            { dataField: "Town", caption: "Town  " },
 
-                       
+
         ],
-        export: { enabled: true, fileName: "indeximport"},
+        export: { enabled: true, fileName: "indeximport" },
         scrolling: { mode: "virtual" },
         height: 600
     };

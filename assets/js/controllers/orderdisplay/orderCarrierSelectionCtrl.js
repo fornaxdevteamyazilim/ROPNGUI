@@ -60,7 +60,6 @@ function orderCarrierSelectionCtrl($scope, $log, $interval, $timeout, amMoment, 
                         if (OrderUpdate.OrderStateID == 4)
                             Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
                                 $scope.preparingOrders[idx] = result;
-                                $scope.calculateOrderTime();
                             }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
                         else
                             $scope.preparingOrders.splice(idx, 1);
@@ -69,7 +68,6 @@ function orderCarrierSelectionCtrl($scope, $log, $interval, $timeout, amMoment, 
                         if (OrderUpdate.OrderStateID == 4)
                             Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
                                 $scope.preparingOrders.push(result);
-                                $scope.calculateOrderTime();
                             }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
                     }
                 }
@@ -184,7 +182,7 @@ function orderCarrierSelectionCtrl($scope, $log, $interval, $timeout, amMoment, 
         });
         modalInstance.result.then(function (result) {
             if (result == 'Ok') {
-                dis.tableParams.reload();
+                //dis.tableParams.reload();
             }
         })
     };
