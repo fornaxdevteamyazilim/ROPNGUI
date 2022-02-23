@@ -76,22 +76,22 @@
                         <label translate="main.QUITREASON" for="QuitReason"></label><br />
                         <select id="QuitReasonID" ng-options="q.id as q.Description for q in quitreasons |orderBy:'+Description'" class="form-control" ng-model="item.QuitReasonID"></select>
                     </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12" ng-if="fingerPrintExists>0">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12" ng-if="user.restrictions.userafingerPrintExists=='Enable' &&fingerPrintExists>0">
                         <a class="margin-top-20 btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="deleteFingerPrint(item)" ng-disabled="!user.isAdmin">
                             <span translate="main.DELETEFINGERPRINT"></span>
                         </a>
                     </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12"  ng-if="magneticcardExists>0">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6  col-xs-12"  ng-if="user.restrictions.useramagneticcardExists=='Enable' && magneticcardExists>0">
                         <a class="margin-top-20 btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="deletemagneticcard(item)" ng-disabled="!user.isAdmin">
                             <span translate="main.DELETECARDPRINT"></span>
                         </a>
                     </div>
-                    <div class="form-group col-lg-2 col-md-12 col-sm-12 col-xs-12 pull-right">
+                    <div class="form-group col-lg-2 col-md-12 col-sm-12 col-xs-12 pull-right" ng-if="user.restrictions.useraremovedata=='Enable'">
                         <a class="margin-top-20 btn-red btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="removedata(item)" ng-if="user.isAdmin">
                             <span translate="main.DELETE"></span>
                         </a>
                     </div>
-                    <div class="form-group col-lg-2 col-md-12 col-sm-12 col-xs-12 pull-right">
+                    <div class="form-group col-lg-2 col-md-12 col-sm-12 col-xs-12 pull-right" ng-if="user.restrictions.userasaveData=='Enable'">
                         <a class="margin-top-20 btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-right" ng-click="saveData(item)">
                             <span translate="main.SAVE"></span>
                         </a>
@@ -101,9 +101,9 @@
         </div>
     </div>
     <br />
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="$stateParams.id!== 'new'">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="user.restrictions.userdetails=='Enable' && $stateParams.id!== 'new'" >
         <tabset justified="true" class="tabbable">
-            <tab heading="{{'main.USERACOUNT' | translate}}">
+            <tab heading="{{'main.USERACOUNT' | translate}}" ng-if="user.restrictions.useraccount=='Enable'"> 
                 <div class="panel panel-white" ng-controller="useraccountCtrl">
                     <div class="panel-body">
                         <form role="form" name="deliveryheader">
@@ -142,7 +142,7 @@
                     </div>
                 </div>
             </tab>
-            <tab heading="{{'main.USEREXTENSION' | translate}}">
+            <tab heading="{{'main.USEREXTENSION' | translate}}" ng-if="user.restrictions.userextensions=='Enable'">
                 <div ng-controller="userextensionCtrl">
                     <div ng-controller="userextensionCtrl as ue">
                         <div>
@@ -191,7 +191,7 @@
                 </div>
 
             </tab>
-            <tab heading="{{'main.USEREMAIL' | translate}}">
+            <tab heading="{{'main.USEREMAIL' | translate}}" ng-if="user.restrictions.useremail=='Enable'">
                 <div ng-controller="useremailCtrl">
                     <div ng-controller="useremailCtrl as ue">
                         <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-left" ng-click="addItem()">
@@ -237,7 +237,7 @@
                     </div>
                 </div>
             </tab>
-            <tab heading="{{'main.USERTRAINING' | translate}}">
+            <tab heading="{{'main.USERTRAINING' | translate}}" ng-if="user.restrictions.usertraining=='Enable'">
                 <div ng-controller="usertrainingCtrl">
                     <div ng-controller="usertrainingCtrl as ut">
                         <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus pull-left" ng-click="addItem()">

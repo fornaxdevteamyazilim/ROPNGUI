@@ -45,10 +45,10 @@
                         </button>
                     </div>
                     
-                    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4" ng-if="user.restrictions.transmittedOracle=='Enable'">
                         <button class="btn btn-o btn-success btn-wide btn-scroll btn-scroll-left fa fa-check" ng-show="$stateParams.id !== 'new'" ng-click="transmittedOracle(item.id)">
                             <span>{{:: Oracle}}</span>
-                        </button>
+                        </button> 
                     </div>
                      
                     <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">

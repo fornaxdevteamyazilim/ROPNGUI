@@ -302,14 +302,16 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
             if (MemberID == 300000000000) { // PH
                 var userroles = [
-                    { id: 106732385859, name: 'Restoran Müdürü', isActive: false , isDriver: false},
-                    { id: 109474168055, name: 'Asistan Müdür', isActive: false , isDriver: false },
-                    { id: 104536896676, name: 'Vardiya Müdürü', isActive: false, isDriver: false },
-                    { id: 300002043374, name: 'Restoran Kullanıcısı', isActive: false, isDriver: false },
+                    { id: 106732385859, name: 'REST. MANAGER', isActive: true , isDriver: false},
+                    { id: 109474168055, name: 'REST. ASSIST. MANAGER', isActive: true , isDriver: false },
+                    { id: 104536896676, name: 'REST. SHIFT MANAGER', isActive: true, isDriver: false },
+                    { id: 300002043374, name: 'REST. TEAM MEMBER', isActive: true, isDriver: false },
                     { id: 106761563444, name: 'Rest. Driver', isActive: true, isDriver: true },
-                    { id: 300002043360, name: 'Mutfak Kullanıcısı', isActive: false, isDriver: false },
+                    { id: 300002043360, name: 'REST. KITCHEN MEMBER', isActive: true, isDriver: false },
                     { id: 300021512530, name: 'Fiyuu Driver', isActive: false , isDriver: false},//Bir tane de Fiyuu sürücü
-                    { id: 300021694696, name: 'Sürücü', isActive: false , isDriver: true}
+                    { id: 300021694696, name: 'Sürücü', isActive: false , isDriver: true},
+                    { id: 300156809299, name: 'REST. DRIVER (No Shift)', isDriver: true},
+                    
                 ];
             }
             if (MemberID == 106851154380) { // LC

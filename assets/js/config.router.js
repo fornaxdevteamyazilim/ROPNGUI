@@ -3775,6 +3775,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'Complaint Subjects'
                 }
+            }).state('app.definitions.CashDrawerOpenReasons', {
+                url: '/CashDrawerOpenReasons',
+                templateUrl: "assets/views/definitions/CashDrawerOpenReasons.html",
+                resolve: loadSequence('xeditable', 'config-xeditable', 'ngTable', 'CashDrawerOpenReasonsCtrl'),
+                title: 'Cash Drawer Open Reasons',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'Cash Drawer Open Reasons'
+                }
             }).state('app.definitions.complaintsourcies', {
                 url: '/complaintsourcies',
                 templateUrl: "assets/views/definitions/complaintsourcies.html",
