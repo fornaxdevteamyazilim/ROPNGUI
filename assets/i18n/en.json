@@ -1897,6 +1897,7 @@
     "FIRSTORDERDATE": "First Order Date",
     "ACTIVEPERIOD": "Active Period",
     "ISOPEN": "Store Open/Close",
+    "ISENABLED": "Enabled Status", 
     "STORESTATUS": "Store Status",
     "STOREYSSTATUS": "Ys Store Status",
     "WAITINGPERIOD": "Waiting Period",

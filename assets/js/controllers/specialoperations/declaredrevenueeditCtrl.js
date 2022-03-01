@@ -6,7 +6,7 @@ function declaredrevenueeditCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
     $scope.item = {};
     $scope.resdata = {};
     $scope.Back = function () {
-        $location.path('app/specialoperations/declaredrevenue');
+        $location.path('app/specialoperations/declaredrevenueelist');
     };
     $scope.translate = function () {
         $scope.trStore = $translate.instant('main.STORE');

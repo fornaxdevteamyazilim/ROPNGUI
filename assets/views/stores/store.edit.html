@@ -232,7 +232,7 @@
                                         </span>
                                     </td>
                                     <td data-title="trFilter" data-sortable="'isActiveFilter'" style="width:30%" ng-click="rowform.$show()">
-                                        <span class="text-capitalize ng" editable-select="item.isActiveFilter" e-name="isActiveFilter" e-ng-options="q.id as q.Name for q in filters | orderBy:'+Name'"
+                                        <span class="text-capitalize ng" editable-select="item.isActiveFilter" e-name="isActiveFilter" ng-if="user.restrictions.storepaymenttypeisActiveFilter=='Enable'" e-ng-options="q.id as q.Name for q in filters | orderBy:'+Name'"
                                               e-form="rowform" e-ng-model="item.isActiveFilter" e-style="width:20vw;">
                                             {{ ShowObject('filters','id',item.isActiveFilter,'Name') }}
                                         </span>
@@ -292,7 +292,7 @@
                                             </span>
                                         </td>
                                         <td data-title="trFilter" data-sortable="'isActiveFilter'" style="width:30%" ng-click="rowform.$show()">
-                                            <span class="text-capitalize ng" editable-select="item.isActiveFilter" e-name="isActiveFilter" e-ng-options="q.id as q.Name for q in filters | orderBy:'+Name'"
+                                            <span class="text-capitalize ng" editable-select="item.isActiveFilter" e-name="isActiveFilter" ng-if="user.restrictions.storeordertypeisActiveFilter=='Enable'" e-ng-options="q.id as q.Name for q in filters | orderBy:'+Name'"
                                                   e-form="rowform" e-ng-model="item.isActiveFilter" e-style="width:20vw;">
                                                 {{ ShowObject('filters','id',item.isActiveFilter,'Name') }}
                                             </span>

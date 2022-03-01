@@ -46,6 +46,8 @@ function kds2Ctrl($rootScope, $scope, $log, $modal,$translate, $interval, $timeo
         $scope.LoadOrderItemStates();        
     });
     var KDSNotify = $scope.$on('KDSUpdate', function (event, data) {
+        if (data.Beep)
+        $scope.audio.play();
         $scope.LoadOrderItemStates();
     });
     var BumpBarData = $scope.$on('BumpBarData', function (event, data) {
@@ -91,11 +93,11 @@ function kds2Ctrl($rootScope, $scope, $log, $modal,$translate, $interval, $timeo
             OrderStateID: 4,
             KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex:0
         }).then(function (result) {
-            if (result.length > 0)
-                $scope.audio.play();
-            else
-                $scope.audio.pause();
-            $scope.inProgress = false;
+            // if (result.length > 0)
+            //     $scope.audio.play();
+            // else
+            //     $scope.audio.pause();
+             $scope.inProgress = false;
             $scope.orderitemstates = $scope.UpdateOrderItemStatesTimers(result.plain());
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {

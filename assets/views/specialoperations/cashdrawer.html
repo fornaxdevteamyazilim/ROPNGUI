@@ -6,12 +6,7 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <label translate="main.REASONOPEN" style="color:black;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-bold"></label>
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <select class="form-control text-capitalize" ng-model="item.isAutomatic">
-                <option value="0">Spot Sayım </option>
-                <option value="1">Kurye Tahsilat</option>
-                <option value="2">Vardiya Sonu</option>
-                <option value="3">Diger</option>
-            </select>
+            <select class="form-control text-capitalize" ng-options="q.id as q.Reason for q in CashDrawerOpenReasons | orderBy:'+Reason'" class="form-control text-uppercase ng" ng-model="item.CashDrawerOpenReasonID">  </select>
         </div>
     </div>
     <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -21,14 +16,14 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <label style="color:black;" class="text-bold margin-top-5">Not</label><br />
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <input type="text" class="form-control" ng-model="item.Notes" required>
+            <input type="text" class="form-control" ng-model="item.Note" ng-show="item.CashDrawerOpenReasonID== '300158910401'" required>
         </div>
     </div>
     <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <label translate="main.DESCRIPTION" style="color:black;" class="text-bold"></label><br />
         <textarea style='max-height:100px; max-width:280px;' placeholder='{{main.DESCRIPTION}}' id='form-field-22' class='form-group form-control col-lg-12 col-md-12 col-sm-12 col-xs-12 text-uppercase' ng-model='item.Description' required></textarea>
     </div> -->
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="item.isAutomatic=='0' ||item.isAutomatic=='1' ||item.isAutomatic=='2' ||item.isAutomatic=='2' ||item.isAutomatic=='3' && item.Notes">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show=" item.isNotesRequired && item.CashDrawerOpenReasonID== '300158910401' || item.CashDrawerOpenReasonID">
         <button translate="main.SAVE" class="btn btn-primary col-lg-2 margin-top-5 pull-right text-uppercase" ng-click="LoadCheckOutCash(item)"></button>
     </div>
 </div>
