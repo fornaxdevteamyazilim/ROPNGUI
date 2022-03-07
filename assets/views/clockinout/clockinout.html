@@ -5,7 +5,7 @@
 <div class="row" ng-controller="clockinoutCtrl">
     <div class="lock-screen">
 
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right" style="left: 400px;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left" style="right: 400px;">
             <h4 class="center">{{user.FullName}}</h4>
             <img alt="" ng-src="assets/images/fingerprint.png" class="img-rounded center" height="242" width="242" />
             <div class="user-info">
@@ -45,7 +45,7 @@
 
     </div>
     <div class="lock-screen">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left" style="right: 400px;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right" style="left: 400px;">
             <h4 class="center">{{user.FullName}} {{CardEnrollMessage}}</h4>
             <img alt="" ng-src="assets/images/kartokuyucu.png" class="img-rounded center" height="242" width="242" />
             <div class="user-info">
@@ -73,9 +73,9 @@
                             </a>
                         </div>
                         
-                        <div ng-repeat="msg in ClientMessages | orderBy:'$index':true">
+                        <!-- <div ng-repeat="msg in ClientMessages | orderBy:'$index':true">
                             {{$index}}-{{msg.MessageType}}:{{msg.Message}}
-                        </div>
+                        </div> -->
                     </div>
 
                 </form>

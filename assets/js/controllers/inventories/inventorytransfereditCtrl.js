@@ -35,6 +35,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         $scope.print = $translate.instant('main.PRINT');
         $scope.addtransferitem = $translate.instant('main.ADDTRANSFERITEM');
         $scope.edit = $translate.instant('main.EDIT');
+        $scope.trReject = $translate.instant('main.ISPREJECT');
     };
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {
@@ -73,12 +74,12 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             toaster.pop('warning', "warning...", response.data.ExceptionMessage);
         });
     };
-    $scope.checkInventoryTransferApproval = function (itemID,tostate) {
+    $scope.checkInventoryTransferApproval = function (itemID,ToState) {
         $scope.isWaiting = true;
         Restangular.one('/InventorySupply/approvetransfer').get(
             {
                 InventoryTrasferID: itemID,
-                toState:tostate // Approved
+                ToState:1
             }
         ).then(function (restresult) {
             $scope.isWaiting = false;

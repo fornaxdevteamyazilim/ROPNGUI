@@ -71,6 +71,12 @@
                         {{ item.isOpen && "True" || "False"}}
                     </span>-->
                 </td>
+                <td data-title="trisEnabled" data-sortable="'isEnabled'" style="width:5%">
+                    <span class="text-capitalize" editable-checkbox="item.isEnabled" e-name="isEnabled" e-form="rowform" e-ng-model="item.isEnabled" e-required e-ng-true-value="true" e-ng-false-value="false" e-style="width:5vw;">
+                        {{ item.isEnabled && "True" || "False"}}
+                    </span>
+                   
+                </td>
                 <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="5%">
                     <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
                           shown="inserted == item|| !item.id">

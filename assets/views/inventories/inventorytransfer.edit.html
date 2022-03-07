@@ -70,20 +70,20 @@
                     </div>
                     <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
                         <label>{{:: trApprove}}</label>
-                        <select id="store" ng-options="q.Value as q.Name for q in InventoryApproveState | orderBy:'+Name'" class="form-control text-capitalize ng" ng-model="item.ApproveState" readonly ng-disabled="1"></select>
+                        <select id="store" ng-options="q.Value as q.Name for q in InventoryApproveState | orderBy:'+Name'" class="form-control text-capitalize ng" ng-model="item.ApproveState" ng-disabled="EditCountDisabled()" readonly></select>
                     </div>
-                    <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
-                        <button class="btn btn-o btn-warning  btn-scroll btn-scroll-left fa fa-check-circle hidden-print pull-right margin-top-25" ng-disabled="item.ApproveState != 0 || isWaiting == true" ng-click="checkInventoryTransferApproval(item.id,1)">
+                    <div print-remove class="form-group col-sm-1 col-lg-1 col-md-1 col-xs-12">
+                        <button class="btn btn-o btn-success  btn-scroll btn-scroll-left fa fa-check-circle hidden-print pull-right margin-top-25" ng-disabled="item.ApproveState != 0 || isWaiting == true" ng-click="checkInventoryTransferApproval(item.id.1)">
                             <span class='fa fa-spin fa-spinner' ng-if='isWaiting == true'></span><span ng-if="isWaiting != true">{{:: trIsCheck}}</span>
                         </button>
                     </div>
-                    <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
-                        <button class="btn btn-o btn-success  btn-scroll btn-scroll-left fa fa-check-circle hidden-print pull-right margin-top-25" ng-disabled="item.ApproveState != 0 || isWaiting == true" ng-click="checkInventoryTransferApproval(item.id,2)">
-                            <span class='fa fa-spin fa-spinner' ng-if='isWaiting == true'></span><span ng-if="isWaiting != true">Reject</span>
+                    <div print-remove class="form-group col-sm-1 col-lg-1 col-md-1 col-xs-12">
+                        <button class="btn btn-o btn-red  btn-scroll btn-scroll-left fa fa-times hidden-print pull-right margin-top-25" ng-disabled="item.ApproveState != 0 || isWaiting == true" ng-click="checkInventoryTransferApproval(item.id.2)">
+                            <span class='fa fa-spin fa-spinner' ng-if='isWaiting == true'></span><span ng-if="isWaiting != true">{{:: trReject}}</span>
                         </button>
                     </div>
-                    <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
-                        <button class="btn btn-o btn-danger  btn-scroll btn-scroll-left fa fa-check-circle hidden-print pull-right margin-top-25" ng-disabled="(item.InventorySupplyState == 0 || item.InventorySupplyState == 1 || item.InventorySupplyState == 3 || item.InventorySupplyState == 5) || isWaiting == true" ng-click="DeliverTransfer()">
+                    <div print-remove class="form-group col-sm-1 col-lg-1 col-md-1 col-xs-12">
+                        <button class="btn btn-o btn-warning  btn-scroll btn-scroll-left fa fa-check-circle hidden-print pull-right margin-top-25" ng-disabled="(item.InventorySupplyState == 0 || item.InventorySupplyState == 1 || item.InventorySupplyState == 3 || item.InventorySupplyState == 5) || isWaiting == true" ng-click="DeliverTransfer()">
                             <span class='fa fa-spin fa-spinner' ng-if='isWaiting == true'></span><span ng-if="isWaiting != true">{{:: trIsCheck}}</span>
                         </button>
                     </div>

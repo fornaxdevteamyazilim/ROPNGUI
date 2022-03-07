@@ -1915,6 +1915,7 @@
     "FIRSTORDERDATE": "İlk Sipariş Tarihi",
     "ACTIVEPERIOD": "Aktif Dönem",
     "ISOPEN": "Restoran Açık/Kapalı",
+    "ISENABLED": "Restaran Durumu",
     "STORESTATUS": "Restoran Durumu",
     "STOREYSSTATUS": "YS Restoran Durumları",
     "WAITINGPERIOD": "Bekleme Süresi",

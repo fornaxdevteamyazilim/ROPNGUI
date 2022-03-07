@@ -7,7 +7,7 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
     $scope.items = [];
     $scope.resdata = {};
     $scope.Back = function () {
-        $location.path('app/reports/giroreports/maincashreport');
+        $location.path('app/specialoperations/declaredrevenueelist');
     };
     $scope.translate = function () {
         $scope.trStore = $translate.instant('main.STORE');
@@ -157,7 +157,7 @@ function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restang
             $scope.item.post().then(function (resp) {
                 $scope.item.id = resp.id;
                 swal($translate.instant('orderfile.Saved'), $translate.instant('orderfile.Saved'), "success");
-                $location.path('app/mainscreen/');
+                $location.path('app/specialoperations/declaredrevenueelist');
                 $scope.item = {};
                 $scope.item = Restangular.copy(resp);
                 // dre.tableParams.reload();
