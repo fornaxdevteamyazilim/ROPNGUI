@@ -73,11 +73,12 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             toaster.pop('warning', "warning...", response.data.ExceptionMessage);
         });
     };
-    $scope.checkInventoryTransferApproval = function (itemID) {
+    $scope.checkInventoryTransferApproval = function (itemID,tostate) {
         $scope.isWaiting = true;
         Restangular.one('/InventorySupply/approvetransfer').get(
             {
                 InventoryTrasferID: itemID,
+                toState:tostate // Approved
             }
         ).then(function (restresult) {
             $scope.isWaiting = false;

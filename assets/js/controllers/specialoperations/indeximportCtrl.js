@@ -12,7 +12,7 @@ app.directive('ngFiles', ['$parse', function ($parse) {
     }
 }]);
 app.controller('indeximportCtrl', indeximportCtrl);
-function indeximportCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService, $http,Restangular,toaster) {
+function indeximportCtrl($rootScope, $scope, NG_SETTING, $translate, $element, localStorageService, $http, Restangular, toaster) {
     $rootScope.uService.EnterController("indeximportCtrl");
     var ngurr = this;
 
@@ -56,17 +56,17 @@ function indeximportCtrl($rootScope, $scope, NG_SETTING, $translate, $element, l
             }
         }).then(function (data) {
             if (data.status) {
-                toaster.pop('success',"Data has been inserted ! ");
+                toaster.pop('success', "Data has been inserted ! ");
                 $scope.msg = "Data has been inserted ! ";
                 $scope.LoadData();
             }
             else {
                 $scope.msg = "Error : Something Wrong";
-                toaster.pop('warning',"Error : Something Wrong");
+                toaster.pop('warning', "Error : Something Wrong");
             }
         }, function (error) {
             $scope.msg = "Error : Something Wrong";
-            toaster.pop('warning',"Error : Something Wrong");
+            toaster.pop('warning', "Error : Something Wrong");
         })
     }
     $scope.ClearData = function () {

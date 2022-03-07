@@ -1,5 +1,5 @@
 ﻿app.controller('kds2Ctrl', kds2Ctrl);
-function kds2Ctrl($rootScope, $scope, $log, $modal,$translate, $interval, $timeout, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $location, $filter, localStorageService, $translate, ngnotifyService, userService, ngAudio, $element, $localStorage) {
+function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $timeout, Restangular, ngTableParams, SweetAlert, toaster, $window, $rootScope, $location, $filter, localStorageService, $translate, ngnotifyService, userService, ngAudio, $element, $localStorage) {
     $rootScope.uService.EnterController("kds2Ctrl");
     $scope.item = {};
     $scope.audio = ngAudio.load('assets/sound/ringin.mp3');
@@ -9,7 +9,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal,$translate, $interval, $timeo
     $scope.inProgress = false;
     $scope.KDIndex = 0;
     $scope.$storage = $localStorage.$default({
-        KDisplayIndex:0
+        KDisplayIndex: 0
     });
     var stopTime;
     var kd = this;
@@ -43,9 +43,11 @@ function kds2Ctrl($rootScope, $scope, $log, $modal,$translate, $interval, $timeo
     });
     //$rootScope.disableSessionTimeOut();
     var OrderRefresh = $scope.$on('OrderChange', function (event, data) {
-        $scope.LoadOrderItemStates();        
+        $scope.LoadOrderItemStates();
     });
     var KDSNotify = $scope.$on('KDSUpdate', function (event, data) {
+        if (data.Beep)
+            $scope.audio.play();
         $scope.LoadOrderItemStates();
     });
     var BumpBarData = $scope.$on('BumpBarData', function (event, data) {
@@ -89,18 +91,18 @@ function kds2Ctrl($rootScope, $scope, $log, $modal,$translate, $interval, $timeo
         Restangular.all('kds/getitems').getList({
             StoreID: $rootScope.user.StoreID,
             OrderStateID: 4,
-            KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex:0
+            KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0
         }).then(function (result) {
-            if (result.length > 0)
+            /* if (result.length > 0)
                 $scope.audio.play();
             else
-                $scope.audio.pause();
+                $scope.audio.pause(); */
             $scope.inProgress = false;
             $scope.orderitemstates = $scope.UpdateOrderItemStatesTimers(result.plain());
             $scope.$broadcast('$$rebind::refresh');
         }, function (response) {
             $scope.inProgress = false;
-            toaster.pop('error',$translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
     $scope.LoadOrderItemStates();
@@ -161,7 +163,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal,$translate, $interval, $timeo
         $scope.orderitemstates.splice(index, 1);
         $scope.$broadcast('$$rebind::refresh');
         if ($scope.WaitForResult == true) {
-            toaster.pop("warning", $translate.instant('kitchendisplayf.PleaseWait'),$translate.instant('kitchendisplayf.PleaseClickAgain') );
+            toaster.pop("warning", $translate.instant('kitchendisplayf.PleaseWait'), $translate.instant('kitchendisplayf.PleaseClickAgain'));
         }
         else {
             var data = $scope.updateOrder(OrderID);
@@ -170,15 +172,15 @@ function kds2Ctrl($rootScope, $scope, $log, $modal,$translate, $interval, $timeo
     $scope.updateOrder = function (OrderID) {
         Restangular.one('kds/updateorder').get({
             OrderID: OrderID,
-            AutoPrint:false,
+            AutoPrint: false,
             KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0
         }).then(function (restresult) {
-            toaster.pop("success", $translate.instant('kitchendisplayf.Prepared'),$translate.instant('kitchendisplayf.Itemprepared'));
+            toaster.pop("success", $translate.instant('kitchendisplayf.Prepared'), $translate.instant('kitchendisplayf.Itemprepared'));
             $scope.LoadOrderItemStates();
         }, function (restresult) {
             $scope.WaitForResult = false;
-                toaster.pop('error', $translate.instant('kitchendisplayf.Updatefailed'), restresult.data.ExceptionMessage);
-                $scope.LoadOrderItemStates();
+            toaster.pop('error', $translate.instant('kitchendisplayf.Updatefailed'), restresult.data.ExceptionMessage);
+            $scope.LoadOrderItemStates();
         })
     };
     $scope.setLocalStoregFont = function (data) {
@@ -226,7 +228,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal,$translate, $interval, $timeo
         }
     };
     $scope.StartClock();
- 
+
 
     $scope.$on('$destroy', function () {
         //$timeout.cancel(interval);

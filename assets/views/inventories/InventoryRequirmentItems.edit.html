@@ -32,6 +32,7 @@
                     <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12"ng-if="cdate">
                         <label>{{:: datetime}}</label><br />
                         <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-options="q.lDATUField as q.lDATUField+'=>'+q.eDATUField for q in deliverydates |orderBy: '+lDATUField'" ng-model="item.Date"></select>
+                        <!-- <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-options="q.Order_Take_Date as q.Order_Take_Date +'=>'+q.Arrival_Date for q in deliverydates |orderBy: '+Order_Take_Date'" ng-model="item.Date"></select> -->
                     </div>
                     <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12" ng-if="!cdate">
                         <label>{{:: datetime}}</label><br />
