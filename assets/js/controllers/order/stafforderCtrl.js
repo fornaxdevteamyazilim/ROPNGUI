@@ -8,13 +8,14 @@ function stafforderCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, 
      $scope.BuildSearchString = function () {
         var result = [];
         result.push(" StoreID= '" + $rootScope.user.StoreID + "'");
-        result.push(" tt.id= '" + $rootScope.user.id + "'"); // Self Order
+        if ($rootScope.user.restrictions.EnterStafforder != 'Enable')
+            result.push(" tt.id= '" + $rootScope.user.id + "'"); // Self Order
         return result;
      };
     Restangular.all('user').getList({
         pageNo: 1,
         pageSize: 10000,
-         search: $scope.BuildSearchString()
+        search: $scope.BuildSearchString()
      }).then(function (result) {
          $scope.storeUsers = result;
      }, function (response) {

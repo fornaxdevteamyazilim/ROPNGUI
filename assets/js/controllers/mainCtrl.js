@@ -459,35 +459,30 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
         var OrderUpdated = $scope.$on('OrderUpdated', function (event, data) {
             $scope.UpdateOrder(data);
         });
-        $scope.preparingOrders = [];
+        $scope.CarrierAssignActiveOrders = [];
         $scope.UpdateOrder = function (OrderUpdate) {
-            if (OrderUpdate.OrderTypeID == 2 || OrderUpdate.OrderTypeID == 7) {
-                if (OrderUpdate.isActive && ([4].some(x => x === OrderUpdate.OrderStateID))) {
-                    if ($scope.preparingOrders) {
-                        if ($scope.preparingOrders.some(x => x.id === OrderUpdate.OrderID)) {
-                            var idx = $scope.preparingOrders.findIndex(x => x.id === OrderUpdate.OrderID);
-                            if (OrderUpdate.OrderStateID == 4)
-                                Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
-                                    $scope.preparingOrders[idx] = result;
-                                }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
-                            else
-                                $scope.preparingOrders.splice(idx, 1);
-                        }
-                        else {
-                            if (OrderUpdate.OrderStateID == 4)
-                                Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
-                                    $scope.preparingOrders.push(result);
-                                }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
-                        }
-                    }
+            if (OrderUpdate.CarrierAssignActive) {
+                if ($scope.CarrierAssignActiveOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                    var idx = $scope.CarrierAssignActiveOrders.findIndex(x => x.id === OrderUpdate.OrderID);
+                    if (OrderUpdate.OrderStateID == 4)
+                        Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                            $scope.CarrierAssignActiveOrders[idx] = result;
+                        }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
+                    else
+                        $scope.CarrierAssignActiveOrders.splice(idx, 1);
                 }
-                else if (OrderUpdate.OrderStateID > 0) {
-                    if ($scope.preparingOrders.some(x => x.id === OrderUpdate.OrderID)) {
-                        $scope.preparingOrders.splice($scope.preparingOrders.findIndex(x => x.id === OrderUpdate.OrderID), 1);
-                    }
+                else {
+                    Restangular.one('order/updated').get({ OrderID: OrderUpdate.OrderID }).then(function (result) {
+                        $scope.CarrierAssignActiveOrders.push(result);
+                    }, function (response) { toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage); });
                 }
-                $scope.$broadcast('$$rebind::refresh');
             }
+            else {
+                if ($scope.CarrierAssignActiveOrders.some(x => x.id === OrderUpdate.OrderID)) {
+                    $scope.CarrierAssignActiveOrders.splice($scope.CarrierAssignActiveOrders.findIndex(x => x.id === OrderUpdate.OrderID), 1);
+                }
+            }
+            $scope.$broadcast('$$rebind::refresh');
         }
         $scope.LoadOrders = function (initload) {
             if (!initload) return;
@@ -497,7 +492,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$modal', '$state', '$transla
                 pageSize: 1000,
                 search: $scope.BuildSearchString()
             }).then(function (result) {
-                $scope.preparingOrders = $filter('filter')(result, (item) => { return (item.OrderStateID == 4 || item.OrderStateID == 21); });
+                $scope.CarrierAssignActiveOrders = $filter('filter')(result, (item) => { return (item.CarrierAssignActive); });
                 $scope.$broadcast('$$rebind::refresh');
             }, function (response) {
                 toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
