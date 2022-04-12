@@ -576,6 +576,8 @@
     "BRANDNAME": "Brand Name",
     "CHASSISNUMBER": "Chassis Number",
     "COMMANDS": "Commands",
+    "QUANTITYLIMIT":"Quantity Limit",
+    "STOREBASEDQUANTITYLIMIT": "Store Based Quantity Limit",
     "ORDERDELIVERYPRICE": "Order delivery price",
     "COMPANY": "Company",
     "COMPANYCONTACTPERSON": "Company Contact Person",

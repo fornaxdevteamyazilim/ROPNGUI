@@ -95,7 +95,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             type: "localStorage",
             storageKey: "dx-sosreport-storing"
         },
-        //columnChooser: { enabled: false },
+        columnChooser: { enabled: true },
         columnFixing: { enabled: true },
         columns: [
             { caption: $translate.instant('sosreport.RegionManager'), dataField: "RegionManager", dataType: "string", width: 230, fixed: true },
@@ -103,6 +103,7 @@ function SOSReportCtrl($scope, $filter, $modal, $log, Restangular, SweetAlert, $
             { caption: $translate.instant('sosreport.OrderSource'), dataField: "OrderSource", dataType: "string", fixed: true },
             { caption: $translate.instant('sosreport.StoreFilterType'), dataField: "StoreFilterType", dataType: "string", fixed: true, groupIndex: 0 },
             { caption: $translate.instant('sosreport.OperationDate'), dataField: "OperationDate", dataType: "date", format: 'dd.MM.yyyy', fixed: true, },
+            { caption: 'Carrier', dataField: "Carrier", dataType: "string",fixed: true, visible: false },
             { caption: "Trx" ,dataField: "GC", dataType: "number" },
             { dataField: "MakeU3", dataType: "number", format: { type: "percent", precision: 2 } },
             { caption: "Ort MakeTable", dataField: "AvgMakeTable", dataType: "number", customizeText: formatTime },

@@ -18,6 +18,7 @@ function automaticOrderItemEarningCtrl($rootScope, $scope, $modal, $filter, Swee
         $scope.trMaxOrderAmount = $translate.instant('main.MAXAMOUNT');
         $scope.trProducts = $translate.instant('main.PRODUCTS');
         $scope.trisActive = $translate.instant('main.ISACTIVE');
+        $scope.trQuantity = $translate.instant('main.QUANTITY');
 
     }
     $scope.translate();

@@ -556,6 +556,8 @@
     "ADDUSEREMAIL": "E-mail Ekle",
     "NUMBER": "Numara",
     "COMMANDS": "İşlemler",
+    "QUANTITYLIMIT":"Adet Limiti",
+    "STOREBASEDQUANTITYLIMIT": "Restoran Bazlı Adet Limiti",
     "ORDERDELIVERYPRICE": "Sipariş teslim fiyatı",
     "PERSONSPECIALDATE": "Özel Günler",
     "SPECIALDATETYPE": "Özel Gün Tipleri",

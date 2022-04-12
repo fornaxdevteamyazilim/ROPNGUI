@@ -77,6 +77,11 @@
                         {{ item.MaxOrderAmount }}
                     </span>
                 </td>
+                <td data-title="trQuantity " data-sortable="'Quantity '" style="width:10%">
+                    <span editable-text="item.Quantity " e-name="Quantity " e-form="rowform" e-ng-model="item.Quantity " e-style="width:10vw;">
+                        {{ item.Quantity }}
+                    </span>
+                </td>
                 <!--<td data-title="trisActiveValue" data-sortable="'isActiveValue '" style="width:10%">
                     <span class="text-capitalize" editable-checkbox="item.isActiveValue" e-name="isActiveValue" e-form="rowform" e-ng-model="item.isActiveValue" e-ng-true-value="true" e-ng-false-value="false" e-style="width:5vw;">
                         {{:: item.isActiveValue && "True" || "False"}}

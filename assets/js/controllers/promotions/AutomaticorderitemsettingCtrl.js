@@ -7,6 +7,8 @@ function AutomaticorderitemsettingCtrl($rootScope, $scope, $modal, $filter, Swee
         $scope.trisActive = $translate.instant('main.ISACTIVE');
         $scope.trCommands = $translate.instant('main.COMMANDS');
         $scope.trStartDate = $translate.instant('main.STARTDATE');
+         $scope.trQuantityLimit = $translate.instant('main.QUANTITYLIMIT');
+         $scope.trStoreBasedQuantityLimit = $translate.instant('main.STOREBASEDQUANTITYLIMIT');
     }
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
