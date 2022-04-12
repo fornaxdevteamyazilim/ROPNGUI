@@ -244,7 +244,7 @@ app.factory('userService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             else if (userServiceFactory.userIsInRole("CCMANAGER") || userServiceFactory.userIsInRole("CALLCENTER") || userServiceFactory.userIsInRole("Alonet")) {
                 $location.path('/app/orders/personpage/list');
             }
-            else if (userServiceFactory.userIsInRole("Manager") || userServiceFactory.userIsInRole("AREAMANAGER") || userServiceFactory.userIsInRole("Admin")) {
+            else if (userServiceFactory.userIsInRole("Manager") || userServiceFactory.userIsInRole("AREAMANAGER") || userServiceFactory.userIsInRole("Manager_v2") ||userServiceFactory.userIsInRole("Admin")) {
                 //$location.path('/app/dashboard');
                 $location.path('app/reports/giroreports/trends');
             }

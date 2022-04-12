@@ -4978,6 +4978,24 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'GunSonuAlmaAdimlari'
                 }
+            }).state('app.help.Sistemdesiparisdegisikiğikisitlamalri', {
+                url: '/Sistemdesiparisdegisikiğikisitlamalri',
+                templateUrl: "assets/views/help/Sistemdesiparisdegisikiğikisitlamalri.html",
+                resolve: loadSequence('underscore', 'documentsCtrl'),
+                title: 'Sistemdesiparisdegisikiğikisitlamalri',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'Sistemdesiparisdegisikiğikisitlamalri'
+                }
+            }).state('app.help.Poskurumlari', {
+                url: '/Poskurumlari',
+                templateUrl: "assets/views/help/Poskurumlari.html",
+                resolve: loadSequence('underscore', 'documentsCtrl'),
+                title: 'Poskurumlari',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'Poskurumlari'
+                }
             }).state('app.help.YSSiparisleri', {
                 url: '/YsSiparisleri',
                 templateUrl: "assets/views/help/YsSiparisleri.html",

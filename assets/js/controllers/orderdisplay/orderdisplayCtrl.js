@@ -66,6 +66,7 @@ function orderdisplayCtrl($scope, $log, $modal, $interval, Restangular, ngTableP
             OrderNote: order.OrderNote,
             PaymentNote: order.PaymentNote,
             StoreTableID: order.StoreTableID,
+            Alias: order.Alias,
         }
     };
     $scope.ChangeOrderState = function (item) {

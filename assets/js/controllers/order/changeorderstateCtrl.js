@@ -8,6 +8,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
     $scope.order = {};
     $scope.orderreasons = [];
     $scope.YemekSepetiRejectReasons = [];
+    $scope.TrendyolRejectReasons = [];
     $scope.translate = function () {
         $scope.trOrderNumber = $translate.instant('main.ORDERNUMBER');
         $scope.trCancelReason = $translate.instant('main.CANCELREASON');
@@ -17,6 +18,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
         $scope.trisCustomerInformed = $translate.instant('main.CUSTOMERINFORMATION');
         $scope.trCustomerNotInformed = $translate.instant('main.CUSTOMERNOTINFORMED');
         $scope.trYSCancelReason = $translate.instant('main.YSCANCELREASON');
+        $scope.trTrendyolCancelReason = $translate.instant('main.TRENDYOLCANCELREASON');
 
     };
     if ($rootScope.user.restrictions && $rootScope.user.restrictions.askinventory == 'Disable') {
@@ -41,6 +43,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                 OrderID: item.id,
             }).then(function (items) {
                 angular.copy(items, $scope.YemekSepetiRejectReasons);
+                angular.copy(items, $scope.TrendyolRejectReasons);
             }, function (response) {
                 toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
@@ -104,6 +107,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     OrderReasonID: data.OrderReasonID,
                     OrderNote: data.Note,
                     YemekSepetiRejectReasonID: data.YemekSepetiRejectReasonID,
+                    TrendyolRejectReasonID:data.TrendyolRejectReasonID,
                     isCustomerInformed: item.isCustomerInformed
                 }).then(function (result) {
                     toaster.pop('success', $translate.instant('orderfile.OrderStatusUpdated'));
@@ -119,6 +123,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     OrderReasonID: data.OrderReasonID,
                     OrderNote: data.Note,
                     YemekSepetiRejectReasonID: data.YemekSepetiRejectReasonID,
+                    TrendyolRejectReasonID:data.TrendyolRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
                     toaster.pop('success', $translate.instant('orderfile.OrderStatusUpdated'));
@@ -141,6 +146,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     OrderReasonID: data.OrderReasonID,
                     OrderNote: data.Note,
                     YemekSepetiRejectReasonID: data.YemekSepetiRejectReasonID,
+                    TrendyolRejectReasonID:data.TrendyolRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
                     toaster.pop('success', $translate.instant('orderfile.OrderDenied'));
@@ -181,6 +187,9 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
     };
     $scope.yemeksepetirejectreasons = [];
     $scope.loadEntities('aggregator/OrderCancelOptions', 'yemeksepetirejectreasons');
+    $scope.TrendyolRejectReasons = [];
+    $scope.loadEntities('TrendyolRejectReason','TrendyolRejectReasons');
+
 
     $scope.ok = function () {
         $modalInstance.close('result');

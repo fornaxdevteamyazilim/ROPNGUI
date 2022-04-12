@@ -297,7 +297,7 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
                 //groupIndex: 0
             },
             { dataField: "type",   caption: $translate.instant('dxGetirProduct.type'), },
-            { dataField: "Name",   caption: $translate.instant('dxGetirProduct.Name'), },
+            { dataField: "name",   caption: $translate.instant('dxGetirProduct.Name'), },
            // "type","name",
             {
                 dataField: "PaymentTypeID", caption: $translate.instant('dxGetirProduct.PaymentType'),

@@ -6,6 +6,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
     $scope.item = {};
     vm.items = {};
     $scope.repositories = [];
+    $scope.NGUserRoleID = '';
     $scope.Back = function () {
         $window.history.back();
     };
@@ -29,6 +30,8 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         $scope.datetime = $translate.instant('main.DATETIME');
         $scope.trInventorySupplyState = $translate.instant('main.INVENTORYSUPPLYSTATE');
         $scope.trIsCheck = $translate.instant('main.ISPCHECK');
+        $scope.trIsCheckbk = $translate.instant('main.ISPCHECKBK');
+        $scope.trIsCheckStore = $translate.instant('main.STOREISPCHECK');
         $scope.trApprove = $translate.instant('main.APPROVE');
         $scope.save = $translate.instant('main.SAVE');
         $scope.delete = $translate.instant('main.DELETE');
@@ -74,12 +77,13 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             toaster.pop('warning', "warning...", response.data.ExceptionMessage);
         });
     };
-    $scope.checkInventoryTransferApproval = function (itemID,ToState) {
+    $scope.checkInventoryTransferApproval = function (itemID,State) {
+        if (userService.isAdmin() || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("PHAdmin") ) {
         $scope.isWaiting = true;
         Restangular.one('/InventorySupply/approvetransfer').get(
             {
                 InventoryTrasferID: itemID,
-                ToState:1
+                ToState:State,
             }
         ).then(function (restresult) {
             $scope.isWaiting = false;
@@ -89,6 +93,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
             $scope.isWaiting = false;
             toaster.pop('warning', "warning...", response.data.ExceptionMessage);
         });
+    }
     };
     $scope.EditCountDisabled = function () {
         return $stateParams.id != 'new';

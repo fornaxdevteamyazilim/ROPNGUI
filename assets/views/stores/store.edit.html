@@ -156,6 +156,10 @@
                     <fieldset class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12" ng-if="user.restrictions.accountingedit =='Enable'">
                         <legend translate="main.ACCOUNTING">ACCOUNTING </legend>
                         <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12">
+                            <label for="Store" translate="main.YUMSTOREID"></label>
+                            <input id="id" type="text" class="form-control text-capitalize" ng-model="item.YUMStoreID" placeholder="" ng-minlength="1" required>
+                        </div>
+                        <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12">
                             <label for="Store" translate="main.ROPSTOREID"></label>
                             <input id="id" type="text" class="form-control text-capitalize" ng-model="item.ROPStoreID" placeholder="" ng-minlength="1" required>
                         </div>

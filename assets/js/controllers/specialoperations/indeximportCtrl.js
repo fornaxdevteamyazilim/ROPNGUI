@@ -118,7 +118,18 @@ function indeximportCtrl($rootScope, $scope, NG_SETTING, $translate, $element, l
                         //'Content-type': 'application/json'
                     };
                 }
-            }
+            },
+            onAjaxError: function (e) {
+                //var emsg=e.xhr.responseText.map(item => ExceptionMessage);
+                var obj = JSON.parse(e.xhr.responseText);
+                //console.log(obj.ExceptionMessage);
+                toaster.pop('error', obj.Message, obj.ExceptionMessage);
+            },
+            remoteOperations: {
+                filtering: true,
+                sorting: true,
+                grouping: true
+            },
         }),
         //filterValue: getFilter(),
         showBorders: true,

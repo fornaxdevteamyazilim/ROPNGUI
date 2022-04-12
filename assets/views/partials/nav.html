@@ -2088,6 +2088,13 @@
                         translate="sidebar.nav.addresses.STREETADDRESS">Adresler</span>
                 </a>
             </li>
+            
+            <li ui-sref-active="active" ng-if="user.restrictions.indeximport=='Enable'">
+                <a ui-sref="app.specialoperations.indeximport">
+                    <i class="ti-money"></i> <span class="title"
+                        translate="sidebar.nav.specialoperations.INDEXIMPORT">Store Sales Traget</span>
+                </a>
+            </li>
         </ul>
     </li>
 
@@ -2369,12 +2376,6 @@
                         translate="sidebar.nav.specialoperations.STORESALESBUDGET">Store Sales Budget</span>
                 </a>
             </li>
-            <li ui-sref-active="active" ng-if="user.restrictions.indeximport=='Enable'">
-                <a ui-sref="app.specialoperations.indeximport">
-                    <i class="ti-money"></i> <span class="title"
-                        translate="sidebar.nav.specialoperations.INDEXIMPORT">Store Sales Traget</span>
-                </a>
-            </li>
             <li ui-sref-active="active" ng-if="user.restrictions.declaredrevenueelist=='Enable'">
                 <a ui-sref="app.specialoperations.declaredrevenueelist">
                     <i class="ti-money"></i> <span class="title"
@@ -2638,6 +2639,16 @@
                         Sonu Alma Adýmlarý</span>
                 </a>
             </li>
+            <li ui-sref-active="active" ng-if="user.restrictions.restrictorderchangessystem=='Enable'">
+                <a ui-sref="app.help.Sistemdesiparisdegisikiğikisitlamalri">
+                    <i class="ti-check-box"></i> <span class="title" translate="sidebar.nav.help.RESTRICTORDERCHANGESINTHESYSTEM">Sipariş Değişikliği Kisitlamalari</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="user.restrictions.posinstallations=='Enable'">
+                <a ui-sref="app.help.Poskurumlari">
+                    <i class="ti-check-box"></i> <span class="title" translate="sidebar.nav.help.POSINSTALLATIONS">Pos Kurumlari</span>
+                </a>
+            </li>
             <li ui-sref-active="active" ng-if="user.restrictions.ysentegrasyon=='Enable'">
                 <a ui-sref="app.help.YSSiparisleri">
                     <i class="ti-layout-list-thumb-alt"></i> <span class="title"
@@ -2863,7 +2874,7 @@
                 </a>
             </li>
             <li ui-sref-active="active" >
-                <a ui-sref="app.definitions.CashDrawerOpenReasons">
+                <a ui-sref="app.definitions.CashDrawerOpenReasons" ng-if="user.restrictions.CashDrawerOpenReasons=='Enable'">
                     <i class="ti-comment-alt"></i> <span class="title"
                         translate="sidebar.nav.definitions.CASHDRAWEROPENREASONS">Cash Drawer Open Reasons</span>
                 </a>

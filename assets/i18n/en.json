@@ -256,6 +256,7 @@
     "KITCHENPERFORMANCE": "{{appName}} - Kitchen Performance",
     "ACCOUNTTRANSACTIONSTYPE": "{{appName}} - Account Transactions Type",
     "ENDOFDAYCHECKLIST": "{{appName}} - End of Day Check List",
+    "RESTRICTORDERCHANGESINTHESYSTEM": "{{appName}} - Restrict Order Changes System",
     "SERVICESAREAREPORT": "{{appName}} - Store Srevices Area",
     "ACCOUNTBALANCEREPORT": "{{appName}} - Account Balance Report",
     "REALPAYMENTSPIVOT": "{{appName}} - Real Payments Giro - Pivot",
@@ -1541,7 +1542,8 @@
     "VOIDS": "Voids",
     "ROUTEDORDERTYPE": "Routed Order Type",
     "ACCOUNTING": "Accounting",
-    "ROPSTOREID": "Store ID",
+    "ROPSTOREID": "Ropng Store ID",
+    "SIDESTOREID": "Yum Store ID",
     "STOREINDEX": "Branch Code",
     "ACOHPCODE": "Expense Center",
     "FACTORYINDEX": "Production Center",
@@ -1601,6 +1603,8 @@
     "INVENTORYSUPPLY": "İnventory Supply",
     "ISPROCESS": "Proccess",
     "ISPCHECK": "Check",
+    "ISPCHECKBK": "R.C Check",
+    "STOREISPCHECK": "Store Check",
     "CURRENTCODE": "Current Code",
     "CURRENTACCOUNDINGCODE": "Current Accounting Code",
     "ADDRESSCOUNT": "Address Count",
@@ -1912,6 +1916,7 @@
     "AVRDELIVERYY": "Delivery",
     "AVRBELOW30": "Delivery < 30",
     "YSCANCELREASON": "Ys Cancel Reason",
+    "TRENDYOLCANCELREASON": "Trendyol Cancel Reason",
     "STORESALESFORECAST": "Store Sales Forecast",
     "PRODUCTSALESPIVOT": "Product Sales List Pivot",
     "DOUGHCHART": "Dough Chart",
@@ -3307,8 +3312,8 @@
     "Cardreading": "To exit the shift, please read the Card",
     "Cardentry": "'Please read the Card for shift entry'",
     "EnrollCardPrint": "Card Registration",
-    "SwipeCardToClockOut":"Vardiya çıkışı için kart okutunuz",
-    "SwipeCardToClockIn":"vardiya girişi için kart okutunuz"
+    "SwipeCardToClockOut":"Scan Card to end shift",
+    "SwipeCardToClockIn":"Scan Card to start shift"
   },
   "difinitions": {
     "Updated": "Updated.",
@@ -4066,7 +4071,8 @@
     "TC": "TC",
     "VAT": "VAT",
     "AC": "AC",
-    "AmountWithVAT": "Amount With VAT"
+    "AmountWithVAT": "Amount With VAT",
+    "SideStore": "Yum Store Id"
   },
   "productsalesstatistics": {
     "Category": "Category",

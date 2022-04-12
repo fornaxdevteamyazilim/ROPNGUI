@@ -103,6 +103,7 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
             fields: [
                 { caption: $translate.instant('turnoverbydaysreport.Region'), width: 120, dataField: "RegionManager", area: "row" },
                 { caption: $translate.instant('turnoverbydaysreport.Store'), width: 120, dataField: "Store", area: "row" },
+                { caption: $translate.instant('turnoverbydaysreport.SideStore'), width: 120, dataField: "SideStore", area: "row" },
                 { caption: $translate.instant('turnoverbydaysreport.Year'), dataField: "Year", dataType: "number", area: "column" },
                 { caption: $translate.instant('turnoverbydaysreport.MonthNumber'), dataField: "MonthNumber", dataType: "number", area: "column" },
                 { caption: $translate.instant('turnoverbydaysreport.Day'), dataField: "Day", dataType: "number", area: "column" },

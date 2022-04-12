@@ -39,7 +39,7 @@ function storelistCtrl($scope, $log, $filter, $modal, Restangular, ngTableParams
     };
     $scope.BuildSearchString = function () {
         var result = [];
-        if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name == "MemberAdmin" || $rootScope.user.UserRole.Name == "PHAdmin" || $rootScope.user.UserRole.Name == "LC" || $rootScope.user.UserRole.Name == "LCAyar" || $rootScope.user.UserRole.Name == "CCMANAGER") {
+        if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name == "MemberAdmin" || $rootScope.user.UserRole.Name == "PHAdmin" || $rootScope.user.UserRole.Name == "LC" || $rootScope.user.UserRole.Name == "LCAyar" || $rootScope.user.UserRole.Name == "CCMANAGER"|| $rootScope.user.UserRole.Name == "Manager_v2") {
             if (vm.search) {
                 result.push("name like '%" + vm.search + "%'");
             }

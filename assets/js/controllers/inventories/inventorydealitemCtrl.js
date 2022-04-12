@@ -323,7 +323,7 @@ $scope.dataGridOptions = {
         if (selectedItems !== undefined && selectedItems.length >= 20) {
             return false;
         } else {
-            return true;
+            return true; 
         }
     };
     $scope.switchViewCallback = function (scopeObj) {

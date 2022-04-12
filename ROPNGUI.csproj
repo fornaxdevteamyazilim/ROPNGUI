@@ -729,6 +729,8 @@
     <Content Include="assets\views\help\docSikayetEkleDuz.html" />
     <Content Include="assets\views\help\docSikayetler.html" />
     <Content Include="assets\views\help\GunSonuAlmaAdimlari.html" />
+    <Content Include="assets\views\help\Sistemdesiparisdegisikiğikisitlamalri.html" />
+     <Content Include="assets\views\help\Poskurulumlari.html" />
     <Content Include="assets\views\help\Listeler.html" />
     <Content Include="assets\views\help\reportDocuments\docAktifDonMaliyetRap.html" />
     <Content Include="assets\views\help\reportDocuments\docBolgeAnaliziRap.html" />

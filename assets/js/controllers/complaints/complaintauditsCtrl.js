@@ -139,7 +139,7 @@ function complaintauditsCtrl($rootScope, $scope, $log, $modal, $filter, SweetAle
     $scope.complaintsubjects = [];
     $scope.loadEntities('complaintsubject', 'complaintsubjects');
     $scope.ngusers = [];
-    $scope.loadEntities('user', 'ngusers');
+    $scope.loadEntities('cache/users', 'ngusers');
     $scope.$on('$destroy', function () {
         deregistration();
         $element.remove();
