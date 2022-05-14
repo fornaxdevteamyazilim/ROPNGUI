@@ -243,6 +243,22 @@ function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, 
             $scope.item.CloseDate = item;
         })
     };
+    $scope.OracleStartDatepopup = function (item) {
+        var modalInstance = $modal.open({
+            templateUrl: 'assets/views/Tools/date.html',
+            controller: 'dateCtrl',
+            size: '',
+            backdrop: '',
+            resolve: {
+                DateTime: function () {
+                    return item;
+                }
+            }
+        });
+        modalInstance.result.then(function (item) {
+            $scope.item.OracleStartDate = item;
+        })
+    };
     $scope.$on('$destroy', function () {
         deregistration();
         deregistration1();

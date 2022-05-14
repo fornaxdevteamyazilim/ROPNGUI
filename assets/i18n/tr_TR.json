@@ -38,6 +38,8 @@
     "QUARTERS": "{{appName}} - Mahalleler",
     "SUBCITY": "{{appName}} - İlçeler",
     "TOWN": "{{appName}} - Şehirler",
+    "CARRIER": "{{appName}} - Taşiyicilar",
+    "COURIERTRANSACTIONPRICE": "{{appName}} - Kurye Taşıma Fiyatı",
     "BRANDS": "{{appName}} - Marka Tanımlama",
     "BONUS": "{{appName}} - Sadakat Sistemi",
     "BONUSSETTING": "{{appName}} - Puan Ayarları",
@@ -242,6 +244,7 @@
     "YSPRODUCTMERGE": "{{appName}} - YS Ürün Eşleştirme",
     "YSPAYMENTSMERGE": "{{appName}} - YS Ödeme Tipleri Eşleştirme",
     "YSSTOREMERGE": "{{appName}} - YS Restoran Eşleştirme",
+    "YEMEKSEPETIREASON": "{{appName}} -Yemeksepeti İptal Sebepleri",
     "GENERALSMSLIST": "{{appName}} - Genel Sms Listesi",
     "INVENTORYREQUIRMENTITEM": "{{appName}} - İhtiyaç Detayları",
     "INVENTORYREQUIRMENT": "{{appName}} - İhtiyaçlar",
@@ -406,7 +409,8 @@
     "BONUSTRANSACTIONS": "{{appName}} - Puan Detay Raporu",
     "BONUSSTATS": "{{appName}} - Bonus Durum Raporu",
     "WEBUSERS": "{{appName}} - Web Kullanıcıları Raporu",
-    "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
+    "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare",
+    "DRIVERSTRANSACTIONS": "{{appName}} - Kuriye Taşıma İstatistikleri Raporu"
   },
   "main": {
     "CURRENCY_SYMBOL": "₺",
@@ -1720,6 +1724,7 @@
     "CENTRALWAREHOUSE": "Merkez Depo",
     "OPENDATE": "Açılış Tarihi",
     "CLOSEDATE": "Kapanış Tarihi",
+    "ORACLESTARTDATE": "Oracle Başlangiç Tari̇hi̇",
     "REPORTDATE": "Rapor Tarihi",
     "SELECTEDSTORE": "Seçili Restoran",
     "USERSTORE": "Kullanıcı Restoranı",
@@ -2474,7 +2479,15 @@
     "BONUSSTATS": "Bonus Durum Raporu",
     "WEBUSERS": "Web Kullanıcıları",
     "WEBREPORTS": "Web",
-    "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
+    "SINGLEPRICE": "Tek Fiyatı",
+    "DOUBLEPRICE": "Çift fiyatı",
+    "DAILYINITIALAMOUNT": "Günlük Başlangiç Tutari",
+    "COURIERTRANSACTIONPRICEID":" Kurye Taşıma Fiyatı ID",
+    "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare",
+    "REASONNAME": "İptal Sebepi",
+    "CULTURECODE":"Kültür Kodu",
+    "REASONID":"Sebep Id",
+    "CULTUREID":"Kültür Id"
   },
   "topbar": {
     "messages": {
@@ -2858,7 +2871,8 @@
         "WEBREPORTS": "Web",
         "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare",
         "MONTHLYSALESVSBUDGET": "Aylık Satışlar Vs Bütçe",
-        "WEEKLYSALESCOMPARE": "Haftalık Satış Karşılaştırması"
+        "WEEKLYSALESCOMPARE": "Haftalık Satış Karşılaştırması",
+        "DRIVERSTRANSACTIONS": "Kuriye Taşıma İstatistikleri Raporu"
       },
       "addresses": {
         "MAIN": "Adresler",
@@ -2878,6 +2892,12 @@
         "MAIN": "Mutfak Ekranı",
         "KITCHENDISPLAY": "Mutfak Ekranı1",
         "KITCHENDISPLAY2": "Mutfak Ekranı"
+      },
+      "Carriers": {
+        "MAIN": "Taşıyıcılar",
+        "Carrier": "Taşıyıcı",
+        "CourierTransactionPrice": "Kurye Taşıma Fiyatı"
+       
       },
       "hnr": {
         "MAIN": "Hot and Ready",
@@ -2915,7 +2935,8 @@
         "YEMEKSEPETIMERGE": "YS Kişi Eşleştirme",
         "YSPRODUCTMERGE": "YS Ürün Eşleştirme",
         "YSPAYMENTMERGE": "YS Ödeme Tipleri Eşleştirme",
-        "YSSTOREMERGE": "YS Restoran Eşleştirme"
+        "YSSTOREMERGE": "YS Restoran Eşleştirme",
+        "YEMEKSEPETIREASON": "Yemeksepeti İptal Sebepleri"
       },
       "SETTINGS": {
         "MAIN": "Ayarlar"
@@ -4100,12 +4121,12 @@
     "Year": "Yıl",
     "MonthNumber": "Ay Sayısı",
     "Day": "Gün",
-    "Amount": "Tutar",
+    "Amount": "Net Tutar",
     "GrossSales": "Brüt Satışlar",
     "TC": "TC",
     "VAT": "KDV",
     "AC": "AC",
-    "AmountWithVAT": "KDV Miktarı",
+    "AmountWithVAT": "Brut Tutar",
     "SideStore": "Yum Restoran Id"
   },
   "productsalesstatistics": {
@@ -4735,6 +4756,21 @@
     "SendDate": "Gönderim Zamanı",
     "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
     "transmittedOracle": "Oracle iletildi"
+  },
+  "DriversTransactions": {
+    "DriverName": "Sürücü Adı",
+    "StaffPositionName": "Personel Pozisyon Adı",
+    "Phone": "Telefon",
+    "CitizenshipID": "Vatandaşlık Kimliği",
+    "Store": "Restoran",
+    "TotalDeliveredOrders": "Toplam Teslim Edilen Siparişler",
+    "SingleDispatchCount": "Tek Paket Sayısı",
+    "DoubleDispatchCount": "Çift Paket Sayısı",
+    "SingleDispatchAmount": "Tek Paket  Tutarı",
+    "DoubleDispatchAmount": "Çift Paket  Tutarı",
+    "TotalDispatchAmount": "Toplam Paket Tutarı",
+    "DailyRawAmount": "Günlük Toplam Tutar",
+    "TotalDays": "Toplam Gün Sayısı"
   }
   
 }

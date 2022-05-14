@@ -2539,6 +2539,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'staffordersreport'
                 }
+            }).state('app.reports.ordersreports.DriversTransactions', {
+                url: '/DriversTransactions',
+                templateUrl: "assets/views/reports/ordersreports/DriversTransactions.html",
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'DriversTransactionsCtrl', 'dateCtrl', 'pivottable', 'jqueryui', 'jquery-nestable-plugin', 'ng-nestable'),
+                title: 'Drivers Transactions',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'DriversTransactions'
+                }
             }).state('app.reports.ordersreports.orderrouted', {
                 url: '/orderrouted',
                 templateUrl: "assets/views/reports/ordersreports/orderrouted.html",
@@ -3027,6 +3036,32 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'Kitchen Display'
                 }
+            }).state('app.Carriers', {
+                url: '/Carriers',
+                template: '<div ui-view class="fade-in-up"></div>',
+                title: 'Carriers',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'Carriers'
+                }
+            }).state('app.Carriers.Carrier', {
+                url: '/Carrier',
+                templateUrl: "assets/views/Carriers/Carrier.html",
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'CarrierCtrl'),
+                title: 'Carrier',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'Carrier'
+                }
+            }).state('app.Carriers.CourierTransactionPrice', {
+                url: '/CourierTransactionPrice',
+                templateUrl: "assets/views/Carriers/CourierTransactionPrice.html",
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'CourierTransactionPriceCtrl'),
+                title: 'Courier Transaction Price',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'Courier Transaction Price'
+                }
             }).state('app.bonus', {
                 url: '/bonus',
                 template: '<div ui-view class="fade-in-up"></div>',
@@ -3034,15 +3069,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 authenticate: true,
                 ncyBreadcrumb: {
                     label: 'bonus'
-                }
-            }).state('app.bonus.bonussetting', {
-                url: '/bonussetting',
-                templateUrl: "assets/views/bonus/bonussetting.html",
-                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'bonussettingCtrl'),
-                title: 'Bonus Setting',
-                authenticate: true,
-                ncyBreadcrumb: {
-                    label: 'Bonus Setting'
                 }
             }).state('app.bonus.bonusearningrule', {
                 url: '/bonusearningrule',
@@ -5198,6 +5224,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 authenticate: true,
                 ncyBreadcrumb: {
                     label: 'yemeksepetistoremerge'
+                }
+            }).state('app.yemeksepeti.yemeksepetireason', {
+                url: '/yemeksepetireason',
+                templateUrl: "assets/views/yemeksepeti/yemeksepetireason.html",
+                resolve: loadSequence('xeditable', 'config-xeditable', 'ngTable', 'yemeksepetireasonCtrl'),
+                title: 'yemeksepeti reason',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'yemeksepeti reason'
                 }
             }).state('app.yemeksepeti.ysstoresetting', {
                 url: '/ysstoresetting',

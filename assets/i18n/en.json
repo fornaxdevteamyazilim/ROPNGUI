@@ -38,6 +38,8 @@
     "FILTERITEM": "{{appName}} - Filter Items",
     "GRID": "{{appName}} - Grid Definition",
     "INVENTORY": "{{appName}} - Inventories",
+    "CARRIER": "{{appName}} - Carrier",
+    "COURIERTRANSACTIONPRICE": "{{appName}} - Courier transaction price",
     "ADDNEWINVENTORYPRICE": "{{appName}} -Add New Price",
     "INVENTORYPRICE": "{{appName}} - Inventory Price",
     "INVENTORYADJUST": "{{appName}} -Inventory Adjusts",
@@ -238,6 +240,7 @@
     "YSPRODUCTMERGE": "{{appName}} - YS Product Merge ",
     "YSPAYMENTSMERGE": "{{appName}} - YS Payment Types Merge",
     "YSSTOREMERGE": "{{appName}} - YS Store Merge",
+    "YEMEKSEPETIREASON": "{{appName}} -Yemeksepeti Reason",
     "GENERALSMSLIST": "{{appName}} - General Sms List",
     "INVENTORYREQUIRMENTITEM": "{{appName}} - Requirment Details",
     "INVENTORYREQUIRMENT": "{{appName}} - Requirments",
@@ -404,6 +407,7 @@
     "BONUSTRANSACTIONS": "{{appName}} - Bonus Transactions Report",
     "BONUSSTATS": "{{appName}} - Bonus Stats Report",
     "WEBUSERS": "{{appName}} - Web Users Report",
+    "DRIVERSTRANSACTIONS": "{{appName}} - Drivers Transactions",
     "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
   },
   "main": {
@@ -1700,6 +1704,7 @@
     "CENTRALWAREHOUSE": "Central Warehouse",
     "OPENDATE": "Open Date",
     "CLOSEDATE": "Close Date",
+    "ORACLESTARTDATE": "Oracle Start Date",
     "REPORTDATE": "Report Date",
     "SELECTEDSTORE": "Selected Store",
     "USERSTORE": "User Store",
@@ -2851,7 +2856,15 @@
         "WEBUSERS": "Web Users Report",
         "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare",
         "MONTHLYSALESVSBUDGET": "Monthly Sales Vs Budget",
-        "WEEKLYSALESCOMPARE": "Weekly Sales Compare"
+        "WEEKLYSALESCOMPARE": "Weekly Sales Compare",
+        "SINGLEPRICE": "Single Price",
+        "DOUBLEPRICE": "Double Price",
+        "DAILYINITIALAMOUNT": "Daily Initial Amount",
+        "COURIERTRANSACTIONPRICEID":" Courier Transaction Price ID",
+        "REASONNAME": "Reason Name",
+        "CULTURECODE":"Culture Code",
+        "REASONID":"Reason Id",
+        "CULTUREID":"Culture Id"
       },
       "addresses": {
         "MAIN": "Address",
@@ -2871,6 +2884,11 @@
         "MAIN": "Kitchen Display",
         "KITCHENDISPLAY": "Kitchen Display1",
         "KITCHENDISPLAY2": "Kitchen Display"
+      },
+      "Carriers": {
+        "MAIN": "Carriers",
+        "Carrier": "Carrier",
+        "CourierTransactionPrice": "Courier Transaction Price"
       },
       "hnr": {
         "MAIN": "Hot and Ready",
@@ -2906,7 +2924,8 @@
         "YEMEKSEPETIMERGE": "YS Person Merge",
         "YSPRODUCTMERGE": "YS Product Merge",
         "YSPAYMENTMERGE": "YS Payment Types Merge",
-        "YSSTOREMERGE": "YS Store Merge"
+        "YSSTOREMERGE": "YS Store Merge",
+        "YEMEKSEPETIREASON": "Yemeksepeti Reason"
       },
       "SETTINGS": {
         "MAIN": "Settings"
@@ -4068,12 +4087,12 @@
     "Year": "Year",
     "MonthNumber": "Month Number",
     "Day": "Day",
-    "Amount": "Amount",
+    "Amount": "Net Amount",
     "GrossSales": "Gross Sales",
     "TC": "TC",
     "VAT": "VAT",
     "AC": "AC",
-    "AmountWithVAT": "Amount With VAT",
+    "AmountWithVAT": "Brut Amount",
     "SideStore": "Yum Store Id"
   },
   "productsalesstatistics": {
@@ -4721,5 +4740,20 @@
     "SendDate": "Subcity Name",
     "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
     "transmittedOracle": "Transmitted Oracle"
+  },
+  "DriversTransactions": {
+    "DriverName": "Driver Name",
+    "StaffPositionName": "Staff Position Name",
+    "Phone": "Phone",
+    "CitizenshipID": "Citizenship ID",
+    "Store": "Store",
+    "TotalDeliveredOrders": "Total Delivered Orders",
+    "SingleDispatchCount": "Single Dispatch Count",
+    "DoubleDispatchCount": "Double Dispatch Count",
+    "SingleDispatchAmount": "Single Dispatch Amount",
+    "DoubleDispatchAmount": "Double Dispatch Amount",
+    "TotalDispatchAmount": "Total Dispatch Amount",
+    "DailyRawAmount": "Daily Raw Amount",
+    "TotalDays": "Total Days"
   }
 }

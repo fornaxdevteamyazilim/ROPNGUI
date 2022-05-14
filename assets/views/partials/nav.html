@@ -1504,6 +1504,13 @@
                                 translate="sidebar.nav.reports.ORDERROUTED">sipariş yönlendirme raporu</span>
                         </a>
                     </li>
+                    <li ui-sref-active="active" ng-if="user.restrictions.DriversTransactions=='Enable'">
+                        <a ui-sref="app.reports.ordersreports.DriversTransactions">
+                            <!-- ng-if="user.restrictions.orderrouted=='Enable'" -->
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.DRIVERSTRANSACTIONS">Kuriye Taşıma İstatistikleri Raporu</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li ng-if="user.restrictions.audit=='Enable'">
@@ -2209,6 +2216,34 @@
             </li>
         </ul>
     </li>
+    <li ng-class="{'active open':$state.includes('app.Carriers')}"
+        ng-if="user.restrictions.Carriers=='Enable'">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-hand-open tooltips hidden-sm hidden-xs"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="sidebar.nav.Carriers.MAIN">Carrier</span><i
+                        class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active" ng-if="user.restrictions.Carrier=='Enable'">
+                <a ui-sref="app.Carriers.Carrier">
+                    <i class="ti-hand-open tooltips hidden-sm hidden-xs"></i><span class="title"
+                        translate="sidebar.nav.Carriers.Carrier">Carrier</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="user.restrictions.CourierTransactionPrice=='Enable'">
+                <a ui-sref="app.Carriers.CourierTransactionPrice">
+                    <i class="ti-hand-open tooltips hidden-sm hidden-xs"></i><span class="title"
+                        translate="sidebar.nav.Carriers.CourierTransactionPrice">Courier Transaction Price </span>
+                </a>
+            </li>
+        </ul>
+    </li>
     <li ng-class="{'active open':$state.includes('app.loyality ')}" ng-if="user.restrictions.loyality =='Enable'">
         <a href="javascript:void(0)">
             <div class="item-content">
@@ -2364,13 +2399,13 @@
                         translate="sidebar.nav.specialoperations.DECLAREDREVENUE">Declared Revenue</span>
                 </a>
             </li>
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-if="user.restrictions.storesalestarget=='Enable'">
                 <a ui-sref="app.specialoperations.storesalestarget">
                     <i class="ti-money"></i> <span class="title"
                         translate="sidebar.nav.specialoperations.STORESALESTARGET">Store Sales Traget</span>
                 </a>
             </li>
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-if="user.restrictions.storebudget=='Enable'">
                 <a ui-sref="app.specialoperations.storebudget">
                     <i class="ti-money"></i> <span class="title"
                         translate="sidebar.nav.specialoperations.STORESALESBUDGET">Store Sales Budget</span>
@@ -2561,6 +2596,12 @@
                 <a ui-sref="app.yemeksepeti.ysstoremerge" ng-if="user.restrictions.ysstoremerge=='Enable'">
                     <i class="ti-layout-list-thumb-alt"></i> <span class="title"
                         translate="sidebar.nav.YEMEKSEPETI.YSSTOREMERGE">Yemek Sepeti Merge</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.yemeksepeti.yemeksepetireason " ng-if="user.restrictions.yemeksepetireason =='Enable'">
+                    <i class="ti-layout-list-thumb-alt"></i> <span class="title"
+                        translate="sidebar.nav.YEMEKSEPETI.YEMEKSEPETIREASON ">Yemek Sepeti reason</span>
                 </a>
             </li>
         </ul>
