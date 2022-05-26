@@ -960,7 +960,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.orders.orderStoreTable', {
             url: '/orderStoreTable/:id',
             templateUrl: "assets/views/order/orderPageStoreTable.html",
-            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'touchspin-plugin', 'angular-bootstrap-touchspin', 'orderCtrl', 'orderproductitemsCtrl', 'orderpaymentCtrl', 'orderpromotionsCtrl', 'changeorderstateCtrl', 'splitaccountCtrl', 'orderinvoiceCtrl'),
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'touchspin-plugin', 'angular-bootstrap-touchspin', 'orderCtrl', 'orderproductitemsCtrl', 'orderpaymentCtrl', 'orderpromotionsCtrl', 'changeorderstateCtrl', 'splitaccountCtrl', 'orderinvoiceCtrl', 'gastropayCtrl'),
             title: 'OrderStoreTable',
             authenticate: true,
             ncyBreadcrumb: {
@@ -969,7 +969,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.orders.takeaway', {
             url: '/takeaway',
             templateUrl: "assets/views/order/takeaway.html",
-            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'touchspin-plugin', 'angular-bootstrap-touchspin', 'takeawayCtrl', 'orderpaymentCtrl', 'orderinvoiceCtrl'),
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'touchspin-plugin', 'angular-bootstrap-touchspin', 'takeawayCtrl', 'orderpaymentCtrl', 'orderinvoiceCtrl', 'gastropayCtrl'),
             title: 'takeaway',
             authenticate: true,
             ncyBreadcrumb: {

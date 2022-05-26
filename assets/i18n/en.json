@@ -463,6 +463,8 @@
     "FOODCHECK": "Food Check",
     "MANUALCLOSE": "Manual Close",
     "PAYMENTINFORMATION": "Payment Information",
+    "GASTROPAYPAYMENTINFORMATION": "Gastropay Information",
+    "GASTROPAYKEY": "Gastropay Key",
     "PAYMENTAMOUNTINFORMATION": "Payment Amount Information",
     "PAYMENTTYPES": "Payment Type",
     "PROMOTIONREQUIREMENT": "Promotion Requirement",
@@ -595,6 +597,9 @@
     "DATE": "Date",
     "DELETE": "Delete",
     "ORACLE": "Send Oracle",
+    "RECEIPTNUMBER": "Receipt Number",
+    "DEPOSITEDAMOUNT": "Deposited Amount",
+    "ATMID": "Atm Id",
     "DELETEADJUST": "Delete Adjust",
     "DELETESCHEDULE": "Delete Schedule",
     "DELIVERY": "Delivery",
@@ -4105,7 +4110,8 @@
     "MonthNumber": "Month Number",
     "Day": "Day",
     "Cost": "Cost",
-    "Store": "Store"
+    "Store": "Store",
+    "OrderID":"Order ID"
   },
   "promotionanaisys": {
     "Region": "Region",
@@ -4734,12 +4740,16 @@
     "DeclaredAmount": " Declared Amount",
     "ActualAmount": "Actual Amount",
     "TotalCash": "Total Cash",
+    "DeltaCash": "Delta Cash",
+    "ReceiptNumber": "Receipt Number",
     "Notes": "Notes",
     "isCharged": "Street Address",
     "isOk": "Quarter Name",
     "SendDate": "Subcity Name",
     "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
-    "transmittedOracle": "Transmitted Oracle"
+    "transmittedOracle": "Transmitted Oracle",
+    "ATMID":"Atm Id",
+    "DepositedAmount":"Deposited Amount"
   },
   "DriversTransactions": {
     "DriverName": "Driver Name",

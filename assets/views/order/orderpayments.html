@@ -434,6 +434,11 @@
                 ng-dblclick="BottonDblcilik()" ng-disabled="Showspinner==true"> <span class='fa fa-spin fa-spinner'
                     ng-if='Showspinner == true'></span><span ng-if="Showspinner != true">Yemek Çeki</span></button>
             <button class='btn btn-default text-capitalize'
+                style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="gastropay()"
+                ng-dblclick="BottonDblcilik()" ng-disabled="Showspinner==true"
+                ng-if="user.restrictions.gastropaybutton=='Enable'"> <span class='fa fa-spin fa-spinner'
+                    ng-if='Showspinner == true'></span><span ng-if="Showspinner != true">gastropay Kapat</span></button>
+            <button class='btn btn-default text-capitalize'
                 style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="SaveECRPayment(8)"
                 ng-dblclick="BottonDblcilik()" ng-disabled="Showspinner==true"
                 ng-if="user.restrictions.paymentclosemanuel=='Enable'"> <span class='fa fa-spin fa-spinner'
@@ -457,13 +462,13 @@
                     ng-if='Showspinner == true'></span><span ng-if="Showspinner != true">Manuel Kapat</span></button>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="max-height:100px; min-height:100px;"
-        ng-if="order.OrderTypeID == 5 && order.OrderSourceID == 300132387334">
-        <button class='btn btn-default text-capitalize'
-            style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="SaveECRPayment(8)"
-            ng-dblclick="BottonDblcilik()" ng-disabled="Showspinner==true"
-            ng-if="user.restrictions.paymentclosemanuel=='Enable'"> <span class='fa fa-spin fa-spinner'
-                ng-if='Showspinner == true'></span><span ng-if="Showspinner != true">Manuel Kapat</span></button>
-    </div>
+            ng-if="order.OrderTypeID == 5 && order.OrderSourceID == 300132387334">
+            <button class='btn btn-default text-capitalize'
+                style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="SaveECRPayment(8)"
+                ng-dblclick="BottonDblcilik()" ng-disabled="Showspinner==true"
+                ng-if="user.restrictions.paymentclosemanuel=='Enable'"> <span class='fa fa-spin fa-spinner'
+                    ng-if='Showspinner == true'></span><span ng-if="Showspinner != true">Manuel Kapat</span></button>
+        </div>
         <div data-ng-hide="message == ''">
             <span ng-class="{'alert alert-danger':message}">
                 {{message}}
@@ -622,19 +627,19 @@
                 </button>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 margin-top-5 td scrollbar" id="style-6"
-            style="overflow:auto; min-height:420px; max-height:420px;"
-            ng-show="order.OrderTypeID == 5 && order.OrderSourceID == 300132387334">
-            <button
-                class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-default border-around text-capitalize margin-top-5 margin-bottom-5 margin-right-5 pull-right"
-                ng-class="{'active':currentPayment.PaymentTypeID==item.PaymentTypeID,'btn-red': currentPayment.PaymentTypeID==item.PaymentTypeID}"
-                ng-repeat="item in storepaymenttypes | orderBy:'+PaymentType.OrderIndex' track by item.id"
-                style="overflow:hidden; width:90px; height:47px;" ng-click="SavePayment(item)"
-                ng-dblclick="BottonDblcilik()" ng-show="item.PaymentTypeID== 300132444775">
-                <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-capitalize" style="overflow:hidden;"
-                    ng-class="{'text-white': currentPayment.PaymentTypeID==item.PaymentTypeID}"
-                    ng-disabled="sending">{{:: item.PaymentType.name}}</span>
-            </button>
-        </div>
+                style="overflow:auto; min-height:420px; max-height:420px;"
+                ng-show="order.OrderTypeID == 5 && order.OrderSourceID == 300132387334">
+                <button
+                    class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-default border-around text-capitalize margin-top-5 margin-bottom-5 margin-right-5 pull-right"
+                    ng-class="{'active':currentPayment.PaymentTypeID==item.PaymentTypeID,'btn-red': currentPayment.PaymentTypeID==item.PaymentTypeID}"
+                    ng-repeat="item in storepaymenttypes | orderBy:'+PaymentType.OrderIndex' track by item.id"
+                    style="overflow:hidden; width:90px; height:47px;" ng-click="SavePayment(item)"
+                    ng-dblclick="BottonDblcilik()" ng-show="item.PaymentTypeID== 300132444775">
+                    <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-capitalize" style="overflow:hidden;"
+                        ng-class="{'text-white': currentPayment.PaymentTypeID==item.PaymentTypeID}"
+                        ng-disabled="sending">{{:: item.PaymentType.name}}</span>
+                </button>
+            </div>
         </div>
     </div>
 </div>

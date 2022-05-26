@@ -362,8 +362,6 @@
     <Content Include="assets\js\controllers\dispatcher\drivervehicleCtrl.js" />
     <Content Include="assets\js\controllers\dispatcher\carrierCtrl.js" />
     <Content Include="assets\js\controllers\kitchenDisplay\kdsCtrl.js" />
-    <Content Include="assets\js\controllers\Carriers\CarrierCtrl.js" />
-    <Content Include="assets\js\controllers\Carriers\CourierTransactionPriceCtrl.js" />
     <Content Include="assets\js\controllers\dispatcher\dispatcherCtrl.js" />
     <Content Include="assets\js\controllers\mainscreen\acentextensionCtrl.js" />
     <Content Include="assets\js\controllers\mainscreen\loginpasswordCtrl.js" />
@@ -579,7 +577,6 @@
     <Content Include="assets\js\controllers\yemeksepeti\ysproductmergeCtrl.js" />
     <Content Include="assets\js\controllers\yemeksepeti\ysstoreeditCtrl.js" />
     <Content Include="assets\js\controllers\yemeksepeti\ysstoremergeCtrl.js" />
-    <Content Include="assets\js\controllers\yemeksepeti\yemeksepetireasonCtrl.js" />
     <Content Include="assets\js\controllers\yemeksepeti\ysstoresettingCtrl.js" />
     <Content Include="assets\js\directives\order-directives.js" />
     <Content Include="assets\js\directives\ropng-directives.js" />
@@ -732,8 +729,6 @@
     <Content Include="assets\views\help\docSikayetEkleDuz.html" />
     <Content Include="assets\views\help\docSikayetler.html" />
     <Content Include="assets\views\help\GunSonuAlmaAdimlari.html" />
-    <Content Include="assets\views\help\Sistemdesiparisdegisikiğikisitlamalri.html" />
-     <Content Include="assets\views\help\Poskurulumlari.html" />
     <Content Include="assets\views\help\Listeler.html" />
     <Content Include="assets\views\help\reportDocuments\docAktifDonMaliyetRap.html" />
     <Content Include="assets\views\help\reportDocuments\docBolgeAnaliziRap.html" />
@@ -822,8 +817,6 @@
     <Content Include="assets\views\inventories\selectInventorySupply.html" />
     <Content Include="assets\views\kitchenDisplay\kitchenDisplay2.html" />
     <Content Include="assets\views\kitchenDisplay\kdslastorders.html" />
-    <Content Include="assets\views\Carriers\Carrier.html" />
-    <Content Include="assets\views\Carriers\CourierTransactionPrice.html" />
     <Content Include="assets\views\mainscreen\authcode.html" />
     <Content Include="assets\views\mainscreen\maindashboard.html" />
     <Content Include="assets\views\matching\inventoryunitmatching.html" />
@@ -1144,7 +1137,6 @@
     <Content Include="assets\views\yemeksepeti\ysproductmerge.html" />
     <Content Include="assets\views\yemeksepeti\ysstoreedit.html" />
     <Content Include="assets\views\yemeksepeti\ysstoremerge.html" />
-     <Content Include="assets\views\yemeksepeti\yemeksepetireason.html" />
     <Content Include="autocomplete.htm" />
     <Content Include="background.js" />
     <Content Include="CustomerDisplay.html" />

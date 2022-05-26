@@ -273,6 +273,30 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
             }
         })
     };
+ 
+    $scope.gastropay = function (item) {
+        var modalInstance = $modal.open({
+             templateUrl: 'assets/views/order/gastropay.html',
+            controller: 'gastropayCtrl',
+            size: '',
+            backdrop: '',
+            resolve: {
+                Order: function () {
+                    return $scope.order;
+                },
+            }
+        });
+         modalInstance.result.then(function (item) {
+            if (item == 'OK') {
+                Restangular.one('order', $scope.order.id).get().then(function (result) {
+                    $scope.order = result;
+                    $scope.CalcRequiredAmount();
+                    $scope.ok()
+                });
+            }
+        })
+    };
+
     $scope.OrderInvoice;
     $scope.GetOrderInvoice = function () {
         if (!$scope.OrderInvoice) {

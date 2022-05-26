@@ -140,7 +140,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
                 { caption: $translate.instant('productsalesstatistics.Amount'), dataField: "Amount", summaryType: "sum", format: "fixedPoint", area: "data" },
                 { caption: $translate.instant('productsalesstatistics.Cost'), dataField: "Cost", summaryType: "sum", format: "fixedPoint", area: "data" },
                 { caption: $translate.instant('productsalesstatistics.Store'), dataField: "Store" },
-                { caption: $translate.instant('productsalesstatistics.OrderID'), dataField: "OrderID", summaryType: "CountDistinct", area: "data" },
+                { caption: $translate.instant('productsalesstatistics.OrderID'), dataField: "OrderID", summaryType: "Count", area: "data" },
             ]
         }
     };

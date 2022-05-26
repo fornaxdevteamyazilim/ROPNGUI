@@ -1,0 +1,116 @@
+<style>
+    .panel-table {
+        display: table;
+    }
+
+    .panel-table>.panel-heading {
+        display: table-header-group;
+        background: transparent;
+    }
+
+    .panel-table>.panel-body {
+        display: table-row-group;
+    }
+
+    .panel-table>.panel-body:before,
+    .panel-table>.panel-body:after {
+        content: none;
+    }
+
+    .panel-table>.panel-footer {
+        display: table-footer-group;
+        background: transparent;
+    }
+
+    .panel-table>div>.tr {
+        display: table-row;
+    }
+
+    .panel-table>div:last-child>.tr:last-child>.td {
+        border-bottom: none;
+    }
+
+    .panel-table .td {
+        display: table-cell;
+        padding: 9px;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-left: none;
+    }
+
+    .panel-table .td:last-child {
+        border-right: none;
+    }
+
+    .panel-table>.panel-heading>.tr>.td,
+    .panel-table>.panel-footer>.tr>.td {
+        background-color: #f5f5f5;
+    }
+
+    .panel-table>.panel-heading>.tr>.td:first-child {
+        border-radius: 4px 0 0 0;
+    }
+
+    .panel-table>.panel-heading>.tr>.td:last-child {
+        border-radius: 0 4px 0 0;
+    }
+
+    .panel-table>.panel-footer>.tr>.td:first-child {
+        border-radius: 0 0 0 4px;
+    }
+
+    .panel-table>.panel-footer>.tr>.td:last-child {
+        border-radius: 0 0 4px 0;
+    }
+
+    #style-6::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #F5F5F5;
+    }
+
+    #style-6::-webkit-scrollbar {
+        width: 15px;
+        background-color: #F5F5F5;
+    }
+
+    #style-6::-webkit-scrollbar-thumb {
+        background-color: #D3D3D3;
+        background-image: -webkit-linear-gradient(45deg, #DCDCDC 25%, transparent 25%, transparent 50%, #DCDCDC 50%, #DCDCDC 75%, transparent 75%, transparent);
+    }
+</style>
+
+<div class="panel panel-default panel-table visible-lg visible-md" style="height: 250px;">
+
+    <div class="panel-heading">
+        <div class="tr">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 td text-bold center" style="color:black;width: 598px"
+                translate="main.GASTROPAYPAYMENTINFORMATION">Gastropay Kontrol</div>
+            <i class="btn ti-close pull-right" ng-click="cancel()" style="top: -32px;"></i>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 td text-bold center">
+            <div class="form-group" style="height: 58px;">
+                <span class="input-icon">
+                    <label for="" translate="main.GASTROPAYKEY">Gastropay Key</label>
+                    <input type="text" class="form-control"   ng-model="item.getcode" style="text-align:center" required>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 td text-bold center">
+            <button class='btn btn-default text-capitalize'
+                style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="GastropayCheck()"
+                ng-disabled="Showspinner==true"> <span class='fa fa-spin fa-spinner'
+                    ng-if='Showspinner == true'></span><span ng-if="Showspinner != true">Kontrol et</span></button>
+            &nbsp; &nbsp;
+            <button class='btn btn-default text-capitalize'
+                style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="SavePayment()"
+                ng-disabled="Showspinner==true"> <span class='fa fa-spin fa-spinner'
+                    ng-if='Showspinner == true'></span><span ng-if="Showspinner != true">Kaydet</span></button>
+            &nbsp; &nbsp;
+            <button class='btn btn-default text-capitalize'
+                style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="cancel()"
+                ng-disabled="Showspinner==true"> <span class='fa fa-spin fa-spinner'
+                    ng-if='Showspinner == true'></span><span ng-if="Showspinner != true">İptal et</span></button>
+        </div>
+    </div>
+
+</div>

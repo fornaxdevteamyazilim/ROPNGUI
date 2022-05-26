@@ -1,26 +1,5 @@
 app.controller("declaredrevenueeCtrl", declaredrevenueeCtrl);
-function declaredrevenueeCtrl(
-  $scope,
-  $log,
-  $modal,
-  $filter,
-  SweetAlert,
-  Restangular,
-  ngTableParams,
-  toaster,
-  $window,
-  $stateParams,
-  $rootScope,
-  $location,
-  $translate,
-  ngnotifyService,
-  userService,
-  $element,
-  $timeout,
-  NG_SETTING,
-  $http,
-  $q
-) {
+function declaredrevenueeCtrl( $scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, userService, $element, $timeout, NG_SETTING, $http, $q) {
   $rootScope.uService.EnterController("declaredrevenueeCtrl");
   userService.userAuthorizated();
   var dre = this;
@@ -42,12 +21,13 @@ function declaredrevenueeCtrl(
     $scope.addadnewpaymentitem = $translate.instant("main.ADDNEWPAYMENTITEM");
     $scope.trPaymentType = $translate.instant("main.PAYMENTTYPE");
     $scope.trTotalActualAmount = $translate.instant("main.TOTALACTUALAMOUNT");
-    $scope.trTotalDeclaredAmount = $translate.instant(
-      "main.TOTALDECLAREDAMOUNT"
-    );
+    $scope.trTotalDeclaredAmount = $translate.instant("main.TOTALDECLAREDAMOUNT");
     $scope.Approve = $translate.instant("main.APPROVE");
     $scope.trCommands = $translate.instant("main.COMMANDS");
     $scope.Oracle = $translate.instant("main.ORACLE");
+    $scope.trReceiptNumber = $translate.instant("main.RECEIPTNUMBER");
+    $scope.trDepositedAmount = $translate.instant("main.DEPOSITEDAMOUNT");
+    $scope.trATMID = $translate.instant("main.ATMID");
   };
   $scope.translate();
   var deregistration = $scope.$on(
@@ -225,10 +205,10 @@ function declaredrevenueeCtrl(
   $scope.EditCountDisabled = function () {
     return $stateParams.id != "new";
   };
-  $scope.SaveData= function(){
+  $scope.SaveData = function () {
     $timeout(function () {
-        $scope.SaveDataToAPI();
-      }, 1000);
+      $scope.SaveDataToAPI();
+    }, 1000);
   }
   $scope.SaveDataToAPI = function () {
     if ($scope.item.restangularized && $scope.item.id) {

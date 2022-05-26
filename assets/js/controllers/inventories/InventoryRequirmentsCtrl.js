@@ -123,27 +123,46 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         }),
         sort: "Value"
     }
-    var store = new DevExpress.data.CustomStore({
-        key: "id",
-        load: function (loadOptions) {
-            var params = {
-                pageNo: 1,
-                pageSize: 10000,
-               // search: "date between '" + $filter('date')($scope.params.fromDate, 'yyyy-MM-dd') + "' and '" + $filter('date')($scope.params.toDate, 'yyyy-MM-dd') + "'"
-            };
-            return $http.get(NG_SETTING.apiServiceBaseUri + "/api/InventoryRequirment", { params: params })
-                .then(function (response) {
-                    return {
-                        data: response.data.Items,
-                        totalCount: 10
-                    };
-                }, function (response) {
-                    return $q.reject("Data Loading Error");
-                });
-        }
-    });
+    // var store = new DevExpress.data.CustomStore({
+    //     //key: "id",
+    //     load: function (loadOptions) {
+    //         var params = {
+    //             pageNo: 1,
+    //             pageSize: 10000,
+    //            // search: "date between '" + $filter('date')($scope.params.fromDate, 'yyyy-MM-dd') + "' and '" + $filter('date')($scope.params.toDate, 'yyyy-MM-dd') + "'"
+    //         };
+    //         return $http.get(NG_SETTING.apiServiceBaseUri + "/api/dxInventoryRequirment", { params: params })
+    //             .then(function (response) {
+    //                 return {
+    //                     data: response.data.Items,
+    //                     totalCount: 10
+    //                 };
+    //             }, function (response) {
+    //                 return $q.reject("Data Loading Error");
+    //             });
+    //     }
+    // });
     $scope.dataGridOptions = {
-        dataSource: store,
+        dataSource: DevExpress.data.AspNet.createStore({
+            key: "id",
+            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxInventoryRequirment",
+            /* insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSpendingRule",
+            updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSpendingRule",
+            deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxPunchcardSpendingRule", */
+            onBeforeSend: function (method, ajaxOptions) {
+                //if (request.method === "PUT") {
+                //    updateUrl = NG_SETTING.apiServiceBaseUri + "/api/dxUser"+
+                //}
+                var authData = localStorageService.get('authorizationData');
+                if (authData) {
+                    
+                    ajaxOptions.headers = {
+                        Authorization: 'Bearer ' + authData.token//,
+                        //'Content-type': 'application/json'
+                    };  
+                }                
+            }
+        }),
         showBorders: true,
         allowColumnResizing: true,
         columnAutoWidth: true,
@@ -167,6 +186,7 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
         //         $scope.params.gridState = state;
         //     }
         // },
+        scrolling: { mode: "virtual" },
         stateStoring: {
            enabled: true,
            type: "localStorage",
@@ -232,7 +252,7 @@ function InventoryRequirmentCtrl($scope, $log, $modal, $filter, SweetAlert, Rest
                 }
             }
         },
-        scrolling: { mode: "virtual" },
+        
         height: 600,
         paging: {
             enabled: true

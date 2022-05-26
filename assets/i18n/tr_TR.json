@@ -468,6 +468,8 @@
     "FOODCHECK": "Yemek Çeki",
     "MANUALCLOSE": "Manual Kapat",
     "PAYMENTINFORMATION": "Ödeme Bilgileri",
+    "GASTROPAYPAYMENTINFORMATION": "Gastropay Ödeme Bilgileri",
+    "GASTROPAYKEY": "Gastropay Kodu",
     "PAYMENTAMOUNTINFORMATION": "Ödeme Tutar Bilgileri",
     "PAYMENTTYPES": "Ödeme Tipleri",
     "STOPROUTING": "Restoran Yönlendirmesi Kapalı",
@@ -706,6 +708,9 @@
     "ADDSCHEDULETYPEDATERANGE": "Zaman Tipi Gün Aralığı Ekle",
     "DELETE": "Sil",
     "ORACLE": "Oracle Gönder",
+    "RECEIPTNUMBER": "Döküman Numarası",
+    "DEPOSITEDAMOUNT": "Bankaya Yatırılan Tutar",
+    "ATMID": "Atm No",
     "SCHEDULETYPENAME": "Zaman Tip Adı",
     "SCHEDULETYPETIMERANGE": "Zaman Tipi Saat Aralığı",
     "SCHEDULETYPETIMEWEEKDAY": "Zaman Tipi Günler",
@@ -4139,7 +4144,8 @@
     "Day": "Gün",
     "Amount": "Tutar",
     "Cost": "Maliyet",
-    "Store": "Restoran"
+    "Store": "Restoran",
+    "OrderID":"Sipariş ID"
   },
   "promotionanaisys": {
     "Store": "Restoran",
@@ -4750,12 +4756,16 @@
     "DeclaredAmount": "Beyan Edilen Toplam ",
     "ActualAmount": "Gerçekleşen Toplam",
     "TotalCash": "Toplam Nakit",
+    "DeltaCash": "Nakit Fark",
+    "ReceiptNumber": "Dekont Numarası",
     "Notes": "Not",
     "isCharged": "Personel Tahsilat Durumu",
     "isOk": "Onaylandı",
     "SendDate": "Gönderim Zamanı",
     "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
-    "transmittedOracle": "Oracle iletildi"
+    "transmittedOracle": "Oracle iletildi",
+    "ATMID":"Atm No",
+    "DepositedAmount":"Bankaya Yatırılan Tutar"
   },
   "DriversTransactions": {
     "DriverName": "Sürücü Adı",
