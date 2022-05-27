@@ -2,32 +2,65 @@ app.controller('gastropayCtrl', gastropayCtrl);
 function gastropayCtrl($rootScope, $scope, $modalInstance, $stateParams, Order, userService, ngnotifyService, Restangular, toaster, $window, $translate, $filter, $log, $modal,PaymentRestangular, ngTableParams, SweetAlert, $location,) {
     $rootScope.uService.EnterController("gastropayCtrl");
     $scope.order = Order;
-  //  $//scope.getcodes = {};
-    $scope.SavePayment = function () {
-        Restangular.one('gastropay/getcode').get(
+    //$scope.ResultCode = {};
+    $scope.SavePayment = function (ResultCode) {
+        $scope.Showspinner = true;
+        Restangular.one('gastropay/getpaymentresult').get(
             {
-                //getcode: getcode,
+                //Result:Result,
+                //ResultCode: ResultCode,
                 OrderID: $scope.order.id
 
             }
         ).then(function (result) {
+            $scope.Showspinner = false;
             toaster.pop('success', $translate.instant('orderfile.PAYMENTSAVED'), $translate.instant('orderfile.PAYMENTSAVED'));
             $scope.ok();
         }, function (response) {
+            $scope.Showspinner = false;
             toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
         });
     };
-    // $scope.gastropay;
-    // $scope.GastropayCheck = function (getcode) {
-    //     Restangular.one('gastropay').get({
-    //         getcode: getcode,
-    //         OrderID: $scope.order.id
+    $scope.GastropayCheck = function () {
+        Restangular.one('gastropay/getcode').get({
+            OrderID: $scope.order.id
+        }).then(function (result) {
+            $scope.gastropay = result;
+        }, function (response) {
+            toaster.pop('warning', response.data.ExceptionMessage);
+        });
+    };
+
+    // $scope.SavePayment = function (Type) {
+    //     $scope.Showspinner = true;
+    //     PaymentRestangular.one('gastropay/getpaymentresult').get({
+    //         OrderID: $scope.order.id,
+    //         RequestType: Type,
+    //         // Kasa: $rootScope.user.ClientName,
+    //         // Amount: $scope.currentPayment.Amount
     //     }).then(function (result) {
-    //         $scope.gastropay = result;
+    //         console.log('Payment Result:' + result);
+    //         if (result == true) {
+    //             Restangular.all('orderpayment').getList({ search: "OrderID='" + Order.id + "'" }).then(function (resp) {
+    //                 $scope.order.payments = resp;
+    //                 if (Type == 7 && result == true) {
+    //                     $scope.ShowObject = true;
+    //                     $scope.Showspinner = false;
+    //                 }
+    //             });
+    //         } else {
+    //             $scope.message =  $translate.instant('orderfile.OperationCouldPerformed');
+    //             $scope.Showspinner = false;
+    //         }
     //     }, function (response) {
-    //         toaster.pop('warning', response.data.ExceptionMessage);
+    //         $scope.message =  $translate.instant('orderfile.OperationCouldPerformed');
+    //         toaster.pop('error', $translate.instant('orderfile.PAYMENTNOTMADE') , response.data.ExceptionMessage);
+    //         $scope.Showspinner = false;
     //     });
     // };
+
+
+
 
     $scope.ok = function () {
         $modalInstance.close('ok');
