@@ -4,7 +4,11 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
     $("#searchbyphone").focus();
     $rootScope.uService.EnterController("personlistCtrl");
     var vm = this;
+    $scope.isWaiting = true;
     userService.userAuthorizated();
+    $scope.dbClick = function () {
+        //$scope.isWaiting = false;
+    };
     if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER")) {
         $rootScope.user.UserExtensionNumber = callsService.currentExtension = localStorageService.get('ExtensionNumber');
         $rootScope.user.ClientName = localStorageService.get('ClientName');
@@ -140,6 +144,8 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
         }
     };
     $scope.TakeOrder = function (personID, OrderType, PersonPhones) {
+        if ($scope.isWaiting == true) {
+            $scope.isWaiting = false;
         if (PersonPhones && PersonPhones.length < 1) {
             toaster.pop('warning', $translate.instant('personfile.PhoneNumberShouldNotBeBlank'), "error");
             return;
@@ -168,12 +174,14 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
                     toaster.pop("success", $translate.instant('personfile.OrderCreated'));
                 },
                 function (resp) {
+                    $scope.isWaiting = false;
                     toaster.pop('error', resp.data.ExceptionMessage, "error");
                 });
             } else {
                 //TODO Swet Alert
             }
         }
+    }
     };
 
     $scope.StreetAddressSelector = function (StreetAddressID) {
@@ -453,6 +461,10 @@ app.controller('personlistaddresslistCtrl', personlistaddresslistCtrl);
 function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, ngTableParams, toaster, $window, $rootScope, $location, $translate, callsService, localStorageService, userService, $element, ngnotifyService) {
     $rootScope.uService.EnterController("personlistaddresslistCtrl");
     var plal = this;
+    $scope.isWaiting = true;
+    $scope.dbClick = function () {
+        //$scope.isWaiting = false;
+    };
     $scope.translate = function () {
         $scope.trOrderNo = $translate.instant('main.ORDERNO');
         $scope.trOrderNumber = $translate.instant('main.ORDERNUMBER');
@@ -553,6 +565,8 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
         }
     };
     $scope.CheckOrderStore = function (item, OrderTyprID) {
+        if ($scope.isWaiting == true) {
+            $scope.isWaiting = false;
         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
             $scope.HomeOrder(item, OrderTyprID);
         } else {
@@ -577,9 +591,11 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                     }
 
                 }, function (response) {
+                    $scope.isWaiting = false;
                     toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
         }
+    }
     };
     $scope.HomeOrder = function (person, OrderType) {
         if ($scope.CheckPersonPhone == false) {

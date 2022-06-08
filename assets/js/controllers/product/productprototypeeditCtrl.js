@@ -67,6 +67,9 @@ function productprototypeeditCtrl($scope, $log, $filter, SweetAlert, Restangular
         $scope.copyprototype = $translate.instant('main.COPYPROTOTYPE');
         $scope.trMaxItemCount = $translate.instant('main.MAXITEMCOUNT');
         $scope.trMinItemCount = $translate.instant('main.MINITEMCOUNT');
+        $scope.trMicrosItemID = $translate.instant('main.MICROSITEMID');
+        $scope.trMicrossubitemid = $translate.instant('main.MICROSSUBITEMID');
+        $scope.trMicrosComboMealID  = $translate.instant('main.MICROSCOMBOMEALID ');
 
 
     }

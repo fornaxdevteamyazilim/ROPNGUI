@@ -103,7 +103,7 @@
                                 <div class="pull-right" ng-show="!rowform.$visible">
                                     <div ng-if="user.UserRole.Name != 'Alonet'">
                                         <a class="btn btn-warning btn-md tooltips tooltips" tooltip="GEL-AL SİPARİŞ"
-                                            tooltip-placement="right" ng-click="TakeOrder(item.id,1,item.PersonPhones)">
+                                            tooltip-placement="right" ng-click="TakeOrder(item.id,1,item.PersonPhones)" ng-dblclick="dbClick()">
                                             <img src="assets/images/1.png" style="width:20px; height:20px;" /><br />
                                         </a>
                                     </div>
@@ -341,13 +341,13 @@
                                         <a ng-if="user.Store != null && item.isActive == true"
                                             ng-class="{'btn btn-success btn-md':item.Store.id==user.Store.id,'btn btn-danger btn-md':item.Store.id!=user.Store.id}"
                                             tooltip="ADRESE SİPARİŞ" tooltip-placement="left"
-                                            ng-click="CheckOrderStore(item,2)">
+                                            ng-click="CheckOrderStore(item,2)" ng-dblclick="dbClick()">
                                             <img src="assets/images/2.png" style="width:20px; height:20px;"
                                                 class="center" /><br />
                                         </a>
                                         <a ng-if="user.Store == null" class="btn btn-success btn-md tooltips"
                                             tooltip="ADRESE SİPARİŞ" tooltip-placement="left"
-                                            ng-click="CheckOrderStore(item,2)">
+                                            ng-click="CheckOrderStore(item,2)" ng-dblclick="dbClick()">
                                             <img src="assets/images/2.png" style="width:20px; height:20px;"
                                                 class="center" /><br />
                                         </a>

@@ -218,6 +218,11 @@
                                                 {{ :: item.MinItemCount  }}
                                             </span>
                                         </td>
+                                        <!-- <td data-title="trMicrosComboMealID" style="width:6%" class="ng">
+                                            <span editable-number="item.MicrosComboMealID" e-name="MicrosComboMealID" e-form="rowform" e-ng-model="item.MicrosComboMealID">
+                                                {{ :: item.MicrosComboMealID  }}
+                                            </span>
+                                        </td> -->
                                         <!--<td data-title="trRequired" style="width:8%" class="ng">
                                             <span class="text-capitalize" editable-select="item.Required" e-name="Required" e-ng-options="o.v as o.n for o in [{ n: 'False', v: false }, { n: 'True', v: true }]"
                                                   e-form="rowform" e-ng-model="item.Required">
@@ -349,7 +354,17 @@
                                                 {{ item.Index }}
                                             </span>
                                         </td>
-                                        <td data-title="trACItemcode" data-sortable="'AC_ItemCode'" style="width:10%">
+                                        <!-- <td data-title="trMicrosItemID" data-sortable="'MicrosItemID '" style="width:10%">
+                                            <span editable-text="item.MicrosItemID " e-form="rowform" e-ng-model="item.MicrosItemID " e-required>
+                                                {{ item.MicrosItemID  }}
+                                            </span>
+                                        </td>
+                                        <td data-title="trMicrossubitemid " data-sortable="'MicrosSubItemID '" style="width:10%">
+                                            <span editable-text="item.MicrosSubItemID " e-form="rowform" e-ng-model="item.MicrosSubItemID " e-required>
+                                                {{ item.MicrosSubItemID  }}
+                                            </span>
+                                        </td> -->
+                                         <td data-title="trACItemcode" data-sortable="'AC_ItemCode'" style="width:10%">
                                             <span editable-text="item.AC_ItemCode" e-form="rowform" e-ng-model="item.AC_ItemCode" e-required>
                                                 {{ item.AC_ItemCode }}
                                             </span>

@@ -3056,7 +3056,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }).state('app.Carriers.CourierTransactionPrice', {
                 url: '/CourierTransactionPrice',
                 templateUrl: "assets/views/Carriers/CourierTransactionPrice.html",
-                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'CourierTransactionPriceCtrl'),
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'CourierTransactionPriceCtrl', 'dateCtrl'),
                 title: 'Courier Transaction Price',
                 authenticate: true,
                 ncyBreadcrumb: {
@@ -3381,7 +3381,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }).state('app.specialoperations.declaredrevenueelist', {
                 url: '/declaredrevenueelist',
                 templateUrl: "assets/views/specialoperations/declaredrevenueelist.html",
-                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'declaredrevenueelistCtrl'),
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'declaredrevenueelistCtrl', 'dateCtrl'),
                 title: 'declaredrevenueelist',
                 authenticate: true,
                 ncyBreadcrumb: {

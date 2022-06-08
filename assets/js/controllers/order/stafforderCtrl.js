@@ -2,9 +2,13 @@
 function stafforderCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTableParams, toaster, $window, $rootScope, $location, $translate, userService, $element) {
     $rootScope.uService.EnterController("stafforderCtrl");
     $scope.ShowObject = true;
+    $scope.isWaiting = true;
     userService.userAuthorizated();
     $scope.Person = {};
     $scope.storeUsers =[];
+    $scope.dbClick = function () {
+        //$scope.isWaiting = false;
+    };
      $scope.BuildSearchString = function () {
         var result = [];
         result.push(" StoreID= '" + $rootScope.user.StoreID + "'");
@@ -160,6 +164,8 @@ function stafforderCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, 
         }
     };
     $scope.takeawayOrder = function (userID) {
+        if ($scope.isWaiting == true) {
+            $scope.isWaiting = false;
         var Alias = $filter('filter')($scope.storeUsers, { id: userID })[0];
         var data = $scope.GetDepartment();
         if (data != null) {
@@ -175,10 +181,12 @@ function stafforderCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, 
                 location.href = '#/app/orders/orderStoreTable/' + resp.id;
             },
             function (resp) {
+                $scope.isWaiting = false;
                 toaster.pop('error',  $translate.instant('orderfile.Couldnotcreateneworder'), resp.data.ExceptionMessage);
             });
         } else {
         }
+    }
     };
     $scope.$on('$destroy', function () {
         $element.remove();

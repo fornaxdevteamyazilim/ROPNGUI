@@ -9,11 +9,15 @@
     };
 });
 app.controller('takeawayCtrl', takeawayCtrl);
-function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ngTableParams, toaster, $window, $rootScope, $location, $translate, userService, $element) {
+function takeawayCtrl($scope, $log, $modal, Restangular,$filter, SweetAlert, ngTableParams, toaster, $window, $rootScope, $location, $translate, userService, $element) {
     $rootScope.uService.EnterController("takeawayCtrl");
     $scope.ShowObject = true;
+    $scope.isWaiting = true;
     userService.userAuthorizated();
     $scope.Person = {};
+    $scope.dbClick = function () {
+        //$scope.isWaiting = false;
+    };
     $scope.translate = function () {
         $scope.trOrderNo = $translate.instant('main.ORDERNO');
         $scope.trOrderNumber = $translate.instant('main.ORDERNUMBER');
@@ -207,6 +211,8 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
         }
     };
     $scope.takeawayOrder = function (Alias) {
+        if ($scope.isWaiting == true) {
+            $scope.isWaiting = false;
         var data = $scope.GetDepartment();
         if (data != null) {
             var order = {
@@ -221,10 +227,12 @@ function takeawayCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, ng
                 location.href = '#/app/orders/orderStoreTable/' + resp.id;
             },
             function (resp) {
+                $scope.isWaiting = false;
                 toaster.pop('error', resp.data.ExceptionMessage, $translate.instant('orderfile.Couldnotcreateneworder'));
             });
         } else {
         }
+    }
     };
     $scope.$on('$destroy', function () {
         tranlatelistener();

@@ -35,10 +35,10 @@
                     <label>{{:: trTotalDeclaredAmount }}</label><br />
                     <input id="DeclaredAmount " type="number" class="form-control" ng-disabled="EditCountDisabled()" ng-model="item.DeclaredAmount" readonly>
                 </div>
-            
+            <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
-                    <label>{{:: trDepositedAmount }}</label><br />
-                    <input id="DepositedAmount " type="number" class="form-control"  ng-model="item.DepositedAmount">
+                    <label style=" color: red;">{{:: trDepositedAmount }}</label><br />
+                    <input id="DepositedAmount " type="number" style="font-weight:bold; color: red;" class="form-control"  ng-model="item.DepositedAmount">
                 </div>
                 <div class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12">
                     <label>{{:: trReceiptNumber }}</label><br />
@@ -52,6 +52,7 @@
                     <label>{{:: trNotes}}</label><br />
                     <textarea type="text" style='min-height:60px; max-width:340px; max-height:100px' class="form-control text-uppercase" ng-model="item.Notes" placeholder=""></textarea>
                 </div>
+            </div>
                 <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
                     <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
                         <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-left" ng-click="SaveData()">

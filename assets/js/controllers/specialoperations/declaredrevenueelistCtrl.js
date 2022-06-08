@@ -3,21 +3,17 @@ app.controller('declaredrevenueelistCtrl', declaredrevenueelistCtrl);
 function declaredrevenueelistCtrl($scope, $filter, $modal, $log, localStorageService, Restangular, ngTableParams, SweetAlert, $timeout, toaster, $window, $rootScope, $compile, $location, $translate, ngnotifyService, $element, NG_SETTING) {
     $rootScope.uService.EnterController("declaredrevenueelistCtrl");
     if (!$rootScope.ReportParameters.StartDate) {
-        $rootScope.ReportParameters.StartDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
+        $rootScope.ReportParameters.StartDate = moment().add(-1, 'days').format('YYYY-MM-DD ');//$filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
     }
     if (!$rootScope.ReportParameters.EndDate) {
-        $rootScope.ReportParameters.EndDate = moment().add(1, 'days').format('YYYY-MM-DD ');
+        $rootScope.ReportParameters.EndDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
     }
-    $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
+    //$scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;
     $scope.Time = ngnotifyService.ServerTime();
     if (!$rootScope.user || !$rootScope.user.UserRole || !$rootScope.user.UserRole.Name) {
         $location.path('/login/signin');
     };
-    Date.prototype.addDays = Date.prototype.addDays || function (days) {
-        return this.setTime(864E5 * days + this.valueOf()) && this;
-    };
-
     $scope.FromDate = function (item) {
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/Tools/date.html',
@@ -89,20 +85,15 @@ function declaredrevenueelistCtrl($scope, $filter, $modal, $log, localStorageSer
         return result;
     };
     function getFilter() { //"and",["!",["OrderType","=",""]]
-        var fdate = new Date($rootScope.ReportParameters.StartDate);
-        var tdate = new Date($rootScope.ReportParameters.EndDate);
-
-        if ($scope.StoreID) {
-            return [[["OperationDate", ">=", fdate], "and", ["OperationDate", "<=", tdate]], "and", ["StoreID", "=", $scope.StoreID]];
-        }
-        else {
-            //var s= BuildUserStoresArray($rootScope.user.userstores);
-            //if (s)
-            //    return [["OperationDate", ">=", fdate], "and", ["OperationDate", "<=", tdate], [s]];
-            //else
-                return [["OperationDate", ">=", fdate], "and", ["OperationDate", "<=", tdate]];
-        }
-    };
+        var s = BuildUserStoresArray($rootScope.user.userstores);
+        if (s)
+            return [["OperationDate", ">=", $rootScope.ReportParameters.StartDate], "and", ["OperationDate", "<=", $rootScope.ReportParameters.EndDate], [s]];
+        else
+            return [["OperationDate", ">=", $rootScope.ReportParameters.StartDate], "and", ["OperationDate", "<=", $rootScope.ReportParameters.EndDate]];               
+    }
+    // function getFilter() {
+    //     return [["OperationDate", ">=", $scope.DateRange.fromDate.value], "and", ["OperationDate", "<=", $scope.DateRange.toDate.value]];
+    // }
     $scope.gridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
