@@ -3932,7 +3932,12 @@
     "Variance": "Variance",
     "UnitCost": "Unit Cost",
     "Usage(%)": "Usage (%)",
-    "c.name": "c.name"
+    "c.name": "c.name",
+    "TransformUnits": "Transform Units",
+    "StaffTheoriticalUsage":"Staff Theoritical (Quantity)",
+    "StaffTheoriticalUsageAmount":"Staff Theoritical Usage (Amount)",
+    "StaffTheoriticalUsagePercent":"Staff Theoritical Usage (Percent)",
+    "Staff": "Staff"
   },
   "weeklycolsummary": {
     "Store": "Store",
@@ -4767,6 +4772,8 @@
     "DoubleDispatchAmount": "Double Dispatch Amount",
     "TotalDispatchAmount": "Total Dispatch Amount",
     "DailyRawAmount": "Daily Raw Amount",
-    "TotalDays": "Total Days"
+    "TotalDays": "Total Days",
+    "UndeliveredOrders": "Undelivered Orders",
+    "TotalAmount": "Total Amount"
   }
 }

@@ -165,6 +165,14 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
                     { caption: $translate.instant('actualvstheoritical.Variance'), dataField: "DeltaPercent", dataType: "number", format: { type: "percent", precision: 2 } },
                 ]
             },
+            {
+                caption: $translate.instant('actualvstheoritical.Staff'),
+                columns: [
+                    { caption: $translate.instant('actualvstheoritical.StaffTheoriticalUsage'), dataField: "StaffTheoriticalUsage", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+                    { caption: $translate.instant('actualvstheoritical.StaffTheoriticalUsageAmount'), dataField: "StaffTheoriticalUsageAmount", dataType: "number", format: "#,##0.00₺" },
+                    { caption: $translate.instant('actualvstheoritical.StaffTheoriticalUsagePercent'), dataField: "StaffTheoriticalUsagePercent", dataType: "number", format: { type: "percent", precision: 2 } },
+                ]
+            },
         ],
         summary: {
             totalItems: [{ column: "ItemCode", summaryType: "count", displayFormat: "{0}" },
@@ -181,6 +189,9 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
             { column: "TheoriticalUsagePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 4 }, displayFormat: "{0}" },
             { column: "TheoriticalAndWastePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 4 }, displayFormat: "{0}" },
             { column: "DeltaPercent", summaryType: "sum", valueFormat: { type: "percent", precision: 4 }, displayFormat: "{0}" },
+            { column: "StaffTheoriticalUsage", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "StaffTheoriticalUsageAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺" },
+            { column: "StaffTheoriticalUsagePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 4 }, displayFormat: "{0}" },
             ],
             groupItems: [
                 { column: "ItemCode", summaryType: "count", displayFormat: "{0}" },
@@ -197,6 +208,9 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 { column: "TheoriticalUsagePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "TheoriticalAndWastePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
                 { column: "DeltaPercent", summaryType: "sum", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "StaffTheoriticalUsage", summaryType: "sum",  valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+                { column: "StaffTheoriticalUsageAmount", summaryType: "sum",  valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}₺", alignByColumn: true },
+                { column: "StaffTheoriticalUsagePercent", summaryType: "sum", valueFormat: { type: "percent", precision: 2 }, displayFormat: "{0}", alignByColumn: true }, 
             ],
         },
         onCellPrepared: function (e) {
@@ -209,6 +223,9 @@ function actualvstheoriticalCtrl($scope, $filter, $modal, $log, Restangular, Swe
                 }
                 if (e.column.dataField == 'RealUsagePercent' || e.column.dataField == 'TheoriticalUsagePercent' || e.column.dataField == 'TheoriticalAndWastePercent' || e.column.dataField == 'DeltaPercent') {
                     e.cellElement.addClass('clsPercent');
+                } 
+                if (e.column.dataField == 'StaffTheoriticalUsage' || e.column.dataField == 'StaffTheoriticalUsageAmount' || e.column.dataField == 'StaffTheoriticalUsagePercent') {
+                    e.cellElement.addClass('StaffPercent');
                 }
 
                 if (e.data.LasCount == null) {

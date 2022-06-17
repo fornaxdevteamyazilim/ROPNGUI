@@ -3952,7 +3952,12 @@
     "Variance": "Varyans",
     "UnitCost": "Birim Maliyet",
     "Usage(%)": "Kullanım (% Şeklinde)",
-    "c.Name": "Ürün Adı"
+    "c.Name": "Ürün Adı",
+    "TransformUnits": "Üretim Birimi",
+    "StaffTheoriticalUsage": "Personel Teorik Kullanımı (Miktar)",
+    "StaffTheoriticalUsageAmount": "Personel Teorik Kullanım (Tutar)",
+    "StaffTheoriticalUsagePercent": "Personel Teorik Kullanım (Yüzde)",
+    "Staff": "Personel"
   },
   "weeklycolsummary": {
     "Store": "Restoran",
@@ -4783,7 +4788,9 @@
     "DoubleDispatchAmount": "Çift Paket  Tutarı",
     "TotalDispatchAmount": "Toplam Paket Tutarı",
     "DailyRawAmount": "Günlük Toplam Tutar",
-    "TotalDays": "Toplam Gün Sayısı"
+    "TotalDays": "Toplam Gün Sayısı",
+    "UndeliveredOrders": "Teslim Edilmeyen Siparişler",
+    "TotalAmount": "Toplam Tutar"
   }
   
 }

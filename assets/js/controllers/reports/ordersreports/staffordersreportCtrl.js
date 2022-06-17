@@ -102,10 +102,12 @@ function staffordersreportCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             totalItems: [{ column: "OrderID", summaryType: "count", displayFormat: "{0}" },
             { column: "OrderCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { name: "OrderAmount", showInColumn: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "Alias", summaryType: "count", displayFormat: "{0}" },
             ],
             groupItems: [{ column: "OrderID", summaryType: "count", displayFormat: "{0}" },
             { column: "OrderCost", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 },displayFormat: "{0}", alignByColumn: true },
             { name: "OrderAmount", showInColumn: "OrderAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}", alignByColumn: true },
+            { column: "OrderID", summaryType: "count", displayFormat: "{0}" },
             ],
             
         },

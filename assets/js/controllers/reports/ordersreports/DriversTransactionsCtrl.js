@@ -91,6 +91,7 @@ function DriversTransactionsCtrl($scope, $filter, $modal, $log, Restangular, Swe
             { caption: $translate.instant('DriversTransactions.Phone'), dataField: "Phone", dataType: "number" },//, groupIndex: 0 },
             { caption: $translate.instant('DriversTransactions.CitizenshipID'),dataField: "CitizenshipID",dataType: "number" },//displayFormat: "bool" }, 
             { caption: $translate.instant('DriversTransactions.Store'), dataField: "Store", dataType: "string" },//, groupIndex: 0 },
+            { caption: $translate.instant('DriversTransactions.UndeliveredOrders'), dataField: "UndeliveredOrders", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
             { caption: $translate.instant('DriversTransactions.TotalDeliveredOrders'), dataField: "TotalDeliveredOrders", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
             { caption: $translate.instant('DriversTransactions.SingleDispatchCount'), dataField: "SingleDispatchCount", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
             { caption: $translate.instant('DriversTransactions.DoubleDispatchCount'),dataField: "DoubleDispatchCount", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
@@ -98,26 +99,33 @@ function DriversTransactionsCtrl($scope, $filter, $modal, $log, Restangular, Swe
             { caption: $translate.instant('DriversTransactions.DoubleDispatchAmount'), dataField: "DoubleDispatchAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('DriversTransactions.TotalDispatchAmount'), dataField: "TotalDispatchAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('DriversTransactions.DailyRawAmount'), dataField: "DailyRawAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
+            { caption: $translate.instant('DriversTransactions.TotalAmount'), dataField: "TotalAmount", dataType: "number", format: { type: "fixedPoint", precision: 2 } },
             { caption: $translate.instant('DriversTransactions.TotalDays'), dataField: "TotalDays", dataType: "number", format: { type: "fixedPoint", precision: 0 } },
         ],
         summary: {
             totalItems: [
+                { column: "UndeliveredOrders", summaryType: "sum", displayFormat: "{0}" },
             { column: "TotalDeliveredOrders", summaryType: "sum", displayFormat: "{0}" },
             { column: "SingleDispatchCount", summaryType: "sum", displayFormat: "{0}" },
             { column: "DoubleDispatchCount", summaryType: "sum", displayFormat: "{0}" },
             { column: "SingleDispatchAmount",  summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "DoubleDispatchAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "TotalDispatchAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "TotalAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "DailyRawAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+           
             ],
             groupItems: [
+                { column: "UndeliveredOrders", summaryType: "sum", displayFormat: "{0}" },
             { column: "TotalDeliveredOrders", summaryType: "count", displayFormat: "{0}" },
             { column: "SingleDispatchCount", summaryType: "count", displayFormat: "{0}" },
             { column: "DoubleDispatchCount", summaryType: "count", displayFormat: "{0}" },
             { column: "SingleDispatchAmount",  summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "DoubleDispatchAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 },displayFormat: "{0}", alignByColumn: true },
             { column: "TotalDispatchAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            { column: "TotalAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
             { column: "DailyRawAmount", summaryType: "sum", valueFormat: { type: "fixedPoint", precision: 2 }, displayFormat: "{0}" },
+            
             ],
             
         },
