@@ -9,8 +9,10 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
     $scope.inProgress = false;
     $scope.KDIndex = 0;
     $scope.$storage = $localStorage.$default({
-        KDisplayIndex: 0
+        KDisplayIndex: 0,
+        StoreProductionID:null
     });
+    $scope.StoreProductions=[];
     var stopTime;
     var kd = this;
     $scope.BottonDblcilik = function () { };
@@ -55,6 +57,13 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
         if (data.StationID == sID)
             $scope.ApplyBumpBarData(data);
     });
+    Restangular.all('cache/StoreProductions').getList({ 
+        StoreID:localStorageService.get('StoreID')
+    }).then(function (result) {
+        $scope.StoreProductions = result;
+    }, function (response) {
+        toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+    });
     $scope.ApplyBumpBarData = function (data) {
         var key = -1;
         switch (data.Data) {
@@ -91,7 +100,8 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
         Restangular.all('kds/getitems').getList({
             StoreID: $rootScope.user.StoreID,
             OrderStateID: 4,
-            KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0
+            //KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0,
+            StoreProductionID:$scope.$storage.StoreProductionID
         }).then(function (result) {
             // if (result.length > 0)
             //     $scope.audio.play();
@@ -173,7 +183,8 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
         Restangular.one('kds/updateorder').get({
             OrderID: OrderID,
             AutoPrint: false,
-            KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0
+            KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0,
+            StoreProductionID: $scope.$storage.StoreProductionID ? $scope.$storage.StoreProductionID : null, //bu eklenecek UI a 
         }).then(function (restresult) {
             toaster.pop("success", $translate.instant('kitchendisplayf.Prepared'), $translate.instant('kitchendisplayf.Itemprepared'));
             $scope.LoadOrderItemStates();
