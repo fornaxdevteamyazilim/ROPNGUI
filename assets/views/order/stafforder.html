@@ -17,8 +17,8 @@
                 <label translate="main.STAFFNAME">
                     Staff Name
                 </label> <span class="symbol required"></span>
-                <!-- <select id="store" ng-options="s.id as s.FullName for s in storeUsers | filter: {ShiftActive:true} | orderBy:'+FullName'" class="form-control text-capitalize ng" ng-model="userID"></select> -->
-                <select id="store" ng-options="s.id as s.FullName for s in storeUsers | orderBy:'+FullName'" class="form-control text-capitalize ng" ng-model="userID"></select>
+                <select id="store" ng-options="s.id as s.FullName for s in storeUserss |orderBy:'+FullName'| filter: {isActive: 'true'}"  class="form-control text-capitalize ng" ng-model="userID"></select> 
+                <!-- <select id="store" ng-options="s.id as s.FullName for s in storeUsers | orderBy:'+FullName'" class="form-control text-capitalize ng" ng-model="userID"></select> -->
             </form>
             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6 pull-left">
                 <button class="btn btn-scroll btn-success btn-scroll-top ti-new-window margin-top-20" ng-click="takeawayOrder(userID)" ng-disabled="!userID" ng-dblclick="dbClick()"><span class="text-extra-large text-bold">{{'main.NEWORDERR' | translate}} </span></button>

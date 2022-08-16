@@ -44,13 +44,13 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         $scope.cashdrawer = $translate.instant('main.CASHDRAWER');
 
     };
-    $scope.StoreOrderTypes=[];
+    $scope.StoreOrderTypes = [];
     if ($rootScope.user && $rootScope.user.Store) {
-        $scope.StoreOrderTypes=angular.copy($rootScope.user.Store.StoreOrderTypes);
+        $scope.StoreOrderTypes = angular.copy($rootScope.user.Store.StoreOrderTypes);
         $scope.translate($scope.StoreOrderTypes);
     }
     var deregistration1 = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
-        $scope.StoreOrderTypes=angular.copy($rootScope.user.Store.StoreOrderTypes);
+        $scope.StoreOrderTypes = angular.copy($rootScope.user.Store.StoreOrderTypes);
         $scope.translate($scope.StoreOrderTypes);
     });
     var NewOrderfresh = $scope.$on('NewOrder', function (event, data) {
@@ -66,6 +66,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         }).then(function (result) {
             $scope.RefreshStoreStats(result);
             $scope.AuditFinalizeOpDay();
+            $scope.isDeclaredRevenueInvalids();
         },
             function (restresult) {
                 $rootScope.ShowSpinnerObject = false;
@@ -104,13 +105,14 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         $scope.RealDeliveryTime = angular.copy(stats.RealDeliveryTime);
         $scope.TransferredDuration = angular.copy(stats.TransferredDuration);
         $scope.WaitingPeriod = angular.copy(stats.WaitingPeriod);
-        $scope.isFinalizeRequired=angular.copy(stats.isFinalizeRequired);
+        $scope.isFinalizeRequired = angular.copy(stats.isFinalizeRequired);
+        $scope.isDeclaredRevenueInvalid = angular.copy(stats.isDeclaredRevenueInvalid);
     };
     $scope.GetStoreStats();
     //$rootScope.user.UserExtensionNumber = callsService.currentExtension = localStorageService.get('ExtensionNumber');
     //$rootScope.user.ClientName = localStorageService.get('ClientName');
     if ($rootScope.user && $rootScope.user.UserRole) {
-        if ($rootScope.user.restrictions.ClientName=='Enable') {            
+        if ($rootScope.user.restrictions.ClientName == 'Enable') {
             if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
                 if (!$rootScope.user.UserExtensionNumber) {
                     var modalInstance = $modal.open({
@@ -147,14 +149,14 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
     }
     $scope.GetNewOrderCount = function () {
         if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
-            if (!userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("MemberAdmin") && !userService.userIsInRole("MarketingDepartment")&& !userService.userIsInRole("OperationDepartment") && !userService.userIsInRole("PurchasingDepartment")  && !userService.userIsInRole("FinanceDepartment") && !userService.userIsInRole("STOREADMIN") && !userService.userIsInRole("PH")
-            && $rootScope.user.restrictions.NewOrdersCount!='Disable') {
+            if (!userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("MemberAdmin") && !userService.userIsInRole("MarketingDepartment") && !userService.userIsInRole("OperationDepartment") && !userService.userIsInRole("PurchasingDepartment") && !userService.userIsInRole("FinanceDepartment") && !userService.userIsInRole("STOREADMIN") && !userService.userIsInRole("PH")
+                && $rootScope.user.restrictions.NewOrdersCount != 'Disable') {
                 Restangular.one('ordertools/NewOrdersCount').get().then(function (result) {
                     if (result.Total > 0) {
                         if ($scope.ShowAlert != true) {
                             $scope.ShowAlert = true;
                             SweetAlert.swal({
-                                title:$translate.instant('mainscreen.NEWORDER ') ,
+                                title: $translate.instant('mainscreen.NEWORDER '),
                                 text: $translate.instant('mainscreen.CheckOrder '),
                                 type: "warning",
                                 showCancelButton: true,
@@ -180,31 +182,31 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
     $scope.GetNewOrderCount();
     $scope.getNewYSOrder = function () {
         if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
-            if ($rootScope.user.restrictions.ysorder=='Enable' ) {
+            if ($rootScope.user.restrictions.ysorder == 'Enable') {
                 Restangular.all('yemeksepeti/unmapedorders').getList({
-                    StoreID: $rootScope.user.StoreID?$rootScope.user.StoreID:''
+                    StoreID: $rootScope.user.StoreID ? $rootScope.user.StoreID : ''
                 }).then(function (result) {
                     $scope.audio.muting = !(result.length > 0);
                     if (result.length > 0) {
-                        if (!($rootScope.user.restrictions.ysnosound=='Enable'))
+                        if (!($rootScope.user.restrictions.ysnosound == 'Enable'))
                             $scope.audio.play();
                         $rootScope.YSOrderCount = angular.copy(result.length);
                     } else
                         $scope.audio.pause();
                     $rootScope.YSOrderCount = angular.copy(result.length);
                 }, function (response) {
-                    toaster.pop('error',  $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
                 });
             }
         }
     };
-    $scope.getNewYSOrder(); 
-    var NewAggregatorOrderfresh = ($rootScope.user && $rootScope.user.restrictions.aggregatorcustomermapping == 'Enable')?
-    $scope.$on('AggregatorOrder', function (event, data) {
-        $scope.getNewwAggregatorOrder();
-    }):$scope.$on('AggregatorOrderUpdate', function (event, data) {
-        $scope.getNewwAggregatorOrder();
-    });
+    $scope.getNewYSOrder();
+    var NewAggregatorOrderfresh = ($rootScope.user && $rootScope.user.restrictions.aggregatorcustomermapping == 'Enable') ?
+        $scope.$on('AggregatorOrder', function (event, data) {
+            $scope.getNewwAggregatorOrder();
+        }) : $scope.$on('AggregatorOrderUpdate', function (event, data) {
+            $scope.getNewwAggregatorOrder();
+        });
     $scope.getNewwAggregatorOrder = function () {
         if ($rootScope.user && $rootScope.user.UserRole && $rootScope.user.UserRole.Name) {
             if ($rootScope.user.restrictions.aggregatorcustomermapping == 'Enable') {
@@ -244,7 +246,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         //    $scope.login('#/app/orders/tablePlantwo');
         if (orderType == 1)
             $scope.login('#/app/orders/takeaway');
-        if (orderType == 2 )
+        if (orderType == 2)
             $scope.login('#/app/orders/personpage/list');
         if (orderType == 7)
             $scope.login('#/app/orders/getirpersonpage/list');
@@ -264,7 +266,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
                     location.href = '#/app/orders/orderStoreTable/' + resp.id;
                 },
                     function (resp) {
-                        toaster.pop('error',$translate.instant('mainscreen.createneworder '), "error");
+                        toaster.pop('error', $translate.instant('mainscreen.createneworder '), "error");
                     });
             }
         }
@@ -276,6 +278,25 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
             $scope.login('#/app/orders/mall');
         if (orderType == 9)
             $scope.login('#/app/orders/WebDineIn');
+        if (orderType == 10) {
+            var data = $scope.GetDepartment();
+            if (data != null) {
+                var order = {
+                    persons: [],
+                    OrderTypeID: 10,
+                    StoreID: $rootScope.user.StoreID,
+                    DepartmentID: $rootScope.user.UserRole.OrderSource.Department.id
+                }
+                Restangular.restangularizeElement('', order, 'order');
+                order.post().then(function (resp) {
+                    location.href = '#/app/orders/orderStoreTable/' + resp.id;
+                },
+                    function (resp) {
+                        toaster.pop('error', $translate.instant('mainscreen.createneworder '), "error");
+                    });
+            }
+        }
+     
     };
     $scope.login = function (path) {
         var data = userService.TimedOut();
@@ -306,14 +327,14 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
     };
     var idListener = $rootScope.$on('Identification', function (event, data) {
         //var uiFMD = encodeURIComponent(data.FMD);
-        userService.fmdLogin(data.FMD,false).then(function (response) {
+        userService.fmdLogin(data.FMD, false).then(function (response) {
             userService.stopTimeout();
             if (response) {
                 $location.path('/app/mainscreen');
             }
         }, function (err) {
             if (err && err.error == 'invalid_grant') {
-                toaster.pop('warrning', $translate.instant('mainscreen.fingerprints '), err.error_description);                
+                toaster.pop('warrning', $translate.instant('mainscreen.fingerprints '), err.error_description);
             }
             else {
                 if (err) {
@@ -326,14 +347,14 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         });
     });
     var mcListener = $rootScope.$on('MSRIdentification', function (event, data) {
-        userService.mcardLogin(data.CardData,false).then(function (response) {
+        userService.mcardLogin(data.CardData, false).then(function (response) {
             userService.stopTimeout();
             if (response) {
                 $location.path('/app/mainscreen');
             }
         }, function (err) {
             if (err && err.error == 'invalid_grant') {
-                toaster.pop('warrning', $translate.instant('mainscreen.MagneticCardInvalid'), err.error_description);                
+                toaster.pop('warrning', $translate.instant('mainscreen.MagneticCardInvalid'), err.error_description);
             }
             else {
                 if (err) {
@@ -346,7 +367,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         });
     });
     $scope.ChechCardCode = function (password) {
-        userService.cardLogin(password,true).then(function (response) {
+        userService.cardLogin(password, true).then(function (response) {
             userService.stopTimeout();
             location.href = $scope.GoPage;
         }, function (err) {
@@ -438,7 +459,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
                 var today = new Date();
                 //eğer saat 0 ile 5 arasında ise, bir gün öncesi ile kıyaslanmalı.
                 if (today.getHours() < 5)
-                    today.setDate(today.getDate()-1);
+                    today.setDate(today.getDate() - 1);
                 return $filter('date')(date, 'dd-MM-yyyy') != $filter('date')(today, 'dd-MM-yyyy');
             }
             return false;
@@ -461,19 +482,47 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
     //    else
     //        return false;
     //}
- 
+
+    $scope.isDeclaredRevenueInvalide = function () {
+
+        return $scope.isDeclaredRevenueInvalid;
+
+    };
+    $scope.isDeclaredRevenueInvalids = function () {
+
+        if ($scope.isDeclaredRevenueInvalide()) {
+            SweetAlert.swal({
+                title: $translate.instant('mainscreen.Editdeclaration '),
+                text: $translate.instant('mainscreen.Declareinformation '),
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: $translate.instant('mainscreen.Editdeclaration '),
+                cancelButtonText: $scope.OK,
+                closeOnConfirm: true,
+                closeOnCancel: true
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    $scope.ShowAlert = false;
+                    location.href = '#/app/specialoperations/declaredrevenueelist';
+                }
+            });
+        }
+
+    };
+    $scope.isDeclaredRevenueInvalids();
     $scope.AuditFinalizeOpDay = function () {
         if ($scope.isFinalizeOpDayRequired()) {
             SweetAlert.swal({
-                title: $translate.instant('mainscreen.EndOfDay ') ,
+                title: $translate.instant('mainscreen.EndOfDay '),
                 text: $translate.instant('mainscreen.PleaseEndOfDay '),
                 type: "warning",
                 //showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: $scope.OK,
-              
+
                 closeOnConfirm: true,
-          
+
             });
         }
     };
@@ -631,7 +680,7 @@ function endofdayCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $w
     $scope.endofdays = [];
     $scope.SaveEndOfDays = function (data) {
         swal({
-            title:$translate.instant('mainscreen.EndOfDayWant '),
+            title: $translate.instant('mainscreen.EndOfDayWant '),
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -647,29 +696,30 @@ function endofdayCtrl($scope, $log, $modal, Restangular, SweetAlert, toaster, $w
                         $scope.ShowingObje = false;
                         toaster.pop('success', $translate.instant('mainscreen.EndOfDayReceived '), 'OK');
                     }
+                    location.href = '#/app/specialoperations/declaredrevenueelist';
                 },
-                function (restresult) {
-                    $scope.ShowingObje = false;
-                    var start = restresult.data.ExceptionMessage.indexOf("[");
-                    var end = restresult.data.ExceptionMessage.indexOf("]");
-                    var orderID = restresult.data.ExceptionMessage.substring(start + 1, end);
-                    SweetAlert.swal("Error!", restresult.data.ExceptionMessage);
-                    SweetAlert.swal({
-                        title:$translate.instant('mainscreen.EndOfDayFailed ') ,
-                        text: restresult.data.ExceptionMessage,
-                        type: "info",
-                        showCancelButton: true,
-                        closeOnConfirm: true,
-                        showLoaderOnConfirm: true,
-                        confirmButtonText: $translate.instant('mainscreen.GotoOrder '),
-                        cancelButtonText:$translate.instant('mainscreen.Cancel ') ,
-                        closeOnCancel: true
-                    }, function (isConfirm) {
-                        if (isConfirm) {
-                            $location.path('app/orders/orderDetail/' + orderID);
-                        }
+                    function (restresult) {
+                        $scope.ShowingObje = false;
+                        var start = restresult.data.ExceptionMessage.indexOf("[");
+                        var end = restresult.data.ExceptionMessage.indexOf("]");
+                        var orderID = restresult.data.ExceptionMessage.substring(start + 1, end);
+                        SweetAlert.swal("Error!", restresult.data.ExceptionMessage);
+                        SweetAlert.swal({
+                            title: $translate.instant('mainscreen.EndOfDayFailed '),
+                            text: restresult.data.ExceptionMessage,
+                            type: "info",
+                            showCancelButton: true,
+                            closeOnConfirm: true,
+                            showLoaderOnConfirm: true,
+                            confirmButtonText: $translate.instant('mainscreen.GotoOrder '),
+                            cancelButtonText: $translate.instant('mainscreen.Cancel '),
+                            closeOnCancel: true
+                        }, function (isConfirm) {
+                            if (isConfirm) {
+                                $location.path('app/orders/orderDetail/' + orderID);
+                            }
+                        })
                     })
-                })
         });
     };
     $scope.$on('$destroy', function () {

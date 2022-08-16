@@ -1567,9 +1567,11 @@
     "ACITEMCOD": "Stock Code",
     "ACCODE": "Accounting Unit Code",
     "ACACCOUNTCODE": "Accounting Code",
-    "MICROSITEMID": "Micros Item ID",
-    "MICROSSUBITEMID": "Micros Sub Item Id",
+    "MICROSITEMID": "DIN Micros ID",
+    "MICROSSUBITEMID": " DIN CM ID",
     "MICROSCOMBOMEALID": "Micros Combo Meal Id",
+    "MICROSDELIVERYITEMID": "DLV Micros ID",
+    "MICROSDELIVERYSUBITEMID": "DLV CM ID",
     "ACVATACCOUNTCODE": "KDV Code",
     "ACCONSUMPTIONACCOUNT": "Consumption Account",
     "ACPROMOTIONACCOUNT": "Promotion Consumption Account",
@@ -1835,6 +1837,7 @@
     "SAVECONSUPTIONS": "Save Consuptions",
     "ORDERSREFERENCES": "Orders References",
     "PRODUCTCOSTCALCULATION": "Product Cost Calculation",
+    "DECLAREDREVENUECORRECTION": "Declared Revenue Correction",
     "COPYTOROLE": "Copy To Role",
     "CALCULATEPRODUCTCOSTS": "Calculating Product Costs",
     "COPYFROMPERIOD": "Copy From Period",
@@ -2021,6 +2024,7 @@
     "PASSWORDLOGIN": "Password Login",
     "USERCARDLOGIN": "Card Code Login",
     "ISDRIVERROLE": "Is Driver Role ?",
+    "EMPLOYEEMEAL": "Employee Meal",
     "AUTOSENDTOECR": "Auto Send To ECR",
     "ECRPAYMENTTYPE": "ECR Payment Type",
     "OPENDRAWER": "Open Drawer",
@@ -3284,7 +3288,9 @@
     "yes": "Yes",
     "no": "No",
     "GotoOrder": "Go to Order",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "Editdeclaration": "Edit declaration",
+    "Declareinformation": "The declared income information is not valid! Please edit it!"
   },
   "accounting": {
     "Updated": "Updated.",
@@ -3372,7 +3378,8 @@
     "Insertcancelled": "Insert cancelled !",
     "Editcancelled": "Edit cancelled !",
     "CalculateProductCosts": "Calculate Product Costs",
-    "OrdersReferences": "Orders References"
+    "OrdersReferences": "Orders References",
+    "DeclaredRevenues": "Declared Revenue Correction"
   },
   "dispatcherfile": {
     "Drivechanged": "Drive changed !",

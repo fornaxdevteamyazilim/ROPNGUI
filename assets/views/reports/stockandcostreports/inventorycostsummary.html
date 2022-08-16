@@ -38,8 +38,11 @@
             <div class="col-lg-2 col-md-2 margin-top-10">
                 <span class="text-bold" translate="main.STORE"></span> <span class="text-bold">*</span><br />
                 <select class="col-lg-10 col-md-10 col-sm-12 col-xs-12 form-control" ng-options="q.id as q.name for q in user.userstores |orderBy: '+name'" ng-model="StoreID" ng-change="loadRepository(StoreID)">
+
+                    <option value="">Tümü !</option>
                     <option value=''></option>
                 </select>
+              
             </div>
             <div print-remove class="col-lg-2 col-md-2 margin-top-10">
                 <span class="text-bold" translate="main.SELECTPERIOD">Dönem Seçimi</span> <span class="text-bold">*</span><br />

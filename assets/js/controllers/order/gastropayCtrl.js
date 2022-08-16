@@ -3,7 +3,7 @@ function gastropayCtrl($rootScope, $scope, $modalInstance, $stateParams, Order, 
     $rootScope.uService.EnterController("gastropayCtrl");
     $scope.order = Order;
     //$scope.ResultCode = {};
-    $scope.SavePayment = function (ResultCode) {
+    $scope.SavePayments = function (ResultCode) {
         $scope.Showspinner = true;
         Restangular.one('gastropay/getpaymentresult').get(
             {
@@ -30,7 +30,41 @@ function gastropayCtrl($rootScope, $scope, $modalInstance, $stateParams, Order, 
             toaster.pop('warning', response.data.ExceptionMessage);
         });
     };
-
+    $scope.SavePayment = function (type) {
+        $scope.currentPayment.PaymentTypeID = type.id;
+        if ($scope.currentPayment.Amount == 0) {
+            toaster.pop('error', $translate.instant('orderfile.AmountPayable'), "error");
+        } else {
+            $scope.ShowButton = true;
+            $scope.currentPayment.PaymentTypeID = type.id;
+            $scope.currentPayment.PaymentDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd HH:mm:ss');
+            Restangular.restangularizeElement('', $scope.currentPayment, 'orderpayment');
+            if ($scope.isNewPayment) {
+                $scope.currentPayment.post().then(function (resp) {
+                    //$scope.setBekoECRPayment(type.PaymentType);
+                    toaster.pop("success",$translate.instant('orderfile.PAYMENTSAVED') );
+                    $scope.order.payments.push(resp);
+                    $scope.gastropay(order);
+                    $scope.Recalc();
+                    if ($scope.currentPayment.Amount == 0)
+                        $scope.ok();
+                }, function (resp) {
+                    toaster.pop('error',$translate.instant('orderfile.NONEWPAYMENTRECORDED') , resp.data.ExceptionMessage);
+                });
+            } else {
+                $scope.currentPayment.put().then(function (resp) {
+                    //$scope.setBekoECRPayment(type.PaymentType);
+                    toaster.pop("success", $translate.instant('orderfile.PAYMENTUPDATED'));
+                    $scope.Recalc();
+                    if ($scope.currentPayment.Amount == 0)
+                        $scope.ok();
+                }, function (resp) {
+                    toaster.pop('error', $translate.instant('orderfile.NEWPAYMENTCOULDNOTUPDATED'), resp.data.ExceptionMessage);
+                });
+            }
+        }
+    };
+    $scope.GastropayCheck();
     // $scope.SavePayment = function (Type) {
     //     $scope.Showspinner = true;
     //     PaymentRestangular.one('gastropay/getpaymentresult').get({

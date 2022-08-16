@@ -50,29 +50,29 @@
                 <form role="form">
                     <fieldset class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12" ng-if="user.restrictions.storecmedit =='Enable'">
                         <legend translate="main.STORE">Store Details</legend>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmedit =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediSTORE =='Enable'">
                         <label for="Store" translate="main.STORE"></label>
                         <input id="id" type="text" class="form-control1 text-capitalize" ng-model="item.name" placeholder="" ng-minlength="1" required>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmedit =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediFIXEDPHONE =='Enable'">
                         <label translate="main.FIXEDPHONE" for="phone"></label>
                         <input id="pnumber" class="form-control1" placeholder="(999) 999 99 99" type="text" ng-model="item.phone" maxlength="10" required />
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmedit =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediPHONE =='Enable'">
                         <label translate="main.PHONE" for="phone"></label>
                         <input id="pnumber" class="form-control1" type="text" ng-model="item.mobilePhone" maxlength="10" required />
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmedit =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediEMAIL =='Enable'">
                         <label translate="main.EMAIL" for="phone"></label>
                         <input id="email" class="form-control1" placeholder="example@example.com" type="text" ng-model="item.email" />
                         <!--<label translate="main.EMAIL" for="email"></label>
         <textarea type="text" style='min-height:70px; max-width:225px; max-height:70px; min-width:225px;' class="form-control1" ng-model="item.email"placeholder="example@example.com"></textarea>-->
                     </div>
-                    <div class="form-group col-sm-6 col-lg-1 col-md-2 col-xs-12" ng-if="user.restrictions.storecmedit =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-1 col-md-2 col-xs-12" ng-if="user.restrictions.storecmediISACTIVE =='Enable'">
                         <label for="town" translate="main.ISACTIVE"></label>
                         <select ng-options="q.Value as q.Name for q in storestates | orderBy:'+Name'" class="form-control1 text-capitalize ng" ng-model="item.State"></select>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-1 col-md-2 col-xs-12" ng-if="user.restrictions.storecmedit =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-1 col-md-2 col-xs-12" ng-if="user.restrictions.storecmediSTORETYPE =='Enable'">
                         <label for="StoreType" translate="main.STORETYPE"></label><br />
                         <select ng-options="q.Value as q.Name for q in storetypes | orderBy:'+Name'" class="form-control1 text-capitalize ng" ng-model="item.StoreTypeID"></select>
                     </div>
@@ -80,79 +80,79 @@
                         <label for="isActiveFilter" translate="main.ACTIVEFILTER"></label><br />
                         <select ng-options="q.id as q.Name for q in filters | orderBy:'+Name'" class="form-control1 text-capitalize ng" ng-model="item.isActiveFilter"></select>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmedit =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediMEMBER=='Enable'">
                         <label for="member" translate="main.MEMBER"></label>
                         <select id="MemberID" ng-options="s.id as s.name for s in members | orderBy:'+name'" class="form-control1 text-capitalize ng" ng-model="item.MemberID"></select>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmedit =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediTOWN =='Enable'">
                         <label for="town" translate="main.TOWN"></label>
                         <select id="TownID" ng-options="t.id as t.name for t in towns | orderBy:'+name'" class="form-control1 text-capitalize ng" ng-model="item.TownID"></select>
                     </div>
                 
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStore =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStoreSTOREIP =='Enable'">
                         <label translate="main.STOREIP" for="storeip"></label>
                         <input id="storeip" class="form-control1" type="text" ng-model="item.StoreIP" required />
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStore =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStoreREGIONMANAGER =='Enable'">
                         <label translate="main.REGIONMANAGER" for="storeregion"></label>
                         <!--<input id="storeregion" class="form-control" type="text" ng-model="item.StoreRegion" required />-->
                         <select ng-options="q.id as q.name for q in storeregions | orderBy:'+name'" class="form-control1 text-capitalize ng" ng-model="item.StoreRegionID"></select>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-1 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStore =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-1 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStoreOPENDATE =='Enable'">
                         <label translate="main.OPENDATE" for="OpenDate"></label>
                         <input id="OpenDate" class="form-control1" type="text"  ng-click="datepopup(item.OpenDate)"datepicker-popup="dd-MM-yyyy" ng-model="item.OpenDate" required />
                     </div>
-                    <div class="form-group col-sm-6 col-lg-1 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStore =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-1 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStoreCLOSEDATE =='Enable'">
                         <label translate="main.CLOSEDATE" for="CloseDate"></label>
                         <input id="CloseDate" class="form-control1" type="text" ng-click="closedatepopup(item.CloseDate)" datepicker-popup="dd-MM-yyyy" ng-model="item.CloseDate" required> </input>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-1 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStore =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-1 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStoreORACLESTARTDATE =='Enable'">
                         <label translate="main.ORACLESTARTDATE" for="OracleStartDate"></label>
                         <input id="OracleStartDate" class="form-control1" type="text" ng-click="OracleStartDatepopup(item.OracleStartDate)" datepicker-popup="dd-MM-yyyy" ng-model="item.OracleStartDate" required> </input>
                     </div>
                     <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStore =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStoreCOMPANY =='Enable'">
                        
                         <label translate="main.COMPANY" for="Member"></label>
                         <!--<input id="storeregion" class="form-control" type="text" ng-model="item.StoreRegion" required />-->
                         <select id="company" ng-options="q.id as q.Name for q in companies | orderBy:'+Name'| filter: {isActiveValue: 'true'}" class="form-control text-uppercase ng" ng-model="item.CompanyID"></select>
                     </div>
                    
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStore =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStoreSERVICESTIME =='Enable'">
                         <label for="ServiceTime" translate="main.SERVICESTIME"></label>
                         <input id="id" type="text" class="form-control1 text-capitalize" ng-model="item.ServiceTime" required>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediTKWServiceTime =='Enable'">
                         <label for="TKWServiceTime" translate="main.TKWSERVICESTIME"></label>
                         <input id="id" type="text" class="form-control1 text-capitalize" ng-model="item.ServiceTimeTKW" required>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediCOOKINGTIME =='Enable'">
                         <label for="CookingTime" translate="main.COOKINGTIME"></label>
                         <input id="id" type="text" class="form-control1 text-capitalize" ng-model="item.CookingTime" required>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediNOTE =='Enable'">
                         <label translate="main.NOTE" for="notes"></label>
                         <textarea type="text" style='min-height:90px;max-width: 205px;max-height:70px;min-width: 245px;' class="form-control1 text-uppercase" ng-model="item.notes"></textarea>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmedit =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediSTOREADDRESS =='Enable'">
                         <label translate="main.STOREADDRESS" for="StoreAddress"></label>
                         <textarea type="text" style='min-height:90px;max-width: 205px;max-height:70px;min-width: 245px;' class="form-control1 text-uppercase" ng-model="item.StoreAddress" ng-click="AddressSelector()"></textarea>
                     </div>
                 </div>
                 <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12" ng-if="user.restrictions.isMainStore =='Enable'">
-                    <div class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-3" ng-if="user.restrictions.isMainStore =='Enable'">
+                    <div class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-3" ng-if="user.restrictions.isMainStoreCENTRALWAREHOUSE =='Enable'">
                         <label translate="main.CENTRALWAREHOUSE"></label><br />
                         <input class="center" type="checkbox" ng-model="item.isMainStore" style="width:30px; height:30px;">
                     </div>
-                    <div class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-3" ng-if="user.restrictions.isMainStore =='Enable'">
+                    <div class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-3" ng-if="user.restrictions.isMainStoreECRENABLED =='Enable'">
                         <label translate="main.ECRENABLED"></label><br />
                         <input class="center" type="checkbox" ng-model="item.isECREnabled" style="width:30px; height:30px;">
                     </div>
-                    <div class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-3" ng-if="user.restrictions.isMainStore =='Enable'">
+                    <div class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-3" ng-if="user.restrictions.isMainStorePASSWORDLOGIN =='Enable'">
                         <label translate="main.PASSWORDLOGIN"></label><br />
                         <input class="center" type="checkbox" ng-model="item.PasswordLogin" style="width:30px; height:30px;">
                     </div>
-                    <div class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-3" ng-if="user.restrictions.isMainStore =='Enable'">
+                    <div class="form-group col-sm-3 col-lg-3 col-md-3 col-xs-3" ng-if="user.restrictions.isMainStoreUSERCARDLOGIN =='Enable'">
                         <label translate="main.USERCARDLOGIN"></label><br />
                         <input class="center" type="checkbox" ng-model="item.UserCardLogin" style="width:30px; height:30px;">
                     </div>
@@ -234,9 +234,9 @@
                             <table ng-table="vm.tableParams" class="table table-striped table-hover">
                                 <tr ng-repeat="item in $data | orderBy:'+name'"
                                     ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
-                                    <td class="text-capitalize ng" data-title="trStorePaymentType" data-sortable="'PaymentTypeID'" style="width:60%" ng-click="rowform.$show()">
+                                    <td class="text-capitalize ng" data-title="trStorePaymentType" data-sortable="'PaymentTypeID'" style="width:60%">
                                         <span editable-select="item.PaymentTypeID" e-name="PaymentTypeID" e-ng-model="item.PaymentTypeID" e-form="rowform"
-                                              e-ng-options="q.id as q.name for q in paymenttypes | orderBy:'+name'" e-style="width:30vw;">
+                                              e-ng-options="q.id as q.name for q in paymenttypes | orderBy:'+name'" e-style="width:30vw;" >
                                             {{ ShowObject('paymenttypes','id',item.PaymentTypeID,'name') }}
                                         </span>
                                     </td>
@@ -295,7 +295,7 @@
                                         ng-class="{'isActiveValue': item.id === SelectedItem,strike: !item.isActiveValue,red: !item.isActiveValue}"
                                         ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)">
                                         <td data-title="trStoreOrderType" data-sortable="'OrderTypeID'" style="width:30%" ng-click="rowform.$show()" class="ng">
-                                            <span class="text-capitalize" editable-select="item.OrderTypeID" e-name="OrderTypeID" e-ng-model="item.OrderTypeID" e-form="rowform"
+                                            <span class="text-capitalize" editable-select="item.OrderTypeID" e-name="OrderTypeID" e-ng-model="item.OrderTypeID" ng-disable="true" e-form="rowform"
                                                   e-ng-options="q.Value as q.Name for q in ordertypes | orderBy:'+Name' " e-style="width:20vw;">
                                                 {{ ShowObject('ordertypes','Value',item.OrderTypeID,'Name') }}
                                             </span>

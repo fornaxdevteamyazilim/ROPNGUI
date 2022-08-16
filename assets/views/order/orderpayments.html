@@ -419,7 +419,7 @@
         </div>
         <div class="panel col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="max-height:100px; min-height:100px;"
-            ng-if="order.OrderTypeID == 0 || order.OrderTypeID == 1 ||order.OrderTypeID == 2 ||order.OrderTypeID == 3 ||order.OrderTypeID == 4 ||order.OrderTypeID == 6 || order.OrderTypeID == 7  || order.OrderTypeID == 9">
+            ng-if="order.OrderTypeID == 0 || order.OrderTypeID == 1 ||order.OrderTypeID == 2 ||order.OrderTypeID == 3 ||order.OrderTypeID == 4 ||order.OrderTypeID == 6 || order.OrderTypeID == 7  || order.OrderTypeID == 9 || order.OrderTypeID == 10">
             <button class='btn btn-default text-capitalize'
                 style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="SaveECRPayment(1)"
                 ng-dblclick="BottonDblcilik()" ng-disabled="Showspinner==true"> <span class='fa fa-spin fa-spinner'
@@ -433,11 +433,13 @@
                 style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="SaveECRPayment(4)"
                 ng-dblclick="BottonDblcilik()" ng-disabled="Showspinner==true"> <span class='fa fa-spin fa-spinner'
                     ng-if='Showspinner == true'></span><span ng-if="Showspinner != true">Yemek Çeki</span></button>
+
             <button class='btn btn-default text-capitalize'
                 style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="gastropay()"
                 ng-dblclick="BottonDblcilik()" ng-disabled="Showspinner==true"
                 ng-if="user.restrictions.gastropaybutton=='Enable'"> <span class='fa fa-spin fa-spinner'
                     ng-if='Showspinner == true'></span><span ng-if="Showspinner != true">Gastropay Ödeme</span></button>
+                    
             <button class='btn btn-default text-capitalize'
                 style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="SaveECRPayment(8)"
                 ng-dblclick="BottonDblcilik()" ng-disabled="Showspinner==true"

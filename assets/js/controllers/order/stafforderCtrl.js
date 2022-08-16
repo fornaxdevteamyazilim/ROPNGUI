@@ -6,6 +6,7 @@ function stafforderCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, 
     userService.userAuthorizated();
     $scope.Person = {};
     $scope.storeUsers =[];
+    $scope.storeUserss =[];
     $scope.dbClick = function () {
         //$scope.isWaiting = false;
     };
@@ -16,15 +17,23 @@ function stafforderCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, 
             result.push(" tt.id= '" + $rootScope.user.id + "'"); // Self Order
         return result;
      };
-    Restangular.all('user').getList({
-        pageNo: 1,
-        pageSize: 10000,
-        search: $scope.BuildSearchString()
-     }).then(function (result) {
-         $scope.storeUsers = result;
-     }, function (response) {
-         toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-     });
+     Restangular.all('user/emploees').getList({
+        StoreID: $rootScope.user.StoreID 
+           }).then(function (result) {
+           $scope.storeUserss = result;
+           //angular.copy(resulti$scope.Departments);
+       }, function (response) {
+           toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+       });
+    //  Restangular.all('user').getList({
+    //     pageNo: 1,
+    //     pageSize: 10000,
+    //     search: $scope.BuildSearchString()
+    //  }).then(function (result) {
+    //      $scope.storeUsers = result;
+    //  }, function (response) {
+    //      toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+    //  });
     $scope.OrderPaymentDeteails = function (item) {
         Restangular.all('orderperson').getList({
             pageNo: 1,
@@ -166,7 +175,7 @@ function stafforderCtrl($scope, $log, $modal, Restangular, $filter, SweetAlert, 
     $scope.takeawayOrder = function (userID) {
         if ($scope.isWaiting == true) {
             $scope.isWaiting = false;
-        var Alias = $filter('filter')($scope.storeUsers, { id: userID })[0];
+        var Alias = $filter('filter')( $scope.storeUserss,{ id: userID })[0];
         var data = $scope.GetDepartment();
         if (data != null) {
             var order = {
