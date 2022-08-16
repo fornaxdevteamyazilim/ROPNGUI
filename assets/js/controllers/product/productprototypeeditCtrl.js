@@ -70,6 +70,8 @@ function productprototypeeditCtrl($scope, $log, $filter, SweetAlert, Restangular
         $scope.trMicrosItemID = $translate.instant('main.MICROSITEMID');
         $scope.trMicrossubitemid = $translate.instant('main.MICROSSUBITEMID');
         $scope.trMicrosComboMealID  = $translate.instant('main.MICROSCOMBOMEALID ');
+        $scope.trMicrosDeliveryItemID = $translate.instant('main.MICROSDELIVERYITEMID');
+        $scope.trMicrosDeliverySubItemID = $translate.instant('main.MICROSDELIVERYSUBITEMID');
 
 
     }

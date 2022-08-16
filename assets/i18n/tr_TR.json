@@ -294,7 +294,7 @@
     "INDEXIMPORT": "{{appName}} - Index Upload ",
     "DECLAREDREVENUEELIST": "{{appName}} - Beyan Edilen Gelir Listesi",
     "STORESALESBUDGETLIST": "{{appName}} -  Resturant Satış Bütce listesi",
-    "NGSETTINGITEM": "{{appName}} - RopNG Ayarlar",
+    "NGSETTINGITEM": "{{appName}} - RopNG Parametre Tanımları",
     "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : "{{appName}} - ROPING API Servislerine Bağlantınız Kesilmiştir !",
     "INVENTORYPERIDICCOST": "{{appName}} - Dönemsel Maliyetler",
     "USERPRODUCTSALES": "{{appName}} - Kullanıcı - Ürün Satış Listesi",
@@ -1581,9 +1581,11 @@
     "ACCODE": "Muhasebe Birim Kodu",
     "ACITEMCOD": "Stok Kodu",
     "ACACCOUNTCODE": "Muhasebe Kodu",
-    "MICROSITEMID": "Micros Item ID",
-    "MICROSSUBITEMID": "Micros Sub Item Id",
+    "MICROSITEMID": "DIN Micros ID",
+    "MICROSSUBITEMID": " DIN CM ID",
     "MICROSCOMBOMEALID": "Micros Combo Meal Id",
+    "MICROSDELIVERYITEMID": "DLV Micros ID",
+    "MICROSDELIVERYSUBITEMID": "DLV CM ID",
     "ACVATACCOUNTCODE": "KDV Kodu",
     "ACCONSUMPTIONACCOUNT": "Sarf Hesabı",
     "ACPROMOTIONACCOUNT": "Promosyon Tüketim Hesabı",
@@ -1792,7 +1794,7 @@
     "SEARCHBYSETTINGNAME": "Başlığa Göre Ara !",
     "SETTINGNAME": "Başlık",
     "SETTINGVALUE": "Değer",
-    "ADDSETTINGITEM": "Ng Ayar Ekle",
+    "ADDSETTINGITEM": "Ng Parametre Ekle",
     "DONOTFORGETTOASKMARKETTINGQUESTION": "Pazarlama Sorusunu Sormayı Unutma !",
     "WASTE": "Atık",
     "WASTEFOODCOST": "Atık",
@@ -1855,6 +1857,7 @@
     "COPYTOPERIOD": "Kopyalanacak Dönem",
     "ORDERSREFERENCES": "Sipariş Taşıma",
     "PRODUCTCOSTCALCULATION": "Ürün Maliyet Hesaplama",
+    "DECLAREDREVENUECORRECTION": "Beyan edilen gelir düzeltme",
     "COPYTOROLE": "Role Kopyalama",
     "CALCULATEPRODUCTCOSTS": "Ürün Maliyetlerini Hesaplama",
     "START": "Başlat",
@@ -2040,6 +2043,7 @@
     "PASSWORDLOGIN": "Şifre Girişleri",
     "USERCARDLOGIN": "Kart Kodu Girişleri",
     "ISDRIVERROLE": "Sürücü Aktif olsun mu ? ",
+    "EMPLOYEEMEAL": "Çalışan Yemeği Aktif Olsun mu",
     "AUTOSENDTOECR": "ECR Otomatik Gönder",
     "ECRPAYMENTTYPE": "ECR Ödeme Tipi",
     "OPENDRAWER": "Çekmeceyi̇ Aç",
@@ -3010,7 +3014,7 @@
         "ACCOUNTTRANSACTIONSTYPE": "Kasa Giriş/Çıkış İşlem Tipleri",
         "PREDEFINEDNOTE": "Tanımlı Notlar",
         "YEMEKSEPETIREJECTREASON": "Yemek Sepeti Red Sebepleri",
-        "NGSETTINGITEM": "RopNG Ayar Tanımları",
+        "NGSETTINGITEM": "RopNG Parametre Tanımları",
         "CONNECTIONTOROPNGAPISERVICENOTAVAILIBLE" : " ROPING API Servislerine Bağlantınız Kesilmiştir !",
         "SETTINGITEM": "Düzenleme Araçları",
         "SURVEURESULT": "Anket Sonuç Tanımları",
@@ -3301,7 +3305,10 @@
     "yes": "Evet",
     "no": "Hayır",
     "GotoOrder": "Siparişe git",
-    "Cancel": " İptal Et"
+    "Cancel": " İptal Et",
+    "Editdeclaration": "Beyanı düzenle",
+    "Declareinformation":"Beyan edilen gelir bilgileri geçerli değildir! Lütfen düzenleyiniz!"
+
   },
   "accounting": {
     "Updated": "Güncellendi.",
@@ -3388,7 +3395,8 @@
     "Clonerestrictions": "Role Kopyalandı!",
     "Insertcancelled": "Ekleme iptal edildi!",
     "Editcancelled": "Düzenleme iptal edildi !",
-    "CalculateProductCosts": "Ürün Maliyetleri Hesaplandı"
+    "CalculateProductCosts": "Ürün Maliyetleri Hesaplandı",
+    "DeclaredRevenues": "Beyan Edilen Gelir Listesi Düzenlendi"
   },
   "dispatcherfile": {
     "Drivechanged": "Sürücü değişti !",

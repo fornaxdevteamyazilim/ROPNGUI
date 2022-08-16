@@ -352,6 +352,8 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         location.href = '#/app/orders/orderStoreTable/' + restresult.id; //Mall Siparişi
                     if (restresult.OrderTypeID == 7)
                         location.href = '#/app/orders/orderStore/' + restresult.id;      //Adrese Sipaiş - Getir
+                    if (restresult.OrderTypeID == 10 )
+                        location.href = '#/app/orders/orderStoreTable/' + restresult.id; // (Hızlı Sipariş) 
                 }
                 if ($rootScope.user.restrictions.storeorderpage != 'Enable') //for Callcenter
                     location.href = '#/app/orders/order/' + restresult.id;
@@ -363,6 +365,8 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 if (restresult.Address && restresult.Address.StreetAddressID && restresult.Address.StreetAddressID > 0) {
                     $scope.GetStoreStreetAddress(restresult.Address.StreetAddressID);
                 }
+               
+
                 //$scope.getMarketingPermission();
             }, function (restresult) {
                 toaster.pop('Warning', $translate.instant('orderfile.Orderfailedtoload'), restresult.data.ExceptionMessage);
@@ -541,7 +545,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
         if (PaymentType && PaymentType.PaymentTypeID) {
             $scope._order.PaymentTypeID = PaymentType.id;
         }
-        if ($scope._order.PaymentTypeID == null && $scope._order.OrderTypeID != 0 && $scope._order.OrderTypeID != 1 && $scope._order.OrderTypeID != 4) {
+        if ($scope._order.PaymentTypeID == null && $scope._order.OrderTypeID != 0 && $scope._order.OrderTypeID != 1 && $scope._order.OrderTypeID != 4 ) {
             toaster.pop('Warning',$translate.instant('orderfile.PaymentType') , $translate.instant('orderfile.SELECTPAYMENTTYPE'));
         } else {
             if ($scope._order.OrderStateID == 2) { //Sipariş Değişikliği
@@ -567,6 +571,9 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     //if ($scope._order.OrderTypeID == 0 && $rootScope.user.UserRole.MemberID == 106851154380) {
                     //    $location.path('/app/orders/tablePlantwo');
                     //}
+                    // if ($scope._order.OrderTypeID == 10) {
+                    //     $location.path('/app/mainscreen');
+                    // }
                     else {
                         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER"))
                             $location.path('/app/orders/personpage/list');
@@ -662,6 +669,10 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         });
                         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER"))
                             $location.path('/app/orders/getirpersonpage/list');
+                        if (userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("STORE") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("Driver"))
+                            $location.path('/app/mainscreen');
+                    }
+                    if ($scope._order.OrderTypeID == 10) {
                         if (userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("STORE") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("Driver"))
                             $location.path('/app/mainscreen');
                     }
@@ -922,14 +933,14 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 });
                 modalInstance.result.then(function (item, type) {
                     if (item.msg == 'ECRPayment' || item.msg == 'OtherPayment')
-                        if ($scope._order.OrderTypeID == 0 || $scope._order.OrderTypeID == 1 || $scope._order.OrderTypeID == 5 || $scope._order.OrderTypeID == 6) {
+                        if ($scope._order.OrderTypeID == 0 || $scope._order.OrderTypeID == 1 || $scope._order.OrderTypeID == 5 || $scope._order.OrderTypeID == 6|| $scope._order.OrderTypeID == 10) {
                             $scope._order.PaymentTypeID = angular.copy(item.PaymentTypeID);
                             $scope.SaveOrder();
                         }
                 })
             }
         } else {
-            if ((item.OrderTypeID == 0 && rootemsg == 'save') || (item.OrderTypeID == 4) || (item.Amount == 0)) {
+            if ((item.OrderTypeID == 0 && rootemsg == 'save') || (item.OrderTypeID == 1 && rootemsg == 'save') ||(item.OrderTypeID == 4) || (item.Amount == 0)) {
                 $scope.SaveOrder();
             } else {
                 item.items = $scope.orderItems;
@@ -946,7 +957,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 });
                 modalInstance.result.then(function (item, type) {
                     if (item.msg == 'ECRPayment' || item.msg == 'OtherPayment')
-                        if ($scope._order.OrderTypeID == 0 || $scope._order.OrderTypeID == 1 || $scope._order.OrderTypeID == 5 || $scope._order.OrderTypeID == 6) {
+                        if ($scope._order.OrderTypeID == 0 || $scope._order.OrderTypeID == 1 || $scope._order.OrderTypeID == 5 || $scope._order.OrderTypeID == 6 || $scope._order.OrderTypeID == 10) {
                             $scope._order.PaymentTypeID = angular.copy(item.PaymentTypeID);
                             $scope.SaveOrder();
                         }

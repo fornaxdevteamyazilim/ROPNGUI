@@ -11,6 +11,7 @@ function restangularConfig(RestangularProvider) {
     //RestangularProvider.setBaseUrl('http://localhost:9065/api/'); //localhost
     //RestangularProvider.setBaseUrl('http://192.168.15.10:9065/api/'); //PH
     //RestangularProvider.setBaseUrl('http://31.145.149.211:9063/api/'); //CALLCENTER
+    //RestangularProvider.setBaseUrl('http://192.168.9.41:9069/api/'); //NEWGNUI 
 
     
     //RestangularProvider.setDefaultHeaders({ "Content-Type": "application/json;charset=utf-8" });

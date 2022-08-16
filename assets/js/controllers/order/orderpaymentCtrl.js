@@ -287,13 +287,7 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
             }
         });
          modalInstance.result.then(function (item) {
-            if (item == 'OK') {
-                Restangular.one('order', $scope.order.id).get().then(function (result) {
-                    $scope.order = result;
-                    $scope.CalcRequiredAmount();
-                    $scope.ok()
-                });
-            }
+            $scope.SavePayment($scope.order);
         })
     };
 

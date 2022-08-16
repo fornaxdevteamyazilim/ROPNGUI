@@ -130,7 +130,7 @@
                                 <button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm tooltips ti-close"></button>
                             </form>
                             <div class="buttons pull-right" ng-show="!rowform.$visible"  >
-                                <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" ng-disabled="EditCountDisabled()" tooltip-placement="top" ng-click="rowform.$show()"></a>
+                                <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" ng-if="user.restrictions.inventorytransferseditt=='Enable'" tooltip-placement="top" ng-click="rowform.$show()"></a>
                                 <a class="btn btn-transparent btn-sm tooltips ti-close hidden-sm hidden-xs" tooltip="{{:: delete}}" tooltip-placement="top" ng-click="removeItem($index)" ng-if="user.restrictions.inventorytransfersdeletedremow=='Enable'"></a>
                             </div>
                             <div class="visible-xs visible-sm hidden-md hidden-lg">

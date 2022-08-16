@@ -11,7 +11,7 @@
     <h3 class="modal-title center"><span class="center">{{::trOrderNumber}} :{{OrderNo}} - {{OrderNumber}}</span><button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
 </div>
 <div class="panel-body panel panel-white">
-    <div  class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12"s ng-if="order.OrderSource == 'YemekSepeti' || order.OrderSource == 'Getir'">
+    <div  class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12"s ng-if="order.OrderSource == 'YemekSepeti' || order.OrderSource == 'Getir'|| order.OrderSource == 'Trendyol'">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             <label translate="{{:: trYSCancelReason }}" for="YemekSepetiRejectReasonID">
                 Reasons
@@ -20,7 +20,7 @@
                 <select id="YemekSepetiRejectReasonID" class="form-control center" ng-options="q.id as q.Reason for q in yemeksepetirejectreasons | orderBy:'+Reason'" ng-model="item.YemekSepetiRejectReasonID"></select>
             </span>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-if="order.OrderSource == 'Trendyol'" >
             <label translate="{{:: trTrendyolCancelReason }}" for="TrendyolRejectReasonID">
                 Reasons
             </label>
@@ -51,7 +51,7 @@
                 Order Note
             </label>
             <textarea id="OrderID" type="text" style='min-height:70px; max-width:557px; max-height:90px;' minlength="5" class="form-control text-capitalize center" ng-model="item.Note"></textarea>
-        </div>
+        </div>   
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="root == 'orderdetail'" ng-hide="user.restrictions.askinventory=='Kapali'">
             <!--<div>
                 <label>* İptal işlemi için aşağıdakilerden birini seçmeniz gerekmektedir !</label>

@@ -95,6 +95,23 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
         });
     };
+    //beyan edilen gelir düzenlemesi başlangıç
+    $scope.DeclaredRevenues = function () {
+        $scope.isWaiting = true;
+        //var data = new Date();
+        var FromOpDate = $filter('date')($scope.DateRanges.fromDate.value, 'yyyy-MM-dd');
+        var ToOpDate = $filter('date')($scope.DateRanges.toDate.value, 'yyyy-MM-dd');
+        Restangular.one('DeclaredRevenue/correct').get({
+            FromOpDate: FromOpDate,
+            ToOpDate: ToOpDate,
+        }).then(function (result) {
+            $scope.isWaiting = false;
+            toaster.pop('success', $translate.instant('difinitions.DeclaredRevenues'));
+        }, function (response) {
+            $scope.isWaiting = false;
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
+        });
+    };
     $scope.DateRanges = {
         fromDate: {
             max: new Date(),

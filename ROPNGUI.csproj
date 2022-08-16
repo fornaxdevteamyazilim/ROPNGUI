@@ -82,6 +82,7 @@
     <Content Include="assets\images\300000000000.jpg" />
     <Content Include="assets\images\4.png" />
     <Content Include="assets\images\5.png" />
+    <Content Include="assets\images\10.png" />
     <Content Include="assets\images\6.png" />
     <Content Include="assets\images\add169.png" />
     <Content Include="assets\images\africa-17344_640.jpg" />
@@ -343,6 +344,7 @@
     <Content Include="assets\js\controllers\hnr\hnrproductCtrl.js" />
     <Content Include="assets\js\controllers\hnr\hotandreadyCtrl.js" />
     <Content Include="assets\js\controllers\kitchenDisplay\kds2Ctrl.js" />
+    <Content Include="assets\js\controllers\kitchenDisplay\kdskfc2Ctrl.js" />
     <Content Include="assets\js\controllers\login_lockCtrl.js" />
     <Content Include="assets\js\controllers\matching\inventoryunitmatchingCtrl.js" />
     <Content Include="assets\js\controllers\definitions\gridCtrl.js" />
