@@ -211,6 +211,13 @@ function kdskfc2Ctrl(
         { name: "Product", dataField: "Product", caption: $scope.product,minWidth:200 },
         { name: "Quantity", dataField: "Quantity", caption: $scope.quantity,format: { type: "fixedPoint", precision: 2 } }
       ],
+      onCellPrepared: function(e) {
+        if(e.rowType === "data") {
+            e.cellElement.css("color", e.data.isPrepared ? "green" : "red");
+            //e.cellElement.css({ 'background-color': '#DCDCDC' });
+            e.cellElement.css({ 'font-weight': 'bolder' });
+        }
+    }
     }
   };
   $scope.UpdateOrderItemStatesTimers = function (items) {

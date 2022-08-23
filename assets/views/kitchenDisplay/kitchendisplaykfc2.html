@@ -115,7 +115,7 @@
             <div class="row">
                 <div class="list-group-item-success" ng-repeat="item in :refresh:orderitemstates" ng-class="{'list-group-item-success':item.isTimedOut == true ,'list-group-item-danger':item.isTimedOut == false ,'bg-white':item.ProductState.Duration<1}">
                     <div class="col-sm-6 col-md-3" ng-click="RemoveItem(item.OrderID, $index, $index,item.AutoPrint)" ng-dblclick="BottonDblcilik()">
-                                <div class="panel panel-white min-height-200">
+                                <div class="panel panel-white min-height-200" style="background-color:dimgray;">
                                     <div class="panel-heading">
                                         <div class="panel-title">
                                             <table>
