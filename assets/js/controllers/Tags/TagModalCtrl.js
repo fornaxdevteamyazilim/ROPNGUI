@@ -69,7 +69,7 @@ function TagModalCtrl($rootScope, $scope, $translate, $modalInstance, ObjectID, 
         if (!$scope[Container].length) {
             Restangular.all(EntityType).getList({
                 pageNo: 1,
-                pageSize: 1000,
+                pageSize: 5000,
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {

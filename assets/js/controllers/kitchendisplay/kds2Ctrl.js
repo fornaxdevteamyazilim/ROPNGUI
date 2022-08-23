@@ -9,10 +9,8 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
     $scope.inProgress = false;
     $scope.KDIndex = 0;
     $scope.$storage = $localStorage.$default({
-        KDisplayIndex: "0",
-        StoreProductionID:null
+        KDisplayIndex: 0
     });
-    $scope.StoreProductions=[];
     var stopTime;
     var kd = this;
     $scope.BottonDblcilik = function () { };
@@ -57,13 +55,6 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
         if (data.StationID == sID)
             $scope.ApplyBumpBarData(data);
     });
-    Restangular.all('cache/StoreProductions').getList({ 
-        StoreID:localStorageService.get('StoreID')
-    }).then(function (result) {
-        $scope.StoreProductions = result;
-    }, function (response) {
-        toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-    });
     $scope.ApplyBumpBarData = function (data) {
         var key = -1;
         switch (data.Data) {
@@ -94,22 +85,15 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
         $scope.UpdateOrderItemStatesTimers($scope.orderitemstates);
     }, 1000);
     $scope.orderitemstates = [];
+    var product = [];
     $scope.LoadOrderItemStates = function () {
         if ($scope.inProgress) return;
         $scope.inProgress = true;
-        
-        var params=($scope.$storage.KDisplayIndex=="0")?{
+        Restangular.all('kds/getitems').getList({
             StoreID: $rootScope.user.StoreID,
             OrderStateID: 4,
-            StoreProductionID:$scope.$storage.StoreProductionID
-        }:
-        {
-            StoreID: $rootScope.user.StoreID,
-            OrderStateID: 4,
-            KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0,            
-        };
-
-        Restangular.all('kds/getitems').getList(params).then(function (result) {
+            KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0
+        }).then(function (result) {
             // if (result.length > 0)
             //     $scope.audio.play();
             // else
@@ -190,8 +174,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
         Restangular.one('kds/updateorder').get({
             OrderID: OrderID,
             AutoPrint: false,
-            KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0,
-            StoreProductionID: $scope.$storage.KDisplayIndex=="0"?$scope.$storage.StoreProductionID :null, //bu eklenecek UI a 
+            KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0
         }).then(function (restresult) {
             toaster.pop("success", $translate.instant('kitchendisplayf.Prepared'), $translate.instant('kitchendisplayf.Itemprepared'));
             $scope.LoadOrderItemStates();
@@ -247,7 +230,31 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
     };
     $scope.StartClock();
 
-
+    $scope.dataGridOptionsorder = {
+        dataSource:product,
+        showRowLines: true,
+        showBorders: true,
+        columnAutoWidth: true,
+        allowColumnResizing: true,
+        showColumnLines: true,
+        rowAlternationEnabled: true,
+        hoverStateEnabled: true,
+        allowColumnReordering: true,
+        //selectedRowKeys: [1, 29, 42],
+        autoExpandAll: true,
+        wordWrapEnabled: true,
+        remoteOperations: { grouping: true },
+        //keyExpr: 'id',
+        //displayExpr: 'caption',
+        parentIdExpr: 'ParentItemID',
+        virtualModeEnabled: true,
+        autoExpandAll:true,   
+        columns: [
+            { name: "Product", dataField: "Product", caption: $scope.product,minWidth:200 },
+                 
+        ],
+     
+    };
     $scope.$on('$destroy', function () {
         //$timeout.cancel(interval);
         deregistration();

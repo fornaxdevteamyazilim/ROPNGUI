@@ -55,7 +55,7 @@
             </div>
                 <div class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
                     <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
-                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-left" ng-click="SaveData()">
+                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save pull-left" ng-click="SaveData()" ng-if="item.DepositedAmount">
                             <span>{{:: save}}</span>
                         </button>
                     </div>
@@ -66,7 +66,7 @@
                         </button> 
                     </div>
                      
-                    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4"  ng-if="user.restrictions.declaredrevenueeedits=='Enable'">
                         <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="$stateParams.id !== 'new'" ng-click="removedata(item.id)">
                             <span>{{:: delete}}</span>
                         </button>

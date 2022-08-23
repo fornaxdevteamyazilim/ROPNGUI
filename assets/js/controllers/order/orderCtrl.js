@@ -1,9 +1,9 @@
 ﻿
-app.factory('PaymentRestangular', function(Restangular) {
-    return Restangular.withConfig(function(RestangularConfigurer) {
-      RestangularConfigurer.setBaseUrl('http://192.168.9.40:9065/api/');
+app.factory('PaymentRestangular', function (Restangular) {
+    return Restangular.withConfig(function (RestangularConfigurer) {
+        RestangularConfigurer.setBaseUrl('http://192.168.9.40:9065/api/');
     });
-  });
+});
 
 
 app.controller('orderCtrl', orderCtrl);
@@ -20,7 +20,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
     $scope.FormatedAddress = {};
     $scope._order.Address = {};
     $scope.$storage = $localStorage.$default({
-        customerItems:[] 
+        customerItems: []
     });
     //$scope.orderItems = [];
     //$scope.$storage.customerData.items = $scope.orderItems;
@@ -93,12 +93,24 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
     //    }
     //}
     //*********************************************** MarketingPermission ***************************************************//
+
+
+    $scope.isorderpayeds = function (OrderID) {
+        Restangular.one('ordertools/isorderpayed').get({
+            OrderID: $stateParams.id
+        }).then(function (result) {
+            $scope.isorderpayed = result;
+        }, function (response) {
+            toaster.pop('warning', response.data.ExceptionMessage);
+        });
+    };
+    $scope.isorderpayeds();
     var tranlatelistener = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
         $scope.translate();
     });
     $scope.CallReason = function (type, root) {
         if ($rootScope.user && $rootScope.user.UserRole) {
-            if (userService.userIsInRole("CALLCENTER") ||  userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CMRESTORANHATTI") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("Driver")) {
+            if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CMRESTORANHATTI") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("Driver")) {
                 Restangular.all('callreason').getList({
                     pageNo: 1,
                     pageSize: 1000,
@@ -154,7 +166,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     $scope.LoadOrderItems();
                 },
                     function (resp) {
-                        toaster.pop('error', $translate.instant('orderfile.Ordersectionupdatefailed') , resp.data.ExceptionMessage);
+                        toaster.pop('error', $translate.instant('orderfile.Ordersectionupdatefailed'), resp.data.ExceptionMessage);
                     });
             }
         }
@@ -186,14 +198,14 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
         var modalInstance = $modal.open({
             template:
                 '<div class="panel-body">' +
-                 //PH
-                '<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center text-white text-capitalize" style="background-color:#b30000; color:item;"> {{:: item.name}} <button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h2>' + 
-                 //LC
+                //PH
+                '<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center text-white text-capitalize" style="background-color:#b30000; color:item;"> {{:: item.name}} <button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h2>' +
+                //LC
                 //'<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center text-white text-capitalize" style="background-color:#FF6600; color:item;"> {{:: item.name}} <button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h2>' +   
-            '<orderable ng-if="OrderID" item="' + ObjectID + '" order="OrderID" orderitem="' + oi + '"class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></orderable>' +
-            '</div>' +
-            ' <div class="panel center">' +
-            '</div>',
+                '<orderable ng-if="OrderID" item="' + ObjectID + '" order="OrderID" orderitem="' + oi + '"class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></orderable>' +
+                '</div>' +
+                ' <div class="panel center">' +
+                '</div>',
             controller: 'orderproductitemsCtrl',
             size: 'lg',
             backdrop: '',
@@ -226,13 +238,13 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             search: "OrderID='" + (($scope._order) ? $scope._order.id : "") + "'"
         }).then(function (_orderItems) {
             $scope.orderItems = angular.copy($scope.UpdateOrderItemPersonsAndSplits(_orderItems));
-            
+
             $scope.UpdateOrderTotal(_orderItems);
             $scope.CalculateItemAmountWithsubItems();
 
             $scope.UpdateCustomerDisplayData();
         }, function (response) {
-            toaster.pop('error', $translate.instant('orderfile.Ingredientupdatefailed') , response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('orderfile.Ingredientupdatefailed'), response.data.ExceptionMessage);
         });
     };
     $scope.UpdateCustomerDisplayData = function () {
@@ -246,7 +258,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             OrderItemID: data
         }).then(function (res) {
             $scope.LoadOrderItems();
-            toaster.pop('success',$translate.instant('orderfile.Cateringproduct'), '');
+            toaster.pop('success', $translate.instant('orderfile.Cateringproduct'), '');
         }, function (response) {
             toaster.pop('error', $translate.instant('Server.Uploaderror'), response.data.ExceptionMessage);
         });
@@ -299,10 +311,10 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
     };
     $scope.RemoveItem = function (OrderItemID) {
         Restangular.one("OrderableItem", OrderItemID).remove().then(function () {
-            toaster.pop("error", $translate.instant('orderfile.OrderContentsDeleted'),$translate.instant('orderfile.OrderContentsDeleted'));
+            toaster.pop("error", $translate.instant('orderfile.OrderContentsDeleted'), $translate.instant('orderfile.OrderContentsDeleted'));
             $scope.LoadOrderItems();
         }, function (response) {
-            toaster.pop('error',  $translate.instant('orderfile.Deletionerror'), response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('orderfile.Deletionerror'), response.data.ExceptionMessage);
         });
     };
     $scope.DisplayStreetAddress = function (address) {
@@ -321,7 +333,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         params.total(items.paging);
                         $defer.resolve($filter('orderBy')(items, params.orderBy()));
                     }, function (response) {
-                        toaster.pop('error',$translate.instant('orderfile.Loadingproductlistfailed'), response.data.ExceptionMessage);
+                        toaster.pop('error', $translate.instant('orderfile.Loadingproductlistfailed'), response.data.ExceptionMessage);
                     });
                 }
             });
@@ -352,7 +364,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         location.href = '#/app/orders/orderStoreTable/' + restresult.id; //Mall Siparişi
                     if (restresult.OrderTypeID == 7)
                         location.href = '#/app/orders/orderStore/' + restresult.id;      //Adrese Sipaiş - Getir
-                    if (restresult.OrderTypeID == 10 )
+                    if (restresult.OrderTypeID == 10)
                         location.href = '#/app/orders/orderStoreTable/' + restresult.id; // (Hızlı Sipariş) 
                 }
                 if ($rootScope.user.restrictions.storeorderpage != 'Enable') //for Callcenter
@@ -361,12 +373,11 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 $scope.loadPaymenttypes();
                 $scope.AddItemOrder(restresult);
                 $scope.GetPruductList(restresult.id);
+                $scope.isorderpayeds();
                 $scope.GetStore();
                 if (restresult.Address && restresult.Address.StreetAddressID && restresult.Address.StreetAddressID > 0) {
                     $scope.GetStoreStreetAddress(restresult.Address.StreetAddressID);
                 }
-               
-
                 //$scope.getMarketingPermission();
             }, function (restresult) {
                 toaster.pop('Warning', $translate.instant('orderfile.Orderfailedtoload'), restresult.data.ExceptionMessage);
@@ -384,7 +395,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 $scope.WDT = "";
             }
         }, function (response) {
-            toaster.pop('Warning',$translate.instant('orderfile.Faileduploadaddress'), response.data.ExceptionMessage);
+            toaster.pop('Warning', $translate.instant('orderfile.Faileduploadaddress'), response.data.ExceptionMessage);
         });
     };
     $scope.ShowCategories = function (OrderID) {
@@ -435,10 +446,10 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                             toaster.pop('error', $translate.instant('orderfile.PAYMENTNOTAVAILABLE'), response.data.ExceptionMessage);
                         });
                 }, function (restresult) {
-                    toaster.pop('warning',$translate.instant('orderfile.PAYMENTACCEPTED'), restresult.data.ExceptionMessage);
+                    toaster.pop('warning', $translate.instant('orderfile.PAYMENTACCEPTED'), restresult.data.ExceptionMessage);
                 })
         }, function (resp) {
-            toaster.pop('error',$translate.instant('orderfile.NEWPAYMENTSAVED'), resp.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('orderfile.NEWPAYMENTSAVED'), resp.data.ExceptionMessage);
         });
     };
     $scope.SaveECRPaymentType = function (PaymentType) {
@@ -463,7 +474,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 var res = result;
             }
         }, function (response) {
-            toaster.pop('error',$translate.instant('orderfile.PAYMENTAPPROVED'), response.data);
+            toaster.pop('error', $translate.instant('orderfile.PAYMENTAPPROVED'), response.data);
         });
     };
     $scope.CopyOrder = function (order) {
@@ -545,8 +556,8 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
         if (PaymentType && PaymentType.PaymentTypeID) {
             $scope._order.PaymentTypeID = PaymentType.id;
         }
-        if ($scope._order.PaymentTypeID == null && $scope._order.OrderTypeID != 0 && $scope._order.OrderTypeID != 1 && $scope._order.OrderTypeID != 4 ) {
-            toaster.pop('Warning',$translate.instant('orderfile.PaymentType') , $translate.instant('orderfile.SELECTPAYMENTTYPE'));
+        if ($scope._order.PaymentTypeID == null && $scope._order.OrderTypeID != 0 && $scope._order.OrderTypeID != 1 && $scope._order.OrderTypeID != 4) {
+            toaster.pop('Warning', $translate.instant('orderfile.PaymentType'), $translate.instant('orderfile.SELECTPAYMENTTYPE'));
         } else {
             if ($scope._order.OrderStateID == 2) { //Sipariş Değişikliği
                 $scope._order.OrderStateID = 3;
@@ -582,7 +593,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         userService.landingPage(false);
                     }
                 }, function (result) {
-                    toaster.pop('Warning',$translate.instant('orderfile.OrderFailed'), result.data.ExceptionMessage);
+                    toaster.pop('Warning', $translate.instant('orderfile.OrderFailed'), result.data.ExceptionMessage);
                 });
             } else { //Yeni sipariş
                 $scope._order.OrderStateID = 1;
@@ -647,7 +658,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     }
                     if ($scope._order.OrderTypeID == 4) {
                         //if (userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("STORE") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("Driver"))
-                           $location.path('/app/orders/takeaway');
+                        $location.path('/app/orders/takeaway');
                     }
                     if ($scope._order.OrderTypeID == 5) {
                         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER"))
@@ -674,7 +685,8 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     }
                     if ($scope._order.OrderTypeID == 10) {
                         if (userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("STORE") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("Driver"))
-                            $location.path('/app/mainscreen');
+                            $scope.isorderpayeds();
+                        $location.path('/app/mainscreen');
                     }
                     $rootScope.allowNavigation();
                     $scope.CallReason(1, 'new');
@@ -685,7 +697,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 });
             }
         }
-        $scope.clearCustomerDislpay();    
+        $scope.clearCustomerDislpay();
     };
     $scope.clearCustomerDislpay = function () {
         $scope.$storage.customerItems = [];
@@ -699,12 +711,12 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             var ordertosave = $scope.CopyOrder($scope._order);
             Restangular.restangularizeElement('', ordertosave, 'order');
             ordertosave.put().then(function (result) {
-                toaster.pop('success',$translate.instant('orderfile.OrderChange') ,$translate.instant('orderfile.OrderStateSetChanging'));
+                toaster.pop('success', $translate.instant('orderfile.OrderChange'), $translate.instant('orderfile.OrderStateSetChanging'));
             }, function (response) {
-                    toaster.pop('error', $translate.instant('orderfile.UnablechangeOrder'), response.data.ExceptionMessage);
-                    $rootScope.allowNavigation();
-                    $window.history.back();
-                    //userService.landingPage(false);
+                toaster.pop('error', $translate.instant('orderfile.UnablechangeOrder'), response.data.ExceptionMessage);
+                $rootScope.allowNavigation();
+                $window.history.back();
+                //userService.landingPage(false);
             });
         }
     };
@@ -717,18 +729,18 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                     OrderID: $scope._order.id
                 }
             ).then(function (result) {
-                toaster.pop('success',$translate.instant('orderfile.EInvoice') ,$translate.instant('orderfile.EInvoiceinformationuploaded') );
+                toaster.pop('success', $translate.instant('orderfile.EInvoice'), $translate.instant('orderfile.EInvoiceinformationuploaded'));
                 $scope.OrderInvoice = result;
                 //$scope.ok();
             }, function (response) {
-                    toaster.pop('error', $translate.instant('orderfile.EInvoicefailedload'), response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('orderfile.EInvoicefailedload'), response.data.ExceptionMessage);
             });
         }
     }
     $scope.SaveOrderInvoice = function () {
         if ($scope.OrderInvoice.restangularized && $scope.OrderInvoice.id) {
             $scope.OrderInvoice.put().then(function (resp) {
-                toaster.pop('success', $translate.instant('orderfile.EInvoice'),$translate.instant('orderfile.EInvoiceinformationupdated') );
+                toaster.pop('success', $translate.instant('orderfile.EInvoice'), $translate.instant('orderfile.EInvoiceinformationupdated'));
             });
         }
         else {
@@ -741,15 +753,13 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 $scope.OrderInvoice = result;
                 //$scope.ok();
             }, function (response) {
-                    toaster.pop('error', $translate.instant('orderfile.EInvoiceinformationnotsaved') , response.data.ExceptionMessage);
+                toaster.pop('error', $translate.instant('orderfile.EInvoiceinformationnotsaved'), response.data.ExceptionMessage);
             });
         }
         if (!$scope.OrderInvoice) {
 
         }
     }
-
-
     $scope.ShowObject = function (Container, idName, idvalue, resName) {
         for (var i = 0; i < $scope[Container].length; i++) {
             if ($scope[Container][i][idName] == idvalue)
@@ -766,7 +776,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             }).then(function (result) {
                 angular.copy(result, $scope[Container]);
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('orderfile.Optionscouldloaded') , response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('orderfile.Optionscouldloaded'), response.data.ExceptionMessage);
             });
         }
     };
@@ -891,7 +901,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 angular.copy(resp, orderperson);
             },
                 function (resp) {
-                    toaster.pop('error',$translate.instant('orderfile.Cannotassignperson'), resp.data.ExceptionMessage);
+                    toaster.pop('error', $translate.instant('orderfile.Cannotassignperson'), resp.data.ExceptionMessage);
                 });
         });
     };
@@ -933,14 +943,14 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 });
                 modalInstance.result.then(function (item, type) {
                     if (item.msg == 'ECRPayment' || item.msg == 'OtherPayment')
-                        if ($scope._order.OrderTypeID == 0 || $scope._order.OrderTypeID == 1 || $scope._order.OrderTypeID == 5 || $scope._order.OrderTypeID == 6|| $scope._order.OrderTypeID == 10) {
+                        if ($scope._order.OrderTypeID == 0 || $scope._order.OrderTypeID == 1 || $scope._order.OrderTypeID == 5 || $scope._order.OrderTypeID == 6 || $scope._order.OrderTypeID == 10) {
                             $scope._order.PaymentTypeID = angular.copy(item.PaymentTypeID);
                             $scope.SaveOrder();
                         }
                 })
             }
         } else {
-            if ((item.OrderTypeID == 0 && rootemsg == 'save') || (item.OrderTypeID == 1 && rootemsg == 'save') ||(item.OrderTypeID == 4) || (item.Amount == 0)) {
+            if ((item.OrderTypeID == 0 && rootemsg == 'save') || (item.OrderTypeID == 1 && rootemsg == 'save') || (item.OrderTypeID == 4) || (item.Amount == 0)) {
                 $scope.SaveOrder();
             } else {
                 item.items = $scope.orderItems;
@@ -963,7 +973,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         }
                 })
             }
-        }      
+        }
     };
     $scope.SelectPromotions = function (item) {
         var modalInstance = $modal.open({
@@ -992,7 +1002,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             $scope.Promotion = result;
             $scope.LoadOrderItems();
         }, function (response) {
-            toaster.pop('error',$translate.instant('orderfile.OrderPromotionsFailedLoad'), response.data.ExceptionMessage);
+            toaster.pop('error', $translate.instant('orderfile.OrderPromotionsFailedLoad'), response.data.ExceptionMessage);
         });
     };
     $scope.GetPromotion();
@@ -1022,7 +1032,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
     };
     $scope.DeletePromotion = function (ID) {
         Restangular.one("orderpromotion", ID).remove().then(function () {
-            toaster.pop("error", $translate.instant('orderfile.Deleted'),$translate.instant('orderfile.PromotionDeleted'));
+            toaster.pop("error", $translate.instant('orderfile.Deleted'), $translate.instant('orderfile.PromotionDeleted'));
             $scope.GetPromotion();
         });
     };
@@ -1044,7 +1054,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             event.preventDefault();
             $scope.clearCustomerDislpay();
             if (value == 'result') {
-                $rootScope.allowNavigation(); 
+                $rootScope.allowNavigation();
                 $scope.CallReason(2, 'cancel');
                 $scope.ClearCallerID();
                 $window.history.back();
@@ -1123,7 +1133,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
     });
 };
 app.controller('orderItemDiscountCtrl', orderItemDiscountCtrl);
-function orderItemDiscountCtrl($rootScope, $scope,$translate, $modalInstance, $modal, ngTableParams, Order, SweetAlert, toaster, Restangular, $filter, $log, $window, $element) {
+function orderItemDiscountCtrl($rootScope, $scope, $translate, $modalInstance, $modal, ngTableParams, Order, SweetAlert, toaster, Restangular, $filter, $log, $window, $element) {
     var od = this;
     $rootScope.uService.EnterController("orderItemDiscountCtrl");
     angular.copy(Order, $scope.orders);
@@ -1140,9 +1150,9 @@ function orderItemDiscountCtrl($rootScope, $scope,$translate, $modalInstance, $m
             (function (result) {
                 angular.copy(result, $scope.orders);
             },
-            function (response) {
-                toaster.pop('error', $translate.instant('orderfile.Orderfailedtoload'), response.data.ExceptionMessage);
-            });
+                function (response) {
+                    toaster.pop('error', $translate.instant('orderfile.Orderfailedtoload'), response.data.ExceptionMessage);
+                });
     };
     $scope.$on('$destroy', function () {
         $element.remove();
@@ -1150,7 +1160,7 @@ function orderItemDiscountCtrl($rootScope, $scope,$translate, $modalInstance, $m
     });
 };
 app.controller('orderDateCtrl', orderDateCtrl);
-function orderDateCtrl($rootScope, $scope,$translate, $modalInstance, $filter, DateTime, $log, toaster, $window, ngnotifyService) {
+function orderDateCtrl($rootScope, $scope, $translate, $modalInstance, $filter, DateTime, $log, toaster, $window, ngnotifyService) {
     $rootScope.uService.EnterController("orderDateCtrl");
     $scope.DateTime = $filter('date')(ngnotifyService, 'yyyy-MM-dd HH:mm:ss');
     $scope.hstep = 1;
@@ -1168,7 +1178,7 @@ function orderDateCtrl($rootScope, $scope,$translate, $modalInstance, $filter, D
     $scope.ok = function (data) {
         var now = ngnotifyService.ServerTime();
         if (data < now) {
-            toaster.pop('warning',$translate.instant('orderfile.InvalidDate'));
+            toaster.pop('warning', $translate.instant('orderfile.InvalidDate'));
         } else {
             $modalInstance.close($scope.Date = $filter('date')(data, 'yyyy-MM-dd HH:mm:ss'));
         }
@@ -1181,7 +1191,7 @@ function orderDateCtrl($rootScope, $scope,$translate, $modalInstance, $filter, D
     });
 };
 app.controller('selectPersonCtrl', selectPersonCtrl);
-function selectPersonCtrl($rootScope, $scope,$translate, $modalInstance, Restangular, ngTableParams, $filter, searchname, toaster, searchphone, $log, $window) {
+function selectPersonCtrl($rootScope, $scope, $translate, $modalInstance, Restangular, ngTableParams, $filter, searchname, toaster, searchphone, $log, $window) {
     $rootScope.uService.EnterController("selectPersonCtrl");
     $scope.SelectedItem = null;
     $scope.ShowDetail = false;
@@ -1240,7 +1250,7 @@ function selectPersonCtrl($rootScope, $scope,$translate, $modalInstance, Restang
                 angular.copy(result, $scope[Container]);
                 //$scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning',$translate.instant('Server.Serverconnectionerror'), response.data.ExceptionMessage);
+                toaster.pop('Warning', $translate.instant('Server.Serverconnectionerror'), response.data.ExceptionMessage);
             });
         }
     };
@@ -1258,7 +1268,7 @@ function selectPersonCtrl($rootScope, $scope,$translate, $modalInstance, Restang
     }), function (value) {
         $scope.tableParams.reload();
     });
-    $scope.$on('$destroy', function () {        
+    $scope.$on('$destroy', function () {
         unbindWatcherphone();
         unbindWatchername();
     });

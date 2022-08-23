@@ -10,6 +10,7 @@
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
+        color: #323237;
     }
 
     td,
@@ -38,194 +39,93 @@
                 </div>
             </div>
             <ul class="mini-stats center" ng-if="user.restrictions.maindashboard=='Enable'" style="font-size: 12px;">
-                <li>
-                    <div ng-if="user.restrictions.ysstorestatus=='Enable'">
-                        <div>
-                            <strong class="text-green text-large text-uppercase"
-                                ng-if="AggregatorStoreStats[0].isActive == true"> {{ open}} <i
-                                    class="fa fa-check"></i></strong>
+                <table>
+                    <tr style="  background-color: #f5f5f5;">
+                        <th style="background-color: #ea004b;"> {{::'main.YSSTATUS' | translate}}</th>
+                        <th style="background-color: #ffd300;"> {{::'main.GETIRSTATUS' | translate}}</th>
+                        <th style="background-color: #fe6e04;"> {{::'main.TRENDYOLSTATUS' | translate}}</th>
+                        <th> {{::'main.ROPNGTIME' | translate}}</th>
+                        <th> {{::'main.OPERATIONDATE' | translate}}</th>
+                        <th> {{::'main.AVRPREPARING' | translate}}</th>
+                        <th> {{::'main.AVROUT' | translate}}</th>
+                        <th> {{::'main.AVRDELIVERYY' | translate}}</th>
+                        <th> {{::'main.AVRBELOW30' | translate}}</th>                  
+                        <th> {{::sales}}</th>
+                        <th> {{::totalamount}}</th>
+                        <th> {{::average}}</th>
+                        <th> {{::activecomplaints}}</th>
+                        <th> {{::latecomplaints}}</th>
+                    </tr>
+                    <tr>
+                        <td> <strong class="text-green text-large text-uppercase"
+                                ng-if="yemekSepetiStore.isOpen == true">
+                                {{::open}} <i class="fa fa-check"></i></strong>
                             <strong class="text-red text-large text-uppercase"
-                                ng-if="AggregatorStoreStats[0].isActive == false">
-                                {{ close}} <i class="fa fa-exclamation"></i></strong>
-                            <p style="font-weight: bold;">
-                                {{:: 'main.YSSTATUS' | translate}}[{{:: yemekSepetiStore.ServiceTime}}]
-                            </p>
-                        </div>
-                        <div class="pull-left"
-                            ng-if="user.restrictions.changeysstorestatus=='Enable' && user.UserRole.Name == 'PHAdmin'">
-                            <div>
-                                <span class="text-bold" style="font-size: 14px !important;" ng-click="ChangeYsStore()"
-                                    title=" YS Restoran Durum Değişikliği !">
-                                    Durum Değişikliği !
-                                </span><br />
-                            </div>
-                        </div>
-
-                    </div>
-                </li>
-                <li>
-                    <div ng-if="user.restrictions.getirstorestatus=='Enable'">
-                        <div>
-                            <strong class="text-green text-large text-uppercase"
-                                ng-if="AggregatorStoreStats[1].isActive == true"> {{:: open}}
-                                <i class="fa fa-check"></i></strong>
+                                ng-if="yemekSepetiStore.isOpen == false">
+                                {{::close}} <i class="fa fa-exclamation"></i></strong>
+                        </td>
+                        <td> <strong class="text-green text-large text-uppercase"
+                                ng-if="AggregatorStoreStats[1].isActive ==  true">
+                                {{::open}} <i class="fa fa-check"></i></strong>
                             <strong class="text-red text-large text-uppercase"
-                                ng-if="AggregatorStoreStats[1].isActive == false">
-                                {{:: close}} <i class="fa fa-exclamation"></i></strong>
-                            <p style="font-weight: bold;">
-                                {{:: 'main.GETIRSTATUS' | translate}}
-                            </p>
-                        </div>
-                        <!-- <div class="pull-left"
-                            ng-if="user.restrictions.changeysstorestatus=='Enable' && user.UserRole.Name == 'PHAdmin'">
-                            <div>
-                                <span class="text-bold" style="font-size: 14px !important;" ng-click="ChangeYsStore()" title=" GETİR Restoran Durum Değişikliği !">
-                                    Durum Değişikliği !
-                                </span><br />
-                            </div>
-                        </div> -->
-
-                    </div>
-                </li>
-                <li>
-                    <div ng-if="user.restrictions.trendyolstorestatus=='Enable'">
-                        <div>
-                            <strong class="text-green text-large text-uppercase"
-                                ng-if="AggregatorStoreStats[2].isActive == true"> {{:: open}}
-                                <i class="fa fa-check"></i></strong>
+                                ng-if="AggregatorStoreStats[1].isActive ==  false">
+                                {{::close}} <i class="fa fa-exclamation"></i></strong>
+                        </td>
+                        <td> <strong class="text-green text-large text-uppercase"
+                                ng-if="AggregatorStoreStats[2].isActive ==  true">
+                                {{::open}} <i class="fa fa-check"></i></strong>
                             <strong class="text-red text-large text-uppercase"
-                                ng-if="AggregatorStoreStats[2].isActive == false">
-                                {{:: close}} <i class="fa fa-exclamation"></i></strong>
-                            <p style="font-weight: bold;">
-                                {{:: 'main.TRENDYOLSTATUS' | translate}}
-                            </p>
-                        </div>
-                        <!--     <div class="pull-left"
-                            ng-if="user.restrictions.changeysstorestatus=='Enable' && user.UserRole.Name == 'PHAdmin'">
-                            <div>
-                                <span class="text-bold " style="font-size: 14px !important;" ng-click="ChangeYsStore()" title=" TRENDYOL Restoran Durum Değişikliği !">
-                                    Durum Değişikliği !
-                                </span><br />
-                            </div>
-                        </div> -->
-
-                    </div>
-                </li>
-                <li>
-                    <div class="values">
-                        <strong class="text-bricky">{{::theClock}}</strong>
-                        <p>
-                            {{:: 'main.ROPNGTIME' | translate}}
-
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="values">
-                        <strong class="text-blue">{{:: opdate|| txtENDOFDAY}}</strong>
-                        <p>
-                            {{:: 'main.OPERATIONDATE' | translate}}
-                        </p>
-                    </div>
-                </li>
-                <li ng-repeat="ordertype in OrdersOrderType">
-                    <div class="values">
-                        <strong class="text-dark">{{:: ordertype.OrdersCount}}</strong>
-                        <p>
-                            {{:: ordertype.OrderType}}
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="values">
-                        <strong class="text-dark">{{:: storePerformanceData.PeparingDuration || '00:00:00'}}</strong>
-                        <p>
-                            {{:: 'main.AVRPREPARING' | translate}}
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="values">
-                        <strong class="text-dark">{{:: storePerformanceData.OutDuration || '00:00:00'}}</strong>
-                        <p>
-                            {{:: 'main.AVROUT' | translate}}
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="values">
-                        <strong class="text-dark">{{:: storePerformanceData.DeliveryPeriod || '00:00:00'}}</strong>
-                        <p>
-                            {{:: 'main.AVRDELIVERYY' | translate}}
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="values">
-                        <strong class="text-dark">{{:: storePerformanceData.Below30Percent|| 0 |number :2}}%</strong>
-                        <p>
-                            {{:: 'main.AVRBELOW30' | translate}}
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div ng-if="ComplaintSatats.ActiveComplaints > 0"
-                        ng-click="login('#/app/complaints/complaints/list')">
-                        <strong class="value center margin-left-10 badge badge-warning" style="font-size:20px;"
-                            ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3">
-                            {{:: ComplaintSatats.ActiveComplaints}} </strong>
-                        <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;"
-                            ng-if="ComplaintSatats.ActiveComplaints > 3"> {{:: ComplaintSatats.ActiveComplaints}}
-                        </strong>
-                        <p> {{:: activecomplaints}}</p>
-                    </div>
-                </li>
-                <li>
-                    <div ng-if="ComplaintSatats.LateComplanits > 0"
-                        ng-click="login('#/app/complaints/complaints/list')">
-                        <strong class="value center margin-left-10 badge badge-warning" style="font-size:20px;"
-                            ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3">
-                            {{:: ComplaintSatats.LateComplanits}} </strong>
-                        <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;"
-                            ng-if="ComplaintSatats.ActiveComplaints > 3"> {{:: ComplaintSatats.LateComplanits}}
-                        </strong>
-                        <p>{{:: latecomplaints}}</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="sparkline">
-                        <span jq-sparkline ng-model="saless" type="bar" height="20px" bar-color="#D43F3A"></span>
-                    </div>
-                    <div class="values">
-                        <strong class="text-dark">{{:: OrderTotalCount}} {{:: 'main.ORDERS' | translate}}</strong>
-                        <p>
-                            {{:: sales}}
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="sparkline">
-                        <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
-                    </div>
-                    <div class="values">
-                        <strong class="text-dark">{{:: OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' |
-                            translate}}</strong>
-                        <p>
-                            {{:: totalamount }}
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="sparkline">
-                        <span jq-sparkline ng-model="referrals" type="bar" height="20px" bar-color="#46B8DA"></span>
-                    </div>
-                    <div class="values">
-                        <strong class="text-dark">{{:: OrderACTXT}}</strong>
-                        <p>
-                            {{:: average}}
-                        </p>
-                    </div>
-                </li>
+                                ng-if="AggregatorStoreStats[2].isActive ==  false">
+                                {{::close}} <i class="fa fa-exclamation"></i></strong>
+                        </td>
+                        <td><strong class="text-bricky">{{:: theClock}}</strong></td>
+                        <td>{{::opdate|| txtENDOFDAY}}</td>
+                        <td>{{:: storePerformanceData.PeparingDuration || '00:00:00'}}</td>
+                        <td>{{:: storePerformanceData.OutDuration || '00:00:00'}}</td>
+                        <td>{{:: storePerformanceData.DeliveryPeriod || '00:00:00'}}</td>
+                        <td>{{::storePerformanceData.Below30Percent|| 0 |number :2}}%</td>
+                      
+                        <td>
+                            <div class="sparkline">
+                                <span jq-sparkline ng-model="saless" type="bar" height="20px"
+                                    bar-color="#D43F3A"></span>
+                            </div>{{:: OrderTotalCount}} {{:: 'main.ORDERS' | translate}}
+                        </td>
+                        <td>
+                            <div class="sparkline">
+                                <span jq-sparkline ng-model="earnings" type="bar" height="20px"
+                                    bar-color="#5CB85C"></span>
+                            </div>{{::OrderTotalAmountTXT}} {{:: 'main.CURRENCY_SYMBOL' |
+                            translate}}
+                        </td>
+                        <td>
+                            <div class="sparkline">
+                                <span jq-sparkline ng-model="referrals" type="bar" height="20px"
+                                    bar-color="#46B8DA"></span>
+                            </div>{{::OrderACTXT}}
+                        </td>
+                        <td ng-if="ComplaintSatats.ActiveComplaints > 0"
+                            ng-click="login('#/app/complaints/complaints/list')"> <strong
+                                class="value center margin-left-10 badge badge-warning" style="font-size:20px;"
+                                ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3">
+                                {{:: ComplaintSatats.ActiveComplaints}} </strong>
+                            <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;"
+                                ng-if="ComplaintSatats.ActiveComplaints > 3"> {{::ComplaintSatats.ActiveComplaints}}
+                            </strong>
+                        </td>
+                        <td ng-if="ComplaintSatats.LateComplanits > 0"
+                            ng-click="login('#/app/complaints/complaints/list')">
+                            <strong class="value center margin-left-10 badge badge-warning" style="font-size:20px;"
+                                ng-if="ComplaintSatats.ActiveComplaints > 0 && ComplaintSatats.ActiveComplaints < 3">
+                                {{:: ComplaintSatats.LateComplanits}} </strong>
+                            <strong class="value center margin-left-10 badge badge-danger" style="font-size:20px;"
+                                ng-if="ComplaintSatats.ActiveComplaints > 3"> {{::ComplaintSatats.LateComplanits}}
+                            </strong>
+                        </td>
+                    </tr>
+                    
+                </table>
+          
             </ul>
 
             <!--<div class="col-lg-2 col-md-2">
@@ -488,7 +388,7 @@
             <div ng-if="user.restrictions.maindashboard=='Enable'">
                 <div class="col-xs-12">
                     <table>
-                        <tr style="  background-color: #f5f5f5;">
+                        <tr >
                             <th> {{::'main.YSSTATUS' | translate}}</th>
                             <th> {{::'main.GETIRSTATUS' | translate}}</th>
                             <th> {{::'main.TRENDYOLSTATUS' | translate}}</th>

@@ -288,6 +288,7 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
         });
          modalInstance.result.then(function (item) {
             $scope.SavePayment($scope.order);
+            location.href = '#/app/orders/takeaway/';
         })
     };
 

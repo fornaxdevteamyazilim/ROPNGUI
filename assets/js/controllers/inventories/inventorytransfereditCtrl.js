@@ -78,7 +78,7 @@ function inventorytransfereditCtrl($scope, $log, $modal, $filter, SweetAlert, Re
         });
     };
     $scope.checkInventoryTransferApproval = function (itemID,State) {
-        if (userService.isAdmin() || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("PHAdmin") ) {
+        if (userService.isAdmin() || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("Bolge Kocu") || userService.userIsInRole("PHAdmin") ) {
         $scope.isWaiting = true;
         Restangular.one('/InventorySupply/approvetransfer').get(
             {

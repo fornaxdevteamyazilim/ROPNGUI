@@ -23,17 +23,31 @@
         font-size: 24px;
     }
 
-    .box {
-        display: flex;
-        flex-direction: row-reverse;
-    }
-
     /*[class*="col-"] {
         background-color: #eee;
         background-color: rgba(86,61,124,.15);
         border: 1px solid #ddd;
         border: 1px solid rgba(86,61,124,.2);
     }*/
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 7px;
+        font-size: 10px;
+        /* width: 1px; */
+        text-align: center;
+    }
+
+    tr:nth-child(even) {
+        background-color: #ffffff;
+    }
 </style>
 
 <div ng-controller="kdskfc2Ctrl" ng-init="app.layout.isSidebarClosed=true">
@@ -44,9 +58,7 @@
                 <strong class="text-bricky" style="font-size:20px; color:red;">{{theClock}}</strong>
                 <p style="font-size:15px;">
                     {{'main.ROPNGTIME' | translate}}
-
                 </p>
-
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-controller="VisitsCtrl">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
@@ -58,8 +70,8 @@
                     </p>
                 </div>
                 <!--<span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center text-bold">
-                {{'main.AVERAGEPREPARINGDURATION' | translate}}
-                </span><br />-->
+        {{'main.AVERAGEPREPARINGDURATION' | translate}}
+    </span><br />-->
                 <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center" style="font-size:30px; color:red;"
                     ng-if="user.Store.MemberID != 300000000000">
                     {{storePerformanceData.PeparingDuration}}
@@ -90,119 +102,176 @@
                 <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right"
                     ng-if="user.Store.MemberID >= 300000000000">
                     <!--<input type="text" class="form-control text-uppercase" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">-->
-                    <select id="KDisplayIndex" class="form-control" ng-model="$storage.KDisplayIndex"
-                        ng-change="LoadOrderItemStates()">
-                        <!--<option value="" selected>-- {{:: kitchendisplayselection}} --</option>-->
+                    <!-- <select id="KDisplayIndex" class="form-control" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">
                         <option value="0">MakeTable</option>
                         <option value="1">CutTable</option>
-                    </select>
+                    </select> -->
+                    <select id="StoreProductionID" class="form-control ng"
+                        ng-options="q.id as q.name for q in StoreProductions | orderBy:'+name'"
+                        ng-model="$storage.StoreProductionID" ng-change="LoadOrderItemStates()"></select>
                 </span>
             </div>
         </div> <br />
-
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
-    
-            <!-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 center"   style="width:15vw; height:30vh;margin-left: 15px;" ng-repeat="item in :refresh:orderitemstates" ng-class="{'list-group-item-success':item.isTimedOut == true ,'list-group-item-danger':item.isTimedOut == false ,'bg-white':item.ProductState.Duration<1}">
-            
-                <div 
-                    class="btn btn-azure btn-o text-uppercase text-extra-large text-bold "
-                    style="width:15vw; height:30vh;"  ng-click="RemoveItem(item.OrderID, $index, $index,item.AutoPrint)" ng-dblclick="BottonDblcilik()">
-                    <legend class="{{ngstyle}} text-bold"> {{:refresh:item.OrderNumber}} [{{:refresh:item.TableName }}]</legend>
-                    <span style="color:red; font-size:6vw; align-content:center">{{YemekSepetiStats.WaitingOrders}}</span>
-                    <br />
-                    <span style="vertical-align:bottom; color:black; font-size:1vw;">Ys Bekleyen sipariş</span>
-                </div>
-            </div> -->
- 
             <div class="row">
-                <div class="col-lg-4 col-sm-6" ng-repeat="item in :refresh:orderitemstates">
-					<div class="panel panel-white min-height-200">
-						<div class="panel-heading">
-							<div class="panel-title">
-                                <label style="margin-left: 23px;">Ürün Adı</label>
-                                <label style="margin-left: 49px;">Malzemeler</label>
-                                <label style="margin-left: 61px;">Not</label>
-							</div>
-						</div>
-						<div class="panel-body">
-
-                            <div class="panel-body">
-                                <div class="{{ngstyle}} row border-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12 ng" ng-repeat="items in ::item.orderItems">
-                                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold margin-bottom-1 text-uppercase" style="font-size:15px;">
-                                        <span class="{{ngstyle}}">{{:: items.Quantity  }} X {{:: items.Product|| items.Product.ProductPrototype + '(' + items.Product.Size+')'}}</span>
-                                    </span>
-                                    <span class="{{ngstyle}} col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-bottom-10 text-uppercase">
-                                        <span class="{{ngstyle}} col-lg-12">
-                                            <label ng-if="(oitem.ProductOptionIndex==1) && (oitem.DisplayOnKDS==true)" ng-repeat="oitem in ::items.items" class="col-lg-12 text-bold text-info" style="font-size:15px; height:15px;">
-                                                <label ng-if="::oitem.ProductOptionIndex==1" class="{{ngstyle}} text-extra-large text-bold text-info col-lg-1"> (+) </label>
-                                                <span class="{{ngstyle}} col-lg-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;"> <span class="{{ngstyle}}" ng-if="::oitem.ProductOptionIndex==1">{{:: oitem.Quantity}} X </span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
-                                            </label>
-                                        </span>
-                                        <span class="{{ngstyle}} col-lg-12">
-                                            <label ng-if="(oitem.Quantity<=0) && (oitem.DisplayOnKDS==true)" ng-repeat="oitem in ::items.items" class="col-lg-6 text-bold text-danger" style="font-size:15px; height:15px;">
-                                                <label ng-if="::oitem.Quantity<=0" class="{{ngstyle}} text-extra-large text-bold text-danger col-lg-2"> (-) </label>
-                                                <span class="{{ngstyle}} col-lg-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-class="{'strike':oitem.Quantity<=0 }"> <span class="{{ngstyle}}" ng-if="::oitem.Quantity>1">{{:: oitem.Quantity}} X </span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
-                                            </label>
-                                        </span>
-                                        <br />
-                                        <span class="{{ngstyle}} col-lg-12">
-                                            <label ng-if="(oitem.Quantity>=1) && ( oitem.ProductOptionIndex!=1) && (oitem.DisplayOnKDS==true)" ng-repeat="oitem in ::items.items" class="col-lg-6 text-bold text-success" style="font-size:15px; height:15px;">
-                                                <label ng-if="::oitem.Quantity>=1" class="{{ngstyle}} text-extra-large text-bold text-success col-lg-2"> (+) </label>
-                                                <span class="{{ngstyle}} col-lg-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;"> <span class="{{ngstyle}}" ng-if="::oitem.Quantity>1">{{:: oitem.Quantity}} X</span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
-                                            </label>
-                                        </span>
-                                        <br />
-                                    </span>
-                                    <span class="{{ngstyle}} col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold margin-bottom-10 text-uppercase">
-                                        <span ng-repeat="oitem in ::items.items">
-                                            <span ng-repeat="oitem2 in ::oitem.items" class="col-lg-12 text-bold" ng-if="::oitem2.Quantity<=0">
-                                                <span class="{{ngstyle}} col-lg-10 text-red" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;">
-                                                    <label class="{{ngstyle}} text-bold text-info text-extra-large col-lg-2"> (-) </label>
-                                                    <span class="text-info text-bold">{{:: oitem.Quantity}} X {{:: oitem.Product|| oitem.Product.ProductPrototype}} <span class="text-warning pull-right text-capitalize col-lg-6 col-md-6 col-sm-6 col-xs-6">({{:: oitem.ProductOption}})</span></span><br />
-                                                    <span class="text-red text-bold">
-                                                        <br /> <span class="margin-left-5"> ({{:: oitem2.Quantity}} X {{:: oitem2.Product|| oitem2.Product.ProductPrototype}})</span>
-                                                        <span ng-repeat="oitem3 in ::oitem2.items" class="text-bold">
-                                                            <span class="text-success text-bold margin-left-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-if="::oitem3.Quantity>=1">
-                                                                / <br />* ({{:: oitem3.Quantity}} X {{:: oitem3.Product|| oitem3.Product.ProductPrototype}})
-                                                            </span>
-                                                            <span class="text-red text-bold margin-left-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-if="::oitem3.Quantity<=0">
-                                                                / <br />* ({{:: oitem3.Quantity}} X {{:: oitem3.Product|| oitem3.Product.ProductPrototype}})
-                                                            </span>
-                                                        </span>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                        </span>
-                                        <span ng-repeat="oitem in ::items.items">
-                                            <span ng-repeat="oitem2 in ::oitem.items" class="col-lg-12 text-bold" ng-if="::oitem2.Quantity>=1">
-                                                <span class="{{ngstyle}} col-lg-10 text-red" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;">
-                                                    <label class="{{ngstyle}} text-bold text-info text-extra-large col-lg-2"> (+) </label>
-                                                    <span class="text-info text-bold" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;">{{:: oitem.Quantity}} X {{:: oitem.Product|| oitem.Product.ProductPrototype}} <span class="text-warning pull-right text-capitalize col-lg-6 col-md-6 col-sm-6 col-xs-6">({{:: oitem.ProductOption}})</span></span><br />
-                                                    <span class="text-success text-bold">
-                                                        <br /> <span class="margin-left-5"> ({{:: oitem2.Quantity}} X {{:: oitem2.Product|| oitem2.Product.ProductPrototype}})</span>
-                                                        <span ng-repeat="oitem3 in ::oitem2.items" class="text-bold">
-                                                            <span class="text-success text-bold margin-left-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-if="::oitem3.Quantity>=1">
-                                                                / <br />* ({{:: oitem3.Quantity}} X {{:: oitem3.Product|| oitem3.Product.ProductPrototype}})
-                                                            </span>
-                                                            <span class="text-red text-bold margin-left-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-if="::oitem3.Quantity<=0">
-                                                                / <br />* ({{:: oitem3.Quantity}} X {{:: oitem3.Product|| oitem3.Product.ProductPrototype}})
-                                                            </span>
-                                                        </span>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                        </span>
-                                    </span>
+                <div class="list-group-item-success" ng-repeat="item in :refresh:orderitemstates" ng-class="{'list-group-item-success':item.isTimedOut == true ,'list-group-item-danger':item.isTimedOut == false ,'bg-white':item.ProductState.Duration<1}">
+                    <div class="col-sm-6 col-md-3" ng-click="RemoveItem(item.OrderID, $index, $index,item.AutoPrint)" ng-dblclick="BottonDblcilik()">
+                                <div class="panel panel-white min-height-200">
+                                    <div class="panel-heading">
+                                        <div class="panel-title">
+                                            <table>
+                                                <tr style="  background-color: #f5f5f5;">
+                                                    <th> {{:refresh:item.TableName }}</th>
+                                                    <th> kanal</th>
+                                                    <th> {{:: timer}} ({{item.Timer}})</th>
+                                                </tr>
+                                                <tr>
+                                                    <!-- ({{:refresh:$index+1}})-{{:refresh:item.OrderID}} / {{:refresh:item.OrderNumber}} [{{:refresh:item.TableName }}] -->
+                                                    <th> {{:refresh:item.OrderNumber}}</th>
+                                                    <th> {{:refresh:item.OrderID}}  </th>
+                                                    <th> Müşteri Adı/ Mada ADı</th>  
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>                              
+                                    <div class="panel-body">
+                                        <div>
+                                            <div collapse="panel1" ng-hide="collapse" class="panel-wrapper">
+                                                <div class="panel-body" style="padding: 0px;">
+                                                    <div class="row panel-body" style="padding: 0px;">
+                                                        <div class="panel-body" style="padding: 5px;">
+                                                            <div id="treeViewContainer" dx-tree-list="dataGridOptionsorder">
+                                                            </div>
+                                                         
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-heading">
+                                        <div class="panel-title">
+                                            <table>
+                                                <tr style="  background-color: #f5f5f5;">
+                                                    <th>Mutfağa ileten Personel Adı</th>                      
+                                                </tr>
+                                
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-    
+                              
                             </div>
-						</div>
-					</div>
-				</div>
-             
-          
+                      
+                 
+                  
+                </div>
             </div>
-            
+
+
+            <div class="row visible-sm visible-xs">
+                <fieldset class="list-group-item-success" ng-repeat="item in :refresh:orderitemstates" ng-class="{'list-group-item-success':item.isTimedOut == true ,'list-group-item-danger':item.isTimedOut == false ,'bg-white':item.ProductState.Duration<1}">
+                    <legend class="{{ngstyle}} text-bold">{{:refresh:item.OrderID}} / {{:refresh:item.OrderNumber}}</legend>
+                    <div ng-repeat="items in ::item.orderItems">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-click="RemoveItem(item.OrderID, $index)" ng-dblclick="BottonDblcilik()">
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                <label class="{{ngstyle}} text-bold">{{:: productname}}</label>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <label class="{{ngstyle}} text-bold">{{:: timer}}</label>
+                            </div>
+                            <div class="{{ngstyle}} row border-bottom col-lg-10 col-md-10 col-sm-10 col-xs-10 ng">
+                                <span class="text-bold margin-bottom-10 text-uppercase text-large">
+                                    <span class="{{ngstyle}} text-large">{{:: items.Quantity  }} X {{:: items.Product|| items.Product.ProductPrototype + '(' + items.Product.Size+')'}}</span>
+                                </span>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <span class="text-large {{ngstyle}}">{{item.Timer}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-click="RemoveItem(item.OrderID, $index)" ng-dblclick="BottonDblcilik()">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label class="{{ngstyle}} text-bold">{{:: materials}}</label>
+                            </div>
+                            <div class="{{ngstyle}} row border-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12 ng">
+                                <span class="{{ngstyle}} margin-bottom-10 text-uppercase">
+                                    <span class="{{ngstyle}} col-lg-12">
+                                        <label ng-if="(oitem.ProductOptionIndex==1) && (oitem.DisplayOnKDS==true)" ng-repeat="oitem in ::items.items" class="col-lg-12 text-bold text-info" style="font-size:15px; height:15px;">
+                                            <label ng-if="::oitem.ProductOptionIndex==1" class="{{ngstyle}} text-extra-large text-bold text-info col-lg-2 col-md-2 col-sm-2 col-xs-2"> (+) </label>
+                                            <span class="{{ngstyle}} col-lg-10 col-md-10 col-sm-10 col-xs-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;"> <span class="{{ngstyle}}" ng-if="::oitem.ProductOptionIndex==1"> {{:: oitem.Quantity}} X </span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
+                                        </label>
+                                    </span>
+                                    <span class="{{ngstyle}} col-lg-12">
+                                        <label ng-if="(oitem.Quantity<=0) && (oitem.DisplayOnKDS==true)" ng-repeat="oitem in ::items.items" class="col-lg-6 text-bold text-danger" style="font-size:15px; height:15px;">
+                                            <label ng-if="::oitem.Quantity<=0" class="{{ngstyle}} text-extra-large text-bold text-danger col-lg-2 col-md-2 col-sm-2 col-xs-2"> (-) </label>
+                                            <span class="{{ngstyle}} col-lg-10 col-md-10 col-sm-10 col-xs-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-class="{'strike':oitem.Quantity<=0 }"> <span class="{{ngstyle}}" ng-if="::oitem.Quantity>1"> {{:: oitem.Quantity}} X </span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
+                                        </label>
+                                    </span>
+                                    <br />
+                                    <span class="{{ngstyle}} col-lg-12">
+                                        <label ng-if="(oitem.Quantity>=1) && ( oitem.ProductOptionIndex!=1) && (oitem.DisplayOnKDS==true)" ng-repeat="oitem in ::items.items" class="col-lg-6 text-bold text-success" style="font-size:15px; height:15px;">
+                                            <label ng-if="::oitem.Quantity>=1" class="{{ngstyle}} text-extra-large text-bold text-success col-lg-2 col-md-2 col-sm-2 col-xs-2"> (+) </label>
+                                            <span class="{{ngstyle}} col-lg-10 col-md-10 col-sm-10 col-xs-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;"> <span class="{{ngstyle}}" ng-if="::oitem.Quantity>1"> {{:: oitem.Quantity}} X</span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
+                                        </label>
+                                    </span>
+                                    <br />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-click="RemoveItem(item.OrderID, $index)" ng-dblclick="BottonDblcilik()">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label class="{{ngstyle}} text-bold">{{:: notes}}</label>
+                        </div>
+                        <div class="{{ngstyle}} row border-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12 ng">
+                            <span class="{{ngstyle}} col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold margin-bottom-10 text-uppercase">
+                                <span ng-repeat="oitem in ::items.items">
+                                    <span ng-repeat="oitem2 in ::oitem.items" class="col-lg-12 text-bold" ng-if="::oitem2.Quantity<=0">
+                                        <span class="{{ngstyle}} col-lg-10 text-red" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                                            <label class="{{ngstyle}} text-bold text-info text-extra-large col-lg-2"> (-) </label>
+                                            <span class="text-info text-bold">{{:: oitem.Quantity}} X {{:: oitem.Product|| oitem.Product.ProductPrototype}} <span class="text-warning pull-right text-capitalize col-lg-6 col-md-6 col-sm-6 col-xs-6">({{:: oitem.ProductOption}})</span></span><br />
+                                            <span class="text-red text-bold">
+                                                <br /> <span class="margin-left-5"> ({{:: oitem2.Quantity}} X {{:: oitem2.Product|| oitem2.Product.ProductPrototype}})</span>
+                                                <span ng-repeat="oitem3 in ::oitem2.items" class="text-bold">
+                                                    <span class="text-success text-bold margin-left-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-if="::oitem3.Quantity>=1">
+                                                        / <br />* ({{:: oitem3.Quantity}} X {{:: oitem3.Product|| oitem3.Product.ProductPrototype}})
+                                                    </span>
+                                                    <span class="text-red text-bold margin-left-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-if="::oitem3.Quantity<=0">
+                                                        / <br />* ({{:: oitem3.Quantity}} X {{:: oitem3.Product|| oitem3.Product.ProductPrototype}})
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span ng-repeat="oitem in ::items.items">
+                                    <span ng-repeat="oitem2 in ::oitem.items" class="col-lg-12 text-bold" ng-if="::oitem2.Quantity>=1">
+                                        <span class="{{ngstyle}} col-lg-10 text-red" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;">
+                                            <label class="{{ngstyle}} text-bold text-info text-extra-large col-lg-2"> (+) </label>
+                                            <span class="text-info text-bold" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;">{{:: oitem.Quantity}} X {{:: oitem.Product|| oitem.Product.ProductPrototype}} <span class="text-warning pull-right text-capitalize col-lg-6 col-md-6 col-sm-6 col-xs-6">({{:: oitem.ProductOption}})</span></span><br />
+                                            <span class="text-success text-bold">
+                                                <br /> <span class="margin-left-5"> ({{:: oitem2.Quantity}} X {{:: oitem2.Product|| oitem2.Product.ProductPrototype}})</span>
+                                                <span ng-repeat="oitem3 in ::oitem2.items" class="text-bold">
+                                                    <span class="text-success text-bold margin-left-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-if="::oitem3.Quantity>=1">
+                                                        / <br />* ({{:: oitem3.Quantity}} X {{:: oitem3.Product|| oitem3.Product.ProductPrototype}})
+                                                    </span>
+                                                    <span class="text-red text-bold margin-left-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-if="::oitem3.Quantity<=0">
+                                                        / <br />* ({{:: oitem3.Quantity}} X {{:: oitem3.Product|| oitem3.Product.ProductPrototype}})
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="item.OrderNote.length >= 1">
+                        <label class="text-bold"> {{:: ordernote}} : </label> <span class="{{ngstyle}} text-bold text-uppercase" style="color:grey;"> {{item.OrderNote}}</span>
+                    </div>
+                </fieldset>
+            </div>
         </div>
-    </div>
 </div>
+
+
