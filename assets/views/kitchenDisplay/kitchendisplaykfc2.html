@@ -2,7 +2,9 @@
     .strike {
         text-decoration: line-through;
     }
-
+    .prepared {
+        color: darkgreen;
+    }
     .ngsize10pt {
         font-size: 13px;
     }
@@ -82,33 +84,31 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
                 <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
-                    <select id="ngstyle" class="form-control" ng-model="ngstyle" ng-change="Change(ngstyle)">
+                    <!-- <select id="ngstyle" class="form-control" ng-model="ngstyle" ng-change="Change(ngstyle)">
                         <option value="">-- {{:: fontselection}} --</option>
                         <option value="ngsize10pt">10 pt</option>
                         <option value="ngsize12pt">12 pt</option>
                         <option value="ngsize14pt">14 pt</option>
                         <option value="ngsize16pt">16 pt</option>
                         <option value="ngsize18pt">18 pt</option>
-                    </select>
+                    </select> -->
+                    <select id="StoreProductionID" class="form-control ng" ng-show="$storage.KDisplayIndex=='0'" ng-options="q.id as q.name for q in StoreProductions | orderBy:'+name'" ng-model="$storage.StoreProductionID" ng-change="LoadOrderItemStates()"></select>
                 </span>
                 <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" ng-if="user.Store.MemberID < 300000000000">
                     <!--<input type="text" class="form-control text-uppercase" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">-->
-                    <select id="KDisplayIndex" class="form-control" ng-model="$storage.KDisplayIndex"
-                        ng-change="LoadOrderItemStates()">
+                    <p>df</p>
+                    <select id="KDisplayIndex" class="form-control" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">
                         <!--<option value="" selected>-- {{:: kitchendisplayselection}} --</option>-->
                         <option value="0" selected>MakeTable</option>
                     </select>
                 </span>
-                <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right"
-                    ng-if="user.Store.MemberID >= 300000000000">
+                <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" ng-if="user.Store.MemberID >= 300000000000">
                     <!--<input type="text" class="form-control text-uppercase" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">-->
-                    <!-- <select id="KDisplayIndex" class="form-control" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">
+                    <select id="KDisplayIndex" class="form-control" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">
                         <option value="0">MakeTable</option>
                         <option value="1">CutTable</option>
-                    </select> -->
-                    <select id="StoreProductionID" class="form-control ng"
-                        ng-options="q.id as q.name for q in StoreProductions | orderBy:'+name'"
-                        ng-model="$storage.StoreProductionID" ng-change="LoadOrderItemStates()"></select>
+                    </select> 
+                    
                 </span>
             </div>
         </div> <br />
@@ -120,44 +120,33 @@
                                         <div class="panel-title">
                                             <table>
                                                 <tr style="  background-color: #f5f5f5;">
-                                                    <th> {{:refresh:item.TableName }}</th>
-                                                    <th> kanal</th>
-                                                    <th> {{:: timer}} ({{item.Timer}})</th>
+                                                    <th> {{:refresh:item.OrderType }}</th>
+                                                    <th> {{:refresh:item.OrderSource}}</th>
+                                                    <th> {{:refresh:item.TakenBy}}</th>
                                                 </tr>
                                                 <tr>
                                                     <!-- ({{:refresh:$index+1}})-{{:refresh:item.OrderID}} / {{:refresh:item.OrderNumber}} [{{:refresh:item.TableName }}] -->
                                                     <th> {{:refresh:item.OrderNumber}}</th>
-                                                    <th> {{:refresh:item.OrderID}}  </th>
-                                                    <th> Müşteri Adı/ Mada ADı</th>  
+                                                    <th> {{:refresh:item.OrderDescrition}}  </th>
+                                                    <th> {{:: timer}} ({{item.Timer}}) </th>   
                                                 </tr>
                                             </table>
                                         </div>
                                     </div>                              
                                     <div class="panel-body">
-                                        <div>
                                             <div collapse="panel1" ng-hide="collapse" class="panel-wrapper">
                                                 <div class="panel-body" style="padding: 0px;">
-                                                    <div class="row panel-body" style="padding: 0px;">
-                                                        <div class="panel-body" style="padding: 5px;">
-                                                            <div id="treeViewContainer" dx-tree-list="dataGridOptionsorder">
+                                                            <div id="treeViewContainer" dx-tree-list="dataGridOptionsorder(item.orderItems)">
                                                             </div>
                                                          
-                                                        </div>
-                                                    </div>
+                                                        
+                                                    
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </div>                                        
                                     </div>
-                                    <div class="panel-heading">
-                                        <div class="panel-title">
-                                            <table>
-                                                <tr style="  background-color: #f5f5f5;">
-                                                    <th>Mutfağa ileten Personel Adı</th>                      
-                                                </tr>
-                                
-                                            </table>
-                                        </div>
-                                    </div>
+                                    
+                                        
+                                    
                                 </div>
                               
                             </div>

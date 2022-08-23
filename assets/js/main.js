@@ -145,8 +145,8 @@ app.run(['authService', function (authService) {
 }]);
 app.run(['userService', function (userService) { }]);
 //app.value('signalRServer', 'http://10.101.252.149:9065');//Little Caesars
-app.value('signalRServer', 'http://192.168.9.40:9065');//PH
-//app.value('signalRServer', 'http://192.168.104.153:9065');//KFC
+//app.value('signalRServer', 'http://192.168.9.40:9065');//PH
+app.value('signalRServer', 'http://192.168.104.153:9065');//KFC
 //app.value('signalRServer', 'http://10.0.0.245:9065');//MAROCCO
 //app.value('signalRServer', 'http://localhost:9065');//localhost
 //app.value('signalRServer', 'http://78.135.103.74:9065');//ROPNG TEST

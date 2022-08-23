@@ -5,8 +5,8 @@ angular.module("config-restangular", ['restangular'])
 function restangularConfig(RestangularProvider) {
    
     //RestangularProvider.setBaseUrl('http://pizzahut.ropng.site:9075/api/'); //PH - Test
-    RestangularProvider.setBaseUrl('http://192.168.9.40:9065/api/'); //PH
-    //RestangularProvider.setBaseUrl('http://192.168.104.153:9065/api/'); //KFC
+    //RestangularProvider.setBaseUrl('http://192.168.9.40:9065/api/'); //PH
+    RestangularProvider.setBaseUrl('http://192.168.104.153:9065/api/'); //KFC
     //RestangularProvider.setBaseUrl('http://10.0.0.245:9065/api/'); //MAROCCO
     //RestangularProvider.setBaseUrl('http://localhost:9065/api/'); //localhost
     //RestangularProvider.setBaseUrl('http://192.168.15.10:9065/api/'); //PH
