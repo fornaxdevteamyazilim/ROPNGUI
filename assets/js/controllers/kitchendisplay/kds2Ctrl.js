@@ -9,7 +9,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
     $scope.inProgress = false;
     $scope.KDIndex = 0;
     $scope.$storage = $localStorage.$default({
-        KDisplayIndex: 0,
+        KDisplayIndex: "0",
         StoreProductionID:null
     });
     $scope.StoreProductions=[];
@@ -97,12 +97,19 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
     $scope.LoadOrderItemStates = function () {
         if ($scope.inProgress) return;
         $scope.inProgress = true;
-        Restangular.all('kds/getitems').getList({
+        
+        var params=($scope.$storage.KDisplayIndex=="0")?{
             StoreID: $rootScope.user.StoreID,
             OrderStateID: 4,
-            //KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0,
             StoreProductionID:$scope.$storage.StoreProductionID
-        }).then(function (result) {
+        }:
+        {
+            StoreID: $rootScope.user.StoreID,
+            OrderStateID: 4,
+            KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0,            
+        };
+
+        Restangular.all('kds/getitems').getList(params).then(function (result) {
             // if (result.length > 0)
             //     $scope.audio.play();
             // else
@@ -184,7 +191,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
             OrderID: OrderID,
             AutoPrint: false,
             KDisplayIndex: $scope.$storage.KDisplayIndex ? $scope.$storage.KDisplayIndex : 0,
-            StoreProductionID: $scope.$storage.StoreProductionID ? $scope.$storage.StoreProductionID : null, //bu eklenecek UI a 
+            StoreProductionID: $scope.$storage.KDisplayIndex=="0"?$scope.$storage.StoreProductionID :null, //bu eklenecek UI a 
         }).then(function (restresult) {
             toaster.pop("success", $translate.instant('kitchendisplayf.Prepared'), $translate.instant('kitchendisplayf.Itemprepared'));
             $scope.LoadOrderItemStates();

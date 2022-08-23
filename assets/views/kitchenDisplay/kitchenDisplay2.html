@@ -2,7 +2,9 @@
     .strike {
         text-decoration: line-through;
     }
-
+    .prepared {
+        color: darkgreen;
+    }
     .ngsize10pt {
         font-size: 13px;
     }
@@ -62,17 +64,19 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
                 <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
-                    <select id="ngstyle" class="form-control" ng-model="ngstyle" ng-change="Change(ngstyle)">
+                    <!-- <select id="ngstyle" class="form-control" ng-model="ngstyle" ng-change="Change(ngstyle)">
                         <option value="">-- {{:: fontselection}} --</option>
                         <option value="ngsize10pt">10 pt</option>
                         <option value="ngsize12pt">12 pt</option>
                         <option value="ngsize14pt">14 pt</option>
                         <option value="ngsize16pt">16 pt</option>
                         <option value="ngsize18pt">18 pt</option>
-                    </select>
+                    </select> -->
+                    <select id="StoreProductionID" class="form-control ng" ng-show="$storage.KDisplayIndex=='0'" ng-options="q.id as q.name for q in StoreProductions | orderBy:'+name'" ng-model="$storage.StoreProductionID" ng-change="LoadOrderItemStates()"></select>
                 </span>
                 <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" ng-if="user.Store.MemberID < 300000000000">
                     <!--<input type="text" class="form-control text-uppercase" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">-->
+                    <p>df</p>
                     <select id="KDisplayIndex" class="form-control" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">
                         <!--<option value="" selected>-- {{:: kitchendisplayselection}} --</option>-->
                         <option value="0" selected>MakeTable</option>
@@ -80,11 +84,11 @@
                 </span>
                 <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" ng-if="user.Store.MemberID >= 300000000000">
                     <!--<input type="text" class="form-control text-uppercase" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">-->
-                    <!-- <select id="KDisplayIndex" class="form-control" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">
+                    <select id="KDisplayIndex" class="form-control" ng-model="$storage.KDisplayIndex" ng-change="LoadOrderItemStates()">
                         <option value="0">MakeTable</option>
                         <option value="1">CutTable</option>
-                    </select> -->
-                    <select id="StoreProductionID" class="form-control ng" ng-options="q.id as q.name for q in StoreProductions | orderBy:'+name'" ng-model="$storage.StoreProductionID" ng-change="LoadOrderItemStates()"></select>
+                    </select> 
+                    
                 </span>
             </div>
             </div> <br />
@@ -99,26 +103,26 @@
                         </div>
                         <div class="{{ngstyle}} row border-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12 ng" ng-repeat="items in ::item.orderItems">
                             <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold margin-bottom-10 text-uppercase" style="font-size:15px; height:15px;">
-                                <span class="{{ngstyle}}">{{:: items.Quantity  }} X {{:: items.Product|| items.Product.ProductPrototype + '(' + items.Product.Size+')'}}</span>
+                                <span class="{{ngstyle}}" ng-class="{'prepared':items.isPrepared }">{{:: items.Quantity  }} X {{:: items.Product|| items.Product.ProductPrototype + '(' + items.Product.Size+')'}}</span>
                             </span>
                             <span class="{{ngstyle}} col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-bottom-10 text-uppercase">
                                 <span class="{{ngstyle}} col-lg-12">
                                     <label ng-if="(oitem.ProductOptionIndex==1) && (oitem.DisplayOnKDS==true)" ng-repeat="oitem in ::items.items" class="col-lg-12 text-bold text-info" style="font-size:15px; height:15px;">
                                         <label ng-if="::oitem.ProductOptionIndex==1" class="{{ngstyle}} text-extra-large text-bold text-info col-lg-1"> (+) </label>
-                                        <span class="{{ngstyle}} col-lg-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;"> <span class="{{ngstyle}}" ng-if="::oitem.ProductOptionIndex==1">{{:: oitem.Quantity}} X </span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
+                                        <span class="{{ngstyle}} col-lg-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;"> <span class="{{ngstyle}}" ng-class="{'prepared':oitem.isPrepared }" ng-if="::oitem.ProductOptionIndex==1">{{:: oitem.Quantity}} X </span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
                                     </label>
                                 </span>
                                 <span class="{{ngstyle}} col-lg-12">
                                     <label ng-if="(oitem.Quantity<=0) && (oitem.DisplayOnKDS==true)" ng-repeat="oitem in ::items.items" class="col-lg-6 text-bold text-danger" style="font-size:15px; height:15px;">
                                         <label ng-if="::oitem.Quantity<=0" class="{{ngstyle}} text-extra-large text-bold text-danger col-lg-2"> (-) </label>
-                                        <span class="{{ngstyle}} col-lg-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-class="{'strike':oitem.Quantity<=0 }"> <span class="{{ngstyle}}" ng-if="::oitem.Quantity>1">{{:: oitem.Quantity}} X </span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
+                                        <span class="{{ngstyle}} col-lg-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;" ng-class="{'strike':oitem.Quantity<=0 }"> <span class="{{ngstyle}}" ng-class="{'prepared':oitem.isPrepared }" ng-if="::oitem.Quantity>1">{{:: oitem.Quantity}} X </span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
                                     </label>
                                 </span>
                                 <br />
                                 <span class="{{ngstyle}} col-lg-12">
                                     <label ng-if="(oitem.Quantity>=1) && ( oitem.ProductOptionIndex!=1) && (oitem.DisplayOnKDS==true)" ng-repeat="oitem in ::items.items" class="col-lg-6 text-bold text-success" style="font-size:15px; height:15px;">
                                         <label ng-if="::oitem.Quantity>=1" class="{{ngstyle}} text-extra-large text-bold text-success col-lg-2"> (+) </label>
-                                        <span class="{{ngstyle}} col-lg-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;"> <span class="{{ngstyle}}" ng-if="::oitem.Quantity>1">{{:: oitem.Quantity}} X</span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
+                                        <span class="{{ngstyle}} col-lg-10" style="text-align:left; white-space: nowrap; overflow:hidden; text-overflow:clip;"> <span class="{{ngstyle}}" ng-if="::oitem.Quantity>1" ng-class="{'prepared':items.isPrepared }">{{:: oitem.Quantity}} X</span> {{:: oitem.Product|| oitem.Product.ProductPrototype}}  </span>
                                     </label>
                                 </span>
                                 <br />
