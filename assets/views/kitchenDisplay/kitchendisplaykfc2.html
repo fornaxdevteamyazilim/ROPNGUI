@@ -113,14 +113,15 @@
             </div>
         </div> <br />
             <div class="row">
-                <div class="list-group-item-success" ng-repeat="item in :refresh:orderitemstates" ng-class="{'list-group-item-success':item.isTimedOut == true ,'list-group-item-danger':item.isTimedOut == false ,'bg-white':item.ProductState.Duration<1}">
+                <div class="list-group-item-success" ng-repeat="item in :refresh:orderitemstates" >
                     <div class="col-sm-6 col-md-3" ng-click="RemoveItem(item.OrderID, $index, $index,item.AutoPrint)" ng-dblclick="BottonDblcilik()">
-                                <div class="panel panel-white min-height-200" style="background-color:dimgray;">
+                                <div class="panel panel-white" style="background-color:dimgray;">
                                     <div class="panel-heading">
                                         <div class="panel-title">
+                                            
                                             <table>
-                                                <tr style="  background-color: #f5f5f5;">
-                                                    <th> {{:refresh:item.OrderType }}</th>
+                                                <tr style="background-color: #f5f5f5;">
+                                                    <th> {{:refresh:item.OrderType }} <span class="badge badge-danger pull-left">{{:refresh:$index+1}}</span></th>
                                                     <th> {{:refresh:item.OrderSource}}</th>
                                                     <th> {{:refresh:item.TakenBy}}</th>
                                                 </tr>
@@ -131,19 +132,11 @@
                                                     <th> {{:: timer}} ({{item.Timer}}) </th>   
                                                 </tr>
                                             </table>
+                                            <div id="treeViewContainer" dx-tree-list="dataGridOptionsorder(item.orderItems)">
+                                            </div>
                                         </div>
                                     </div>                              
-                                    <div class="panel-body">
-                                            <div collapse="panel1" ng-hide="collapse" class="panel-wrapper">
-                                                <div class="panel-body" style="padding: 0px;">
-                                                            <div id="treeViewContainer" dx-tree-list="dataGridOptionsorder(item.orderItems)">
-                                                            </div>
-                                                         
-                                                        
-                                                    
-                                                </div>
-                                            </div>                                        
-                                    </div>
+                                    
                                     
                                         
                                     

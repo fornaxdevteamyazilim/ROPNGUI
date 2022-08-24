@@ -190,21 +190,16 @@ function kdskfc2Ctrl(
     return {
       dataSource: items,
       dataStructure: 'tree',
-      showRowLines: true,
+      showRowLines: false,
       showBorders: true,
       columnAutoWidth: true,
       allowColumnResizing: true,
-      showColumnLines: true,
+      showColumnLines: false,
       rowAlternationEnabled: true,
       hoverStateEnabled: true,
       allowColumnReordering: true,
-      //selectedRowKeys: [1, 29, 42],
       autoExpandAll: true,
       wordWrapEnabled: true,
-      remoteOperations: { grouping: true },
-      //keyExpr: 'id',
-      //displayExpr: 'caption',
-      parentIdExpr: "ParentItemID",
       virtualModeEnabled: true,
       autoExpandAll: true,
       columns: [
@@ -213,7 +208,7 @@ function kdskfc2Ctrl(
       ],
       onCellPrepared: function(e) {
         if(e.rowType === "data") {
-            e.cellElement.css("color", e.data.isPrepared ? "green" : "red");
+            e.cellElement.css("color", e.data.isPrepared ? "green" : "black");
             //e.cellElement.css({ 'background-color': '#DCDCDC' });
             e.cellElement.css({ 'font-weight': 'bolder' });
         }
