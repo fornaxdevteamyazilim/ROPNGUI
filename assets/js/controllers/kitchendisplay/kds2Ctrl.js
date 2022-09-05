@@ -85,7 +85,6 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
         $scope.UpdateOrderItemStatesTimers($scope.orderitemstates);
     }, 1000);
     $scope.orderitemstates = [];
-    var product = [];
     $scope.LoadOrderItemStates = function () {
         if ($scope.inProgress) return;
         $scope.inProgress = true;
@@ -230,31 +229,7 @@ function kds2Ctrl($rootScope, $scope, $log, $modal, $translate, $interval, $time
     };
     $scope.StartClock();
 
-    $scope.dataGridOptionsorder = {
-        dataSource:product,
-        showRowLines: true,
-        showBorders: true,
-        columnAutoWidth: true,
-        allowColumnResizing: true,
-        showColumnLines: true,
-        rowAlternationEnabled: true,
-        hoverStateEnabled: true,
-        allowColumnReordering: true,
-        //selectedRowKeys: [1, 29, 42],
-        autoExpandAll: true,
-        wordWrapEnabled: true,
-        remoteOperations: { grouping: true },
-        //keyExpr: 'id',
-        //displayExpr: 'caption',
-        parentIdExpr: 'ParentItemID',
-        virtualModeEnabled: true,
-        autoExpandAll:true,   
-        columns: [
-            { name: "Product", dataField: "Product", caption: $scope.product,minWidth:200 },
-                 
-        ],
-     
-    };
+
     $scope.$on('$destroy', function () {
         //$timeout.cancel(interval);
         deregistration();

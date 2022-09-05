@@ -344,7 +344,6 @@
     <Content Include="assets\js\controllers\hnr\hnrproductCtrl.js" />
     <Content Include="assets\js\controllers\hnr\hotandreadyCtrl.js" />
     <Content Include="assets\js\controllers\kitchenDisplay\kds2Ctrl.js" />
-    <Content Include="assets\js\controllers\kitchenDisplay\kdskfc2Ctrl.js" />
     <Content Include="assets\js\controllers\login_lockCtrl.js" />
     <Content Include="assets\js\controllers\matching\inventoryunitmatchingCtrl.js" />
     <Content Include="assets\js\controllers\definitions\gridCtrl.js" />

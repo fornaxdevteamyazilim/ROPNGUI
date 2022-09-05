@@ -107,6 +107,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         $scope.WaitingPeriod = angular.copy(stats.WaitingPeriod);
         $scope.isFinalizeRequired = angular.copy(stats.isFinalizeRequired);
         $scope.isDeclaredRevenueInvalid = angular.copy(stats.isDeclaredRevenueInvalid);
+        $scope.InvalidDeclaredRevenueMessage = angular.copy(stats.InvalidDeclaredRevenueMessage);
     };
     $scope.GetStoreStats();
     //$rootScope.user.UserExtensionNumber = callsService.currentExtension = localStorageService.get('ExtensionNumber');
@@ -488,12 +489,13 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         return $scope.isDeclaredRevenueInvalid;
 
     };
+    
     $scope.isDeclaredRevenueInvalids = function () {
 
         if ($scope.isDeclaredRevenueInvalide()) {
             SweetAlert.swal({
                 title: $translate.instant('mainscreen.Editdeclaration '),
-                text: $translate.instant('mainscreen.Declareinformation '),
+                text: $translate.instant('mainscreen.Declareinformation ') + " " + $scope.InvalidDeclaredRevenueMessage,
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",

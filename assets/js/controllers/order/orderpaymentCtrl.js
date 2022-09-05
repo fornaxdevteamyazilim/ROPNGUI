@@ -286,8 +286,10 @@ function orderpaymentCtrl($scope, $log, $modal, $filter, $modalInstance, Order, 
                 },
             }
         });
-         modalInstance.result.then(function (item) {
-            $scope.SavePayment($scope.order);
+         modalInstance.result.then(function (item) {       
+            $scope.CalcRequiredAmount();
+            $scope.ok();
+            $scope.SavePayment(StorePaymentType.id);
             location.href = '#/app/orders/takeaway/';
         })
     };

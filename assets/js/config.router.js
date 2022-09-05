@@ -3036,15 +3036,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'Kitchen Display'
                 }
-            }).state('app.kitchendisplay.kitchendisplaykfc2', {
-                url: '/kitchendisplaykfc2',
-                templateUrl: "assets/views/kitchenDisplay/kitchendisplaykfc2.html",
-                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'kdskfc2Ctrl', 'kdslastordersCtrl', 'dashboardCtrl'),
-                title: 'Kitchen Display',
-                authenticate: true,
-                ncyBreadcrumb: {
-                    label: 'Kitchen Display'
-                }
             }).state('app.Carriers', {
                 url: '/Carriers',
                 template: '<div ui-view class="fade-in-up"></div>',
