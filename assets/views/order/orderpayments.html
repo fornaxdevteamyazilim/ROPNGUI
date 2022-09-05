@@ -437,7 +437,7 @@
             <button class='btn btn-default text-capitalize'
                 style="color:black; overflow:hidden; width:100px; height:50px;" ng-click="gastropay()"
                 ng-dblclick="BottonDblcilik()" ng-disabled="Showspinner==true"
-                ng-if="user.restrictions.gastropaybutton=='Enable'"> <span class='fa fa-spin fa-spinner'
+                ng-if="user.restrictions.gastropaybutton=='Enable' && GastropayEnabled"> <span class='fa fa-spin fa-spinner'
                     ng-if='Showspinner == true'></span><span ng-if="Showspinner != true">Gastropay Ödeme</span></button>
                     
             <button class='btn btn-default text-capitalize'

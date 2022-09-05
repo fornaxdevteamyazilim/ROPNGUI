@@ -1,9 +1,10 @@
 app.controller('gastropayCtrl', gastropayCtrl);
-function gastropayCtrl($rootScope, $scope, $modalInstance, $stateParams, Order, userService, ngnotifyService, Restangular, toaster, $window, $translate, $filter, $log, $modal,PaymentRestangular, ngTableParams, SweetAlert, $location,) {
+function gastropayCtrl($rootScope, $scope, $modalInstance, $stateParams, Order,GastropayPayment, userService, ngnotifyService, Restangular, toaster, $window, $translate, $filter, $log, $modal,PaymentRestangular, ngTableParams, SweetAlert, $location,) {
     $rootScope.uService.EnterController("gastropayCtrl");
     $scope.order = Order;
+    $scope.GastropayPayment=GastropayPayment;
     //$scope.ResultCode = {};
-    $scope.SavePayments = function (ResultCode) {
+    $scope.SavePayments = function () {
         $scope.Showspinner = true;
         Restangular.one('gastropay/getpaymentresult').get(
             {
@@ -14,8 +15,13 @@ function gastropayCtrl($rootScope, $scope, $modalInstance, $stateParams, Order, 
             }
         ).then(function (result) {
             $scope.Showspinner = false;
+            if (result.ResultCode==0){
             toaster.pop('success', $translate.instant('orderfile.PAYMENTSAVED'), $translate.instant('orderfile.PAYMENTSAVED'));
             $scope.ok();
+            }
+            else {
+                toaster.pop('success', $translate.instant('Server.ServerError'), result.ResultMessage);
+            }
         }, function (response) {
             $scope.Showspinner = false;
             toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
@@ -30,13 +36,13 @@ function gastropayCtrl($rootScope, $scope, $modalInstance, $stateParams, Order, 
             toaster.pop('warning', response.data.ExceptionMessage);
         });
     };
-    $scope.SavePayment = function (type) {
-        $scope.currentPayment.PaymentTypeID = type.id;
+    $scope.SavePayment = function () {
+        $scope.currentPayment.PaymentTypeID = $scope.GastropayPayment.id;
         if ($scope.currentPayment.Amount == 0) {
             toaster.pop('error', $translate.instant('orderfile.AmountPayable'), "error");
         } else {
             $scope.ShowButton = true;
-            $scope.currentPayment.PaymentTypeID = type.id;
+            $scope.currentPayment.PaymentTypeID = $scope.GastropayPayment.id;
             $scope.currentPayment.PaymentDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd HH:mm:ss');
             Restangular.restangularizeElement('', $scope.currentPayment, 'orderpayment');
             if ($scope.isNewPayment) {
@@ -44,7 +50,7 @@ function gastropayCtrl($rootScope, $scope, $modalInstance, $stateParams, Order, 
                     //$scope.setBekoECRPayment(type.PaymentType);
                     toaster.pop("success",$translate.instant('orderfile.PAYMENTSAVED') );
                     $scope.order.payments.push(resp);
-                    $scope.gastropay(order);
+                    //$scope.gastropay(order);
                     $scope.Recalc();
                     if ($scope.currentPayment.Amount == 0)
                         $scope.ok();
