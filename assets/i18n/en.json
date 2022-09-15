@@ -4764,7 +4764,8 @@
     "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
     "transmittedOracle": "Transmitted Oracle",
     "ATMID":"Atm Id",
-    "DepositedAmount":"Deposited Amount"
+    "DepositedAmount":"Deposited Amount",
+    "AC_CostCenter": "Expense Center"
   },
   "DriversTransactions": {
     "DriverName": "Driver Name",

@@ -4780,8 +4780,9 @@
     "SendDate": "Gönderim Zamanı",
     "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
     "transmittedOracle": "Oracle iletildi",
-    "ATMID":"Atm No",
-    "DepositedAmount":"Bankaya Yatırılan Tutar"
+    "ATMID": "Atm No",
+    "DepositedAmount": "Bankaya Yatırılan Tutar",
+    "AC_CostCenter": "Masraf Merkezi"
   },
   "DriversTransactions": {
     "DriverName": "Sürücü Adı",

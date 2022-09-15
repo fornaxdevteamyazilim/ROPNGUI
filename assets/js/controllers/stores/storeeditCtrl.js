@@ -79,6 +79,9 @@ function storeeditCtrl($scope, $filter, SweetAlert, Restangular, ngTableParams, 
     var deregistration2 = $scope.$on('podDel', function (event, data) {
         $scope.$broadcast('podDeleted', "Delete..");
     });
+    $scope.EditCountDisabled = function () {
+        return $stateParams.id != 'new' && $rootScope.user.restrictions.EditCountDisabled == 'Enable';
+    }
     $scope.saveData = function () {
         if ($scope.item.restangularized && $scope.item.id) {
             $scope.item.put().then(function (resp) {
