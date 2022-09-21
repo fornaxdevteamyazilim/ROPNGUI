@@ -7,7 +7,7 @@ app.factory('PaymentRestangular', function (Restangular) {
 
 
 app.controller('orderCtrl', orderCtrl);
-function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAlert, Restangular, PaymentRestangular, ngTableParams, $document, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, $compile, callsService, userService, $element, ngnotifyService, $localStorage) {
+function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAlert, Restangular, PaymentRestangular, ngTableParams, $document, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, $compile, callsService, userService, $element, ngnotifyService, $localStorage, localStorageService) {
     var or = this;
     $rootScope.uService.EnterController("orderCtrl");
     $scope.Categories = [];
@@ -431,7 +431,8 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             Amount: $scope._order.Amount,
             OrderID: $scope._order.id,
             PaymentDate: $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd HH:mm:ss'),
-            PaymentTypeID: $scope._order.PaymentTypeID
+            PaymentTypeID: $scope._order.PaymentTypeID,
+            PostName: localStorageService.get('ClientName')
         };
         Restangular.restangularizeElement('', payment, 'orderpayment');
         payment.post().then(function (resp) {

@@ -93,15 +93,20 @@ function declaredrevenueelistCtrl($scope, $filter, $modal, $log, localStorageSer
         dataSource: DevExpress.data.AspNet.createStore({
             key: "id",
             loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxdeclaredrevenue",
-            //onBeforeSend: function (method, ajaxOptions) {
-            //    ajaxOptions.xhrFields = { withCredentials: true };
-            //}
-            //loadParams: {
-            //    filter: JSON.stringify(getFilter()),
-            //},
-            //filter: getFilter(),
-
-            remoteOperations: true,
+            onBeforeSend: function (method, ajaxOptions) {
+                //if (request.method === "PUT") {
+                //    updateUrl = NG_SETTING.apiServiceBaseUri + "/api/dxUser"+
+                //}
+                var authData = localStorageService.get('authorizationData');
+                if (authData) {
+                    
+                    ajaxOptions.headers = {
+                        Authorization: 'Bearer ' + authData.token//,
+                        //'Content-type': 'application/json'
+                    };  
+                }                
+            }
+            
         }),
         filterValue: getFilter(),
         remoteOperations: true,

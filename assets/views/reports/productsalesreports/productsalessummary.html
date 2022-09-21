@@ -1,0 +1,66 @@
+﻿<div print-section ng-controller="productsalessummaryCtrl as ctrl">
+    <div print-only class="visible-print hidden col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+            <span class="col-lg-12 text-bold pull-left">{{user.Store.Member}} - {{user.Store.name}}</span><br />
+            <span class="col-lg-12 text-bold pull-left">{{user.FullName}} </span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-10">
+            <span class="mainTitle text-dark text-bold center" style="font-size:18px;"
+                translate="tittle.PRODUCTSALESSUMMARY" translate-values="{ appName: app.name }">{{ mainTitle
+                }}</span><br />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <span class="col-lg-12 pull-right">Başlangıç Tarihi: {{ReportParameters.fromDate|
+                date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">Bitiş Tarihi: {{ReportParameters.toDate|
+                date:'dd-MM-yyyy'}}</span><br />
+            <span class="col-lg-12 pull-right">{{Time | date:'dd-MM-yyyy HH:mm'}} </span>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="isWaiting==true">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-10">
+                <span print-remove class="mainTitle text-dark" style="font-size:25px;"
+                    translate="tittle.PRODUCTSALESSUMMARY" translate-values="{ appName: app.name }">{{ mainTitle }}</span>
+                <br />
+            </div>
+            <div print-remove class="col-lg-1 col-md-1 col-sm-6 col-xs-6 margin-top-5 pull-right visible-lg">
+                <a class="btn btn-wide btn-red btn-scroll btn-scroll-top ti-back-left pull-right" ng-click="Back()">
+                    <span translate="main.BACK">Back</span>
+                </a>
+            </div>
+            <div class="col-md-1 margin-top-5 pull-right visible-md">
+                <a class="btn btn-red ti-back-left pull-right" ng-click="Back()"></a>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-lg visible-md">
+            <div print-remove class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+                <div class="dx-fieldset col-lg-3">
+                    <div class="dx-field-label" translate="reportparameters.FromDate">From Date</div>
+                    <div class="dx-field-value">
+                        <div dx-date-box="DateRange.fromDate"></div>
+                    </div>
+                </div>
+                <div class="dx-fieldset col-lg-3">
+                    <div class="dx-field-label" translate="reportparameters.ToDate">To Date</div>
+                    <div class="dx-field-value">
+                        <div dx-date-box="DateRange.toDate"></div>
+                    </div>
+                </div>
+                <div class="dx-fieldset col-lg-3">
+                    <div dx-button="reportButtonOptions"></div>
+                </div>
+                <div class="dx-fieldset col-lg-2">
+                    <div dx-button="resetButtonOptions"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="report" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 table-responsive"
+        ng-hide="isWaiting==true">
+        <!--<div id="sales-chart" dx-chart="chartOptions"></div>-->
+        <!--<div dx-button="resetButtonOptions"></div>-->
+        <div id="gridContainer" dx-data-grid="dataGridOptions">
+        </div>
+    </div>
+</div>

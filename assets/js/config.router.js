@@ -2083,6 +2083,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'productgroupstrikerate'
                 }
+            }).state('app.reports.productsalesreports.productsalessummary', {
+                url: '/productsalessummary',
+                templateUrl: "assets/views/reports/productsalesreports/productsalessummary.html",
+                resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'productsalessummaryCtrl', 'dateCtrl', 'pivottable', 'jqueryui', 'selecttagCtrl', 'jquery-nestable-plugin', 'ng-nestable', 'angularBootstrapNavTree'),
+                title: 'product sales summary',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'productsalessummary'
+                }
             }).state('app.reports.productsalesreports.productsalesstatisticspivot', {
                 url: '/productsalesstatisticspivot',
                 templateUrl: "assets/views/reports/productsalesreports/productsalesstatisticspivot.html",

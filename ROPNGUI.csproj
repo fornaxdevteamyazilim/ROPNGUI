@@ -220,6 +220,7 @@
     <Content Include="assets\js\controllers\reports\management\ProductWastesReportCtrl.js" />
     <Content Include="assets\js\controllers\reports\ordersreports\VoidOrdersCtrl.js" />
     <Content Include="assets\js\controllers\reports\productsalesreports\productgroupstrikerateCtrl.js" />
+    <Content Include="assets\js\controllers\reports\productsalesreports\productsalessummaryCtrl.js" />
     <Content Include="assets\js\controllers\reports\ordersreports\promotioncodedetailsCtrl.js" />
     <Content Include="assets\js\controllers\reports\productsalesreports\productsalesstatisticspivotCtrl.js" />
     <Content Include="assets\js\controllers\reports\staffshiftreports\diffbyhourCtrl.js" />
@@ -684,6 +685,7 @@
     <Content Include="assets\views\reports\management\ProductWastesReport.html" />
     <Content Include="assets\views\reports\ordersreports\voidorders.html" />
     <Content Include="assets\views\reports\productsalesreports\productgroupstrikerate.html" />
+    <Content Include="assets\views\reports\productsalesreports\productsalessummary.html" />
     <Content Include="assets\views\reports\ordersreports\promotioncodedetails.html" />
     <Content Include="assets\views\reports\productsalesreports\productsalesstatisticspivot.html" />
     <Content Include="assets\views\reports\sos\sosreport.html" />

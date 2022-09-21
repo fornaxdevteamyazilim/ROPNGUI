@@ -103,6 +103,52 @@ function turnoverbydaysreportCtrl($scope, $filter, $modal, $log, Restangular, Sw
             fields: [
                 { caption: $translate.instant('turnoverbydaysreport.Region'), width: 120, dataField: "RegionManager", area: "row" },
                 { caption: $translate.instant('turnoverbydaysreport.Store'), width: 120, dataField: "Store", area: "row" },
+                {
+                    dataField: "StoreID", caption: $translate.instant('declaredrevenuelist.AC_CostCenter'), width: 200,    
+                    lookup: {
+                        valueExpr: "id",
+                        displayExpr: "AC_CostCenter",
+                        searchMode:"contains",
+                        dataSource: {
+                            store: DevExpress.data.AspNet.createStore({
+                                key: "id",
+                                loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore" 
+                            }),
+                            sort: "AC_CostCenter",
+                            headerFilter: { allowSearch: true }
+                        },
+                        calculateSortValue: function (data) {
+                            var value = this.calculateCellValue(data);
+                            return this.lookup.calculateCellValue(value);
+                        }  
+                    },
+    
+                    //fixed: true,
+                    //groupIndex: 0
+                },
+                {
+                    dataField: "YUMStoreID", caption: $translate.instant('declaredrevenuelist.YUMStoreID'), width: 200,    
+                    lookup: {
+                        valueExpr: "id",
+                        displayExpr: "YUMStoreID",
+                        searchMode:"contains",
+                        dataSource: {
+                            store: DevExpress.data.AspNet.createStore({
+                                key: "id",
+                                loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore" 
+                            }),
+                            sort: "YUMStoreID",
+                            headerFilter: { allowSearch: true }
+                        },
+                        calculateSortValue: function (data) {
+                            var value = this.calculateCellValue(data);
+                            return this.lookup.calculateCellValue(value);
+                        }  
+                    },
+    
+                    //fixed: true,
+                    //groupIndex: 0
+                },
                 { caption: $translate.instant('turnoverbydaysreport.SideStore'), width: 120, dataField: "SideStore", area: "row" },
                 { caption: $translate.instant('turnoverbydaysreport.Year'), dataField: "Year", dataType: "number", area: "column" },
                 { caption: $translate.instant('turnoverbydaysreport.MonthNumber'), dataField: "MonthNumber", dataType: "number", area: "column" },

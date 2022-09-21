@@ -389,6 +389,7 @@
     "VOIDORDERS": "{{appName}} - İptal Sipariş Raporu",
     "PODSREPORT": "{{appName}} - POD Raporu",
     "PRODUCTGROUPSTRIKERATE": "{{appName}} - Ürün Grubu Satış Oranı",
+    "PRODUCTSALESSUMMARY": "{{appName}} - Ürün Satış Özeti",
     "PROMOTIONCODEDETAILS": "{{appName}} - Promosyon Kod Detayları",
     "SALESBYSOURCE": "{{appName}} - Kanal Bazlı Satış",
     "SCORECARD": "{{appName}} - Score Card",
@@ -2422,6 +2423,7 @@
     "USEDDATE": "Kullanım Tarihi",
     "PROMOTIONCODEDETAILS": "Promosyon Kod Detayları",
     "PRODUCTGROUPSTRIKERATE": "Ürün Grubu Satış Oranı",
+    "PRODUCTSALESSUMMARY": "Ürün Satış Özeti",
     "FSRREPORTS": "Fsr",
     "SOSREPORTS": "Sos",
     "AUDIT": "Denetim",
@@ -2856,6 +2858,7 @@
         "VOIDORDERS": "İptal Sipariş Raporu",
         "PROMOTIONCODEDETAILS": "Promosyon Kod Detayları",
         "PRODUCTGROUPSTRIKERATE": "Ürün Grubu Satış Oranı",
+        "PRODUCTSALESSUMMARY": "Ürün Satış Özeti",
         "SALESBYSOURCE": "Kanal Bazlı Satış",
         "SCORECARD": "Score Card",
         "DELIVERYU30": "30 Dk. Altı",
@@ -4800,6 +4803,13 @@
     "TotalDays": "Toplam Gün Sayısı",
     "UndeliveredOrders": "Teslim Edilmeyen Siparişler",
     "TotalAmount": "Toplam Tutar"
+  },
+  "productsalessummary": {
+    "ProductID": "Ürün ID",
+    "ProductName": "Ürün Adı",
+    "SaleSource": "Satış Kanalı",
+    "SaleType": "Satis Tipi",
+    "Quantiy": "Adet"
   }
   
 }

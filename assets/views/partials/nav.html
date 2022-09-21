@@ -1312,6 +1312,13 @@
                                 translate="sidebar.nav.reports.PRODUCTGROUPSTRIKERATE">Ürün Grubu Satış Oranı</span>
                         </a>
                     </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.reports.productsalesreports.productsalessummary"
+                            ng-if="user.restrictions.productsalessummary=='Enable'">
+                            <i class="ti-files"></i><span class="title"
+                                translate="sidebar.nav.reports.PRODUCTSALESSUMMARY">Ürün Satış Özeti</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <!--<li ng-if="user.restrictions.consolidatereports=='Enable'">
