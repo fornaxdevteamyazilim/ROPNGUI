@@ -446,6 +446,38 @@ function personlistCtrl($scope, $log, SweetAlert, Restangular, $modal, ngTablePa
     };
 //**********//********** // ********** // ********** // ********** // **********// NEW PERSON - GETIR //**********//********** // ********** // ********** // ********** //
 
+//**********//********** // ********** // ********** // ********** // **********// NEW PERSON //**********//********** // ********** // ********** // ********** //
+
+
+    //**********//********** // ********** // ********** // ********** // **********// NEW PERSON - MİGROS //**********//********** // ********** // ********** // ********** //
+    $scope.newPersonMigros = function (data) {
+        var item = {};
+        if ($rootScope.searchName) {
+            item.searchName = $rootScope.searchName;
+        }
+        if ($rootScope.searchPhone) {
+            item.searchPhone = $rootScope.searchPhone;
+        }
+        var modalInstance = $modal.open({
+            templateUrl: 'assets/views/person/newpersonMigros.html',
+            controller: 'newpersonMigrosCtrl',
+            size: 'lg',
+            backdrop: '',
+            resolve: {
+                item: function () {
+                    return item;
+                }
+            }
+        });
+        modalInstance.result.then(function (item) {
+            if (item && item != 'cancel') {
+                vm.searchPhone = item.toString();
+                vm.tableParams.reload();
+            }
+        });
+    };
+//**********//********** // ********** // ********** // ********** // **********// NEW PERSON - MİGROS //**********//********** // ********** // ********** // ********** //
+
 $scope.$on('$destroy', function () {
     unbindWatcher();
     unbindWatcher2();
@@ -562,6 +594,11 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
     $scope.GoGetirPersonEdit = function () {
         if ($rootScope.PersonID) {
             location.href = '#/app/orders/getirpersonpage/edit/' + $rootScope.PersonID;
+        }
+    };
+    $scope.GoMigrosPersonEdit = function () {
+        if ($rootScope.PersonID) {
+            location.href = '#/app/orders/migrospersonpage/edit/' + $rootScope.PersonID;
         }
     };
     $scope.CheckOrderStore = function (item, OrderTyprID) {

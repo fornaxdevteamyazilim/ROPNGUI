@@ -3042,7 +3042,8 @@
         "orders": "Onay Bekleyen Siparişler",
         "mapping": "Getir - Eşleştirmeler",
         "trendyolmapping": "Trendyol - Eşleştirmeler",
-        "storeaggregatorstatus": "Restoran Entegrasyon Ayarları"
+        "storeaggregatorstatus": "Restoran Entegrasyon Ayarları",
+        "AggregatorStoreStatus": "Entegrasyon Ayarları"
       },
       "specialoperations": {
         "MAIN": "Özel Operasyonlar",
@@ -4810,6 +4811,39 @@
     "SaleSource": "Satış Kanalı",
     "SaleType": "Satis Tipi",
     "Quantiy": "Adet"
+  },
+  "orderpromotions": {
+    "OperationDate": "Operasyon Tarihi",
+    "OrderNumber": "Sipariş Numarası",
+    "Amount": "Tutar",
+    "OrderAmount": "Sipariş Tutarı",
+    "OrderID": "Sipariş Id",
+    "Code": "Kod",
+    "Promotion": "Promosyon",
+    "StoreName": "Restoran"
+  },
+  "inventorydeal": {
+    "Company": "Firma",
+    "CompanyID": "Firma ID",
+    "Discount": "İndirim",
+    "PaymentTerm": "Vade",
+    "ValidFrom": "Anlaşma Tarihi",
+    "ValidTo": "Anlaşma Bitiş Tarihi",
+    "StoreID": "Store"
+  },
+  "AggregatorStoreStatus":{
+    "TITLE": "reEntegrasyon Ayarları",
+    "StoreID": "StoreID",
+    "Aggregator": "Kaynak",
+    "Aggregator_Name": "Kaynak Adı",
+    "Aggregator_StoreID":"Restoran ID",
+    "Aggregator_Enabled":"Etkin",
+    "Aggregator_ServiceTime":"Servis süresi",
+    "Aggregator_sid":"Aggregator_sid",
+    "Aggregator_Status":"Durum"
   }
+  
+  
+  
   
 }

@@ -65,9 +65,14 @@ function orderpromotionCtrl($scope, $log, $modal, $filter, SweetAlert, Restangul
         });
         return sum;
     };
-    $scope.exportToExcel = function (tableId) { // ex: '#my-table'
-        $scope.exportHref = Excel.tableToExcel(tableId, 'Siparis Indirim Raporu');
-        $timeout(function () { location.href = $scope.exportHref }, 1); // trigger download
+    $scope.exportToExcel = function (tableId) {
+        var blob = new Blob([document.querySelector(tableId).innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        var downloadLink = angular.element('<a></a>');
+        downloadLink.attr('href', window.URL.createObjectURL(blob));
+        downloadLink.attr('download', 'SiparisIndirimRaporu.xls');
+        downloadLink[0].click();
     };
     $scope.GetOrderState = function (data) {
         $scope.OrderStateID = data;

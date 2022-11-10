@@ -131,7 +131,7 @@ function storeregionCtrl($rootScope, $scope, $log, $modal, Restangular, ngTableP
         }
     };
     $scope.ngusers = [];
-    $scope.loadEntities('user', 'ngusers');
+    $scope.loadEntities('cache/users', 'ngusers');
     $scope.operationmanagers = [];
     $scope.loadEntities('operationmanager', 'operationmanagers');
     $scope.cancelremove = function (index) {

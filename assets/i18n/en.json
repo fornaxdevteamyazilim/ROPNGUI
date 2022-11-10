@@ -4793,5 +4793,35 @@
     "SaleSource": "Sale Source",
     "SaleType": "Sale Type",
     "Quantiy": "Quantiy"
+  },
+  "orderpromotions": {
+    "OperationDate": "Operation Date",
+    "OrderNumber": "Order Number",
+    "Amount": "Amount",
+    "OrderAmount": "Order Amount",
+    "OrderID": "Order ID",
+    "Code": "Code",
+    "Promotion": "Promotion",
+    "StoreName": "Store Name"
+  },
+  "inventorydeal": {
+    "Company": "Company",
+    "CompanyID": "Company ID",
+    "Discount": "Discount",
+    "PaymentTerm": "Payment Term",
+    "ValidFrom": "Valid From",
+    "ValidTo": "Valid To",
+    "StoreID": "Store"
+  },
+  "AggregatorStoreStatus":{
+    "StoreID": "StoreID",
+    "Aggregator": "Aggregator",
+    "Aggregator_Name": "Aggregator_Name",
+    "Aggregator_StoreID":"Aggregator_StoreID",
+    "Aggregator_Enabled":"Aggregator_Enabled",
+    "Aggregator_ServiceTime":"Aggregator_ServiceTime",
+    "Aggregator_sid":"Aggregator_sid",
+    "Aggregator_Status":"Aggregator_Status"
   }
+  
 }

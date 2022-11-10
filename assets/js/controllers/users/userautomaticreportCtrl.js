@@ -128,7 +128,7 @@ function userautomaticreportCtrl($rootScope, $scope, $modal, $filter, SweetAlert
     $scope.automaticreports = [];
     $scope.loadEntities('automaticreport', 'automaticreports');
     $scope.users = [];
-    $scope.loadEntities('user', 'users');
+    $scope.loadEntities('cache/users', 'users');
     $scope.$on('$destroy', function () {
         deregistration();
         $element.remove();

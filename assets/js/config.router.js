@@ -1177,6 +1177,57 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'PersonAddress Item'
             }
+        }).state('app.orders.newpersonMigros', {
+            url: '/newpersonMigros',
+            template: '<div ui-view class="fade-in-up"></div>'
+        }).state('app.orders.newpersonMigros.edit', {
+            url: '/edit/:id',
+            templateUrl: "assets/views/person/newpersonedit.html",
+            resolve: loadSequence('selectdepartmentCtrl', 'xeditable', 'config-xeditable', 'ngTable', 'personaddresseslistCtrl', 'personeditCtrl', 'dateCtrl', 'ui.select'),
+            title: 'MigrosPersonitem Edit',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'MigrosPersonitem Edit'
+            }
+        }).state('app.orders.person.migrospersonaddressedit', {
+            url: '/migrospersonaddressedit/:id',
+            templateUrl: "assets/views/person/migrospersonaddressedit.html",
+            resolve: loadSequence('xeditable', 'config-xeditable', 'ngTable', 'personaddresseditCtrl', 'ui.select', 'StreetAddressSelectorCtrl'),
+            title: 'Migros PersonAddress Item',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'Migros PersonAddress Item'
+            }
+        }).state('app.orders.migrospersonpage', {
+            url: '/migrospersonpage',
+            template: '<div ui-view class="fade-in-up"></div>'
+        }).state('app.orders.migrospersonpage.list', {
+            url: '/list',
+            templateUrl: "assets/views/person/migrosperson2.html",
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'selectdepartmentCtrl', 'selectstoreCtrl', 'personlistCtrl', 'personaddresseslistCtrl', 'acentextensionCtrl', 'newpersonCtrl', 'StreetAddressSelectorCtrl', 'surveypopupCtrl', 'SearchAddressSelectorCtrl', 'newpersonMigrosCtrl'),
+            title: 'Person Page',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'Person Page'
+            }
+        }).state('app.orders.migrospersonpage.edit', {
+            url: '/edit/:id',
+            templateUrl: "assets/views/person/migrosperson.edit.html",
+            resolve: loadSequence('selectdepartmentCtrl', 'xeditable', 'config-xeditable', 'ngTable', 'personaddresseslistCtrl', 'personeditCtrl', 'dateCtrl', 'ui.select'),
+            title: 'Personitem Edit',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'Personitem Edit'
+            }
+        }).state('app.orders.migrospersonpage.personaddressedit', {
+            url: '/personaddressedit/:id',
+            templateUrl: "assets/views/person/personaddressedit.html",
+            resolve: loadSequence('xeditable', 'config-xeditable', 'ngTable', 'personaddresseditCtrl', 'ui.select', 'StreetAddressSelectorCtrl'),
+            title: 'PersonAddress Item',
+            authenticate: true,
+            ncyBreadcrumb: {
+                label: 'PersonAddress Item'
+            }
         }).state('app.users', {
             url: '/users',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -2894,6 +2945,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 authenticate: true,
                 ncyBreadcrumb: {
                     label: 'storeaggregatorstatus'
+                }
+            }).state('app.aggregators.AggregatorStoreStatus', {
+                url: '/AggregatorStoreStatus',
+                templateUrl: "assets/views/aggregators/AggregatorStoreStatus.html",
+                resolve: loadSequence('AggregatorStoreStatusCtrl'),
+                title: 'AggregatorStoreStatus',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'AggregatorStoreStatus'
                 }
             }).state('app.addresses', {
                 url: '/addresses',

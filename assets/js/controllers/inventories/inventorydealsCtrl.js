@@ -1,5 +1,5 @@
 ﻿app.controller('inventorydealsCtrl', inventorydealsCtrl);
-function inventorydealsCtrl($scope, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, userService, $element) {
+function inventorydealsCtrl($scope, $log, $modal, Restangular, ngTableParams, localStorageService, SweetAlert, toaster, $window, $rootScope, $filter, ngnotifyService, $element, $location, userService, $timeout, $translate, NG_SETTING, $http, $q) {
     $rootScope.uService.EnterController("inventorydealsCtrl");
     var id = this;
     userService.userAuthorizated();
@@ -37,25 +37,137 @@ function inventorydealsCtrl($scope, $modal, $filter, SweetAlert, Restangular, ng
             result.push("ValidFrom='" + $scope.item.ValidFrom + "'");
         return result;
     };
-    id.tableParams = new ngTableParams({
-        page: 1,
-        count: 10,
-    }, {
-        getData: function ($defer, params) {
-            Restangular.all('inventorydeal').getList({
-                pageNo: params.page(),
-                pageSize: params.count(),
-                search: $scope.BuildSearchString(),
-            }).then(function (items) {
-                params.total(items.paging.totalRecordCount);
-                $defer.resolve(items);
-            }, function (response) {
-                toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
-            });
+    // id.tableParams = new ngTableParams({
+    //     page: 1,
+    //     count: 10,
+    // }, {
+    //     getData: function ($defer, params) {
+    //         Restangular.all('inventorydeal').getList({
+    //             pageNo: params.page(),
+    //             pageSize: params.count(),
+    //             search: $scope.BuildSearchString(),
+    //         }).then(function (items) {
+    //             params.total(items.paging.totalRecordCount);
+    //             $defer.resolve(items);
+    //         }, function (response) {
+    //             toaster.pop('warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+    //         });
+    //     }
+    // });
+    // $scope.loadData = function () {
+    //     id.tableParams.reload();
+    // };
+    var store = new DevExpress.data.CustomStore({
+        key: "id",
+        load: function (loadOptions) {
+            var params = {
+               
+                pageSize: 1000,
+                pageNo: 1,
+               };
+            return $http.get(NG_SETTING.apiServiceBaseUri + "/api/inventorydeal", { params: params })
+                .then(function (response) {
+                    return {
+                        data: response.data.Items,
+                        totalCount: 10
+                    };
+                }, function (response) {
+                    return $q.reject("Data Loading Error");
+                });
         }
     });
-    $scope.loadData = function () {
-        id.tableParams.reload();
+    $scope.dataGridOptions = {
+        dataSource: store,
+        showBorders: true,
+        allowColumnResizing: true,
+        columnAutoWidth: true,
+        showColumnLines: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        //keyExpr: "id",
+        showBorders: true,
+        hoverStateEnabled: true,
+        allowColumnReordering: true,
+        filterRow: { visible: true },
+        headerFilter: { visible: true },
+        searchPanel: { visible: true },
+        // stateStoring: {
+        //     enabled: true,
+        //     type: "custom",
+        //     customLoad: function () {
+        //         return $scope.params.gridState;
+        //     },
+        //     customSave: function (state) {
+        //         $scope.params.gridState = state;
+        //     }
+        // },
+        //stateStoring: {
+        //    enabled: true,
+        //    type: "localStorage",
+        //    storageKey: "storage"
+        //},
+        columns: [
+            { type: "buttons", width: 50, buttons: [{ hint: "edit", icon: "edit", onClick: function (e) { location.href = '#/app/inventory/inventorydeals/edit/' + e.row.data.id; } }] },
+            { dataField: "id", dataType: "number", visible: false },
+           { caption: $translate.instant('inventorydeal.Company'), dataField: "Company", dataType: "string" },
+            { caption: $translate.instant('inventorydeal.CompanyID'), dataField: "CompanyID", dataType: "string" },
+            { caption: $translate.instant('inventorydeal.Discount'), dataField: "Discount", dataType: "string" },
+            { caption: $translate.instant('inventorydeal.PaymentTerm'), dataField: "PaymentTerm", dataType: "string",width: 80 },
+            { caption: $translate.instant('inventorydeal.ValidFrom'), dataField: "ValidFrom", alignment: "right",width: 80, dataType: "date", format: 'dd.MM.yyyy' },
+            { caption: $translate.instant('inventorydeal.ValidTo'), dataField: "ValidTo", alignment: "right",width: 80, dataType: "date", format: 'dd.MM.yyyy' },
+            {
+                dataField: "StoreID", caption: $translate.instant('inventorydeal.StoreID'),
+                lookup: {
+                    valueExpr: "id",
+                    displayExpr: "name",
+                    dataSource: {
+                        store: DevExpress.data.AspNet.createStore({
+                            key: "id",
+                            loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxStore",
+                            onBeforeSend: function (method, ajaxOptions) {
+                                var authData = localStorageService.get('authorizationData');
+                                if (authData) {
+                                    ajaxOptions.headers = {
+                                        Authorization: 'Bearer ' + authData.token,
+                                        'Content-type': 'application/json'
+                                    };
+                                }
+                            }
+                        }),
+                        sort: "name",
+                        headerFilter: { allowSearch: true }
+                    },
+                    calculateSortValue: function (data) {
+                        var value = this.calculateCellValue(data);
+                        return this.lookup.calculateCellValue(value);
+                    }
+                },
+
+            },
+
+        ],
+        export: {
+            enabled: true,
+            fileName: "inventorydeals",
+            customizeExcelCell: (options) => {
+                var gridCell = options.gridCell;
+                if (!gridCell) {
+                    return;
+                }
+                if (gridCell.rowType === 'data') {
+                    if (gridCell.data.Delta === true) {
+                        options.font.bold = true;
+                        options.backgroundColor = '#FFBB00';
+                    }
+                }
+            }
+        },
+        scrolling: { mode: "virtual" },
+        height: 600,
+        paging: {
+            enabled: true
+        },
+    
     };
     $scope.DateValidFrom = function (item) {
         var modalInstance = $modal.open({

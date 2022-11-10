@@ -251,6 +251,8 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
             $scope.login('#/app/orders/personpage/list');
         if (orderType == 7)
             $scope.login('#/app/orders/getirpersonpage/list');
+        // if (orderType == 11)
+        //     $scope.login('#/app/orders/migrospersonpage/list');
         //if (orderType == 7)
         //    $scope.login('#/app/orders/personpage/list');
         if (orderType == 3) {
@@ -297,7 +299,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
                     });
             }
         }
-     
+
     };
     $scope.login = function (path) {
         var data = userService.TimedOut();
@@ -489,7 +491,7 @@ function mainscreenCtrl($scope, $modal, $timeout, $filter, SweetAlert, $interval
         return $scope.isDeclaredRevenueInvalid;
 
     };
-    
+
     $scope.isDeclaredRevenueInvalids = function () {
 
         if ($scope.isDeclaredRevenueInvalide()) {

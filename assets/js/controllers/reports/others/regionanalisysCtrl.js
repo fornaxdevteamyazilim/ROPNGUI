@@ -9,7 +9,7 @@ function regionanalisysCtrl($scope, $modal, $filter, $translate, SweetAlert, Res
     if (!$rootScope.ReportParameters.EndDate) {
         $rootScope.ReportParameters.EndDate = moment().add(1, 'days').format('YYYY-MM-DD ');
     }
-    if (userService.userIsInRole("Admin") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("LC") || userService.userIsInRole("AREAMANAGER") || userService.userIsInRole("ACCOUNTING") || userService.userIsInRole("PH") || userService.userIsInRole("MarketingDepartment") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("FinanceDepartment") || userService.userIsInRole("Indeks")) {
+    if (userService.userIsInRole("Admin") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("LC") || userService.userIsInRole("AREAMANAGER") || userService.userIsInRole("ACCOUNTING") || userService.userIsInRole("PH") || userService.userIsInRole("MarketingDepartment") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("FinanceDepartment") || userService.userIsInRole("Indeks") || userService.userIsInRole("Bolge Kocu")) {
         $scope.StoreID = '';
         $scope.ShowStores = true;
     } else {

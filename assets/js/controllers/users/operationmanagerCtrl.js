@@ -129,7 +129,7 @@ function operationmanagerCtrl($rootScope, $scope, $log, $modal, Restangular, ngT
         }
     };
     $scope.ngusers = [];
-    $scope.loadEntities('user', 'ngusers');
+    $scope.loadEntities('cache/users', 'ngusers');
     $scope.cancelremove = function (index) {
         if (om.tableParams.data[index].fromServer) {
             om.tableParams.data[index].remove();

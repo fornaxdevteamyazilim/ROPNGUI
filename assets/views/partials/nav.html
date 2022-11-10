@@ -707,6 +707,12 @@
                         translate="sidebar.nav.aggregator.storeaggregatorstatus">storeaggregatorstatus Mapping</span>
                 </a>
             </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.aggregators.AggregatorStoreStatus">
+                    <i class="ti-settings"></i> <span class="title"
+                        translate="sidebar.nav.aggregator.AggregatorStoreStatus">AggregatorStoreStatus Mapping</span>
+                </a>
+            </li>
         </ul>
     </li>
     <li ng-class="{'active open':$state.includes('app.reports')}" ng-if="user.restrictions.reports=='Enable'">
