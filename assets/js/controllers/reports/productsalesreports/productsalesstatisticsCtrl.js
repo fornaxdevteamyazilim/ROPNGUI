@@ -1,21 +1,16 @@
 ﻿'use strict';
 app.controller('productsalesstatisticsCtrl', productsalesstatisticsCtrl);
-function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, Restangular, SweetAlert, toaster, $window, $rootScope, $compile, $timeout, $location, userService, ngnotifyService, $element, NG_SETTING) {
+function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, Restangular, localStorageService,SweetAlert, toaster, $window, $rootScope, $compile, $timeout, $location, userService, ngnotifyService, $element, NG_SETTING) {
     $scope.NewDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     var ctrl = this;
     $scope.Time = ngnotifyService.ServerTime();
     $scope.TableData = [];
     $scope.VeiwHeader = {};
-    if (!$scope.DateFromDate) {
-        $scope.DateFromDate = moment().add(-1, 'days').format('YYYY-MM-DD ');
-    }
-    if (!$scope.DateToDate) {
-        $scope.DateToDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
-    }
+    
     if (!$rootScope.user || !$rootScope.user.UserRole || !$rootScope.user.UserRole.Name) {
         $location.path('/login/signin');
-    }
-    if (userService.userIsInRole("Admin") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("LC") || userService.userIsInRole("AREAMANAGER") || userService.userIsInRole("ACCOUNTING") || userService.userIsInRole("PH") || userService.userIsInRole("MarketingDepartment") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("FinanceDepartment")) {
+    } 
+    if (userService.userIsInRole("Admin") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("LCAdmin") || userService.userIsInRole("LC") || userService.userIsInRole("AREAMANAGER") || userService.userIsInRole("ACCOUNTING") || userService.userIsInRole("PH") || userService.userIsInRole("MarketingDepartment") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("OperationDepartment") || userService.userIsInRole("FinanceDepartment")) {
         $scope.StoreID = '';
         $scope.ShowStores = true;
     } else {
@@ -25,10 +20,10 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
         $scope.StoreID = FromValue;
     };
     if (!$scope.StartDate) {
-        $scope.StartDate = moment().add(-1, 'days').format('YYYY-MM-DD ');
+        $scope.StartDate = moment().add(-1, 'days').format('YYYY-MM-DD');
     }
     if (!$scope.EndDate) {
-        $scope.EndDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd ');
+        $scope.EndDate = $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd');
     }
     $scope.resetlayout = $translate.instant('main.RESETLAYOUT');
     $scope.resetButtonOptions = {
@@ -107,6 +102,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
             enabled: true,
             fileName: "Urun Satis Istatistikleri (Adet)"
         },
+        remoteOperations: true,
         scrolling: {
             mode: "virtual"
         },
@@ -125,22 +121,22 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
             remoteOperations: true,
             store: DevExpress.data.AspNet.createStore({
                 key: "id",
-                loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxProductSales",
+                loadUrl: NG_SETTING.apiServiceBaseUri + "/api/dxProductSales",                 
+                onBeforeSend: function (method, ajaxOptions) {ajaxOptions.headers = {Authorization: 'Bearer ' + localStorageService.get('authorizationData').token};}
             }),
             filter: getFilter(),
             fields: [
-                { caption: $translate.instant('productsalesstatistics.Category'), dataField: "ProductCategory", width: 250, expanded: true, sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", area: "row" },
-                { caption: $translate.instant('productsalesstatistics.Product'), dataField: "name", area: "row", sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", width: 250 },
-                { caption: $translate.instant('productsalesstatistics.Parent'), dataField: "ParentName", area: "row", sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", width: 250 },
+                { caption: "Category", dataField: "ProductCategory", width: 250, expanded: true, sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", area: "row" },
+                { caption: "Product", dataField: "name", area: "row", sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", width: 250 },
+                { caption: "Parent", dataField: "ParentName", area: "row", sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", width: 250 },
                 //{ caption: "Date", dataField: "OperationDate", dataType: "date", area: "column" },
-                { caption: $translate.instant('productsalesstatistics.Year'), dataField: "Year", dataType: "number", area: "column" },
-                { caption: $translate.instant('productsalesstatistics.MonthNumber'), dataField: "MonthNumber", dataType: "number", area: "column" },
-                { caption: $translate.instant('productsalesstatistics.Day'), dataField: "Day", dataType: "number", area: "column" },
-                { caption: $translate.instant('productsalesstatistics.Quantity'), dataField: "Quantity", summaryType: "sum", area: "data" },
-                { caption: $translate.instant('productsalesstatistics.Amount'), dataField: "Amount", summaryType: "sum", format: "fixedPoint", area: "data" },
-                { caption: $translate.instant('productsalesstatistics.Cost'), dataField: "Cost", summaryType: "sum", format: "fixedPoint", area: "data" },
-                { caption: $translate.instant('productsalesstatistics.Store'), dataField: "Store" },
-                { caption: $translate.instant('productsalesstatistics.OrderID'), dataField: "OrderID", summaryType: "Count", area: "data" },
+                { dataField: "Year", dataType: "number", area: "column" },
+                { dataField: "MonthNumber", dataType: "number", area: "column" },
+                { dataField: "Day", dataType: "number", area: "column" },
+                { caption: "Quantity", dataField: "Quantity", summaryType: "sum",dataType: "number", format: { type: "fixedPoint", precision: 0 }, area: "data"},
+                { caption: "Amount", dataField: "Amount", summaryType: "sum", dataType: "number", format: { type: "fixedPoint", precision: 2 }, area: "data" },
+                { caption: "Cost", dataField: "Cost", summaryType: "sum", dataType: "number", format: { type: "fixedPoint", precision: 2 }, area: "data" },
+                { caption: "Store", dataField: "Store" }
             ]
         }
     };
@@ -150,27 +146,28 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
         if (src) {
             for (var i = 0; i < src.length; i++) {
                 result.push(["StoreID", "=", src[i].id]);
-                if (src.length > 0)
+                if (i<src.length -1)
                     result.push("or");
             }
         }
         else
             return null;
+        return null
         return result;
-    }
+    }  
     function getFilter() {
         if ($scope.StoreID) {
-            return [[["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.DateToDate]], "and", ["StoreID", "=", $scope.StoreID]];
+            return [[["OperationDate", ">=", $scope.StartDate], "and", ["OperationDate", "<=", $scope.EndDate]], "and",["StoreID", "=", $scope.StoreID]];
         }
         else {
             var s = BuildUserStoresArray($rootScope.user.userstores);
             if (s)
-                return [["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.DateToDate], [s]];
-            else
-                return [["OperationDate", ">=", $scope.DateFromDate], "and", ["OperationDate", "<=", $scope.DateToDate]];
+                return [[["OperationDate", ">=", $scope.StartDate], "and", ["OperationDate", "<=", $scope.EndDate]], [s]];
+            else 
+                return [["OperationDate", ">=", $scope.StartDate], "and", ["OperationDate", "<=", $scope.EndDate]];
         }
     }
-
+    
 
     $scope.LoadData = function () {
         var pivot = $("#sales").dxPivotGrid('instance');
@@ -180,11 +177,11 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
         }
         else {
             pivotDS.filter(getFilter());
-        }
+        }        
         pivotDS.reload();
         //$('#sales').dxPivotGrid('instance').getDataSource().reload();
     };
-
+    
     $scope.ProductSalesApiExcel = function () {
         location.href = NG_SETTING.apiServiceBaseUri + '/api/extendedreports/productstatisticsxls?fromDate=' + $scope.DateFromDate + '&toDate=' + $scope.DateToDate + '&StoreID=' + $scope.StoreID;
     };
@@ -204,7 +201,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
             }).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
+                toaster.pop('Warning', "Sunucu hatası", response.data.ExceptionMessage);
             });
         }
     };
@@ -213,7 +210,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
             Restangular.all(EntityType).getList({}).then(function (result) {
                 $scope[Container] = result;
             }, function (response) {
-                toaster.pop('Warning', $translate.instant('Server.ServerError'), response);
+                toaster.pop('Warning', "Sunucu Hatası", response);
             });
         }
     };
@@ -224,7 +221,8 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
     $scope.GetOrderType = function (data) {
         $scope.OrderTypeID = data;
     };
-    $scope.FromDate = function (item) {
+    $scope.FromDate = function () {
+        var item=$scope.StartDate;
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/Tools/date.html',
             controller: 'dateCtrl',
@@ -238,10 +236,11 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
         });
         modalInstance.result.then(function (item) {
             var data = new Date(item);
-            $scope.DateFromDate = $filter('date')(data, 'yyyy-MM-dd');
+            $scope.StartDate = $filter('date')(data, 'yyyy-MM-dd');
         })
     };
-    $scope.ToDate = function (item) {
+    $scope.ToDate = function () {
+        var item=$scope.EndDate;
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/Tools/date.html',
             controller: 'dateCtrl',
@@ -255,7 +254,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
         });
         modalInstance.result.then(function (item) {
             var data = new Date(item);
-            $scope.DateToDate = $filter('date')(data, 'yyyy-MM-dd');
+            $scope.EndDate = $filter('date')(data, 'yyyy-MM-dd');
         })
     };
     $scope.selecttag = function (item) {
@@ -278,7 +277,7 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
         $window.history.back();
     };
 
-    $scope.$on('$destroy', function () {
+        $scope.$on('$destroy', function () {
         $element.remove();
     });
 };

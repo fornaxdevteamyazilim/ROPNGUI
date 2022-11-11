@@ -1,5 +1,5 @@
 app.controller("declaredrevenueeCtrl", declaredrevenueeCtrl);
-function declaredrevenueeCtrl( $scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, userService, $element, $timeout, NG_SETTING, $http, $q) {
+function declaredrevenueeCtrl($scope, $log, $modal, $filter, SweetAlert, Restangular, ngTableParams, toaster, $window, $stateParams, $rootScope, $location, $translate, ngnotifyService, userService, $element, $timeout, NG_SETTING, $http, $q) {
   $rootScope.uService.EnterController("declaredrevenueeCtrl");
   userService.userAuthorizated();
   var dre = this;

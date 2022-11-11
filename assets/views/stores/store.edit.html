@@ -54,9 +54,9 @@
                         <label for="Store" translate="main.STORE"></label>
                         <input id="id" type="text" class="form-control1 text-capitalize" ng-model="item.name" placeholder="" ng-minlength="1" required>
                     </div>
-                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediFIXEDPHONE =='Enable'">
+                    <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediFIXEDPHONE =='Enable'" >
                         <label translate="main.FIXEDPHONE" for="phone"></label>
-                        <input id="pnumber" class="form-control1" placeholder="(999) 999 99 99" type="text" ng-model="item.phone" maxlength="10" required />
+                        <input id="pnumber" class="form-control1" placeholder="(999) 999 99 99" type="text" ng-model="item.phone" maxlength="10" ng-disabled="EditCountDisabled()" required />
                     </div>
                     <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediPHONE =='Enable'">
                         <label translate="main.PHONE" for="phone"></label>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.storecmediEMAIL =='Enable'">
                         <label translate="main.EMAIL" for="phone"></label>
-                        <input id="email" class="form-control1" placeholder="example@example.com" type="text" ng-model="item.email" />
+                        <input id="email" class="form-control1" placeholder="example@example.com" type="text" ng-model="item.email"  ng-disabled="EditCountDisabled()"/>
                         <!--<label translate="main.EMAIL" for="email"></label>
         <textarea type="text" style='min-height:70px; max-width:225px; max-height:70px; min-width:225px;' class="form-control1" ng-model="item.email"placeholder="example@example.com"></textarea>-->
                     </div>
@@ -96,7 +96,7 @@
                     <div class="form-group col-sm-6 col-lg-2 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStoreREGIONMANAGER =='Enable'">
                         <label translate="main.REGIONMANAGER" for="storeregion"></label>
                         <!--<input id="storeregion" class="form-control" type="text" ng-model="item.StoreRegion" required />-->
-                        <select ng-options="q.id as q.name for q in storeregions | orderBy:'+name'" class="form-control1 text-capitalize ng" ng-model="item.StoreRegionID"></select>
+                        <select ng-options="q.id as q.name for q in storeregions | orderBy:'+name'" class="form-control1 text-capitalize ng" ng-disabled="EditCountDisabled()" ng-model="item.StoreRegionID"></select>
                     </div>
                     <div class="form-group col-sm-6 col-lg-1 col-md-4 col-xs-12" ng-if="user.restrictions.isMainStoreOPENDATE =='Enable'">
                         <label translate="main.OPENDATE" for="OpenDate"></label>

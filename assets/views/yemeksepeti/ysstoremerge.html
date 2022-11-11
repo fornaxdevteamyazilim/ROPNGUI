@@ -77,6 +77,11 @@
                     </span>
                    
                 </td>
+                <td data-title="trAlias" data-sortable="'Alias'" style="width:5%">
+                    <span editable-text="item.Alias" e-name="Alias" e-form="rowform" e-ng-model="item.Alias" e-style="width:5vw;">
+                        {{ item.Alias }}
+                    </span>
+                </td>
                 <td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="5%">
                     <form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
                           shown="inserted == item|| !item.id">

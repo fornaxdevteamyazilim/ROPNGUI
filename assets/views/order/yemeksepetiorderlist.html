@@ -235,8 +235,8 @@
                 </td>
                 <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" data-title="trRejectReason">
                     <span class="text-capitalize" editable-select="item.RejectReasonID" e-name="RejectReasonID" e-ng-model="item.RejectReasonID" e-form="rowform"
-                          e-ng-options="q.id as q.Reason for q in yemeksepetirejectreasons |orderBy:'+Reason'" e-style="width:8vw;">
-                        {{ShowObject('yemeksepetirejectreasons','id',item.RejectReasonID,'Reason')}}
+                          e-ng-options="q.id as q.ReasonName for q in yemeksepetirejectreasons |orderBy:'+Reason' filter:{Active:true}" e-style="width:8vw;">
+                        {{ShowObject('yemeksepetirejectreasons','id',item.RejectReasonID,'ReasonName')}}
                     </span>
                 </td>
             </tr>           

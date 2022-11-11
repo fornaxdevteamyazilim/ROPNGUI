@@ -524,6 +524,14 @@
                     <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{::txtORDERLIST}} </span>
                 </button>
             </div>
+            <div ng-if="user.restrictions.mainorderlist=='Enable'"
+                class="col-lg-3 col-md-4 center visible-lg visible-md" style="width: 18.5%;">
+                <button ng-click="login('#/app/orders/newpersonMigros')"
+                    class="btn btn-azure btn-o  center margin-left-20 margin-bottom-20 text-uppercase text-extra-large text-bold ">
+                    <img src="assets/images/migros.png" style="width:12vw; height:18.2vh;" /><br />
+                    <span style="width:25vw; height:25vh; color:black; font-size:1vw;">{{::migross}} migross</span>
+                </button>
+            </div>
             <div ng-if="user.restrictions.mainkitchendisplay=='Enable'"
                 class="col-lg-3 col-md-4 center visible-lg visible-md" style="width: 18.5%;">
                 <button ng-click="login('#/app/kitchendisplay/kitchendisplay2')"

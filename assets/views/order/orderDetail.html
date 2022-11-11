@@ -98,20 +98,21 @@
     }
 
 
-.blink {
-  animation: blink 3s infinite;
-  color: red;
-}
-
-@keyframes blink {
-  0% {
-    opacity: -1;
-  }
-  100% {
-    opacity: 1;
-    color: red;
-  }
-}
+    .blink {
+        animation: blink-animation 1s steps(5, start) infinite;
+        -webkit-animation: blink-animation 5s steps(5, start) infinite;
+color:red;
+      }
+      @keyframes blink-animation {
+        to {
+          visibility: hidden;
+        }
+      }
+      @-webkit-keyframes blink-animation {
+        to {
+          visibility: hidden;
+        }
+      }
 @media (max-width: 760px) {
 /* Dropdown Button */
 .orderdetails {

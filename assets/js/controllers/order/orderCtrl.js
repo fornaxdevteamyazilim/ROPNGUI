@@ -7,7 +7,7 @@ app.factory('PaymentRestangular', function (Restangular) {
 
 
 app.controller('orderCtrl', orderCtrl);
-function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAlert, Restangular, PaymentRestangular, ngTableParams, $document, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, $compile, callsService, userService, $element, ngnotifyService, $localStorage) {
+function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAlert, Restangular, PaymentRestangular, ngTableParams, $document, toaster, $window, $stateParams, $rootScope, $location, $anchorScroll, $compile, callsService, userService, $element, ngnotifyService, $localStorage, localStorageService) {
     var or = this;
     $rootScope.uService.EnterController("orderCtrl");
     $scope.Categories = [];
@@ -366,6 +366,8 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         location.href = '#/app/orders/orderStore/' + restresult.id;      //Adrese Sipaiş - Getir
                     if (restresult.OrderTypeID == 10)
                         location.href = '#/app/orders/orderStoreTable/' + restresult.id; // (Hızlı Sipariş) 
+                    if (restresult.OrderTypeID == 11)
+                        location.href = '#/app/orders/orderStoreTable/' + restresult.id; // (migros Sipariş) 
                 }
                 if ($rootScope.user.restrictions.storeorderpage != 'Enable') //for Callcenter
                     location.href = '#/app/orders/order/' + restresult.id;
@@ -431,7 +433,8 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             Amount: $scope._order.Amount,
             OrderID: $scope._order.id,
             PaymentDate: $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd HH:mm:ss'),
-            PaymentTypeID: $scope._order.PaymentTypeID
+            PaymentTypeID: $scope._order.PaymentTypeID,
+            PostName: localStorageService.get('ClientName')
         };
         Restangular.restangularizeElement('', payment, 'orderpayment');
         payment.post().then(function (resp) {
@@ -566,7 +569,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                 ordertosave.put().then(function (result) {
                     event.preventDefault();
                     $rootScope.searchName = '';
-                    if ($scope._order.OrderTypeID == 2 || $scope._order.OrderTypeID == 7) {
+                    if ($scope._order.OrderTypeID == 2 || $scope._order.OrderTypeID == 7|| $scope._order.OrderTypeID == 11) {
                         swal({
                             title: "Order ID :'" + result.id + "' Store :'" + result.Store + "' Date:'" + $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss') + "'" + $scope.WDT,
                             text: "Save Order",
@@ -687,6 +690,17 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
                         if (userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("STORE") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("Driver"))
                             $scope.isorderpayeds();
                         $location.path('/app/mainscreen');
+                    }
+                    if ($scope._order.OrderTypeID == 11) {
+                        swal({
+                            title: "Order ID :'" + result.id + "' Store :'" + result.Store + "' Date :'" + $filter('date')(ngnotifyService.ServerTime(), 'HH:mm:ss') + "'" + $scope.WDT,
+                            text: "Order Saved",
+                            type: "success",
+                        });
+                        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER"))
+                            $location.path('/app/orders/migrospersonpage/list');
+                        if (userService.userIsInRole("STORETEST") || userService.userIsInRole("STOREMANAGER") || userService.userIsInRole("STOREASSISTANTMANAGER") || userService.userIsInRole("STORESHIFTMANAGER") || userService.userIsInRole("STOREUSER") || userService.userIsInRole("STORE") || userService.userIsInRole("Admin") || userService.userIsInRole("PHAdmin") || userService.userIsInRole("Driver"))
+                            $location.path('/app/mainscreen');
                     }
                     $rootScope.allowNavigation();
                     $scope.CallReason(1, 'new');

@@ -387,6 +387,7 @@
     "VOIDORDERS": "{{appName}} - Void Orders Report",
     "PODSREPORT": "{{appName}} - PODs Report",
     "PRODUCTGROUPSTRIKERATE": "{{appName}} - Product Group Strike Rate",
+    "PRODUCTSALESSUMMARY": "{{appName}} - Product Sales Summary",
     "PROMOTIONCODEDETAILS": "{{appName}} - Promotion Code Details",
     "SCORECARD": "{{appName}} - Score Card",
     "SALESBYSOURCE": "{{appName}} - Sales By Source",
@@ -2413,6 +2414,7 @@
     "USEDDATE": "Used Date",
     "PROMOTIONCODEDETAILS": "Promotion Code Details",
     "PRODUCTGROUPSTRIKERATE": "Product Group Strike Rate",
+    "PRODUCTSALESSUMMARY": "Product Sales Summary",
     "FSRREPORTS": "FSR Reports",
     "SOSREPORTS": "Speed of Service Reports",
     "AUDIT": "AUDIT Reports",
@@ -2842,6 +2844,7 @@
         "VOIDORDERS": "Void Orders Report",
         "PROMOTIONCODEDETAILS": "Promotion Code Details",
         "PRODUCTGROUPSTRIKERATE": "Product Group Strike Rate",
+        "PRODUCTSALESSUMMARY": "Product Sales Summary",
         "SALESBYSOURCE": "Sales By Source",
         "SCORECARD": "Score Card",
         "ACTUALVSTHEORITICAL": "Actual vs Theoric",
@@ -4764,7 +4767,8 @@
     "fk_ObjectUpdate_id": "fk_ObjectUpdate_id",
     "transmittedOracle": "Transmitted Oracle",
     "ATMID":"Atm Id",
-    "DepositedAmount":"Deposited Amount"
+    "DepositedAmount":"Deposited Amount",
+    "AC_CostCenter": "Expense Center"
   },
   "DriversTransactions": {
     "DriverName": "Driver Name",
@@ -4782,5 +4786,42 @@
     "TotalDays": "Total Days",
     "UndeliveredOrders": "Undelivered Orders",
     "TotalAmount": "Total Amount"
+  },
+  "productsalessummary": {
+    "ProductID": "Product ID",
+    "ProductName": "Product Name",
+    "SaleSource": "Sale Source",
+    "SaleType": "Sale Type",
+    "Quantiy": "Quantiy"
+  },
+  "orderpromotions": {
+    "OperationDate": "Operation Date",
+    "OrderNumber": "Order Number",
+    "Amount": "Amount",
+    "OrderAmount": "Order Amount",
+    "OrderID": "Order ID",
+    "Code": "Code",
+    "Promotion": "Promotion",
+    "StoreName": "Store Name"
+  },
+  "inventorydeal": {
+    "Company": "Company",
+    "CompanyID": "Company ID",
+    "Discount": "Discount",
+    "PaymentTerm": "Payment Term",
+    "ValidFrom": "Valid From",
+    "ValidTo": "Valid To",
+    "StoreID": "Store"
+  },
+  "AggregatorStoreStatus":{
+    "StoreID": "StoreID",
+    "Aggregator": "Aggregator",
+    "Aggregator_Name": "Aggregator_Name",
+    "Aggregator_StoreID":"Aggregator_StoreID",
+    "Aggregator_Enabled":"Aggregator_Enabled",
+    "Aggregator_ServiceTime":"Aggregator_ServiceTime",
+    "Aggregator_sid":"Aggregator_sid",
+    "Aggregator_Status":"Aggregator_Status"
   }
+  
 }

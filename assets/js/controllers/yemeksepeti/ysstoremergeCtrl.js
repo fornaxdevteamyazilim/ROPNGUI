@@ -15,6 +15,7 @@ function ysstoremergeCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Resta
         $scope.trCommands = $translate.instant('main.COMMANDS');
         $scope.trIsOpen = $translate.instant('main.ISOPEN');
         $scope.trisEnabled = $translate.instant('main.ISENABLED');
+        $scope.trAlias = $translate.instant('main.ALIAS');
 
     };
     $scope.translate();

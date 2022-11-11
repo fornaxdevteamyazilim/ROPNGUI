@@ -578,6 +578,10 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCBACKOFFICE") || userService.userIsInRole("CMRESTORANHATTI") || userService.userIsInRole("CCMANAGER")|| userService.userIsInRole("Rest.Manager(sifre)") || userService.userIsInRole("REST. MANAGER")|| userService.userIsInRole("REST. SHIFT MANAGER") || userService.userIsInRole("REST. ASSIST. MANAGER")) {
             if (root == 'CancelOrder')
                 $scope.UpdateOrderStatus(item)
+                if (root == 'OrderPaymentDeteails')
+                $scope.OrderPaymentDeteails(item)
+                if (root == 'ChangeOrderPayment')
+                $scope.ChangeOrderPayment(item)
         } else {
             if ($rootScope.user.restrictions.authorized == "Enable") {
                 var modalInstance = $modal.open({

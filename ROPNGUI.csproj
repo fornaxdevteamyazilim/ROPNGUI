@@ -199,6 +199,7 @@
     <Content Include="assets\js\controllers\definitions\yemeksepetirejectreasonCtrl.js" />
     <Content Include="assets\js\controllers\order\drivethruCtrl.js" />
     <Content Include="assets\js\controllers\person\newpersonGetirCtrl.js" />
+    <Content Include="assets\js\controllers\person\newpersonMigrosCtrl.js" />
     <Content Include="assets\js\controllers\promotions\giftpromotionblacklistCtrl.js" />
     <Content Include="assets\js\controllers\promotions\giftpromotionCodeCtrl.js" />
     <Content Include="assets\js\controllers\promotions\giftpromotionCtrl.js" />
@@ -220,6 +221,7 @@
     <Content Include="assets\js\controllers\reports\management\ProductWastesReportCtrl.js" />
     <Content Include="assets\js\controllers\reports\ordersreports\VoidOrdersCtrl.js" />
     <Content Include="assets\js\controllers\reports\productsalesreports\productgroupstrikerateCtrl.js" />
+    <Content Include="assets\js\controllers\reports\productsalesreports\productsalessummaryCtrl.js" />
     <Content Include="assets\js\controllers\reports\ordersreports\promotioncodedetailsCtrl.js" />
     <Content Include="assets\js\controllers\reports\productsalesreports\productsalesstatisticspivotCtrl.js" />
     <Content Include="assets\js\controllers\reports\staffshiftreports\diffbyhourCtrl.js" />
@@ -663,8 +665,11 @@
     <Content Include="assets\views\order\drivethru.html" />
     <Content Include="assets\views\order\glovo.html" />
     <Content Include="assets\views\person\getirperson2.html" />
+    <Content Include="assets\views\person\migrosperson2.html" />
     <Content Include="assets\views\person\getirpersonaddressedit.html" />
+    <Content Include="assets\views\person\migrospersonaddressedit.html" />
     <Content Include="assets\views\person\newpersongetir.html" />
+    <Content Include="assets\views\person\newpersonMigros.html" />
     <Content Include="assets\views\reports\callcenterreports\callcenterorders.html" />
     <Content Include="assets\views\reports\callcenterreports\poductsalesccoreboard.html" />
     <Content Include="assets\views\promotions\giftpromotion.html" />
@@ -684,6 +689,7 @@
     <Content Include="assets\views\reports\management\ProductWastesReport.html" />
     <Content Include="assets\views\reports\ordersreports\voidorders.html" />
     <Content Include="assets\views\reports\productsalesreports\productgroupstrikerate.html" />
+    <Content Include="assets\views\reports\productsalesreports\productsalessummary.html" />
     <Content Include="assets\views\reports\ordersreports\promotioncodedetails.html" />
     <Content Include="assets\views\reports\productsalesreports\productsalesstatisticspivot.html" />
     <Content Include="assets\views\reports\sos\sosreport.html" />
@@ -1258,6 +1264,7 @@
     <Content Include="assets\fonts\digital-7-mono.eot" />
     <Content Include="assets\fonts\digital-7-mono.ttf" />
     <Content Include="assets\views\person\getirperson.edit.html" />
+    <Content Include="assets\views\person\migrosperson.edit.html" />
     <None Include="scripts\angular.intellisense.js" />
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />

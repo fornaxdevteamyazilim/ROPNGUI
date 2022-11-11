@@ -137,7 +137,7 @@ function userstoregroupCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Res
         }
     };
     $scope.users = [];
-    $scope.loadEntities('user', 'users');
+    $scope.loadEntities('cache/users', 'users');
     $scope.storegroups = [];
     $scope.loadEntities('storegroup', 'storegroups');
     $scope.$on('$destroy', function () {

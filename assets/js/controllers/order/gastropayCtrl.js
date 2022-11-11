@@ -20,7 +20,7 @@ function gastropayCtrl($rootScope, $scope, $modalInstance, $stateParams, Order,G
             $scope.ok();
             }
             else {
-                toaster.pop('success', $translate.instant('Server.ServerError'), result.ResultMessage);
+                toaster.pop('error', $translate.instant('Server.ServerError'), result.ResultMessage);
             }
         }, function (response) {
             $scope.Showspinner = false;

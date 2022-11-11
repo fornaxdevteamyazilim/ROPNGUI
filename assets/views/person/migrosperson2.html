@@ -1,0 +1,322 @@
+﻿<style>
+    .ng {
+    }
+
+        .ng:hover {
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+    .strike {
+        text-decoration: line-through;
+    }
+
+    .red {
+        color: red;
+    }
+
+    /*[class*="col-"] {
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }*/
+</style>
+<div ng-controller="personlistCtrl as vm" ng-keyup="event=$event" ng-init="app.layout.isSidebarClosed=true">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 min-height-300 panel panel-white">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5 visible-lg visible-md">
+                <h2 class="mainTitle col-lg-8 col-md-12" translate="tittle.PERSON" translate-values="{ appName: app.name }" ng-click="newPersonMigros()">{{ mainTitle }}</h2>
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top pull-right ti-plus col-lg-4 col-md-6 margin-top-10" ng-click="PhoneLenght('#/app/orders/person/edit/new')">
+                    <span translate="main.ADDNEWPERSONDETAILS">New Person</span>
+                </a>
+                <a class="btn btn-warning btn-wide btn-scroll btn-scroll-top pull-right ti-plus col-lg-4 col-md-6 margin-top-10" ng-click="newPersonMigros('personEdit')">
+                    <span translate="main.ADDNEWPERSON">New Person</span>
+                </a>
+            </div>
+            <div class="col-sm-12 col-xs-12 margin-top-5 visible-sm visible-xs">
+                <h2 class="mainTitle col-sm-12 col-xs-12" translate="tittle.PERSON" translate-values="{ appName: app.name }" ng-click="newPersonMigros()">{{ mainTitle }}</h2>
+                <a class="btn btn-primary btn-wide btn-scroll btn-scroll-top pull-left ti-plus col-sm-5 col-xs-5 margin-top-5" ng-click="PhoneLenght('#/app/orders/person/edit/new')">
+                    <span translate="main.ADDNEWPERSONDETAILS">New Person</span>
+                </a>
+                <a class="btn btn-warning btn-wide btn-scroll btn-scroll-top pull-right ti-plus col-sm-5 col-xs-5 margin-top-5" ng-click="newPersonMigros('personEdit')">
+                    <span translate="main.ADDNEWPERSON">New Person</span>
+                </a>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5">
+                <input id="searchbyphone" class="form-control text-bold text-dark text-extra-large" placeholder="(999) 999 99 99" focus="true" type="text" ng-model="vm.searchPhone" ng-model-options="{ debounce: 1000 }" maxlength="10" ng-dblclick="vm.searchPhone = ''" ng-show="user.UserRole.MemberID != 300000000000" /><!--ng-virtual-keyboard-->
+                <input id="searchbyphone" class="form-control text-bold text-dark text-extra-large" placeholder="(999) 999 99 99" focus="true" type="text" ng-model="vm.searchPhone" ng-model-options="{ debounce: 1000 }" maxlength="10" ng-dblclick="vm.searchPhone = ''" ng-virtual-keyboard ng-show="user.UserRole.MemberID == 300000000000" />
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5">
+                <input class="form-control text-bold text-dark text-extra-large text-uppercase" placeholder="{{:: searchbyname}}" type="text" ng-model="vm.searchName" ng-keyup="FormKeyPress($event)" /> <!--ng-virtual-keyboard-->
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-5">
+                <input type="text" name="FormatedAddress" class="form-control text-bold text-dark text-extra-large text-uppercase ng" ng-model="FormatedAddress" placeholder="{{:: searchadress}}" readonly ng-click="SearchAddressSelector()" required ng-if="user.restrictions.searchaddress=='Enable'">
+            </div>
+            <br />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="text text-bold text-large text-primary pull-left" ng-if="isSearch==true">
+                    <label class="text text-bold text-primary pull-left fa fa-spin fa-spinner"></label>
+                    <span class="text-small center">{{:: searching}} {{SerchValue}}</span>
+                </label>
+                <label class="text text-bold text-danger" ng-if="Text==true"><span class="center">"Numara 10 Haneli Olmalı !!! Lütfen Tekrar Deneyin."</span></label>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table ng-table="vm.tableParams" class="table table-striped table-hover" ng-show="vm.searchPhone != '' || searchName != ''">
+                    <tbody ng-repeat="item in $data | orderBy:'+name'">
+                        <tr>
+                            <td class="col-lg-4 col-md-4 col-sm-6 col-xs-12 text-uppercase ng text-bold" data-title="trNameSurname" data-sortable="'name'" width="33%" ng-click="GetAddress(item.id)">
+                                {{item.name}}
+                            </td>
+                            <td class="col-lg-8 col-md-8 col-sm-6 col-xs-12" data-title="trPhone" data-sortable="PersonPhones" ng-model="item.PersonPhones" width="33%" ng-click="GetAddress(item.id)">
+                                <span>
+                                    <label class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-bold" ng-repeat="phone in item.FormatedPhones">{{phone}} </label>
+                                </span>
+                            </td>
+                            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-12 text-uppercase ng" data-sortable="'name'" width="10%">
+                                <!--<div class="pull-right" ng-show="!rowform.$visible">
+                                    <div ng-if="user.UserRole.Name != 'Alonet'">
+                                        <a class="btn btn-warning btn-md tooltips tooltips" tooltip="GEL-AL SİPARİŞ" tooltip-placement="right" ng-click="TakeOrder(item.id,1,item.PersonPhones)">
+                                            <img src="assets/images/1.png" style="width:20px; height:20px;" /><br />
+                                        </a>
+                                    </div>
+                                </div>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div ng-controller="personlistaddresslistCtrl as plal">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="panel panel-white" id="panel5">
+                        <div class="panel-heading">
+                            <h4 class="panel-title text-primary" ng-click="collapse =! collapse">{{:: personinfo}}</h4>
+                        </div>
+                        <div collapse="panel5" ng-show="!collapse" class="panel-wrapper">
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                            <label for="person">{{:: namesurname}}</label>
+                                            <input id="item.id" type="text" class="form-control text-uppercase" ng-model="Person.name" readonly>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                            <label for="GenderType">{{:: gender}}</label>
+                                            <input id="item.id" type="text" class="form-control text-uppercase" ng-model="Person.GenderType" readonly>
+                                        </div>
+                                        <!--<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                            <div class="margin-top-5 margin-left-20" ng-if="user.UserRole.Name == 'CALLCENTER' || user.UserRole.Name == 'CCMANAGER' || user.UserRole.Name == 'CMRESTORANHATTI' || user.UserRole.Name == 'Admin' || user.UserRole.Name == 'Alonet'|| user.UserRole.Name == 'PHAdmin'">
+                                                <label>{{:: marketingquestion}} </label> <br />
+                                                <a class="margin-top-5 margin-left-10" ng-model="MPSMS.Approved" ng-if="ShowMarketinPermission">
+                                                    <i class="fa fa-2x fa-check-square-o" ng-if="MPSMS.Approved == true" ng-click="SaveMarketingPermission(MPSMS,0,false)"></i>
+                                                    <i class="fa fa-2x fa-minus-square-o" ng-if="MPSMS.Approved == false" ng-click="SaveMarketingPermission(MPSMS,0,true)"></i>
+                                                    <i class="fa fa-2x fa-square-o" ng-if="MPSMS.Approved == null" ng-click="SaveMarketingPermission(MPSMS,0,true)"></i>
+                                                    SMS
+                                                </a>
+                                                <a class="margin-top-5 margin-left-10" ng-model="MPEMAIL.Approved" ng-if="ShowMarketinPermission">
+                                                    <i class="fa fa-2x fa-check-square-o" ng-if="MPEMAIL.Approved == true" ng-click="SaveMarketingPermission(MPEMAIL,1,false)"></i>
+                                                    <i class="fa fa-2x fa-minus-square-o" ng-if="MPEMAIL.Approved == false" ng-click="SaveMarketingPermission(MPEMAIL,1, true)"></i>
+                                                    <i class="fa fa-2x fa-square-o" ng-if="MPEMAIL.Approved == null" ng-click="SaveMarketingPermission(MPEMAIL,1,true)"></i>
+                                                    E-mail
+                                                </a>
+                                                <a class="margin-top-5 margin-left-10" ng-model="MPKVKK.Approved" ng-if="ShowMarketinPermission">
+                                                    <i class="fa fa-2x fa-check-square-o" ng-if="MPKVKK.Approved == true" ng-click="SaveMarketingPermission(MPKVKK,2,false)"></i>
+                                                    <i class="fa fa-2x fa-minus-square-o" ng-if="MPKVKK.Approved == false" ng-click="SaveMarketingPermission(MPKVKK,2,true)"></i>
+                                                    <i class="fa fa-2x fa-square-o" ng-if="MPKVKK.Approved == null" ng-click="SaveMarketingPermission(MPKVKK,2,true)"></i>
+                                                    KVKK
+                                                </a>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                            <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" for="email">{{:: email}}</label>
+                                            <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="email in Person.PersonEmails">
+                                                <input id="item.id" type="text" class="form-control" ng-model="email.email" readonly>
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                            <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" for="Number">{{:: phone}}</label>
+                                            <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="phone in Person.PersonPhones">
+                                                <input id="item.id" type="text" class="form-control" ng-model="phone.Number" readonly>
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 col-sm-6 col-xs-6">
+
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                            <div class="margin-top-10">
+                                                <button class="btn btn-red btn-wide btn-scroll btn-scroll-left fa fa-save pull-right" ng-disabled="ShowPersonButon !=true" ng-click="GoMigrosPersonEdit(Person)">
+                                                    <span>{{:: personedit}}</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                            <div ng-if="user.UserRole.Name != 'Alonet'" class="margin-top-10">
+                                                <!-- medium & small & xsmall -->
+                                                <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save visible-lg pull-right" ng-click="ComplaintPerson(item)" ng-disabled="ShowPersonButon !=true" ng-if="user.UserRole.Name != 'Alonet'">
+                                                    <span>{{:: complaint}}</span>
+                                                </button>
+                                                <button class="col-md-6 col-sm-6 col-xs-12 btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save pull-right visible-md visible-sm visible-xs" ng-click="ComplaintPerson(item)" ng-disabled="ShowPersonButon !=true">
+                                                    <span>{{:: complaint}}</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6" ng-if="Person.hiddennotes.length">
+                                            <label for="Note">{{:: hiddencustomernote}}</label>
+                                            <textarea type="text" style='min-height:60px; max-width:368px; max-height:100px' class="form-control text-uppercase" ng-model="Person.hiddennotes" readonly></textarea>
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6" ng-if="Person.PersonDetails[0].Data.length">
+                                            <label for="Note">{{:: customerspecialnotes}}</label>
+                                            <textarea type="text" style='min-height:60px; max-width:368px; max-height:100px' class="form-control text-uppercase" ng-model="Person.PersonDetails[0].Data" readonly></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <fieldset class="min-height-230">
+                <legend>{{:: addressinfo}}</legend>
+                <label>
+                    <button class="btn btn-primary btn-wide btn-scroll btn-scroll-top ti-plus text-center pull-left" ng-click="AdAddressPerson(item.id)" ng-disabled="ShowPersonButon !=true"><span>{{:: addnew}}</span></button>
+                    <label class="text text-bold text-primary center margin-left-30" ng-if="wait==true">
+                        <label class="text text-bold text-primary pull-left fa fa-spin fa-spinner"></label>
+                        <span class="center">{{:: pleasewait}}</span>
+                    </label>
+                </label>
+                <div class="table-responsive">
+                    <table ng-table="plal.tableParams " class="table table-striped table-hover">
+                        <tr ng-repeat="item in PersonAddresses "
+                            ng-keyup="FormKeyPress($event,rowform,$data[$index],$index)" ng-class="{'strike':item.isActive == false,'red':item.isActive == false}">
+                            <td data-title="trHomeDelivery" width="5%">
+                                <div ng-if="user.UserRole.Name != 'Alonet'">
+                                    <div class="buttons center" ng-show="!rowform.$visible">
+                                        <a ng-if="user.Store != null && item.isActive == true" ng-class="{'btn btn-success btn-md':item.Store.id==user.Store.id,'btn btn-danger btn-md':item.Store.id!=user.Store.id}" tooltip="ADRESE SİPARİŞ" tooltip-placement="left" ng-click="CheckOrderStore(item,7)">
+                                            <img src="assets/images/2.png" style="width:20px; height:20px;" class="center" /><br />
+                                        </a>
+                                        <a ng-if="user.Store == null" class="btn btn-success btn-md tooltips" tooltip="ADRESE SİPARİŞ" tooltip-placement="left" ng-click="CheckOrderStore(item,7)">
+                                            <img src="assets/images/2.png" style="width:20px; height:20px;" class="center" /><br />
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-title="trStreetAddressName" data-sortable="'name'" width="20%" ng-click="SelectItem(item.id)" class="text-uppercase">
+                                {{:: item.Address.StreetAddress }}
+                            </td>
+                            <td data-title="trAddressNo" data-sortable="'item.AddressID'" width="5%">
+                                {{:: item.Address.AddressNo }}
+                            </td>
+                            <td data-title="trFloor" data-sortable="'item.AddressID'" width="5%">
+                                {{:: item.Address.Floor }}
+                            </td>
+                            <td data-title="trAppartmentNo" data-sortable="'item.AddressID'" width="5%">
+                                {{:: item.Address.AppartmentNo }}
+                            </td>
+                            <td data-title="trEnterance" data-sortable="'item.AddressID'" width="5%" class="text-uppercase">
+                                {{:: item.Address.Entrance }}
+                            </td>
+                            <td data-title="trAppartmentName" data-sortable="'item.AddressID'" width="10%" class="text-uppercase">
+                                {{:: item.Address.AppartmentName }}
+                            </td>
+                            <td data-title="trCompanyName" data-sortable="'item.AddressID'" width="10%" class="text-uppercase">
+                                {{:: item.CompanyName }}
+                            </td>
+                            <td data-title="trLandmark" data-sortable="'item.AddressID'" width="10%" class="text-uppercase">
+
+                                <!--{{:: item.notes }}-->
+                                {{:: item.Address.Landmark }}
+                                <div class="buttons pull-right" ng-show="!rowform.$visible" ng-if="item.Store.id==user.Store.id || user.UserRole.Name == 'CALLCENTER' || user.UserRole.Name == 'CCMANAGER' || user.UserRole.Name == 'CMRESTORANHATTI' || user.UserRole.Name == 'Admin'|| user.UserRole.Name == 'PHAdmin' || item.isActive == 'true'">
+                                    <a class="btn btn-transparent btn-sm tooltips  ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" tooltip-placement="top" href="#/app/orders/person/personaddressedit/{{item.id}}"></a>
+                                </div>
+                                <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                    <div class="btn-group" dropdown is-open="status.isopen">
+                                        <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                            <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                            <li>
+                                                <a class="btn btn-transparent btn-sm ti-pencil" href="#/app/orders/personaddressedit/{{item.id}}">{{:: edit}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <!--<td data-title="trisActive" data-sortable="'item.isActive'" width="5%" class="text-uppercase">
+                                {{:: item.isActive && "Aktif" || "Pasif" }}
+                                <div class="buttons pull-right" ng-show="!rowform.$visible" ng-if="item.Store.id==user.Store.id || user.UserRole.Name == 'CALLCENTER' || user.UserRole.Name == 'CCMANAGER' || user.UserRole.Name == 'CMRESTORANHATTI' || user.UserRole.Name == 'Admin' || user.UserRole.Name == 'PHAdmin'">
+                                    <a class="btn btn-transparent btn-sm tooltips  ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" tooltip-placement="top" href="#/app/orders/person/personaddressedit/{{item.id}}"></a>
+                                </div>
+                                <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                    <div class="btn-group" dropdown is-open="status.isopen">
+                                        <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
+                                            <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                            <li>
+                                                <a class="btn btn-transparent btn-sm ti-pencil" href="#/app/orders/personaddressedit/{{item.id}}">{{:: edit}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>-->
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+            <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12 min-height-200">
+                <legend>{{:: previousorders}}</legend>
+                <label>
+                    <label class="text text-bold text-primary center margin-left-30" ng-if="ShowPersonOrderButton==true">
+                        <label class="text text-bold text-primary pull-left fa fa-spin fa-spinner"></label>
+                        <span class="center">{{:: pleasewait}}</span>
+                    </label>
+                </label>
+                <div class="table-responsive">
+                    <table ng-table="plal.tableParams " class="table table-striped table-hover">
+                        <tr ng-repeat="item in PersonOrders | orderBy:'-OrderDate'">
+                            <td data-title="trOrderNumber" data-sortable="'OrderNumber'" ng-click="OrderDetails(item)" width="15%">
+                                {{:: item.id }} / {{:: item.OrderNumber }}
+                            </td>
+                            <td data-title="trOrderDate" data-sortable="Date" width="10%">
+                                {{:: item.OrderDate| date:'dd.MM.yyyy - HH:mm'}}
+                            </td>
+                            <td class="text-capitalize" data-title="trOrderState" data-sortable="'OrderStateID'" width="10%">
+                                {{item.OrderState}}
+                            </td>
+                            <td data-title="trStore" data-sortable="'StoreID'" class="text-capitalize" width="10%">
+                                {{ item.Store }}
+                            </td>
+                            <td data-title="trOrderSource" data-sortable="'OrderSource'" class="text-capitalize" width="10%">
+                                {{ item.OrderSource }}
+                            </td>
+                            <td class="text-capitalize" data-title="trAddressType" data-sortable="'AddressID'" width="10%">
+                                {{:: item.Address.AddressType }}
+                            </td>
+                            <td class="text-capitalize" data-title="trOrderType" data-sortable="'OrderTypeID'" width="10%">
+                                {{:: item.OrderType}}
+                            </td>
+                            <td data-title="trAmount" data-sortable="'Amount'" width="5%">
+                                {{ item.Amount | number : 2}}
+                            </td>
+                            <td width="10%">
+                                <div class="buttons center" ng-show="!rowform.$visible">
+                                    <a class="btn btn-transparent btn-sm tooltips ti-pencil hidden-sm hidden-xs pull-left" tooltip="{{:: orderdetails}}" tooltip-placement="top" href="#/app/orders/orderDetail/{{item.id}}"></a>
+                                    <a class="btn btn-primary btn-sm btn-wide btn-scroll btn-scroll-top pull-right ti-pencil" ng-click="ComplaintOrder(item)" ng-if="user.UserRole.Name != 'Alonet'">
+                                        <span>{{:: complaint}}</span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+</div>

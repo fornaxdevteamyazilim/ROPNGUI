@@ -112,6 +112,24 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
         });
     };
+     //beyan edilen gelir düzenlemesi bitiş
+
+    $scope.SendDeclaredRevenues = function () {
+        $scope.isWaiting = true;
+        //var data = new Date();
+        var FromOpDate = $filter('date')($scope.DateRanges.fromDate.value, 'yyyy-MM-dd');
+        var ToOpDate = $filter('date')($scope.DateRanges.toDate.value, 'yyyy-MM-dd');
+        Restangular.one('DeclaredRevenue/send').get({
+            FromOpDate: FromOpDate,
+            ToOpDate: ToOpDate,
+        }).then(function (result) {
+            $scope.isWaiting = false;
+            toaster.pop('success', $translate.instant('difinitions.DeclaredRevenues'));
+        }, function (response) {
+            $scope.isWaiting = false;
+            toaster.pop('error', $translate.instant('difinitions.OperationPerformed'), response.data.ExceptionMessage);
+        });
+    };
     $scope.DateRanges = {
         fromDate: {
             max: new Date(),
@@ -138,7 +156,32 @@ function settingitemCtrl($rootScope, $scope, $translate, Restangular, ngnotifySe
             }
         }
     };
-    
+    $scope.DateRanges = {
+        fromDate: {
+            max: new Date(),
+            min: new Date(2019, 0, 1),
+            displayFormat: 'dd.MM.yyyy',
+            bindingOptions: {
+                value: "DateRanges.fromDate.value"
+            },
+            value: (new Date()).addDays(-1),
+            labelLocation: "top", // or "left" | "right"  
+
+        },
+        toDate: {
+            max: $scope.params.toDate,
+            min: new Date(2019, 0, 1),
+            displayFormat: 'dd.MM.yyyy',
+            bindingOptions: {
+                value: "DateRanges.toDate.value"
+            },
+            value: (new Date()).addDays(1),
+            label: {
+                location: "top",
+                alignment: "right" // or "left" | "center"
+            }
+        }
+    };
     // $scope.CalculateProductCosts = function () {
     //     $scope.isWaiting = true;
     //     Restangular.one('inventory/CalculateProductCosts').get({
