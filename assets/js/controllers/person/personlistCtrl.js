@@ -664,6 +664,68 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
             //TODO Swet Alert
         }
     };
+
+    $scope.CheckMigrosOrderStore = function (item, OrderTypeID) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
+            $scope.HomeMigrosOrder(item, OrderTypeID);
+        } else {
+            Restangular.all('ordertools/checkorderstore').post(
+                {
+                    AddressID: item.Address.id,
+                    DeliveryDate: $filter('date')(ngnotifyService.ServerTime(), 'yyyy-MM-dd HH:mm:ss'),
+                    OrderSourceID: '300224877062',
+                }
+            ).then(function (result) {
+                if (result.length < 1) {
+                    toaster.pop('warning', "BU ADRES RESTORAN ADRESLERİ İÇERİSİNDE DEĞİLDİR !");
+                }
+                else {
+                    for (var i = 0; i < result.length; i++) {
+                        if (result[i].id == $rootScope.user.StoreID) {
+                            return $scope.HomeMigrosOrder(item, OrderTypeID);
+                            break;
+                        } else {
+                            toaster.pop('warning', "BU ADRES RESTORAN ADRESLERİ İÇERİSİNDE DEĞİLDİR !");
+                        }
+                    }
+                }
+
+            }, function (response) {
+                toaster.pop('error', "Sunucu hatası", response.data.ExceptionMessage);
+            });
+        }
+    };
+    $scope.HomeMigrosOrder = function (person, OrderType) {
+        if ($scope.CheckPersonPhone == false) {
+            toaster.pop('warning', "Telefon Numarası Boş Geçilemez !", "error");
+            return;
+        }
+        var data = $scope.GetDepartment();
+        if (data != null) {
+            var order = {}
+            var orderperson = { PersonID: person.PersonID };
+            var pesons = [orderperson];
+            order.persons = pesons;
+            order.OrderTypeID = OrderType;
+            order.AddressID = person.AddressID;
+            order.StoreID = $rootScope.user.StoreID;
+            order.OrderSourceID = '300224877062';
+            Restangular.restangularizeElement('', order, 'order');
+            order.post().then(function (resp) {
+                if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage == 'Enable')
+                    location.href = '#/app/orders/orderStore/' + resp.id;
+                if ($rootScope.user.restrictions && $rootScope.user.restrictions.storeorderpage != 'Enable')
+                    location.href = '#/app/orders/order/' + resp.id;
+                toaster.pop("success", "Sipariş Oluşturuldu.");
+            },
+                function (resp) {
+                    toaster.pop('error', resp.data.ExceptionMessage, "error");
+                });
+        } else {
+            //TODO Swet Alert
+        }
+    };
+
     $scope.PersonAddresses = [];
     $scope.GetPersonAddressList = function (PersonID) {
         if (PersonID) {
@@ -816,6 +878,25 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                })
         } else {
             $scope.Person = null;
+        }
+    };
+    $scope.migrosOrder = function (OrderSourceID) {
+        var data = $scope.GetDepartment();
+        if (data != null) {
+            var order = {
+                persons: [],
+                OrderTypeID: 2,
+                StoreID: $rootScope.user.StoreID,
+                OrderSourceID: '300224877062'
+            }
+            Restangular.restangularizeElement('', order, 'order');
+            order.post().then(function (resp) {
+                location.href = '#/app/orders/orderStoreTable/' + resp.id;
+            },
+                function (resp) {
+                    toaster.pop('error', resp.data.ExceptionMessage, "Yeni Sipariş Oluşturulamadı !");
+                });
+        } else {
         }
     };
     $scope.isWait = function (value) {

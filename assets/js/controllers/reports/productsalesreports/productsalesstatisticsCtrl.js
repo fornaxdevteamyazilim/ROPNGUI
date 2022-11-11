@@ -129,13 +129,17 @@ function productsalesstatisticsCtrl($scope, $filter, $modal, $log, $translate, R
                 { caption: "Category", dataField: "ProductCategory", width: 250, expanded: true, sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", area: "row" },
                 { caption: "Product", dataField: "name", area: "row", sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", width: 250 },
                 { caption: "Parent", dataField: "ParentName", area: "row", sortBySummaryField: "SalesAmount", sortBySummaryPath: [], sortOrder: "desc", width: 250 },
+                { caption: "PersonCount", dataField: "PersonCount", area: "row", width: 250 },
+                { caption: "CampaignRegion", dataField: "CampaignRegion", area: "row", width: 250 },
                 //{ caption: "Date", dataField: "OperationDate", dataType: "date", area: "column" },
-                { dataField: "Year", dataType: "number", area: "column" },
-                { dataField: "MonthNumber", dataType: "number", area: "column" },
-                { dataField: "Day", dataType: "number", area: "column" },
-                { caption: "Quantity", dataField: "Quantity", summaryType: "sum",dataType: "number", format: { type: "fixedPoint", precision: 0 }, area: "data"},
-                { caption: "Amount", dataField: "Amount", summaryType: "sum", dataType: "number", format: { type: "fixedPoint", precision: 2 }, area: "data" },
-                { caption: "Cost", dataField: "Cost", summaryType: "sum", dataType: "number", format: { type: "fixedPoint", precision: 2 }, area: "data" },
+                //{ dataField: "Year", dataType: "number", area: "column" },
+                //{ dataField: "MonthNumber", dataType: "number", area: "column" },
+                //{ dataField: "Day", dataType: "number", area: "column" },
+                { caption: "Quantity", dataField: "Quantity", summaryType: "sum", area: "data", format: { type: "fixedPoint", precision: 0 } },
+                { caption: "Quantity %", dataField: "Quantity", summaryType: "sum", area: "filter", summaryDisplayMode: 'percentOfColumnGrandTotal', format: { type: "percent", precision: 2 } },
+                { caption: "Amount", dataField: "Amount", summaryType: "sum", format: "fixedPoint", area: "data" },
+                { caption: "Amount %", dataField: "Amount", summaryType: "sum", area: "filter", summaryDisplayMode: 'percentOfColumnGrandTotal', format: { type: "percent", precision: 2 } },
+                { caption: "Cost", dataField: "Cost", summaryType: "sum", format: "fixedPoint", area: "filter" },
                 { caption: "Store", dataField: "Store" }
             ]
         }

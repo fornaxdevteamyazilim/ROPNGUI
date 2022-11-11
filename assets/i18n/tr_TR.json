@@ -411,7 +411,8 @@
     "BONUSSTATS": "{{appName}} - Bonus Durum Raporu",
     "WEBUSERS": "{{appName}} - Web Kullanıcıları Raporu",
     "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare",
-    "DRIVERSTRANSACTIONS": "{{appName}} - Kuriye Taşıma İstatistikleri Raporu"
+    "DRIVERSTRANSACTIONS": "{{appName}} - Kuriye Taşıma İstatistikleri Raporu",
+    "MIGROSPERSON":"MIGROS Müşteri Bul"
   },
   "main": {
     "CURRENCY_SYMBOL": "₺",

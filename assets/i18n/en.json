@@ -409,7 +409,8 @@
     "BONUSSTATS": "{{appName}} - Bonus Stats Report",
     "WEBUSERS": "{{appName}} - Web Users Report",
     "DRIVERSTRANSACTIONS": "{{appName}} - Drivers Transactions",
-    "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare"
+    "PunchCardStoreCompare":"{{appName}} - PunchCard Store Compare",
+    "MIGROSPERSON":"MIGROS Customer"
   },
   "main": {
     "CURRENCY_SYMBOL": "TL",
