@@ -219,7 +219,24 @@ function orderdetailsCtrl($scope, $rootScope, $log, $translate, $http, $modal, $
         virtualModeEnabled: true,
         autoExpandAll:true,   
         columns: [
-            { name: "Product", dataField: "Product", caption: $scope.product,minWidth:200 },
+            { name: "Product", dataField: "Product", caption: $scope.product,minWidth:200,
+            cellTemplate(container, options) {
+                const productname = options.data.Product;
+                const pnotes = options.data.Notes;
+                if (pnotes) {
+                  container
+                    .append($('<span>', { class: 'name', text: productname }))
+                    .append('<br>')
+                    .append($('<span>', { class: 'name', text: pnotes }).css("font-style", "italic"));
+                    //.append($('<span>', { class: 'name', text: pnotes }).css("color", "blue").css("font-style", "italic"));
+                }
+                else 
+                {
+                    container
+                    .append($('<span>', { class: 'name', text: productname }));
+                }
+        }
+    },
             { name: "Quantity", dataField: "Quantity", caption: $scope.quantity,format: { type: "fixedPoint", precision: 2 } },
             // { name: "ProductOption", dataField: "ProductOption", caption: $scope.productOption },
             { name: "ProductPrice", dataField: "ProductPrice",caption: $scope.productPrice,format: { type: "fixedPoint", precision: 2 }},

@@ -9,7 +9,7 @@
     }
 });
 app.controller('tablePlanCtrl', tablePlanCtrl);
-function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $translate, $filter, $window, $rootScope, $location, userService, $element, ngnotifyService) {
+function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAlert, toaster, $translate, $filter, $window, $rootScope, $location, userService, $element, ngnotifyService,localStorageService) {
     $rootScope.uService.EnterController("tablePlanCtrl");
     $scope.tableplans = [];
     $scope.PersonCount = [];
@@ -210,7 +210,8 @@ function tablePlanCtrl($scope, $log, $modal, Restangular, ngTableParams, SweetAl
     $scope.printOrder = function (data) {
         if (data) {
             Restangular.all('ordertools/PrintReciept').getList({
-                OrderID: data.id
+                OrderID: data.id,
+                StationName:localStorageService.get('ClientName')
             }).then(function (_orderItems) {
             }, function (response) {
             });

@@ -31,7 +31,8 @@ app.value('ngAuthSettings', {
     clientId: 'ropNGui',
     secret: 'Ab1234',
     apiAsiggned:false,
-    connected:false
+    connected:false,
+    dynamicApiEnable:true
 });
 app.constant('JS_REQUIRES', {
     //*** Scripts

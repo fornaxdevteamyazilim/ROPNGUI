@@ -15,6 +15,7 @@ function aggregatormappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elem
             insertUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirStore",
             updateUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirStore",
             deleteUrl: NG_SETTING.apiServiceBaseUri + "/api/dxGetirStore",
+            onBeforeSend: function (method, ajaxOptions) {ajaxOptions.headers = {Authorization: 'Bearer ' + localStorageService.get('authorizationData').token};}
         }),
         //filterValue: getFilter(),
         allowColumnResizing: true,

@@ -80,10 +80,19 @@ function ngnotifyService($http, $rootScope, $location, $timeout, ngAuthSettings,
     ngnotifyHubProxy.on('setApiUrl', function (apiUrl) {
         console.log('setApiUrl message Recieved:'+apiUrl);
         toaster.pop('Warning', 'setApiUrl message Recieved', apiUrl);
-        Restangular.setBaseUrl(apiUrl+'/api/');
-        ngAuthSettings.apiServiceBaseUri=apiUrl+'/';
-        ngAuthSettings.apiAsiggned=true;
-        NG_SETTING.apiServiceBaseUri=apiUrl;
+        if (ngAuthSettings.dynamicApiEnable){
+            Restangular.setBaseUrl(apiUrl+'/api/');
+            ngAuthSettings.apiServiceBaseUri=apiUrl+'/';
+            ngAuthSettings.apiAsiggned=true;
+            NG_SETTING.apiServiceBaseUri=apiUrl;
+            console.log('ApiUrl updated to:'+apiUrl);
+            toaster.pop('Warning', 'ApiUrl updated to:', apiUrl);
+            }
+        else
+        {
+            console.log('Skipping setApiUrl message');
+            toaster.pop('Warning', 'Skipping setApiUrl message Recieved', apiUrl);        
+        }
     });
     ngnotifyHubProxy.on('NewOrder', function (data) {
         //string id,Enums.OrderStatus oldStatus, Enums.OrderStatus newStatus,string storeID

@@ -2,35 +2,19 @@
 function orderable($compile, $modal,$translate) {
     var directive = {
         restrict: 'E',
-        template:
-            //LC
-
-            //"<div class='row col-lg-12 col-md-12 col-sm-12 col-xs-12'>" +
-            //"<input type='text' placeholder='Promosyon Kodu' class='col-lg-3 col-md-3 col-sm-6 col-xs-6 pull-right' ng-model='item.PromotionCode' ng-if='item.CodeRequired==true'>" +
-            //"</div>" +
-            //"<div class='row col-lg-9 col-md-9 col-sm-12 col-xs-12 pull-right margin-bottom-5 margin-top-5' ng-if='item.isOrderItem'> " +
-            //"<button class='col-lg-4 col-md-4 col-sm-4 col-xs-6  btn-dark-yellow btn-md tooltips radius-3 pull-right' style='height:33px' ng-hide='!item.canSave' ng-click='SaveToOrder(item)'ng-disabled='ButtonActive == false'><label class='fa fa-spin fa-spinner' ng-if='ButtonActive == false'></label><span> {{:: 'main.SAVE' | translate}} </span></button>" +
-            //"<span class='col-lg-2 col-md-3 col-sm-4 col-xs-6 pull-right'><input type='text' ng-model='item.Quantity' touchspin data-min='1' data-max='30' data-step='1'  data-stepinterval='50' data-maxboostedstep='10'/></span>" +
-            //"<label class='col-lg-3 col-md-3 col-sm-4 col-xs-6 pull-right margin-top-5 margin-right-5 text-bold text-dark' style='color:black;'>{{:: 'main.TOTALAMOUNT' | translate}}: {{itemAmount| number : 2}} TL</label>" +
-            //"<label class='col-lg-2 col-md-2 col-sm-4 col-xs-6 pull-left text-bold text-dark' style='color:black;'>{{item.name}}</label>" +
-            //"</div>" +
-            //"<orderableoption class='fade-in' ng-if='option.OptionIndex>-2' bindonce ng-repeat='option in item.Options' option='option' order='OrderID'></orderableoption>" +
-            //"<div class='no-margin fade-in' id='details'>" +
-            //"<button ng-if='item.isOrderItem' class='col-lg-3 col-md-3 col-sm-4 col-xs-6 btn-warning btn-md tooltips radius-3 pull-right' style='height:33px' ng-hide='!item.canSave' ng-click='SaveToOrder(item)'ng-disabled='ButtonActive == false'><label class='fa fa-spin fa-spinner' ng-if='ButtonActive == false'></label><span> {{:: 'main.SAVE' | translate}} </span></button>",
-
-            //PH
-
+        template:            
             "<div class='row col-lg-12 col-md-12 col-sm-12 col-xs-12'>" +
             "<input type='text' placeholder='Promosyon Kodu' class='col-lg-3 col-md-3 col-sm-6 col-xs-6 pull-right' ng-model='item.PromotionCode' ng-if='item.CodeRequired==true'>" +
             "</div>" +
-            "<div class='row col-lg-9 col-md-9 col-sm-12 col-xs-12 pull-right margin-bottom-5 margin-top-5' ng-if='item.isOrderItem'> " +
-            "<button class='col-lg-4 col-md-4 col-sm-4 col-xs-6  btn-red btn-md tooltips radius-3 pull-right' style='height:33px' ng-hide='!item.canSave' ng-click='SaveToOrder(item)'ng-disabled='ButtonActive == false'><label class='fa fa-spin fa-spinner' ng-if='ButtonActive == false'></label><span> {{:: 'main.SAVE' | translate}} </span></button>" +
-            "<span class='col-lg-2 col-md-3 col-sm-4 col-xs-6 pull-right'><input type='text' ng-model='item.Quantity' touchspin data-min='1' data-max='30' data-step='1'  data-stepinterval='50' data-maxboostedstep='10'/></span>" +
-            "<label class='col-lg-3 col-md-3 col-sm-4 col-xs-6 pull-right margin-top-5 margin-right-5 text-bold text-dark' style='color:black;'>{{:: 'main.TOTALAMOUNT' | translate}}: {{itemAmount| number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>" +
-            "<label class='col-lg-2 col-md-2 col-sm-4 col-xs-6 pull-left text-bold text-dark' style='color:black;'>{{item.name}}</label>" +
+            "<div class='row col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right margin-bottom-5' ng-if='item.isOrderItem'> " +
+            "<button class='col-lg-2 col-md-2 col-sm-4 col-xs-6 btn-red btn-sm tooltips radius-3 pull-right' style='height:33px' ng-hide='!item.canSave' ng-click='SaveToOrder(item)'ng-disabled='ButtonActive == false'><label class='fa fa-spin fa-spinner' ng-if='ButtonActive == false'></label><span> {{:: 'main.SAVE' | translate}} </span></button>" +
+            "<span class='col-lg-2 col-md-2 col-sm-4 col-xs-6 pull-right'><input type='text' ng-model='item.Quantity' touchspin data-min='1' data-max='30' data-step='1'  data-stepinterval='50' data-maxboostedstep='10'/></span>" +
+            "<label class='col-lg-2 col-md-2 col-sm-4 col-xs-6 pull-right margin-top-5 text-bold text-dark' style='color:black;'>{{:: 'main.TOTALAMOUNT' | translate}}: {{itemAmount| number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>" +
+            "<label class='col-lg-5 col-md-5 col-sm-4 col-xs-6 pull-left margin-top-5 text-bold text-dark' style='color:black;'>{{item.name}}</label>" +
             "</div>" +
             "<orderableoption class='fade-in' ng-if='option.OptionIndex>-2' bindonce ng-repeat='option in item.Options' option='option' order='OrderID'></orderableoption>" +
             "<div class='no-margin fade-in' id='details'>" +
+            "<input type='text' placeholder='Ürün notu' class='col-lg-9 col-md-9 col-sm-9 col-xs-9' ng-model='item.Notes' ng-if='item.isOrderItem'>" +
             "<button ng-if='item.isOrderItem' class='col-lg-3 col-md-3 col-sm-4 col-xs-6 btn-red btn-md tooltips radius-3 pull-right' style='height:33px' ng-hide='!item.canSave' ng-click='SaveToOrder(item)'ng-disabled='ButtonActive == false'><label class='fa fa-spin fa-spinner' ng-if='ButtonActive == false'></label><span> {{:: 'main.SAVE' | translate}} </span></button>",
 
         controller: function ($scope, $element, $attrs, $transclude, $rootScope, $translate, $modal, Restangular, toaster) {
@@ -124,9 +108,7 @@ function orderable($compile, $modal,$translate) {
             }
             $scope.CalculatePrice = function (item, includeItemPrice) {
                 if (item) {
-                    var itemPrice = 0;
-                    if (item.Price != null)
-                        var price = (item.Price != null && includeItemPrice) ? item.Price.Price : 0;
+                    var price = (item.Price != null && includeItemPrice) ? item.Price.Price : 0;
                     if (item.Options != null)
                         for (var i = 0; i < item.Options.length; i++) {
                             if (!$scope.PriceModifierExists("None", item.Options[i].PriceModifiyers)) {
@@ -202,7 +184,7 @@ function orderable($compile, $modal,$translate) {
                                 }
                                 else {
                                     for (var a = 0; a < item.Options[i].Items.length; a++) {
-                                        if (item.Options[i].Items[a].Price != null) {
+                                        //if (item.Options[i].Items[a].Price != null) {
                                             if (item.Options[i].SelectedItems) {
                                                 if (item.Options[i].Items[a].id == item.Options[i].SelectedItems.id) {
                                                     var iPrice = (item.Options[i].Items[a].Price) ? item.Options[i].Items[a].Price.Price : 0;
@@ -224,7 +206,7 @@ function orderable($compile, $modal,$translate) {
                                                 price += ($scope.PriceModifierExists("Changed", item.Options[i].PriceModifiyers) && item.Options[i].Items[a].DefaultQuantity == item.Options[i].Items[a].Quantity) ? 0 : (item.Options[i].Items[a].Quantity > 0) ? $scope.CalculatePrice(item.Options[i].Items[a], true) : 0;
                                             }
 
-                                        }
+                                        //}
 
 
                                     }
@@ -235,7 +217,7 @@ function orderable($compile, $modal,$translate) {
                                     if (item.Options[i].Items[a].Price != null) {
                                         if (item.Options[i].SelectedItems) {
                                             if (item.Options[i].Items[a].id == item.Options[i].SelectedItems.id) {
-                                                price += $scope.CalculatePrice(item.Options[i].SelectedItems, false);
+                                                price += $scope.CalculatePrice(item.Options[i].SelectedItems, true);
                                             }
                                         }
                                     }
@@ -310,10 +292,7 @@ function orderable($compile, $modal,$translate) {
                         data.put().then(
                             function (res) {
                                 $scope.$emit('LoadOrderItems', $translate.instant('orderfile.Updated'));
-                                toaster.pop('success',  $translate.instant('yemeksepetifile.UpdatedOrderItem '));
-                                //if (res.id) {
-                                //    $scope.ok();
-                                //}
+                                toaster.pop('success',  $translate.instant('yemeksepetifile.UpdatedOrderItem '));                                
                             });
                     }
                     else {
@@ -325,9 +304,6 @@ function orderable($compile, $modal,$translate) {
                             function (res) {
                                 toaster.pop("success",  $translate.instant('yemeksepetifile.OrderItemAdded '));
                                 $scope.$emit('LoadOrderItems', $translate.instant('orderfile.Updated'));
-                                //if (res.id) {
-                                //    $scope.ok();
-                                //}
                             },
                             function (res) {
                                 if (res.data.ExceptionMessage)
@@ -466,23 +442,6 @@ function ngCheckbox($rootScope) {
                 return value;
             });
             scope.toggle = function () {
-                //if ($rootScope.user.UserRole.MemberID != "300000000000") {    //LC & Others
-                //    if (scope.editorValue.Quantity >= parseInt(attrs['ngMaxcount']))
-                //        scope.editorValue.Quantity = parseInt(attrs['ngMincount']);
-                //    else
-                //        scope.editorValue.Quantity++;
-
-                //    model.$setViewValue(scope.editorValue);
-                //}
-                //if ($rootScope.user.UserRole.MemberID == "300000000000") {    //PH
-                //    if (scope.editorValue.Quantity >= parseInt(attrs['ngMaxcount']))
-                //        scope.editorValue.Quantity = parseInt(attrs['ngMincount']);
-                //    else
-                //        scope.editorValue.Quantity++;
-
-                //    model.$setViewValue(scope.editorValue);
-                //}
-
                 if (scope.editorValue.Quantity >= parseInt(attrs['ngMaxcount']))
                     scope.editorValue.Quantity = parseInt(attrs['ngMincount']);
                 else
@@ -536,9 +495,6 @@ function optionClick($compile, $log, $modal, $timeout) {
                 var childNode = $compile(template)(scope);
                 container.html(childNode);
                 childNode.show('fast');
-                //$timeout(function () {
-                //    window.scrollTo(0, 0);
-                //}, 0, false);
             });
         },
     };
@@ -554,7 +510,6 @@ function orderableoption() {
                 "<optionitem-smallbutton ng-if='option.OptionIndex==-1' bindonce ng-repeat='item in option.Items' item='item' ng-class=\"{'active':person.id==CurrentPersonID}\"></optionitem-smallbutton>" +
                 "<optionitem-image ng-if='option.OptionIndex==0' bindonce='item' ng-repeat='item in option.Items' item='item'></optionitem-image>" +
                 "<div ng-if='option.OptionIndex>0'>" +
-                //| orderBy:[\"+Price.Price\",\"+name\"]
                 "<div class='col-lg-12 text-bold text-dark' style='color:black;' ng-if='option.OptionType==1'><optionitem-combo order='order'></optionitem-combo></div>" +   //ComboBox
                 "<div class='col-lg-12' ng-if='option.OptionType==2'>" +  //CheckBox
                 "<h4  class='hideContentHeader col-lg-12'>" +
@@ -653,15 +608,14 @@ function optionitemRadio($compile) {
             "<h4  class='hideContentHeader col-xs-12 col-lg-12 col-md-12 col-sm-12 text-capitalize' content-click>" +
             "{{:: option.name}}" +
             "</h4>" +
-            "<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 visibleContent text-large'>" +
-            "<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>" +
-            "<label class='col-lg-3 col-md-3 col-sm-6 col-xs-6 text-bold text-dark' style='color:black;' ng-repeat='item in option.Items'>" +
-            "<input type='radio' id='orderselect' for='orderselect' name='' ng-value='item.id' ng-model='option.SelectedItems.id' ng-click='UpdateDetails($event,option)' ng-init='UpdateDetails($event,option)'>" +
+            "<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 visibleContent text-large hideContentMaterial' >" +
+            "<div class='btn-group col-lg-12' data-toggle='buttons'>" +
+            "<label style='overflow: hidden;white-space: nowrap;' class='btn btn-red col-lg-4 h-100' ng-repeat='item in option.Items' ng-class=\"{'btn-o':item.id!=option.SelectedItems.id}\" >" +
+            "<input style='overflow: hidden;white-space: nowrap;' type='radio' name='' ng-value='item.id' ng-model='option.SelectedItems.id' ng-click='UpdateDetails($event,option)' ng-init='UpdateDetails($event,option)'   >" +
             "{{:: item.name}}</label>" +
-            "</div>" +
-            "</div>" +
-            "</div>" +
-
+            "</div>" +   
+            "</div>" +   
+            "</div>" +            
             "<div class='hideContent col-lg-12' id='contentdetail'>" +
             "<div id='optdetail'></div>" +
             "</div>",
@@ -682,10 +636,6 @@ function optionitemImage() {
         restrict: 'EA',
         require: '^orderableoption',
         template:
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
             "<div class='btn btn-wide btn-o  btn-warning col-lg-2 col-md-3 col-sm-8 col-xs-12 margin-top-5 margin-right-5' style='width:150px; height:90px;' ng-if='user.UserRole.MemberID == 106851154380'>" +
             "<div class='col-lg-12 col-md-12 col-sm-12' style='max-height:90px; min-height:90px;'>" +
             "<label id='txshdw' class='col-lg-12 col-md-12 col-sm-12 col-xs-12 text-capitalize text-bold' style='overflow:hidden; text-overflow:clip; color:black; min-height:50px; max-height:50px;' >{{:: item.name}} / {{item.Price.Price| number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>" +
@@ -704,118 +654,7 @@ function optionitemImage() {
             "</div>" +
             "</div>"
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //"<div class='btn btn-wide btn-o  btn-warning col-lg-2 col-md-3 col-sm-8 col-xs-12 margin-top-5 margin-right-5 visible-lg visible-md' style='height:160px; border:solid;'>" +
-        //    "<div class='col-lg-12 col-md-12 col-sm-12' style='min-height:70px;'><label class='text-bold' style='color:black;'>{{:: item.name}} / {{item.Price.Price| number : 2}} TL</label></div>" +
-        //    "<div class='col-lg-12 col-md-12 col-sm-12'>" +
-        //        "<input type='text' ng-model='item.Quantity' touchspin data-min='1' data-max='30' data-step='1'  data-stepinterval='50' data-maxboostedstep='10'/>" +
-        //        "<button class='col-lg-4 col-md-4 col-sm-6 col-xs-12 btn-red ti-zoom-in radius-3' style='height:33px;' option-click > " +
-        //            "<span>  Detay</span>" +
-        //        "</button>" +
-        //        "<button class='col-lg-8 col-md-8 col-sm-6 col-xs-12 btn-dark-yellow btn-md test ti-plus radius-3' style='height:33px' ng-click='ControlOptions(item)'><span> Siparişe Ekle</span></button>" +
-        //    "</div>" +
-        //"</div>" +
-
-        //"<div class='btn btn-wide btn-o btn-warning margin-top-20 center visible-sm visible-xs col-sm-6 col-xs-6 margin-left-10' style='height:170px; width:120px;'>" +
-        //    "<div class='col-lg-12 col-md-12 col-sm-12' style='min-height:90px;'><label class='text-bold'>{{:: item.name}} / {{item.Price.Price| number : 2}} TL</label></div>" +
-        //    "<div class='col-lg-12 col-md-12 col-sm-12'>" +
-        //        "<input type='text' ng-model='item.Quantity' touchspin data-min='1' data-max='30' data-step='1'  data-stepinterval='50' data-maxboostedstep='10'/>" +
-        //        "<button class='col-lg-4 col-md-4 col-sm-6 col-xs-6 btn-red ti-zoom-in radius-3' style='height:33px;' option-click></button>" +
-        //        "<button class='col-lg-8 col-md-8 col-sm-6 col-xs-6 btn-dark-yellow btn-md test ti-plus radius-3' style='height:33px' ng-click='ControlOptions(item)'></button>" +
-        //    "</div>" +
-        //"</div>"
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////DEMO NG//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //// visible lg/md
-        //'<div class="col-xs-4 btn btn-default margin-bottom-5 margin-top-5 text-uppercase visible-lg visible-md" ng-click="ControlOptions(item)"  style="width:130px; height:60px; margin-right:2px;">' +
-        //    '<div class="col-xs-12">' +
-        //        "<label id='txshdw' class='col-xs-11 text-capitalize text-large text-orange text-bold' style='white-space:pre-line; overflow:hidden; text-overflow:ellipsis; max-height:50px;'>{{:: item.name}}</label>" +
-        //    '</div>' +
-        //'</div>' +
-
-        //// visible sm/xs
-        //'<div class="col-xs-4 btn btn-default margin-bottom-5 margin-top-5 text-uppercase visible-sm visible-xs" ng-click="ControlOptions(item)"  style="width:130px; height:60px; margin-right:2px;">' +
-        //    '<div class="col-xs-12">' +
-        //        "<label id='txshdw' class='col-xs-11 text-capitalize text-large text-orange text-bold' style='white-space:pre-line; overflow:hidden; text-overflow:ellipsis; max-height:50px;'>{{:: item.name}}</label>" +
-        //    '</div>' +
-        //'</div>'
-
-        ///////////////////////////////////////////////////////////////////////////////////////DEMO NG/////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //"<button type='text' class='col-lg-2 col-md-2 btn btn-red btn-o visible-lg visible-md margin-top-5 margin-right-5' ng-if='item.ItemType==\"Product\"' style='width:130px; height:70px;' item='item' order='OrderID' option-click>" +  //border:inset;
-        //    "<div class='row center'>" +
-        //        "<div class='view view-second center '>" +
-        //        "</div>" +
-        //    "</div>" +
-        //    "<div class='col-lg-12'>" +
-        //        "<label id='txshdw' class='col-lg-11 col-md-11 col-sm-11 col-xs-11 text-capitalize text-large' style='overflow:hidden; color:black;  max-height:60px; min-height:60px;'>{{:: item.name}}</label>" +
-        //    "</div>" +
-        //"</button>" +
-
-        //'<button type="button" class="col-xs-4 btn btn-red btn-o margin-bottom-5 margin-top-5 text-uppercase visible-sm visible-xs" style="width:120px; height:80px;" ng-if="item.ItemType==\'Product\'" item="item" order="OrderID" option-click>' +
-        //    '<div class="col-xs-12">' +
-        //        "<label id='txshdw' class='col-xs-11 text-capitalize text-large' style='overflow:hidden; color:black; max-height:60px; min-height:60px;'>{{:: item.name}}</label>" +
-        //    '</div>' +
-        //'</button>'
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        ////large
-        //"<div class='col-lg-3  visible-lg  margin-left-5 center'>" +
-        //  "<label class='text-bold margin-top-15'style='min-height:40px;'>{{:: item.name}}</label>" +
-        //  "<div item='item' order='OrderID' option-click>" +
-        //  "<div class='row col-lg-12 col-md-12 col-sm-12 center'>" +
-        //  "<div class='view view-second col-lg-12 col-md-12 col-sm-12 center'>" +
-        //      "<img ng-src='assets/images/lc/products/{{item.id}}.png' check-image />" +
-        //  "</div>" +
-        //  "</div>" +
-        //  "</div>" +
-        //  "<div class='row col-lg-12 col-md-12 col-sm-12'>" +
-        //      "<label class='col-lg-12 col-md-12 col-sm-12 center bg-dark-yellow'>{{item.Price.Price| number : 2}} TL</label>" +
-        //      "<span class='col-lg-6 col-md-8 col-sm-12'><input type='text' ng-model='item.Quantity' touchspin data-min='1' data-max='30' data-step='1'  data-stepinterval='50' data-maxboostedstep='10'/></span>"+
-        //      "<div class='row'>" +
-        //          "<button class='col-lg-6 col-md-4 col-sm-6 btn-red ti-zoom-in radius-3' style='height:33px;' option-click > " +
-        //              "<span>  Detay</span>" + "</button>" +
-        //          "<button class='col-lg-12 col-md-12 col-sm-6 btn-dark-yellow btn-md test ti-plus radius-3' style='height:33px' ng-click='ControlOptions(item)'><span> Siparişe Ekle</span></button>" +
-        //      "</div>" +
-        //  "</div>" +
-        //"</div>" +
-
-        ////medium & small & xsmall
-        //"<div class='col-md-4 col-sm-4 col-xs-6 visible-md visible-sm visible-xs center'>" +
-        //  "<label class='text-bold margin-top-15'style='min-height:40px;'>{{:: item.name}}</label>" +
-        //  "<div item='item' order='OrderID' option-click>" +
-        //      "<div class='row col-xs-12 center'>" +
-        //          "<div class='view view-second col-xs-12 center'>" +
-        //              "<img ng-src='assets/images/lc/products/{{item.id}}.png' check-image />" +
-        //          "</div>" +
-        //      "</div>" +
-        //  "</div>" +
-        //  "<div class='row col-xs-12'>" +
-        //      "<label class='col-xs-12 center bg-dark-yellow'>{{item.Price.Price| number : 2}} TL</label>" +
-        //      "<span class='col-xs-12'><input type='text' ng-model='item.Quantity' touchspin data-min='1' data-max='30' data-step='1'  data-stepinterval='50' data-maxboostedstep='10'/></span>" +
-        //      "<div class='row'>" +
-        //          "<button class='col-xs-6  btn-red ti-zoom-in radius-3' style='height:33px;' option-click > " +
-        //          "</button>" +
-        //          "<button class='col-xs-6  btn-dark-yellow btn-md test ti-plus radius-3' style='height:33px' ng-click='ControlOptions(item)'></button>" +
-        //      "</div>" +
-        //  "</div>" +
-        //"</div>"
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+       
     };
     return directive;
 }
@@ -825,160 +664,6 @@ function optionitemSmallbutton() {
         restrict: 'EA',
         require: '^orderableoption',
         template:
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            ////visible-lg visible-md
-            //"<button type='button' class=' btn btn-wide btn-o btn-dark-orange col-lg-2 col-md-6 col-sm-8 col-xs-8 margin-top-5 margin-right-5 visible-lg visible-md' ng-if='item.ItemType==\"ProductPrototype\"'  style='width:150px; height:50px;' item='item' order='OrderID' option-click>" + //btn-squared
-            //    "<div class='col-lg-12'>" +
-            //        "<label class='col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold' ng-if='item.ItemType==\"ProductPrototype\"' style='color:black;'>*</label>" +
-            //        "<label id='txshdw' class='col-lg-11 col-md-11 col-sm-11 col-xs-11 text-capitalize text-bold' style='overflow:hidden; color:black;'>{{:: item.name}}</label>" +
-            //    "</div>" +
-            //"</button>" +
-
-            //"<button type='text' class='col-lg-2 col-md-6 col-sm-8 col-xs-8 btn btn-wide btn-default  btn-o  margin-top-5 margin-right-5 visible-lg visible-md' ng-if='item.ItemType==\"Product\"'  style='width:150px; height:50px;' item='item' order='OrderID' option-click>" +  //border:inset;
-            //    "<div class='row center'>" +
-            //        "<div class='view view-second center '>" +
-            //        "</div>" +
-            //    "</div>" +
-            //    "<div class='col-lg-12' style='width:140px; height:30px;'>" +
-            //        "<label id='txshdw' class='col-lg-11 col-md-11 col-sm-11 col-xs-11 text-capitalize text-bold' style='overflow:hidden; text-overflow:ellipsis; color:black;'>{{:: item.name}}</label>" +
-            //    "</div>" +
-            //"</button>" +
-
-            ////visible-sm visible-xs
-            //"<button type='button' class='btn btn-wide btn-o btn-warning col-sm-4 col-xs-4 margin-top-5 margin-right-5 visible-sm visible-xs' ng-if='item.ItemType==\"ProductPrototype\"'  style='width:150px; height:50px;' item='item' order='OrderID' option-click>" + //btn-squared
-            //    "<div class='col-lg-12'>" +
-            //        "<label class='col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold' ng-if='item.ItemType==\"ProductPrototype\"' style='color:black;'>*</label>" +
-            //        "<label id='txshdw' class='col-lg-11 col-md-11 col-sm-11 col-xs-11 text-capitalize text-bold' style='white-space: nowrap; overflow:hidden; text-overflow:clip;  color:black;'>{{:: item.name}}</label>" +
-            //    "</div>" +
-            //"</button>" +
-
-            //"<button type='text' class='col-sm-4 col-xs-4 btn btn-wide btn-o btn-default margin-top-5 margin-right-5 visible-sm visible-xs' ng-if='item.ItemType==\"Product\"' style='width:150px; height:50px;' item='item' order='OrderID' option-click>" +
-            //    "<div class='col-lg-12'>" +
-            //        "<label id='txshdw' class='col-lg-11 col-md-11 col-sm-11 col-xs-11 text-capitalize text-bold' style='white-space: nowrap; overflow:hidden; text-overflow:clip;  color:black;'>{{:: item.name}}</label>" +
-            //    "</div>" +
-            //"</button>"
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            ////visible-lg visible-md
-            //"<button type='button' class='col-lg-2 col-md-2 btn btn-info btn-o visible-lg visible-md margin-top-5 margin-right-5' ng-if='item.ItemType==\"ProductPrototype\"' style='width:130px; height:70px;' item='item' order='OrderID' option-click>" + //btn-squared
-            //  "<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>" +
-            //      "<label class='col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold text-large' ng-if='item.ItemType==\"ProductPrototype\"' style='color:black;'>*</label>" +
-            //      "<label id='txshdw' class='col-lg-11 col-md-11 col-sm-11 col-xs-11 text-capitalize text-large' style='overflow:hidden; color:black;  max-height:60px; min-height:60px;'>{{:: item.name}}</label>"+
-            //  "</div>" +
-            //"</button>"+
-
-            //"<button type='text' class='col-lg-2 col-md-2 btn btn-red btn-o visible-lg visible-md margin-top-5 margin-right-5' ng-if='item.ItemType==\"Product\"' style='width:130px; height:70px;' item='item' order='OrderID' option-click>" +  //border:inset;
-            //  "<div class='row center'>" +
-            //      "<div class='view view-second center '>" +
-            //      "</div>" +
-            //  "</div>" +
-            //  "<div class='col-lg-12'>" +
-            //      "<label id='txshdw' class='col-lg-11 col-md-11 col-sm-11 col-xs-11 text-capitalize text-large' style='overflow:hidden; color:black;  max-height:60px; min-height:60px;'>{{:: item.name}}</label>"+
-            //  "</div>" +
-            //"</button>" +
-
-            ////visible-sm
-            //'<button type="button" class="col-sm-4 btn btn-info btn-o margin-bottom-5 margin-top-5 text-uppercase visible-sm" style="width:120px; height:80px;" ng-if="item.ItemType==\'ProductPrototype\'" item="item" order="OrderID" option-click>' +
-            //  '<div class="col-xs-12">' +
-            //      "<label class='col-xs-1 text-bold text-large' ng-if='item.ItemType==\"ProductPrototype\"' style='color:black;'>*</label>" +
-            //      "<label id='txshdw' class='col-xs-11 text-capitalize text-large' style='overflow:hidden; color:black; max-height:60px; min-height:60px;'>{{:: item.name}}</label>" +
-            //  '</div>' +
-            //'</button>' +
-
-            //'<button type="button" class="col-sm-4 btn btn-red btn-o margin-bottom-5 margin-top-5 text-uppercase visible-sm" style="width:120px; height:80px;" ng-if="item.ItemType==\'Product\'" item="item" order="OrderID" option-click>' +
-            //  '<div class="col-xs-12">' +
-            //      "<label id='txshdw' class='col-xs-11 text-capitalize text-large' style='overflow:hidden; color:black; max-height:60px; min-height:60px;'>{{:: item.name}}</label>" +
-            //  '</div>' +
-            //'</button>' +
-
-            // //visible-xs
-            //'<button type="button" class="col-xs-4 btn btn-info btn-o margin-bottom-5 margin-top-5 text-uppercase visible-xs" style="width:90px; height:60px;" ng-if="item.ItemType==\'ProductPrototype\'" item="item" order="OrderID" option-click>' +
-            //  '<div class="col-xs-12">' +
-            //      "<label class='col-xs-1 text-bold text-large' ng-if='item.ItemType==\"ProductPrototype\"' style='color:black;'>*</label>" +
-            //      "<label id='txshdw' class='col-xs-11 text-capitalize text-large' style='overflow:hidden; color:black; max-height:60px; min-height:60px;'>{{:: item.name}}</label>" +
-            //  '</div>' +
-            //'</button>' +
-
-            //'<button type="button" class="col-xs-4 btn btn-red btn-o margin-bottom-5 margin-top-5 text-uppercase visible-xs" style="width:90px; height:60px;" ng-if="item.ItemType==\'Product\'" item="item" order="OrderID" option-click>' +
-            //  '<div class="col-xs-12">' +
-            //      "<label id='txshdw' class='col-xs-11 text-capitalize text-large' style='overflow:hidden; color:black; max-height:60px; min-height:60px;'>{{:: item.name}}</label>" +
-            //  '</div>' +
-            //'</button>' 
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-            //////////////////////////////////////////////////////////////////////////////////////////DEMO NG////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            //  //visible lg /md 
-            //   "<div class='col-xs-4 btn btn-default margin-bottom-5 margin-top-5 text-uppercase visible-lg visible-md'  ng-if='item.ItemType==\"Product\"' item='item' order='OrderID' option-click  style='width:130px; height:60px; margin-right:2px;'>" +
-            //  "<div class='col-xs-12'>" +
-            //  "<label id='txshdw' class='col-xs-11 text-capitalize text-large text-red text-bold' style='white-space:pre-line; overflow:hidden; text-overflow:ellipsis; color:black; max-height:50px;'>{{:: item.name}}</label>" +
-            //  "</div>" +
-            //  "</div>" +
-
-            //  "<div class='col-xs-4 btn btn-default margin-bottom-5 margin-top-5 text-uppercase visible-lg visible-md'  ng-if='item.ItemType==\"ProductPrototype\"' item='item' order='OrderID' option-click style='width:130px; height:60px; margin-right:2px;'>" +
-            //  "<div class='col-xs-12'>" +
-            //  "<label id='txshdw' class='col-xs-11 text-capitalize text-large text-red text-bold' style='white-space:pre-line; overflow:hidden; text-overflow:ellipsis; color:black; max-height:50px;'>{{:: item.name}}</label>" +
-            //  "</div>" +
-            //  "</div>" +
-
-            //   //visible sm /xs   
-            //"<div class='col-xs-4 btn btn-default margin-bottom-5 margin-top-5 text-uppercase visible-sm visible-xs'  ng-if='item.ItemType==\"Product\"' item='item' order='OrderID' option-click  style='width:130px; height:60px; margin-right:2px;'>" +
-            //  "<div class='col-xs-12'>" +
-            //  "<label id='txshdw' class='col-xs-11 text-capitalize text-large text-red text-bold' style='white-space:pre-line; overflow:hidden; text-overflow:ellipsis; color:black; max-height:50px;'>{{:: item.name}}</label>" +
-            //  "</div>" +
-            //  "</div>" +
-
-            //  "<div class='col-xs-4 btn btn-default margin-bottom-5 margin-top-5 text-uppercase visible-sm visible-xs'  ng-if='item.ItemType==\"ProductPrototype\"' item='item' order='OrderID' option-click  style='width:130px; height:60px; margin-right:2px;'>" +
-            //  "<div class='col-xs-12'>" +
-            //  "<label id='txshdw' class='col-xs-11 text-capitalize text-large text-red text-bold' style='white-space:pre-line; overflow:hidden; text-overflow:ellipsis; color:black; max-height:50px;'>{{:: item.name}}</label>" +
-            //  "</div>" +
-            //  "</div>"
-
-            //////////////////////////////////////////////////////////////////////////////////////////LC - NG////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-            ////visible-lg visible-md
-            //"<button type='button' class=' btn btn-wide btn-o btn-light-orange col-lg-2 col-md-6 col-sm-8 col-xs-8 margin-top-5 margin-right-5 visible-lg visible-md' ng-if='user.UserRole.MemberID == 106851154380 && item.ItemType==\"ProductPrototype\"'  style='width:150px; height:60px;' item='item' order='OrderID' option-click>" + //btn-squared
-            //"<div class='col-lg-12'>" +
-            //"<label class='col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold' ng-if='user.UserRole.MemberID == 106851154380 && item.ItemType==\"ProductPrototype\"' style='color:black;'>*</label>" +
-            //"<label id='txshdw' class='col-lg-11 col-md-11 col-sm-11 col-xs-11 text-capitalize text-bold' style='overflow:hidden; color:black;'>{{:: item.name}}</label>" +
-            //"</div>" +
-            //"</button>" +
-
-            //"<button type='text' class='col-lg-2 col-md-6 col-sm-8 col-xs-8 btn btn-wide btn-default margin-top-5 margin-right-5 visible-lg visible-md' ng-if='user.UserRole.MemberID == 106851154380 && item.ItemType==\"Product\"'  style='width:150px; height:60px;' item='item' order='OrderID' option-click>" +  //border:inset;
-            //"<div class='row center'>" +
-            //"<div class='view view-second center '>" +
-            //"</div>" +
-            //"</div>" +
-            //"<div class='col-lg-12'>" +
-            //"<label id='txshdw' class='col-lg-11 col-md-11 col-sm-11 col-xs-11 text-capitalize text-bold' style=' overflow:hidden; text-overflow:clip;  color:black;'>{{:: item.name}}</label>" +
-            //"</div>" +
-            //"</button>" +
-
-            ////visible-sm visible-xs
-            //"<button type='button' class='btn btn-wide btn-o btn-warning col-sm-4 col-xs-4 margin-top-5 margin-right-5 visible-sm visible-xs' ng-if='user.UserRole.MemberID == 106851154380 && item.ItemType==\"ProductPrototype\"'  style='width:150px; height:60px;' item='item' order='OrderID' option-click>" + //btn-squared
-            //"<div class='col-lg-12'>" +
-            //"<label class='col-lg-1 col-md-1 col-sm-1 col-xs-1 text-bold' ng-if='user.UserRole.MemberID == 106851154380 && item.ItemType==\"ProductPrototype\"' style='color:black;'>*</label>" +
-            //"<label id='txshdw' class='col-lg-11 col-md-11 col-sm-11 col-xs-11 text-capitalize text-bold' style='white-space: nowrap; overflow:hidden; text-overflow:clip;  color:black;'>{{:: item.name}}</label>" +
-            //"</div>" +
-            //"</button>" +
-
-            //"<button type='text' class='col-sm-4 col-xs-4 btn btn-wide btn-o btn-default margin-top-5 margin-right-5 visible-sm visible-xs' ng-if='user.UserRole.MemberID == 106851154380 && item.ItemType==\"Product\"' style='width:150px; height:60px;' item='item' order='OrderID' option-click>" +
-            //"<div class='col-lg-12'>" +
-            //"<label id='txshdw' class='col-lg-11 col-md-11 col-sm-11 col-xs-11 text-capitalize text-bold' style='white-space: nowrap; overflow:hidden; text-overflow:clip;  color:black;'>{{:: item.name}}</label>" +
-            //"</div>" +
-            //"</button>" +
-
-            /////////////////////////////////////////////////////////////////////////////////////////PH - NG ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
             //visible-lg visible-md
             "<button type='button' class=' btn btn-wide btn-o btn-dark-red col-lg-2 col-md-6 col-sm-8 col-xs-8 margin-top-5 margin-right-5 visible-lg visible-md' ng-if='user.UserRole.MemberID != 106851154380 && item.ItemType==\"ProductPrototype\"'  style='width:150px; height:60px;' item='item' order='OrderID' option-click>" + //btn-squared
             "<div class='col-lg-12'>" +
@@ -1011,8 +696,6 @@ function optionitemSmallbutton() {
             "</div>" +
             "</button>"
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     };
     return directive;
 
@@ -1040,32 +723,9 @@ function orderItem($compile) {
             splits: '=',
         },
         template:
-            //"<div class='col-lg-12 col-sm-12 col-md-12 col-xs-12'>" +
-            //    "<div>" +
-            //        '<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2  margin-top-5"  style="font-size:large;">' +
-            //            "<span class='label label-default' person-click orderitemid='{{member.id}}' ng-if='persons.length>1'>{{member.PersonIndex}}</span>" +
-            //        "</div>" +
-            //        "<div id='div2' class='col-lg-6 col-md-11 col-sm-6 col-xs-10 margin-top-5'>" +
-            //            "<label class='tooltips text-bold text-large margin-left-5' ng-model='member.Quantity'><strong>{{member.Quantity}}</strong>  x </label>" +
-            //                "&nbsp; <label class='text-bold text-large text-capitalize ng col-md-12 col-sm-12 col-xs-12' orderitem-click><strong>{{member.Product || member.ProductPrototype}} {{member.Amount| number : 2}}TL</strong></label>" +
-            //        "</div>" +
-            //        "<div id='div2' class='col-lg-2 col-md-4 col-sm-2 col-xs-6 margin-top-5'>" +
-            //            "<label class='text-bold pull-right text-large text-orange'> {{member.TotalAmount| number : 2}} TL</label>" +
-            //        "</div>" +
-            //        "<div class='col-lg-2 col-md-2 col-sm-2 col-xs-4 margin-top-5'>" +
-            //            "<button class='btn btn-o btn-blue text-extra-large text-dark ng' ng-click='DeleteAndEdit()'><strong class='text-extra-large text-bold ti-close'></strong>" + "</button>" +
-
-            //    "</div>" +
-            //     "<div class='col-lg-1 col-md-1 col-sm-1 col-xs-2 margin-top-5'  style='font-size:large;'>" +
-            //            "<span class='label label-success'split-click orderitemid='{{member.id}}' ng-if='splits.length>1'>{{member.SplitIndex}}</span>" +
-            //        "</div>" +
-            //        "</div>" +
-            //"</div>",
-
             "<div class='col-lg-12 col-sm-12 col-md-12 col-xs-12'>" +
             "<div class='col-lg-7 col-md-7 col-sm-7 col-xs-7 margin-top-5'>" +
             "<label class='text-bold text-large' ng-model='member.Quantity' orderitem-click  style='white-space:nowrap; overflow:hidden; text-overflow:clip;'><strong>{{member.Quantity}}</strong> X {{member.Product || member.ProductPrototype}} </label></br>" +
-            //"<label class='text-bold pull-left text-red' ng-if='member.Amount != member.TotalAmount'>{{member.Amount| number : 2}} TL - </label>"+
             "</div>" +
             "<div class='col-lg-3 col-md-3 col-sm-3 col-xs-3 margin-top-5'>" +
             "<label class='text-bold pull-right text-large text-red'>{{member.TotalAmount| number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label>" +
@@ -1112,11 +772,17 @@ function orderItem($compile) {
             });
         },
         link: function (scope, element, attrs) {
+            if (scope.member.Notes){
+                var newElement2 = angular.element("<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 text-extra-small' ng-if='member.Notes'><span bindonce='mmber'>Not:{{member.Notes}}</span></div>");
+                element.append(newElement2);
+                $compile(newElement2)(scope);
+            }
             if (angular.isArray(scope.member.items)) {
                 var newElement = angular.element("<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'><span bindonce='mmber'  ng-repeat='mmber in member.items'><detailorder-item  member='mmber'></detailorder-item></span></div>");
                 element.append(newElement);
                 $compile(newElement)(scope);
             }
+            
         }
     };
 }
@@ -1129,21 +795,6 @@ function detailorderItem($compile) {
             member: '='
         },
         template:
-            ////large & medium & small
-            //        "<div class='row col-lg-12 col-md-12 col-sm-12 col-xs-12'>" +
-            //            "<label class='col-lg-8 col-md-8 col-sm-8 visible-lg visible-md visible-sm text-capitalize' style='font-size:medium;'><span>{{member.Quantity}} X {{:: member.Product}} </span></label>" + //large & medium & small
-            //            "<label class='col-xs-12 visible-xs text-capitalize' style='font-size:medium;'><span>{{member.Quantity}} X {{:: member.Product}} </span></label>" + //xsmall
-            //            "<label class='col-lg-4 visible-lg text-large'>" + //large
-            //                "<span class='pull-right'>{{member.ProductPrice| number : 2}} TL</span>" +
-            //            "</label>" +
-            //             "<label class='col-md-4 col-sm-4 visible-md visible-sm text-large pull-right'>" + //medium & small
-            //                "<span class='pull-right'>{{member.ProductPrice| number : 2}} TL</span>" +
-            //            "</label>" +
-            //            "<label class='col-xs-12 visible-xs text-large'>" + //xsmall
-            //                "<span class='pull-right'>{{member.ProductPrice| number : 2}} TL</span>" +
-            //            "</label>" +
-            //        "</div>",
-
             //large & medium & small
             "<div class='row col-lg-12 col-md-12 col-sm-12 col-xs-12'>" +
             "<label class='col-lg-9 col-md-9 col-sm-9 col-xs-9 text-capitalize' style='font-size:medium;'><span>{{member.Quantity}} X {{:: member.Product}} </span></label>" +

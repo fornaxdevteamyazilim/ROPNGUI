@@ -22,7 +22,8 @@ function orderpaymentCtrl(
   $location,
   $translate,
   userService,
-  ngnotifyService
+  ngnotifyService,
+  localStorageService
 ) {
   $rootScope.uService.EnterController("orderpaymentCtrl");
   $scope.order = Order;
@@ -206,6 +207,7 @@ function orderpaymentCtrl(
         ngnotifyService.ServerTime(),
         "yyyy-MM-dd HH:mm:ss"
       );
+      $scope.currentPayment.PosName=localStorageService.get('ClientName');
       Restangular.restangularizeElement(
         "",
         $scope.currentPayment,

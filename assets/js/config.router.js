@@ -254,7 +254,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.promotion.promotionearningrule', {
             url: '/promotionearningrule',
             templateUrl: "assets/views/promotions/promotionearningrule.html",
-            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'promotionearningruleCtrl', 'dateCtrl'),
+            resolve: loadSequence('underscore', 'xeditable', 'config-xeditable', 'ngTable', 'promotionearningruleCtrl', 'dateCtrl', 'TagModalCtrl'),
             title: 'promotionearningrule',
             authenticate: true,
             ncyBreadcrumb: {
