@@ -912,6 +912,9 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
         $location.path('app/complaints/complaints/edit/new');
         $rootScope.Order = item;
     };
+    $scope.AdAddressPersonMigros = function (id) {
+        location.href = '#/app/orders/person/migrospersonaddressedit/new';
+    };
     $scope.OrderDetails = function (item) {
         var modalInstance = $modal.open({
             templateUrl: 'assets/views/person/personorderitems.html',

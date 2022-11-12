@@ -158,10 +158,10 @@
 										<td width="8%">
 											<div ng-if="user.UserRole.Name != 'Alonet'">
 												<div class="buttons pull-left" ng-show="!rowform.$visible">
-													<a ng-if="user.Store != null && item.isActive == true" ng-class="{'btn btn-success btn-md':item.Store.id==user.Store.id,'btn btn-danger btn-md':item.Store.id!=user.Store.id,}" tooltip="{{:: homedelivery}}" tooltip-placement="left" ng-click="CheckOrderStore(item,7)">
+													<a ng-if="user.Store != null && item.isActive == true" ng-class="{'btn btn-success btn-md':item.Store.id==user.Store.id,'btn btn-danger btn-md':item.Store.id!=user.Store.id,}" tooltip="{{:: homedelivery}}" tooltip-placement="left" ng-click="trendyolOrder(item)">
 														<img src="assets/images/2.png" style="width:20px; height:20px;" class="center" /><br />
 													</a>
-													<a ng-if="user.Store == null && item.isActive == true" class="btn btn-success btn-md tooltips" tooltip="{{:: homedelivery}}" tooltip-placement="left" ng-click="CheckOrderStore(item,7)">
+													<a ng-if="user.Store == null && item.isActive == true" class="btn btn-success btn-md tooltips" tooltip="{{:: homedelivery}}" tooltip-placement="left" ng-click="trendyolOrder(item)">
 														<img src="assets/images/2.png" style="width:20px; height:20px;" class="center" /><br />
 													</a>
 												</div>
@@ -182,8 +182,8 @@
 										<td data-title="trAddressDefinition" data-sortable="'item.AddressID'" width="13%">
 											{{:: item.Address.AddressTypeName }}
 											<div class="buttons pull-right" ng-show="!rowform.$visible" ng-if="item.Store.id==user.Store.id || user.UserRole.Name == 'CALLCENTER' || user.UserRole.Name == 'CCMANAGER' || user.UserRole.Name == 'CMRESTORANHATTI' || user.UserRole.Name == 'Admin'|| user.UserRole.Name == 'PHAdmin'">
-												<a class="btn btn-transparent btn-sm tooltips  ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" tooltip-placement="top" href="#/app/orders/person/migrospersonaddressedit/{{item.id}}"></a>
-												<a class="btn btn-transparent btn-sm tooltips  ti-plus hidden-sm hidden-xs" tooltip="{{:: add}}" tooltip-placement="top" href="#/app/orders/person/migrospersonaddressedit/new"></a>
+												<a class="btn btn-transparent btn-sm tooltips  ti-pencil hidden-sm hidden-xs" tooltip="{{:: edit}}" tooltip-placement="top" href="#/app/orders/person/getirpersonaddressedit/{{item.id}}"></a>
+												<a class="btn btn-transparent btn-sm tooltips  ti-plus hidden-sm hidden-xs" tooltip="{{:: add}}" tooltip-placement="top" href="#/app/orders/person/getirpersonaddressedit/new"></a>
 											</div>
 											<div class="visible-xs visible-sm hidden-md hidden-lg">
 												<div class="btn-group" dropdown is-open="status.isopen">
@@ -192,10 +192,10 @@
 													</button>
 													<ul class="dropdown-menu pull-right dropdown-light" role="menu">
 														<li>
-															<a class="btn btn-transparent btn-sm ti-pencil" href="#/app/orders/person/migrospersonaddressedit/{{item.id}}">{{:: edit}}</a>
+															<a class="btn btn-transparent btn-sm ti-pencil" href="#/app/orders/person/getirpersonaddressedit/{{item.id}}">{{:: edit}}</a>
 														</li>
 														<li>
-															<a class="btn btn-transparent btn-sm ti-plus" href="#/app/orders/person/migrospersonaddressedit/new">{{:: add}}</a>
+															<a class="btn btn-transparent btn-sm ti-plus" href="#/app/orders/person/getirpersonaddressedit/new">{{:: add}}</a>
 														</li>
 													</ul>
 												</div>
@@ -573,15 +573,6 @@
 										<td data-title="trAmount" data-sortable="'Amount'" width="10%" ng-click="rowform.$show()">
 											{{ item.Amount | number:2 }}
 										</td>
-										<!--<td style="white-space: nowrap;grid-column-sizing:auto;" data-title="trCommands" width="4%">
-											<form editable-form name="rowform" onaftersave="saveData(item)" ng-show="rowform.$visible" class="form-buttons form-inline"
-												  shown="inserted == item || !item.id">
-												<button type="button" ng-disabled="rowform.$waiting" ng-click="cancelForm(rowform)" class="btn btn-transparent btn-sm ti-close"></button>
-											</form>
-											<div class="buttons pull-right" ng-show="!rowform.$visible">
-												<a class="btn btn-transparent tooltips btn-sm ti-close" tooltip="{{'main.DELETE' |translate}}" tooltip-placement="top" ng-click="removeItem($index)"></a>
-											</div>
-										</td>-->
 									</tr>
 								</table>
 							</div>
