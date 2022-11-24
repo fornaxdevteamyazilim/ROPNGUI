@@ -1976,6 +1976,7 @@
     "USERISACTIVE": "Kullanıcı Durumu (Aktif)",
     "USERFINGER": "Parmak İzi",
     "STAFFPOSITION": "Personel Pozisyonları",
+    "STAFFMEALLIMIT": "Personel Yemek Limiti",
     "TRAININGTYPE": "Eğitim Tipi",
     "TRAININGLOCATION": "Eğitim Yeri",
     "TRAININGNAME": "Eğitim İsmi",
@@ -4833,17 +4834,17 @@
     "StoreID": "Store"
   },
   "AggregatorStoreStatus":{
-    "TITLE": "reEntegrasyon Ayarları",
-    "StoreID": "StoreID",
-    "Aggregator": "Kaynak",
-    "Aggregator_Name": "Kaynak Adı",
-    "Aggregator_StoreID":"Restoran ID",
-    "Aggregator_Enabled":"Etkin",
+    "TITLE": "Entegrasyon Ayarları",
+    "StoreID": "Restoran",
+    "Aggregator": "Dijital Kanal",
+    "Aggregator_Name": "Dijital Kanal Adı",
+    "Aggregator_StoreID":"Dijital Kanal Restoran #",
+    "Aggregator_Enabled":"Aç/Kapa",
+    "Aggregator_Active":"Dijital Kanal Açık mı?",
     "Aggregator_ServiceTime":"Servis süresi",
     "Aggregator_sid":"Aggregator_sid",
-    "Aggregator_Status":"Durum"
+    "Aggregator_Status":"Dijital Kanal Durumu"
   }
-  
   
   
   

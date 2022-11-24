@@ -57,7 +57,7 @@ function AggregatorStoreStatusCtrl($rootScope, $scope, NG_SETTING, $translate, $
         },
         columns: [
 
-            { dataField: "id", caption: "id",  allowEditing: false, },
+            { dataField: "id", caption: "id",  allowEditing: false, visible:false },
             // { dataField: "StoreID", caption: $translate.instant('AggregatorStoreStatus.StoreID'), dataType: "string",},
             {
                 dataField: "StoreID", caption: $translate.instant('AggregatorStoreStatus.StoreID'), width: 200,    
@@ -87,18 +87,18 @@ function AggregatorStoreStatusCtrl($rootScope, $scope, NG_SETTING, $translate, $
                 dataField: "Aggregator", dataType: "string", caption: $translate.instant('AggregatorStoreStatus.Aggregator'), allowEditing: false,  
             },
             { dataField: "Aggregator_Name", caption: $translate.instant('AggregatorStoreStatus.Aggregator_Name'), dataType: "string", allowEditing: false, },
-            { dataField: "Aggregator_StoreID", caption: $translate.instant('AggregatorStoreStatus.Aggregator_StoreID'), dataType: "number",  allowEditing: false,},
+            { dataField: "Aggregator_StoreID", caption: $translate.instant('AggregatorStoreStatus.Aggregator_StoreID'), dataType: "string",  allowEditing: false,},
             {
                 dataField: "Aggregator_Enabled", name: "Aggregator_Enabled", caption: $translate.instant('AggregatorStoreStatus.Aggregator_Enabled'), dataType: "string", allowUpdating: true,
                 lookup: { dataSource: { store: { type: 'array', data: [{ id: false, name: $translate.instant('storeaggregatorstatus.Passive') }, { id: true, name: $translate.instant('storeaggregatorstatus.Active') },], key: "id" }, }, valueExpr: 'id', displayExpr: 'name' }
             },
-            { dataField: "Aggregator_Status", caption: $translate.instant('AggregatorStoreStatus.Aggregator_Status'), dataType: "string",allowEditing: false, },
             {
-                dataField: "Aggregator_Active", name: "Aggregator_Active", caption: "Aktif", dataType: "string", allowUpdating: true,
+                dataField: "Aggregator_Active", name: "Aggregator_Active", caption: $translate.instant('AggregatorStoreStatus.Aggregator_Active'), dataType: "string", allowEditing: false,
                 lookup: { dataSource: { store: { type: 'array', data: [{ id: false, name: $translate.instant('storeaggregatorstatus.Passive') }, { id: true, name: $translate.instant('storeaggregatorstatus.Active') },], key: "id" }, }, valueExpr: 'id', displayExpr: 'name' }
             },
+            { dataField: "Aggregator_Status", caption: $translate.instant('AggregatorStoreStatus.Aggregator_Status'), dataType: "string",allowEditing: false, },            
             { dataField: "Aggregator_ServiceTime", caption: $translate.instant('AggregatorStoreStatus.Aggregator_ServiceTime'), dataType: "number", allowEditing: false, },
-            { dataField: "Aggregator_sid", caption: $translate.instant('AggregatorStoreStatus.Aggregator_sid'), dataType: "number", allowEditing: false, },
+            //{ dataField: "Aggregator_sid", caption: $translate.instant('AggregatorStoreStatus.Aggregator_sid'), dataType: "number", allowEditing: false, },
 
           
         
@@ -135,8 +135,8 @@ function AggregatorStoreStatusCtrl($rootScope, $scope, NG_SETTING, $translate, $
                     options.cellElement.css({ 'color': options.row.data["Aggregator_Active"] ? '#2ab71b' : '#f00' });
                 if (options.column.name && options.column.name == "Aggregator_Enabled")
                     options.cellElement.css({ 'color': options.row.data["Aggregator_Enabled"] ? '#2ab71b' : '#f00' });
-                    if (options.column.name && options.column.name == "Aggregator_Status")
-                    options.cellElement.css({ 'color': options.row.data["Aggregator_Status"] ? '#2ab71b' : '#f00' });
+                // if (options.column.name && options.column.name == "Aggregator_Status")
+                //     options.cellElement.css({ 'color': options.row.data["Aggregator_Status"] ? '#2ab71b' : '#f00' });
 
             }
         },

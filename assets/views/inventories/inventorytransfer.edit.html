@@ -83,12 +83,12 @@
                         </button>
                     </div>
                     <div print-remove class="form-group col-sm-2 col-lg-2 col-md-2 col-xs-12" style="    width: 200px;">
-                        <button class="btn btn-o btn-warning  btn-scroll btn-scroll-left fa fa-check-circle hidden-print pull-right margin-top-25" ng-disabled="(item.ApproveState != 1 || item.InventorySupplyState == 0 || item.InventorySupplyState == 1 || item.InventorySupplyState == 3 || item.InventorySupplyState == 5) || isWaiting == true" ng-click="DeliverTransfer()">
+                        <button class="btn btn-o btn-warning  btn-scroll btn-scroll-left fa fa-check-circle hidden-print pull-right margin-top-25" ng-disabled="(item.ApproveState != 1 || item.InventorySupplyState == 0 || item.InventorySupplyState == 1 ||  isWaiting == true" ng-click="DeliverTransfer()">
                             <span class='fa fa-spin fa-spinner' ng-if='isWaiting == true'></span><span ng-if="isWaiting != true">{{:: trIsCheckStore}}</span>
                         </button>
                     </div>
                     <div print-remove class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12">
-                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-disabled="!vm.tableParams.data.length || SaveButtonActive == false || !item.Description || !item.DocumentNumber || !item.ToRepositoryID ||(item.InventorySupplyState == 3 ||item.InventorySupplyState == 5) || isWaiting == true" ng-click="SaveData()"ng-dblclick="BottonDblcilik()">
+                        <button class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa  fa-save " ng-disabled="!vm.tableParams.data.length || SaveButtonActive == false || !item.Description || !item.DocumentNumber || !item.ToRepositoryID ||| isWaiting == true" ng-click="SaveData()"ng-dblclick="BottonDblcilik()">
                             <span>{{:: save}}</span>
                         </button>
                         <button class="btn btn-danger btn-wide btn-scroll btn-scroll-left fa ti-close pull-right" ng-show="($stateParams.id !== 'new' && item.InventorySupplyState==0 || item.InventorySupplyState==1) || user.isAdmin" ng-click="removedata(item.id)" ng-if="user.restrictions.inventorytransfersdelete=='Enable'">

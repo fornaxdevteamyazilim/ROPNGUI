@@ -616,7 +616,7 @@ function inventorydeliveryeditCtrl($scope, $filter, SweetAlert, Restangular, NG_
     $scope.GetInventoryVAT = function (InventoryUnitID) {
         if (InventoryUnitID && $scope.inventories.length) {
             var SelectInventory = $filter('filter')($scope.inventoryunitstoshow, { id: InventoryUnitID });
-            var selected = $filter('filter')($scope.inventories, { id: SelectInventory[0].InventoryID });
+            var selected = $filter('filter')($scope.inventories, { id: SelectInventory[0] });
             return selected.length ? selected[0].VATRatio : 0;
         } else {
             return 0;

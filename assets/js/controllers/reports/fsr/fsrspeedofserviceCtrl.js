@@ -144,7 +144,7 @@ function fsrSpeedOfServiceCtrl($scope, $filter, $modal, $log, Restangular, Sweet
             { dataField: "Store", caption: $translate.instant('fsrspeedofservice.Store'), dataType: "string", width: 230, fixed: true },
             { dataField: "RegionManager", caption: $translate.instant('fsrspeedofservice.RegionManager'), dataType: "string", width: 230, fixed: true },
             {
-                caption: "YemekSepeti",
+                caption: "YemekSepeti",visible:false,
                 columns: [
                     {
                         caption: $scope.weekCaption1,

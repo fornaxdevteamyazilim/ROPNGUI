@@ -12,6 +12,9 @@ function staffpositionCtrl($scope, $log, $modal, $filter, SweetAlert, Restangula
         $scope.trHourlyOrdersByPerson = $translate.instant('main.HOURLYORDERSBYPERSON');
         $scope.trCalculateHourlyRequirment = $translate.instant('main.CALCULATEHOURLYREQUIRMENT');
         $scope.trCommands = $translate.instant('main.COMMANDS');
+        $scope.trStaffMealLimit = $translate.instant('main.STAFFMEALLIMIT')
+        $scope.trHourlyProductsByPerson = $translate.instant('main.HOURLYPRODUCTSBYPERSON')
+
     }
     $scope.translate();
     var deregistration = $scope.$on('$translateChangeSuccess', function (event, data) {// ON LANGUAGE CHANGED
