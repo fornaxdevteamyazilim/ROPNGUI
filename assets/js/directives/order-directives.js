@@ -245,7 +245,8 @@ function orderable($compile, $modal,$translate) {
                 if (item.Options) {
                     for (var i = 0; i < item.Options.length; i++) {
                         for (var a = 0; a < item.Options[i].Items.length; a++) {
-                            if (item.Options[i].OptionType == 1 || item.Options[i].OptionType == 3 || item.Options[i].OptionType == 4) {
+                             //if (item.Options[i].OptionType == 1 || item.Options[i].OptionType == 3 || item.Options[i].OptionType == 4) {
+                            if (item.Options[i].OptionType == 3) {
                                 item.Options[i].Items[a].name = (item.Options[i].Items[a].Price) ? item.Options[i].Items[a].name + ' ' + item.Options[i].Items[a].Price.Price : item.Options[i].Items[a].name;
                             }
                             if (item.Options[i].OptionType == 1 && item.Options[i].Items[a].Quantity > 0) {
@@ -421,9 +422,10 @@ function contentClick() {
         link: function (scope, element, attr) {
             element.bind("click", function (e) {
                 $(element).parent().find('.hideContent').slideToggle(0);
+                $(element).parent().find('.hidedContent').slideToggle(0);
                 $(element).parent().find('.hideContentMaterial').slideToggle(0);
                 $(element).toggleClass("active");
-                $(element).find('.indicator').toggleClass("");  //toggleClass("rotate");
+                $(element).find('.indicator').toggleClass("rotate");
             });
             $(element).prepend('<span class="indicator">+</span>');
         }
@@ -561,35 +563,20 @@ function optionitemCombo($compile) {
             "{{:: option.name}}" +
             "</h4>" +
             "<h4 class='col-lg-3 col-md-3 visible-lg visible-md'>" +
-            "<select id='orderselect' style='min-height:40px;' ng-options=\" q.id as q.name for q in ::option.Items | orderBy:['+Price.Price','+name']\" class='form-control col-lg-4 col-md-4 pull-right' ng-change='UpdateDetails($event,option)' ng-init='UpdateDetails($event,option)' ng-model='option.SelectedItems.id'>" +
-            //"<option value='' visible></option>" +
+            "<select ng-disabled=\"true\" id='orderselect' style='min-height:40px;' ng-options=\" q.id as q.name for q in ::option.Items | orderBy:['+Price.Price','+name']\" class='form-control col-lg-4 col-md-4 pull-right' ng-change='UpdateDetails($event,option)' ng-init='UpdateDetails($event,option)' ng-model='option.SelectedItems.id'>" +
             "</select>" +
             "</h4>" +
-            //small
-            "<h4  class='hideContentHeader col-sm-8 visible-sm' style='white-space: nowrap; overflow:hidden; text-overflow:clip' content-click>" +
-            "{{:: option.name}}" +
-            "</h4>" +
-            "<h4 class='col-sm-4 visible-sm'>" +
-            "<select id='orderselect' style='min-height:41px; min-width:150px; max-width:150px;' ng-options=\" q.id as q.name for q in ::option.Items | orderBy:['+Price.Price','+name']\" class='form-control pull-right' ng-change='UpdateDetails($event,option)' ng-init='UpdateDetails($event,option)' ng-model='option.SelectedItems.id'>" +
-            //"<option value='' visible></option>" +
-            "</select>" +
-            "</h4>" +
-            //xsmall
-            "<h4  class='hideContentHeader col-xs-10 visible-xs' style='white-space: nowrap; overflow:hidden; text-overflow:clip' content-click >" +
-            "{{:: option.name}}" +
-            "</h4>" +
-            "<h4 class='col-xs-2 visible-xs'>" +
-            "<select id='orderselect' style='min-height:41px; min-width:150px; max-width:150px;' ng-options=\" q.id as q.name for q in ::option.Items | orderBy:['+Price.Price','+name']\" class='form-control pull-right' ng-change='UpdateDetails($event,option)' ng-init='UpdateDetails($event,option)' ng-model='option.SelectedItems.id'>" +
-            //"<option value='' visible></option>" +
-            "</select>" +
-            "</h4>" +
-
-            "<div class='hideContent col-lg-12' id='contentdetail'>" +
+            "<div class='hidedContent btn-group col-lg-12 col-md-12' data-toggle='buttons'>" +
+            "<label class='btn btn-red col-lg-3 col-md-3' ng-repeat='item in option.Items' ng-class=\"{'btn-o':item.id!=option.SelectedItems.id}\">" +
+            "<input type='radio' name='' ng-value='item.id' ng-model='option.SelectedItems.id' ng-click='UpdateDetails($event,option)' ng-init='UpdateDetails($event,option)'   >" +
+            "<div class='col-lg-11 col-md-11'> <div class='col-lg-10 col-md-10' style='overflow-y: hidden;height: 20px;' >{{:: item.name}}</div><div ng-if='item.Price.Price>0' class='col-lg-2 col-md-2 style='text-align: left;'> {{:: item.Price.Price| number:2}}</div></div></label>" +
+            "</div>" +
+            "<div class='hidedContent col-lg-11 margin-left-30' id='contentdetail'>" +
             "<div id='optdetail'></div>" +
             "</div>",
         link: function (scope, element, attr) {
             var container = $(element).children("#contentdetail").children("#optdetail");
-            var newElement = angular.element("<orderableoption class='col-lg-11 col-md-11 col-sm-11 col-xs-11 margin-left-30' bindonce='option'  ng-repeat='option in option.SelectedItems.Options' option='option' order='OrderID'></orderableoptiondetail>");
+            var newElement = angular.element("<orderableoption class='col-lg-12 col-md-12 col-sm-12 col-xs-12' bindonce='option'  ng-repeat='option in option.SelectedItems.Options' option='option' order='OrderID'></orderableoptiondetail>");
             container.html(newElement);
             $compile(newElement)(scope);
 
@@ -608,14 +595,12 @@ function optionitemRadio($compile) {
             "<h4  class='hideContentHeader col-xs-12 col-lg-12 col-md-12 col-sm-12 text-capitalize' content-click>" +
             "{{:: option.name}}" +
             "</h4>" +
-            "<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 visibleContent text-large hideContentMaterial' >" +
-            "<div class='btn-group col-lg-12' data-toggle='buttons'>" +
-            "<label style='overflow: hidden;white-space: nowrap;' class='btn btn-red col-lg-4 h-100' ng-repeat='item in option.Items' ng-class=\"{'btn-o':item.id!=option.SelectedItems.id}\" >" +
-            "<input style='overflow: hidden;white-space: nowrap;' type='radio' name='' ng-value='item.id' ng-model='option.SelectedItems.id' ng-click='UpdateDetails($event,option)' ng-init='UpdateDetails($event,option)'   >" +
-            "{{:: item.name}}</label>" +
-            "</div>" +   
-            "</div>" +   
-            "</div>" +            
+            "<div class='hideContent btn-group col-lg-12 col-md-12' data-toggle='buttons'>" +
+            "<label class='btn btn-red col-lg-3 col-md-3' ng-repeat='item in option.Items' ng-class=\"{'btn-o':item.id!=option.SelectedItems.id}\">" +
+            "<input type='radio' name='' ng-value='item.id' ng-model='option.SelectedItems.id' ng-click='UpdateDetails($event,option)' ng-init='UpdateDetails($event,option)'   >" +
+            "<div class='col-lg-11 col-md-11'> <div class='col-lg-10 col-md-10' style='overflow-y: hidden;height: 20px;' >{{:: item.name}}</div><div ng-if='item.Price.Price>0' class='col-lg-2 col-md-2 style='text-align: left;'> {{:: item.Price.Price| number:2}}</div></div></label>" +
+            "</div>" +
+            "</div>" +
             "<div class='hideContent col-lg-12' id='contentdetail'>" +
             "<div id='optdetail'></div>" +
             "</div>",
