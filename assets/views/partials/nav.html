@@ -702,7 +702,7 @@
                 </a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="app.aggregators.storeaggregatorstatus">
+                <a ui-sref="app.aggregators.storeaggregatorstatus" ng-if="user.restrictions.storeaggregatorstatus=='Enable'" >
                     <i class="ti-settings"></i> <span class="title"
                         translate="sidebar.nav.aggregator.storeaggregatorstatus">storeaggregatorstatus Mapping</span>
                 </a>

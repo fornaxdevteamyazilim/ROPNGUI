@@ -87,7 +87,7 @@ function newpersonCtrl($scope, Restangular, item, $modal, ngTableParams, toaster
             toaster.pop('warning', $translate.instant('personfile.PhoneNumberShouldNotBeBlank'), "error");
             return;
         }
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")|| userService.userIsInRole("CCBACKOFFICE")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")|| userService.userIsInRole("CCBACKOFFICE")|| userService.userIsInRole("CCSIKAYET")) {
             $scope.SelcetStore(personID, OrderType);
         } else {
             var data = $scope.GetDepartment();
@@ -243,7 +243,7 @@ function newpersonCtrl($scope, Restangular, item, $modal, ngTableParams, toaster
             toaster.pop('warning',$translate.instant('personfile.PhoneNumberShouldNotBeBlank'), "error");
             return;
         }
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CCBACKOFFICE")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CCBACKOFFICE")|| userService.userIsInRole("CCSIKAYET")) {
             var data = $scope.GetDepartment();
             if (data != null) {
                 var order = {}

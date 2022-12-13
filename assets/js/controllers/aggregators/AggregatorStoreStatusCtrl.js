@@ -57,7 +57,7 @@ function AggregatorStoreStatusCtrl($rootScope, $scope, NG_SETTING, $translate, $
         },
         columns: [
 
-            { dataField: "id", caption: "id",  allowEditing: false, visible:false },
+            { dataField: "id", caption: "id",  allowEditing: false, visible:false,stateStoring:false },
             // { dataField: "StoreID", caption: $translate.instant('AggregatorStoreStatus.StoreID'), dataType: "string",},
             {
                 dataField: "StoreID", caption: $translate.instant('AggregatorStoreStatus.StoreID'), width: 200,    
@@ -97,7 +97,7 @@ function AggregatorStoreStatusCtrl($rootScope, $scope, NG_SETTING, $translate, $
                 lookup: { dataSource: { store: { type: 'array', data: [{ id: false, name: $translate.instant('storeaggregatorstatus.Passive') }, { id: true, name: $translate.instant('storeaggregatorstatus.Active') },], key: "id" }, }, valueExpr: 'id', displayExpr: 'name' }
             },
             { dataField: "Aggregator_Status", caption: $translate.instant('AggregatorStoreStatus.Aggregator_Status'), dataType: "string",allowEditing: false, },            
-            { dataField: "Aggregator_ServiceTime", caption: $translate.instant('AggregatorStoreStatus.Aggregator_ServiceTime'), dataType: "number", allowEditing: false, },
+            { dataField: "Aggregator_ServiceTime", caption: $translate.instant('AggregatorStoreStatus.Aggregator_ServiceTime'), dataType: "number", allowEditing: false, stateStoring:false},
             //{ dataField: "Aggregator_sid", caption: $translate.instant('AggregatorStoreStatus.Aggregator_sid'), dataType: "number", allowEditing: false, },
 
           

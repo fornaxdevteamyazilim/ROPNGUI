@@ -72,7 +72,7 @@
                     <input type="text" name="name" class="form-control text-uppercase" ng-model="item.Store.name" readonly>
                 </div>
                 <div class="form-group col-lg-3 col-md-4 pull-right">
-                    <button ng type="submit" class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save pull-right margin-top-20" ng-disabled="userForm.$invalid" ng-click="SaveDataMigros(item)">
+                    <button ng type="submit" class="btn btn-primary btn-wide btn-scroll btn-scroll-left fa fa-save pull-right margin-top-20" ng-disabled="userForm.$invalid" ng-click="SaveData(item)">
                         <span translate="main.SAVE">Save Person Address</span>
                     </button>
                 </div>
@@ -100,7 +100,7 @@
                         </p>
                     </div>
                     <div class="form-group col-lg-3 col-sm-6 col-md-4 col-xs-6 pull-right" ng-if="user.UserRole.Name != 'Alonet'">
-                        <button ng-show="AddressID != 'new' && item.isActive" class="margin-top-20 btn btn-success btn-wide tooltips ti-shopping-cart pull-right btn-scroll btn-scroll-left fa  fa-save" tooltip="{{'main.HOMEDELIVERY' |translate}}" tooltip-placement="top" ng-disabled="userForm.$invalid" ng-click="SaveDataMigros(item,'Order')" ng-dblclick="BottonDblcilik()">
+                        <button ng-show="AddressID != 'new' && item.isActive" class="margin-top-20 btn btn-success btn-wide tooltips ti-shopping-cart pull-right btn-scroll btn-scroll-left fa  fa-save" tooltip="{{'main.HOMEDELIVERY' |translate}}" tooltip-placement="top" ng-disabled="userForm.$invalid" ng-click="SaveData(item,'Order')" ng-dblclick="BottonDblcilik()">
                             <span translate="main.HOMEDELIVERY">HomeDelivery Order</span>
                         </button>
                     </div>

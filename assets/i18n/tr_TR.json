@@ -1860,6 +1860,7 @@
     "ORDERSREFERENCES": "Sipariş Taşıma",
     "PRODUCTCOSTCALCULATION": "Ürün Maliyet Hesaplama",
     "DECLAREDREVENUECORRECTION": "Beyan edilen gelir düzeltme",
+    "ORACLEALLSEND": "Beyan Edilenleri Oracle Gönderme",
     "COPYTOROLE": "Role Kopyalama",
     "CALCULATEPRODUCTCOSTS": "Ürün Maliyetlerini Hesaplama",
     "START": "Başlat",
@@ -3045,7 +3046,7 @@
         "mapping": "Getir - Eşleştirmeler",
         "trendyolmapping": "Trendyol - Eşleştirmeler",
         "storeaggregatorstatus": "Restoran Entegrasyon Ayarları",
-        "AggregatorStoreStatus": "Entegrasyon Ayarları"
+        "AggregatorStoreStatus": "Sipariş Kanal Ayarları"
       },
       "specialoperations": {
         "MAIN": "Özel Operasyonlar",
@@ -4834,7 +4835,7 @@
     "StoreID": "Store"
   },
   "AggregatorStoreStatus":{
-    "TITLE": "Entegrasyon Ayarları",
+    "TITLE": "Sipariş Kanal Ayarları",
     "StoreID": "Restoran",
     "Aggregator": "Dijital Kanal",
     "Aggregator_Name": "Dijital Kanal Adı",

@@ -86,7 +86,7 @@ function driverordersCtrl($scope, $log, $interval, $timeout, amMoment, $filter, 
     };
     $scope.$on('$destroy', function () {
         deregistration();
-        OrderRefreshTimeOut();
+        OrderRefreshTimeOut(); 
         stopTime();
         $element.remove();
         $rootScope.uService.ExitController("driverordersCtrl");

@@ -105,7 +105,7 @@ function personeditCtrl($scope, $log, $filter, SweetAlert, Restangular, $modal, 
         $location.path('app/complaints/complaints/edit/new');
     };
     $scope.CheckOrderStore = function (item, OrderTyprID) {
-        if (userService.userIsInRole("CALLCENTER")) {
+        if (userService.userIsInRole("CALLCENTER")|| userService.userIsInRole("CCSIKAYET") )  {
             $scope.HomeOrder(item, OrderTyprID);
         } else {
             Restangular.all('ordertools/checkorderstore').post(

@@ -595,6 +595,7 @@
                     </label>
                     <input id="OrderNumber" type="text" min="0" class="form-control" ng-model="_order.OrderNumber"
                         readonly>
+                        
                 </div>
 
                 <div class="col-lg-12 col-md-4 col-sm-12 col-xs-12">
@@ -636,8 +637,8 @@
                             class="form-control text-uppercase" ng-model="_order.PaymentNote" required></textarea>
                     </span>
                     <!--<span class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right margin-top-5" ng-if="user.Store.MemberID == 111679600561 || _order.OrderTypeID == 0">
-        <button ng-if="user.UserRole.Name != 'CALLCENTER' && user.UserRole.Name != 'CCMANAGER'" ng-click="OrderPaymentDeteails(_order)" class="col-lg-4 col-md-4 col-sm-6 col-xs-6 btn btn-primary btn-o btn-lg fa fa-credit-card pull-right tooltips" tooltip="Ödeme" tooltip-placement="left"></button>
-    </span>-->
+                     <button ng-if="user.UserRole.Name != 'CALLCENTER' && user.UserRole.Name != 'CCMANAGER'" ng-click="OrderPaymentDeteails(_order)" class="col-lg-4 col-md-4 col-sm-6 col-xs-6 btn btn-primary btn-o btn-lg fa fa-credit-card pull-right tooltips" tooltip="Ödeme" tooltip-placement="left"></button>
+                    </span>-->
                     <span class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right margin-top-5">
                         <button
                             ng-if="user.UserRole.Name != 'CALLCENTER' && user.UserRole.Name != 'CCMANAGER'"
@@ -656,12 +657,21 @@
                             <label
                                 class='col-lg-10 col-md-10 col-sm-10 col-xs-10 text-bold text-extra-large text-uppercase'
                                 ng-class="{'strike': _order.Amount < proitem.Promotion.PromotionRequirementParameter , 'text-danger': _order.Amount < proitem.Promotion.PromotionRequirementParameter}"><strong>*
-                                    {{:: proitem.Promotion.name}}</strong></label>
+                                    {{:: proitem.Promotion.name}}</strong> &nbsp :<label ng-repeat="items in OrderPromotion"> {{items.Amount| number : 2}} {{:: 'main.CURRENCY_SYMBOL' | translate}}</label> </label>
                             <label class='col-lg-2 col-md-2 col-sm-2 col-xs-2 ng pull-right text-extra-large'>
                                 <i ng-click="RemovePromotion(_order.id)" class='ti-close text-extra-large'></i>
                             </label>
                         </div>
                     </div>
+                  <!-- <div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table ng-table" ng-repeat="item in OrderPromotion" style="border-bottom:1px solid;">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            {{item.Amount}}
+                        </div>
+                    
+                    </div>
+                 
+                  </div> -->
                 </div>
             </div>
             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 inline margin-top-5 visible-lg visible-xs"

@@ -1,5 +1,4 @@
-﻿
-app.factory('PaymentRestangular', function (Restangular) {
+﻿app.factory('PaymentRestangular', function (Restangular) {
     return Restangular.withConfig(function (RestangularConfigurer) {
         RestangularConfigurer.setBaseUrl('http://192.168.9.40:9065/api/');
     });
@@ -76,7 +75,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
     };
     $scope.translate();
     angular.module('whiteframeBasicUsage', ['ngMaterial']);
-    //*********************************************** MarketingPermission ***************************************************//
+    //**************** MarketingPermission ******************//
     //$scope.getMarketingPermission = function () {
     //    if ($scope._order.OrderTypeID == 2 ||$scope._order.OrderTypeID == 7) {
     //        Restangular.all('MarketingPermission').getList({
@@ -92,7 +91,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
     //        });
     //    }
     //}
-    //*********************************************** MarketingPermission ***************************************************//
+    //**************** MarketingPermission ******************//
 
 
     $scope.isorderpayeds = function (OrderID) {
@@ -230,7 +229,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             $scope.$emit('LoadOrderItems', "Update");
         }, function () {
         });
-    };
+    };    
     $scope.LoadOrderItems = function () {
         Restangular.all('orderitem').getList({
             pageNo: 1,
@@ -238,9 +237,8 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             search: "OrderID='" + (($scope._order) ? $scope._order.id : "") + "'"
         }).then(function (_orderItems) {
             $scope.orderItems = angular.copy($scope.UpdateOrderItemPersonsAndSplits(_orderItems));
-
-            $scope.UpdateOrderTotal(_orderItems);
-            $scope.CalculateItemAmountWithsubItems();
+            $scope.GetPromotion();
+            
 
             $scope.UpdateCustomerDisplayData();
         }, function (response) {
@@ -1007,6 +1005,7 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
         })
     };
     $scope.Promotion = [];
+    $scope.OrderPromotion = [];
     $scope.GetPromotion = function (data) {
         Restangular.all('orderpromotion').getList({
             pageNo: 1,
@@ -1014,7 +1013,9 @@ function orderCtrl($scope, $log, $filter, $timeout, $translate, $modal, SweetAle
             search: "OrderID='" + $scope.OrderID + "'"
         }).then(function (result) {
             $scope.Promotion = result;
-            $scope.LoadOrderItems();
+            $scope.OrderPromotion = result;
+            $scope.UpdateOrderTotal($scope.orderItems);
+            $scope.CalculateItemAmountWithsubItems();
         }, function (response) {
             toaster.pop('error', $translate.instant('orderfile.OrderPromotionsFailedLoad'), response.data.ExceptionMessage);
         });

@@ -12,7 +12,7 @@ function StreetAddressSelectorCtrl($scope, $rootScope, $modalInstance, $location
     $scope.SelectedItem = null;
     $scope.search = '';
     $scope.GetShearchData = "";
-    if (!userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CMRESTORANHATTI") && !userService.userIsInRole("Admin")) {
+    if (!userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("CCSIKAYET") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CMRESTORANHATTI") && !userService.userIsInRole("Admin")) {
         $scope.ShowObject = false;
         $scope.showsearchinput = true;
     }
@@ -75,7 +75,7 @@ function StreetAddressSelectorCtrl($scope, $rootScope, $modalInstance, $location
             result.push("Subcities.id='" + $scope.SubcityID + "'");
         if ($scope.QuarterID && $scope.QuarterID != undefined)
             result.push("Quarters.id='" + $scope.QuarterID + "'");
-        if ($rootScope.user.UserRole.Name != "CALLCENTER" && $rootScope.user.UserRole.Name != "CCMANAGER" && $rootScope.user.UserRole.Name != "CMRESTORANHATTI" && $rootScope.user.UserRole.Name != "Admin" && $rootScope.user.StoreID) {
+        if ($rootScope.user.UserRole.Name != "CALLCENTER" && $rootScope.user.UserRole.Name != "CCMANAGER" && $rootScope.user.UserRole.Name != "CMRESTORANHATTI" && $rootScope.user.UserRole.Name != "Admin" && $rootScope.user.StoreID && $rootScope.user.UserRole.Name != "CCSIKAYET" ) {
             result.push("StoreStreetAddresses.StoreID='" + $rootScope.user.StoreID + "'");
         } else {
             result.push("StoreStreetAddresses.id<>'0'");

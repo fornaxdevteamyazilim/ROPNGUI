@@ -604,7 +604,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
     $scope.CheckOrderStore = function (item, OrderTyprID) {
         if ($scope.isWaiting == true) {
             $scope.isWaiting = false;
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CCSIKAYET")) {
             $scope.HomeOrder(item, OrderTyprID);
         } else {
             Restangular.all('ordertools/checkorderstore').post(
@@ -666,7 +666,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
     };
 
     $scope.CheckMigrosOrderStore = function (item, OrderTypeID) {
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER") || userService.userIsInRole("CCSIKAYET")) {
             $scope.HomeMigrosOrder(item, OrderTypeID);
         } else {
             Restangular.all('ordertools/checkorderstore').post(
@@ -735,7 +735,7 @@ function personlistaddresslistCtrl($scope, $log, $filter, SweetAlert, Restangula
                 pageSize: 20,
                 search: "PersonID='" + PersonID + "'"
             }).then(function (result) {
-                if (!userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("Alonet")) {
+                if (!userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("Alonet") && !userService.userIsInRole("CCSIKAYET")) {
                      for (var i = 0; i < result.length; i++) {                         
                          if (result[i].Store && result[i].Store.id == $rootScope.user.Store.id)
                             $scope.PersonAddresses.push(result[i])

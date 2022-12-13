@@ -242,7 +242,7 @@ function newpersonGetirCtrl($scope, Restangular, item, $modal, ngTableParams, to
             toaster.pop('warning', $translate.instant('personfile.PhoneNumberShouldNotBeBlank'), "error");
             return;
         }
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")|| userService.userIsInRole("CCSIKAYET")) {
             var data = $scope.GetDepartment();
             if (data != null) {
                 var order = {}

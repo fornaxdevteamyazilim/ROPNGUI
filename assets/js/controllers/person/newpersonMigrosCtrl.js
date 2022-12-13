@@ -245,7 +245,7 @@ function newpersonMigrosCtrl($scope, Restangular, item, $modal, ngTableParams, t
             toaster.pop('warning', "Telefon Numarası Boş Geçilmemeli !", "error");
             return;
         }
-        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")) {
+        if (userService.userIsInRole("CALLCENTER") || userService.userIsInRole("CCMANAGER")|| userService.userIsInRole("CCSIKAYET")) {
             var data = $scope.GetDepartment();
             if (data != null) {
                 var order = {}
