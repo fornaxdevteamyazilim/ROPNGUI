@@ -701,6 +701,11 @@
                         translate="sidebar.nav.aggregator.trendyolmapping">Trendyol Mapping</span>
                 </a>
             </li>
+            <li ui-sref-active="active" ng-if="user.restrictions.aggregatorsmapping=='Enable'">
+                <a ui-sref="app.aggregators.migrosmapping">
+                    <i class="ti-settings"></i> <span class="title" translate="sidebar.nav.aggregator.migrosmapping">Migros Mapping</span>
+                </a>
+            </li>
             <li ui-sref-active="active">
                 <a ui-sref="app.aggregators.storeaggregatorstatus" ng-if="user.restrictions.storeaggregatorstatus=='Enable'" >
                     <i class="ti-settings"></i> <span class="title"

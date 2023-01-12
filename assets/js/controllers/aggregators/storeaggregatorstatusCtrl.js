@@ -117,6 +117,24 @@ function storeaggregatorstatusCtrl($rootScope, $scope, NG_SETTING, $translate, $
                 ],
 
             },
+            {
+                caption: $translate.instant('storeaggregatorstatus.Migros'), name: "Migros",
+                columns: [
+                    {
+                        dataField: "Migros_Active", dataType: "string", name: "Migros_Active", caption: $translate.instant('storeaggregatorstatus.Migros_Active'), dataType: "string", allowEditing: false,
+                        lookup: { dataSource: { store: { type: 'array', data: [{ id: false, name: $translate.instant('storeaggregatorstatus.Passive') }, { id: true, name: $translate.instant('storeaggregatorstatus.Active') },], key: "id" }, }, valueExpr: 'id', displayExpr: 'name' }
+                    },
+                    {
+                        dataField: "Migros_Enabled", name: "Migros_Enabled", caption: $translate.instant('storeaggregatorstatus.Migros_Enabled'), dataType: "string", allowUpdating: true,
+                        lookup: { dataSource: { store: { type: 'array', data: [{ id: false, name: $translate.instant('storeaggregatorstatus.Passive') }, { id: true, name: $translate.instant('storeaggregatorstatus.Active') },], key: "id" }, }, valueExpr: 'id', displayExpr: 'name' }
+                    },
+                    { dataField: "Migros_ServiceTime", caption: $translate.instant('storeaggregatorstatus.Migros_ServiceTime'), dataType: "number", allowEditing: false, },
+                    { dataField: "Migros_Name", caption: $translate.instant('storeaggregatorstatus.Migros_Name'), dataType: "string", visible: false, allowEditing: false, },
+                    { dataField: "Migros_Status", caption: $translate.instant('storeaggregatorstatus.Migros_Status'), dataType: "string", visible: false, allowEditing: false, },
+                    { dataField: "Migros_sid", caption: $translate.instant('storeaggregatorstatus.Migros_sid'), dataType: "number", visible: false, allowEditing: false, },
+                    { dataField: "Migros_StoreID", caption: $translate.instant('storeaggregatorstatus.Migros_StoreID'), dataType: "number", visible: false, allowEditing: false, },
+                ]
+            }
         ],
         onCellPrepared: function (options) {
             if (options.rowType == 'data') {
@@ -158,6 +176,10 @@ function storeaggregatorstatusCtrl($rootScope, $scope, NG_SETTING, $translate, $
                     options.cellElement.css({ 'color': options.row.data["Trendyol_Active"] ? '#2ab71b' : '#f00' });
                 if (options.column.name && options.column.name == "Trendyol_Enabled")
                     options.cellElement.css({ 'color': options.row.data["Trendyol_Enabled"] ? '#2ab71b' : '#f00' });
+                if (options.column.name && options.column.name == "Migros_Active")
+                    options.cellElement.css({ 'color': options.row.data["Migros_Active"] ? '#2ab71b' : '#f00' });
+                if (options.column.name && options.column.name == "Migros_Enabled")
+                    options.cellElement.css({ 'color': options.row.data["Migros_Enabled"] ? '#2ab71b' : '#f00' });
             }
         },
         onRowClick: function (rowInfo) {

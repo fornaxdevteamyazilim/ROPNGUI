@@ -2917,6 +2917,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'trendyolmapping'
                 }
+              }).state('app.aggregators.migrosmapping', {
+                url: '/migrosmapping',
+                templateUrl: "assets/views/aggregators/migrosmapping.html",
+                resolve: loadSequence('migrosmappingCtrl'),
+                title: 'migrosmapping',
+                authenticate: true,
+                ncyBreadcrumb: {
+                    label: 'migrosmapping'
+                }
             }).state('app.aggregators.customermap', {
                 url: '/customermap/:id',
                 templateUrl: "assets/views/aggregators/aggregatorcustomer.html",

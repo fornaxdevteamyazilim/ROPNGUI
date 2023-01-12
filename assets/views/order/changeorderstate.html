@@ -11,8 +11,8 @@
     <h3 class="modal-title center"><span class="center">{{::trOrderNumber}} :{{OrderNo}} - {{OrderNumber}}</span><button class="btn btn-o pull-right ti-close" ng-click="cancel()"></button></h3>
 </div>
 <div class="panel-body panel panel-white">
-    <div  class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12"s ng-if="order.OrderSource == 'YemekSepeti' || order.OrderSource == 'Getir'|| order.OrderSource == 'Trendyol'">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <div  class="form-group col-sm-12 col-lg-12 col-md-12 col-xs-12"s ng-if="order.OrderSource == 'YemekSepeti' || order.OrderSource == 'Getir'|| order.OrderSource == 'Trendyol' || order.OrderSource == 'Migros'">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-if="order.OrderSource != 'Migros'>
             <label translate="{{:: trYSCancelReason }}" for="YemekSepetiRejectReasonID">
                 Reasons
             </label>
@@ -26,6 +26,14 @@
             </label>
             <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <select id="TrendyolRejectReasonID" class="form-control center" ng-options="q.id as q.Reason for q in TrendyolRejectReasons | orderBy:'+Reason'" ng-model="item.TrendyolRejectReasonID"></select>
+            </span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-if="order.OrderSource == 'Migros'" >
+            <label translate="{{:: trMigrosCancelReason }}" for="MigrosRejectReasonID">
+                Reasons
+            </label>
+            <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <select id="MMigrosRejectReasonID" class="form-control center" ng-options="q.id as q.Reason for q in MigrosRejectReasons | orderBy:'+Reason'" ng-model="item.MigrosRejectReasonID"></select>
             </span>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-top-20">

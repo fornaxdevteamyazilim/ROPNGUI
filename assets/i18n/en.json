@@ -1937,6 +1937,7 @@
     "AVRBELOW30": "Delivery < 30",
     "YSCANCELREASON": "Ys Cancel Reason",
     "TRENDYOLCANCELREASON": "Trendyol Cancel Reason",
+    "MIGROSCANCELREASON": "Migros Cancel Reason",
     "STORESALESFORECAST": "Store Sales Forecast",
     "PRODUCTSALESPIVOT": "Product Sales List Pivot",
     "DOUGHCHART": "Dough Chart",
@@ -2364,8 +2365,9 @@
     "MAXITEMCOUNT": "Max Item Count",
     "MINITEMCOUNT": "Min Item Count",
     "YSSTATUS": "Ys Status",
-    "GETIRSTATUS": "Getir Status",
-    "TRENDYOLSTATUS": "Trendyol Status",
+    "GETIRSTATUS": "GETIR",
+    "TRENDYOLSTATUS": "TRENDYOL",
+    "MIGROSSTATUS": "MIGROS",
     "ROPNGTIME": "RopNG Time",
     "PREWWEEK": "Prev Week",
     "LASTDAY": "Last Day",
@@ -3032,6 +3034,7 @@
         "orders": "Order",
         "mapping": "Mapping",
         "trendyolmapping": "Trendyol Mapping",
+        "migrosmapping": "Migros Mapping",
         "storeaggregatorstatus": "Store Aggregator Status"
       },
       "specialoperations": {
@@ -4479,7 +4482,8 @@
     "productmap": "Product Mapping",
     "paymentmapping": "Payment Type Mapping",
     "store" : "store",
-    "TrendyolAggregator": "Trendyol Aggregator Setting"
+    "TrendyolAggregator": "Trendyol Aggregator Setting",
+     "MigrosAggregator": "Migros Aggregator Setting"
   },
   "aggregatororderlist": {
     "MAIN": "Aggregator Order List",
@@ -4566,6 +4570,9 @@
     "TITLE": "Trentyol Mapping",
     "rejectreason": "Reason for rejected order"
   },
+  "migrosmapping": {
+    "TITLE": "Migros Mapping"
+  },
   "dxTrendyolStore": {
     "MemberID": "Member ID",
     "TrendyolStoreName": "Trendyol Store Name",
@@ -4578,6 +4585,27 @@
     "restaurantSecretKey": "Restaurant Secret Key",
     "isActive": "is Active",
     "isEnabled": "is Enabled"
+  },
+  "dxMigrosStore": {
+    "MemberID": "Member ID",
+    "MigrosStoreName": "Migros Store Name",
+    "AggregatorID": "Aggregator ID",
+    "AggregatorStoreID": "Aggregator Store ID",
+    "StoreID": "Store ID",
+    "averagePreparationTime": "Average Preparation Time",
+    "status": "Status",
+    "isCourierAvailable": "is Courier Available",
+    "restaurantSecretKey": "Restaurant Secret Key",
+    "isActive": "is Active",
+    "isEnabled": "is Enabled"
+  },
+  "dxMigrosAggregator": {
+    "isActive": "is Active",
+    "Name": "Name",
+    "HostAddress": "Host Address",
+    "SecretKey": "Secret Key",
+    "TransferOrdersInstant": "Transfer Orders Instant",
+    "chainCode": "Chain Code"
   },
   "dxTrendyolProduct":{
     "TrendyolProductID": "Trendyol Product ID",
@@ -4601,6 +4629,23 @@
     "Reason": "Reason",
     "Description": "Description",
     "isActive": "isActive"
+  },
+  "dxMigrosProduct": {
+    "TrendyolProductID": "Migros Product ID",
+    "TrendyolProductName": "Miigros Product Name",
+    "ProductID": "Product ID",
+    "FixedSize": "Fixed Size",
+    "MapByPrototype": "Map By Prototype",
+    "SkipProduct": "Skip Product",
+    "AutoAddProductID": "Auto Add Product ID",
+    "AutoAddMapToOption": "Auto Add Map To Option",
+    "AutoAddProductQuantity": "Auto Add Product Quantity",
+    "AutoAddMapOptionsLevel": "Auto Add Map Options Level",
+    "MemberID": "Member ID",
+    "AggregatorID": "Aggregator ID",
+    "type": "Type",
+    "PaymentType": "Payment Type",
+    "Name": "Name"
   },
   "weeklysalescompare": {
     "Store": "Store",

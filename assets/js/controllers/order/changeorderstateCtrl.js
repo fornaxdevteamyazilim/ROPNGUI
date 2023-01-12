@@ -9,6 +9,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
     $scope.orderreasons = [];
     $scope.YemekSepetiRejectReasons = [];
     $scope.TrendyolRejectReasons = [];
+    $scope.MigrosRejectReasons = [];
     $scope.translate = function () {
         $scope.trOrderNumber = $translate.instant('main.ORDERNUMBER');
         $scope.trCancelReason = $translate.instant('main.CANCELREASON');
@@ -19,7 +20,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
         $scope.trCustomerNotInformed = $translate.instant('main.CUSTOMERNOTINFORMED');
         $scope.trYSCancelReason = $translate.instant('main.YSCANCELREASON');
         $scope.trTrendyolCancelReason = $translate.instant('main.TRENDYOLCANCELREASON');
-
+        $scope.trMigrosCancelReason = $translate.instant('main.MIGROSCANCELREASON');
     };
     if ($rootScope.user.restrictions && $rootScope.user.restrictions.askinventory == 'Disable') {
         $scope.item.value = false;
@@ -44,6 +45,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
             }).then(function (items) {
                 angular.copy(items, $scope.YemekSepetiRejectReasons);
                 angular.copy(items, $scope.TrendyolRejectReasons);
+                angular.copy(items, $scope.MigrosRejectReasons);
             }, function (response) {
                 toaster.pop('error', $translate.instant('Server.ServerError'), response.data.ExceptionMessage);
             });
@@ -108,6 +110,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     OrderNote: data.Note,
                     YemekSepetiRejectReasonID: data.YemekSepetiRejectReasonID,
                     TrendyolRejectReasonID:data.TrendyolRejectReasonID,
+                    MigrosRejectReasonID:data.MigrosRejectReasonID,
                     isCustomerInformed: item.isCustomerInformed
                 }).then(function (result) {
                     toaster.pop('success', $translate.instant('orderfile.OrderStatusUpdated'));
@@ -124,6 +127,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     OrderNote: data.Note,
                     YemekSepetiRejectReasonID: data.YemekSepetiRejectReasonID,
                     TrendyolRejectReasonID:data.TrendyolRejectReasonID,
+                    MigrosRejectReasonID:data.MigrosRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
                     toaster.pop('success', $translate.instant('orderfile.OrderStatusUpdated'));
@@ -147,6 +151,7 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
                     OrderNote: data.Note,
                     YemekSepetiRejectReasonID: data.YemekSepetiRejectReasonID,
                     TrendyolRejectReasonID:data.TrendyolRejectReasonID,
+                    MigrosRejectReasonID:data.MigrosRejectReasonID,
                     isCustomerInformed: data.isCustomerInformed
                 }).then(function (result) {
                     toaster.pop('success', $translate.instant('orderfile.OrderDenied'));
@@ -189,7 +194,8 @@ function changeorderstateCtrl($rootScope, $scope, $modalInstance, item, Restangu
     $scope.loadEntities('aggregator/OrderCancelOptions', 'yemeksepetirejectreasons');
     $scope.TrendyolRejectReasons = [];
     $scope.loadEntities('TrendyolRejectReason','TrendyolRejectReasons');
-
+    $scope.MigrosRejectReasons = [];
+    $scope.loadEntities('MigrosRejectReason','MigrosRejectReasons');
 
     $scope.ok = function () {
         $modalInstance.close('result');

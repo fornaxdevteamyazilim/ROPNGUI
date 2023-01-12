@@ -1957,6 +1957,7 @@
     "AVRBELOW30": "Teslim < 30",
     "YSCANCELREASON": "YS İptal Sebebi",
     "TRENDYOLCANCELREASON": "Trendyol İptal Sebebi",
+    "MIGROSCANCELREASON": "Migros İptal Sebebi",
     "STORESALESFORECAST": "Restoran Satış Tahmini",
     "PRODUCTSALESPIVOT": "Ürün Satış Listesi Pivot",
     "DOUGHCHART": "Hamur Açma Tablosu",
@@ -2396,6 +2397,7 @@
     "YSSTATUS": "YEMEK SEPETİ",
     "GETIRSTATUS": "GETİR",
     "TRENDYOLSTATUS": "TRENDYOL",
+    "MIGROSSTATUS": "MİGROS",
     "ROPNGTIME": "RopNG Saati",
     "PREWWEEK": "Geçen Hafta",
     "LASTDAY": "Önceki Gün",
@@ -3045,6 +3047,7 @@
         "orders": "Onay Bekleyen Siparişler",
         "mapping": "Getir - Eşleştirmeler",
         "trendyolmapping": "Trendyol - Eşleştirmeler",
+         "migrosmapping": "Migros - Eşleştirmeler",
         "storeaggregatorstatus": "Restoran Entegrasyon Ayarları",
         "AggregatorStoreStatus": "Sipariş Kanal Ayarları"
       },
@@ -4516,7 +4519,8 @@
     "productmap": "Ürün Eşleme",
     "paymentmapping": "Ödeme Tipi Eşleme",
     "store": "Restoran Eşleme",
-    "TrendyolAggregator": "Trendyol Eşleme Ayarı"
+    "TrendyolAggregator": "Trendyol Eşleme Ayarı",
+    "MigrosAggregator": "Migros Eşleme Ayarı"
   },
   "aggregatororderlist": {
     "MAIN": "Entegrasyon Sipariş Listesi",
@@ -4603,6 +4607,9 @@
     "TITLE": "Trendyol Eşleme Ekranı",
     "rejectreason": "Reddetilen Sipariş sebebi"
   },
+  "migrosmapping": {
+    "TITLE": "Migros Eşleme Ekranı"
+  },
   "dxTrendyolStore": {
     "MemberID": "Kaynak",
     "TrendyolStoreName": "Trendyol Restoran Adı",
@@ -4616,8 +4623,46 @@
     "isActive": "Aktif",
     "isEnabled": "Etkin"
   },
+  "dxMigrosStore": {
+    "MemberID": "Kaynak",
+    "MigrosStoreName": "Migros Restoran Adı",
+    "AggregatorID": "Firma",
+    "AggregatorStoreID": "Firma Restoran ID",
+    "StoreID": "Restoran ID",
+    "averagePreparationTime": "Ortalama Hazırlanma süresi",
+    "status": "Durum",
+    "isCourierAvailable": "Mevcut Kurye",
+    "restaurantSecretKey": "Restoran Güvenlik Anahtarı",
+    "isActive": "Aktif",
+    "isEnabled": "Etkin"
+  },
+  "dxMigrosAggregator": {
+    "isActive": "Aktif",
+    "Name": "Entegrator Adı",
+    "HostAddress": "Entegrator URL",
+    "SecretKey": "Secret Key",
+    "TransferOrdersInstant": "Anlık Sipariş Transferi",
+    "chainCode": "Marka Kodu"
+  },
   "dxTrendyolProduct":{
     "TrendyolProductID": "Trenyol Ürün ID",
+    "TrendyolProductName": "Ürün Adı",
+    "ProductID": "Ürün ID",
+    "FixedSize": "Sabit Boy",
+    "MapByPrototype": "Eşleşme Proto tipi",
+    "SkipProduct": "Ürünü Atla",
+    "AutoAddProductID": "Otomatik Ürün kimliği Ekle",
+    "AutoAddMapToOption": "Eşleşme Otomatik Ekleme Seçeneği",
+    "AutoAddProductQuantity": "Otomatik Ürün Miktarı Ekle",
+    "AutoAddMapOptionsLevel": "Otomatik Eşleşme Seçenekleri Seviyesi Ekle",
+    "MemberID": "Kaynak",
+    "AggregatorID": "Firma",
+    "type": "Tipi",
+    "PaymentType": "Ödeme Tipi",
+    "Name": "İsim"
+  },
+  "dxMigrosProduct": {
+    "TrendyolProductID": "Migros Ürün ID",
     "TrendyolProductName": "Ürün Adı",
     "ProductID": "Ürün ID",
     "FixedSize": "Sabit Boy",

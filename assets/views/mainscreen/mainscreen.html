@@ -41,9 +41,10 @@
             <ul class="mini-stats center" ng-if="user.restrictions.maindashboard=='Enable'" style="font-size: 12px;">
                 <table>
                     <tr style="  background-color: #f5f5f5;">
-                        <th style="background-color: #ea004b;"> {{::'main.YSSTATUS' | translate}}</th>
+                        <th style="background-color: #ea004b;"> {{::'main.YSSTATUS' | translate}}</th>              
+                        <th style="background-color: #f86e0c;"> {{::'main.TRENDYOLSTATUS' | translate}}</th>
                         <th style="background-color: #ffd300;"> {{::'main.GETIRSTATUS' | translate}}</th>
-                        <th style="background-color: #fe6e04;"> {{::'main.TRENDYOLSTATUS' | translate}}</th>
+                         <th style="background-color: #f76905;"> {{::'main.MIGROSSTATUS' | translate}}</th>
                         <th> {{::'main.ROPNGTIME' | translate}}</th>
                         <th> {{::'main.OPERATIONDATE' | translate}}</th>
                         <th> {{::'main.AVRPREPARING' | translate}}</th>
@@ -78,6 +79,13 @@
                                 ng-if="AggregatorStoreStats[2].isActive ==  false">
                                 {{::close}} <i class="fa fa-exclamation"></i></strong>
                         </td>
+                        <td> <strong class="text-green text-large text-uppercase"
+                            ng-if="AggregatorStoreStats[3].isActive ==  true">
+                            {{::open}} <i class="fa fa-check"></i></strong>
+                        <strong class="text-red text-large text-uppercase"
+                            ng-if="AggregatorStoreStats[3].isActive ==  false">
+                            {{::close}} <i class="fa fa-exclamation"></i></strong>
+                    </td>
                         <td><strong class="text-bricky">{{:: theClock}}</strong></td>
                         <td>{{::opdate|| txtENDOFDAY}}</td>
                         <td>{{:: storePerformanceData.PeparingDuration || '00:00:00'}}</td>

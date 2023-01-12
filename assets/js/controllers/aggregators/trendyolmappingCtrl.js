@@ -119,7 +119,6 @@ function trendyolmappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elemen
             { dataField: "restaurantSecretKey", caption: $translate.instant('dxTrendyolStore.restaurantSecretKey') },
             { dataField: "isActive", caption: $translate.instant('dxTrendyolStore.isActive') },
             { dataField: "isEnabled", caption: $translate.instant('dxTrendyolStore.isEnabled') },
-            { dataField: "Alias", caption:'Alias' },
 
             //"FixedSize",
             //"MapByPrototype",
@@ -170,7 +169,7 @@ function trendyolmappingCtrl($rootScope, $scope, NG_SETTING, $translate, $elemen
         remoteOperations: true,
         columns: [
             { dataField: "id", caption: "id", visible: false },
-            { dataField: "Name", caption: "Name" }, 
+            { dataField: "name", caption: "name" }, 
             { dataField: "SupplierID", caption: "SupplierID" }, 
             { dataField: "apiAgentName", caption: "apiAgentName" },
             { dataField: "HostAddress", caption: "HostAddress"},
