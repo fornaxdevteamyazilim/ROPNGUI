@@ -1484,7 +1484,8 @@ function driverCtrl($rootScope, $scope, $modal, $filter, SweetAlert, Restangular
         { id: 300087505293, Name: "ULAK Kurye", isActive: false },
         { id: 300106395212, Name: "Getir Kurye", isActive: false },
         { id: 300132772261, Name: "Team Training", isActive: false },
-        { id: 300133806509, Name: "Vigo-Kurye",isActive: true  },
+        { id: 300133806509, Name: "Vigo-Kurye",isActive: false  },
+        { id: 300250073138, Name: "Joker-Kurye",isActive: true  },
         { id: 300148827478, Name: "Isim-Kurye", isActive: true },
         { id: 300154984454, Name: "Dispatcher Kurye", isActive: false }
     ];

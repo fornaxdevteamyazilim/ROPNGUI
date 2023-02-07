@@ -12,7 +12,7 @@ function StreetAddressSelectorCtrl($scope, $rootScope, $modalInstance, $location
     $scope.SelectedItem = null;
     $scope.search = '';
     $scope.GetShearchData = "";
-    if (!userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("CCSIKAYET") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CMRESTORANHATTI") && !userService.userIsInRole("Admin")) {
+    if (!userService.userIsInRole("CALLCENTER") && !userService.userIsInRole("CCBACKOFFICE") && !userService.userIsInRole("CCSIKAYET") && !userService.userIsInRole("CCMANAGER") && !userService.userIsInRole("CMRESTORANHATTI") && !userService.userIsInRole("Admin")) {
         $scope.ShowObject = false;
         $scope.showsearchinput = true;
     }
